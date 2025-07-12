@@ -28,5 +28,6 @@
     "@babel/preset-react": "^7.22.15",
     "jsdom": "^24.0.0",
     "jest-environment-jsdom": "^29.7.0"
-  }
+  },
+  "license": "MIT"
 }
