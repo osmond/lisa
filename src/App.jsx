@@ -20,14 +20,6 @@ export default function App() {
         <Route path="/plant/:id" element={<PlantDetail />} />
       </Routes>
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/myplants" element={<MyPlants />} />
-          <Route path="/tasks" element={<Tasks />} />
-          <Route path="/add" element={<Add />} />
-          <Route path="/plant/:id" element={<PlantDetail />} />
-          <Route path="/settings" element={<Settings />} />
-        </Routes>
 
       <BottomNav />
     </div>
