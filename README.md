@@ -36,6 +36,10 @@ Open that URL in your browser to view the app.
 npm run build
 ```
 
+When deploying to a subdirectory (for example `/lisa/`), set `base` in
+`vite.config.js` and pass the same value as the router `basename` so asset paths
+resolve correctly.
+
 After building you can preview the production build with:
 ```bash
 npm run preview
