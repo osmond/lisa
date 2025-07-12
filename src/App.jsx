@@ -4,6 +4,7 @@ import MyPlants from './pages/MyPlants'
 import Tasks from './pages/Tasks'
 import Add from './pages/Add'
 import Settings from './pages/Settings'
+import PlantDetail from './pages/PlantDetail'
 import BottomNav from './components/BottomNav'
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/add" element={<Add />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/plant/:id" element={<PlantDetail />} />
       </Routes>
       <BottomNav />
     </div>
