@@ -77,8 +77,11 @@ export default function PlantDetail() {
           )}
         </div>
       </div>
-
     </div>
   </div>
+
+)
+
   )
+
 }
