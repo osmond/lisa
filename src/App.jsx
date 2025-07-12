@@ -4,18 +4,20 @@ import MyPlants from './pages/MyPlants'
 import Tasks from './pages/Tasks'
 import Add from './pages/Add'
 import Settings from './pages/Settings'
+import PlantDetail from './pages/PlantDetail'
 import BottomNav from './components/BottomNav'
 
 export default function App() {
   return (
     <div className="pb-16 p-4 font-sans">{/* bottom padding for nav */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/myplants" element={<MyPlants />} />
-        <Route path="/tasks" element={<Tasks />} />
-        <Route path="/add" element={<Add />} />
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/myplants" element={<MyPlants />} />
+          <Route path="/tasks" element={<Tasks />} />
+          <Route path="/add" element={<Add />} />
+          <Route path="/plant/:id" element={<PlantDetail />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
       <BottomNav />
     </div>
   )
