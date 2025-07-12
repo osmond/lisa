@@ -10,7 +10,7 @@ export default function PlantCard({ plant }) {
     <div className="p-4 border rounded-xl shadow-sm bg-white">
       <Link to={`/plant/${plant.id}`}
         className="block mb-2">
-        <img src={plant.image} alt={plant.name} className="w-full h-48 object-cover rounded-md" />
+        <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-48 object-cover rounded-md" />
         <h2 className="font-semibold text-lg mt-2">{plant.name}</h2>
       </Link>
       <p className="text-sm text-gray-600">Last watered: {plant.lastWatered}</p>
