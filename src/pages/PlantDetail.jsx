@@ -1,10 +1,13 @@
 import { useParams } from 'react-router-dom'
+
 import { useState } from 'react'
+
 import plants from '../plants.json'
 
 export default function PlantDetail() {
   const { id } = useParams()
   const plant = plants.find(p => p.id === Number(id))
+
   const [tab, setTab] = useState('activity')
 
   if (!plant) {
@@ -12,6 +15,13 @@ export default function PlantDetail() {
   }
 
   return (
+
+    <div className="space-y-2">
+      <img src={plant.image} alt={plant.name} className="w-full h-48 object-cover rounded" />
+      <h1 className="text-2xl font-bold">{plant.name}</h1>
+      <p>Last watered: {plant.lastWatered}</p>
+      <p>Next water: {plant.nextWater}</p>
+
     <div className="space-y-4">
       <img src={plant.image} alt={plant.name} className="w-full h-64 object-cover rounded-xl" />
       <div>
@@ -67,6 +77,7 @@ export default function PlantDetail() {
           )}
         </div>
       </div>
+
     </div>
   )
 }

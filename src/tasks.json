@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "plantId": 1,
+    "plantName": "Monstera",
+    "image": "/images/monstera.jpg",
+    "type": "Water"
+  },
+  {
+    "id": 2,
+    "plantId": 2,
+    "plantName": "Snake Plant",
+    "image": "/images/snakeplant.jpg",
+    "type": "Fertilize"
+  }
+]
