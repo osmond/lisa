@@ -18,3 +18,13 @@ test('renders task text', () => {
   )
   expect(screen.getByText('Water Monstera')).toBeInTheDocument()
 })
+
+test('icon svg is aria-hidden', () => {
+  const { container } = render(
+    <BrowserRouter>
+      <TaskItem task={task} />
+    </BrowserRouter>
+  )
+  const svg = container.querySelector('svg')
+  expect(svg).toHaveAttribute('aria-hidden', 'true')
+})
