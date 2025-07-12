@@ -3,14 +3,14 @@
     "id": 1,
     "plantId": 1,
     "plantName": "Monstera",
-    "image": "https://images.pexels.com/photos/5699660/pexels-photo-5699660.jpeg",
+    "image": "https://images.unsplash.com/photo-1616627455806-b3c36a1a6f3a",
     "type": "Water"
   },
   {
     "id": 2,
     "plantId": 2,
     "plantName": "Snake Plant",
-    "image": "https://images.pexels.com/photos/1383044/pexels-photo-1383044.jpeg",
+    "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
     "type": "Fertilize"
   }
 ]
