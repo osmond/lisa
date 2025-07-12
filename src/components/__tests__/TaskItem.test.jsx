@@ -6,7 +6,7 @@ const task = {
   id: 1,
   plantId: 1,
   plantName: 'Monstera',
-  image: '/images/monstera.jpg',
+  image: 'https://images.pexels.com/photos/5699660/pexels-photo-5699660.jpeg',
   type: 'Water'
 }
 
