@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Monstera",
+    "image": "/images/monstera.jpg",
+    "lastWatered": "2025-07-07",
+    "nextWater": "2025-07-14"
+  },
+  {
+    "id": 2,
+    "name": "Snake Plant",
+    "image": "/images/snakeplant.jpg",
+    "lastWatered": "2025-07-10",
+    "nextWater": "2025-07-17"
+  }
+]

@@ -1,3 +1,8 @@
-# Kaymaria
+# Kaymaria v2
 
-A simple, beautiful React-based plant tracker app built with Vite and Tailwind CSS.
+Starter React + Vite + Tailwind CSS project for a plant care app.
+
+Includes:
+- Basic routing (Home, Timeline, Gallery)
+- Sample plant data
+- Styled PlantCard components
