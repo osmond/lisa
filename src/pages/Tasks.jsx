@@ -1,7 +1,9 @@
 import { useMemo } from 'react'
-import plants from '../plants.json'
+import { usePlants } from '../PlantContext.jsx'
 
 export default function Tasks() {
+  const { plants } = usePlants()
+
   const events = useMemo(() => {
     const all = []
     plants.forEach(p => {
@@ -17,7 +19,7 @@ export default function Tasks() {
       })
     })
     return all.sort((a, b) => new Date(a.date) - new Date(b.date))
-  }, [])
+  }, [plants])
 
   const today = new Date().toISOString().slice(0, 10)
 

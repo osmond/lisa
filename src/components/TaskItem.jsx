@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { usePlants } from '../PlantContext.jsx'
 
 function IconWrapper({ children }) {
   return (
@@ -53,12 +54,17 @@ const icons = {
 }
 
 export default function TaskItem({ task, onComplete }) {
+  const { markWatered } = usePlants()
   const Icon = icons[task.type]
 
   const handleComplete = e => {
     e.preventDefault()
     e.stopPropagation()
-    if (onComplete) onComplete(task)
+    if (onComplete) {
+      onComplete(task)
+    } else if (task.type === 'Water') {
+      markWatered(task.plantId)
+    }
   }
 
   return (

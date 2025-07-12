@@ -1,7 +1,9 @@
 import TaskItem from '../components/TaskItem'
-import tasks from '../tasks.json'
+import { usePlants } from '../PlantContext.jsx'
 
 export default function Home() {
+  const { plants } = usePlants()
+
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
     month: 'long',
@@ -24,8 +26,17 @@ export default function Home() {
       <section>
         <h2 className="font-semibold mb-2">Today’s Tasks</h2>
         <div className="space-y-2">
-          {tasks.map(task => (
-            <TaskItem key={task.id} task={task} />
+          {plants.map(p => (
+            <TaskItem
+              key={p.id}
+              task={{
+                id: p.id,
+                plantId: p.id,
+                plantName: p.name,
+                image: p.image,
+                type: 'Water',
+              }}
+            />
           ))}
         </div>
       </section>
