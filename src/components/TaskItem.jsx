@@ -9,6 +9,7 @@ function IconWrapper({ children }) {
       viewBox="0 0 24 24"
       strokeWidth="1.5"
       stroke="currentColor"
+      aria-hidden="true"
     >
       {children}
     </svg>
@@ -51,27 +52,36 @@ const icons = {
   Rotate: RotateIcon,
 }
 
-export default function TaskItem({ task }) {
+export default function TaskItem({ task, onComplete }) {
   const Icon = icons[task.type]
+
+  const handleComplete = e => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (onComplete) onComplete(task)
+  }
+
   return (
-    <Link
-      to={`/plant/${task.plantId}`}
-      className="flex items-center gap-2 p-2 border rounded-lg bg-white hover:bg-gray-50"
-    >
-      <img
-        src={task.image}
-        alt={task.plantName}
-        className="w-12 h-12 object-cover rounded"
-      />
-      <div className="flex-1">
-        <p className="font-medium">
-          {task.type} {task.plantName}
-        </p>
-      </div>
-      {Icon && <Icon />}
-      <button className="ml-2 px-3 py-1 bg-green-100 text-green-700 rounded text-sm">
+    <div className="flex items-center gap-2 p-2 border rounded-lg bg-white hover:bg-gray-50">
+      <Link to={`/plant/${task.plantId}`} className="flex items-center flex-1 gap-2">
+        <img
+          src={task.image}
+          alt={task.plantName}
+          className="w-12 h-12 object-cover rounded"
+        />
+        <div className="flex-1">
+          <p className="font-medium">
+            {task.type} {task.plantName}
+          </p>
+        </div>
+        {Icon && <Icon />}
+      </Link>
+      <button
+        onClick={handleComplete}
+        className="ml-2 px-3 py-1 bg-green-100 text-green-700 rounded text-sm"
+      >
         Mark as Done
       </button>
-    </Link>
+    </div>
   )
 }
