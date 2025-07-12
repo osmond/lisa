@@ -12,5 +12,5 @@ test('renders plant details', () => {
       </Routes>
     </MemoryRouter>
   )
-  expect(screen.getByText(plant.name)).toBeInTheDocument()
+  expect(screen.getAllByText(plant.name).length).toBeGreaterThan(0)
 })
