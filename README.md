@@ -42,3 +42,7 @@ npm run preview
 ```
 This starts a local server and outputs a URL to open the optimized app in your browser.
 
+
+## License
+
+[MIT](LICENSE)
