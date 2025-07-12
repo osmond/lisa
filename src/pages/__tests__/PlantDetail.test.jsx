@@ -3,7 +3,7 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import PlantDetail from '../PlantDetail.jsx'
 import plants from '../../plants.json'
 
-test('renders plant details', () => {
+test('renders plant details without duplicates', () => {
   const plant = plants[0]
   render(
     <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
@@ -13,8 +13,9 @@ test('renders plant details', () => {
     </MemoryRouter>
   )
 
-  expect(screen.getAllByText(plant.name)[0]).toBeInTheDocument()
+  const headings = screen.getAllByRole('heading', { name: plant.name })
+  expect(headings).toHaveLength(1)
 
-  expect(screen.getAllByText(plant.name).length).toBeGreaterThan(0)
-
+  const images = screen.getAllByAltText(plant.name)
+  expect(images).toHaveLength(1)
 })
