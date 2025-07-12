@@ -1,21 +1,22 @@
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
-import Timeline from './pages/Timeline'
-import Gallery from './pages/Gallery'
+import MyPlants from './pages/MyPlants'
+import Tasks from './pages/Tasks'
+import Add from './pages/Add'
+import Settings from './pages/Settings'
+import BottomNav from './components/BottomNav'
 
 export default function App() {
   return (
-    <div className="p-4 font-sans">
-      <nav className="flex justify-around border-b pb-2 mb-4 text-sm text-green-700 font-medium">
-        <Link to="/">Home</Link>
-        <Link to="/timeline">Timeline</Link>
-        <Link to="/gallery">Gallery</Link>
-      </nav>
+    <div className="pb-16 p-4 font-sans">{/* bottom padding for nav */}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/timeline" element={<Timeline />} />
-        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/myplants" element={<MyPlants />} />
+        <Route path="/tasks" element={<Tasks />} />
+        <Route path="/add" element={<Add />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
+      <BottomNav />
     </div>
   )
 }
