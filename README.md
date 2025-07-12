@@ -42,3 +42,13 @@ npm run preview
 ```
 This starts a local server and outputs a URL to open the optimized app in your browser.
 
+## Weather API
+
+The Home page displays local weather using the OpenWeather API. Create a `.env` file with your API key:
+
+```bash
+VITE_OPENWEATHER_KEY=your_api_key_here
+```
+
+Restart the dev server after adding the file so Vite can load the environment variable.
+
