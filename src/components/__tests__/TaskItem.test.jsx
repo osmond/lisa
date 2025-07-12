@@ -19,6 +19,15 @@ test('renders task text', () => {
   expect(screen.getByText('Water Monstera')).toBeInTheDocument()
 })
 
+test('icon svg is aria-hidden', () => {
+  const { container } = render(
+    <BrowserRouter>
+      <TaskItem task={task} />
+    </BrowserRouter>
+  )
+  const svg = container.querySelector('svg')
+  expect(svg).toHaveAttribute('aria-hidden', 'true')
+
 test('mark as done does not navigate', () => {
   render(
     <MemoryRouter initialEntries={['/']}>
@@ -30,4 +39,5 @@ test('mark as done does not navigate', () => {
   )
   fireEvent.click(screen.getByText('Mark as Done'))
   expect(screen.queryByText('Plant Page')).not.toBeInTheDocument()
+
 })
