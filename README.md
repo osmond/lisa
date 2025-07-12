@@ -6,3 +6,7 @@ Includes:
 - Basic routing (Home, Timeline, Gallery)
 - Sample plant data
 - Styled PlantCard components
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
