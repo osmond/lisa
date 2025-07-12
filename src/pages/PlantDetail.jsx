@@ -22,7 +22,7 @@ export default function PlantDetail() {
       <p>Last watered: {plant.lastWatered}</p>
       <p>Next water: {plant.nextWater}</p>
 
-    <div className="space-y-4">
+      <div className="space-y-4">
       <img src={plant.image} alt={plant.name} className="w-full h-64 object-cover rounded-xl" />
       <div>
         <h1 className="text-2xl font-bold">{plant.name}</h1>
@@ -79,9 +79,5 @@ export default function PlantDetail() {
       </div>
     </div>
   </div>
-
-)
-
   )
-
 }
