@@ -2,8 +2,11 @@
   {
     "id": 1,
     "name": "Monstera",
+
     "nickname": "Swiss Cheese",
-    "image": "/images/monstera.jpg",
+
+    "image": "https://via.placeholder.com/300x200.png?text=Monstera",
+
     "lastWatered": "2025-07-07",
     "nextWater": "2025-07-14",
     "lastFertilized": "2025-07-01",
@@ -21,8 +24,11 @@
   {
     "id": 2,
     "name": "Snake Plant",
+
     "nickname": "Mother-in-Law's Tongue",
-    "image": "/images/snakeplant.jpg",
+
+    "image": "https://via.placeholder.com/300x200.png?text=Snake+Plant",
+
     "lastWatered": "2025-07-10",
     "nextWater": "2025-07-17",
     "lastFertilized": "2025-06-15",
