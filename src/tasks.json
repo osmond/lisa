@@ -3,14 +3,14 @@
     "id": 1,
     "plantId": 1,
     "plantName": "Monstera",
-    "image": "https://images.unsplash.com/photo-1616627455806-b3c36a1a6f3a",
+    "image": "/lisa/images/monstera-plant-pot-isolated-white-background-minimal-tropical-leaves-houseplant-home-decor_787667-1395.jpg",
     "type": "Water"
   },
   {
     "id": 2,
     "plantId": 2,
     "plantName": "Snake Plant",
-    "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+    "image": "/lisa/images/1.jpeg",
     "type": "Fertilize"
   }
 ]
