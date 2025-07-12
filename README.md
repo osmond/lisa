@@ -7,6 +7,15 @@ Includes:
 - Sample plant data
 - Styled PlantCard components
 
+
+## Running Tests
+
+Install dependencies and run the test suite with:
+
+```bash
+npm test
+```
+
 ## Requirements
 - Node.js 18 or later
 
@@ -32,3 +41,4 @@ After building you can preview the production build with:
 npm run preview
 ```
 This starts a local server and outputs a URL to open the optimized app in your browser.
+
