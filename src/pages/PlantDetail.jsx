@@ -14,11 +14,6 @@ export default function PlantDetail() {
 
   return (
     <div className="space-y-2">
-      <img src={plant.image} alt={plant.name} className="w-full h-48 object-cover rounded" />
-      <h1 className="text-2xl font-bold">{plant.name}</h1>
-      <p>Last watered: {plant.lastWatered}</p>
-      <p>Next water: {plant.nextWater}</p>
-
       <div className="space-y-4">
         <img src={plant.image} alt={plant.name} className="w-full h-64 object-cover rounded-xl" />
         <div>
@@ -27,8 +22,11 @@ export default function PlantDetail() {
         </div>
 
         <div className="grid gap-1 text-sm">
+          <p><strong>Last watered:</strong> {plant.lastWatered}</p>
           <p><strong>Next watering:</strong> {plant.nextWater}</p>
-          {plant.lastFertilized && <p><strong>Last fertilized:</strong> {plant.lastFertilized}</p>}
+          {plant.lastFertilized && (
+            <p><strong>Last fertilized:</strong> {plant.lastFertilized}</p>
+          )}
         </div>
 
         <div className="grid gap-1 text-sm">
