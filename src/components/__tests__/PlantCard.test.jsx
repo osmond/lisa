@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import PlantCard from '../PlantCard.jsx'
+import { PlantProvider } from '../../PlantContext.jsx'
 
 const plant = {
   image: 'test.jpg',
@@ -11,9 +12,11 @@ const plant = {
 
 test('renders plant name', () => {
   render(
-    <MemoryRouter>
-      <PlantCard plant={plant} />
-    </MemoryRouter>
+    <PlantProvider>
+      <MemoryRouter>
+        <PlantCard plant={plant} />
+      </MemoryRouter>
+    </PlantProvider>
   )
   expect(screen.getByText('Aloe Vera')).toBeInTheDocument()
 })
