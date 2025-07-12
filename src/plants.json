@@ -2,15 +2,48 @@
   {
     "id": 1,
     "name": "Monstera",
-    "image": "/images/monstera.jpg",
+
+    "nickname": "Swiss Cheese",
+
+    "image": "https://placehold.co/300x200.png?text=Monstera",
+
     "lastWatered": "2025-07-07",
-    "nextWater": "2025-07-14"
+    "nextWater": "2025-07-14",
+    "lastFertilized": "2025-07-01",
+    "nextFertilize": "2025-08-01",
+    "room": "Living Room",
+    "urgency": "high",
+    "light": "Bright indirect",
+    "humidity": "High",
+    "difficulty": "Easy",
+    "activity": [
+      "Watered on 2025-07-07",
+      "Rotated on 2025-07-05"
+    ],
+    "notes": "Doing well",
+    "advancedCare": "Propagate in water"
   },
   {
     "id": 2,
     "name": "Snake Plant",
-    "image": "/images/snakeplant.jpg",
+
+    "nickname": "Mother-in-Law's Tongue",
+
+    "image": "https://placehold.co/300x200.png?text=Snake+Plant",
+
     "lastWatered": "2025-07-10",
-    "nextWater": "2025-07-17"
+    "nextWater": "2025-07-17",
+    "lastFertilized": "2025-06-15",
+    "nextFertilize": "2025-07-15",
+    "room": "Bedroom",
+    "urgency": "low",
+    "light": "Low to bright indirect",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "activity": [
+      "Watered on 2025-07-10"
+    ],
+    "notes": "Prefers dry soil",
+    "advancedCare": "Allow soil to dry between waterings"
   }
 ]

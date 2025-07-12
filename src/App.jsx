@@ -10,6 +10,7 @@ import BottomNav from './components/BottomNav'
 export default function App() {
   return (
     <div className="pb-16 p-4 font-sans">{/* bottom padding for nav */}
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/myplants" element={<MyPlants />} />
@@ -18,6 +19,16 @@ export default function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/plant/:id" element={<PlantDetail />} />
       </Routes>
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/myplants" element={<MyPlants />} />
+          <Route path="/tasks" element={<Tasks />} />
+          <Route path="/add" element={<Add />} />
+          <Route path="/plant/:id" element={<PlantDetail />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
+
       <BottomNav />
     </div>
   )
