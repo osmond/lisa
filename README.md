@@ -1,6 +1,13 @@
-# Kaymaria v2
+# 🌿 Kaymaria v2
 
-Starter React + Vite + Tailwind CSS project for a plant care app.
+[![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Vite](https://img.shields.io/badge/built%20with-vite-646CFF.svg?logo=vite&logoColor=white)](https://vitejs.dev)
+[![React](https://img.shields.io/badge/react-18+-61DAFB?logo=react)](https://reactjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/tailwindcss-3.x-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+
+A minimalist, mobile-first plant care app built with **React**, **Vite**, and **Tailwind CSS**. Kaymaria helps you track watering, fertilizing, notes, and more — all with gentle weather-based suggestions and beautiful swipeable UI.
+
+---
 
 Includes:
 - Basic routing (Home, Timeline, Gallery)
