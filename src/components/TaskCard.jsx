@@ -23,7 +23,7 @@ export default function TaskCard({ task, onComplete }) {
 
   return (
     <div
-      className="relative flex items-center gap-3 p-4 rounded-xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden"
+      className="relative flex items-center gap-3 p-4 rounded-2xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden"
       onMouseDown={createRipple}
       onTouchStart={createRipple}
     >

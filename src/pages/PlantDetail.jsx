@@ -119,7 +119,7 @@ export default function PlantDetail() {
       )}
       <div aria-live="polite" className="sr-only">{toast}</div>
       <div className="space-y-4">
-        <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-64 object-cover rounded-xl" />
+        <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-64 object-cover" />
         <div>
           <h1 className="text-3xl font-bold font-display">{plant.name}</h1>
           {plant.nickname && <p className="text-gray-500">{plant.nickname}</p>}
@@ -136,14 +136,14 @@ export default function PlantDetail() {
           <button
             type="button"
             onClick={handleWatered}
-            className="px-3 py-1 bg-green-600 text-white rounded"
+            className="px-4 py-1 bg-accent text-white rounded-full"
           >
             Watered
           </button>
           <button
             type="button"
             onClick={handleLogEvent}
-            className="px-3 py-1 bg-blue-600 text-white rounded"
+            className="px-4 py-1 bg-accent text-white rounded-full"
           >
             Add Note
           </button>
@@ -177,7 +177,7 @@ export default function PlantDetail() {
         </div>
 
         <div className="space-y-2">
-          <div className="border rounded">
+          <div className="border rounded-xl">
             <h3 id="activity-header">
               <button
                 ref={el => (sectionRefs.current[0] = el)}
@@ -212,7 +212,7 @@ export default function PlantDetail() {
             )}
           </div>
 
-          <div className="border rounded">
+          <div className="border rounded-xl">
             <h3 id="notes-header">
               <button
                 ref={el => (sectionRefs.current[1] = el)}
@@ -253,7 +253,7 @@ export default function PlantDetail() {
             )}
           </div>
 
-          <div className="border rounded">
+          <div className="border rounded-xl">
             <h3 id="care-header">
               <button
                 ref={el => (sectionRefs.current[2] = el)}
@@ -281,7 +281,7 @@ export default function PlantDetail() {
             )}
           </div>
 
-          <div className="border rounded">
+          <div className="border rounded-xl">
             <h3 id="timeline-header">
               <button
                 ref={el => (sectionRefs.current[3] = el)}
