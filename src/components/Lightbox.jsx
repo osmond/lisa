@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-export default function Lightbox({ images, startIndex = 0, onClose }) {
+export default function Lightbox({ images, startIndex = 0, onClose, label = 'Image viewer' }) {
   const [index, setIndex] = useState(startIndex)
   const closeBtnRef = useRef(null)
   const prevFocusRef = useRef(null)
@@ -31,6 +31,7 @@ export default function Lightbox({ images, startIndex = 0, onClose }) {
     <div
       role="dialog"
       aria-modal="true"
+      aria-label={label}
       className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
     >
       <button
