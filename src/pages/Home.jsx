@@ -1,7 +1,11 @@
 import TaskItem from '../components/TaskItem'
 import { usePlants } from '../PlantContext.jsx'
+
 import useWeather from '../useWeather.js'
 import { getNextWateringDate } from '../utils/watering.js'
+
+import { useWeather } from '../WeatherContext.jsx'
+
 
 export default function Home() {
   const { plants } = usePlants()
@@ -13,8 +17,12 @@ export default function Home() {
     day: 'numeric',
   })
 
+
   // placeholder display for weather info
   const weatherDisplay = { temp: '72°F', condition: 'Sunny' }
+
+  const { forecast: weather } = useWeather()
+
 
   return (
     <div className="space-y-4">
@@ -22,7 +30,11 @@ export default function Home() {
         <div>
           <h1 className="text-xl font-bold">{today}</h1>
           <p className="text-sm text-gray-600">
+
             {weatherDisplay.temp} - {weatherDisplay.condition}
+
+            {weather ? `${weather.temp} - ${weather.condition}` : 'Loading...'}
+
           </p>
         </div>
       </header>

@@ -45,7 +45,7 @@ export default function Timeline() {
     <div className="overflow-y-auto max-h-full p-4 text-gray-700 dark:text-gray-200">
       <ul className="relative border-l border-gray-300 pl-4 space-y-6">
         {events.map((e, i) => (
-          <li key={i} className="relative">
+          <li key={`${e.date}-${e.label}`} className="relative">
             <span
               className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
             ></span>
