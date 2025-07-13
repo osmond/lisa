@@ -12,7 +12,7 @@ export default function TaskItem({ task, onComplete }) {
   const startX = useRef(0)
   const [deltaX, setDeltaX] = useState(0)
   const [showCheck, setShowCheck] = useState(false)
-  const [rippleRef, createRipple] = useRipple()
+  const [, createRipple] = useRipple()
 
   const handleComplete = () => {
     if (onComplete) {
@@ -48,7 +48,6 @@ export default function TaskItem({ task, onComplete }) {
 
   return (
     <div
-      ref={rippleRef}
       onMouseDown={createRipple}
       onTouchStart={e => { createRipple(e); handlePointerDown(e) }}
       onPointerDown={handlePointerDown}
@@ -76,6 +75,7 @@ export default function TaskItem({ task, onComplete }) {
       </Link>
       <button
         onMouseDown={createRipple}
+        onTouchStart={createRipple}
         onClick={handleComplete}
         className="ml-2 px-3 py-1 bg-green-100 text-green-700 rounded text-sm relative overflow-hidden"
       >
