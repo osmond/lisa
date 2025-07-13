@@ -12,7 +12,7 @@ export function AllGallery() {
   return (
     <div>
       <h1 className="text-xl font-bold mb-4">Gallery</h1>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
         {images.map((src, i) => (
           <button key={i} onClick={() => setIndex(i)} className="focus:outline-none">
             <img
@@ -47,7 +47,7 @@ export default function Gallery() {
       <h1 className="text-xl font-bold">{plant.name} Gallery</h1>
 
       {/* desktop grid */}
-      <div className="hidden md:grid grid-cols-3 gap-4">
+      <div className="hidden md:grid grid-cols-2 md:grid-cols-3 gap-4">
         {photos.map((src, i) => (
           <div
             key={i}
