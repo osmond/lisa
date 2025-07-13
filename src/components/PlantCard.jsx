@@ -8,7 +8,7 @@ export default function PlantCard({ plant }) {
   const { markWatered, removePlant } = usePlants()
   const startX = useRef(0)
   const [deltaX, setDeltaX] = useState(0)
-  const [rippleRef, createRipple] = useRipple()
+  const [, createRipple] = useRipple()
 
   const handleWatered = () => {
     const note = window.prompt('Optional note') || ''
@@ -41,20 +41,20 @@ export default function PlantCard({ plant }) {
   return (
     <div
       data-testid="card-wrapper"
-      ref={rippleRef}
       onMouseDown={createRipple}
+      onTouchStart={e => { createRipple(e); handlePointerDown(e) }}
       className="relative overflow-hidden"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerEnd}
       onPointerCancel={handlePointerEnd}
-      onTouchStart={handlePointerDown}
       onTouchMove={handlePointerMove}
       onTouchEnd={handlePointerEnd}
     >
       <div className="absolute inset-0 flex justify-between items-center px-4 pointer-events-none">
         <button
           onMouseDown={createRipple}
+          onTouchStart={createRipple}
           onClick={handleWatered}
           className="bg-green-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
         >
@@ -63,6 +63,7 @@ export default function PlantCard({ plant }) {
         <div className="flex gap-2">
           <button
             onMouseDown={createRipple}
+            onTouchStart={createRipple}
             onClick={() => navigate(`/plant/${plant.id}/edit`)}
             className="bg-blue-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
           >
@@ -70,6 +71,7 @@ export default function PlantCard({ plant }) {
           </button>
           <button
             onMouseDown={createRipple}
+            onTouchStart={createRipple}
             onClick={() => removePlant(plant.id)}
             className="bg-red-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
           >
@@ -89,6 +91,7 @@ export default function PlantCard({ plant }) {
         <p className="text-sm text-green-700 font-medium">Next: {plant.nextWater}</p>
         <button
           onMouseDown={createRipple}
+          onTouchStart={createRipple}
           onClick={handleWatered}
           className="mt-2 px-3 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200 transition relative overflow-hidden"
         >
