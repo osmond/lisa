@@ -43,9 +43,10 @@ home screen.
 
 ## Running Tests
 
-Install dependencies and run the test suite with:
+Run `npm install` before `npm test`:
 
 ```bash
+npm install
 npm test
 ```
 
