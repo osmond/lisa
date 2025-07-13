@@ -1,5 +1,5 @@
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import Lightbox from '../components/Lightbox.jsx'
@@ -9,7 +9,14 @@ export function AllGallery() {
   const images = plants.flatMap(p => [p.image, ...(p.photos || [])])
   const [index, setIndex] = useState(null)
   const [selected, setSelected] = useState(plants[0]?.id || '')
+  const [bouncing, setBouncing] = useState(false)
   const fileInputRef = useRef()
+
+  useEffect(() => {
+    if (!bouncing) return
+    const t = setTimeout(() => setBouncing(false), 300)
+    return () => clearTimeout(t)
+  }, [bouncing])
 
   const handleFiles = e => {
     const files = Array.from(e.target.files || [])
@@ -31,7 +38,7 @@ export function AllGallery() {
               src={src}
               alt={`Plant ${i + 1}`}
               loading="lazy"
-              className="w-full h-32 object-cover rounded"
+              className="w-full h-32 object-cover rounded transition-transform transform hover:scale-105 active:scale-105"
             />
           </button>
         ))}
@@ -55,8 +62,11 @@ export function AllGallery() {
       <button
         type="button"
         aria-label="Add photos"
-        onClick={() => fileInputRef.current.click()}
-        className="fixed bottom-4 right-4 bg-green-600 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg"
+        onClick={() => {
+          fileInputRef.current.click()
+          setBouncing(true)
+        }}
+        className={`fixed bottom-4 right-4 bg-green-600 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg ${bouncing ? 'bounce-once' : ''}`}
       >
         +
       </button>
@@ -98,7 +108,7 @@ export default function Gallery() {
               src={src}
               alt={plant.name}
               loading="lazy"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform transform hover:scale-105 active:scale-105"
             />
           </div>
         ))}
@@ -113,7 +123,7 @@ export default function Gallery() {
                 src={src}
                 alt={plant.name}
                 loading="lazy"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform transform hover:scale-105 active:scale-105"
               />
             </div>
           </div>
