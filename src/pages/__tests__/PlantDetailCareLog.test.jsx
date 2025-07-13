@@ -20,7 +20,7 @@ beforeEach(() => {
       careLog: [
         { date: '2025-07-02', type: 'Watered', note: 'deep soak' },
       ],
-      gallery: [],
+      photos: [],
     },
   ]
 })
