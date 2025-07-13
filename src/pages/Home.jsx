@@ -3,6 +3,7 @@ import { usePlants } from '../PlantContext.jsx'
 
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
+import { CloudSun } from 'phosphor-react'
 
 
 export default function Home() {
@@ -38,15 +39,12 @@ export default function Home() {
 
   return (
     <div className="space-y-4">
-      <header className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold font-display">{today}</h1>
-          <p className="text-sm text-gray-600">
-            {forecast
-              ? `${forecast.temp} - ${forecast.condition}`
-              : 'Loading...'}
-          </p>
-        </div>
+      <header className="flex flex-col items-start space-y-1">
+        <h1 className="text-2xl font-bold font-display">{today}</h1>
+        <p className="flex items-center text-sm text-gray-600">
+          <CloudSun className="w-5 h-5 mr-1 text-green-600" />
+          {forecast ? `${forecast.temp} - ${forecast.condition}` : 'Loading...'}
+        </p>
       </header>
       <section>
         <h2 className="font-semibold font-display mb-2">Today’s Tasks</h2>
