@@ -3,11 +3,9 @@
     "id": 1,
     "name": "Monstera",
     "nickname": "Swiss Cheese",
-    "image": "https://cdn.pixabay.com/photo/2016/02/19/11/30/houseplants-1209015_1280.jpg",
+    "image": "/images/plant-9203742_1280.jpg",
     "photos": [
-      "https://cdn.pixabay.com/photo/2016/02/19/11/30/houseplants-1209015_1280.jpg",
-      "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg",
-      "https://cdn.pixabay.com/photo/2015/06/20/13/45/plant-815253_1280.jpg"
+      "/images/plant-9203742_1280.jpg"
     ],
     "lastWatered": "2025-07-07",
     "nextWater": "2025-07-14",
@@ -29,11 +27,9 @@
     "id": 2,
     "name": "Snake Plant",
     "nickname": "Mother-in-Law's Tongue",
-    "image": "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg",
+    "image": "/images/plant-7127956_1280.jpg",
     "photos": [
-      "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg",
-      "https://cdn.pixabay.com/photo/2015/06/20/13/45/plant-815253_1280.jpg",
-      "https://cdn.pixabay.com/photo/2015/05/02/05/13/plant-749268_1280.jpg"
+      "/images/plant-7127956_1280.jpg"
     ],
     "lastWatered": "2025-07-10",
     "nextWater": "2025-07-17",
@@ -54,11 +50,9 @@
     "id": 3,
     "name": "Fiddle Leaf Fig",
     "nickname": "Fiddle",
-    "image": "https://cdn.pixabay.com/photo/2015/06/20/13/45/plant-815253_1280.jpg",
+    "image": "/images/plant-6971173_1280.jpg",
     "photos": [
-      "https://cdn.pixabay.com/photo/2015/06/20/13/45/plant-815253_1280.jpg",
-      "https://cdn.pixabay.com/photo/2016/02/19/11/30/houseplants-1209015_1280.jpg",
-      "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg"
+      "/images/plant-6971173_1280.jpg"
     ],
     "lastWatered": "2025-07-09",
     "nextWater": "2025-07-16",
@@ -79,11 +73,9 @@
     "id": 4,
     "name": "Peace Lily",
     "nickname": "Lily",
-    "image": "https://cdn.pixabay.com/photo/2015/05/02/05/13/plant-749268_1280.jpg",
+    "image": "/images/plant-6790701_1280.jpg",
     "photos": [
-      "https://cdn.pixabay.com/photo/2015/05/02/05/13/plant-749268_1280.jpg",
-      "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg",
-      "https://cdn.pixabay.com/photo/2014/10/23/18/05/houseplants-500338_1280.jpg"
+      "/images/plant-6790701_1280.jpg"
     ],
     "lastWatered": "2025-07-11",
     "nextWater": "2025-07-15",
@@ -105,11 +97,9 @@
     "id": 5,
     "name": "ZZ Plant",
     "nickname": "Zenzi",
-    "image": "https://cdn.pixabay.com/photo/2014/10/23/18/05/houseplants-500338_1280.jpg",
+    "image": "/images/leaves-7292610_1280.jpg",
     "photos": [
-      "https://cdn.pixabay.com/photo/2014/10/23/18/05/houseplants-500338_1280.jpg",
-      "https://cdn.pixabay.com/photo/2016/02/19/11/30/houseplants-1209015_1280.jpg",
-      "https://cdn.pixabay.com/photo/2015/05/02/05/13/plant-749268_1280.jpg"
+      "/images/leaves-7292610_1280.jpg"
     ],
     "lastWatered": "2025-07-01",
     "nextWater": "2025-07-20",
@@ -130,11 +120,9 @@
     "id": 6,
     "name": "Aloe Vera",
     "nickname": "Medic",
-    "image": "https://cdn.pixabay.com/photo/2016/11/18/16/19/green-1835624_1280.jpg",
+    "image": "/images/houseplant-7367379_1280.jpg",
     "photos": [
-      "https://cdn.pixabay.com/photo/2016/11/18/16/19/green-1835624_1280.jpg",
-      "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg",
-      "https://cdn.pixabay.com/photo/2015/06/20/13/45/plant-815253_1280.jpg"
+      "/images/houseplant-7367379_1280.jpg"
     ],
     "lastWatered": "2025-07-02",
     "nextWater": "2025-07-16",
@@ -155,11 +143,9 @@
     "id": 7,
     "name": "Pothos",
     "nickname": "Devil's Ivy",
-    "image": "https://cdn.pixabay.com/photo/2016/02/19/11/30/houseplants-1209015_1280.jpg",
+    "image": "/images/garden-6912055_1280.jpg",
     "photos": [
-      "https://cdn.pixabay.com/photo/2016/02/19/11/30/houseplants-1209015_1280.jpg",
-      "https://cdn.pixabay.com/photo/2015/05/02/05/13/plant-749268_1280.jpg",
-      "https://cdn.pixabay.com/photo/2014/10/23/18/05/houseplants-500338_1280.jpg"
+      "/images/garden-6912055_1280.jpg"
     ],
     "lastWatered": "2025-07-06",
     "nextWater": "2025-07-13",
@@ -180,11 +166,9 @@
     "id": 8,
     "name": "Calathea Orbifolia",
     "nickname": "Prayer Plant",
-    "image": "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg",
+    "image": "/images/cactus-1842095_1280.jpg",
     "photos": [
-      "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg",
-      "https://cdn.pixabay.com/photo/2014/10/23/18/05/houseplants-500338_1280.jpg",
-      "https://cdn.pixabay.com/photo/2016/11/18/16/19/green-1835624_1280.jpg"
+      "/images/cactus-1842095_1280.jpg"
     ],
     "lastWatered": "2025-07-08",
     "nextWater": "2025-07-12",
@@ -205,11 +189,9 @@
     "id": 9,
     "name": "Rubber Plant",
     "nickname": "Ficus Elastica",
-    "image": "https://cdn.pixabay.com/photo/2015/06/20/13/45/plant-815253_1280.jpg",
+    "image": "/images/botanical-6851296_1280.jpg",
     "photos": [
-      "https://cdn.pixabay.com/photo/2015/06/20/13/45/plant-815253_1280.jpg",
-      "https://cdn.pixabay.com/photo/2016/02/19/11/30/houseplants-1209015_1280.jpg",
-      "https://cdn.pixabay.com/photo/2015/05/02/05/13/plant-749268_1280.jpg"
+      "/images/botanical-6851296_1280.jpg"
     ],
     "lastWatered": "2025-07-05",
     "nextWater": "2025-07-12",
@@ -230,11 +212,9 @@
     "id": 10,
     "name": "Chinese Evergreen",
     "nickname": "Aglaonema",
-    "image": "https://cdn.pixabay.com/photo/2015/05/02/05/13/plant-749268_1280.jpg",
+    "image": "/images/anthurium-7863531_1280.jpg",
     "photos": [
-      "https://cdn.pixabay.com/photo/2015/05/02/05/13/plant-749268_1280.jpg",
-      "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg",
-      "https://cdn.pixabay.com/photo/2016/11/18/16/19/green-1835624_1280.jpg"
+      "/images/anthurium-7863531_1280.jpg"
     ],
     "lastWatered": "2025-07-04",
     "nextWater": "2025-07-11",
