@@ -18,11 +18,8 @@ using an API key you provide.
 ### Get an API Key
 
 1. Sign up at [OpenWeather](https://openweathermap.org/api) and create a key.
-2. In the project root, create a `.env` file containing:
-
-   ```
-   VITE_WEATHER_API_KEY=your_key_here
-   ```
+2. Copy `.env.example` to `.env` in the project root and replace `your_key_here`
+   with your actual API key.
 
 ### How It Works
 
