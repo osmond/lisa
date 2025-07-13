@@ -82,11 +82,11 @@ test('swipe right triggers onComplete', async () => {
   )
   const wrapper = container.firstChild
   const user = userEvent.setup()
-  await user.pointer([
-    {keys: '[MouseLeft>]', target: wrapper, coords: {x:0, y:0}},
-    {coords: {x:80, y:0}},
-    {keys: '[/MouseLeft]', target: wrapper}
-  ])
+  await act(async () => {
+    fireEvent.touchStart(wrapper, { touches: [{ clientX: 0 }] })
+    fireEvent.touchMove(wrapper, { touches: [{ clientX: 80 }] })
+    fireEvent.touchEnd(wrapper)
+  })
   expect(onComplete).toHaveBeenCalledWith(task)
 })
 
@@ -103,10 +103,10 @@ test('swipe left navigates to edit page', async () => {
   )
   const wrapper = container.firstChild
   const user = userEvent.setup()
-  await user.pointer([
-    {keys: '[MouseLeft>]', target: wrapper, coords: {x:100, y:0}},
-    {coords: {x:20, y:0}},
-    {keys: '[/MouseLeft]', target: wrapper}
-  ])
+  await act(async () => {
+    fireEvent.touchStart(wrapper, { touches: [{ clientX: 100 }] })
+    fireEvent.touchMove(wrapper, { touches: [{ clientX: 20 }] })
+    fireEvent.touchEnd(wrapper)
+  })
   expect(screen.getByText('Edit Page')).toBeInTheDocument()
 })
