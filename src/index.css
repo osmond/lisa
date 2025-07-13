@@ -6,6 +6,10 @@ body {
   @apply bg-gray-50 text-gray-900;
 }
 
+.dark body {
+  @apply bg-gray-900 text-gray-100;
+}
+
 @keyframes fade-in-up {
   from {
     opacity: 0;

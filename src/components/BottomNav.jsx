@@ -76,7 +76,7 @@ export default function BottomNav() {
   ]
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 border-t bg-white flex justify-around py-2">
+    <nav className="fixed bottom-0 left-0 right-0 border-t bg-white dark:bg-gray-800 flex justify-around py-2">
       {items.map(({ to, label, icon: Icon }) => (
         <NavLink
           key={to}
