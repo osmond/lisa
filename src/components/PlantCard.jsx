@@ -16,6 +16,12 @@ export default function PlantCard({ plant }) {
     markWatered(plant.id, note)
   }
 
+  const handleDelete = () => {
+    if (window.confirm('Delete this plant?')) {
+      removePlant(plant.id)
+    }
+  }
+
   const handlePointerDown = e => {
     startX.current = e.clientX ?? e.touches?.[0]?.clientX ?? 0
   }
@@ -34,7 +40,7 @@ export default function PlantCard({ plant }) {
     if (diff > 75) {
       handleWatered()
     } else if (diff < -150) {
-      removePlant(plant.id)
+      handleDelete()
     } else if (diff < -75) {
       navigate(`/plant/${plant.id}/edit`)
     }
@@ -83,7 +89,7 @@ export default function PlantCard({ plant }) {
           <button
             onMouseDown={createRipple}
             onTouchStart={createRipple}
-            onClick={() => removePlant(plant.id)}
+            onClick={handleDelete}
             className="bg-red-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
           >
             Delete
