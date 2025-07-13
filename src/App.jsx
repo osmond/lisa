@@ -37,9 +37,9 @@ export default function App() {
             <Route path="/plant/:id" element={<PlantDetail />} />
             <Route path="/plant/:id/edit" element={<EditPlant />} />
 
-            <Route path="*" element={<NotFound />} />
-
             <Route path="/plant/:id/gallery" element={<Gallery />} />
+
+            <Route path="*" element={<NotFound />} />
 
           </Routes>
           </div>
