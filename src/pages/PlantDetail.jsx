@@ -1,9 +1,10 @@
 import { useParams } from 'react-router-dom'
 import { useState, useRef } from 'react'
-import plants from '../plants.json'
+import { usePlants } from '../PlantContext.jsx'
 
 export default function PlantDetail() {
   const { id } = useParams()
+  const { plants } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
 
   const tabNames = ['activity', 'notes', 'care']
