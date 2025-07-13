@@ -46,7 +46,7 @@ test('mark as done does not navigate', () => {
       </MemoryRouter>
     </PlantProvider>
   )
-  fireEvent.click(screen.getByText('Mark as Done'))
+  fireEvent.click(screen.getByText('Done'))
   expect(screen.queryByText('Plant Page')).not.toBeInTheDocument()
 
 });
