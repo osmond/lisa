@@ -5,7 +5,7 @@ export default function Settings() {
 
   return (
     <div className="space-y-4 text-gray-700 dark:text-gray-200">
-      <h1 className="text-2xl font-bold">Settings</h1>
+      <h1 className="text-2xl font-bold font-display">Settings</h1>
       <button
         onClick={toggleTheme}
         className="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700"

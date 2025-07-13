@@ -22,7 +22,7 @@ export default function Home() {
     <div className="space-y-4">
       <header className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">{today}</h1>
+          <h1 className="text-2xl font-bold font-display">{today}</h1>
           <p className="text-sm text-gray-600">
             {forecast
               ? `${forecast.temp} - ${forecast.condition}`
@@ -31,7 +31,7 @@ export default function Home() {
         </div>
       </header>
       <section>
-        <h2 className="font-semibold mb-2">Today’s Tasks</h2>
+        <h2 className="font-semibold font-display mb-2">Today’s Tasks</h2>
         <div className="space-y-2">
           {plants
             .map(p => {

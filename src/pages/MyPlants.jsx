@@ -20,7 +20,7 @@ export default function MyPlants() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">My Plants</h1>
+      <h1 className="text-2xl font-bold font-display mb-4">My Plants</h1>
       <div className="flex flex-wrap gap-2 mb-4">
         <select className="border rounded p-1" value={roomFilter} onChange={e => setRoomFilter(e.target.value)}>
           <option value="All">All Rooms</option>

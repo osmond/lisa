@@ -35,8 +35,9 @@ export default function TaskItem({ task, onComplete }) {
     setDeltaX(currentX - startX.current)
   }
 
-  const handlePointerEnd = () => {
-    const diff = deltaX
+  const handlePointerEnd = e => {
+    const currentX = e?.clientX ?? e?.changedTouches?.[0]?.clientX ?? startX.current
+    const diff = deltaX || (currentX - startX.current)
     setDeltaX(0)
     startX.current = 0
     if (diff > 75) {
