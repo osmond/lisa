@@ -6,6 +6,7 @@ Includes:
 - Basic routing (Home, Timeline, Gallery)
 - Sample plant data
 - Styled PlantCard components
+- Tasks generated dynamically from plant data
 
 
 ## Running Tests
