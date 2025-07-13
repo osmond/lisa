@@ -1,5 +1,12 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
+
+beforeAll(() => {
+  if (typeof PointerEvent === 'undefined') {
+    window.PointerEvent = window.MouseEvent
+  }
+})
 import TaskItem from '../TaskItem.jsx'
 import { PlantProvider } from '../../PlantContext.jsx'
 
@@ -50,3 +57,56 @@ test('mark as done does not navigate', () => {
   expect(screen.queryByText('Plant Page')).not.toBeInTheDocument()
 
 });
+
+test('clicking item adds ripple effect', () => {
+  const { container } = render(
+    <PlantProvider>
+      <MemoryRouter>
+        <TaskItem task={task} />
+      </MemoryRouter>
+    </PlantProvider>
+  )
+  const wrapper = container.firstChild
+  fireEvent.mouseDown(wrapper)
+  expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
+})
+
+test('swipe right triggers onComplete', async () => {
+  const onComplete = jest.fn()
+  const { container } = render(
+    <PlantProvider>
+      <MemoryRouter>
+        <TaskItem task={task} onComplete={onComplete} />
+      </MemoryRouter>
+    </PlantProvider>
+  )
+  const wrapper = container.firstChild
+  const user = userEvent.setup()
+  await user.pointer([
+    {keys: '[MouseLeft>]', target: wrapper, coords: {x:0, y:0}},
+    {coords: {x:80, y:0}},
+    {keys: '[/MouseLeft]', target: wrapper}
+  ])
+  expect(onComplete).toHaveBeenCalledWith(task)
+})
+
+test('swipe left navigates to edit page', async () => {
+  const { container } = render(
+    <PlantProvider>
+      <MemoryRouter initialEntries={['/']}>
+        <Routes>
+          <Route path="/" element={<TaskItem task={task} />} />
+          <Route path="/plant/:id/edit" element={<div>Edit Page</div>} />
+        </Routes>
+      </MemoryRouter>
+    </PlantProvider>
+  )
+  const wrapper = container.firstChild
+  const user = userEvent.setup()
+  await user.pointer([
+    {keys: '[MouseLeft>]', target: wrapper, coords: {x:100, y:0}},
+    {coords: {x:20, y:0}},
+    {keys: '[/MouseLeft]', target: wrapper}
+  ])
+  expect(screen.getByText('Edit Page')).toBeInTheDocument()
+})
