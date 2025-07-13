@@ -46,3 +46,20 @@ test('tab keyboard navigation works', () => {
   expect(updatedTabs[1]).toHaveAttribute('aria-selected', 'true')
   expect(document.activeElement).toBe(updatedTabs[1])
 })
+
+test('shows placeholder when image missing', () => {
+  const plant = { id: 123, name: 'Placeholder Test' }
+  localStorage.setItem('plants', JSON.stringify([plant]))
+  render(
+    <PlantProvider>
+      <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </PlantProvider>
+  )
+  const img = screen.getByRole('img')
+  expect(img).toHaveAttribute('src', expect.stringContaining('/images/default.jpg'))
+  localStorage.removeItem('plants')
+})

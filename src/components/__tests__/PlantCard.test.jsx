@@ -20,3 +20,20 @@ test('renders plant name', () => {
   )
   expect(screen.getByText('Aloe Vera')).toBeInTheDocument()
 })
+
+test('uses placeholder image when missing', () => {
+  const noImagePlant = {
+    name: 'No Image',
+    lastWatered: '2024-05-01',
+    nextWater: '2024-05-07',
+  }
+  render(
+    <PlantProvider>
+      <MemoryRouter>
+        <PlantCard plant={noImagePlant} />
+      </MemoryRouter>
+    </PlantProvider>
+  )
+  const img = screen.getByRole('img')
+  expect(img).toHaveAttribute('src', expect.stringContaining('/images/default.jpg'))
+})

@@ -39,7 +39,12 @@ export default function PlantDetail() {
   return (
     <div className="space-y-2">
       <div className="space-y-4">
-        <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-64 object-cover rounded-xl" />
+        <img
+          src={plant.image || '/lisa/images/default.jpg'}
+          alt={plant.name}
+          loading="lazy"
+          className="w-full h-64 object-cover rounded-xl"
+        />
         <div>
           <h1 className="text-2xl font-bold">{plant.name}</h1>
           {plant.nickname && <p className="text-gray-500">{plant.nickname}</p>}
