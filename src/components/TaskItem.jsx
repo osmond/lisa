@@ -90,7 +90,7 @@ export default function TaskItem({ task, onComplete }) {
         onClick={handleComplete}
         className="ml-2 px-3 py-1 bg-green-100 text-green-700 rounded text-sm"
       >
-        Mark as Done
+        Done
       </button>
     </div>
   )
