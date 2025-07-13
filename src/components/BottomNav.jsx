@@ -46,6 +46,16 @@ const CheckCircleIcon = () => (
   </IconWrapper>
 )
 
+const ClockIcon = () => (
+  <IconWrapper>
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 6v6l2 2m6-2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"
+    />
+  </IconWrapper>
+)
+
 const PlusCircleIcon = () => (
   <IconWrapper>
     <path
@@ -71,6 +81,7 @@ export default function BottomNav() {
     { to: '/', label: 'Home', icon: HomeIcon },
     { to: '/myplants', label: 'My Plants', icon: ListIcon },
     { to: '/tasks', label: 'Tasks', icon: CheckCircleIcon },
+    { to: '/timeline', label: 'Timeline', icon: ClockIcon },
     { to: '/add', label: 'Add', icon: PlusCircleIcon },
     { to: '/settings', label: 'Profile', icon: UserIcon },
   ]
