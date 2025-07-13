@@ -109,11 +109,11 @@ test('swipe right waters plant', async () => {
   )
   const wrapper = screen.getByTestId('card-wrapper')
   const user = userEvent.setup()
-  await user.pointer([
-    {keys:'[MouseLeft>]', target: wrapper, coords:{x:0,y:0}},
-    {coords:{x:80,y:0}},
-    {keys:'[/MouseLeft]', target: wrapper}
-  ])
+  await act(async () => {
+    fireEvent.touchStart(wrapper, { touches: [{ clientX: 0 }] })
+    fireEvent.touchMove(wrapper, { touches: [{ clientX: 80 }] })
+    fireEvent.touchEnd(wrapper)
+  })
   expect(markWatered).toHaveBeenCalledWith(1, '')
 })
 
@@ -125,11 +125,11 @@ test('swipe left navigates to edit page', async () => {
   )
   const wrapper = screen.getByTestId('card-wrapper')
   const user = userEvent.setup()
-  await user.pointer([
-    {keys:'[MouseLeft>]', target: wrapper, coords:{x:100,y:0}},
-    {coords:{x:20,y:0}},
-    {keys:'[/MouseLeft]', target: wrapper}
-  ])
+  await act(async () => {
+    fireEvent.touchStart(wrapper, { touches: [{ clientX: 100 }] })
+    fireEvent.touchMove(wrapper, { touches: [{ clientX: 20 }] })
+    fireEvent.touchEnd(wrapper)
+  })
   expect(navigateMock).toHaveBeenCalledWith('/plant/1/edit')
 })
 
@@ -141,10 +141,10 @@ test('swipe far left removes plant', async () => {
   )
   const wrapper = screen.getByTestId('card-wrapper')
   const user = userEvent.setup()
-  await user.pointer([
-    {keys:'[MouseLeft>]', target: wrapper, coords:{x:200,y:0}},
-    {coords:{x:0,y:0}},
-    {keys:'[/MouseLeft]', target: wrapper}
-  ])
+  await act(async () => {
+    fireEvent.touchStart(wrapper, { touches: [{ clientX: 200 }] })
+    fireEvent.touchMove(wrapper, { touches: [{ clientX: 0 }] })
+    fireEvent.touchEnd(wrapper)
+  })
   expect(removePlant).toHaveBeenCalledWith(1)
 })
