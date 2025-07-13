@@ -6,7 +6,7 @@ import Lightbox from '../components/Lightbox.jsx'
 
 export function AllGallery() {
   const { plants, addPhoto } = usePlants()
-  const images = plants.flatMap(p => [p.image, ...(p.gallery || [])])
+  const images = plants.flatMap(p => [p.image, ...(p.photos || [])])
   const [index, setIndex] = useState(null)
   const [selected, setSelected] = useState(plants[0]?.id || '')
   const fileInputRef = useRef()
