@@ -37,6 +37,7 @@ body {
 
 .bounce-once {
   animation: bounce-once 0.3s ease;
+}
 
 .fade-enter {
   opacity: 0;
