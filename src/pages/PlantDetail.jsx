@@ -1,12 +1,24 @@
 import { useParams } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import plants from '../plants.json'
 
 export default function PlantDetail() {
   const { id } = useParams()
   const plant = plants.find(p => p.id === Number(id))
 
+  const tabNames = ['activity', 'notes', 'care']
+  const tabRefs = useRef([])
   const [tab, setTab] = useState('activity')
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      e.preventDefault()
+      const dir = e.key === 'ArrowRight' ? 1 : -1
+      const nextIndex = (index + dir + tabNames.length) % tabNames.length
+      setTab(tabNames[nextIndex])
+      tabRefs.current[nextIndex]?.focus()
+    }
+  }
 
   if (!plant) {
     return <div className="text-gray-700">Plant not found</div>
@@ -36,22 +48,37 @@ export default function PlantDetail() {
         </div>
 
         <div>
-          <div className="flex space-x-4 border-b">
+          <div className="flex space-x-4 border-b" role="tablist">
             <button
+              role="tab"
+              ref={el => (tabRefs.current[0] = el)}
+              aria-selected={tab === 'activity'}
+              tabIndex={tab === 'activity' ? 0 : -1}
               className={`py-2 ${tab === 'activity' ? 'border-b-2 border-green-500 font-medium' : ''}`}
               onClick={() => setTab('activity')}
+              onKeyDown={e => handleKeyDown(e, 0)}
             >
               Activity
             </button>
             <button
+              role="tab"
+              ref={el => (tabRefs.current[1] = el)}
+              aria-selected={tab === 'notes'}
+              tabIndex={tab === 'notes' ? 0 : -1}
               className={`py-2 ${tab === 'notes' ? 'border-b-2 border-green-500 font-medium' : ''}`}
               onClick={() => setTab('notes')}
+              onKeyDown={e => handleKeyDown(e, 1)}
             >
               Notes
             </button>
             <button
+              role="tab"
+              ref={el => (tabRefs.current[2] = el)}
+              aria-selected={tab === 'care'}
+              tabIndex={tab === 'care' ? 0 : -1}
               className={`py-2 ${tab === 'care' ? 'border-b-2 border-green-500 font-medium' : ''}`}
               onClick={() => setTab('care')}
+              onKeyDown={e => handleKeyDown(e, 2)}
             >
               Advanced
             </button>
