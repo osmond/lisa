@@ -1,9 +1,13 @@
-import TaskItem from '../components/TaskItem'
+import TaskCard from '../components/TaskCard.jsx'
 import { usePlants } from '../PlantContext.jsx'
 
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
+
 import { CloudSun } from 'phosphor-react'
+
+import SummaryStrip from '../components/SummaryStrip.jsx'
+
 
 
 export default function Home() {
@@ -12,23 +16,35 @@ export default function Home() {
   const forecast = weatherCtx?.forecast
   const weatherData = { rainTomorrow: forecast?.rainfall || 0 }
 
-  const tasks = plants
-    .map(p => {
-      const { date, reason } = getNextWateringDate(p.lastWatered, weatherData)
-      const todayIso = new Date().toISOString().slice(0, 10)
-      if (date <= todayIso) {
-        return {
-          id: p.id,
-          plantId: p.id,
-          plantName: p.name,
-          image: p.image,
-          type: 'Water',
-          reason,
-        }
-      }
-      return null
-    })
-    .filter(Boolean)
+  const todayIso = new Date().toISOString().slice(0, 10)
+  const waterTasks = []
+  const fertilizeTasks = []
+  plants.forEach(p => {
+    const { date, reason } = getNextWateringDate(p.lastWatered, weatherData)
+    if (date <= todayIso) {
+      waterTasks.push({
+        id: `w-${p.id}`,
+        plantId: p.id,
+        plantName: p.name,
+        image: p.image,
+        type: 'Water',
+        reason,
+      })
+    }
+    if (p.nextFertilize && p.nextFertilize <= todayIso) {
+      fertilizeTasks.push({
+        id: `f-${p.id}`,
+        plantId: p.id,
+        plantName: p.name,
+        image: p.image,
+        type: 'Fertilize',
+      })
+    }
+  })
+  const tasks = [...waterTasks, ...fertilizeTasks]
+  const totalCount = tasks.length
+  const waterCount = waterTasks.length
+  const fertilizeCount = fertilizeTasks.length
 
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
@@ -46,11 +62,12 @@ export default function Home() {
           {forecast ? `${forecast.temp} - ${forecast.condition}` : 'Loading...'}
         </p>
       </header>
+      <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
       <section>
         <h2 className="font-semibold font-display mb-2">Today’s Tasks</h2>
-        <div className="space-y-2">
+        <div className="space-y-4">
           {tasks.length > 0 ? (
-            tasks.map(task => <TaskItem key={task.id} task={task} />)
+            tasks.map(task => <TaskCard key={task.id} task={task} />)
           ) : (
             <p className="text-sm text-gray-500">All plants are happy today!</p>
           )}

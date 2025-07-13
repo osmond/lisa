@@ -44,7 +44,12 @@ export function AllGallery() {
         ))}
       </div>
       {index !== null && (
-        <Lightbox images={images} startIndex={index} onClose={() => setIndex(null)} />
+        <Lightbox
+          images={images}
+          startIndex={index}
+          onClose={() => setIndex(null)}
+          label="Photo viewer"
+        />
       )}
 
       <select
@@ -139,6 +144,7 @@ export default function Gallery() {
           images={photos}
           startIndex={index}
           onClose={() => setIndex(null)}
+          label="Photo viewer"
         />
       )}
 
