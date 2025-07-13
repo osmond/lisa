@@ -132,6 +132,10 @@ test('swipe left navigates to edit page', async () => {
   const wrapper = screen.getByTestId('card-wrapper')
   const user = userEvent.setup()
   await act(async () => {
+    fireEvent.pointerDown(wrapper, { clientX: 100, buttons: 1 })
+    fireEvent.pointerMove(wrapper, { clientX: 20, buttons: 1 })
+    fireEvent.pointerUp(wrapper, { clientX: 20 })
+
     fireEvent.touchStart(wrapper, { touches: [{ clientX: 100 }] })
     fireEvent.touchMove(wrapper, { touches: [{ clientX: 20 }] })
     fireEvent.touchEnd(wrapper)
@@ -148,6 +152,10 @@ test('swipe far left removes plant', async () => {
   const wrapper = screen.getByTestId('card-wrapper')
   const user = userEvent.setup()
   await act(async () => {
+    fireEvent.pointerDown(wrapper, { clientX: 200, buttons: 1 })
+    fireEvent.pointerMove(wrapper, { clientX: 0, buttons: 1 })
+    fireEvent.pointerUp(wrapper, { clientX: 0 })
+
     fireEvent.touchStart(wrapper, { touches: [{ clientX: 200 }] })
     fireEvent.touchMove(wrapper, { touches: [{ clientX: 0 }] })
     fireEvent.touchEnd(wrapper)
