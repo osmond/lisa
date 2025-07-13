@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-50 text-gray-900;
+  @apply bg-gray-50 text-gray-900 font-sans;
 }
 
 .dark body {
@@ -25,6 +25,7 @@ body {
   animation: fade-in-up 0.3s ease both;
 }
 
+
 @keyframes bounce-once {
   0%, 100% {
     transform: scale(1);
@@ -36,4 +37,46 @@ body {
 
 .bounce-once {
   animation: bounce-once 0.3s ease;
+
+.fade-enter {
+  opacity: 0;
+  transform: translateX(10px);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.ripple-effect {
+  position: absolute;
+  border-radius: 9999px;
+  background-color: rgba(0,0,0,0.3);
+  transform: scale(0);
+  animation: ripple 0.5s ease-out;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes pop {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.check-pop {
+  animation: pop 0.3s ease-out;
+
 }

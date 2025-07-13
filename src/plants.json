@@ -3,9 +3,9 @@
     "id": 1,
     "name": "Monstera",
     "nickname": "Swiss Cheese",
-    "image": "/images/plant-9203742_1280.jpg",
+    "image": "/placeholder.svg",
     "photos": [
-      "/images/plant-9203742_1280.jpg"
+      "/placeholder.svg"
     ],
     "lastWatered": "2025-07-07",
     "nextWater": "2025-07-14",
@@ -27,9 +27,9 @@
     "id": 2,
     "name": "Snake Plant",
     "nickname": "Mother-in-Law's Tongue",
-    "image": "/images/plant-7127956_1280.jpg",
+    "image": "/placeholder.svg",
     "photos": [
-      "/images/plant-7127956_1280.jpg"
+      "/placeholder.svg"
     ],
     "lastWatered": "2025-07-10",
     "nextWater": "2025-07-17",
@@ -50,9 +50,9 @@
     "id": 3,
     "name": "Fiddle Leaf Fig",
     "nickname": "Fiddle",
-    "image": "/images/plant-6971173_1280.jpg",
+    "image": "/placeholder.svg",
     "photos": [
-      "/images/plant-6971173_1280.jpg"
+      "/placeholder.svg"
     ],
     "lastWatered": "2025-07-09",
     "nextWater": "2025-07-16",
@@ -73,9 +73,9 @@
     "id": 4,
     "name": "Peace Lily",
     "nickname": "Lily",
-    "image": "/images/plant-6790701_1280.jpg",
+    "image": "/placeholder.svg",
     "photos": [
-      "/images/plant-6790701_1280.jpg"
+      "/placeholder.svg"
     ],
     "lastWatered": "2025-07-11",
     "nextWater": "2025-07-15",
@@ -97,9 +97,9 @@
     "id": 5,
     "name": "ZZ Plant",
     "nickname": "Zenzi",
-    "image": "/images/leaves-7292610_1280.jpg",
+    "image": "/placeholder.svg",
     "photos": [
-      "/images/leaves-7292610_1280.jpg"
+      "/placeholder.svg"
     ],
     "lastWatered": "2025-07-01",
     "nextWater": "2025-07-20",
@@ -120,9 +120,9 @@
     "id": 6,
     "name": "Aloe Vera",
     "nickname": "Medic",
-    "image": "/images/houseplant-7367379_1280.jpg",
+    "image": "/placeholder.svg",
     "photos": [
-      "/images/houseplant-7367379_1280.jpg"
+      "/placeholder.svg"
     ],
     "lastWatered": "2025-07-02",
     "nextWater": "2025-07-16",
@@ -143,9 +143,9 @@
     "id": 7,
     "name": "Pothos",
     "nickname": "Devil's Ivy",
-    "image": "/images/garden-6912055_1280.jpg",
+    "image": "/placeholder.svg",
     "photos": [
-      "/images/garden-6912055_1280.jpg"
+      "/placeholder.svg"
     ],
     "lastWatered": "2025-07-06",
     "nextWater": "2025-07-13",
@@ -166,9 +166,9 @@
     "id": 8,
     "name": "Calathea Orbifolia",
     "nickname": "Prayer Plant",
-    "image": "/images/cactus-1842095_1280.jpg",
+    "image": "/placeholder.svg",
     "photos": [
-      "/images/cactus-1842095_1280.jpg"
+      "/placeholder.svg"
     ],
     "lastWatered": "2025-07-08",
     "nextWater": "2025-07-12",
@@ -189,9 +189,9 @@
     "id": 9,
     "name": "Rubber Plant",
     "nickname": "Ficus Elastica",
-    "image": "/images/botanical-6851296_1280.jpg",
+    "image": "/placeholder.svg",
     "photos": [
-      "/images/botanical-6851296_1280.jpg"
+      "/placeholder.svg"
     ],
     "lastWatered": "2025-07-05",
     "nextWater": "2025-07-12",
@@ -212,9 +212,9 @@
     "id": 10,
     "name": "Chinese Evergreen",
     "nickname": "Aglaonema",
-    "image": "/images/anthurium-7863531_1280.jpg",
+    "image": "/placeholder.svg",
     "photos": [
-      "/images/anthurium-7863531_1280.jpg"
+      "/placeholder.svg"
     ],
     "lastWatered": "2025-07-04",
     "nextWater": "2025-07-11",

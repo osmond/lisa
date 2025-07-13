@@ -1,4 +1,6 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { CSSTransition, SwitchTransition } from 'react-transition-group'
+import { useRef } from 'react'
 import Home from './pages/Home'
 import MyPlants from './pages/MyPlants'
 import Tasks from './pages/Tasks'
@@ -11,24 +13,38 @@ import BottomNav from './components/BottomNav'
 import NotFound from './pages/NotFound'
 
 export default function App() {
+  const location = useLocation()
+  const nodeRef = useRef(null)
   return (
-    <div className="pb-16 p-4 font-sans">{/* bottom padding for nav */}
+    <div className="pb-16 p-4 font-sans overflow-hidden">{/* bottom padding for nav */}
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/myplants" element={<MyPlants />} />
-        <Route path="/tasks" element={<Tasks />} />
-        <Route path="/add" element={<Add />} />
-        <Route path="/gallery" element={<AllGallery />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/plant/:id" element={<PlantDetail />} />
-        <Route path="/plant/:id/edit" element={<EditPlant />} />
+      <SwitchTransition>
+        <CSSTransition
+          key={location.pathname}
+          classNames="fade"
+          timeout={200}
+          unmountOnExit
+          nodeRef={nodeRef}
+        >
+          <div ref={nodeRef}>
+            <Routes location={location}>
+            <Route path="/" element={<Home />} />
+            <Route path="/myplants" element={<MyPlants />} />
+            <Route path="/tasks" element={<Tasks />} />
+            <Route path="/add" element={<Add />} />
+            <Route path="/gallery" element={<AllGallery />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/plant/:id" element={<PlantDetail />} />
+            <Route path="/plant/:id/edit" element={<EditPlant />} />
 
-        <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
 
-        <Route path="/plant/:id/gallery" element={<Gallery />} />
+            <Route path="/plant/:id/gallery" element={<Gallery />} />
 
-      </Routes>
+          </Routes>
+          </div>
+        </CSSTransition>
+      </SwitchTransition>
 
 
       <BottomNav />
