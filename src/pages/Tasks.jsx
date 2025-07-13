@@ -15,7 +15,9 @@ export default function Tasks() {
       }
       ;(p.activity || []).forEach(a => {
         const m = a.match(/(\d{4}-\d{2}-\d{2})/)
-        all.push({ date: m ? m[1] : '', label: `${p.name}: ${a}`, type: 'past' })
+        if (m) {
+          all.push({ date: m[1], label: `${p.name}: ${a}`, type: 'past' })
+        }
       })
     })
     return all.sort((a, b) => new Date(a.date) - new Date(b.date))
