@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
+import { useRef } from 'react'
 import Home from './pages/Home'
 import MyPlants from './pages/MyPlants'
 import Tasks from './pages/Tasks'
@@ -13,12 +14,20 @@ import NotFound from './pages/NotFound'
 
 export default function App() {
   const location = useLocation()
+  const nodeRef = useRef(null)
   return (
     <div className="pb-16 p-4 font-sans overflow-hidden">{/* bottom padding for nav */}
 
       <SwitchTransition>
-        <CSSTransition key={location.pathname} classNames="fade" timeout={200} unmountOnExit>
-          <Routes location={location}>
+        <CSSTransition
+          key={location.pathname}
+          classNames="fade"
+          timeout={200}
+          unmountOnExit
+          nodeRef={nodeRef}
+        >
+          <div ref={nodeRef}>
+            <Routes location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/myplants" element={<MyPlants />} />
             <Route path="/tasks" element={<Tasks />} />
@@ -33,6 +42,7 @@ export default function App() {
             <Route path="/plant/:id/gallery" element={<Gallery />} />
 
           </Routes>
+          </div>
         </CSSTransition>
       </SwitchTransition>
 
