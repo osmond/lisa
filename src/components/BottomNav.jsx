@@ -82,10 +82,10 @@ export default function BottomNav() {
           key={to}
           to={to}
           className={({ isActive }) =>
-            `flex flex-col items-center text-xs ${isActive ? 'text-green-700' : 'text-gray-500'}`
+            `flex flex-col items-center text-xs transition-transform duration-150 ${isActive ? 'text-green-700 scale-110' : 'text-gray-500'}`
           }
         >
-          <Icon className="mb-1" />
+          <Icon className="mb-1 transition-colors duration-150" />
           {label}
         </NavLink>
       ))}
