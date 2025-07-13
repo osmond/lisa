@@ -42,13 +42,15 @@ export default function PlantCard({ plant }) {
   return (
     <div
       data-testid="card-wrapper"
-      onMouseDown={createRipple}
+      onMouseDown={e => { createRipple(e); handlePointerDown(e) }}
       onTouchStart={e => { createRipple(e); handlePointerDown(e) }}
       className="relative overflow-hidden"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerEnd}
       onPointerCancel={handlePointerEnd}
+      onMouseMove={handlePointerMove}
+      onMouseUp={handlePointerEnd}
       onTouchMove={handlePointerMove}
       onTouchEnd={handlePointerEnd}
     >
