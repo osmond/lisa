@@ -25,6 +25,19 @@ body {
   animation: fade-in-up 0.3s ease both;
 }
 
+
+@keyframes bounce-once {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.bounce-once {
+  animation: bounce-once 0.3s ease;
+
 .fade-enter {
   opacity: 0;
   transform: translateX(10px);
@@ -65,4 +78,5 @@ body {
 }
 .check-pop {
   animation: pop 0.3s ease-out;
+
 }
