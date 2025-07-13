@@ -4,7 +4,7 @@ import { usePlants } from '../PlantContext.jsx'
 function IconWrapper({ children }) {
   return (
     <svg
-      className="w-6 h-6 text-gray-500"
+      className="w-6 h-6 text-gray-500 dark:text-gray-400"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
@@ -68,7 +68,7 @@ export default function TaskItem({ task, onComplete }) {
   }
 
   return (
-    <div className="flex items-center gap-2 p-2 border rounded-lg bg-white hover:bg-gray-50">
+    <div className="flex items-center gap-2 p-2 border rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
       <Link to={`/plant/${task.plantId}`} className="flex items-center flex-1 gap-2">
         <img
           src={task.image}
