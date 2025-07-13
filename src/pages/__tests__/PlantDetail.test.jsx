@@ -36,7 +36,7 @@ test('tab keyboard navigation works', () => {
   )
 
   const tabs = screen.getAllByRole('tab')
-  expect(tabs).toHaveLength(3)
+  expect(tabs).toHaveLength(4)
   expect(tabs[0]).toHaveAttribute('aria-selected', 'true')
 
   tabs[0].focus()

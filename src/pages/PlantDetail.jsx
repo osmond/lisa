@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
-import { useState, useRef } from 'react'
+import { useState, useRef, useMemo } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 
 export default function PlantDetail() {
@@ -7,10 +7,42 @@ export default function PlantDetail() {
   const { plants, addPhoto, removePhoto } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
 
-  const tabNames = ['activity', 'notes', 'care']
+  const tabNames = ['activity', 'notes', 'care', 'timeline']
   const tabRefs = useRef([])
   const [tab, setTab] = useState('activity')
   const fileInputRef = useRef()
+
+  const events = useMemo(() => {
+    if (!plant) return []
+    const list = []
+    if (plant.lastWatered) {
+      list.push({ date: plant.lastWatered, label: 'Watered', type: 'water' })
+    }
+    if (plant.lastFertilized) {
+      list.push({
+        date: plant.lastFertilized,
+        label: 'Fertilized',
+        type: 'fertilize',
+      })
+    }
+    ;(plant.activity || []).forEach(a => {
+      const m = a.match(/(\d{4}-\d{2}-\d{2})/)
+      if (m) {
+        list.push({ date: m[1], label: a, type: 'note' })
+      }
+    })
+    ;(plant.careLog || []).forEach(ev => {
+      list.push({ date: ev.date, label: ev.type, note: ev.note, type: 'log' })
+    })
+    return list.sort((a, b) => new Date(a.date) - new Date(b.date))
+  }, [plant])
+
+  const colors = {
+    water: 'bg-blue-500',
+    fertilize: 'bg-yellow-500',
+    note: 'bg-gray-400',
+    log: 'bg-green-400',
+  }
 
   const handleFiles = e => {
     const files = Array.from(e.target.files || [])
@@ -103,6 +135,17 @@ export default function PlantDetail() {
             >
               Advanced
             </button>
+            <button
+              role="tab"
+              ref={el => (tabRefs.current[3] = el)}
+              aria-selected={tab === 'timeline'}
+              tabIndex={tab === 'timeline' ? 0 : -1}
+              className={`py-2 ${tab === 'timeline' ? 'border-b-2 border-green-500 font-medium' : ''}`}
+              onClick={() => setTab('timeline')}
+              onKeyDown={e => handleKeyDown(e, 3)}
+            >
+              Timeline
+            </button>
           </div>
           <div className="p-4">
             {tab === 'activity' && (
@@ -120,6 +163,22 @@ export default function PlantDetail() {
             )}
             {tab === 'care' && (
               <div>{plant.advancedCare || 'No advanced care info.'}</div>
+            )}
+            {tab === 'timeline' && (
+              <ul className="relative border-l border-gray-300 pl-4 space-y-6">
+                {events.map((e, i) => (
+                  <li key={`${e.date}-${i}`} className="relative">
+                    <span
+                      className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
+                    ></span>
+                    <p className="text-xs text-gray-500">{e.date}</p>
+                    <p>{e.label}</p>
+                    {e.note && (
+                      <p className="text-xs text-gray-500 italic">{e.note}</p>
+                    )}
+                  </li>
+                ))}
+              </ul>
             )}
         </div>
       </div>
