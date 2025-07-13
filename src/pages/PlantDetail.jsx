@@ -6,7 +6,7 @@ import { formatMonth } from '../utils/date.js'
 
 export default function PlantDetail() {
   const { id } = useParams()
-  const { plants, addPhoto, removePhoto } = usePlants()
+  const { plants, addPhoto, removePhoto, markWatered, logEvent } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
 
   const sectionNames = ['activity', 'notes', 'care', 'timeline']
@@ -14,6 +14,7 @@ export default function PlantDetail() {
   const [openSection, setOpenSection] = useState('activity')
   const [showMore, setShowMore] = useState(false)
   const fileInputRef = useRef()
+  const [toast, setToast] = useState('')
 
   const events = useMemo(() => {
     if (!plant) return []
@@ -77,16 +78,50 @@ export default function PlantDetail() {
     }
   }
 
+  const showTempToast = msg => {
+    setToast(msg)
+    setTimeout(() => setToast(''), 800)
+  }
+
+  const handleWatered = () => {
+    markWatered(plant.id, '')
+    showTempToast('Watered')
+  }
+
+  const handleLogEvent = () => {
+    const note = window.prompt('Note') || ''
+    if (note) {
+      logEvent(plant.id, 'Note', note)
+      showTempToast('Logged')
+    }
+  }
+
   if (!plant) {
     return <div className="text-gray-700">Plant not found</div>
   }
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 relative">
+      {toast && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <svg
+            className="w-8 h-8 text-green-600 check-pop"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+        </div>
+      )}
+      <div aria-live="polite" className="sr-only">{toast}</div>
       <div className="space-y-4">
         <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-64 object-cover rounded-xl" />
         <div>
-          <h1 className="text-3xl font-bold">{plant.name}</h1>
+          <h1 className="text-3xl font-bold font-display">{plant.name}</h1>
           {plant.nickname && <p className="text-gray-500">{plant.nickname}</p>}
         </div>
 
@@ -96,6 +131,22 @@ export default function PlantDetail() {
           {plant.lastFertilized && (
             <p><strong>Last fertilized:</strong> {plant.lastFertilized}</p>
           )}
+        </div>
+        <div className="flex gap-2 mt-2">
+          <button
+            type="button"
+            onClick={handleWatered}
+            className="px-3 py-1 bg-green-600 text-white rounded"
+          >
+            Watered
+          </button>
+          <button
+            type="button"
+            onClick={handleLogEvent}
+            className="px-3 py-1 bg-blue-600 text-white rounded"
+          >
+            Add Note
+          </button>
         </div>
 
         <div className="flex flex-wrap gap-2 text-sm">
@@ -286,7 +337,7 @@ export default function PlantDetail() {
         </div>
       </div>
       <div className="space-y-2">
-        <h2 className="text-xl font-semibold">Gallery</h2>
+        <h2 className="text-xl font-semibold font-display">Gallery</h2>
         <div className="grid grid-cols-3 gap-2">
           {(plant.photos || []).map((src, i) => (
             <div key={i} className="relative">

@@ -8,6 +8,7 @@ export default function PlantCard({ plant }) {
   const { markWatered, removePlant } = usePlants()
   const startX = useRef(0)
   const [deltaX, setDeltaX] = useState(0)
+  const [showActions, setShowActions] = useState(false)
   const [, createRipple] = useRipple()
 
   const handleWatered = () => {
@@ -25,8 +26,9 @@ export default function PlantCard({ plant }) {
     setDeltaX(currentX - startX.current)
   }
 
-  const handlePointerEnd = () => {
-    const diff = deltaX
+  const handlePointerEnd = e => {
+    const currentX = e?.clientX ?? e?.changedTouches?.[0]?.clientX ?? startX.current
+    const diff = deltaX || (currentX - startX.current)
     setDeltaX(0)
     startX.current = 0
     if (diff > 75) {
@@ -41,22 +43,31 @@ export default function PlantCard({ plant }) {
   return (
     <div
       data-testid="card-wrapper"
-      onMouseDown={createRipple}
+      onMouseDown={e => { createRipple(e); handlePointerDown(e) }}
       onTouchStart={e => { createRipple(e); handlePointerDown(e) }}
-      className="relative overflow-hidden"
+      className="relative overflow-hidden group"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerEnd}
       onPointerCancel={handlePointerEnd}
+      onMouseMove={handlePointerMove}
+      onMouseUp={handlePointerEnd}
       onTouchMove={handlePointerMove}
       onTouchEnd={handlePointerEnd}
+      onClick={() => setShowActions(true)}
     >
-      <div className="absolute inset-0 flex justify-between items-center px-4 pointer-events-none">
+      <div
+        className={`absolute inset-0 flex justify-between items-center px-4 transition
+        pointer-events-none opacity-0
+        group-hover:opacity-100 group-hover:pointer-events-auto group-hover:animate-fade-in-up
+        group-focus-within:opacity-100 group-focus-within:pointer-events-auto group-focus-within:animate-fade-in-up
+        ${showActions ? 'opacity-100 pointer-events-auto animate-fade-in-up' : ''}`}
+      >
         <button
           onMouseDown={createRipple}
           onTouchStart={createRipple}
           onClick={handleWatered}
-          className="bg-green-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
         >
           Water
         </button>
@@ -85,7 +96,7 @@ export default function PlantCard({ plant }) {
       >
         <Link to={`/plant/${plant.id}`} className="block mb-2">
           <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-48 object-cover rounded-md" />
-          <h2 className="font-semibold text-xl mt-2">{plant.name}</h2>
+          <h2 className="font-semibold text-xl font-display mt-2">{plant.name}</h2>
         </Link>
         <p className="text-sm text-gray-600 dark:text-gray-400">Last watered: {plant.lastWatered}</p>
         <p className="text-sm text-green-700 font-medium">Next: {plant.nextWater}</p>

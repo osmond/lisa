@@ -35,8 +35,9 @@ export default function TaskItem({ task, onComplete }) {
     setDeltaX(currentX - startX.current)
   }
 
-  const handlePointerEnd = () => {
-    const diff = deltaX
+  const handlePointerEnd = e => {
+    const currentX = e?.clientX ?? e?.changedTouches?.[0]?.clientX ?? startX.current
+    const diff = deltaX || (currentX - startX.current)
     setDeltaX(0)
     startX.current = 0
     if (diff > 75) {
@@ -48,12 +49,14 @@ export default function TaskItem({ task, onComplete }) {
 
   return (
     <div
-      onMouseDown={createRipple}
+      onMouseDown={e => { createRipple(e); handlePointerDown(e) }}
       onTouchStart={e => { createRipple(e); handlePointerDown(e) }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerEnd}
       onPointerCancel={handlePointerEnd}
+      onMouseMove={handlePointerMove}
+      onMouseUp={handlePointerEnd}
       className="relative flex items-center gap-2 p-2 border rounded-lg bg-white dark:bg-gray-800 overflow-hidden"
       style={{ transform: `translateX(${deltaX}px)`, transition: deltaX === 0 ? 'transform 0.2s' : 'none' }}
     >

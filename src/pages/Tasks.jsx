@@ -17,12 +17,18 @@ export default function Tasks() {
           date,
           label: `Water ${p.name}`,
           type: 'task',
+          taskType: 'water',
           plantId: p.id,
           reason,
         })
       }
       if (p.nextFertilize) {
-        all.push({ date: p.nextFertilize, label: `Fertilize ${p.name}`, type: 'task' })
+        all.push({
+          date: p.nextFertilize,
+          label: `Fertilize ${p.name}`,
+          type: 'task',
+          taskType: 'fertilize',
+        })
       }
       ;(p.activity || []).forEach(a => {
         const m = a.match(/(\d{4}-\d{2}-\d{2})/)
@@ -34,6 +40,11 @@ export default function Tasks() {
     return all.sort((a, b) => new Date(a.date) - new Date(b.date))
   }, [plants, weather])
 
+  const colors = {
+    water: 'bg-blue-500',
+    fertilize: 'bg-orange-500',
+  }
+
   const today = new Date().toISOString().slice(0, 10)
 
   return (
@@ -41,11 +52,12 @@ export default function Tasks() {
       <ul className="relative border-l border-gray-300 pl-4 space-y-6">
         {events.map((e, i) => {
           const overdue = e.type === 'task' && e.date < today
+          const color = colors[e.taskType] || 'bg-green-500'
           return (
             <li key={i} className="relative animate-fade-in-up">
               <span
                 className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${
-                  overdue ? 'bg-red-500 animate-pulse' : 'bg-green-500'
+                  overdue ? 'bg-red-500 animate-pulse' : color
                 }`}
               ></span>
               <p className="text-xs text-gray-500">{e.date}</p>
