@@ -16,7 +16,7 @@ export default function App() {
   const location = useLocation()
   const nodeRef = useRef(null)
   return (
-    <div className="pb-16 p-4 font-sans overflow-hidden">{/* bottom padding for nav */}
+    <div className="pb-16 p-4 font-body overflow-hidden">{/* bottom padding for nav */}
 
       <SwitchTransition>
         <CSSTransition
