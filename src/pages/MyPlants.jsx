@@ -8,9 +8,9 @@ export default function MyPlants() {
   const [lightFilter, setLightFilter] = useState('All')
   const [urgencyFilter, setUrgencyFilter] = useState('All')
 
-  const rooms = [...new Set(plants.map(p => p.room))]
-  const lights = [...new Set(plants.map(p => p.light))]
-  const urgencies = [...new Set(plants.map(p => p.urgency))]
+  const rooms = [...new Set(plants.map(p => p.room).filter(Boolean))]
+  const lights = [...new Set(plants.map(p => p.light).filter(Boolean))]
+  const urgencies = [...new Set(plants.map(p => p.urgency).filter(Boolean))]
 
   const filtered = plants.filter(p =>
     (roomFilter === 'All' || p.room === roomFilter) &&
