@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import initialPlants from './plants.json'
+import useWeather from './useWeather.js'
+import { getNextWateringDate } from './utils/watering.js'
 
 const PlantContext = createContext()
 
@@ -18,6 +20,8 @@ export function PlantProvider({ children }) {
     return initialPlants.map(p => ({ ...p, gallery: p.gallery || [] }))
   })
 
+  const weather = useWeather()
+
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem('plants', JSON.stringify(plants))
@@ -28,12 +32,14 @@ export function PlantProvider({ children }) {
     setPlants(prev =>
       prev.map(p => {
         if (p.id === id) {
-          const today = new Date()
-          const todayStr = today.toISOString().slice(0, 10)
-          const next = new Date(today)
-          next.setDate(today.getDate() + 7)
-          const nextStr = next.toISOString().slice(0, 10)
-          return { ...p, lastWatered: todayStr, nextWater: nextStr }
+          const today = new Date().toISOString().slice(0, 10)
+          const { date: nextStr, reason } = getNextWateringDate(today, weather)
+          return {
+            ...p,
+            lastWatered: today,
+            nextWater: nextStr,
+            nextWaterReason: reason,
+          }
         }
         return p
       })

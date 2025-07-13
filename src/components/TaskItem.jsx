@@ -79,6 +79,9 @@ export default function TaskItem({ task, onComplete }) {
           <p className="font-medium">
             {task.type} {task.plantName}
           </p>
+          {task.reason && (
+            <p className="text-xs text-gray-500">{task.reason}</p>
+          )}
         </div>
         {Icon && <Icon />}
       </Link>
