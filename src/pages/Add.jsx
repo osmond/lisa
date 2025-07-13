@@ -20,7 +20,7 @@ export default function Add() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
-      <h1 className="text-xl font-bold">Add Plant</h1>
+      <h1 className="text-2xl font-bold">Add Plant</h1>
       <div className="grid gap-1">
         <label htmlFor="name" className="font-medium">Name</label>
         <input
