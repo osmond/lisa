@@ -1,4 +1,4 @@
-import TaskItem from '../components/TaskItem'
+import TaskCard from '../components/TaskCard.jsx'
 import { usePlants } from '../PlantContext.jsx'
 
 import { useWeather } from '../WeatherContext.jsx'
@@ -50,9 +50,9 @@ export default function Home() {
       </header>
       <section>
         <h2 className="font-semibold font-display mb-2">Today’s Tasks</h2>
-        <div className="space-y-2">
+        <div className="space-y-4">
           {tasks.length > 0 ? (
-            tasks.map(task => <TaskItem key={task.id} task={task} />)
+            tasks.map(task => <TaskCard key={task.id} task={task} />)
           ) : (
             <p className="text-sm text-gray-500">All plants are happy today!</p>
           )}
