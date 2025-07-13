@@ -85,7 +85,7 @@ export default function BottomNav() {
             `flex flex-col items-center text-xs transition-transform duration-150 ${isActive ? 'text-green-700 scale-110' : 'text-gray-500'}`
           }
         >
-          <Icon className="mb-1 transition-colors duration-150" />
+          <Icon className="mb-1 transition-colors duration-150" aria-hidden="true" />
           {label}
         </NavLink>
       ))}
