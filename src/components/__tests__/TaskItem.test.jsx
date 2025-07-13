@@ -35,6 +35,7 @@ test('icon svg is aria-hidden', () => {
 });
 
 test('mark as done does not navigate', () => {
+  jest.spyOn(window, 'prompt').mockReturnValue('')
   render(
     <PlantProvider>
       <MemoryRouter initialEntries={['/']}>

@@ -52,13 +52,14 @@ test('renders plant name', () => {
 })
 
 test('water button triggers watering', () => {
+  jest.spyOn(window, 'prompt').mockReturnValue('')
   render(
     <MemoryRouter>
       <PlantCard plant={plant} />
     </MemoryRouter>
   )
   fireEvent.click(screen.getByText('Water'))
-  expect(markWatered).toHaveBeenCalledWith(1)
+  expect(markWatered).toHaveBeenCalledWith(1, '')
 })
 
 test('edit button navigates to edit page', () => {

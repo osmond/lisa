@@ -17,9 +17,14 @@ const samplePlants = [
   },
 ]
 
+let mockPlants = samplePlants
 jest.mock('../../PlantContext.jsx', () => ({
-  usePlants: () => ({ plants: samplePlants }),
+  usePlants: () => ({ plants: mockPlants }),
 }))
+
+beforeEach(() => {
+  mockPlants = samplePlants
+})
 
 test('ignores activities without valid dates when generating events', () => {
   render(<Timeline />)
@@ -32,4 +37,20 @@ test('ignores activities without valid dates when generating events', () => {
   expect(items[1]).toHaveTextContent('Plant B: Watered on 2025-07-09')
   expect(items[2]).toHaveTextContent('Watered Plant B')
   expect(items[3]).toHaveTextContent('Watered Plant A')
+})
+
+test('renders care log notes', () => {
+  mockPlants = [
+    {
+      id: 1,
+      name: 'Plant A',
+      careLog: [
+        { date: '2025-07-02', type: 'Watered', note: 'deep soak' },
+      ],
+    },
+  ]
+
+  render(<Timeline />)
+  expect(screen.getByText('Watered Plant A')).toBeInTheDocument()
+  expect(screen.getByText('deep soak')).toBeInTheDocument()
 })

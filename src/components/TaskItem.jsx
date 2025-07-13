@@ -63,7 +63,8 @@ export default function TaskItem({ task, onComplete }) {
     if (onComplete) {
       onComplete(task)
     } else if (task.type === 'Water') {
-      markWatered(task.plantId)
+      const note = window.prompt('Optional note') || ''
+      markWatered(task.plantId, note)
     }
   }
 
