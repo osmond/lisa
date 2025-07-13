@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState, useRef, useMemo } from 'react'
 import { usePlants } from '../PlantContext.jsx'
+import actionIcons from '../components/ActionIcons.jsx'
 
 export default function PlantDetail() {
   const { id } = useParams()
@@ -166,18 +167,24 @@ export default function PlantDetail() {
             )}
             {tab === 'timeline' && (
               <ul className="relative border-l border-gray-300 pl-4 space-y-6">
-                {events.map((e, i) => (
-                  <li key={`${e.date}-${i}`} className="relative">
-                    <span
-                      className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
-                    ></span>
-                    <p className="text-xs text-gray-500">{e.date}</p>
-                    <p>{e.label}</p>
-                    {e.note && (
-                      <p className="text-xs text-gray-500 italic">{e.note}</p>
-                    )}
-                  </li>
-                ))}
+                {events.map((e, i) => {
+                  const Icon = actionIcons[e.type]
+                  return (
+                    <li key={`${e.date}-${i}`} className="relative">
+                      <span
+                        className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
+                      ></span>
+                      <p className="text-xs text-gray-500">{e.date}</p>
+                      <p className="flex items-center gap-1">
+                        {Icon && <Icon />}
+                        {e.label}
+                      </p>
+                      {e.note && (
+                        <p className="text-xs text-gray-500 italic">{e.note}</p>
+                      )}
+                    </li>
+                  )
+                })}
               </ul>
             )}
         </div>
