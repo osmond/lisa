@@ -1,15 +1,26 @@
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useState, useRef } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 
 export default function PlantDetail() {
   const { id } = useParams()
-  const { plants } = usePlants()
+  const { plants, addPhoto, removePhoto } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
 
   const tabNames = ['activity', 'notes', 'care']
   const tabRefs = useRef([])
   const [tab, setTab] = useState('activity')
+  const fileInputRef = useRef()
+
+  const handleFiles = e => {
+    const files = Array.from(e.target.files || [])
+    files.forEach(file => {
+      const reader = new FileReader()
+      reader.onload = ev => addPhoto(plant.id, ev.target.result)
+      reader.readAsDataURL(file)
+    })
+    e.target.value = ''
+  }
 
   const handleKeyDown = (e, index) => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
@@ -46,6 +57,15 @@ export default function PlantDetail() {
           {plant.light && <p><strong>Light:</strong> {plant.light}</p>}
           {plant.humidity && <p><strong>Humidity:</strong> {plant.humidity}</p>}
           {plant.difficulty && <p><strong>Difficulty:</strong> {plant.difficulty}</p>}
+        </div>
+
+        <div>
+          <Link
+            to={`/plant/${plant.id}/gallery`}
+            className="text-green-600 underline"
+          >
+            View Gallery
+          </Link>
         </div>
 
         <div>
@@ -98,9 +118,44 @@ export default function PlantDetail() {
             {tab === 'care' && (
               <div>{plant.advancedCare || 'No advanced care info.'}</div>
             )}
-          </div>
         </div>
       </div>
+      <div className="space-y-2">
+        <h2 className="text-lg font-semibold">Gallery</h2>
+        <div className="grid grid-cols-3 gap-2">
+          {(plant.gallery || []).map((src, i) => (
+            <div key={i} className="relative">
+              <img
+                src={src}
+                alt={`${plant.name} ${i}`}
+                className="object-cover w-full h-24 rounded"
+              />
+              <button
+                className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
+                onClick={() => removePhoto(plant.id, i)}
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={() => fileInputRef.current.click()}
+          className="mt-2 px-3 py-1 bg-green-600 text-white rounded"
+        >
+          Add Photo
+        </button>
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          ref={fileInputRef}
+          onChange={handleFiles}
+          className="hidden"
+        />
+      </div>
     </div>
-  )
+  </div>
+)
 }
