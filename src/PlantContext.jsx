@@ -10,6 +10,7 @@ export function PlantProvider({ children }) {
     if (!url) return url
     if (/^https?:/.test(url) || url.startsWith('data:')) return url
     const base = (process.env.VITE_BASE_PATH || '/').replace(/\/$/, '')
+    if (url.startsWith(base)) return url
     return `${base}${url.startsWith('/') ? '' : '/'}${url}`
   }
 
