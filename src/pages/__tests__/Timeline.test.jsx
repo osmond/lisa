@@ -60,3 +60,17 @@ test('renders an icon for events', () => {
   const svg = container.querySelector('svg[aria-hidden="true"]')
   expect(svg).toBeInTheDocument()
 })
+
+test('displays month headers when events span months', () => {
+  mockPlants = [
+    { id: 1, name: 'A', lastWatered: '2025-07-01' },
+    { id: 2, name: 'B', lastWatered: '2025-08-02' },
+  ]
+
+  render(<Timeline />)
+
+  const headings = screen.getAllByRole('heading', { level: 3 })
+  expect(headings).toHaveLength(2)
+  expect(headings[0]).toHaveTextContent('July 2025')
+  expect(headings[1]).toHaveTextContent('August 2025')
+})

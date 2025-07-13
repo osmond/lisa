@@ -1,6 +1,7 @@
 import { usePlants } from '../PlantContext.jsx'
 import { useMemo } from 'react'
 import actionIcons from '../components/ActionIcons.jsx'
+import { formatMonth } from '../utils/date.js'
 
 export default function Timeline() {
   const { plants } = usePlants()
@@ -44,6 +45,16 @@ export default function Timeline() {
     return all.sort((a, b) => new Date(a.date) - new Date(b.date))
   }, [plants])
 
+  const groupedEvents = useMemo(() => {
+    const map = new Map()
+    events.forEach(e => {
+      const key = e.date.slice(0, 7)
+      if (!map.has(key)) map.set(key, [])
+      map.get(key).push(e)
+    })
+    return Array.from(map.entries())
+  }, [events])
+
   const colors = {
     water: 'bg-blue-500',
     fertilize: 'bg-yellow-500',
@@ -53,26 +64,33 @@ export default function Timeline() {
 
   return (
     <div className="overflow-y-auto max-h-full p-4 text-gray-700 dark:text-gray-200">
-      <ul className="relative border-l border-gray-300 pl-4 space-y-6">
-        {events.map((e, i) => {
-          const Icon = actionIcons[e.type]
-          return (
-            <li key={`${e.date}-${e.label}-${i}`} className="relative">
-              <span
-                className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
-              ></span>
-              <p className="text-xs text-gray-500">{e.date}</p>
-              <p className="flex items-center gap-1">
-                {Icon && <Icon />}
-                {e.label}
-              </p>
-              {e.note && (
-                <p className="text-xs text-gray-500 italic">{e.note}</p>
-              )}
-            </li>
-          )
-        })}
-      </ul>
+      {groupedEvents.map(([monthKey, list]) => (
+        <div key={monthKey}>
+          <h3 className="mt-4 text-sm font-semibold text-gray-500">
+            {formatMonth(monthKey)}
+          </h3>
+          <ul className="relative border-l border-gray-300 pl-4 space-y-6">
+            {list.map((e, i) => {
+              const Icon = actionIcons[e.type]
+              return (
+                <li key={`${e.date}-${e.label}-${i}`} className="relative">
+                  <span
+                    className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
+                  ></span>
+                  <p className="text-xs text-gray-500">{e.date}</p>
+                  <p className="flex items-center gap-1">
+                    {Icon && <Icon />}
+                    {e.label}
+                  </p>
+                  {e.note && (
+                    <p className="text-xs text-gray-500 italic">{e.note}</p>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      ))}
     </div>
   )
 }
