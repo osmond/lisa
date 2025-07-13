@@ -8,6 +8,7 @@ import Settings from './pages/Settings'
 import PlantDetail from './pages/PlantDetail'
 import Gallery from './pages/Gallery'
 import BottomNav from './components/BottomNav'
+import NotFound from './pages/NotFound'
 
 export default function App() {
   return (
@@ -21,7 +22,11 @@ export default function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/plant/:id" element={<PlantDetail />} />
+
+        <Route path="*" element={<NotFound />} />
+
         <Route path="/plant/:id/gallery" element={<Gallery />} />
+
       </Routes>
 
 
