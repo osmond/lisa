@@ -6,18 +6,18 @@ import Lightbox from '../components/Lightbox.jsx'
 
 export function AllGallery() {
   const { plants } = usePlants()
-  const images = plants.map(p => p.image)
+  const galleryItems = plants.map(p => ({ src: p.image, name: p.name }))
   const [index, setIndex] = useState(null)
 
   return (
     <div>
       <h1 className="text-xl font-bold mb-4">Gallery</h1>
       <div className="grid grid-cols-3 gap-2">
-        {images.map((src, i) => (
+        {galleryItems.map(({ src, name }, i) => (
           <button key={i} onClick={() => setIndex(i)} className="focus:outline-none">
             <img
               src={src}
-              alt={`Plant ${i + 1}`}
+              alt={name}
               loading="lazy"
               className="w-full h-32 object-cover rounded"
             />
@@ -25,7 +25,12 @@ export function AllGallery() {
         ))}
       </div>
       {index !== null && (
-        <Lightbox images={images} startIndex={index} onClose={() => setIndex(null)} />
+        <Lightbox
+          images={galleryItems.map(i => i.src)}
+          descriptions={galleryItems.map(i => i.name)}
+          startIndex={index}
+          onClose={() => setIndex(null)}
+        />
       )}
     </div>
   )

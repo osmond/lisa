@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export default function Lightbox({ images, startIndex = 0, onClose }) {
+export default function Lightbox({ images, descriptions = [], startIndex = 0, onClose }) {
   const [index, setIndex] = useState(startIndex)
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function Lightbox({ images, startIndex = 0, onClose }) {
       </button>
       <img
         src={images[index]}
-        alt="Gallery image"
+        alt={descriptions[index] || 'Gallery image'}
         className="max-w-full max-h-full object-contain"
       />
       <button
