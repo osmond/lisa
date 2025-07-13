@@ -1,15 +1,15 @@
 import TaskItem from '../components/TaskItem'
 import { usePlants } from '../PlantContext.jsx'
 
-import useWeather from '../useWeather.js'
+import useWeatherData from '../useWeather.js'
 import { getNextWateringDate } from '../utils/watering.js'
 
-import { useWeather } from '../WeatherContext.jsx'
+import { useWeather as useForecast } from '../WeatherContext.jsx'
 
 
 export default function Home() {
   const { plants } = usePlants()
-  const weather = useWeather()
+  const weatherData = useWeatherData()
 
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
@@ -21,7 +21,7 @@ export default function Home() {
   // placeholder display for weather info
   const weatherDisplay = { temp: '72°F', condition: 'Sunny' }
 
-  const { forecast: weather } = useWeather()
+  const { forecast } = useForecast()
 
 
   return (
@@ -33,7 +33,7 @@ export default function Home() {
 
             {weatherDisplay.temp} - {weatherDisplay.condition}
 
-            {weather ? `${weather.temp} - ${weather.condition}` : 'Loading...'}
+            {forecast ? `${forecast.temp} - ${forecast.condition}` : 'Loading...'}
 
           </p>
         </div>
@@ -43,7 +43,7 @@ export default function Home() {
         <div className="space-y-2">
           {plants
             .map(p => {
-              const { date, reason } = getNextWateringDate(p.lastWatered, weather)
+              const { date, reason } = getNextWateringDate(p.lastWatered, weatherData)
               const todayIso = new Date().toISOString().slice(0, 10)
               if (date <= todayIso) {
                 return {
