@@ -105,7 +105,7 @@
     "id": 5,
     "name": "ZZ Plant",
     "nickname": "Zenzi",
-    "image": "/demo-image-05.jpg",
+    "image": "/demo-image-01.jpg",
     "photos": [
       "/demo-image-05.jpg",
       "/demo-image-06.jpg",
@@ -130,7 +130,7 @@
     "id": 6,
     "name": "Aloe Vera",
     "nickname": "Medic",
-    "image": "/demo-image-06.jpg",
+    "image": "/demo-image-2.jpg",
     "photos": [
       "/demo-image-06.jpg",
       "/demo-image-07.jpg",
@@ -230,7 +230,7 @@
     "id": 10,
     "name": "Chinese Evergreen",
     "nickname": "Aglaonema",
-    "image": "/demo-image-10.jpg",
+    "image": "/demo-image-09.jpg",
     "photos": [
       "/demo-image-10.jpg",
       "/demo-image-01.jpg",
