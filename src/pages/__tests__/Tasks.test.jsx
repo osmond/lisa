@@ -20,9 +20,8 @@ jest.mock('../../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: samplePlants }),
 }))
 
-jest.mock('../../useWeather.js', () => ({
-  __esModule: true,
-  default: () => ({ rainTomorrow: 0, eto: 0 }),
+jest.mock('../../WeatherContext.jsx', () => ({
+  useWeather: () => ({ forecast: { rainfall: 0 } }),
 }))
 
 test('ignores activities without valid dates when generating events', () => {
