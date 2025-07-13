@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import MyPlants from './pages/MyPlants'
 import Tasks from './pages/Tasks'
 import Add from './pages/Add'
+import Gallery from './pages/Gallery'
 import Settings from './pages/Settings'
 import PlantDetail from './pages/PlantDetail'
 import Gallery from './pages/Gallery'
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/myplants" element={<MyPlants />} />
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/add" element={<Add />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/plant/:id" element={<PlantDetail />} />
         <Route path="/plant/:id/gallery" element={<Gallery />} />
