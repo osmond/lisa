@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import initialPlants from './plants.json'
-import useWeather from './useWeather.js'
+import { useWeather } from './WeatherContext.jsx'
 import { getNextWateringDate } from './utils/watering.js'
 
 const PlantContext = createContext()
@@ -26,7 +26,8 @@ export function PlantProvider({ children }) {
     return initialPlants.map(mapPlant)
   })
 
-  const weather = useWeather()
+  const weatherCtx = useWeather()
+  const weather = { rainTomorrow: weatherCtx?.forecast?.rainfall || 0 }
 
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {

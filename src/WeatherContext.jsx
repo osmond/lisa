@@ -6,7 +6,7 @@ export function WeatherProvider({ children }) {
   const [forecast, setForecast] = useState(null)
 
   useEffect(() => {
-    const key = import.meta.env.VITE_WEATHER_API_KEY
+    const key = process.env.VITE_WEATHER_API_KEY
     if (!key) return
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=London&units=metric&appid=${key}`
     fetch(url)

@@ -1,11 +1,12 @@
 import { useMemo } from 'react'
 import { usePlants } from '../PlantContext.jsx'
-import useWeather from '../useWeather.js'
+import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
 
 export default function Tasks() {
   const { plants } = usePlants()
-  const weather = useWeather()
+  const weatherCtx = useWeather()
+  const weather = { rainTomorrow: weatherCtx?.forecast?.rainfall || 0 }
 
   const events = useMemo(() => {
     const all = []

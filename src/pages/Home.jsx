@@ -1,15 +1,15 @@
 import TaskItem from '../components/TaskItem'
 import { usePlants } from '../PlantContext.jsx'
 
-import useWeather from '../useWeather.js'
+import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
-
-import { useWeather as useWeatherContext } from '../WeatherContext.jsx'
 
 
 export default function Home() {
   const { plants } = usePlants()
-  const weatherData = useWeather()
+  const weatherCtx = useWeather()
+  const forecast = weatherCtx?.forecast
+  const weatherData = { rainTomorrow: forecast?.rainfall || 0 }
 
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
@@ -21,8 +21,6 @@ export default function Home() {
   // placeholder display for weather info
   const weatherDisplay = { temp: '72°F', condition: 'Sunny' }
 
-  const forecastData = useWeatherContext()
-
 
   return (
     <div className="space-y-4">
@@ -33,8 +31,8 @@ export default function Home() {
 
             {weatherDisplay.temp} - {weatherDisplay.condition}
 
-            {forecastData.forecast
-              ? `${forecastData.forecast.temp} - ${forecastData.forecast.condition}`
+            {forecast
+              ? `${forecast.temp} - ${forecast.condition}`
               : 'Loading...'}
 
           </p>
