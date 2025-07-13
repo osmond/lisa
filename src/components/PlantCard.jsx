@@ -97,11 +97,11 @@ export default function PlantCard({ plant }) {
         </div>
       </div>
       <div
-        className="p-4 border rounded-xl shadow-sm bg-white dark:bg-gray-800"
+        className="p-4 border rounded-2xl shadow-sm bg-white dark:bg-gray-800"
         style={{ transform: `translateX(${deltaX}px)`, transition: deltaX === 0 ? 'transform 0.2s' : 'none' }}
       >
         <Link to={`/plant/${plant.id}`} className="block mb-2">
-          <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-48 object-cover rounded-md" />
+          <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-48 object-cover rounded-xl" />
           <h2 className="font-semibold text-xl font-display mt-2">{plant.name}</h2>
         </Link>
         <p className="text-sm text-gray-600 dark:text-gray-400">Last watered: {plant.lastWatered}</p>
