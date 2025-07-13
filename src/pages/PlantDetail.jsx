@@ -11,6 +11,7 @@ export default function PlantDetail() {
   const tabNames = ['activity', 'notes', 'care', 'timeline']
   const tabRefs = useRef([])
   const [tab, setTab] = useState('activity')
+  const [showMore, setShowMore] = useState(false)
   const fileInputRef = useRef()
 
   const events = useMemo(() => {
@@ -86,10 +87,22 @@ export default function PlantDetail() {
           )}
         </div>
 
-        <div className="grid gap-1 text-sm">
-          {plant.light && <p><strong>Light:</strong> {plant.light}</p>}
-          {plant.humidity && <p><strong>Humidity:</strong> {plant.humidity}</p>}
-          {plant.difficulty && <p><strong>Difficulty:</strong> {plant.difficulty}</p>}
+        <div className="flex flex-wrap gap-2 text-sm">
+          {plant.light && (
+            <span className="px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">
+              {plant.light}
+            </span>
+          )}
+          {plant.humidity && (
+            <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
+              {plant.humidity}
+            </span>
+          )}
+          {plant.difficulty && (
+            <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-800">
+              {plant.difficulty}
+            </span>
+          )}
         </div>
 
         <div>
@@ -160,7 +173,22 @@ export default function PlantDetail() {
               </ul>
             )}
             {tab === 'notes' && (
-              <div>{plant.notes || 'No notes yet.'}</div>
+              <div>
+                {plant.notes
+                  ? showMore
+                    ? plant.notes
+                    : plant.notes.slice(0, 160)
+                : 'No notes yet.'}
+                {plant.notes && plant.notes.length > 160 && (
+                  <button
+                    type="button"
+                    onClick={() => setShowMore(!showMore)}
+                    className="ml-2 text-green-600 underline"
+                  >
+                    {showMore ? 'Show less' : 'Show more'}
+                  </button>
+                )}
+              </div>
             )}
             {tab === 'care' && (
               <div>{plant.advancedCare || 'No advanced care info.'}</div>
