@@ -1,10 +1,28 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import initialPlants from './plants.json'
 
 const PlantContext = createContext()
 
 export function PlantProvider({ children }) {
-  const [plants, setPlants] = useState(initialPlants)
+  const [plants, setPlants] = useState(() => {
+    if (typeof localStorage !== 'undefined') {
+      const stored = localStorage.getItem('plants')
+      if (stored) {
+        try {
+          return JSON.parse(stored)
+        } catch {
+          // fall through to initial plants
+        }
+      }
+    }
+    return initialPlants.map(p => ({ ...p, gallery: p.gallery || [] }))
+  })
+
+  useEffect(() => {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('plants', JSON.stringify(plants))
+    }
+  }, [plants])
 
   const markWatered = id => {
     setPlants(prev =>
@@ -25,12 +43,36 @@ export function PlantProvider({ children }) {
   const addPlant = plant => {
     setPlants(prev => {
       const nextId = prev.reduce((m, p) => Math.max(m, p.id), 0) + 1
-      return [...prev, { id: nextId, ...plant }]
+      return [...prev, { id: nextId, ...plant, gallery: [] }]
     })
   }
 
+  const addPhoto = (id, url) => {
+    setPlants(prev =>
+      prev.map(p =>
+        p.id === id
+          ? { ...p, gallery: [...(p.gallery || []), url] }
+          : p
+      )
+    )
+  }
+
+  const removePhoto = (id, index) => {
+    setPlants(prev =>
+      prev.map(p => {
+        if (p.id === id) {
+          const updated = (p.gallery || []).filter((_, i) => i !== index)
+          return { ...p, gallery: updated }
+        }
+        return p
+      })
+    )
+  }
+
   return (
-    <PlantContext.Provider value={{ plants, markWatered, addPlant }}>
+    <PlantContext.Provider
+      value={{ plants, markWatered, addPlant, addPhoto, removePhoto }}
+    >
       {children}
     </PlantContext.Provider>
   )
