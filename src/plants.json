@@ -3,24 +3,25 @@
     "id": 1,
     "name": "Monstera",
     "nickname": "Swiss Cheese",
-    "image": "/demo-image-01.jpg",
+    "image": "/demo-image-06.jpg",
     "photos": [
-      "/demo-image-01.jpg",
-      "/demo-image-02.jpg",
-      "/demo-image-03.jpg"
+      "/demo-image-06.jpg",
+      "/demo-image-07.jpg",
+      "/demo-image-14.jpg"
     ],
-    "lastWatered": "2025-07-07",
-    "nextWater": "2025-07-14",
-    "lastFertilized": "2025-07-01",
-    "nextFertilize": "2025-08-01",
+    "lastWatered": "2025-07-06",
+    "nextWater": "2025-07-19",
+    "lastFertilized": "2025-05-30",
+    "nextFertilize": "2025-08-12",
     "room": "Living Room",
-    "urgency": "high",
+    "urgency": "overdue",
     "light": "Bright indirect",
     "humidity": "High",
     "difficulty": "Easy",
     "activity": [
-      "Watered on 2025-07-07",
-      "Rotated on 2025-07-05"
+      "Trimmed on 2025-07-06",
+      "Watered on 2025-07-03",
+      "Removed dead leaves on 2025-07-09"
     ],
     "notes": "Doing well",
     "advancedCare": "Propagate in water"
@@ -29,40 +30,41 @@
     "id": 2,
     "name": "Snake Plant",
     "nickname": "Mother-in-Law's Tongue",
-    "image": "/demo-image-02.jpg",
+    "image": "/demo-image-12.jpg",
     "photos": [
-      "/demo-image-02.jpg",
-      "/demo-image-03.jpg",
-      "/demo-image-04.jpg"
+      "/demo-image-12.jpg",
+      "/demo-image-07.jpg",
+      "/demo-image-05.jpg"
     ],
-    "lastWatered": "2025-07-10",
-    "nextWater": "2025-07-17",
+    "lastWatered": "2025-07-02",
+    "nextWater": "2025-07-19",
     "lastFertilized": "2025-06-15",
-    "nextFertilize": "2025-07-15",
+    "nextFertilize": "2025-07-24",
     "room": "Bedroom",
-    "urgency": "low",
+    "urgency": "high",
     "light": "Low to bright indirect",
     "humidity": "Average",
     "difficulty": "Easy",
     "activity": [
-      "Watered on 2025-07-10"
+      "Trained vine on 2025-06-30",
+      "Removed dead leaves on 2025-07-04"
     ],
-    "notes": "Prefers dry soil",
+    "notes": "",
     "advancedCare": "Allow soil to dry between waterings"
   },
   {
     "id": 3,
     "name": "Fiddle Leaf Fig",
     "nickname": "Fiddle",
-    "image": "/demo-image-03.jpg",
+    "image": "/demo-image-10.jpg",
     "photos": [
+      "/demo-image-10.jpg",
       "/demo-image-03.jpg",
-      "/demo-image-04.jpg",
-      "/demo-image-05.jpg"
+      "/demo-image-08.jpg"
     ],
-    "lastWatered": "2025-07-09",
-    "nextWater": "2025-07-16",
-    "lastFertilized": "2025-06-25",
+    "lastWatered": "2025-07-11",
+    "nextWater": "2025-07-20",
+    "lastFertilized": "2025-06-21",
     "nextFertilize": "2025-07-25",
     "room": "Office",
     "urgency": "medium",
@@ -70,7 +72,8 @@
     "humidity": "Moderate",
     "difficulty": "Medium",
     "activity": [
-      "Wiped leaves on 2025-07-08"
+      "Cleaned leaves on 2025-06-30",
+      "Rotated on 2025-07-07"
     ],
     "notes": "Rotate regularly",
     "advancedCare": "Sensitive to drafts"
@@ -79,24 +82,24 @@
     "id": 4,
     "name": "Peace Lily",
     "nickname": "Lily",
-    "image": "/demo-image-04.jpg",
+    "image": "/demo-image-12.jpg",
     "photos": [
-      "/demo-image-04.jpg",
-      "/demo-image-05.jpg",
-      "/demo-image-06.jpg"
+      "/demo-image-12.jpg",
+      "/demo-image-03.jpg",
+      "/demo-image-04.jpg"
     ],
-    "lastWatered": "2025-07-11",
-    "nextWater": "2025-07-15",
-    "lastFertilized": "2025-07-01",
-    "nextFertilize": "2025-08-01",
+    "lastWatered": "2025-07-07",
+    "nextWater": "2025-07-20",
+    "lastFertilized": "2025-06-17",
+    "nextFertilize": "2025-07-28",
     "room": "Bathroom",
-    "urgency": "high",
+    "urgency": "low",
     "light": "Low to medium",
     "humidity": "High",
     "difficulty": "Easy",
     "activity": [
-      "Watered on 2025-07-11",
-      "Removed dead leaves on 2025-07-09"
+      "Dusting on 2025-06-29",
+      "Misted on 2025-07-09"
     ],
     "notes": "Likes humidity",
     "advancedCare": "Clean blooms gently"
@@ -105,48 +108,47 @@
     "id": 5,
     "name": "ZZ Plant",
     "nickname": "Zenzi",
-    "image": "/demo-image-08.jpg",
+    "image": "/demo-image-15.jpg",
     "photos": [
-      "/demo-image-05.jpg",
-      "/demo-image-06.jpg",
-      "/demo-image-07.jpg"
+      "/demo-image-15.jpg",
+      "/demo-image-07.jpg",
+      "/demo-image-02.jpg"
     ],
-    "lastWatered": "2025-07-01",
-    "nextWater": "2025-07-20",
-    "lastFertilized": "2025-05-30",
-    "nextFertilize": "2025-07-30",
+    "lastWatered": "2025-07-04",
+    "nextWater": "2025-07-18",
+    "lastFertilized": "2025-06-19",
+    "nextFertilize": "2025-07-21",
     "room": "Hallway",
-    "urgency": "low",
+    "urgency": "medium",
     "light": "Low light",
     "humidity": "Average",
     "difficulty": "Very Easy",
-    "activity": [
-      "Dusting on 2025-06-29"
-    ],
-    "notes": "Tolerates neglect",
+    "activity": [],
+    "notes": "",
     "advancedCare": "Avoid overwatering"
   },
   {
     "id": 6,
     "name": "Aloe Vera",
     "nickname": "Medic",
-    "image": "/demo-image-02.jpg",
+    "image": "/demo-image-15.jpg",
     "photos": [
-      "/demo-image-06.jpg",
-      "/demo-image-07.jpg",
-      "/demo-image-08.jpg"
+      "/demo-image-15.jpg",
+      "/demo-image-02.jpg",
+      "/demo-image-13.jpg"
     ],
-    "lastWatered": "2025-07-02",
-    "nextWater": "2025-07-16",
-    "lastFertilized": "2025-06-01",
-    "nextFertilize": "2025-08-01",
+    "lastWatered": "2025-07-01",
+    "nextWater": "2025-07-22",
+    "lastFertilized": "2025-06-23",
+    "nextFertilize": "2025-08-02",
     "room": "Kitchen",
     "urgency": "medium",
     "light": "Full sun",
     "humidity": "Low",
     "difficulty": "Easy",
     "activity": [
-      "Trimmed on 2025-07-01"
+      "Watered on 2025-07-10",
+      "Misted on 2025-07-05"
     ],
     "notes": "Useful for burns",
     "advancedCare": "Use cactus soil"
@@ -155,23 +157,23 @@
     "id": 7,
     "name": "Pothos",
     "nickname": "Devil's Ivy",
-    "image": "/demo-image-07.jpg",
+    "image": "/demo-image-12.jpg",
     "photos": [
-      "/demo-image-07.jpg",
-      "/demo-image-08.jpg",
-      "/demo-image-09.jpg"
+      "/demo-image-12.jpg",
+      "/demo-image-10.jpg",
+      "/demo-image-05.jpg"
     ],
-    "lastWatered": "2025-07-06",
-    "nextWater": "2025-07-13",
-    "lastFertilized": "2025-06-20",
-    "nextFertilize": "2025-07-20",
+    "lastWatered": "2025-07-04",
+    "nextWater": "2025-07-21",
+    "lastFertilized": "2025-06-23",
+    "nextFertilize": "2025-08-12",
     "room": "Living Room",
-    "urgency": "medium",
+    "urgency": "low",
     "light": "Low to bright indirect",
     "humidity": "Average",
     "difficulty": "Very Easy",
     "activity": [
-      "Trained vine on 2025-07-04"
+      "Removed dead leaves on 2025-07-04"
     ],
     "notes": "Great for beginners",
     "advancedCare": "Propagate in water"
@@ -180,23 +182,24 @@
     "id": 8,
     "name": "Calathea Orbifolia",
     "nickname": "Prayer Plant",
-    "image": "/demo-image-08.jpg",
+    "image": "/demo-image-14.jpg",
     "photos": [
-      "/demo-image-08.jpg",
-      "/demo-image-09.jpg",
-      "/demo-image-10.jpg"
+      "/demo-image-14.jpg",
+      "/demo-image-03.jpg",
+      "/demo-image-01.jpg"
     ],
-    "lastWatered": "2025-07-08",
-    "nextWater": "2025-07-12",
-    "lastFertilized": "2025-06-25",
-    "nextFertilize": "2025-07-25",
+    "lastWatered": "2025-07-10",
+    "nextWater": "2025-07-20",
+    "lastFertilized": "2025-06-17",
+    "nextFertilize": "2025-08-03",
     "room": "Bedroom",
-    "urgency": "high",
+    "urgency": "overdue",
     "light": "Low to medium",
     "humidity": "Very high",
     "difficulty": "Medium",
     "activity": [
-      "Misted on 2025-07-08"
+      "Trained vine on 2025-06-29",
+      "Checked soil moisture on 2025-07-01"
     ],
     "notes": "Keep soil moist",
     "advancedCare": "Loves filtered water"
@@ -205,48 +208,50 @@
     "id": 9,
     "name": "Rubber Plant",
     "nickname": "Ficus Elastica",
-    "image": "/demo-image-05.jpg",
+    "image": "/demo-image-14.jpg",
     "photos": [
-      "/demo-image-09.jpg",
-      "/demo-image-10.jpg",
-      "/demo-image-01.jpg"
+      "/demo-image-14.jpg",
+      "/demo-image-07.jpg",
+      "/demo-image-13.jpg"
     ],
-    "lastWatered": "2025-07-05",
-    "nextWater": "2025-07-12",
-    "lastFertilized": "2025-06-20",
-    "nextFertilize": "2025-07-20",
+    "lastWatered": "2025-07-07",
+    "nextWater": "2025-07-21",
+    "lastFertilized": "2025-05-30",
+    "nextFertilize": "2025-07-30",
     "room": "Office",
     "urgency": "medium",
     "light": "Bright indirect",
     "humidity": "Moderate",
     "difficulty": "Medium",
     "activity": [
-      "Cleaned leaves on 2025-07-05"
+      "Cleaned leaves on 2025-06-29"
     ],
-    "notes": "Avoid sudden moves",
+    "notes": "",
     "advancedCare": "Top dress with compost"
   },
   {
     "id": 10,
     "name": "Chinese Evergreen",
     "nickname": "Aglaonema",
-    "image": "/demo-image-09.jpg",
+    "image": "/demo-image-06.jpg",
     "photos": [
-      "/demo-image-10.jpg",
-      "/demo-image-01.jpg",
-      "/demo-image-02.jpg"
+      "/demo-image-06.jpg",
+      "/demo-image-09.jpg",
+      "/demo-image-10.jpg"
     ],
-    "lastWatered": "2025-07-04",
-    "nextWater": "2025-07-11",
-    "lastFertilized": "2025-06-15",
-    "nextFertilize": "2025-07-15",
+    "lastWatered": "2025-07-10",
+    "nextWater": "2025-07-19",
+    "lastFertilized": "2025-05-31",
+    "nextFertilize": "2025-07-31",
     "room": "Dining Room",
-    "urgency": "low",
+    "urgency": "high",
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
     "activity": [
-      "Checked soil moisture on 2025-07-03"
+      "Removed dead leaves on 2025-07-13",
+      "Fertilized on 2025-07-11",
+      "Trimmed on 2025-07-03"
     ],
     "notes": "Tolerates low light well",
     "advancedCare": "Rotate monthly for even growth"
