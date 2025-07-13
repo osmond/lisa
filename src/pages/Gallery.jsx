@@ -5,8 +5,13 @@ import { usePlants } from '../PlantContext.jsx'
 import Lightbox from '../components/Lightbox.jsx'
 
 export function AllGallery() {
+
+  const { plants } = usePlants()
+  const galleryItems = plants.map(p => ({ src: p.image, name: p.name }))
+
   const { plants, addPhoto } = usePlants()
   const images = plants.flatMap(p => [p.image, ...(p.gallery || [])])
+
   const [index, setIndex] = useState(null)
   const [selected, setSelected] = useState(plants[0]?.id || '')
   const fileInputRef = useRef()
@@ -24,12 +29,17 @@ export function AllGallery() {
   return (
     <div>
       <h1 className="text-xl font-bold mb-4">Gallery</h1>
+
+      <div className="grid grid-cols-3 gap-2">
+        {galleryItems.map(({ src, name }, i) => (
+
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
         {images.map((src, i) => (
+
           <button key={i} onClick={() => setIndex(i)} className="focus:outline-none">
             <img
               src={src}
-              alt={`Plant ${i + 1}`}
+              alt={name}
               loading="lazy"
               className="w-full h-32 object-cover rounded"
             />
@@ -37,7 +47,12 @@ export function AllGallery() {
         ))}
       </div>
       {index !== null && (
-        <Lightbox images={images} startIndex={index} onClose={() => setIndex(null)} />
+        <Lightbox
+          images={galleryItems.map(i => i.src)}
+          descriptions={galleryItems.map(i => i.name)}
+          startIndex={index}
+          onClose={() => setIndex(null)}
+        />
       )}
 
       <select
