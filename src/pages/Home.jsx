@@ -18,23 +18,15 @@ export default function Home() {
   })
 
 
-  // placeholder display for weather info
-  const weatherDisplay = { temp: '72°F', condition: 'Sunny' }
-
-
   return (
     <div className="space-y-4">
       <header className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-bold">{today}</h1>
           <p className="text-sm text-gray-600">
-
-            {weatherDisplay.temp} - {weatherDisplay.condition}
-
             {forecast
               ? `${forecast.temp} - ${forecast.condition}`
               : 'Loading...'}
-
           </p>
         </div>
       </header>
