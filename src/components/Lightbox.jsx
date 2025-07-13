@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function Lightbox({ images, startIndex = 0, onClose }) {
   const [index, setIndex] = useState(startIndex)
+  const closeBtnRef = useRef(null)
+  const prevFocusRef = useRef(null)
 
   useEffect(() => {
     const handleKey = e => {
@@ -16,15 +18,23 @@ export default function Lightbox({ images, startIndex = 0, onClose }) {
 
     window.addEventListener('keydown', handleKey)
     document.body.style.overflow = 'hidden'
+    prevFocusRef.current = document.activeElement
+    closeBtnRef.current?.focus()
     return () => {
       window.removeEventListener('keydown', handleKey)
       document.body.style.overflow = ''
+      prevFocusRef.current?.focus()
     }
   }, [images.length, onClose])
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+    <div
+      role="dialog"
+      aria-modal="true"
+      className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+    >
       <button
+        ref={closeBtnRef}
         aria-label="Close"
         onClick={onClose}
         className="absolute top-4 right-4 text-white text-3xl"

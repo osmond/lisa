@@ -6,6 +6,9 @@ test('keyboard navigation and close', () => {
   const onClose = jest.fn()
   render(<Lightbox images={images} startIndex={0} onClose={onClose} />)
 
+  const dialog = screen.getByRole('dialog')
+  expect(dialog).toHaveAttribute('aria-modal', 'true')
+
   const img = screen.getByAltText(/gallery image/i)
   expect(img).toHaveAttribute('src', 'a.jpg')
 
