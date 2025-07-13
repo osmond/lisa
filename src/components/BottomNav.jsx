@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom'
 import {
   CheckCircledIcon,
   HomeIcon,
+  ImageIcon,
   ListBulletIcon,
   PersonIcon,
   PlusIcon,
@@ -15,6 +16,7 @@ const iconProps = {
 const HomeIconComponent = () => <HomeIcon {...iconProps} />
 const ListIcon = () => <ListBulletIcon {...iconProps} />
 const CheckIcon = () => <CheckCircledIcon {...iconProps} />
+const GalleryIcon = () => <ImageIcon {...iconProps} />
 const AddIcon = () => <PlusIcon {...iconProps} />
 const UserIcon = () => <PersonIcon {...iconProps} />
 
@@ -23,6 +25,7 @@ export default function BottomNav() {
     { to: '/', label: 'Home', icon: HomeIconComponent },
     { to: '/myplants', label: 'My Plants', icon: ListIcon },
     { to: '/tasks', label: 'Tasks', icon: CheckIcon },
+    { to: '/gallery', label: 'Gallery', icon: GalleryIcon },
     { to: '/add', label: 'Add', icon: AddIcon },
     { to: '/settings', label: 'Profile', icon: UserIcon },
   ]
