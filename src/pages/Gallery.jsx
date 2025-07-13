@@ -31,7 +31,7 @@ export function AllGallery() {
   return (
     <div>
       <h1 className="text-2xl font-bold font-display mb-4">Gallery</h1>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
         {images.map((src, i) => (
           <button key={i} onClick={() => setIndex(i)} className="focus:outline-none">
             <img
