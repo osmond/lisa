@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useState, useRef, useMemo } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
+import { formatMonth } from '../utils/date.js'
 
 export default function PlantDetail() {
   const { id } = useParams()
@@ -38,6 +39,16 @@ export default function PlantDetail() {
     })
     return list.sort((a, b) => new Date(a.date) - new Date(b.date))
   }, [plant])
+
+  const groupedEvents = useMemo(() => {
+    const map = new Map()
+    events.forEach(e => {
+      const key = e.date.slice(0, 7)
+      if (!map.has(key)) map.set(key, [])
+      map.get(key).push(e)
+    })
+    return Array.from(map.entries())
+  }, [events])
 
   const colors = {
     water: 'bg-blue-500',
@@ -194,26 +205,35 @@ export default function PlantDetail() {
               <div>{plant.advancedCare || 'No advanced care info.'}</div>
             )}
             {tab === 'timeline' && (
-              <ul className="relative border-l border-gray-300 pl-4 space-y-6">
-                {events.map((e, i) => {
-                  const Icon = actionIcons[e.type]
-                  return (
-                    <li key={`${e.date}-${i}`} className="relative">
-                      <span
-                        className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
-                      ></span>
-                      <p className="text-xs text-gray-500">{e.date}</p>
-                      <p className="flex items-center gap-1">
-                        {Icon && <Icon />}
-                        {e.label}
-                      </p>
-                      {e.note && (
-                        <p className="text-xs text-gray-500 italic">{e.note}</p>
-                      )}
-                    </li>
-                  )
-                })}
-              </ul>
+              <div>
+                {groupedEvents.map(([monthKey, list]) => (
+                  <div key={monthKey}>
+                    <h3 className="mt-4 text-sm font-semibold text-gray-500">
+                      {formatMonth(monthKey)}
+                    </h3>
+                    <ul className="relative border-l border-gray-300 pl-4 space-y-6">
+                      {list.map((e, i) => {
+                        const Icon = actionIcons[e.type]
+                        return (
+                          <li key={`${e.date}-${i}`} className="relative">
+                            <span
+                              className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
+                            ></span>
+                            <p className="text-xs text-gray-500">{e.date}</p>
+                            <p className="flex items-center gap-1">
+                              {Icon && <Icon />}
+                              {e.label}
+                            </p>
+                            {e.note && (
+                              <p className="text-xs text-gray-500 italic">{e.note}</p>
+                            )}
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             )}
         </div>
       </div>
