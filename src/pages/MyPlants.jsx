@@ -17,6 +17,7 @@ export default function MyPlants() {
     (lightFilter === 'All' || p.light === lightFilter) &&
     (urgencyFilter === 'All' || p.urgency === urgencyFilter)
   )
+  const noResults = filtered.length === 0
 
   return (
     <div>
@@ -41,14 +42,18 @@ export default function MyPlants() {
           ))}
         </select>
       </div>
-      <div className="grid grid-cols-2 gap-4">
-        {filtered.map(plant => (
-          <Link key={plant.id} to={`/plant/${plant.id}`} className="block">
-            <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-40 object-cover rounded-lg" />
-            <p className="mt-1 text-center text-sm">{plant.name}</p>
-          </Link>
-        ))}
-      </div>
+      {noResults ? (
+        <p className="text-gray-700">No plants yet. Add one to get started!</p>
+      ) : (
+        <div className="grid grid-cols-2 gap-4">
+          {filtered.map(plant => (
+            <Link key={plant.id} to={`/plant/${plant.id}`} className="block">
+              <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-40 object-cover rounded-lg" />
+              <p className="mt-1 text-center text-sm">{plant.name}</p>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
