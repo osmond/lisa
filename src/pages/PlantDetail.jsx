@@ -192,7 +192,7 @@ export default function PlantDetail() {
       <div className="space-y-2">
         <h2 className="text-lg font-semibold">Gallery</h2>
         <div className="grid grid-cols-3 gap-2">
-          {(plant.gallery || []).map((src, i) => (
+          {(plant.photos || []).map((src, i) => (
             <div key={i} className="relative">
               <img
                 src={src}

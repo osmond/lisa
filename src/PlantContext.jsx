@@ -9,7 +9,7 @@ export function PlantProvider({ children }) {
   const [plants, setPlants] = useState(() => {
     const mapPlant = p => ({
       ...p,
-      gallery: p.gallery || [],
+      photos: p.photos || p.gallery || [],
       careLog: p.careLog || [],
     })
 
@@ -70,7 +70,7 @@ export function PlantProvider({ children }) {
       const nextId = prev.reduce((m, p) => Math.max(m, p.id), 0) + 1
       return [
         ...prev,
-        { id: nextId, ...plant, gallery: [], careLog: [] },
+        { id: nextId, ...plant, photos: [], careLog: [] },
       ]
     })
   }
@@ -87,7 +87,7 @@ export function PlantProvider({ children }) {
     setPlants(prev =>
       prev.map(p =>
         p.id === id
-          ? { ...p, gallery: [...(p.gallery || []), url] }
+          ? { ...p, photos: [...(p.photos || []), url] }
           : p
       )
     )
@@ -97,8 +97,8 @@ export function PlantProvider({ children }) {
     setPlants(prev =>
       prev.map(p => {
         if (p.id === id) {
-          const updated = (p.gallery || []).filter((_, i) => i !== index)
-          return { ...p, gallery: updated }
+          const updated = (p.photos || []).filter((_, i) => i !== index)
+          return { ...p, photos: updated }
         }
         return p
       })
