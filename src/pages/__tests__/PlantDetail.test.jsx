@@ -2,15 +2,18 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import PlantDetail from '../PlantDetail.jsx'
 import plants from '../../plants.json'
+import { PlantProvider } from '../../PlantContext.jsx'
 
 test('renders plant details without duplicates', () => {
   const plant = plants[0]
   render(
-    <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
-      <Routes>
-        <Route path="/plant/:id" element={<PlantDetail />} />
-      </Routes>
-    </MemoryRouter>
+    <PlantProvider>
+      <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </PlantProvider>
   )
 
   const headings = screen.getAllByRole('heading', { name: plant.name })
@@ -23,11 +26,13 @@ test('renders plant details without duplicates', () => {
 test('tab keyboard navigation works', () => {
   const plant = plants[0]
   render(
-    <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
-      <Routes>
-        <Route path="/plant/:id" element={<PlantDetail />} />
-      </Routes>
-    </MemoryRouter>
+    <PlantProvider>
+      <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </PlantProvider>
   )
 
   const tabs = screen.getAllByRole('tab')
