@@ -22,8 +22,9 @@ export default function Add() {
     <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
       <h1 className="text-xl font-bold">Add Plant</h1>
       <div className="grid gap-1">
-        <label className="font-medium">Name</label>
+        <label htmlFor="name" className="font-medium">Name</label>
         <input
+          id="name"
           type="text"
           value={name}
           onChange={e => setName(e.target.value)}
@@ -32,8 +33,9 @@ export default function Add() {
         />
       </div>
       <div className="grid gap-1">
-        <label className="font-medium">Image URL</label>
+        <label htmlFor="image" className="font-medium">Image URL</label>
         <input
+          id="image"
           type="text"
           value={image}
           onChange={e => setImage(e.target.value)}
@@ -41,8 +43,9 @@ export default function Add() {
         />
       </div>
       <div className="grid gap-1">
-        <label className="font-medium">Last Watered</label>
+        <label htmlFor="lastWatered" className="font-medium">Last Watered</label>
         <input
+          id="lastWatered"
           type="date"
           value={lastWatered}
           onChange={e => setLastWatered(e.target.value)}
@@ -50,8 +53,9 @@ export default function Add() {
         />
       </div>
       <div className="grid gap-1">
-        <label className="font-medium">Next Watering</label>
+        <label htmlFor="nextWater" className="font-medium">Next Watering</label>
         <input
+          id="nextWater"
           type="date"
           value={nextWater}
           onChange={e => setNextWater(e.target.value)}
