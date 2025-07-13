@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import PlantDetail from '../PlantDetail.jsx'
 import plants from '../../plants.json'
@@ -18,4 +18,26 @@ test('renders plant details without duplicates', () => {
 
   const images = screen.getAllByAltText(plant.name)
   expect(images).toHaveLength(1)
+})
+
+test('tab keyboard navigation works', () => {
+  const plant = plants[0]
+  render(
+    <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+      <Routes>
+        <Route path="/plant/:id" element={<PlantDetail />} />
+      </Routes>
+    </MemoryRouter>
+  )
+
+  const tabs = screen.getAllByRole('tab')
+  expect(tabs).toHaveLength(3)
+  expect(tabs[0]).toHaveAttribute('aria-selected', 'true')
+
+  tabs[0].focus()
+  fireEvent.keyDown(tabs[0], { key: 'ArrowRight' })
+
+  const updatedTabs = screen.getAllByRole('tab')
+  expect(updatedTabs[1]).toHaveAttribute('aria-selected', 'true')
+  expect(document.activeElement).toBe(updatedTabs[1])
 })
