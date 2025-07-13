@@ -23,7 +23,7 @@ test('renders plant details without duplicates', () => {
   expect(images).toHaveLength(1)
 })
 
-test('tab keyboard navigation works', () => {
+test('accordion keyboard navigation works', () => {
   const plant = plants[0]
   render(
     <PlantProvider>
@@ -35,14 +35,20 @@ test('tab keyboard navigation works', () => {
     </PlantProvider>
   )
 
-  const tabs = screen.getAllByRole('tab')
-  expect(tabs).toHaveLength(4)
-  expect(tabs[0]).toHaveAttribute('aria-selected', 'true')
+  const buttons = [
+    screen.getByRole('button', { name: /Activity/ }),
+    screen.getByRole('button', { name: /Notes/ }),
+    screen.getByRole('button', { name: /Advanced/ }),
+    screen.getByRole('button', { name: /Timeline/ }),
+  ]
 
-  tabs[0].focus()
-  fireEvent.keyDown(tabs[0], { key: 'ArrowRight' })
+  expect(buttons[0]).toHaveAttribute('aria-expanded', 'true')
+  expect(buttons[1]).toHaveAttribute('aria-expanded', 'false')
 
-  const updatedTabs = screen.getAllByRole('tab')
-  expect(updatedTabs[1]).toHaveAttribute('aria-selected', 'true')
-  expect(document.activeElement).toBe(updatedTabs[1])
+  buttons[0].focus()
+  fireEvent.keyDown(buttons[0], { key: 'ArrowDown' })
+
+  expect(buttons[0]).toHaveAttribute('aria-expanded', 'false')
+  expect(buttons[1]).toHaveAttribute('aria-expanded', 'true')
+  expect(document.activeElement).toBe(buttons[1])
 })

@@ -9,9 +9,9 @@ export default function PlantDetail() {
   const { plants, addPhoto, removePhoto, markWatered, logEvent } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
 
-  const tabNames = ['activity', 'notes', 'care', 'timeline']
-  const tabRefs = useRef([])
-  const [tab, setTab] = useState('activity')
+  const sectionNames = ['activity', 'notes', 'care', 'timeline']
+  const sectionRefs = useRef([])
+  const [openSection, setOpenSection] = useState('activity')
   const [showMore, setShowMore] = useState(false)
   const fileInputRef = useRef()
   const [toast, setToast] = useState('')
@@ -69,12 +69,12 @@ export default function PlantDetail() {
   }
 
   const handleKeyDown = (e, index) => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
       e.preventDefault()
-      const dir = e.key === 'ArrowRight' ? 1 : -1
-      const nextIndex = (index + dir + tabNames.length) % tabNames.length
-      setTab(tabNames[nextIndex])
-      tabRefs.current[nextIndex]?.focus()
+      const dir = e.key === 'ArrowDown' ? 1 : -1
+      const nextIndex = (index + dir + sectionNames.length) % sectionNames.length
+      setOpenSection(sectionNames[nextIndex])
+      sectionRefs.current[nextIndex]?.focus()
     }
   }
 
@@ -176,71 +176,70 @@ export default function PlantDetail() {
           </Link>
         </div>
 
-        <div>
-          <div className="flex space-x-4 border-b" role="tablist">
-            <button
-              role="tab"
-              ref={el => (tabRefs.current[0] = el)}
-              aria-selected={tab === 'activity'}
-              tabIndex={tab === 'activity' ? 0 : -1}
-              className={`py-2 ${tab === 'activity' ? 'border-b-2 border-green-500 font-medium' : ''}`}
-              onClick={() => setTab('activity')}
-              onKeyDown={e => handleKeyDown(e, 0)}
-            >
-              Activity
-            </button>
-            <button
-              role="tab"
-              ref={el => (tabRefs.current[1] = el)}
-              aria-selected={tab === 'notes'}
-              tabIndex={tab === 'notes' ? 0 : -1}
-              className={`py-2 ${tab === 'notes' ? 'border-b-2 border-green-500 font-medium' : ''}`}
-              onClick={() => setTab('notes')}
-              onKeyDown={e => handleKeyDown(e, 1)}
-            >
-              Notes
-            </button>
-            <button
-              role="tab"
-              ref={el => (tabRefs.current[2] = el)}
-              aria-selected={tab === 'care'}
-              tabIndex={tab === 'care' ? 0 : -1}
-              className={`py-2 ${tab === 'care' ? 'border-b-2 border-green-500 font-medium' : ''}`}
-              onClick={() => setTab('care')}
-              onKeyDown={e => handleKeyDown(e, 2)}
-            >
-              Advanced
-            </button>
-            <button
-              role="tab"
-              ref={el => (tabRefs.current[3] = el)}
-              aria-selected={tab === 'timeline'}
-              tabIndex={tab === 'timeline' ? 0 : -1}
-              className={`py-2 ${tab === 'timeline' ? 'border-b-2 border-green-500 font-medium' : ''}`}
-              onClick={() => setTab('timeline')}
-              onKeyDown={e => handleKeyDown(e, 3)}
-            >
-              Timeline
-            </button>
-          </div>
-          <div className="p-4">
-            {tab === 'activity' && (
-              <ul className="list-disc pl-4 space-y-1">
-                {(plant.careLog || []).map((ev, i) => (
-                  <li key={i}>
-                    {ev.type} on {ev.date}
-                    {ev.note ? ` - ${ev.note}` : ''}
-                  </li>
-                ))}
-              </ul>
+        <div className="space-y-2">
+          <div className="border rounded">
+            <h3 id="activity-header">
+              <button
+                ref={el => (sectionRefs.current[0] = el)}
+                aria-expanded={openSection === 'activity'}
+                aria-controls="activity-panel"
+                className="w-full text-left flex justify-between items-center p-2"
+                onClick={() =>
+                  setOpenSection(openSection === 'activity' ? null : 'activity')
+                }
+                onKeyDown={e => handleKeyDown(e, 0)}
+              >
+                Activity
+                <span>{openSection === 'activity' ? '-' : '+'}</span>
+              </button>
+            </h3>
+            {openSection === 'activity' && (
+              <div
+                id="activity-panel"
+                role="region"
+                aria-labelledby="activity-header"
+                className="p-4"
+              >
+                <ul className="list-disc pl-4 space-y-1">
+                  {(plant.careLog || []).map((ev, i) => (
+                    <li key={i}>
+                      {ev.type} on {ev.date}
+                      {ev.note ? ` - ${ev.note}` : ''}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
-            {tab === 'notes' && (
-              <div>
+          </div>
+
+          <div className="border rounded">
+            <h3 id="notes-header">
+              <button
+                ref={el => (sectionRefs.current[1] = el)}
+                aria-expanded={openSection === 'notes'}
+                aria-controls="notes-panel"
+                className="w-full text-left flex justify-between items-center p-2"
+                onClick={() =>
+                  setOpenSection(openSection === 'notes' ? null : 'notes')
+                }
+                onKeyDown={e => handleKeyDown(e, 1)}
+              >
+                Notes
+                <span>{openSection === 'notes' ? '-' : '+'}</span>
+              </button>
+            </h3>
+            {openSection === 'notes' && (
+              <div
+                id="notes-panel"
+                role="region"
+                aria-labelledby="notes-header"
+                className="p-4"
+              >
                 {plant.notes
                   ? showMore
                     ? plant.notes
                     : plant.notes.slice(0, 160)
-                : 'No notes yet.'}
+                  : 'No notes yet.'}
                 {plant.notes && plant.notes.length > 160 && (
                   <button
                     type="button"
@@ -252,11 +251,59 @@ export default function PlantDetail() {
                 )}
               </div>
             )}
-            {tab === 'care' && (
-              <div>{plant.advancedCare || 'No advanced care info.'}</div>
+          </div>
+
+          <div className="border rounded">
+            <h3 id="care-header">
+              <button
+                ref={el => (sectionRefs.current[2] = el)}
+                aria-expanded={openSection === 'care'}
+                aria-controls="care-panel"
+                className="w-full text-left flex justify-between items-center p-2"
+                onClick={() =>
+                  setOpenSection(openSection === 'care' ? null : 'care')
+                }
+                onKeyDown={e => handleKeyDown(e, 2)}
+              >
+                Advanced
+                <span>{openSection === 'care' ? '-' : '+'}</span>
+              </button>
+            </h3>
+            {openSection === 'care' && (
+              <div
+                id="care-panel"
+                role="region"
+                aria-labelledby="care-header"
+                className="p-4"
+              >
+                {plant.advancedCare || 'No advanced care info.'}
+              </div>
             )}
-            {tab === 'timeline' && (
-              <div>
+          </div>
+
+          <div className="border rounded">
+            <h3 id="timeline-header">
+              <button
+                ref={el => (sectionRefs.current[3] = el)}
+                aria-expanded={openSection === 'timeline'}
+                aria-controls="timeline-panel"
+                className="w-full text-left flex justify-between items-center p-2"
+                onClick={() =>
+                  setOpenSection(openSection === 'timeline' ? null : 'timeline')
+                }
+                onKeyDown={e => handleKeyDown(e, 3)}
+              >
+                Timeline
+                <span>{openSection === 'timeline' ? '-' : '+'}</span>
+              </button>
+            </h3>
+            {openSection === 'timeline' && (
+              <div
+                id="timeline-panel"
+                role="region"
+                aria-labelledby="timeline-header"
+                className="p-4"
+              >
                 {groupedEvents.map(([monthKey, list]) => (
                   <div key={monthKey}>
                     <h3 className="mt-4 text-sm font-semibold text-gray-500">
@@ -286,6 +333,7 @@ export default function PlantDetail() {
                 ))}
               </div>
             )}
+          </div>
         </div>
       </div>
       <div className="space-y-2">
@@ -323,7 +371,6 @@ export default function PlantDetail() {
           className="hidden"
         />
       </div>
-    </div>
   </div>
 )
 }
