@@ -47,6 +47,14 @@ export function PlantProvider({ children }) {
     })
   }
 
+  const updatePlant = (id, updates) => {
+    setPlants(prev => prev.map(p => (p.id === id ? { ...p, ...updates } : p)))
+  }
+
+  const removePlant = id => {
+    setPlants(prev => prev.filter(p => p.id !== id))
+  }
+
   const addPhoto = (id, url) => {
     setPlants(prev =>
       prev.map(p =>
@@ -71,7 +79,15 @@ export function PlantProvider({ children }) {
 
   return (
     <PlantContext.Provider
-      value={{ plants, markWatered, addPlant, addPhoto, removePhoto }}
+      value={{
+        plants,
+        markWatered,
+        addPlant,
+        updatePlant,
+        removePlant,
+        addPhoto,
+        removePhoto,
+      }}
     >
       {children}
     </PlantContext.Provider>
