@@ -22,8 +22,15 @@ export function PlantProvider({ children }) {
     )
   }
 
+  const addPlant = plant => {
+    setPlants(prev => {
+      const nextId = prev.reduce((m, p) => Math.max(m, p.id), 0) + 1
+      return [...prev, { id: nextId, ...plant }]
+    })
+  }
+
   return (
-    <PlantContext.Provider value={{ plants, markWatered }}>
+    <PlantContext.Provider value={{ plants, markWatered, addPlant }}>
       {children}
     </PlantContext.Provider>
   )

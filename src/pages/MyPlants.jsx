@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import plants from '../plants.json'
+import { usePlants } from '../PlantContext.jsx'
 
 export default function MyPlants() {
+  const { plants } = usePlants()
   const [roomFilter, setRoomFilter] = useState('All')
   const [lightFilter, setLightFilter] = useState('All')
   const [urgencyFilter, setUrgencyFilter] = useState('All')
