@@ -1,14 +1,24 @@
 import { useMemo } from 'react'
 import { usePlants } from '../PlantContext.jsx'
+import useWeather from '../useWeather.js'
+import { getNextWateringDate } from '../utils/watering.js'
 
 export default function Tasks() {
   const { plants } = usePlants()
+  const weather = useWeather()
 
   const events = useMemo(() => {
     const all = []
     plants.forEach(p => {
-      if (p.nextWater) {
-        all.push({ date: p.nextWater, label: `Water ${p.name}`, type: 'task' })
+      if (p.lastWatered) {
+        const { date, reason } = getNextWateringDate(p.lastWatered, weather)
+        all.push({
+          date,
+          label: `Water ${p.name}`,
+          type: 'task',
+          plantId: p.id,
+          reason,
+        })
       }
       if (p.nextFertilize) {
         all.push({ date: p.nextFertilize, label: `Fertilize ${p.name}`, type: 'task' })
@@ -21,7 +31,7 @@ export default function Tasks() {
       })
     })
     return all.sort((a, b) => new Date(a.date) - new Date(b.date))
-  }, [plants])
+  }, [plants, weather])
 
   const today = new Date().toISOString().slice(0, 10)
 
@@ -39,6 +49,9 @@ export default function Tasks() {
               ></span>
               <p className="text-xs text-gray-500">{e.date}</p>
               <p className={overdue ? 'text-red-600 font-medium' : ''}>{e.label}</p>
+              {e.reason && (
+                <p className="text-xs text-gray-500">{e.reason}</p>
+              )}
             </li>
           )
         })}

@@ -5,19 +5,24 @@ const samplePlants = [
   {
     id: 1,
     name: 'Plant A',
-    nextWater: '2025-07-17',
+    lastWatered: '2025-07-10',
     activity: ['Repotted'],
   },
   {
     id: 2,
     name: 'Plant B',
-    nextWater: '2025-07-15',
+    lastWatered: '2025-07-08',
     activity: ['Watered on 2025-07-10'],
   },
 ]
 
 jest.mock('../../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: samplePlants }),
+}))
+
+jest.mock('../../useWeather.js', () => ({
+  __esModule: true,
+  default: () => ({ rainTomorrow: 0, eto: 0 }),
 }))
 
 test('ignores activities without valid dates when generating events', () => {
