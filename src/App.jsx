@@ -6,6 +6,7 @@ import Add from './pages/Add'
 import Gallery from './pages/Gallery'
 import Settings from './pages/Settings'
 import PlantDetail from './pages/PlantDetail'
+import Gallery from './pages/Gallery'
 import BottomNav from './components/BottomNav'
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/plant/:id" element={<PlantDetail />} />
+        <Route path="/plant/:id/gallery" element={<Gallery />} />
       </Routes>
 
 
