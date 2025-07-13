@@ -79,14 +79,30 @@ test('edit button navigates to edit page', () => {
   expect(navigateMock).toHaveBeenCalledWith('/plant/1/edit')
 })
 
-test('delete button removes plant', () => {
+test('delete button confirms before removing plant', () => {
+  const confirmMock = jest.spyOn(window, 'confirm').mockReturnValue(true)
   render(
     <MemoryRouter>
       <PlantCard plant={plant} />
     </MemoryRouter>
   )
   fireEvent.click(screen.getByText('Delete'))
+  expect(confirmMock).toHaveBeenCalled()
   expect(removePlant).toHaveBeenCalledWith(1)
+  confirmMock.mockRestore()
+})
+
+test('delete cancelled does not remove plant', () => {
+  const confirmMock = jest.spyOn(window, 'confirm').mockReturnValue(false)
+  render(
+    <MemoryRouter>
+      <PlantCard plant={plant} />
+    </MemoryRouter>
+  )
+  fireEvent.click(screen.getByText('Delete'))
+  expect(confirmMock).toHaveBeenCalled()
+  expect(removePlant).not.toHaveBeenCalled()
+  confirmMock.mockRestore()
 })
 
 test('clicking card adds ripple effect', () => {
@@ -143,7 +159,8 @@ test('swipe left navigates to edit page', async () => {
   expect(navigateMock).toHaveBeenCalledWith('/plant/1/edit')
 })
 
-test('swipe far left removes plant', async () => {
+test('swipe far left confirms before removing plant', async () => {
+  const confirmMock = jest.spyOn(window, 'confirm').mockReturnValue(true)
   render(
     <MemoryRouter>
       <PlantCard plant={plant} />
@@ -160,5 +177,7 @@ test('swipe far left removes plant', async () => {
     fireEvent.touchMove(wrapper, { touches: [{ clientX: 0 }] })
     fireEvent.touchEnd(wrapper)
   })
+  expect(confirmMock).toHaveBeenCalled()
   expect(removePlant).toHaveBeenCalledWith(1)
+  confirmMock.mockRestore()
 })
