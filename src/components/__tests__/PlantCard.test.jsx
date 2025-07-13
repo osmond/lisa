@@ -1,7 +1,14 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import PlantCard from '../PlantCard.jsx'
 import { MemoryRouter, useNavigate } from 'react-router-dom'
 import { usePlants } from '../../PlantContext.jsx'
+
+beforeAll(() => {
+  if (typeof PointerEvent === 'undefined') {
+    window.PointerEvent = window.MouseEvent
+  }
+})
 
 const navigateMock = jest.fn()
 const markWatered = jest.fn()
@@ -79,5 +86,65 @@ test('delete button removes plant', () => {
     </MemoryRouter>
   )
   fireEvent.click(screen.getByText('Delete'))
+  expect(removePlant).toHaveBeenCalledWith(1)
+})
+
+test('clicking card adds ripple effect', () => {
+  const { container } = render(
+    <MemoryRouter>
+      <PlantCard plant={plant} />
+    </MemoryRouter>
+  )
+  const wrapper = screen.getByTestId('card-wrapper')
+  fireEvent.mouseDown(wrapper)
+  expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
+})
+
+test('swipe right waters plant', async () => {
+  jest.spyOn(window, 'prompt').mockReturnValue('')
+  render(
+    <MemoryRouter>
+      <PlantCard plant={plant} />
+    </MemoryRouter>
+  )
+  const wrapper = screen.getByTestId('card-wrapper')
+  const user = userEvent.setup()
+  await user.pointer([
+    {keys:'[MouseLeft>]', target: wrapper, coords:{x:0,y:0}},
+    {coords:{x:80,y:0}},
+    {keys:'[/MouseLeft]', target: wrapper}
+  ])
+  expect(markWatered).toHaveBeenCalledWith(1, '')
+})
+
+test('swipe left navigates to edit page', async () => {
+  render(
+    <MemoryRouter>
+      <PlantCard plant={plant} />
+    </MemoryRouter>
+  )
+  const wrapper = screen.getByTestId('card-wrapper')
+  const user = userEvent.setup()
+  await user.pointer([
+    {keys:'[MouseLeft>]', target: wrapper, coords:{x:100,y:0}},
+    {coords:{x:20,y:0}},
+    {keys:'[/MouseLeft]', target: wrapper}
+  ])
+  expect(navigateMock).toHaveBeenCalledWith('/plant/1/edit')
+})
+
+test('swipe far left removes plant', async () => {
+  render(
+    <MemoryRouter>
+      <PlantCard plant={plant} />
+    </MemoryRouter>
+  )
+  const wrapper = screen.getByTestId('card-wrapper')
+  const user = userEvent.setup()
+  await user.pointer([
+    {keys:'[MouseLeft>]', target: wrapper, coords:{x:200,y:0}},
+    {coords:{x:0,y:0}},
+    {keys:'[/MouseLeft]', target: wrapper}
+  ])
   expect(removePlant).toHaveBeenCalledWith(1)
 })
