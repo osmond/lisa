@@ -56,7 +56,7 @@ export default function PlantCard({ plant }) {
           onMouseDown={createRipple}
           onTouchStart={createRipple}
           onClick={handleWatered}
-          className="bg-green-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
         >
           Water
         </button>
