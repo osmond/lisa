@@ -14,6 +14,7 @@ Includes:
 Kaymaria can display local weather data and suggest when to water
 your plants. The app retrieves current conditions from OpenWeather
 using an API key you provide.
+A `.env.example` file is included at the project root and lists the required environment variable.
 
 ### Get an API Key
 
