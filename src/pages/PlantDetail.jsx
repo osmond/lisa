@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useState, useRef } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 
@@ -46,6 +46,15 @@ export default function PlantDetail() {
           {plant.light && <p><strong>Light:</strong> {plant.light}</p>}
           {plant.humidity && <p><strong>Humidity:</strong> {plant.humidity}</p>}
           {plant.difficulty && <p><strong>Difficulty:</strong> {plant.difficulty}</p>}
+        </div>
+
+        <div>
+          <Link
+            to={`/plant/${plant.id}/gallery`}
+            className="text-green-600 underline"
+          >
+            View Gallery
+          </Link>
         </div>
 
         <div>
