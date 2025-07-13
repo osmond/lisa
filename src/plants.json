@@ -5,7 +5,9 @@
     "nickname": "Swiss Cheese",
     "image": "/demo-image-01.jpg",
     "photos": [
-      "/demo-image-01.jpg"
+      "/demo-image-01.jpg",
+      "/demo-image-02.jpg",
+      "/demo-image-03.jpg"
     ],
     "lastWatered": "2025-07-07",
     "nextWater": "2025-07-14",
@@ -29,7 +31,9 @@
     "nickname": "Mother-in-Law's Tongue",
     "image": "/demo-image-02.jpg",
     "photos": [
-      "/demo-image-02.jpg"
+      "/demo-image-02.jpg",
+      "/demo-image-03.jpg",
+      "/demo-image-04.jpg"
     ],
     "lastWatered": "2025-07-10",
     "nextWater": "2025-07-17",
@@ -52,7 +56,9 @@
     "nickname": "Fiddle",
     "image": "/demo-image-03.jpg",
     "photos": [
-      "/demo-image-03.jpg"
+      "/demo-image-03.jpg",
+      "/demo-image-04.jpg",
+      "/demo-image-05.jpg"
     ],
     "lastWatered": "2025-07-09",
     "nextWater": "2025-07-16",
@@ -75,7 +81,9 @@
     "nickname": "Lily",
     "image": "/demo-image-04.jpg",
     "photos": [
-      "/demo-image-04.jpg"
+      "/demo-image-04.jpg",
+      "/demo-image-05.jpg",
+      "/demo-image-06.jpg"
     ],
     "lastWatered": "2025-07-11",
     "nextWater": "2025-07-15",
@@ -99,7 +107,9 @@
     "nickname": "Zenzi",
     "image": "/demo-image-05.jpg",
     "photos": [
-      "/demo-image-05.jpg"
+      "/demo-image-05.jpg",
+      "/demo-image-06.jpg",
+      "/demo-image-07.jpg"
     ],
     "lastWatered": "2025-07-01",
     "nextWater": "2025-07-20",
@@ -122,7 +132,9 @@
     "nickname": "Medic",
     "image": "/demo-image-06.jpg",
     "photos": [
-      "/demo-image-06.jpg"
+      "/demo-image-06.jpg",
+      "/demo-image-07.jpg",
+      "/demo-image-08.jpg"
     ],
     "lastWatered": "2025-07-02",
     "nextWater": "2025-07-16",
@@ -145,7 +157,9 @@
     "nickname": "Devil's Ivy",
     "image": "/demo-image-07.jpg",
     "photos": [
-      "/demo-image-07.jpg"
+      "/demo-image-07.jpg",
+      "/demo-image-08.jpg",
+      "/demo-image-09.jpg"
     ],
     "lastWatered": "2025-07-06",
     "nextWater": "2025-07-13",
@@ -168,7 +182,9 @@
     "nickname": "Prayer Plant",
     "image": "/demo-image-08.jpg",
     "photos": [
-      "/demo-image-08.jpg"
+      "/demo-image-08.jpg",
+      "/demo-image-09.jpg",
+      "/demo-image-10.jpg"
     ],
     "lastWatered": "2025-07-08",
     "nextWater": "2025-07-12",
@@ -191,7 +207,9 @@
     "nickname": "Ficus Elastica",
     "image": "/demo-image-09.jpg",
     "photos": [
-      "/demo-image-09.jpg"
+      "/demo-image-09.jpg",
+      "/demo-image-10.jpg",
+      "/demo-image-01.jpg"
     ],
     "lastWatered": "2025-07-05",
     "nextWater": "2025-07-12",
@@ -214,7 +232,9 @@
     "nickname": "Aglaonema",
     "image": "/demo-image-10.jpg",
     "photos": [
-      "/demo-image-10.jpg"
+      "/demo-image-10.jpg",
+      "/demo-image-01.jpg",
+      "/demo-image-02.jpg"
     ],
     "lastWatered": "2025-07-04",
     "nextWater": "2025-07-11",
