@@ -66,21 +66,39 @@ This command prints a local development URL (usually `http://localhost:5173/`).
 Open that URL in your browser to view the app.
 
 ## Building for Production
-```bash
-npm run build
-```
 
-When deploying to a subdirectory (for example `/lisa/`), set the
-`VITE_BASE_PATH` environment variable to that path. `vite.config.js` reads this
-variable to configure the build `base` option, and the router uses the same
-value via `basename` so asset paths resolve correctly. If the variable is not
-set, it defaults to `/`.
+1. **Install dependencies** (only the first time):
+   ```bash
+   npm install
+   ```
 
-After building you can preview the production build with:
-```bash
-npm run preview
-```
-This starts a local server and outputs a URL to open the optimized app in your browser.
+2. **Run the build**. If you plan to host the app under a subdirectory such as `/lisa/`, set the `VITE_BASE_PATH` variable when invoking the command so Vite and the router know where the app lives:
+   - macOS/Linux
+     ```bash
+     VITE_BASE_PATH=/lisa/ npm run build
+     ```
+   - Windows (Command Prompt)
+     ```cmd
+     set VITE_BASE_PATH=/lisa/ && npm run build
+     ```
+   - Windows (PowerShell)
+     ```powershell
+     $env:VITE_BASE_PATH="/lisa/"
+     npm run build
+     ```
+
+   If the app will be served from the site root (for example `https://example.com/`), you can omit `VITE_BASE_PATH`:
+   ```bash
+   npm run build
+   ```
+
+3. **Preview locally (optional)**. After building, test the optimized build:
+   ```bash
+   npm run preview
+   ```
+   This starts a local server and prints a URL for you to open in the browser.
+
+4. **Deploy**. Upload the contents of the generated `dist/` folder to your web server. If you used a base path, ensure the files are hosted under that same subdirectory.
 
 ## Mobile Browser Testing
 
