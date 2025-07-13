@@ -4,11 +4,18 @@ const WeatherContext = createContext()
 
 export function WeatherProvider({ children }) {
   const [forecast, setForecast] = useState(null)
+  const [location, setLocation] = useState(() => {
+    if (typeof localStorage !== 'undefined') {
+      const stored = localStorage.getItem('weatherLocation')
+      if (stored) return stored
+    }
+    return 'London'
+  })
 
   useEffect(() => {
     const key = process.env.VITE_WEATHER_API_KEY
     if (!key) return
-    const url = `https://api.openweathermap.org/data/2.5/forecast?q=London&units=metric&appid=${key}`
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&units=metric&appid=${key}`
     fetch(url)
       .then(res => res.json())
       .then(data => {
@@ -23,10 +30,16 @@ export function WeatherProvider({ children }) {
         }
       })
       .catch(err => console.error(err))
-  }, [])
+  }, [location])
+
+  useEffect(() => {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('weatherLocation', location)
+    }
+  }, [location])
 
   return (
-    <WeatherContext.Provider value={{ forecast }}>
+    <WeatherContext.Provider value={{ forecast, location, setLocation }}>
       {children}
     </WeatherContext.Provider>
   )
