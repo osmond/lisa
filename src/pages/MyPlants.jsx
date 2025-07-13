@@ -12,6 +12,8 @@ export default function MyPlants() {
   const lights = [...new Set(plants.map(p => p.light).filter(Boolean))]
   const urgencies = [...new Set(plants.map(p => p.urgency).filter(Boolean))]
 
+  const base = (process.env.VITE_BASE_PATH || '/').replace(/\/$/, '')
+
   const filtered = plants.filter(p =>
     (roomFilter === 'All' || p.room === roomFilter) &&
     (lightFilter === 'All' || p.light === lightFilter) &&
@@ -42,12 +44,20 @@ export default function MyPlants() {
         </select>
       </div>
       <div className="grid grid-cols-2 gap-4">
-        {filtered.map(plant => (
-          <Link key={plant.id} to={`/plant/${plant.id}`} className="block">
-            <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-40 object-cover rounded-lg" />
-            <p className="mt-1 text-center text-sm">{plant.name}</p>
-          </Link>
-        ))}
+        {filtered.map(plant => {
+          const src = plant.image || `${base}/placeholder.svg`
+          return (
+            <Link key={plant.id} to={`/plant/${plant.id}`} className="block">
+              <img
+                src={src}
+                alt={plant.name}
+                loading="lazy"
+                className="w-full h-40 object-cover rounded-lg"
+              />
+              <p className="mt-1 text-center text-sm">{plant.name}</p>
+            </Link>
+          )
+        })}
       </div>
     </div>
   )
