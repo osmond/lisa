@@ -61,9 +61,11 @@ Open that URL in your browser to view the app.
 npm run build
 ```
 
-When deploying to a subdirectory (for example `/lisa/`), set `base` in
-`vite.config.js` and pass the same value as the router `basename` so asset paths
-resolve correctly.
+When deploying to a subdirectory (for example `/lisa/`), set the
+`VITE_BASE_PATH` environment variable to that path. `vite.config.js` reads this
+variable to configure the build `base` option, and the router uses the same
+value via `basename` so asset paths resolve correctly. If the variable is not
+set, it defaults to `/`.
 
 After building you can preview the production build with:
 ```bash

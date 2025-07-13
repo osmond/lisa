@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <ThemeProvider>
       <WeatherProvider>
         <PlantProvider>
-          <BrowserRouter basename="/lisa">
+          <BrowserRouter basename={import.meta.env.VITE_BASE_PATH}>
             <App />
           </BrowserRouter>
         </PlantProvider>
