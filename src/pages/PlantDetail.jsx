@@ -6,7 +6,7 @@ import { formatMonth } from '../utils/date.js'
 
 export default function PlantDetail() {
   const { id } = useParams()
-  const { plants, addPhoto, removePhoto } = usePlants()
+  const { plants, addPhoto, removePhoto, markWatered, logEvent } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
 
   const tabNames = ['activity', 'notes', 'care', 'timeline']
@@ -14,6 +14,7 @@ export default function PlantDetail() {
   const [tab, setTab] = useState('activity')
   const [showMore, setShowMore] = useState(false)
   const fileInputRef = useRef()
+  const [toast, setToast] = useState('')
 
   const events = useMemo(() => {
     if (!plant) return []
@@ -77,12 +78,46 @@ export default function PlantDetail() {
     }
   }
 
+  const showTempToast = msg => {
+    setToast(msg)
+    setTimeout(() => setToast(''), 800)
+  }
+
+  const handleWatered = () => {
+    markWatered(plant.id, '')
+    showTempToast('Watered')
+  }
+
+  const handleLogEvent = () => {
+    const note = window.prompt('Note') || ''
+    if (note) {
+      logEvent(plant.id, 'Note', note)
+      showTempToast('Logged')
+    }
+  }
+
   if (!plant) {
     return <div className="text-gray-700">Plant not found</div>
   }
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 relative">
+      {toast && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <svg
+            className="w-8 h-8 text-green-600 check-pop"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+        </div>
+      )}
+      <div aria-live="polite" className="sr-only">{toast}</div>
       <div className="space-y-4">
         <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-64 object-cover rounded-xl" />
         <div>
@@ -96,6 +131,22 @@ export default function PlantDetail() {
           {plant.lastFertilized && (
             <p><strong>Last fertilized:</strong> {plant.lastFertilized}</p>
           )}
+        </div>
+        <div className="flex gap-2 mt-2">
+          <button
+            type="button"
+            onClick={handleWatered}
+            className="px-3 py-1 bg-green-600 text-white rounded"
+          >
+            Watered
+          </button>
+          <button
+            type="button"
+            onClick={handleLogEvent}
+            className="px-3 py-1 bg-blue-600 text-white rounded"
+          >
+            Add Note
+          </button>
         </div>
 
         <div className="flex flex-wrap gap-2 text-sm">
