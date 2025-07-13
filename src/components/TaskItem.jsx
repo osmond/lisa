@@ -20,11 +20,11 @@ export default function TaskItem({ task, onComplete }) {
 
   return (
     <div className="flex items-center gap-2 p-2 border rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
-      <Link to={`/plant/${task.plantId}`} className="flex items-center flex-1 gap-2">
+      <Link to={`/plant/${task.plantId}`} className="flex items-center flex-1 gap-1">
         <img
           src={task.image}
           alt={task.plantName}
-          className="w-12 h-12 object-cover rounded"
+          className="w-16 h-16 object-cover rounded"
         />
         <div className="flex-1">
           <p className="font-medium">
