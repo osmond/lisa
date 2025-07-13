@@ -8,7 +8,10 @@ export default function PlantCard({ plant }) {
   const startX = useRef(0)
   const [deltaX, setDeltaX] = useState(0)
 
-  const handleWatered = () => markWatered(plant.id)
+  const handleWatered = () => {
+    const note = window.prompt('Optional note') || ''
+    markWatered(plant.id, note)
+  }
 
   const handlePointerDown = e => {
     startX.current = e.clientX ?? e.touches?.[0]?.clientX ?? 0
@@ -25,7 +28,7 @@ export default function PlantCard({ plant }) {
     setDeltaX(0)
     startX.current = 0
     if (diff > 75) {
-      markWatered(plant.id)
+      handleWatered()
     } else if (diff < -150) {
       removePlant(plant.id)
     } else if (diff < -75) {

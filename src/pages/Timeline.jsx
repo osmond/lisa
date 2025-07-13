@@ -31,6 +31,14 @@ export default function Timeline() {
           })
         }
       })
+      ;(p.careLog || []).forEach(ev => {
+        all.push({
+          date: ev.date,
+          label: `${ev.type} ${p.name}`,
+          note: ev.note,
+          type: 'log',
+        })
+      })
     })
     return all.sort((a, b) => new Date(a.date) - new Date(b.date))
   }, [plants])
@@ -39,18 +47,22 @@ export default function Timeline() {
     water: 'bg-blue-500',
     fertilize: 'bg-yellow-500',
     note: 'bg-gray-400',
+    log: 'bg-green-400',
   }
 
   return (
     <div className="overflow-y-auto max-h-full p-4 text-gray-700 dark:text-gray-200">
       <ul className="relative border-l border-gray-300 pl-4 space-y-6">
         {events.map((e, i) => (
-          <li key={`${e.date}-${e.label}`} className="relative">
+          <li key={`${e.date}-${e.label}-${i}`} className="relative">
             <span
               className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
             ></span>
             <p className="text-xs text-gray-500">{e.date}</p>
             <p>{e.label}</p>
+            {e.note && (
+              <p className="text-xs text-gray-500 italic">{e.note}</p>
+            )}
           </li>
         ))}
       </ul>

@@ -107,8 +107,11 @@ export default function PlantDetail() {
           <div className="p-4">
             {tab === 'activity' && (
               <ul className="list-disc pl-4 space-y-1">
-                {(plant.activity || []).map((a, i) => (
-                  <li key={i}>{a}</li>
+                {(plant.careLog || []).map((ev, i) => (
+                  <li key={i}>
+                    {ev.type} on {ev.date}
+                    {ev.note ? ` - ${ev.note}` : ''}
+                  </li>
                 ))}
               </ul>
             )}

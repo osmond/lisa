@@ -7,17 +7,23 @@ const PlantContext = createContext()
 
 export function PlantProvider({ children }) {
   const [plants, setPlants] = useState(() => {
+    const mapPlant = p => ({
+      ...p,
+      gallery: p.gallery || [],
+      careLog: p.careLog || [],
+    })
+
     if (typeof localStorage !== 'undefined') {
       const stored = localStorage.getItem('plants')
       if (stored) {
         try {
-          return JSON.parse(stored)
+          return JSON.parse(stored).map(mapPlant)
         } catch {
           // fall through to initial plants
         }
       }
     }
-    return initialPlants.map(p => ({ ...p, gallery: p.gallery || [] }))
+    return initialPlants.map(mapPlant)
   })
 
   const weather = useWeather()
@@ -28,7 +34,18 @@ export function PlantProvider({ children }) {
     }
   }, [plants])
 
-  const markWatered = id => {
+  const logEvent = (id, type, note = '') => {
+    const date = new Date().toISOString().slice(0, 10)
+    setPlants(prev =>
+      prev.map(p =>
+        p.id === id
+          ? { ...p, careLog: [...(p.careLog || []), { date, type, note }] }
+          : p
+      )
+    )
+  }
+
+  const markWatered = (id, note) => {
     setPlants(prev =>
       prev.map(p => {
         if (p.id === id) {
@@ -44,12 +61,16 @@ export function PlantProvider({ children }) {
         return p
       })
     )
+    logEvent(id, 'Watered', note)
   }
 
   const addPlant = plant => {
     setPlants(prev => {
       const nextId = prev.reduce((m, p) => Math.max(m, p.id), 0) + 1
-      return [...prev, { id: nextId, ...plant, gallery: [] }]
+      return [
+        ...prev,
+        { id: nextId, ...plant, gallery: [], careLog: [] },
+      ]
     })
   }
 
@@ -88,6 +109,7 @@ export function PlantProvider({ children }) {
       value={{
         plants,
         markWatered,
+        logEvent,
         addPlant,
         updatePlant,
         removePlant,
