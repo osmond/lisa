@@ -54,3 +54,9 @@ test('renders care log notes', () => {
   expect(screen.getByText('Watered Plant A')).toBeInTheDocument()
   expect(screen.getByText('deep soak')).toBeInTheDocument()
 })
+
+test('renders an icon for events', () => {
+  const { container } = render(<Timeline />)
+  const svg = container.querySelector('svg[aria-hidden="true"]')
+  expect(svg).toBeInTheDocument()
+})
