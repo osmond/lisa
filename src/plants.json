@@ -3,11 +3,11 @@
     "id": 1,
     "name": "Monstera",
     "nickname": "Swiss Cheese",
-    "image": "/lisa/images/monstera-plant-pot-isolated-white-background-minimal-tropical-leaves-houseplant-home-decor_787667-1395.jpg",
+    "image": "https://cdn.pixabay.com/photo/2016/02/19/11/30/houseplants-1209015_1280.jpg",
     "photos": [
-      "/lisa/images/monstera-plant-pot-isolated-white-background-minimal-tropical-leaves-houseplant-home-decor_787667-1395.jpg",
-      "/lisa/images/1.jpeg",
-      "/lisa/images/f42e48178725077.64ed5063932c3.jpg"
+      "https://cdn.pixabay.com/photo/2016/02/19/11/30/houseplants-1209015_1280.jpg",
+      "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg",
+      "https://cdn.pixabay.com/photo/2015/06/20/13/45/plant-815253_1280.jpg"
     ],
     "lastWatered": "2025-07-07",
     "nextWater": "2025-07-14",
@@ -18,7 +18,10 @@
     "light": "Bright indirect",
     "humidity": "High",
     "difficulty": "Easy",
-    "activity": ["Watered on 2025-07-07", "Rotated on 2025-07-05"],
+    "activity": [
+      "Watered on 2025-07-07",
+      "Rotated on 2025-07-05"
+    ],
     "notes": "Doing well",
     "advancedCare": "Propagate in water"
   },
@@ -26,11 +29,11 @@
     "id": 2,
     "name": "Snake Plant",
     "nickname": "Mother-in-Law's Tongue",
-    "image": "/lisa/images/1.jpeg",
+    "image": "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg",
     "photos": [
-      "/lisa/images/1.jpeg",
-      "/lisa/images/f42e48178725077.64ed5063932c3.jpg",
-      "/lisa/images/minimal-tropical-houseplant-home-decor-kentia-or-areca-palm-against-white-wall-palm-tree-in-pot-isolated-on-white-background-home-gardening-love-of-houseplants-free-photo.jpg"
+      "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg",
+      "https://cdn.pixabay.com/photo/2015/06/20/13/45/plant-815253_1280.jpg",
+      "https://cdn.pixabay.com/photo/2015/05/02/05/13/plant-749268_1280.jpg"
     ],
     "lastWatered": "2025-07-10",
     "nextWater": "2025-07-17",
@@ -41,7 +44,9 @@
     "light": "Low to bright indirect",
     "humidity": "Average",
     "difficulty": "Easy",
-    "activity": ["Watered on 2025-07-10"],
+    "activity": [
+      "Watered on 2025-07-10"
+    ],
     "notes": "Prefers dry soil",
     "advancedCare": "Allow soil to dry between waterings"
   },
@@ -49,11 +54,11 @@
     "id": 3,
     "name": "Fiddle Leaf Fig",
     "nickname": "Fiddle",
-    "image": "/lisa/images/f42e48178725077.64ed5063932c3.jpg",
+    "image": "https://cdn.pixabay.com/photo/2015/06/20/13/45/plant-815253_1280.jpg",
     "photos": [
-      "/lisa/images/f42e48178725077.64ed5063932c3.jpg",
-      "/lisa/images/monstera-plant-pot-isolated-white-background-minimal-tropical-leaves-houseplant-home-decor_787667-1395.jpg",
-      "/lisa/images/1.jpeg"
+      "https://cdn.pixabay.com/photo/2015/06/20/13/45/plant-815253_1280.jpg",
+      "https://cdn.pixabay.com/photo/2016/02/19/11/30/houseplants-1209015_1280.jpg",
+      "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg"
     ],
     "lastWatered": "2025-07-09",
     "nextWater": "2025-07-16",
@@ -64,7 +69,9 @@
     "light": "Bright direct",
     "humidity": "Moderate",
     "difficulty": "Medium",
-    "activity": ["Wiped leaves on 2025-07-08"],
+    "activity": [
+      "Wiped leaves on 2025-07-08"
+    ],
     "notes": "Rotate regularly",
     "advancedCare": "Sensitive to drafts"
   },
@@ -72,11 +79,11 @@
     "id": 4,
     "name": "Peace Lily",
     "nickname": "Lily",
-    "image": "/lisa/images/minimal-tropical-houseplant-home-decor-kentia-or-areca-palm-against-white-wall-palm-tree-in-pot-isolated-on-white-background-home-gardening-love-of-houseplants-free-photo.jpg",
+    "image": "https://cdn.pixabay.com/photo/2015/05/02/05/13/plant-749268_1280.jpg",
     "photos": [
-      "/lisa/images/minimal-tropical-houseplant-home-decor-kentia-or-areca-palm-against-white-wall-palm-tree-in-pot-isolated-on-white-background-home-gardening-love-of-houseplants-free-photo.jpg",
-      "/lisa/images/1.jpeg",
-      "/lisa/images/monstera-plant-pot-isolated-white-background-minimal-tropical-leaves-houseplant-home-decor_787667-1395.jpg"
+      "https://cdn.pixabay.com/photo/2015/05/02/05/13/plant-749268_1280.jpg",
+      "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg",
+      "https://cdn.pixabay.com/photo/2014/10/23/18/05/houseplants-500338_1280.jpg"
     ],
     "lastWatered": "2025-07-11",
     "nextWater": "2025-07-15",
@@ -87,7 +94,10 @@
     "light": "Low to medium",
     "humidity": "High",
     "difficulty": "Easy",
-    "activity": ["Watered on 2025-07-11", "Removed dead leaves on 2025-07-09"],
+    "activity": [
+      "Watered on 2025-07-11",
+      "Removed dead leaves on 2025-07-09"
+    ],
     "notes": "Likes humidity",
     "advancedCare": "Clean blooms gently"
   },
@@ -95,11 +105,11 @@
     "id": 5,
     "name": "ZZ Plant",
     "nickname": "Zenzi",
-    "image": "/lisa/images/1.jpeg",
+    "image": "https://cdn.pixabay.com/photo/2014/10/23/18/05/houseplants-500338_1280.jpg",
     "photos": [
-      "/lisa/images/1.jpeg",
-      "/lisa/images/minimal-tropical-houseplant-home-decor-kentia-or-areca-palm-against-white-wall-palm-tree-in-pot-isolated-on-white-background-home-gardening-love-of-houseplants-free-photo.jpg",
-      "/lisa/images/monstera-plant-pot-isolated-white-background-minimal-tropical-leaves-houseplant-home-decor_787667-1395.jpg"
+      "https://cdn.pixabay.com/photo/2014/10/23/18/05/houseplants-500338_1280.jpg",
+      "https://cdn.pixabay.com/photo/2016/02/19/11/30/houseplants-1209015_1280.jpg",
+      "https://cdn.pixabay.com/photo/2015/05/02/05/13/plant-749268_1280.jpg"
     ],
     "lastWatered": "2025-07-01",
     "nextWater": "2025-07-20",
@@ -110,7 +120,9 @@
     "light": "Low light",
     "humidity": "Average",
     "difficulty": "Very Easy",
-    "activity": ["Dusting on 2025-06-29"],
+    "activity": [
+      "Dusting on 2025-06-29"
+    ],
     "notes": "Tolerates neglect",
     "advancedCare": "Avoid overwatering"
   },
@@ -118,11 +130,11 @@
     "id": 6,
     "name": "Aloe Vera",
     "nickname": "Medic",
-    "image": "/lisa/images/f42e48178725077.64ed5063932c3.jpg",
+    "image": "https://cdn.pixabay.com/photo/2016/11/18/16/19/green-1835624_1280.jpg",
     "photos": [
-      "/lisa/images/f42e48178725077.64ed5063932c3.jpg",
-      "/lisa/images/1.jpeg",
-      "/lisa/images/minimal-tropical-houseplant-home-decor-kentia-or-areca-palm-against-white-wall-palm-tree-in-pot-isolated-on-white-background-home-gardening-love-of-houseplants-free-photo.jpg"
+      "https://cdn.pixabay.com/photo/2016/11/18/16/19/green-1835624_1280.jpg",
+      "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg",
+      "https://cdn.pixabay.com/photo/2015/06/20/13/45/plant-815253_1280.jpg"
     ],
     "lastWatered": "2025-07-02",
     "nextWater": "2025-07-16",
@@ -133,7 +145,9 @@
     "light": "Full sun",
     "humidity": "Low",
     "difficulty": "Easy",
-    "activity": ["Trimmed on 2025-07-01"],
+    "activity": [
+      "Trimmed on 2025-07-01"
+    ],
     "notes": "Useful for burns",
     "advancedCare": "Use cactus soil"
   },
@@ -141,11 +155,11 @@
     "id": 7,
     "name": "Pothos",
     "nickname": "Devil's Ivy",
-    "image": "/lisa/images/minimal-tropical-houseplant-home-decor-kentia-or-areca-palm-against-white-wall-palm-tree-in-pot-isolated-on-white-background-home-gardening-love-of-houseplants-free-photo.jpg",
+    "image": "https://cdn.pixabay.com/photo/2016/02/19/11/30/houseplants-1209015_1280.jpg",
     "photos": [
-      "/lisa/images/minimal-tropical-houseplant-home-decor-kentia-or-areca-palm-against-white-wall-palm-tree-in-pot-isolated-on-white-background-home-gardening-love-of-houseplants-free-photo.jpg",
-      "/lisa/images/monstera-plant-pot-isolated-white-background-minimal-tropical-leaves-houseplant-home-decor_787667-1395.jpg",
-      "/lisa/images/1.jpeg"
+      "https://cdn.pixabay.com/photo/2016/02/19/11/30/houseplants-1209015_1280.jpg",
+      "https://cdn.pixabay.com/photo/2015/05/02/05/13/plant-749268_1280.jpg",
+      "https://cdn.pixabay.com/photo/2014/10/23/18/05/houseplants-500338_1280.jpg"
     ],
     "lastWatered": "2025-07-06",
     "nextWater": "2025-07-13",
@@ -156,7 +170,9 @@
     "light": "Low to bright indirect",
     "humidity": "Average",
     "difficulty": "Very Easy",
-    "activity": ["Trained vine on 2025-07-04"],
+    "activity": [
+      "Trained vine on 2025-07-04"
+    ],
     "notes": "Great for beginners",
     "advancedCare": "Propagate in water"
   },
@@ -164,11 +180,11 @@
     "id": 8,
     "name": "Calathea Orbifolia",
     "nickname": "Prayer Plant",
-    "image": "/lisa/images/1.jpeg",
+    "image": "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg",
     "photos": [
-      "/lisa/images/1.jpeg",
-      "/lisa/images/monstera-plant-pot-isolated-white-background-minimal-tropical-leaves-houseplant-home-decor_787667-1395.jpg",
-      "/lisa/images/f42e48178725077.64ed5063932c3.jpg"
+      "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg",
+      "https://cdn.pixabay.com/photo/2014/10/23/18/05/houseplants-500338_1280.jpg",
+      "https://cdn.pixabay.com/photo/2016/11/18/16/19/green-1835624_1280.jpg"
     ],
     "lastWatered": "2025-07-08",
     "nextWater": "2025-07-12",
@@ -179,7 +195,9 @@
     "light": "Low to medium",
     "humidity": "Very high",
     "difficulty": "Medium",
-    "activity": ["Misted on 2025-07-08"],
+    "activity": [
+      "Misted on 2025-07-08"
+    ],
     "notes": "Keep soil moist",
     "advancedCare": "Loves filtered water"
   },
@@ -187,11 +205,11 @@
     "id": 9,
     "name": "Rubber Plant",
     "nickname": "Ficus Elastica",
-    "image": "/lisa/images/f42e48178725077.64ed5063932c3.jpg",
+    "image": "https://cdn.pixabay.com/photo/2015/06/20/13/45/plant-815253_1280.jpg",
     "photos": [
-      "/lisa/images/f42e48178725077.64ed5063932c3.jpg",
-      "/lisa/images/1.jpeg",
-      "/lisa/images/monstera-plant-pot-isolated-white-background-minimal-tropical-leaves-houseplant-home-decor_787667-1395.jpg"
+      "https://cdn.pixabay.com/photo/2015/06/20/13/45/plant-815253_1280.jpg",
+      "https://cdn.pixabay.com/photo/2016/02/19/11/30/houseplants-1209015_1280.jpg",
+      "https://cdn.pixabay.com/photo/2015/05/02/05/13/plant-749268_1280.jpg"
     ],
     "lastWatered": "2025-07-05",
     "nextWater": "2025-07-12",
@@ -202,7 +220,9 @@
     "light": "Bright indirect",
     "humidity": "Moderate",
     "difficulty": "Medium",
-    "activity": ["Cleaned leaves on 2025-07-05"],
+    "activity": [
+      "Cleaned leaves on 2025-07-05"
+    ],
     "notes": "Avoid sudden moves",
     "advancedCare": "Top dress with compost"
   },
@@ -210,11 +230,11 @@
     "id": 10,
     "name": "Chinese Evergreen",
     "nickname": "Aglaonema",
-    "image": "/lisa/images/1.jpeg",
+    "image": "https://cdn.pixabay.com/photo/2015/05/02/05/13/plant-749268_1280.jpg",
     "photos": [
-      "/lisa/images/1.jpeg",
-      "/lisa/images/f42e48178725077.64ed5063932c3.jpg",
-      "/lisa/images/minimal-tropical-houseplant-home-decor-kentia-or-areca-palm-against-white-wall-palm-tree-in-pot-isolated-on-white-background-home-gardening-love-of-houseplants-free-photo.jpg"
+      "https://cdn.pixabay.com/photo/2015/05/02/05/13/plant-749268_1280.jpg",
+      "https://cdn.pixabay.com/photo/2015/04/19/08/32/potted-plant-728849_1280.jpg",
+      "https://cdn.pixabay.com/photo/2016/11/18/16/19/green-1835624_1280.jpg"
     ],
     "lastWatered": "2025-07-04",
     "nextWater": "2025-07-11",
@@ -225,7 +245,9 @@
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "activity": ["Checked soil moisture on 2025-07-03"],
+    "activity": [
+      "Checked soil moisture on 2025-07-03"
+    ],
     "notes": "Tolerates low light well",
     "advancedCare": "Rotate monthly for even growth"
   }
