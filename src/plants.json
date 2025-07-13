@@ -105,7 +105,7 @@
     "id": 5,
     "name": "ZZ Plant",
     "nickname": "Zenzi",
-    "image": "/demo-image-01.jpg",
+    "image": "/demo-image-08.jpg",
     "photos": [
       "/demo-image-05.jpg",
       "/demo-image-06.jpg",
@@ -130,7 +130,7 @@
     "id": 6,
     "name": "Aloe Vera",
     "nickname": "Medic",
-    "image": "/demo-image-2.jpg",
+    "image": "/demo-image-02.jpg",
     "photos": [
       "/demo-image-06.jpg",
       "/demo-image-07.jpg",
@@ -205,7 +205,7 @@
     "id": 9,
     "name": "Rubber Plant",
     "nickname": "Ficus Elastica",
-    "image": "/demo-image-09.jpg",
+    "image": "/demo-image-05.jpg",
     "photos": [
       "/demo-image-09.jpg",
       "/demo-image-10.jpg",
