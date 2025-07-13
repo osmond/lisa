@@ -11,6 +11,24 @@ export default function Home() {
   const forecast = weatherCtx?.forecast
   const weatherData = { rainTomorrow: forecast?.rainfall || 0 }
 
+  const tasks = plants
+    .map(p => {
+      const { date, reason } = getNextWateringDate(p.lastWatered, weatherData)
+      const todayIso = new Date().toISOString().slice(0, 10)
+      if (date <= todayIso) {
+        return {
+          id: p.id,
+          plantId: p.id,
+          plantName: p.name,
+          image: p.image,
+          type: 'Water',
+          reason,
+        }
+      }
+      return null
+    })
+    .filter(Boolean)
+
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
     month: 'long',
@@ -33,26 +51,11 @@ export default function Home() {
       <section>
         <h2 className="font-semibold font-display mb-2">Today’s Tasks</h2>
         <div className="space-y-2">
-          {plants
-            .map(p => {
-              const { date, reason } = getNextWateringDate(p.lastWatered, weatherData)
-              const todayIso = new Date().toISOString().slice(0, 10)
-              if (date <= todayIso) {
-                return {
-                  id: p.id,
-                  plantId: p.id,
-                  plantName: p.name,
-                  image: p.image,
-                  type: 'Water',
-                  reason,
-                }
-              }
-              return null
-            })
-            .filter(Boolean)
-            .map(task => (
-              <TaskItem key={task.id} task={task} />
-            ))}
+          {tasks.length > 0 ? (
+            tasks.map(task => <TaskItem key={task.id} task={task} />)
+          ) : (
+            <p className="text-sm text-gray-500">All plants are happy today!</p>
+          )}
         </div>
       </section>
     </div>
