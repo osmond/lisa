@@ -7,6 +7,7 @@ export default function PlantCard({ plant }) {
   const navigate = useNavigate()
   const { markWatered, removePlant } = usePlants()
   const startX = useRef(0)
+  const deltaRef = useRef(0)
   const [deltaX, setDeltaX] = useState(0)
   const [showActions, setShowActions] = useState(false)
   const [, createRipple] = useRipple()
@@ -23,13 +24,16 @@ export default function PlantCard({ plant }) {
   const handlePointerMove = e => {
     if (!startX.current) return
     const currentX = e.clientX ?? e.touches?.[0]?.clientX ?? 0
-    setDeltaX(currentX - startX.current)
+    const diff = currentX - startX.current
+    deltaRef.current = diff
+    setDeltaX(diff)
   }
 
   const handlePointerEnd = e => {
-    const currentX = e?.clientX ?? e?.changedTouches?.[0]?.clientX ?? startX.current
-    const diff = deltaX || (currentX - startX.current)
+    const currentX = e?.clientX ?? e?.changedTouches?.[0]?.clientX ?? startX.current + deltaRef.current
+    const diff = deltaRef.current || (currentX - startX.current)
     setDeltaX(0)
+    deltaRef.current = 0
     startX.current = 0
     if (diff > 75) {
       handleWatered()
