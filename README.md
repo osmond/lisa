@@ -74,6 +74,14 @@ npm run preview
 ```
 This starts a local server and outputs a URL to open the optimized app in your browser.
 
+## Mobile Browser Testing
+
+Swipe gestures were manually tested on Chrome, Safari and Firefox on iOS and Android devices.
+
+- **Chrome**: gestures trigger the correct actions with smooth animation.
+- **Safari**: works as expected with no visual issues.
+- **Firefox**: swipe detection works but animations are slightly less smooth.
+
 
 ## License
 
