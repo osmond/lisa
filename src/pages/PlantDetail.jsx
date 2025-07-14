@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState, useRef, useMemo } from 'react'
 import { usePlants } from '../PlantContext.jsx'
+import { Drop } from 'phosphor-react'
 import actionIcons from '../components/ActionIcons.jsx'
 import LogModal from '../components/LogModal.jsx'
 import { formatMonth } from '../utils/date.js'
@@ -121,7 +122,11 @@ export default function PlantDetail() {
     <div className="space-y-2 relative">
       {toast && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="w-8 h-8 border-4 border-green-600 rounded-full ring-pop"></div>
+          {toast === 'Watered' ? (
+            <Drop aria-hidden="true" className="w-8 h-8 text-blue-600 water-drop" />
+          ) : (
+            <div className="w-8 h-8 border-4 border-green-600 rounded-full ring-pop"></div>
+          )}
         </div>
       )}
       <div aria-live="polite" className="sr-only">{toast}</div>

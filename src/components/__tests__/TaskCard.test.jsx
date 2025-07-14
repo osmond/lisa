@@ -34,9 +34,9 @@ test('icon svg is aria-hidden', () => {
   expect(svg).toHaveAttribute('aria-hidden', 'true')
 })
 
-test('mark as done does not navigate', () => {
+test('mark as done does not navigate and shows animation', () => {
   jest.spyOn(window, 'prompt').mockReturnValue('')
-  render(
+  const { container } = render(
     <PlantProvider>
       <MemoryRouter initialEntries={['/']}>
         <Routes>
@@ -48,6 +48,7 @@ test('mark as done does not navigate', () => {
   )
   fireEvent.click(screen.getByRole('checkbox'))
   expect(screen.queryByText('Plant Page')).not.toBeInTheDocument()
+  expect(container.querySelector('.water-drop')).toBeInTheDocument()
 })
 
 test('clicking card adds ripple effect', () => {
