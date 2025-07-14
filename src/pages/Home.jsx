@@ -147,7 +147,7 @@ const handleCompleteAll = type => {
       </div>
       <section>
         <h2 className="font-semibold font-display text-subhead mb-2">Watering</h2>
-        <div className="space-y-4 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl">
+        <div className="space-y-6 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl">
           {waterTasks.length > 0 ? (
             <>
               {waterTasks.length > 1 && (
@@ -166,7 +166,7 @@ const handleCompleteAll = type => {
       </section>
       <section>
         <h2 className="font-semibold font-display text-subhead mb-2 mt-4">Fertilizing</h2>
-        <div className="space-y-4 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl">
+        <div className="space-y-6 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl">
           {fertilizeTasks.length > 0 ? (
             <>
               {fertilizeTasks.length > 1 && (
