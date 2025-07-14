@@ -15,7 +15,6 @@ import {
 } from 'phosphor-react'
 
 
-import SummaryStrip from '../components/SummaryStrip.jsx'
 import CareStats from '../components/CareStats.jsx'
 import FeaturedCard from '../components/FeaturedCard.jsx'
 
@@ -131,16 +130,6 @@ export default function Home() {
         <FeaturedCard plants={plants} startIndex={featuredIndex} />
       </section>
     )}
-    <SummaryStrip
-      total={totalCount}
-      watered={waterCount}
-      fertilized={fertilizeCount}
-      waterCompleted={wateredTodayCount}
-      waterTotal={totalWaterToday}
-      fertCompleted={fertilizedTodayCount}
-      fertTotal={totalFertilizeToday}
-      onClick={() => setShowSummary(true)}
-    />
     <CareStats
       waterCompleted={wateredTodayCount}
       waterTotal={totalWaterToday}

@@ -19,11 +19,10 @@ test('shows upbeat message when there are no tasks', () => {
     </MemoryRouter>
   )
   expect(screen.getByText(/all plants are happy/i)).toBeInTheDocument()
-  expect(screen.getByTestId('summary-total')).toBeInTheDocument()
   expect(screen.getByTestId('care-stats')).toBeInTheDocument()
 })
 
-test('summary items render when tasks exist', () => {
+test('care stats render when tasks exist', () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
   mockPlants.splice(0, mockPlants.length, {
     id: 1,
@@ -39,14 +38,14 @@ test('summary items render when tasks exist', () => {
     </MemoryRouter>
   )
 
-  expect(screen.getByTestId('summary-total')).toHaveTextContent('2')
-  expect(screen.getByTestId('summary-water')).toHaveTextContent('1')
-  expect(screen.getByTestId('summary-fertilize')).toHaveTextContent('1')
   const stats = screen.getByTestId('care-stats')
   expect(stats).toBeInTheDocument()
+  expect(screen.getByTestId('stat-total')).toHaveTextContent('2')
+  expect(screen.getByTestId('stat-water')).toHaveTextContent('1')
+  expect(screen.getByTestId('stat-fertilize')).toHaveTextContent('1')
 })
 
-test('featured card appears before summary', () => {
+test('featured card appears before care stats', () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
   mockPlants.splice(0, mockPlants.length, {
     id: 1,
@@ -63,9 +62,9 @@ test('featured card appears before summary', () => {
   )
 
   const featured = screen.getByTestId('featured-card')
-  const summary = screen.getByTestId('summary-total')
+  const stats = screen.getByTestId('care-stats')
   expect(featured).toBeInTheDocument()
-  const order = featured.compareDocumentPosition(summary)
+  const order = featured.compareDocumentPosition(stats)
   expect(order & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
 })
 
