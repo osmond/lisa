@@ -226,7 +226,7 @@ export default function Gallery() {
 
       <div className="space-y-4 mt-4">
         {photos.map((ph, i) => (
-          <div key={i} className="border p-2 rounded">
+          <div key={i} className="border p-4 rounded">
             <div className="flex items-center gap-2">
               <img
                 src={typeof ph === 'object' ? ph.src : ph}
