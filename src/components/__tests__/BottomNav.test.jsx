@@ -23,3 +23,13 @@ test('renders gallery link', () => {
   const galleryLink = container.querySelector('a[href="/gallery"]')
   expect(galleryLink).not.toBeNull()
 })
+
+test('does not render add link', () => {
+  const { container } = render(
+    <MemoryRouter>
+      <BottomNav />
+    </MemoryRouter>
+  )
+  const addLink = container.querySelector('a[href="/add"]')
+  expect(addLink).toBeNull()
+})
