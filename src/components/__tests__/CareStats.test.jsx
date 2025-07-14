@@ -17,9 +17,15 @@ test('renders stats with numbers and icons', () => {
   expect(screen.getByLabelText('1 of 2 water tasks done')).toBeInTheDocument()
   expect(screen.getByLabelText('2 of 2 fertilize tasks done')).toBeInTheDocument()
   const svgs = container.querySelectorAll('svg')
-  expect(svgs.length).toBeGreaterThanOrEqual(6)
+  expect(svgs.length).toBeGreaterThanOrEqual(9)
   svgs.forEach(svg => {
     expect(svg).toHaveAttribute('aria-hidden', 'true')
+  })
+  ;['stat-total', 'stat-water', 'stat-fertilize'].forEach(id => {
+    const inner = screen.getByTestId(id).querySelector('div.absolute')
+    const icon = inner.querySelector('svg')
+    expect(icon).toBeInTheDocument()
+    expect(icon).toHaveAttribute('aria-hidden', 'true')
   })
   const texts = screen.getAllByTestId('stat-text').map(el => el.textContent)
   expect(texts).toEqual(['3/4', '1/2', '2/2'])

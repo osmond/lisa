@@ -63,7 +63,8 @@ exports[`matches snapshot in dark mode 1`] = `
   </a>
   <button
     aria-label="Mark complete"
-    class="ml-auto relative"
+    class="ml-auto relative focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500"
+    type="button"
   >
     <input
       class="sr-only task-checkbox"
