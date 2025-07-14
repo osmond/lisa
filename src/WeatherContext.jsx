@@ -9,21 +9,24 @@ export function WeatherProvider({ children }) {
       const stored = localStorage.getItem('weatherLocation')
       if (stored) return stored
     }
-    return 'London'
+    // default to Saint Paul, Minnesota
+    return 'Saint Paul, Minnesota'
   })
   const [timezone, setTimezone] = useState(() => {
     if (typeof localStorage !== 'undefined') {
       const stored = localStorage.getItem('timezone')
       if (stored) return stored
     }
-    return Intl.DateTimeFormat().resolvedOptions().timeZone
+    // default to US central time
+    return 'America/Chicago'
   })
   const [units, setUnits] = useState(() => {
     if (typeof localStorage !== 'undefined') {
       const stored = localStorage.getItem('tempUnits')
       if (stored) return stored
     }
-    return 'metric'
+    // use Fahrenheit by default
+    return 'imperial'
   })
 
   useEffect(() => {
