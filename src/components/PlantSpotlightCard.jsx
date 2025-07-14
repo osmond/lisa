@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 
+import Button from "./Button.jsx"
 export default function PlantSpotlightCard({ plant, nextPlant, onSkip }) {
   const { markWatered, logEvent } = usePlants()
   const [ignored, setIgnored] = useState(false)
@@ -25,7 +26,12 @@ export default function PlantSpotlightCard({ plant, nextPlant, onSkip }) {
 
   return (
     <article className="rounded-xl bg-white shadow p-4 space-y-3">
-      <img src={plant.image} alt={plant.name} className="w-full rounded-lg object-cover" />
+      <img
+        src={plant.image}
+        alt={plant.name}
+        className="w-full rounded-lg object-cover"
+        onError={e => (e.target.src = '/placeholder.svg')}
+      />
       <h2 className="text-xl font-semibold">{plant.name}</h2>
       <div className="flex gap-2">
         {plant.light && (
@@ -40,15 +46,15 @@ export default function PlantSpotlightCard({ plant, nextPlant, onSkip }) {
         )}
       </div>
       <div className="flex gap-3">
-        <button className="px-3 py-1 bg-accent text-white rounded" onClick={handleWater}>
+        <Button className="px-3 py-1 bg-accent text-white" onClick={handleWater}>
           Water
-        </button>
-        <button className="px-3 py-1 bg-accent text-white rounded" onClick={handleAddNote}>
+        </Button>
+        <Button className="px-3 py-1 bg-accent text-white" onClick={handleAddNote}>
           Add Note
-        </button>
-        <button className="px-3 py-1" onClick={handleSkip}>
+        </Button>
+        <Button className="px-3 py-1" onClick={handleSkip}>
           Skip
-        </button>
+        </Button>
       </div>
       {nextPlant && (
         <p className="text-sm text-gray-500">Next up: {nextPlant.name}</p>

@@ -1,6 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 
+
+import Button from "./Button.jsx"
 export default function Lightbox({ images, startIndex = 0, onClose, label = 'Image viewer' }) {
+
+export default function Lightbox({
+  images,
+  alts = [],
+  startIndex = 0,
+  onClose,
+  label = 'Image viewer',
+}) {
+
   const [index, setIndex] = useState(startIndex)
   const closeBtnRef = useRef(null)
   const prevFocusRef = useRef(null)
@@ -34,33 +45,34 @@ export default function Lightbox({ images, startIndex = 0, onClose, label = 'Ima
       aria-label={label}
       className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
     >
-      <button
+      <Button
         ref={closeBtnRef}
         aria-label="Close"
         onClick={onClose}
         className="absolute top-4 right-4 text-white text-3xl"
       >
         &times;
-      </button>
-      <button
+      </Button>
+      <Button
         aria-label="Previous image"
         className="absolute left-4 text-white text-3xl"
         onClick={() => setIndex((index - 1 + images.length) % images.length)}
       >
         ‹
-      </button>
+      </Button>
       <img
         src={images[index]}
-        alt="Gallery image"
+        alt={alts[index] || 'Gallery image'}
         className="max-w-full max-h-full object-contain"
+        onError={e => (e.target.src = '/placeholder.svg')}
       />
-      <button
+      <Button
         aria-label="Next image"
         className="absolute right-4 text-white text-3xl"
         onClick={() => setIndex((index + 1) % images.length)}
       >
         ›
-      </button>
+      </Button>
     </div>
   )
 }

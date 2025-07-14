@@ -1,13 +1,14 @@
 import { useParams, Link } from 'react-router-dom'
-import { useState, useRef, useMemo } from 'react'
+import { useState, useRef, useMemo, useEffect } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 import { Drop } from 'phosphor-react'
 import actionIcons from '../components/ActionIcons.jsx'
 import LogModal from '../components/LogModal.jsx'
 import CareGraph from '../components/CareGraph.jsx'
-import { formatMonth } from '../utils/date.js'
+import { formatMonth, formatWeek } from '../utils/date.js'
 import FadeInImage from '../components/FadeInImage.jsx'
 import { isFrequentWatering } from '../utils/watering.js'
+import Button from "../components/Button.jsx"
 
 export default function PlantDetail() {
   const { id } = useParams()
@@ -60,18 +61,51 @@ export default function PlantDetail() {
         type: 'log',
       })
     })
-    return list.sort((a, b) => new Date(a.date) - new Date(b.date))
+    return list.sort((a, b) => new Date(b.date) - new Date(a.date))
   }, [plant])
+
+  const groupByWeek = useMemo(
+    () => new Set(events.map(e => e.date.slice(0, 7))).size === 1,
+    [events]
+  )
 
   const groupedEvents = useMemo(() => {
     const map = new Map()
-    events.forEach(e => {
-      const key = e.date.slice(0, 7)
-      if (!map.has(key)) map.set(key, [])
-      map.get(key).push(e)
-    })
+
+    if (groupByWeek) {
+      events.forEach(e => {
+        const d = new Date(e.date)
+        const startDay = Math.floor((d.getDate() - 1) / 7) * 7 + 1
+        const key = `${e.date.slice(0, 8)}${String(startDay).padStart(2, '0')}`
+        if (!map.has(key)) map.set(key, [])
+        map.get(key).push(e)
+      })
+    } else {
+      events.forEach(e => {
+        const key = e.date.slice(0, 7)
+        if (!map.has(key)) map.set(key, [])
+        map.get(key).push(e)
+      })
+    }
+
     return Array.from(map.entries())
-  }, [events])
+  }, [events, groupByWeek])
+
+  const [openMonths, setOpenMonths] = useState({})
+
+  useEffect(() => {
+    const monthKeys = groupedEvents.map(([k]) => k)
+    const recent = monthKeys.slice(-2)
+    setOpenMonths(prev => {
+      const updated = { ...prev }
+      monthKeys.forEach(k => {
+        if (updated[k] === undefined) {
+          updated[k] = recent.includes(k)
+        }
+      })
+      return updated
+    })
+  }, [groupedEvents])
 
   const wateringEvents = useMemo(
     () => events.filter(e => /water/i.test(e.label)),
@@ -166,6 +200,7 @@ export default function PlantDetail() {
             alt={plant.name}
             loading="lazy"
             className={`w-full h-64 object-cover ${bouncing ? 'bounce-once' : ''}`}
+            onError={e => (e.target.src = '/placeholder.svg')}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex flex-col justify-end p-4 space-y-1">
             <h1 className="text-headline font-bold font-display text-white">{plant.name}</h1>
@@ -201,44 +236,67 @@ export default function PlantDetail() {
             </p>
           )}
         </div>
+
         <div className="flex gap-2 mt-2">
-          <button
+          <Button
             type="button"
             onClick={handleWatered}
             className="px-4 py-1 bg-accent text-white rounded-full"
           >
             Watered
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
             onClick={handleLogEvent}
             className="px-4 py-1 bg-accent text-white rounded-full"
           >
             Add Note
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
             onClick={handleAddCareLog}
             className="px-4 py-1 bg-accent text-white rounded-full"
           >
             + Add care log
-          </button>
-        </div>
+          </Button>
 
-
-        <div>
-          <Link
-            to={`/plant/${plant.id}/gallery`}
-            className="text-green-600 underline"
+        <div className="mt-2">
+          <div
+            role="group"
+            aria-label="log actions"
+            className="flex text-sm rounded-full overflow-hidden bg-accent text-white divide-x divide-white"
           >
-            View Gallery
-          </Link>
+            <button
+              type="button"
+              onClick={handleWatered}
+              className="flex-1 px-3 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              Watered
+            </button>
+            <button
+              type="button"
+              onClick={handleLogEvent}
+              className="flex-1 px-3 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              Add Note
+            </button>
+            <button
+              type="button"
+              onClick={handleAddCareLog}
+              className="flex-1 px-3 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              + Add care log
+            </button>
+          </div>
+
         </div>
+
+
 
         <div className="space-y-2 mt-4 divide-y divide-gray-200 rounded-xl shadow-sm bg-stone">
           <div>
             <h3 id="info-header">
-              <button
+              <Button
                 ref={el => (sectionRefs.current[0] = el)}
                 aria-expanded={openSection === 'info'}
                 aria-controls="info-panel"
@@ -250,7 +308,7 @@ export default function PlantDetail() {
               >
                 Details
                 <span>{openSection === 'info' ? '-' : '+'}</span>
-              </button>
+              </Button>
             </h3>
             {openSection === 'info' && (
               <div
@@ -260,7 +318,7 @@ export default function PlantDetail() {
                 className="p-4 pb-4"
               >
                 <div role="tablist" aria-label="Plant info" className="flex gap-2 mb-2">
-                  <button
+                  <Button
                     ref={el => (tabRefs.current[0] = el)}
                     id="activity-tab"
                     role="tab"
@@ -271,8 +329,8 @@ export default function PlantDetail() {
                     onKeyDown={e => handleTabKeyDown(e, 0)}
                   >
                     Activity
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     ref={el => (tabRefs.current[1] = el)}
                     id="notes-tab"
                     role="tab"
@@ -283,8 +341,8 @@ export default function PlantDetail() {
                     onKeyDown={e => handleTabKeyDown(e, 1)}
                   >
                     Notes
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     ref={el => (tabRefs.current[2] = el)}
                     id="care-tab"
                     role="tab"
@@ -295,7 +353,7 @@ export default function PlantDetail() {
                     onKeyDown={e => handleTabKeyDown(e, 2)}
                   >
                     Advanced
-                  </button>
+                  </Button>
                 </div>
                 {activeTab === 'activity' && (
                   <div id="activity-panel" role="tabpanel" aria-labelledby="activity-tab">
@@ -323,13 +381,13 @@ export default function PlantDetail() {
                         : plant.notes.slice(0, 160)
                       : 'No notes yet.'}
                     {plant.notes && plant.notes.length > 160 && (
-                      <button
+                      <Button
                         type="button"
                         onClick={() => setShowMore(!showMore)}
                         className="ml-2 text-green-600 underline"
                       >
                         {showMore ? 'Show less' : 'Show more'}
-                      </button>
+                      </Button>
                     )}
                   </div>
                 )}
@@ -344,7 +402,7 @@ export default function PlantDetail() {
 
           <div>
             <h3 id="timeline-header">
-              <button
+              <Button
                 ref={el => (sectionRefs.current[1] = el)}
                 aria-expanded={openSection === 'timeline'}
                 aria-controls="timeline-panel"
@@ -356,7 +414,7 @@ export default function PlantDetail() {
               >
                 Timeline
                 <span>{openSection === 'timeline' ? '-' : '+'}</span>
-              </button>
+              </Button>
             </h3>
             {openSection === 'timeline' && (
               <div
@@ -366,7 +424,7 @@ export default function PlantDetail() {
                 className="p-4 pb-4"
               >
                 <div className="mb-2 flex gap-2" role="tablist">
-                  <button
+                  <Button
                     role="tab"
                     aria-selected={timelineTab === 'list'}
                     className={`px-2 py-1 rounded ${
@@ -377,8 +435,8 @@ export default function PlantDetail() {
                     onClick={() => setTimelineTab('list')}
                   >
                     Events
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     role="tab"
                     aria-selected={timelineTab === 'graph'}
                     className={`px-2 py-1 rounded ${
@@ -389,13 +447,14 @@ export default function PlantDetail() {
                     onClick={() => setTimelineTab('graph')}
                   >
                     Care Graph
-                  </button>
+                  </Button>
                 </div>
                 {timelineTab === 'list' ? (
+
                   groupedEvents.map(([monthKey, list]) => (
                     <div key={monthKey}>
-                      <h3 className="mt-4 text-label font-semibold text-gray-500">
-                        {formatMonth(monthKey)}
+                      <h3 className="sticky top-0 bg-stone mt-4 text-label font-semibold text-gray-500">
+                        {groupByWeek ? formatWeek(monthKey) : formatMonth(monthKey)}
                       </h3>
                       <ul className="relative border-l border-gray-300 pl-4 space-y-6">
                         {list.map((e, i) => {
@@ -420,6 +479,50 @@ export default function PlantDetail() {
                       </ul>
                     </div>
                   ))
+
+                  groupedEvents.map(([monthKey, list]) => {
+                    const isOpen = openMonths[monthKey]
+                    return (
+                      <div key={monthKey}>
+                        <h3 className="sticky top-0 bg-stone z-10 mt-4 text-label font-semibold text-gray-500">
+                          <button
+                            type="button"
+                            className="w-full flex justify-between items-center py-2"
+                            aria-expanded={isOpen}
+                            onClick={() =>
+                              setOpenMonths(prev => ({ ...prev, [monthKey]: !prev[monthKey] }))
+                            }
+                          >
+                            {formatMonth(monthKey)} <span>{isOpen ? '-' : '+'}</span>
+                          </button>
+                        </h3>
+                        {isOpen && (
+                          <ul className="relative border-l border-gray-300 pl-4 space-y-6">
+                            {list.map((e, i) => {
+                              const Icon = actionIcons[e.type]
+                              return (
+                                <li key={`${e.date}-${i}`} className="relative">
+                                  <span
+                                    className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
+                                  ></span>
+                                  <p className="text-xs text-gray-500">{e.date}</p>
+                                  <p className="flex items-center gap-1">
+                                    {Icon && <Icon />}
+                                    {e.label}
+                                  </p>
+                                  {e.note && (
+                                    <p className="text-xs text-gray-500 italic">{e.note}</p>
+                                  )}
+                                  {e.mood && <p className="text-xs">{e.mood}</p>}
+                                </li>
+                              )
+                            })}
+                          </ul>
+                        )}
+                      </div>
+                    )
+                  })
+
                 ) : (
                   <CareGraph events={wateringEvents} />
                 )}
@@ -428,8 +531,21 @@ export default function PlantDetail() {
           </div>
         </div>
       </div>
-      <div className="space-y-2 mt-4 p-4 shadow-sm bg-stone rounded-xl">
-        <h2 className="text-subhead font-semibold font-display">Gallery</h2>
+        <div className="space-y-2 mt-4 p-4 shadow-sm bg-stone rounded-xl">
+          <div className="flex items-center justify-between">
+            <h2 className="text-subhead font-semibold font-display">Gallery</h2>
+            <Link
+              to={`/plant/${plant.id}/gallery`}
+              className="text-green-600 underline flex items-center gap-1"
+            >
+              View Gallery
+              {plant.photos && (
+                <span className="ml-1 bg-gray-200 rounded-full px-1 text-xs">
+                  {plant.photos.length}
+                </span>
+              )}
+            </Link>
+          </div>
         <div className="grid grid-cols-3 gap-2">
           {(plant.photos || []).map((ph, i) => {
             const src = typeof ph === 'object' ? ph.src : ph
@@ -439,24 +555,25 @@ export default function PlantDetail() {
                 src={src}
                 alt={`${plant.name} ${i}`}
                 className="object-cover w-full h-24 rounded"
+                onError={e => (e.target.src = '/placeholder.svg')}
               />
-              <button
+              <Button
                 className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
                 onClick={() => removePhoto(plant.id, i)}
               >
                 ✕
-              </button>
+              </Button>
             </div>
             )
           })}
         </div>
-        <button
+        <Button
           type="button"
           onClick={() => fileInputRef.current.click()}
-          className="mt-2 px-3 py-1 bg-green-600 text-white rounded"
+          className="mt-2 px-3 py-1 bg-green-600 text-white"
         >
           Add Photo
-        </button>
+        </Button>
         <input
           type="file"
           accept="image/*"

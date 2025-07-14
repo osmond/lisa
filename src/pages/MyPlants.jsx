@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
+import Button from "../components/Button.jsx"
 
 export default function MyPlants() {
   const { plants } = usePlants()
@@ -49,14 +50,14 @@ export default function MyPlants() {
 
       <div className="flex justify-center gap-2 mb-4">
         {['Sites', 'Plants', 'Pictures'].map(v => (
-          <button
+          <Button
             key={v}
             type="button"
             onClick={() => setView(v)}
             className={`px-3 py-1 rounded-full text-sm ${view === v ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700'}`}
           >
             {v}
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -88,7 +89,13 @@ export default function MyPlants() {
             <div className="grid grid-cols-2 gap-4">
               {filtered.map(plant => (
                 <Link key={plant.id} to={`/plant/${plant.id}`} className="block">
-                  <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-40 object-cover rounded-lg" />
+                  <img
+                    src={plant.image}
+                    alt={plant.name}
+                    loading="lazy"
+                    className="w-full h-40 object-cover rounded-lg"
+                    onError={e => (e.target.src = '/placeholder.svg')}
+                  />
                   <p className="mt-1 text-center text-sm">{plant.name}</p>
                 </Link>
               ))}
@@ -108,7 +115,13 @@ export default function MyPlants() {
               <div className="grid grid-cols-2 gap-1">
                 {r.plants.slice(0, 4).map(p => (
                   <Link key={p.id} to={`/plant/${p.id}`} className="block">
-                    <img src={p.image} alt={p.name} loading="lazy" className="w-full h-24 object-cover rounded" />
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      loading="lazy"
+                      className="w-full h-24 object-cover rounded"
+                      onError={e => (e.target.src = '/placeholder.svg')}
+                    />
                   </Link>
                 ))}
               </div>
@@ -120,7 +133,14 @@ export default function MyPlants() {
       {view === 'Pictures' && (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
           {images.map((src, i) => (
-            <img key={i} src={src} alt={`Plant ${i + 1}`} loading="lazy" className="w-full h-32 object-cover rounded" />
+            <img
+              key={i}
+              src={src}
+              alt={`Plant ${i + 1}`}
+              loading="lazy"
+              className="w-full h-32 object-cover rounded"
+              onError={e => (e.target.src = '/placeholder.svg')}
+            />
           ))}
         </div>
       )}

@@ -1,6 +1,7 @@
 import { useTheme } from '../ThemeContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
 
+import Button from "../components/Button.jsx"
 export default function Settings() {
   const { theme, toggleTheme } = useTheme()
   const {
@@ -15,12 +16,12 @@ export default function Settings() {
   return (
     <div className="space-y-4 text-gray-700 dark:text-gray-200">
       <h1 className="text-headline font-bold font-display">Settings</h1>
-      <button
+      <Button
         onClick={toggleTheme}
-        className="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700"
+        className="px-4 py-2 bg-gray-200 dark:bg-gray-700"
       >
         Switch to {theme === 'dark' ? 'Light' : 'Dark'} Mode
-      </button>
+      </Button>
       <div className="grid gap-1 max-w-xs">
         <label htmlFor="location" className="font-medium text-label">Weather Location</label>
         <input

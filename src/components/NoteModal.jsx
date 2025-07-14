@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 
+import Button from "./Button.jsx"
 export default function NoteModal({ onSave, onClose }) {
   const [note, setNote] = useState('')
   const dialogRef = useRef(null)
@@ -27,8 +28,12 @@ export default function NoteModal({ onSave, onClose }) {
           <textarea id="note-input" className="border rounded p-1 w-full" rows="3" value={note} onChange={e => setNote(e.target.value)} />
         </div>
         <div className="flex justify-end gap-2">
-          <button type="button" onClick={onClose} className="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700">Cancel</button>
-          <button type="submit" className="px-3 py-1 rounded bg-green-600 text-white">Save</button>
+          <Button type="button" onClick={onClose} className="px-3 py-1 bg-gray-200 dark:bg-gray-700">
+            Cancel
+          </Button>
+          <Button type="submit" className="px-3 py-1 bg-green-600 text-white">
+            Save
+          </Button>
         </div>
       </form>
     </div>
