@@ -3,6 +3,8 @@ import { usePlants } from '../PlantContext.jsx'
 import CareSummaryModal from '../components/CareSummaryModal.jsx'
 import { useState } from 'react'
 
+import { Link } from 'react-router-dom'
+
 import { useWeather } from '../WeatherContext.jsx'
 import { useUser } from '../UserContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
@@ -136,7 +138,7 @@ export default function Home() {
           {forecast && (
             <>
               <span aria-hidden="true">·</span>
-              <span>{forecast.temp}</span>
+              <span className="font-semibold text-gray-600">{forecast.temp}</span>
             </>
           )}
         </p>
@@ -156,7 +158,9 @@ export default function Home() {
       {showSummary && (
         <CareSummaryModal tasks={tasks} onClose={() => setShowSummary(false)} />
       )}
-      {tasks.length > 0 && <hr className="my-4" />}
+      {tasks.length > 0 && (
+        <hr className="my-4 border-t border-neutral-200 dark:border-gray-600" />
+      )}
       <section className="space-y-4">
         <h2 className="font-semibold font-headline">Today’s Tasks</h2>
         <div className="space-y-4">
@@ -178,6 +182,26 @@ export default function Home() {
               />
               <p>All plants are happy today!</p>
               <p>Want to add a note or photo today?</p>
+              <div className="flex gap-2 mt-2">
+                <Link
+                  to="/gallery"
+                  className="px-3 py-1 bg-green-100 text-green-700 rounded text-xs"
+                >
+                  View gallery
+                </Link>
+                <Link
+                  to="/timeline"
+                  className="px-3 py-1 bg-green-100 text-green-700 rounded text-xs"
+                >
+                  Add a journal entry
+                </Link>
+                <Link
+                  to="/settings"
+                  className="px-3 py-1 bg-green-100 text-green-700 rounded text-xs"
+                >
+                  Set a reminder
+                </Link>
+              </div>
             </div>
           )}
         </div>
