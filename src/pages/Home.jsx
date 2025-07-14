@@ -70,6 +70,11 @@ export default function Home() {
   const fertilizeCount = fertilizeTasks.length
 
 
+  const showRainSuggestion =
+    (forecast?.rainfall || 0) > 50 ||
+    waterTasks.some(t => t.reason === 'rain expected tomorrow')
+
+
   useEffect(() => {
     setTotalCount(waterCount + fertilizeCount + completedCount)
   }, [waterCount, fertilizeCount, completedCount])
@@ -99,6 +104,7 @@ export default function Home() {
 
   }
 
+
   const today = now.toLocaleDateString(undefined, {
     weekday: 'long',
     month: 'long',
@@ -122,6 +128,11 @@ export default function Home() {
         <p className="flex items-center text-sm text-gray-600">
           <CloudSun className="w-5 h-5 mr-1 text-green-600" />
           {forecast ? `${forecast.temp} - ${forecast.condition}` : 'Loading...'}
+          {showRainSuggestion && (
+            <span className="ml-2" aria-label="rain forecasted">
+              💧Skip watering if it rains tomorrow
+            </span>
+          )}
         </p>
         <p className="text-sm text-gray-500">{today}</p>
       </header>
