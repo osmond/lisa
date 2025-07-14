@@ -18,7 +18,7 @@ export default function CareGraph({ events = [] }) {
   for (let d = 1; d <= daysInMonth; d++) cells.push(d)
 
   return (
-    <div className="bg-white rounded-xl p-2 shadow-sm inline-block">
+    <div className="bg-white rounded-xl p-4 shadow-sm inline-block">
       <div role="grid" className="grid grid-cols-7 gap-1 text-center text-xs">
         {cells.map((day, i) => (
           <div
