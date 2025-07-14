@@ -20,6 +20,7 @@ export default function PlantDetail() {
   const [toast, setToast] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [modalType, setModalType] = useState('Note')
+  const [bouncing, setBouncing] = useState(false)
 
   const events = useMemo(() => {
     if (!plant) return []
@@ -97,6 +98,8 @@ export default function PlantDetail() {
   const handleWatered = () => {
     markWatered(plant.id, '')
     showTempToast('Watered')
+    setBouncing(true)
+    setTimeout(() => setBouncing(false), 300)
   }
 
   const handleLogEvent = () => {
@@ -137,7 +140,7 @@ export default function PlantDetail() {
             src={plant.image}
             alt={plant.name}
             loading="lazy"
-            className="w-full h-64 object-cover"
+            className={`w-full h-64 object-cover ${bouncing ? 'bounce-once' : ''}`}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex flex-col justify-end p-4 space-y-1">
             <h1 className="text-headline font-bold font-display text-white">{plant.name}</h1>
