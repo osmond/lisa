@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom'
 import {
-  HouseSimple,
+  Leaf,
   Tree,
-  CheckCircle,
-  GridFour,
-  User,
+  Flower,
+  FlowerLotus,
+  Cactus,
 } from 'phosphor-react'
 import AddActionsMenu from './AddActionsMenu.jsx'
 
@@ -14,32 +14,32 @@ const iconProps = {
 }
 
 
-const HomeIconComponent = ({ active, ...props }) => (
-  <HouseSimple weight={active ? 'fill' : 'regular'} {...iconProps} {...props} />
+const HomeIcon = ({ active, ...props }) => (
+  <Leaf weight={active ? 'fill' : 'regular'} {...iconProps} {...props} />
 )
-const ListIcon = ({ active, ...props }) => (
+const PlantsIcon = ({ active, ...props }) => (
   <Tree weight={active ? 'fill' : 'regular'} {...iconProps} {...props} />
 )
-const CheckIcon = ({ active, ...props }) => (
-  <CheckCircle weight={active ? 'fill' : 'regular'} {...iconProps} {...props} />
+const CareIcon = ({ active, ...props }) => (
+  <Flower weight={active ? 'fill' : 'regular'} {...iconProps} {...props} />
 )
 const GalleryIcon = ({ active, ...props }) => (
-  <GridFour weight={active ? 'fill' : 'regular'} {...iconProps} {...props} />
+  <FlowerLotus weight={active ? 'fill' : 'regular'} {...iconProps} {...props} />
 )
-const UserIcon = ({ active, ...props }) => (
-  <User weight={active ? 'fill' : 'regular'} {...iconProps} {...props} />
+const ProfileIcon = ({ active, ...props }) => (
+  <Cactus weight={active ? 'fill' : 'regular'} {...iconProps} {...props} />
 )
 
 
 
 export default function BottomNav({ dueCount = 0 }) {
   const items = [
-    { to: '/', label: 'Home', icon: HomeIconComponent },
-    { to: '/myplants', label: 'Plants', icon: ListIcon },
+    { to: '/', label: 'Home', icon: HomeIcon },
+    { to: '/myplants', label: 'Plants', icon: PlantsIcon },
     { type: 'add' },
-    { to: '/tasks', label: 'Care', icon: CheckIcon },
+    { to: '/tasks', label: 'Care', icon: CareIcon },
     { to: '/gallery', label: 'Gallery', icon: GalleryIcon },
-    { to: '/profile', label: 'Profile', icon: UserIcon },
+    { to: '/profile', label: 'Profile', icon: ProfileIcon },
   ]
 
   return (
