@@ -243,14 +243,6 @@ export default function PlantDetail() {
         </div>
 
 
-        <div>
-          <Link
-            to={`/plant/${plant.id}/gallery`}
-            className="text-green-600 underline"
-          >
-            View Gallery
-          </Link>
-        </div>
 
         <div className="space-y-2 mt-4 divide-y divide-gray-200 rounded-xl shadow-sm bg-stone">
           <div>
@@ -459,8 +451,21 @@ export default function PlantDetail() {
           </div>
         </div>
       </div>
-      <div className="space-y-2 mt-4 p-4 shadow-sm bg-stone rounded-xl">
-        <h2 className="text-subhead font-semibold font-display">Gallery</h2>
+        <div className="space-y-2 mt-4 p-4 shadow-sm bg-stone rounded-xl">
+          <div className="flex items-center justify-between">
+            <h2 className="text-subhead font-semibold font-display">Gallery</h2>
+            <Link
+              to={`/plant/${plant.id}/gallery`}
+              className="text-green-600 underline flex items-center gap-1"
+            >
+              View Gallery
+              {plant.photos && (
+                <span className="ml-1 bg-gray-200 rounded-full px-1 text-xs">
+                  {plant.photos.length}
+                </span>
+              )}
+            </Link>
+          </div>
         <div className="grid grid-cols-3 gap-2">
           {(plant.photos || []).map((ph, i) => {
             const src = typeof ph === 'object' ? ph.src : ph
