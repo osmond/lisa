@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useRef, useState } from 'react'
+import { ArrowRight } from 'phosphor-react'
 import { formatCareSummary } from '../utils/date.js'
 
 export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
@@ -55,14 +56,20 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
         alt={name}
         className="w-full h-64 object-cover"
       />
-      <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/60 via-black/30 to-transparent text-white space-y-1 backdrop-blur-sm">
+      <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/60 via-black/30 to-transparent text-white space-y-1 backdrop-blur-sm relative">
         <span className="text-xs uppercase tracking-wide opacity-90">🌿 Featured Plant of the Day</span>
 
         <h2 className="font-display text-2xl font-semibold">{name}</h2>
         {preview && (
           <p className="text-sm opacity-90">{preview}</p>
         )}
-
+        <ArrowRight
+          size={24}
+          weight="bold"
+          className="absolute bottom-4 right-4 text-white"
+          aria-label={`View details for ${name}`}
+          data-testid="view-details"
+        />
       </div>
     </Link>
   )
