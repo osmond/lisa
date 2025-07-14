@@ -19,7 +19,9 @@ test('shows upbeat message when there are no tasks', () => {
     </MemoryRouter>
   )
   expect(screen.getByText(/all plants are happy/i)).toBeInTheDocument()
-  expect(screen.queryByTestId('care-rings')).toBeNull()
+  const rings = screen.getByTestId('care-rings')
+  expect(rings).toBeInTheDocument()
+  expect(screen.getByText('Rest Day')).toBeInTheDocument()
 })
 
 test('summary items render when tasks exist', () => {
