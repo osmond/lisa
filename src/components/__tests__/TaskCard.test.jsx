@@ -11,6 +11,11 @@ const task = {
   type: 'Water'
 }
 
+const overdueTask = {
+  ...task,
+  date: '2000-01-01',
+}
+
 test('renders task text', () => {
   render(
     <PlantProvider>
@@ -62,4 +67,16 @@ test('clicking card adds ripple effect', () => {
   const wrapper = container.firstChild
   fireEvent.mouseDown(wrapper)
   expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
+})
+
+test('overdue tasks use red badge styling', () => {
+  render(
+    <PlantProvider>
+      <MemoryRouter>
+        <TaskCard task={overdueTask} />
+      </MemoryRouter>
+    </PlantProvider>
+  )
+  const button = screen.getByRole('button', { name: /mark complete/i })
+  expect(button).toHaveClass('bg-red-100', 'text-red-700')
 })
