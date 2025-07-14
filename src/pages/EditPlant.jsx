@@ -34,7 +34,7 @@ export default function EditPlant() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold font-display">Edit Plant</h1>
+      <h1 className="text-2xl font-bold font-headline">Edit Plant</h1>
       <div className="grid gap-1">
         <label htmlFor="name" className="font-medium">Name</label>
         <input

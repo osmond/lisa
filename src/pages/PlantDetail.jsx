@@ -121,7 +121,7 @@ export default function PlantDetail() {
       <div className="space-y-4">
         <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-64 object-cover" />
         <div>
-          <h1 className="text-3xl font-bold font-display">{plant.name}</h1>
+          <h1 className="text-3xl font-bold font-headline">{plant.name}</h1>
           {plant.nickname && <p className="text-gray-500">{plant.nickname}</p>}
         </div>
 
@@ -337,7 +337,7 @@ export default function PlantDetail() {
         </div>
       </div>
       <div className="space-y-2">
-        <h2 className="text-xl font-semibold font-display">Gallery</h2>
+        <h2 className="text-xl font-semibold font-headline">Gallery</h2>
         <div className="grid grid-cols-3 gap-2">
           {(plant.photos || []).map((src, i) => (
             <div key={i} className="relative">

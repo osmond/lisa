@@ -79,7 +79,7 @@ export default function TaskCard({ task, onComplete }) {
           className="w-12 h-12 object-cover rounded-md"
         />
         <div className="flex-1">
-          <p className="font-semibold">{task.plantName}</p>
+          <p className="font-semibold font-headline">{task.plantName}</p>
           <p className="text-sm text-gray-500">{task.type}</p>
           {task.reason && (
             <p className="text-xs text-gray-500">{task.reason}</p>
