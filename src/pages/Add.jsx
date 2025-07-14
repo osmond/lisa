@@ -14,7 +14,13 @@ export default function Add() {
   const handleSubmit = e => {
     e.preventDefault()
     if (!name) return
-    addPlant({ name, image, lastWatered, nextWater })
+    const plant = { name, lastWatered, nextWater }
+    if (image) {
+      plant.image = image
+    } else {
+      plant.image = null
+    }
+    addPlant(plant)
     navigate('/myplants')
   }
 
