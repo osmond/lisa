@@ -32,6 +32,7 @@ export default function Home() {
         image: p.image,
         type: 'Water',
         reason,
+        date,
       })
     }
     if (p.nextFertilize && p.nextFertilize <= todayIso) {
@@ -41,6 +42,7 @@ export default function Home() {
         plantName: p.name,
         image: p.image,
         type: 'Fertilize',
+        date: p.nextFertilize,
       })
     }
   })
