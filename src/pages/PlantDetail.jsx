@@ -60,7 +60,7 @@ export default function PlantDetail() {
         type: 'log',
       })
     })
-    return list.sort((a, b) => new Date(a.date) - new Date(b.date))
+    return list.sort((a, b) => new Date(b.date) - new Date(a.date))
   }, [plant])
 
   const groupedEvents = useMemo(() => {

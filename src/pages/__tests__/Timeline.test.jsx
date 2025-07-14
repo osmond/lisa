@@ -33,10 +33,10 @@ test('ignores activities without valid dates when generating events', () => {
 
   const items = screen.getAllByRole('listitem')
   expect(items).toHaveLength(4)
-  expect(items[0]).toHaveTextContent('Fertilized Plant A')
-  expect(items[1]).toHaveTextContent('Plant B: Watered on 2025-07-09')
-  expect(items[2]).toHaveTextContent('Watered Plant B')
-  expect(items[3]).toHaveTextContent('Watered Plant A')
+  expect(items[0]).toHaveTextContent('Watered Plant A')
+  expect(items[1]).toHaveTextContent('Watered Plant B')
+  expect(items[2]).toHaveTextContent('Plant B: Watered on 2025-07-09')
+  expect(items[3]).toHaveTextContent('Fertilized Plant A')
 })
 
 test('renders care log notes', () => {
@@ -71,8 +71,8 @@ test('displays month headers when events span months', () => {
 
   const headings = screen.getAllByRole('heading', { level: 3 })
   expect(headings).toHaveLength(2)
-  expect(headings[0]).toHaveTextContent('July 2025')
-  expect(headings[1]).toHaveTextContent('August 2025')
+  expect(headings[0]).toHaveTextContent('August 2025')
+  expect(headings[1]).toHaveTextContent('July 2025')
 })
 
 test('month headings are sticky and old months collapse by default', () => {

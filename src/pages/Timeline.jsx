@@ -43,8 +43,8 @@ export default function Timeline() {
         })
       })
     })
-    return all.sort((a, b) => new Date(a.date) - new Date(b.date))
-  }, [plants])
+      return all.sort((a, b) => new Date(b.date) - new Date(a.date))
+    }, [plants])
 
   const groupedEvents = useMemo(() => {
     const map = new Map()
