@@ -176,7 +176,7 @@ export default function Gallery() {
               <span className="absolute inset-0 flex items-center justify-center bg-black/60 text-white text-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100 transition-opacity">
                 {plant.name}
               </span>
-            </button>
+            </Button>
 
           )
         })}
@@ -203,7 +203,7 @@ export default function Gallery() {
               <span className="absolute inset-0 flex items-center justify-center bg-black/60 text-white text-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100 transition-opacity">
                 {plant.name}
               </span>
-            </button>
+              </Button>
 
           </div>
           )
