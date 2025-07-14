@@ -259,6 +259,7 @@ export default function PlantDetail() {
           >
             + Add care log
           </Button>
+        </div>
 
         </div>
 
@@ -278,7 +279,10 @@ export default function PlantDetail() {
             <button
               type="button"
               onClick={handleLogEvent}
-              aria-label="Quick Log"
+              aria-label="Log note"
+
+  
+
               className="flex-1 px-3 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               Add Note
@@ -453,12 +457,27 @@ export default function PlantDetail() {
                   </Button>
                 </div>
                 {timelineTab === 'list' ? (
-                  groupByWeek
-                    ? groupedEvents.map(([monthKey, list]) => (
-                        <div key={monthKey}>
-                          <h3 className="sticky top-0 bg-stone mt-4 text-label font-semibold text-gray-500">
-                            {groupByWeek ? formatWeek(monthKey) : formatMonth(monthKey)}
-                          </h3>
+
+
+                  groupedEvents.map(([monthKey, list]) => {
+                    const isOpen = openMonths[monthKey]
+                    return (
+                      <div key={monthKey}>
+                        <h3 className="mt-4">
+                          <button
+                            type="button"
+                            className="w-full flex justify-between items-center py-2 sticky top-0 bg-stone z-10 text-label font-semibold text-gray-500"
+                            aria-expanded={isOpen}
+                            onClick={() =>
+                              setOpenMonths(prev => ({ ...prev, [monthKey]: !prev[monthKey] }))
+                            }
+                          >
+                            {groupByWeek ? formatWeek(monthKey) : formatMonth(monthKey)}{' '}
+                            <span>{isOpen ? '-' : '+'}</span>
+                          </button>
+                        </h3>
+                        {isOpen && (
+
                           <ul className="relative border-l border-gray-300 pl-4 space-y-6">
                             {list.map((e, i) => {
                               const Icon = actionIcons[e.type]
