@@ -5,6 +5,7 @@ import { Drop } from 'phosphor-react'
 import actionIcons from '../components/ActionIcons.jsx'
 import LogModal from '../components/LogModal.jsx'
 import { formatMonth } from '../utils/date.js'
+import FadeInImage from '../components/FadeInImage.jsx'
 
 export default function PlantDetail() {
   const { id } = useParams()
@@ -132,7 +133,7 @@ export default function PlantDetail() {
       <div aria-live="polite" className="sr-only">{toast}</div>
       <div className="space-y-4">
         <div className="relative -mx-4">
-          <img
+          <FadeInImage
             src={plant.image}
             alt={plant.name}
             loading="lazy"

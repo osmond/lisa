@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import Lightbox from '../components/Lightbox.jsx'
+import FadeInImage from '../components/FadeInImage.jsx'
 
 export function AllGallery() {
   const { plants, addPhoto } = usePlants()
@@ -34,7 +35,7 @@ export function AllGallery() {
       <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
         {images.map((src, i) => (
           <button key={i} onClick={() => setIndex(i)} className="focus:outline-none">
-            <img
+            <FadeInImage
               src={src}
               alt={`Plant ${i + 1}`}
               loading="lazy"
@@ -111,7 +112,7 @@ export default function Gallery() {
             onClick={() => setIndex(i)}
             className="aspect-video overflow-hidden rounded-lg shadow-lg bg-gray-900 focus:outline-none"
           >
-            <img
+            <FadeInImage
               src={src}
               alt={plant.name}
               loading="lazy"
@@ -129,7 +130,7 @@ export default function Gallery() {
               onClick={() => setIndex(i)}
               className="aspect-video overflow-hidden rounded-lg shadow-lg bg-gray-900 w-full h-full focus:outline-none"
             >
-              <img
+              <FadeInImage
                 src={src}
                 alt={plant.name}
                 loading="lazy"
