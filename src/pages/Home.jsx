@@ -136,7 +136,7 @@ export default function Home() {
           {forecast && (
             <>
               <span aria-hidden="true">·</span>
-              <span>{forecast.temp}</span>
+              <span className="font-semibold text-gray-600">{forecast.temp}</span>
             </>
           )}
         </p>
