@@ -103,44 +103,44 @@ export default function Tasks() {
         <p className="text-gray-700">No tasks remaining</p>
       ) : (
         <>
-      {overdue.length > 0 && (
-        <section>
+          {overdue.length > 0 && (
+            <section>
 
-          <h2 className="text-subhead font-bold font-display mb-2">Needs attention</h2>
-          <div className="space-y-4">
+              <h2 className="text-subhead font-bold font-display mb-2">Needs attention</h2>
+              <div className="space-y-4">
 
-            {overdue.map(task => (
-              <TaskCard key={task.id} task={task} />
-            ))}
-          </div>
-        </section>
-      )}
+                {overdue.map(task => (
+                  <TaskCard key={task.id} task={task} />
+                ))}
+              </div>
+            </section>
+          )}
 
-      {today.length > 0 && (
-        <section>
+          {today.length > 0 && (
+            <section>
 
-          <h2 className="text-subhead font-bold font-display mb-2">Today</h2>
-          <div className="space-y-4">
+              <h2 className="text-subhead font-bold font-display mb-2">Today</h2>
+              <div className="space-y-4">
 
-            {today.map(task => (
-              <TaskCard key={task.id} task={task} />
-            ))}
-          </div>
-        </section>
-      )}
+                {today.map(task => (
+                  <TaskCard key={task.id} task={task} />
+                ))}
+              </div>
+            </section>
+          )}
 
-      {upcoming.length > 0 && (
-        <section>
+          {upcoming.length > 0 && (
+            <section>
 
-          <h2 className="text-subhead font-bold font-display mb-2">Upcoming</h2>
-          <div className="space-y-4">
+              <h2 className="text-subhead font-bold font-display mb-2">Upcoming</h2>
+              <div className="space-y-4">
 
-            {upcoming.map(task => (
-              <TaskCard key={task.id} task={task} />
-            ))}
-          </div>
-        </section>
-      )}
+                {upcoming.map(task => (
+                  <TaskCard key={task.id} task={task} />
+                ))}
+              </div>
+            </section>
+          )}
         </>
       )}
     </div>
