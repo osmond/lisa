@@ -13,7 +13,7 @@ test('renders stats with numbers and icons', () => {
   svgs.forEach(svg => {
     expect(svg).toHaveAttribute('aria-hidden', 'true')
   })
-  expect(screen.getByText('1')).toBeInTheDocument()
-  expect(screen.getByText('2')).toBeInTheDocument()
-  expect(screen.getAllByText('done').length).toBe(3)
+  expect(screen.getByText('3/4')).toBeInTheDocument()
+  expect(screen.getByText('1/2')).toBeInTheDocument()
+  expect(screen.getByText('2/2')).toBeInTheDocument()
 })
