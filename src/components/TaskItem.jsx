@@ -6,7 +6,7 @@ import useRipple from '../utils/useRipple.js'
 
 
 export default function TaskItem({ task, onComplete }) {
-  const { markWatered } = usePlants()
+  const { markWatered, markFertilized } = usePlants()
   const navigate = useNavigate()
   const Icon = actionIcons[task.type]
   const startX = useRef(0)
@@ -20,6 +20,9 @@ export default function TaskItem({ task, onComplete }) {
     } else if (task.type === 'Water') {
       const note = window.prompt('Optional note') || ''
       markWatered(task.plantId, note)
+    } else if (task.type === 'Fertilize') {
+      const note = window.prompt('Optional note') || ''
+      markFertilized(task.plantId, note)
     }
     setShowCheck(true)
     setTimeout(() => setShowCheck(false), 400)
