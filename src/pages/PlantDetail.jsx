@@ -562,15 +562,13 @@ export default function PlantDetail() {
           {(plant.photos || []).map((ph, i) => {
             const src = typeof ph === "object" ? ph.src : ph;
             return (
-              <Button
-                key={i}
-                onClick={() => removePhoto(plant.id, i)}
-                className="relative group w-full"
-              >
+
+              <div key={i} className="relative aspect-square overflow-hidden">
+
                 <img
                   src={src}
                   alt={`${plant.name} ${i}`}
-                  className="object-cover w-full h-24 rounded"
+                  className="object-cover w-full h-full rounded"
                   onError={(e) => (e.target.src = "/placeholder.svg")}
                 />
                 <span className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity">

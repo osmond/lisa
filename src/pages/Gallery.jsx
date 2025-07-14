@@ -55,21 +55,20 @@ export function AllGallery() {
           <Button
             key={i}
             onClick={() => setIndex(i)}
-            className="relative group focus:outline-none"
+            className="relative group aspect-square overflow-hidden focus:outline-none"
           >
-          <FadeInImage
-            src={src}
-            alt={alts[i] || `Plant ${i + 1}`}
-            loading="lazy"
-            className="w-full h-32 object-cover rounded transition-transform transform hover:scale-105 active:scale-105"
-            onError={e => (e.target.src = '/placeholder.svg')}
-          />
-          <span className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity">
-            <MagnifyingGlassPlus className="w-6 h-6 text-white" aria-hidden="true" />
-          </span>
-          <span className="absolute inset-0 flex items-center justify-center bg-black/60 text-white text-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100 transition-opacity">
-            {alts[i]}
-          </span>
+
+            <FadeInImage
+              src={src}
+              alt={alts[i] || `Plant ${i + 1}`}
+              loading="lazy"
+              className="w-full h-full object-cover rounded transition-transform transform hover:scale-105 active:scale-105"
+              onError={e => (e.target.src = '/placeholder.svg')}
+            />
+            <span className="absolute inset-0 flex items-center justify-center bg-black/60 text-white text-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100 transition-opacity">
+              {alts[i]}
+            </span>
+
           </Button>
         ))}
         <Button
