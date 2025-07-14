@@ -37,12 +37,12 @@ export default function CareRings({
     ? '🎉 All done!'
     : `${totalCompleted} / ${totalTasks} tasks done`
 
-  const displaySize = noTasks ? size * 0.8 : size
+  const displaySize = size
 
   return (
     <div
       className={`inline-flex flex-col items-center ${onClick ? 'cursor-pointer' : ''}`}
-      style={{ width: displaySize }}
+      style={{ width: displaySize, flexBasis: displaySize }}
       onClick={onClick}
     >
       <div className="relative" style={{ width: displaySize, height: displaySize }}>
