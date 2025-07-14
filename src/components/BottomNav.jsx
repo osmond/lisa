@@ -1,30 +1,41 @@
 import { NavLink } from 'react-router-dom'
 import {
-  CheckCircledIcon,
-  HomeIcon,
-  ImageIcon,
-  ListBulletIcon,
-  PersonIcon,
-} from '@radix-ui/react-icons'
+  HouseSimple,
+  Tree,
+  CheckCircle,
+  GridFour,
+  User,
+} from 'phosphor-react'
 
 const iconProps = {
-  className: 'w-6 h-6',
+  size: 24,
   'aria-hidden': 'true',
 }
 
 
-const HomeIconComponent = props => <HomeIcon {...iconProps} {...props} />
-const ListIcon = props => <ListBulletIcon {...iconProps} {...props} />
-const CheckIcon = props => <CheckCircledIcon {...iconProps} {...props} />
-const GalleryIcon = props => <ImageIcon {...iconProps} {...props} />
-const UserIcon = props => <PersonIcon {...iconProps} {...props} />
+const HomeIconComponent = ({ active, ...props }) => (
+  <HouseSimple weight={active ? 'fill' : 'regular'} {...iconProps} {...props} />
+)
+const ListIcon = ({ active, ...props }) => (
+  <Tree weight={active ? 'fill' : 'regular'} {...iconProps} {...props} />
+)
+const CheckIcon = ({ active, ...props }) => (
+  <CheckCircle weight={active ? 'fill' : 'regular'} {...iconProps} {...props} />
+)
+const GalleryIcon = ({ active, ...props }) => (
+  <GridFour weight={active ? 'fill' : 'regular'} {...iconProps} {...props} />
+)
+const UserIcon = ({ active, ...props }) => (
+  <User weight={active ? 'fill' : 'regular'} {...iconProps} {...props} />
+)
+
 
 
 export default function BottomNav({ dueCount = 0 }) {
   const items = [
     { to: '/', label: 'Home', icon: HomeIconComponent },
-    { to: '/myplants', label: 'My Plants', icon: ListIcon },
-    { to: '/tasks', label: `To-Do (${dueCount})`, icon: CheckIcon },
+    { to: '/myplants', label: 'Plants', icon: ListIcon },
+    { to: '/tasks', label: 'Care', icon: CheckIcon },
     { to: '/gallery', label: 'Gallery', icon: GalleryIcon },
     { to: '/settings', label: 'Profile', icon: UserIcon },
   ]
@@ -36,16 +47,20 @@ export default function BottomNav({ dueCount = 0 }) {
           key={to}
           to={to}
           className={({ isActive }) =>
-            `flex flex-col items-center text-xs transition-transform duration-150 ${isActive ? 'text-green-700 scale-110' : 'text-gray-500'}`
+            `w-12 flex flex-col items-center text-xs transition-transform duration-150 ${isActive ? 'text-[#A3C293]' : 'text-gray-500'}`
           }
         >
           {({ isActive }) => (
             <>
-              <Icon
-                className={`mb-1 transition-colors duration-150 ${isActive ? 'nav-bounce' : ''}`}
-                aria-hidden="true"
-              />
-              {label}
+              <Icon active={isActive} className={`mb-1 ${isActive ? 'nav-active' : ''}`} />
+              <span className="relative">
+                {label}
+                {to === '/tasks' && dueCount > 0 && (
+                  <span className="absolute -top-2 -right-3 bg-red-600 text-white rounded-full text-[10px] px-1">
+                    {dueCount}
+                  </span>
+                )}
+              </span>
             </>
           )}
         </NavLink>

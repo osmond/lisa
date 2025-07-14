@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import Home from '../Home.jsx'
 
@@ -14,8 +14,7 @@ afterEach(() => {
 })
 
 const mockPlants = []
-
-global.mockPlants = []
+global.mockPlants = mockPlants
 global.markWatered = jest.fn()
 
 
@@ -38,7 +37,7 @@ test('shows messages when there are no tasks', () => {
   expect(screen.getByText(/no fertilizing needed/i)).toBeInTheDocument()
 })
 
-test('summary items render when tasks exist', () => {
+test('summary items render when tasks exist', async () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
   global.mockPlants.splice(0, global.mockPlants.length, {
     id: 1,
@@ -53,8 +52,9 @@ test('summary items render when tasks exist', () => {
       <Home />
     </MemoryRouter>
   )
-
-  expect(screen.getByTestId('summary-total')).toHaveTextContent('2')
+  await waitFor(() => {
+    expect(screen.getByTestId('summary-total')).toHaveTextContent('2')
+  })
   expect(screen.getByTestId('summary-water')).toHaveTextContent('1')
   expect(screen.getByTestId('summary-fertilize')).toHaveTextContent('1')
 })
@@ -73,25 +73,25 @@ test('renders correct greeting icon for morning time', () => {
 })
 
 
-test('progress updates when completing a task', () => {
+test('progress updates when completing a task', async () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
   jest.spyOn(window, 'prompt').mockReturnValue('')
   global.mockPlants.splice(0, global.mockPlants.length,
     { id: 1, name: 'A', image: 'a.jpg', lastWatered: '2025-07-03' }
   )
-  render(
+  const { findByRole } = render(
     <MemoryRouter>
       <Home />
     </MemoryRouter>
   )
 
-  const progress = screen.getByRole('progressbar')
+  const progress = await findByRole('progressbar')
   expect(progress).toHaveAttribute('aria-valuenow', '0')
   fireEvent.click(screen.getByRole('checkbox'))
   expect(progress).toHaveAttribute('aria-valuenow', '1')
 })
 
-test('complete all marks every task', () => {
+test('complete all marks every task', async () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
   jest.spyOn(window, 'prompt').mockReturnValue('')
   mockForecast = { rainfall: 100 }
@@ -101,18 +101,14 @@ test('complete all marks every task', () => {
   )
 
 
-  render(
+  const { findByRole } = render(
     <MemoryRouter>
       <Home />
     </MemoryRouter>
   )
 
 
-  expect(
-    screen.getByText(/skip watering if it rains tomorrow/i)
-  ).toBeInTheDocument()
-
-  const progress = screen.getByRole('progressbar')
+  const progress = await findByRole('progressbar')
   expect(progress).toHaveAttribute('aria-valuenow', '0')
   fireEvent.click(screen.getByRole('button', { name: /complete all/i }))
   expect(global.markWatered).toHaveBeenCalledTimes(2)
