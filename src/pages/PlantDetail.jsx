@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useState, useRef, useMemo } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
+import LogModal from '../components/LogModal.jsx'
 import { formatMonth } from '../utils/date.js'
 
 export default function PlantDetail() {
@@ -15,6 +16,8 @@ export default function PlantDetail() {
   const [showMore, setShowMore] = useState(false)
   const fileInputRef = useRef()
   const [toast, setToast] = useState('')
+  const [showModal, setShowModal] = useState(false)
+  const [modalType, setModalType] = useState('Note')
 
   const events = useMemo(() => {
     if (!plant) return []
@@ -36,7 +39,13 @@ export default function PlantDetail() {
       }
     })
     ;(plant.careLog || []).forEach(ev => {
-      list.push({ date: ev.date, label: ev.type, note: ev.note, type: 'log' })
+      list.push({
+        date: ev.date,
+        label: ev.type,
+        note: ev.note,
+        mood: ev.mood,
+        type: 'log',
+      })
     })
     return list.sort((a, b) => new Date(a.date) - new Date(b.date))
   }, [plant])
@@ -89,18 +98,18 @@ export default function PlantDetail() {
   }
 
   const handleLogEvent = () => {
-    const note = window.prompt('Note') || ''
-    if (note) {
-      logEvent(plant.id, 'Note', note)
-      showTempToast('Logged')
-    }
+    setModalType('Note')
+    setShowModal(true)
   }
 
   const handleAddCareLog = () => {
-    const type = window.prompt('Type (e.g. Watered)') || ''
+    setModalType('')
+    setShowModal(true)
+  }
+
+  const handleSaveLog = ({ type, note, date, mood }) => {
     if (!type) return
-    const note = window.prompt('Note (optional)') || ''
-    logEvent(plant.id, type, note)
+    logEvent(plant.id, type, note, date, mood)
     showTempToast('Logged')
   }
 
@@ -211,6 +220,7 @@ export default function PlantDetail() {
                     <li key={i}>
                       {ev.type} on {ev.date}
                       {ev.note ? ` - ${ev.note}` : ''}
+                      {ev.mood ? ` (${ev.mood})` : ''}
                     </li>
                   ))}
                 </ul>
@@ -331,6 +341,9 @@ export default function PlantDetail() {
                             {e.note && (
                               <p className="text-xs text-gray-500 italic">{e.note}</p>
                             )}
+                            {e.mood && (
+                              <p className="text-xs">{e.mood}</p>
+                            )}
                           </li>
                         )
                       })}
@@ -377,6 +390,13 @@ export default function PlantDetail() {
           className="hidden"
         />
       </div>
+      {showModal && (
+        <LogModal
+          onSave={handleSaveLog}
+          onClose={() => setShowModal(false)}
+          defaultType={modalType}
+        />
+      )}
   </div>
 )
 }

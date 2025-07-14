@@ -52,3 +52,19 @@ test('accordion keyboard navigation works', () => {
   expect(buttons[1]).toHaveAttribute('aria-expanded', 'true')
   expect(document.activeElement).toBe(buttons[1])
 })
+
+test('add note opens log modal', () => {
+  const plant = plants[0]
+  render(
+    <PlantProvider>
+      <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </PlantProvider>
+  )
+
+  fireEvent.click(screen.getByText('Add Note'))
+  expect(screen.getByRole('dialog')).toBeInTheDocument()
+})
