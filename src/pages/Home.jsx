@@ -1,6 +1,5 @@
 import TaskCard from '../components/TaskCard.jsx'
 import { usePlants } from '../PlantContext.jsx'
-import CareRings from '../components/CareRings.jsx'
 import CareSummaryModal from '../components/CareSummaryModal.jsx'
 import { useState } from 'react'
 
@@ -120,16 +119,16 @@ export default function Home() {
         <FeaturedCard plants={plants} startIndex={featuredIndex} />
       </section>
     )}
-    <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
-      <div data-testid="care-rings" className="px-1 flex justify-center">
-        <CareRings
-          waterCompleted={wateredTodayCount}
-          waterTotal={totalWaterToday}
-          fertCompleted={fertilizedTodayCount}
-          fertTotal={totalFertilizeToday}
-          onClick={() => setShowSummary(true)}
-        />
-      </div>
+    <SummaryStrip
+      total={totalCount}
+      watered={waterCount}
+      fertilized={fertilizeCount}
+      waterCompleted={wateredTodayCount}
+      waterTotal={totalWaterToday}
+      fertCompleted={fertilizedTodayCount}
+      fertTotal={totalFertilizeToday}
+      onClick={() => setShowSummary(true)}
+    />
       {showSummary && (
         <CareSummaryModal tasks={tasks} onClose={() => setShowSummary(false)} />
       )}
