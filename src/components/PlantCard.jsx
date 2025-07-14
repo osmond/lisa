@@ -116,7 +116,7 @@ export default function PlantCard({ plant }) {
       >
         <Link to={`/plant/${plant.id}`} className="block mb-2">
           <FadeInImage
-            src={plant.image}
+            src={plant.image || '/placeholder.svg'}
             alt={plant.name}
             loading="lazy"
             className="w-full h-48 object-cover rounded-xl"
