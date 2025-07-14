@@ -13,11 +13,11 @@ const iconProps = {
 }
 
 
-const HomeIconComponent = () => <HomeIcon {...iconProps} />
-const ListIcon = () => <ListBulletIcon {...iconProps} />
-const CheckIcon = () => <CheckCircledIcon {...iconProps} />
-const GalleryIcon = () => <ImageIcon {...iconProps} />
-const UserIcon = () => <PersonIcon {...iconProps} />
+const HomeIconComponent = props => <HomeIcon {...iconProps} {...props} />
+const ListIcon = props => <ListBulletIcon {...iconProps} {...props} />
+const CheckIcon = props => <CheckCircledIcon {...iconProps} {...props} />
+const GalleryIcon = props => <ImageIcon {...iconProps} {...props} />
+const UserIcon = props => <PersonIcon {...iconProps} {...props} />
 
 
 export default function BottomNav({ dueCount = 0 }) {
