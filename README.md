@@ -34,10 +34,15 @@ The weather feature uses `VITE_WEATHER_API_KEY`, exposed to the frontend via Vit
 
 ## 🧪 Running Tests
 
-Install dependencies before testing:
+Before running the test suite, make sure dependencies are installed:
 
 ```bash
 npm install
+```
+
+Then run the tests with:
+
+```bash
 npm test
 ```
 
