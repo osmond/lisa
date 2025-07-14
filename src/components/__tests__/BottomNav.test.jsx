@@ -84,4 +84,20 @@ test('nav element has accessible label', () => {
   )
   const nav = container.querySelector('nav')
   expect(nav).toHaveAttribute('aria-label', 'Bottom navigation')
+
+test('inactive labels are hidden and active label visible', () => {
+  const { container } = render(
+    <MemoryRouter initialEntries={["/gallery"]}>
+      <BottomNav />
+    </MemoryRouter>
+  )
+  const activeLink = container.querySelector('a[href="/gallery"]')
+  const activeLabel = activeLink.querySelector('span')
+  expect(activeLabel).toHaveClass('block')
+  expect(activeLabel).not.toHaveClass('hidden')
+
+  const homeLink = container.querySelector('a[href="/"]')
+  const homeLabel = homeLink.querySelector('span')
+  expect(homeLabel).toHaveClass('hidden')
+
 })
