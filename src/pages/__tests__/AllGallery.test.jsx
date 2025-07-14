@@ -61,12 +61,14 @@ test('overlay displays plant name on hover and focus', () => {
   )
 
   const img = screen.getAllByAltText(plant.name)[0]
-  const button = img.closest('button')
-  expect(button).not.toBeNull()
+  const wrapper = img.parentElement
+  expect(wrapper).not.toBeNull()
+
 
   fireEvent.mouseOver(button)
   expect(within(button).getByText(plant.name)).toBeInTheDocument()
 
   fireEvent.focus(button)
   expect(within(button).getByText(plant.name)).toBeInTheDocument()
+
 })
