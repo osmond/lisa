@@ -2,9 +2,15 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import Home from '../Home.jsx'
 
+let mockForecast = { rainfall: 0 }
+
 jest.mock('../../WeatherContext.jsx', () => ({
-  useWeather: () => ({ forecast: { rainfall: 0 } }),
+  useWeather: () => ({ forecast: mockForecast }),
 }))
+
+afterEach(() => {
+  mockForecast = { rainfall: 0 }
+})
 
 const mockPlants = []
 
@@ -54,5 +60,19 @@ test('renders correct greeting icon for morning time', () => {
 
   const icon = screen.getByTestId('greeting-icon')
   expect(icon.innerHTML).toContain('<circle')
+})
+
+test('shows rain suggestion when heavy rain is forecast', () => {
+  mockForecast = { temp: '70°F', condition: 'Cloudy', rainfall: 60 }
+
+  render(
+    <MemoryRouter>
+      <Home />
+    </MemoryRouter>
+  )
+
+  expect(
+    screen.getByText(/skip watering if it rains tomorrow/i)
+  ).toBeInTheDocument()
 })
 
