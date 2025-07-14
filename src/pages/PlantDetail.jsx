@@ -352,7 +352,7 @@ export default function PlantDetail() {
                     id="notes-panel"
                     role="tabpanel"
                     aria-labelledby="notes-tab"
-                    className="shadow-sm bg-stone rounded"
+                    className="shadow-sm bg-stone rounded leading-relaxed"
                   >
                     {plant.notes
                       ? showMore
@@ -375,6 +375,7 @@ export default function PlantDetail() {
                     id="care-panel"
                     role="tabpanel"
                     aria-labelledby="care-tab"
+                    className="leading-relaxed"
                   >
                     {plant.advancedCare || "No advanced care info."}
                   </div>
