@@ -364,10 +364,10 @@ export default function PlantDetail() {
       <div className="space-y-2 mt-4 p-4 shadow-sm bg-stone rounded-xl">
         <h2 className="text-subhead font-semibold font-display">Gallery</h2>
         <div className="grid grid-cols-3 gap-2">
-          {(plant.photos || []).map((src, i) => (
+          {(plant.photos || []).map((photo, i) => (
             <div key={i} className="relative">
               <img
-                src={src}
+                src={photo.url}
                 alt={`${plant.name} ${i}`}
                 className="object-cover w-full h-24 rounded"
               />

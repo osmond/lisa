@@ -18,7 +18,11 @@ export function PlantProvider({ children }) {
     const mapPlant = p => ({
       ...p,
       image: addBase(p.image),
-      photos: (p.photos || p.gallery || []).map(addBase),
+      photos: (p.photos || p.gallery || []).map(photo =>
+        typeof photo === 'string'
+          ? { url: addBase(photo), date: '', note: '', tags: [] }
+          : { ...photo, url: addBase(photo.url) }
+      ),
       careLog: p.careLog || [],
     })
 
@@ -105,11 +109,15 @@ export function PlantProvider({ children }) {
     setPlants(prev => prev.filter(p => p.id !== id))
   }
 
-  const addPhoto = (id, url) => {
+  const addPhoto = (id, photo) => {
+    const entry =
+      typeof photo === 'string'
+        ? { url: photo, date: '', note: '', tags: [] }
+        : photo
     setPlants(prev =>
       prev.map(p =>
         p.id === id
-          ? { ...p, photos: [...(p.photos || []), url] }
+          ? { ...p, photos: [...(p.photos || []), entry] }
           : p
       )
     )

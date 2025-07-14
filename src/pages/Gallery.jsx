@@ -7,7 +7,7 @@ import FadeInImage from '../components/FadeInImage.jsx'
 
 export function AllGallery() {
   const { plants, addPhoto } = usePlants()
-  const images = plants.flatMap(p => [p.image, ...(p.photos || [])])
+  const images = plants.flatMap(p => [p.image, ...(p.photos || []).map(ph => ph.url)])
   const [index, setIndex] = useState(null)
   const [selected, setSelected] = useState(plants[0]?.id || '')
   const [bouncing, setBouncing] = useState(false)
@@ -106,14 +106,14 @@ export default function Gallery() {
 
       {/* desktop grid */}
       <div className="hidden md:grid grid-cols-2 md:grid-cols-3 gap-4">
-        {photos.map((src, i) => (
+        {photos.map((photo, i) => (
           <button
             key={i}
             onClick={() => setIndex(i)}
             className="aspect-video overflow-hidden rounded-lg shadow-lg bg-gray-900 focus:outline-none"
           >
             <FadeInImage
-              src={src}
+              src={photo.url}
               alt={plant.name}
               loading="lazy"
               className="w-full h-full object-cover transition-transform transform hover:scale-105 active:scale-105"
@@ -124,14 +124,14 @@ export default function Gallery() {
 
       {/* mobile carousel */}
       <div className="flex md:hidden space-x-4 overflow-x-auto snap-x snap-mandatory">
-        {photos.map((src, i) => (
+        {photos.map((photo, i) => (
           <div key={i} className="snap-center shrink-0 w-full">
             <button
               onClick={() => setIndex(i)}
               className="aspect-video overflow-hidden rounded-lg shadow-lg bg-gray-900 w-full h-full focus:outline-none"
             >
               <FadeInImage
-                src={src}
+                src={photo.url}
                 alt={plant.name}
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform transform hover:scale-105 active:scale-105"
@@ -142,7 +142,7 @@ export default function Gallery() {
       </div>
       {index !== null && (
         <Lightbox
-          images={photos}
+          images={photos.map(p => p.url)}
           startIndex={index}
           onClose={() => setIndex(null)}
           label="Photo viewer"
