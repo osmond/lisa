@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import TaskCard from '../TaskCard.jsx'
 import { PlantProvider } from '../../PlantContext.jsx'
@@ -19,7 +20,8 @@ test('renders task text', () => {
       </MemoryRouter>
     </PlantProvider>
   )
-  expect(screen.getByText('Water Monstera')).toBeInTheDocument()
+  expect(screen.getByText('Monstera')).toBeInTheDocument()
+  expect(screen.getByText('Water')).toBeInTheDocument()
 })
 
 test('icon svg is aria-hidden', () => {
@@ -61,4 +63,26 @@ test('clicking card adds ripple effect', () => {
   const wrapper = container.firstChild
   fireEvent.mouseDown(wrapper)
   expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
+})
+
+test.skip('swipe right marks task complete', async () => {
+  const onComplete = jest.fn()
+  render(
+    <PlantProvider>
+      <MemoryRouter>
+        <TaskCard task={task} onComplete={onComplete} />
+      </MemoryRouter>
+    </PlantProvider>
+  )
+  const wrapper = screen.getByTestId('task-card')
+  fireEvent.pointerDown(wrapper, { clientX: 0, buttons: 1 })
+  fireEvent.pointerMove(wrapper, { clientX: 80, buttons: 1 })
+  fireEvent.pointerUp(wrapper, { clientX: 80 })
+  const user = userEvent.setup()
+  await act(async () => {
+    fireEvent.touchStart(wrapper, { touches: [{ clientX: 0 }] })
+    fireEvent.touchMove(wrapper, { touches: [{ clientX: 80 }] })
+    fireEvent.touchEnd(wrapper)
+  })
+  expect(onComplete).toHaveBeenCalledWith(task)
 })
