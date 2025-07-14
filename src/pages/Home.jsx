@@ -72,8 +72,11 @@ export default function Home() {
       <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
       {totalWaterToday > 0 && (
         <div data-testid="water-progress" className="px-1">
-          <p className="text-sm mb-1">💧 {wateredTodayCount} of {totalWaterToday} watered</p>
-          <div className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full">
+          <p className="text-sm mb-1">
+            <span role="img" aria-label="droplet" className="mr-1">💧</span>
+            {wateredTodayCount} of {totalWaterToday} watered
+          </p>
+          <div className="w-full h-2 bg-green-100 dark:bg-green-800 rounded-full">
             <div
               className="h-2 bg-green-500 rounded-full"
               style={{ width: `${waterPercent}%` }}
