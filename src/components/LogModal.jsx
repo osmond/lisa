@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 
+import Button from "./Button.jsx"
 export default function LogModal({ onSave, onClose, defaultType = '', defaultDate }) {
   const today = new Date().toISOString().slice(0, 10)
   const [type, setType] = useState(defaultType)
@@ -86,12 +87,12 @@ export default function LogModal({ onSave, onClose, defaultType = '', defaultDat
           />
         </div>
         <div className="flex justify-end gap-2">
-          <button type="button" onClick={onClose} className="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700">
+          <Button type="button" onClick={onClose} className="px-3 py-1 bg-gray-200 dark:bg-gray-700">
             Cancel
-          </button>
-          <button type="submit" className="px-3 py-1 rounded bg-green-600 text-white">
+          </Button>
+          <Button type="submit" className="px-3 py-1 bg-green-600 text-white">
             Save
-          </button>
+          </Button>
         </div>
       </form>
     </div>

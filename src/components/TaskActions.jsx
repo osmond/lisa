@@ -1,5 +1,6 @@
 import useRipple from '../utils/useRipple.js'
 
+import Button from "./Button.jsx"
 export default function TaskActions({ onWater, onSkip, onSnooze, onView, visible }) {
   const [, createRipple] = useRipple()
   return (
@@ -7,43 +8,43 @@ export default function TaskActions({ onWater, onSkip, onSnooze, onView, visible
       data-testid="task-actions"
       className={`absolute inset-0 flex justify-between items-center px-4 transition ${visible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
     >
-      <button
+      <Button
         onMouseDown={createRipple}
         onTouchStart={createRipple}
         onClick={onWater}
-        className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
+        className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 pointer-events-auto relative overflow-hidden"
         aria-label="Water"
       >
         Water
-      </button>
+      </Button>
       <div className="flex gap-2">
-        <button
+        <Button
           onMouseDown={createRipple}
           onTouchStart={createRipple}
           onClick={onSkip}
-          className="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
+          className="bg-gray-200 dark:bg-gray-700 px-2 py-1 pointer-events-auto relative overflow-hidden"
           aria-label="Skip"
         >
           Skip
-        </button>
-        <button
+        </Button>
+        <Button
           onMouseDown={createRipple}
           onTouchStart={createRipple}
           onClick={onSnooze}
-          className="bg-orange-600 hover:bg-orange-700 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
+          className="bg-orange-600 hover:bg-orange-700 text-white px-2 py-1 pointer-events-auto relative overflow-hidden"
           aria-label="Snooze"
         >
           Snooze
-        </button>
-        <button
+        </Button>
+        <Button
           onMouseDown={createRipple}
           onTouchStart={createRipple}
           onClick={onView}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 pointer-events-auto relative overflow-hidden"
           aria-label="View plant"
         >
           View
-        </button>
+        </Button>
       </div>
     </div>
   )

@@ -5,6 +5,7 @@ import { usePlants } from '../PlantContext.jsx'
 import Lightbox from '../components/Lightbox.jsx'
 import FadeInImage from '../components/FadeInImage.jsx'
 
+import Button from "../components/Button.jsx"
 export function AllGallery() {
   const { plants, addPhoto } = usePlants()
   const images = plants.flatMap(p => [p.image, ...(p.photos || []).map(ph => (typeof ph === 'object' ? ph.src : ph))])
@@ -37,14 +38,14 @@ export function AllGallery() {
       </a>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
         {images.map((src, i) => (
-          <button key={i} onClick={() => setIndex(i)} className="focus:outline-none">
+          <Button key={i} onClick={() => setIndex(i)} className="focus:outline-none">
             <FadeInImage
               src={src}
               alt={`Plant ${i + 1}`}
               loading="lazy"
               className="w-full h-32 object-cover rounded transition-transform transform hover:scale-105 active:scale-105"
             />
-          </button>
+          </Button>
         ))}
       </div>
       {index !== null && (
@@ -68,7 +69,7 @@ export function AllGallery() {
           </option>
         ))}
       </select>
-      <button
+      <Button
         type="button"
         aria-label="Add photos"
         onClick={() => {
@@ -78,7 +79,7 @@ export function AllGallery() {
         className={`fixed bottom-4 right-4 bg-green-600 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg ${bouncing ? 'bounce-once' : ''}`}
       >
         +
-      </button>
+      </Button>
       <input
         type="file"
         accept="image/*"
@@ -134,18 +135,18 @@ export default function Gallery() {
         {photos.map((ph, i) => {
           const src = typeof ph === 'object' ? ph.src : ph
           return (
-            <button
+            <Button
               key={i}
               onClick={() => setIndex(i)}
               className="aspect-video overflow-hidden rounded-lg shadow-lg bg-gray-900 focus:outline-none"
             >
               <FadeInImage
-              src={src}
-              alt={plant.name}
-              loading="lazy"
-              className="w-full h-full object-cover transition-transform transform hover:scale-105 active:scale-105"
-            />
-          </button>
+                src={src}
+                alt={plant.name}
+                loading="lazy"
+                className="w-full h-full object-cover transition-transform transform hover:scale-105 active:scale-105"
+              />
+            </Button>
           )
         })}
       </div>
@@ -156,7 +157,7 @@ export default function Gallery() {
           const src = typeof ph === 'object' ? ph.src : ph
           return (
           <div key={i} className="snap-center shrink-0 w-full">
-            <button
+            <Button
               onClick={() => setIndex(i)}
               className="aspect-video overflow-hidden rounded-lg shadow-lg bg-gray-900 w-full h-full focus:outline-none"
             >
@@ -166,7 +167,7 @@ export default function Gallery() {
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform transform hover:scale-105 active:scale-105"
               />
-            </button>
+            </Button>
           </div>
           )
         })}
@@ -205,8 +206,8 @@ export default function Gallery() {
                       className="w-full border rounded p-1 text-sm"
                     />
                     <div className="flex gap-2 text-sm">
-                      <button type="submit" className="px-2 py-0.5 bg-green-600 text-white rounded">Save</button>
-                      <button type="button" onClick={() => setEditIndex(null)} className="px-2 py-0.5 border rounded">Cancel</button>
+                      <Button type="submit" className="px-2 py-0.5 bg-green-600 text-white">Save</Button>
+                      <Button type="button" onClick={() => setEditIndex(null)} className="px-2 py-0.5 border">Cancel</Button>
                     </div>
                   </form>
                 ) : (
@@ -215,7 +216,7 @@ export default function Gallery() {
                     {ph.tags && ph.tags.length > 0 && (
                       <p className="text-xs text-gray-500">{ph.tags.join(', ')}</p>
                     )}
-                    <button type="button" onClick={() => startEdit(i)} className="text-xs text-green-600 underline">Edit</button>
+                    <Button type="button" onClick={() => startEdit(i)} className="text-xs text-green-600 underline">Edit</Button>
                   </div>
                 )}
               </div>

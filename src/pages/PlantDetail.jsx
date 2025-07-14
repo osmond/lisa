@@ -8,6 +8,7 @@ import CareGraph from '../components/CareGraph.jsx'
 import { formatMonth } from '../utils/date.js'
 import FadeInImage from '../components/FadeInImage.jsx'
 import { isFrequentWatering } from '../utils/watering.js'
+import Button from "../components/Button.jsx"
 
 export default function PlantDetail() {
   const { id } = useParams()
@@ -202,27 +203,27 @@ export default function PlantDetail() {
           )}
         </div>
         <div className="flex gap-2 mt-2">
-          <button
+          <Button
             type="button"
             onClick={handleWatered}
             className="px-4 py-1 bg-accent text-white rounded-full"
           >
             Watered
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
             onClick={handleLogEvent}
             className="px-4 py-1 bg-accent text-white rounded-full"
           >
             Add Note
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
             onClick={handleAddCareLog}
             className="px-4 py-1 bg-accent text-white rounded-full"
           >
             + Add care log
-          </button>
+          </Button>
         </div>
 
 
@@ -238,7 +239,7 @@ export default function PlantDetail() {
         <div className="space-y-2 mt-4 divide-y divide-gray-200 rounded-xl shadow-sm bg-stone">
           <div>
             <h3 id="info-header">
-              <button
+              <Button
                 ref={el => (sectionRefs.current[0] = el)}
                 aria-expanded={openSection === 'info'}
                 aria-controls="info-panel"
@@ -250,7 +251,7 @@ export default function PlantDetail() {
               >
                 Details
                 <span>{openSection === 'info' ? '-' : '+'}</span>
-              </button>
+              </Button>
             </h3>
             {openSection === 'info' && (
               <div
@@ -260,7 +261,7 @@ export default function PlantDetail() {
                 className="p-4 pb-4"
               >
                 <div role="tablist" aria-label="Plant info" className="flex gap-2 mb-2">
-                  <button
+                  <Button
                     ref={el => (tabRefs.current[0] = el)}
                     id="activity-tab"
                     role="tab"
@@ -271,8 +272,8 @@ export default function PlantDetail() {
                     onKeyDown={e => handleTabKeyDown(e, 0)}
                   >
                     Activity
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     ref={el => (tabRefs.current[1] = el)}
                     id="notes-tab"
                     role="tab"
@@ -283,8 +284,8 @@ export default function PlantDetail() {
                     onKeyDown={e => handleTabKeyDown(e, 1)}
                   >
                     Notes
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     ref={el => (tabRefs.current[2] = el)}
                     id="care-tab"
                     role="tab"
@@ -295,7 +296,7 @@ export default function PlantDetail() {
                     onKeyDown={e => handleTabKeyDown(e, 2)}
                   >
                     Advanced
-                  </button>
+                  </Button>
                 </div>
                 {activeTab === 'activity' && (
                   <div id="activity-panel" role="tabpanel" aria-labelledby="activity-tab">
@@ -323,13 +324,13 @@ export default function PlantDetail() {
                         : plant.notes.slice(0, 160)
                       : 'No notes yet.'}
                     {plant.notes && plant.notes.length > 160 && (
-                      <button
+                      <Button
                         type="button"
                         onClick={() => setShowMore(!showMore)}
                         className="ml-2 text-green-600 underline"
                       >
                         {showMore ? 'Show less' : 'Show more'}
-                      </button>
+                      </Button>
                     )}
                   </div>
                 )}
@@ -344,7 +345,7 @@ export default function PlantDetail() {
 
           <div>
             <h3 id="timeline-header">
-              <button
+              <Button
                 ref={el => (sectionRefs.current[1] = el)}
                 aria-expanded={openSection === 'timeline'}
                 aria-controls="timeline-panel"
@@ -356,7 +357,7 @@ export default function PlantDetail() {
               >
                 Timeline
                 <span>{openSection === 'timeline' ? '-' : '+'}</span>
-              </button>
+              </Button>
             </h3>
             {openSection === 'timeline' && (
               <div
@@ -366,7 +367,7 @@ export default function PlantDetail() {
                 className="p-4 pb-4"
               >
                 <div className="mb-2 flex gap-2" role="tablist">
-                  <button
+                  <Button
                     role="tab"
                     aria-selected={timelineTab === 'list'}
                     className={`px-2 py-1 rounded ${
@@ -377,8 +378,8 @@ export default function PlantDetail() {
                     onClick={() => setTimelineTab('list')}
                   >
                     Events
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     role="tab"
                     aria-selected={timelineTab === 'graph'}
                     className={`px-2 py-1 rounded ${
@@ -389,7 +390,7 @@ export default function PlantDetail() {
                     onClick={() => setTimelineTab('graph')}
                   >
                     Care Graph
-                  </button>
+                  </Button>
                 </div>
                 {timelineTab === 'list' ? (
                   groupedEvents.map(([monthKey, list]) => (
@@ -440,23 +441,23 @@ export default function PlantDetail() {
                 alt={`${plant.name} ${i}`}
                 className="object-cover w-full h-24 rounded"
               />
-              <button
+              <Button
                 className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
                 onClick={() => removePhoto(plant.id, i)}
               >
                 ✕
-              </button>
+              </Button>
             </div>
             )
           })}
         </div>
-        <button
+        <Button
           type="button"
           onClick={() => fileInputRef.current.click()}
-          className="mt-2 px-3 py-1 bg-green-600 text-white rounded"
+          className="mt-2 px-3 py-1 bg-green-600 text-white"
         >
           Add Photo
-        </button>
+        </Button>
         <input
           type="file"
           accept="image/*"

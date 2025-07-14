@@ -6,6 +6,7 @@ import actionIcons from './ActionIcons.jsx'
 import useRipple from '../utils/useRipple.js'
 import { relativeDate } from '../utils/relativeDate.js'
 import { useWeather } from '../WeatherContext.jsx'
+import Button from "./Button.jsx"
 
 import NoteModal from './NoteModal.jsx'
 
@@ -173,15 +174,15 @@ export default function TaskCard({ task, onComplete }) {
         </div>
         {Icon && <Icon />}
       </Link>
-      <button
+      <Button
         onMouseDown={createRipple}
         onTouchStart={createRipple}
         onClick={handleComplete}
-        className={`ml-2 px-3 py-1 rounded relative overflow-hidden ${pillClass}`}
+        className={`ml-2 px-3 py-1 relative overflow-hidden ${pillClass}`}
         aria-label="Mark complete"
       >
         <input type="checkbox" checked={checked} readOnly className="task-checkbox" />
-      </button>
+      </Button>
       {checked && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <Drop aria-hidden="true" className="w-8 h-8 text-blue-600 water-drop" />
