@@ -14,6 +14,12 @@ export default {
         display: ['"Clash Display"', 'sans-serif'],
         body: ['Inter', 'system-ui', 'sans-serif'],
       },
+      fontSize: {
+        headline: ['2rem', {}],
+        subhead: ['1.25rem', {}],
+        label: ['0.875rem', {}],
+        detail: ['0.75rem', {}],
+      },
     },
   },
   plugins: [],

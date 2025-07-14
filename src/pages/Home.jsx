@@ -66,7 +66,7 @@ export default function Home() {
   return (
     <div className="space-y-4">
       <header className="flex flex-col items-start space-y-1">
-        <h1 className="text-2xl font-bold font-display">{greeting}</h1>
+        <h1 className="text-headline font-bold font-display">{greeting}</h1>
         <p className="flex items-center text-sm text-gray-600">
           <CloudSun className="w-5 h-5 mr-1 text-green-600" />
           {forecast ? `${forecast.temp} - ${forecast.condition}` : 'Loading...'}
@@ -85,7 +85,7 @@ export default function Home() {
       </div>
       <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
       <section>
-        <h2 className="font-semibold font-display mb-2">Watering</h2>
+        <h2 className="font-semibold font-display text-subhead mb-2">Watering</h2>
         <div className="space-y-4">
           {waterTasks.length > 0 ? (
             waterTasks.map(task => <TaskCard key={task.id} task={task} />)
@@ -95,7 +95,7 @@ export default function Home() {
         </div>
       </section>
       <section>
-        <h2 className="font-semibold font-display mb-2 mt-4">Fertilizing</h2>
+        <h2 className="font-semibold font-display text-subhead mb-2 mt-4">Fertilizing</h2>
         <div className="space-y-4">
           {fertilizeTasks.length > 0 ? (
             fertilizeTasks.map(task => <TaskCard key={task.id} task={task} />)

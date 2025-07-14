@@ -66,7 +66,7 @@ export default function Timeline() {
     <div className="overflow-y-auto max-h-full p-4 text-gray-700 dark:text-gray-200">
       {groupedEvents.map(([monthKey, list]) => (
         <div key={monthKey}>
-          <h3 className="mt-4 text-sm font-semibold text-gray-500">
+          <h3 className="mt-4 text-label font-semibold text-gray-500">
             {formatMonth(monthKey)}
           </h3>
           <ul className="relative border-l border-gray-300 pl-4 space-y-6">
