@@ -46,6 +46,16 @@ test('active link icon has nav-active animation', () => {
   expect(icon).toHaveClass('nav-active')
 })
 
+test('active link has bg style applied', () => {
+  const { container } = render(
+    <MemoryRouter initialEntries={["/gallery"]}>
+      <BottomNav />
+    </MemoryRouter>
+  )
+  const activeLink = container.querySelector('a[href="/gallery"]')
+  expect(activeLink.className).toEqual(expect.stringContaining('bg-green-50'))
+})
+
 test('shows dynamic tasks badge', () => {
   const { container } = render(
     <MemoryRouter>
