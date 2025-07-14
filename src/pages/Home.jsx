@@ -78,7 +78,7 @@ export default function Home() {
       <header className="flex flex-col items-start space-y-1">
         <h1 className="text-2xl font-bold font-display">{today}</h1>
         <p className="flex items-center text-sm italic text-gray-500">
-          <CloudSun className="w-5 h-5 mr-1 text-green-600" />
+          <CloudSun aria-hidden="true" className="w-5 h-5 mr-1 text-green-600" />
           {forecast
             ? `${forecast.temp} and ${forecast.condition?.toLowerCase()} — great day to water!`
             : 'Loading...'}
