@@ -4,6 +4,7 @@ import WaterProgress from '../components/WaterProgress.jsx'
 
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
+import { CloudSun } from 'phosphor-react'
 
 
 import SummaryStrip from '../components/SummaryStrip.jsx'
@@ -69,7 +70,7 @@ export default function Home() {
     <div className="space-y-6">
       <header className="flex flex-col items-start space-y-2">
         <h1 className="text-3xl font-bold font-headline flex items-center space-x-1 border-b border-gray-100 pb-1">
-          <span className="text-xl">☀️</span>
+          <CloudSun className="w-6 h-6 text-yellow-500" aria-hidden="true" />
           <span>{today}</span>
         </h1>
         <p className="text-sm text-gray-500 font-body">
