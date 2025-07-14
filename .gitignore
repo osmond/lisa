@@ -149,6 +149,5 @@ Thumbs.db
 # editor directories
 .vscode/
 
-package-lock.json
 node_modules/.package-lock.json
 node_modules/.vite/deps/_metadata.json

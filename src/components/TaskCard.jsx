@@ -11,6 +11,7 @@ export default function TaskCard({ task, onComplete }) {
   const { markWatered } = usePlants()
   const Icon = actionIcons[task.type]
   const [checked, setChecked] = useState(false)
+  const [bouncing, setBouncing] = useState(false)
   const [, createRipple] = useRipple()
   const { timezone } = useWeather() || {}
   const tz = timezone || Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -26,7 +27,11 @@ export default function TaskCard({ task, onComplete }) {
       markWatered(task.plantId, note)
     }
     setChecked(true)
-    setTimeout(() => setChecked(false), 400)
+    setBouncing(true)
+    setTimeout(() => {
+      setChecked(false)
+      setBouncing(false)
+    }, 400)
   }
 
   const pillColors = {
@@ -42,7 +47,11 @@ export default function TaskCard({ task, onComplete }) {
       onTouchStart={createRipple}
     >
       <Link to={`/plant/${task.plantId}`} className="flex items-center flex-1 gap-3">
-        <img src={task.image} alt={task.plantName} className="w-16 h-16 object-cover rounded" />
+        <img
+          src={task.image}
+          alt={task.plantName}
+          className={`w-16 h-16 object-cover rounded ${bouncing ? 'bounce-once' : ''}`}
+        />
         <div className="flex-1">
           <p className="font-medium">{task.type} {task.plantName}</p>
           {task.date && (

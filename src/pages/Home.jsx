@@ -1,4 +1,5 @@
 import TaskCard from '../components/TaskCard.jsx'
+import { useState } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 import { useState, useEffect } from 'react'
 
@@ -6,6 +7,7 @@ import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
 
 import { Sun, CloudSun, Moon } from 'phosphor-react'
+import PlantSpotlightCard from '../components/PlantSpotlightCard.jsx'
 
 import SummaryStrip from '../components/SummaryStrip.jsx'
 import ProgressRing from '../components/ProgressRing.jsx'
@@ -67,6 +69,7 @@ export default function Home() {
   const waterCount = waterTasks.length
   const fertilizeCount = fertilizeTasks.length
 
+
   useEffect(() => {
     setTotalCount(waterCount + fertilizeCount + completedCount)
   }, [waterCount, fertilizeCount, completedCount])
@@ -82,6 +85,18 @@ export default function Home() {
   const handleCompleteAll = type => {
     const list = type === 'Water' ? waterTasks : fertilizeTasks
     list.slice().forEach(t => handleTaskComplete(t))
+
+  const [focusIndex, setFocusIndex] = useState(() =>
+    plants.length > 0 ? now.getDate() % plants.length : 0
+  )
+  const spotlightPlant = plants[focusIndex]
+  const nextPlant = plants.length > 1 ? plants[(focusIndex + 1) % plants.length] : null
+
+  const handleSkip = () => {
+    if (plants.length > 0) {
+      setFocusIndex((focusIndex + 1) % plants.length)
+    }
+
   }
 
   const today = now.toLocaleDateString(undefined, {
@@ -110,16 +125,7 @@ export default function Home() {
         </p>
         <p className="text-sm text-gray-500">{today}</p>
       </header>
-      <div className="flex space-x-3 overflow-x-auto py-2">
-        {plants.map(p => (
-          <img
-            key={p.id}
-            src={p.image}
-            alt={p.name}
-            className="w-24 h-24 object-cover rounded-lg flex-shrink-0"
-          />
-        ))}
-      </div>
+      <PlantSpotlightCard plant={spotlightPlant} nextPlant={nextPlant} onSkip={handleSkip} />
       <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
       <div className="flex justify-center">
         <ProgressRing completed={completedCount} total={totalCount} />
