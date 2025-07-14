@@ -12,6 +12,10 @@ jest.mock('../../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: mockPlants }),
 }))
 
+jest.mock('../../UserContext.jsx', () => ({
+  useUser: () => ({ username: 'Kay' }),
+}))
+
 test('shows upbeat message when there are no tasks', () => {
   render(
     <MemoryRouter>

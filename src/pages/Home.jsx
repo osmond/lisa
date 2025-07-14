@@ -6,6 +6,7 @@ import confetti from 'canvas-confetti'
 
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
+import { useUser } from '../UserContext.jsx'
 
 import { CloudSun } from 'phosphor-react'
 
@@ -16,7 +17,7 @@ import SummaryStrip from '../components/SummaryStrip.jsx'
 export default function Home() {
   const { plants } = usePlants()
   const [completedIds, setCompletedIds] = useState([])
-  const username = 'Kay'
+  const { username } = useUser()
   const weatherCtx = useWeather()
   const forecast = weatherCtx?.forecast
   const weatherData = { rainTomorrow: forecast?.rainfall || 0 }
