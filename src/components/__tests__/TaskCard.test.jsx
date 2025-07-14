@@ -85,6 +85,30 @@ test('mark as done opens modal and saves note', () => {
   expect(screen.getByRole('dialog')).toBeInTheDocument()
 })
 
+test('pressing Enter on card opens note modal', () => {
+  render(
+    <MemoryRouter>
+      <TaskCard task={task} />
+    </MemoryRouter>
+  )
+  const wrapper = screen.getByTestId('task-wrapper')
+  wrapper.focus()
+  fireEvent.keyDown(wrapper, { key: 'Enter', code: 'Enter' })
+  expect(screen.getByLabelText(/note/i)).toBeInTheDocument()
+})
+
+test('pressing Space on card opens note modal', () => {
+  render(
+    <MemoryRouter>
+      <TaskCard task={task} />
+    </MemoryRouter>
+  )
+  const wrapper = screen.getByTestId('task-wrapper')
+  wrapper.focus()
+  fireEvent.keyDown(wrapper, { key: ' ', code: 'Space' })
+  expect(screen.getByLabelText(/note/i)).toBeInTheDocument()
+})
+
 test('cancel note modal does not mark complete', () => {
   const { container } = render(
     <MemoryRouter initialEntries={['/']}>
@@ -150,4 +174,7 @@ test('overdue tasks use red badge styling', () => {
   )
   const button = screen.getByRole('button', { name: /mark complete/i })
   expect(button).toHaveClass('bg-red-100', 'text-red-700')
+  const wrapper = screen.getByTestId('task-wrapper')
+  expect(wrapper.className).toMatch(/border-l-4/)
+  expect(wrapper.className).toMatch(/border-red-500/)
 })
