@@ -26,25 +26,31 @@ export default function Home() {
   const fertilizeTasks = []
   plants.forEach(p => {
     const { date, reason } = getNextWateringDate(p.lastWatered, weatherData)
-    if (date <= todayIso) {
-      waterTasks.push({
-        id: `w-${p.id}`,
-        plantId: p.id,
-        plantName: p.name,
-        image: p.image,
-        type: 'Water',
-        reason,
-      })
-    }
-    if (p.nextFertilize && p.nextFertilize <= todayIso) {
-      fertilizeTasks.push({
-        id: `f-${p.id}`,
-        plantId: p.id,
-        plantName: p.name,
-        image: p.image,
-        type: 'Fertilize',
-      })
-    }
+      if (date <= todayIso) {
+        waterTasks.push({
+          id: `w-${p.id}`,
+          plantId: p.id,
+          plantName: p.name,
+          nickname: p.nickname,
+          light: p.light,
+          difficulty: p.difficulty,
+          image: p.image,
+          type: 'Water',
+          reason,
+        })
+      }
+      if (p.nextFertilize && p.nextFertilize <= todayIso) {
+        fertilizeTasks.push({
+          id: `f-${p.id}`,
+          plantId: p.id,
+          plantName: p.name,
+          nickname: p.nickname,
+          light: p.light,
+          difficulty: p.difficulty,
+          image: p.image,
+          type: 'Fertilize',
+        })
+      }
   })
   const tasks = [...waterTasks, ...fertilizeTasks]
   const totalCount = tasks.length
