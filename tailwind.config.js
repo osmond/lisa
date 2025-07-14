@@ -23,6 +23,8 @@ export default {
         'warning-amber-dark': '#b45309',
         'warning-amber-light': '#fef3c7',
         'danger-red': '#dc2626',
+        'km-accent': '#A3C293',
+        'km-muted': '#6B7280',
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
