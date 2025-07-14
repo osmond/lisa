@@ -6,15 +6,18 @@ import MyPlants from './pages/MyPlants'
 import Tasks from './pages/Tasks'
 import Add from './pages/Add'
 import Gallery, { AllGallery } from './pages/Gallery'
+import PhotoTimeline from './pages/PhotoTimeline.jsx'
 import Settings from './pages/Settings'
 import PlantDetail from './pages/PlantDetail'
 import EditPlant from './pages/EditPlant'
 import BottomNav from './components/BottomNav'
+import useDueTasksCount from './utils/useDueTasksCount.js'
 import NotFound from './pages/NotFound'
 
 export default function App() {
   const location = useLocation()
   const nodeRef = useRef(null)
+  const dueCount = useDueTasksCount()
   return (
     <div className="pb-16 p-4 font-body overflow-hidden">{/* bottom padding for nav */}
 
@@ -33,6 +36,7 @@ export default function App() {
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/add" element={<Add />} />
             <Route path="/gallery" element={<AllGallery />} />
+            <Route path="/gallery/timeline" element={<PhotoTimeline />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/plant/:id" element={<PlantDetail />} />
             <Route path="/plant/:id/edit" element={<EditPlant />} />
@@ -47,7 +51,7 @@ export default function App() {
       </SwitchTransition>
 
 
-      <BottomNav />
+      <BottomNav dueCount={dueCount} />
     </div>
   )
 }
