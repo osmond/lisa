@@ -25,3 +25,19 @@ test('accessible label announces progress', () => {
     screen.getByRole('img', { name: '75% watered, 50% fertilized' })
   ).toBeInTheDocument()
 })
+
+test('shows combined progress when incomplete', () => {
+  render(
+    <CareRings waterCompleted={1} waterTotal={2} fertCompleted={0} fertTotal={2} />
+  )
+  expect(screen.getByText('1 / 4 Tasks')).toBeInTheDocument()
+})
+
+test('shows progress text and swirl when complete', () => {
+  const { container } = render(
+    <CareRings waterCompleted={2} waterTotal={2} fertCompleted={1} fertTotal={1} />
+  )
+  expect(screen.getByText('All Done!')).toBeInTheDocument()
+  const svg = container.querySelector('svg')
+  expect(svg.getAttribute('class')).toMatch(/swirl-once/)
+})
