@@ -15,7 +15,14 @@ Includes:
 - Styled PlantCard components
 - Tasks generated dynamically from plant data
 - Quick Add floating button for new plants
+- Dual progress rings visualize watering and fertilizing progress
 
+## Progress Rings
+
+Two overlapping rings summarize your care tasks. The inner blue ring tracks
+watering while the outer green ring tracks fertilizing. Each ring's length is
+`completed / total` for that task type (capped at 100%), and the SVG exposes the
+percentage for assistive technology.
 
 ## Weather Feature
 
