@@ -35,7 +35,7 @@ export default function Profile() {
 
   return (
     <div>
-      <h1 data-testid="greeting">Hello, {name}</h1>
+      <h1 data-testid="greeting">Hi {name}</h1>
       <p>
         Watering Streak: <span data-testid="streak-count">{streak}</span>
       </p>
