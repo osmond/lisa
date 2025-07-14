@@ -210,7 +210,7 @@ export default function PlantDetail() {
             onError={(e) => (e.target.src = "/placeholder.svg")}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex flex-col justify-end p-4 space-y-1">
-            <h1 className="text-headline leading-heading tracking-heading font-bold font-display text-white">
+            <h1 className="text-xl font-semibold leading-heading tracking-heading font-display text-white">
               {plant.name}
             </h1>
             {plant.nickname && (
@@ -236,14 +236,14 @@ export default function PlantDetail() {
           </div>
         </div>
 
-        <div className="grid gap-1 text-sm">
+        <div className="grid gap-1 text-sm text-muted">
           <p>
             <strong>Last watered:</strong> {plant.lastWatered}
           </p>
           <p>
             <strong>Next watering:</strong> {plant.nextWater}
             {plant.nextWaterReason && (
-              <span className="ml-1 text-gray-500">{`(${plant.nextWaterReason})`}</span>
+              <span className="ml-1 text-muted">{`(${plant.nextWaterReason})`}</span>
             )}
           </p>
           {plant.lastFertilized && (
@@ -352,7 +352,7 @@ export default function PlantDetail() {
                     id="notes-panel"
                     role="tabpanel"
                     aria-labelledby="notes-tab"
-                    className="shadow-sm bg-stone rounded"
+                    className="shadow-sm bg-stone rounded leading-relaxed"
                   >
                     {plant.notes
                       ? showMore
@@ -375,6 +375,7 @@ export default function PlantDetail() {
                     id="care-panel"
                     role="tabpanel"
                     aria-labelledby="care-tab"
+                    className="leading-relaxed"
                   >
                     {plant.advancedCare || "No advanced care info."}
                   </div>

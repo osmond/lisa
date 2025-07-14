@@ -3,6 +3,7 @@ export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
+
       colors: {
         offwhite: '#f9faf8',
         sage: '#eaf4ec',
@@ -26,6 +27,7 @@ export default {
         'km-accent': '#A3C293',
         'km-muted': '#6B7280',
       },
+
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         display: ['"Cabinet Grotesk"', 'Recoleta', 'sans-serif'],
