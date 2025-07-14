@@ -61,13 +61,16 @@ export default function Home() {
   return (
     <div className="space-y-4">
       <header className="flex flex-col items-start space-y-2">
-        <h1 className="text-2xl font-bold font-headline">☀️ {today}</h1>
-        <p className="text-sm text-gray-600 font-body">
+        <h1 className="text-2xl font-bold font-headline flex items-center space-x-1">
+          <span className="text-xl">☀️</span>
+          <span>{today}</span>
+        </h1>
+        <p className="text-sm text-gray-500 font-body">
           {forecast
             ? `${forecast.temp} and ${(forecast.condition || '').toLowerCase()} — great day to water!`
             : 'Loading...'}
         </p>
-        <p className="text-sm text-gray-600 font-body">Hi Jon 🌿 Let’s check on your plants.</p>
+        <p className="text-sm text-gray-600 font-body mt-2">Hi Jon 🌿 Let’s check on your plants.</p>
       </header>
       <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
       {totalWaterToday > 0 && (
