@@ -9,6 +9,7 @@ import { formatMonth, formatWeek } from "../utils/date.js";
 import FadeInImage from "../components/FadeInImage.jsx";
 import { isFrequentWatering } from "../utils/watering.js";
 import Button from "../components/Button.jsx";
+import FloatingLogActions from "../components/FloatingLogActions.jsx";
 
 export default function PlantDetail() {
   const { id } = useParams();
@@ -257,60 +258,11 @@ export default function PlantDetail() {
           )}
         </div>
 
-        <div className="flex gap-2 mt-2">
-          <Button
-            type="button"
-            onClick={handleWatered}
-            className="px-4 py-1 bg-accent text-white rounded-full"
-          >
-            Watered
-          </Button>
-          <Button
-            type="button"
-            onClick={handleLogEvent}
-            className="px-4 py-1 bg-accent text-white rounded-full"
-          >
-            Add Note
-          </Button>
-          <Button
-            type="button"
-            onClick={handleAddCareLog}
-            className="px-4 py-1 bg-accent text-white rounded-full"
-          >
-            + Add care log
-          </Button>
-        </div>
-
-        <div className="mt-2">
-          <div
-            role="group"
-            aria-label="log actions"
-            className="flex text-sm rounded-full overflow-hidden bg-accent text-white divide-x divide-white"
-          >
-            <button
-              type="button"
-              onClick={handleWatered}
-              className="flex-1 px-3 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-            >
-              Watered
-            </button>
-            <button
-              type="button"
-              onClick={handleLogEvent}
-              aria-label="Quick Log"
-              className="flex-1 px-3 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-            >
-              Add Note
-            </button>
-            <button
-              type="button"
-              onClick={handleAddCareLog}
-              className="flex-1 px-3 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-            >
-              + Add care log
-            </button>
-          </div>
-        </div>
+        <FloatingLogActions
+          onWatered={handleWatered}
+          onAddNote={handleLogEvent}
+          onAddCareLog={handleAddCareLog}
+        />
 
         <div className="space-y-2 mt-4 divide-y divide-gray-200 rounded-xl shadow-sm bg-stone">
           <div>
