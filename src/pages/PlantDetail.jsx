@@ -493,23 +493,30 @@ export default function PlantDetail() {
                           {list.map((e, i) => {
                             const Icon = actionIcons[e.type];
                             return (
-                              <li key={`${e.date}-${i}`} className="relative">
+                              <li
+                                key={`${e.date}-${i}`}
+                                className="relative grid grid-cols-[5rem,1fr] gap-x-2 pl-4 items-start even:bg-gray-50 py-2"
+                              >
                                 <span
-                                  className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
+                                  className={`absolute -left-2 top-3 w-3 h-3 rounded-full ${colors[e.type]}`}
                                 ></span>
-                                <p className="text-xs text-gray-500">
+                                <p className="text-xs text-gray-500 whitespace-nowrap">
                                   {e.date}
                                 </p>
-                                <p className="flex items-center gap-1">
-                                  {Icon && <Icon />}
-                                  {e.label}
-                                </p>
-                                {e.note && (
-                                  <p className="text-xs text-gray-500 italic">
-                                    {e.note}
+                                <div className="space-y-0.5">
+                                  <p className="flex items-center gap-1">
+                                    {Icon && <Icon />}
+                                    {e.label}
                                   </p>
-                                )}
-                                {e.mood && <p className="text-xs">{e.mood}</p>}
+                                  {e.note && (
+                                    <p className="text-xs text-gray-500 italic">
+                                      {e.note}
+                                    </p>
+                                  )}
+                                  {e.mood && (
+                                    <p className="text-xs">{e.mood}</p>
+                                  )}
+                                </div>
                               </li>
                             );
                           })}
@@ -544,26 +551,28 @@ export default function PlantDetail() {
                                 return (
                                   <li
                                     key={`${e.date}-${i}`}
-                                    className="relative"
+                                    className="relative grid grid-cols-[5rem,1fr] gap-x-2 pl-4 items-start even:bg-gray-50 py-2"
                                   >
                                     <span
-                                      className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
+                                      className={`absolute -left-2 top-3 w-3 h-3 rounded-full ${colors[e.type]}`}
                                     ></span>
-                                    <p className="text-xs text-gray-500">
+                                    <p className="text-xs text-gray-500 whitespace-nowrap">
                                       {e.date}
                                     </p>
-                                    <p className="flex items-center gap-1">
-                                      {Icon && <Icon />}
-                                      {e.label}
-                                    </p>
-                                    {e.note && (
-                                      <p className="text-xs text-gray-500 italic">
-                                        {e.note}
+                                    <div className="space-y-0.5">
+                                      <p className="flex items-center gap-1">
+                                        {Icon && <Icon />}
+                                        {e.label}
                                       </p>
-                                    )}
-                                    {e.mood && (
-                                      <p className="text-xs">{e.mood}</p>
-                                    )}
+                                      {e.note && (
+                                        <p className="text-xs text-gray-500 italic">
+                                          {e.note}
+                                        </p>
+                                      )}
+                                      {e.mood && (
+                                        <p className="text-xs">{e.mood}</p>
+                                      )}
+                                    </div>
                                   </li>
                                 );
                               })}

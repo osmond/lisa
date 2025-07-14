@@ -44,7 +44,7 @@ export default function TaskCard({ task, onComplete }) {
   const overdue = task.date && daysDiff < 0
   const dueColor = task.date
     ? daysDiff < 0
-      ? 'text-red-600'
+      ? 'text-amber-600'
       : daysDiff <= 2
       ? 'text-orange-600'
       : 'text-green-600'
@@ -84,7 +84,7 @@ export default function TaskCard({ task, onComplete }) {
   const pillColors = {
     Water: 'bg-blue-100 text-blue-700',
     Fertilize: 'bg-orange-100 text-orange-700',
-    Overdue: 'bg-red-100 text-red-700',
+    Overdue: 'bg-amber-100 text-amber-700',
   }
   const pillClass = overdue
     ? pillColors.Overdue
@@ -138,7 +138,7 @@ export default function TaskCard({ task, onComplete }) {
   return (
     <div
       data-testid="task-wrapper"
-      className={`relative flex items-center gap-3 p-5 rounded-2xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden ${overdue ? 'border-l-4 border-red-500' : ''}`}
+      className={`relative flex items-center gap-3 p-5 rounded-2xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden ${overdue ? 'border-l-4 border-amber-500 shadow-amber-200' : ''}`}
       onMouseDown={e => { createRipple(e); handlePointerDown(e) }}
       onTouchStart={e => { createRipple(e); handlePointerDown(e) }}
       onPointerDown={handlePointerDown}

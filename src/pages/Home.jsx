@@ -12,8 +12,6 @@ import PlantSpotlightCard from '../components/PlantSpotlightCard.jsx'
 import SummaryStrip from '../components/SummaryStrip.jsx'
 import ProgressRing from '../components/ProgressRing.jsx'
 
-
-
 export default function Home() {
   const { plants, markWatered } = usePlants()
   const weatherCtx = useWeather()
@@ -69,11 +67,9 @@ export default function Home() {
   const [completedCount, setCompletedCount] = useState(0)
   const [totalCount, setTotalCount] = useState(waterCount + fertilizeCount)
 
-
   const showRainSuggestion =
     (forecast?.rainfall || 0) > 50 ||
     waterTasks.some(t => t.reason === 'rain expected tomorrow')
-
 
   useEffect(() => {
     setTotalCount(waterCount + fertilizeCount + completedCount)
@@ -87,13 +83,13 @@ export default function Home() {
     setCompletedCount(c => c + 1)
   }
 
-const handleCompleteAll = type => {
-  const list = type === 'Water' ? waterTasks : fertilizeTasks
-  if (type === 'Water') {
-    list.forEach(t => markWatered(t.plantId, ''))
+  const handleCompleteAll = type => {
+    const list = type === 'Water' ? waterTasks : fertilizeTasks
+    if (type === 'Water') {
+      list.forEach(t => markWatered(t.plantId, ''))
+    }
+    setCompletedCount(c => c + list.length)
   }
-  setCompletedCount(c => c + list.length)
-}
 
   const [focusIndex, setFocusIndex] = useState(() =>
     plants.length > 0 ? now.getDate() % plants.length : 0
@@ -105,9 +101,7 @@ const handleCompleteAll = type => {
     if (plants.length > 0) {
       setFocusIndex((focusIndex + 1) % plants.length)
     }
-
   }
-
 
   const today = now.toLocaleDateString(undefined, {
     weekday: 'long',
@@ -115,7 +109,6 @@ const handleCompleteAll = type => {
     day: 'numeric',
     timeZone: timezone,
   })
-
 
   return (
     <div className="space-y-4">
@@ -140,7 +133,6 @@ const handleCompleteAll = type => {
         </p>
         <p className="text-subhead text-gray-500">{today}</p>
       </header>
-
 
       <PlantSpotlightCard plant={spotlightPlant} nextPlant={nextPlant} onSkip={handleSkip} />
 
