@@ -92,6 +92,27 @@ test('clicking card adds ripple effect', () => {
   expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
 })
 
+test('keyboard Enter and Space trigger completion with ripple', async () => {
+  const onComplete = jest.fn()
+  const { container } = render(
+    <PlantProvider>
+      <MemoryRouter>
+        <TaskCard task={task} onComplete={onComplete} />
+      </MemoryRouter>
+    </PlantProvider>
+  )
+  const button = screen.getByRole('button', { name: /mark complete/i })
+  const user = userEvent.setup()
+  button.focus()
+  await user.keyboard('{Enter}')
+  expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
+  expect(onComplete).toHaveBeenCalledWith(task)
+  container.querySelector('.ripple-effect')?.remove()
+  await user.keyboard(' ')
+  expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
+  expect(onComplete).toHaveBeenCalledTimes(2)
+})
+
 test.skip('swipe right marks task complete', async () => {
   const onComplete = jest.fn()
   render(

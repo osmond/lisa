@@ -80,10 +80,16 @@ export default function TaskItem({ task, onComplete }) {
         {Icon && <Icon />}
       </Link>
       <button
+        type="button"
         onMouseDown={createRipple}
         onTouchStart={createRipple}
+        onKeyDown={e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            createRipple(e)
+          }
+        }}
         onClick={handleComplete}
-        className="ml-2 px-3 py-1 bg-green-100 text-green-700 rounded text-sm relative overflow-hidden font-body"
+        className="ml-2 px-3 py-1 bg-green-100 text-green-700 rounded text-sm relative overflow-hidden font-body focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500"
       >
         Done
       </button>
