@@ -18,14 +18,6 @@ export default function Add() {
     const imgUrl = image || '/placeholder.svg'
     addPlant({ name, image: imgUrl, lastWatered, nextWater })
 
-    const plant = { name, lastWatered, nextWater }
-    if (image) {
-      plant.image = image
-    } else {
-      plant.image = null
-    }
-    addPlant(plant)
-
     navigate('/myplants')
   }
 
