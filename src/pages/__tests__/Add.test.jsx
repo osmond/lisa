@@ -7,6 +7,8 @@ import { PlantProvider } from '../../PlantContext.jsx'
 // test adding a plant
 
 test('addPlant updates context and redirects to MyPlants', () => {
+  const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
   const { container } = render(
     <PlantProvider>
       <MemoryRouter initialEntries={['/add']}>
@@ -25,6 +27,11 @@ test('addPlant updates context and redirects to MyPlants', () => {
 
   expect(screen.getByRole('heading', { name: /my plants/i })).toBeInTheDocument()
   expect(screen.getByText('Test Plant')).toBeInTheDocument()
+
   const img = screen.getByAltText('Test Plant')
   expect(img).toHaveAttribute('src', '/placeholder.svg')
+
+  expect(consoleSpy).not.toHaveBeenCalled()
+  consoleSpy.mockRestore()
+
 })

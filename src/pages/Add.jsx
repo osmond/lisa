@@ -14,8 +14,18 @@ export default function Add() {
   const handleSubmit = e => {
     e.preventDefault()
     if (!name) return
+
     const imgUrl = image || '/placeholder.svg'
     addPlant({ name, image: imgUrl, lastWatered, nextWater })
+
+    const plant = { name, lastWatered, nextWater }
+    if (image) {
+      plant.image = image
+    } else {
+      plant.image = null
+    }
+    addPlant(plant)
+
     navigate('/myplants')
   }
 

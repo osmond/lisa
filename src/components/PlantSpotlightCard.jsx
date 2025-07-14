@@ -1,0 +1,58 @@
+import { useState } from 'react'
+import { usePlants } from '../PlantContext.jsx'
+
+export default function PlantSpotlightCard({ plant, nextPlant, onSkip }) {
+  const { markWatered, logEvent } = usePlants()
+  const [ignored, setIgnored] = useState(false)
+
+  if (!plant) return null
+
+  const handleWater = () => {
+    markWatered(plant.id, '')
+  }
+
+  const handleAddNote = () => {
+    const note = window.prompt('Add note') || ''
+    if (note) logEvent(plant.id, 'Note', note)
+  }
+
+  const handleSkip = () => {
+    setIgnored(true)
+    if (onSkip) onSkip()
+  }
+
+  if (ignored) return null
+
+  return (
+    <article className="rounded-xl bg-white shadow p-4 space-y-3">
+      <img src={plant.image} alt={plant.name} className="w-full rounded-lg object-cover" />
+      <h2 className="text-xl font-semibold">{plant.name}</h2>
+      <div className="flex gap-2">
+        {plant.light && (
+          <span className="px-2 py-0.5 text-xs rounded-full bg-yellow-100 text-yellow-800">
+            {plant.light}
+          </span>
+        )}
+        {plant.difficulty && (
+          <span className="px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-800">
+            {plant.difficulty}
+          </span>
+        )}
+      </div>
+      <div className="flex gap-3">
+        <button className="px-3 py-1 bg-accent text-white rounded" onClick={handleWater}>
+          Water
+        </button>
+        <button className="px-3 py-1 bg-accent text-white rounded" onClick={handleAddNote}>
+          Add Note
+        </button>
+        <button className="px-3 py-1" onClick={handleSkip}>
+          Skip
+        </button>
+      </div>
+      {nextPlant && (
+        <p className="text-sm text-gray-500">Next up: {nextPlant.name}</p>
+      )}
+    </article>
+  )
+}
