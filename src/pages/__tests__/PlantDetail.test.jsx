@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, within } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import PlantDetail from '../PlantDetail.jsx'
 import plants from '../../plants.json'
@@ -77,6 +77,9 @@ test('add note opens log modal', () => {
     </PlantProvider>
   )
 
-  fireEvent.click(screen.getByText('Add Note'))
+  const group = screen.getByRole('group', { name: /log actions/i })
+  expect(within(group).getAllByRole('button')).toHaveLength(3)
+
+  fireEvent.click(screen.getByRole('button', { name: /Add Note/i }))
   expect(screen.getByRole('dialog')).toBeInTheDocument()
 })

@@ -201,28 +201,34 @@ export default function PlantDetail() {
             </p>
           )}
         </div>
-        <div className="flex gap-2 mt-2">
-          <button
-            type="button"
-            onClick={handleWatered}
-            className="px-4 py-1 bg-accent text-white rounded-full"
+        <div className="mt-2">
+          <div
+            role="group"
+            aria-label="log actions"
+            className="flex text-sm rounded-full overflow-hidden bg-accent text-white divide-x divide-white"
           >
-            Watered
-          </button>
-          <button
-            type="button"
-            onClick={handleLogEvent}
-            className="px-4 py-1 bg-accent text-white rounded-full"
-          >
-            Add Note
-          </button>
-          <button
-            type="button"
-            onClick={handleAddCareLog}
-            className="px-4 py-1 bg-accent text-white rounded-full"
-          >
-            + Add care log
-          </button>
+            <button
+              type="button"
+              onClick={handleWatered}
+              className="flex-1 px-3 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              Watered
+            </button>
+            <button
+              type="button"
+              onClick={handleLogEvent}
+              className="flex-1 px-3 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              Add Note
+            </button>
+            <button
+              type="button"
+              onClick={handleAddCareLog}
+              className="flex-1 px-3 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              + Add care log
+            </button>
+          </div>
         </div>
 
 
