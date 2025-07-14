@@ -113,10 +113,10 @@ export default function PlantDetail() {
   );
 
   const colors = {
-    water: "bg-blue-500",
-    fertilize: "bg-yellow-500",
+    water: "bg-water-blue",
+    fertilize: "bg-warning-amber",
     note: "bg-gray-400",
-    log: "bg-green-400",
+    log: "bg-primary-green",
   };
 
   const handleFiles = (e) => {
@@ -189,10 +189,10 @@ export default function PlantDetail() {
           {toast === "Watered" ? (
             <Drop
               aria-hidden="true"
-              className="w-8 h-8 text-blue-600 water-drop"
+              className="w-8 h-8 text-water-blue water-drop"
             />
           ) : (
-            <div className="w-8 h-8 border-4 border-green-600 rounded-full ring-pop"></div>
+            <div className="w-8 h-8 border-4 border-primary-green rounded-full ring-pop"></div>
           )}
         </div>
       )}
@@ -217,17 +217,17 @@ export default function PlantDetail() {
             )}
             <div className="flex flex-wrap gap-2 text-xs">
               {plant.light && (
-                <span className="px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">
+                <span className="px-2 py-0.5 rounded-full bg-warning-amber-light text-warning-amber-dark">
                   {plant.light}
                 </span>
               )}
               {plant.humidity && (
-                <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
+                <span className="px-2 py-0.5 rounded-full bg-water-blue-light text-water-blue-dark">
                   {plant.humidity}
                 </span>
               )}
               {plant.difficulty && (
-                <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-800">
+                <span className="px-2 py-0.5 rounded-full bg-soft-leaf text-primary-green-dark">
                   {plant.difficulty}
                 </span>
               )}
@@ -347,7 +347,7 @@ export default function PlantDetail() {
                     role="tab"
                     aria-selected={activeTab === "activity"}
                     aria-controls="activity-panel"
-                    className={`px-2 py-1 rounded ${activeTab === "activity" ? "bg-green-600 text-white" : "bg-white text-black"}`}
+                    className={`px-2 py-1 rounded ${activeTab === "activity" ? "bg-primary-green text-white" : "bg-white text-black"}`}
                     onClick={() => setActiveTab("activity")}
                     onKeyDown={(e) => handleTabKeyDown(e, 0)}
                   >
@@ -359,7 +359,7 @@ export default function PlantDetail() {
                     role="tab"
                     aria-selected={activeTab === "notes"}
                     aria-controls="notes-panel"
-                    className={`px-2 py-1 rounded ${activeTab === "notes" ? "bg-green-600 text-white" : "bg-white text-black"}`}
+                    className={`px-2 py-1 rounded ${activeTab === "notes" ? "bg-primary-green text-white" : "bg-white text-black"}`}
                     onClick={() => setActiveTab("notes")}
                     onKeyDown={(e) => handleTabKeyDown(e, 1)}
                   >
@@ -371,7 +371,7 @@ export default function PlantDetail() {
                     role="tab"
                     aria-selected={activeTab === "care"}
                     aria-controls="care-panel"
-                    className={`px-2 py-1 rounded ${activeTab === "care" ? "bg-green-600 text-white" : "bg-white text-black"}`}
+                    className={`px-2 py-1 rounded ${activeTab === "care" ? "bg-primary-green text-white" : "bg-white text-black"}`}
                     onClick={() => setActiveTab("care")}
                     onKeyDown={(e) => handleTabKeyDown(e, 2)}
                   >
@@ -411,7 +411,7 @@ export default function PlantDetail() {
                       <Button
                         type="button"
                         onClick={() => setShowMore(!showMore)}
-                        className="ml-2 text-green-600 underline"
+                        className="ml-2 text-primary-green underline"
                       >
                         {showMore ? "Show less" : "Show more"}
                       </Button>
@@ -460,7 +460,7 @@ export default function PlantDetail() {
                     aria-selected={timelineTab === "list"}
                     className={`px-2 py-1 rounded ${
                       timelineTab === "list"
-                        ? "bg-green-600 text-white"
+                        ? "bg-primary-green text-white"
                         : "bg-gray-200"
                     }`}
                     onClick={() => setTimelineTab("list")}
@@ -472,7 +472,7 @@ export default function PlantDetail() {
                     aria-selected={timelineTab === "graph"}
                     className={`px-2 py-1 rounded ${
                       timelineTab === "graph"
-                        ? "bg-green-600 text-white"
+                        ? "bg-primary-green text-white"
                         : "bg-gray-200"
                     }`}
                     onClick={() => setTimelineTab("graph")}
@@ -595,7 +595,7 @@ export default function PlantDetail() {
           <h2 className="text-subhead font-semibold font-display">Gallery</h2>
           <Link
             to={`/plant/${plant.id}/gallery`}
-            className="text-green-600 underline flex items-center gap-1"
+            className="text-primary-green underline flex items-center gap-1"
           >
             View Gallery
             {plant.photos && (
@@ -629,7 +629,7 @@ export default function PlantDetail() {
         <Button
           type="button"
           onClick={() => fileInputRef.current.click()}
-          className="mt-2 px-3 py-1 bg-green-600 text-white"
+          className="mt-2 px-3 py-1 bg-primary-green text-white"
         >
           Add Photo
         </Button>

@@ -90,7 +90,7 @@ export default function LogModal({ onSave, onClose, defaultType = '', defaultDat
           <Button type="button" onClick={onClose} className="px-3 py-1 bg-gray-200 dark:bg-gray-700">
             Cancel
           </Button>
-          <Button type="submit" className="px-3 py-1 bg-green-600 text-white">
+          <Button type="submit" className="px-3 py-1 bg-primary-green text-white">
             Save
           </Button>
         </div>

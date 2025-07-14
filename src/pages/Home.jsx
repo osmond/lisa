@@ -123,7 +123,7 @@ export default function Home() {
         </h1>
 
         <p className="flex items-center text-sm text-gray-600">
-          <CloudSun className="w-5 h-5 mr-1 text-green-600" />
+          <CloudSun className="w-5 h-5 mr-1 text-primary-green" />
           {forecast ? `${forecast.temp} - ${forecast.condition}` : 'Loading...'}
           {showRainSuggestion && (
             <span className="ml-2" aria-label="rain forecasted">
@@ -147,7 +147,7 @@ export default function Home() {
             <Button
               type="button"
               onClick={() => handleCompleteAll('Water')}
-              className="bg-green-600 text-white px-3 py-1"
+              className="bg-primary-green text-white px-3 py-1"
               data-testid="complete-all-water"
             >
               Complete All
@@ -180,7 +180,7 @@ export default function Home() {
             <Button
               type="button"
               onClick={() => handleCompleteAll('Fertilize')}
-              className="bg-green-600 text-white px-3 py-1"
+              className="bg-primary-green text-white px-3 py-1"
               data-testid="complete-all-fertilize"
             >
               Complete All

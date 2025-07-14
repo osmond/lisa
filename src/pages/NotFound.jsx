@@ -5,7 +5,7 @@ export default function NotFound() {
     <div className="text-center space-y-4">
       <h1 className="text-headline font-bold font-display">Page Not Found</h1>
       <p className="text-gray-600">Sorry, we couldn\'t find that page.</p>
-      <Link to="/" className="text-green-600 underline">
+      <Link to="/" className="text-primary-green underline">
         Go to Home
       </Link>
     </div>

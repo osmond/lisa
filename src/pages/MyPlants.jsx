@@ -54,7 +54,7 @@ export default function MyPlants() {
             key={v}
             type="button"
             onClick={() => setView(v)}
-            className={`px-3 py-1 rounded-full text-sm ${view === v ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+            className={`px-3 py-1 rounded-full text-sm ${view === v ? 'bg-primary-green text-white' : 'bg-gray-200 text-gray-700'}`}
           >
             {v}
           </Button>
@@ -110,7 +110,7 @@ export default function MyPlants() {
             <div key={r.room} className="border rounded-xl p-3 shadow-sm">
               <div className="flex justify-between items-center mb-2">
                 <h2 className="font-semibold text-subhead">{r.room}</h2>
-                <span className="px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-800">{r.taskCount} tasks</span>
+                <span className="px-2 py-0.5 text-xs rounded-full bg-soft-leaf text-primary-green-dark">{r.taskCount} tasks</span>
               </div>
               <div className="grid grid-cols-2 gap-1">
                 {r.plants.slice(0, 4).map(p => (

@@ -35,12 +35,12 @@ export default function PlantSpotlightCard({ plant, nextPlant, onSkip }) {
       <h2 className="text-xl font-semibold">{plant.name}</h2>
       <div className="flex gap-2">
         {plant.light && (
-          <span className="px-2 py-0.5 text-xs rounded-full bg-yellow-100 text-yellow-800">
+          <span className="px-2 py-0.5 text-xs rounded-full bg-warning-amber-light text-warning-amber-dark">
             {plant.light}
           </span>
         )}
         {plant.difficulty && (
-          <span className="px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-800">
+          <span className="px-2 py-0.5 text-xs rounded-full bg-soft-leaf text-primary-green-dark">
             {plant.difficulty}
           </span>
         )}

@@ -14,7 +14,7 @@ export default function TaskActions({ onWater, onSkip, onSnooze, onView, visible
         onMouseDown={createRipple}
         onTouchStart={createRipple}
         onClick={onWater}
-        className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden flex items-center gap-1"
+        className="bg-water-blue hover:bg-water-blue-dark text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden flex items-center gap-1"
         aria-label="Water"
       >
         <WaterIcon />
@@ -36,7 +36,7 @@ export default function TaskActions({ onWater, onSkip, onSnooze, onView, visible
           onMouseDown={createRipple}
           onTouchStart={createRipple}
           onClick={onSnooze}
-          className="bg-orange-600 hover:bg-orange-700 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden flex items-center gap-1"
+          className="bg-fertilizer-orange hover:bg-fertilizer-orange-dark text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden flex items-center gap-1"
           aria-label="Snooze"
         >
           <SnoozeIcon />
@@ -47,7 +47,7 @@ export default function TaskActions({ onWater, onSkip, onSnooze, onView, visible
           onTouchStart={createRipple}
           onClick={onView}
 
-          className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 pointer-events-auto relative overflow-hidden"
+          className="bg-water-blue hover:bg-water-blue-dark text-white px-2 py-1 pointer-events-auto relative overflow-hidden"
 
 
           aria-label="View plant"
