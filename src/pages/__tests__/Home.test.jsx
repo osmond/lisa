@@ -12,13 +12,14 @@ jest.mock('../../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: mockPlants }),
 }))
 
-test('shows upbeat message when there are no tasks', () => {
+test('shows messages when there are no tasks', () => {
   render(
     <MemoryRouter>
       <Home />
     </MemoryRouter>
   )
-  expect(screen.getByText(/all plants are happy/i)).toBeInTheDocument()
+  expect(screen.getByText(/no watering needed/i)).toBeInTheDocument()
+  expect(screen.getByText(/no fertilizing needed/i)).toBeInTheDocument()
 })
 
 test('summary items render when tasks exist', () => {
