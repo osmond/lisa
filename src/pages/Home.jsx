@@ -4,6 +4,14 @@ import WaterProgress from '../components/WaterProgress.jsx'
 
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
+import {
+  Sun,
+  Cloud,
+  CloudRain,
+  CloudLightning,
+  CloudSnow,
+  CloudFog,
+} from 'phosphor-react'
 
 
 import SummaryStrip from '../components/SummaryStrip.jsx'
@@ -16,6 +24,17 @@ export default function Home() {
   const weatherCtx = useWeather()
   const forecast = weatherCtx?.forecast
   const weatherData = { rainTomorrow: forecast?.rainfall || 0 }
+
+  const weatherIcons = {
+    Clear: Sun,
+    Clouds: Cloud,
+    Rain: CloudRain,
+    Drizzle: CloudRain,
+    Thunderstorm: CloudLightning,
+    Snow: CloudSnow,
+    Mist: CloudFog,
+    Fog: CloudFog,
+  }
 
   const todayIso = new Date().toISOString().slice(0, 10)
   const waterTasks = []
@@ -72,10 +91,20 @@ export default function Home() {
           <span className="text-xl">☀️</span>
           <span>{today}</span>
         </h1>
-        <p className="text-sm text-gray-500 font-body">
-          {forecast
-            ? `${forecast.temp} and ${(forecast.condition || '').toLowerCase()} — great day to water!`
-            : 'Loading...'}
+        <p className="text-sm text-gray-500 font-body flex items-center gap-1">
+          {forecast ? (
+            <>
+              {(() => {
+                const Icon = weatherIcons[forecast.condition] || Sun
+                return (
+                  <Icon className="w-4 h-4 text-gray-400" aria-label={forecast.condition} />
+                )
+              })()}
+              <span>{forecast.temp}, {forecast.condition}</span>
+            </>
+          ) : (
+            'Loading...'
+          )}
         </p>
       <p className="text-sm text-gray-600 font-body mt-2">Hi Jon 🌿 Let’s check on your plants.</p>
     </header>
