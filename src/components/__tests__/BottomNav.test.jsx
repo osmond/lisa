@@ -25,6 +25,16 @@ test('renders gallery link', () => {
 })
 
 
+test('does not render add link', () => {
+  const { container } = render(
+    <MemoryRouter>
+      <BottomNav />
+    </MemoryRouter>
+  )
+  const addLink = container.querySelector('a[href="/add"]')
+  expect(addLink).toBeNull()
+
+
 test('active link icon has nav-bounce animation', () => {
   const { container } = render(
     <MemoryRouter initialEntries={["/gallery"]}>
