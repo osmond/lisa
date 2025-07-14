@@ -57,7 +57,7 @@ export default function BottomNav({ dueCount = 0 }) {
             className={({ isActive }) =>
               `w-12 flex flex-col items-center text-xs transition-transform duration-150 ${
                 isActive
-                  ? 'text-[#A3C293] bg-soft-leaf-light dark:bg-gray-700'
+                  ? 'text-[#A3C293] bg-soft-leaf-light dark:bg-gray-700 nav-active-underline'
                   : 'text-gray-500'
               }`
             }

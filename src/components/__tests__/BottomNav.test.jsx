@@ -65,6 +65,16 @@ test('active link has bg style applied', () => {
   expect(activeLink.className).toEqual(expect.stringContaining('bg-soft-leaf-light'))
 })
 
+test('active link has underline style applied', () => {
+  const { container } = render(
+    <MemoryRouter initialEntries={["/gallery"]}>
+      <BottomNav />
+    </MemoryRouter>
+  )
+  const activeLink = container.querySelector('a[href="/gallery"]')
+  expect(activeLink.className).toEqual(expect.stringContaining('nav-active-underline'))
+})
+
 test('shows dynamic tasks badge', () => {
   const { container } = render(
     <MemoryRouter>
