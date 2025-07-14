@@ -67,7 +67,7 @@ export default function BottomNav({ dueCount = 0 }) {
               return (
                 <>
                   <Icon active={isActive} className={`mb-1 ${isActive ? 'nav-active' : ''}`} />
-                  <span className="relative">
+                  <span className={`relative ${isActive ? 'block' : 'hidden'}`}>
                     {item.label}
                     {item.to === '/tasks' && dueCount > 0 && (
                       <span className="absolute -top-2 -right-3 bg-red-600 text-white rounded-full text-[10px] px-1">
