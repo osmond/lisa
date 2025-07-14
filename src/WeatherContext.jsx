@@ -11,11 +11,25 @@ export function WeatherProvider({ children }) {
     }
     return 'London'
   })
+  const [timezone, setTimezone] = useState(() => {
+    if (typeof localStorage !== 'undefined') {
+      const stored = localStorage.getItem('timezone')
+      if (stored) return stored
+    }
+    return Intl.DateTimeFormat().resolvedOptions().timeZone
+  })
+  const [units, setUnits] = useState(() => {
+    if (typeof localStorage !== 'undefined') {
+      const stored = localStorage.getItem('tempUnits')
+      if (stored) return stored
+    }
+    return 'metric'
+  })
 
   useEffect(() => {
     const key = process.env.VITE_WEATHER_API_KEY
     if (!key) return
-    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&units=metric&appid=${key}`
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&units=${units}&appid=${key}`
     fetch(url)
       .then(res => res.json())
       .then(data => {
@@ -23,14 +37,15 @@ export function WeatherProvider({ children }) {
           const next = data.list[0]
           const rainfall = next.pop ? Math.round(next.pop * 100) : 0
           setForecast({
-            temp: Math.round(next.main.temp) + '°C',
+            temp:
+              Math.round(next.main.temp) + (units === 'metric' ? '°C' : '°F'),
             condition: next.weather?.[0]?.main,
             rainfall,
           })
         }
       })
       .catch(err => console.error(err))
-  }, [location])
+  }, [location, units])
 
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {
@@ -38,8 +53,30 @@ export function WeatherProvider({ children }) {
     }
   }, [location])
 
+  useEffect(() => {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('timezone', timezone)
+    }
+  }, [timezone])
+
+  useEffect(() => {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('tempUnits', units)
+    }
+  }, [units])
+
   return (
-    <WeatherContext.Provider value={{ forecast, location, setLocation }}>
+    <WeatherContext.Provider
+      value={{
+        forecast,
+        location,
+        setLocation,
+        timezone,
+        setTimezone,
+        units,
+        setUnits,
+      }}
+    >
       {children}
     </WeatherContext.Provider>
   )

@@ -1,7 +1,11 @@
-export function relativeDate(targetDate, baseDate = new Date()) {
-  const target = new Date(targetDate)
+export function relativeDate(targetDate, baseDate = new Date(), timezone) {
+  const toTz = d =>
+    timezone
+      ? new Date(new Date(d).toLocaleString('en-US', { timeZone: timezone }))
+      : new Date(d)
+  const target = toTz(targetDate)
   // Zero out time for accurate day comparison
-  const base = new Date(baseDate)
+  const base = toTz(baseDate)
   target.setHours(0, 0, 0, 0)
   base.setHours(0, 0, 0, 0)
   const msPerDay = 1000 * 60 * 60 * 24
