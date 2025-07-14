@@ -82,7 +82,7 @@ export default function PlantCard({ plant }) {
             onMouseDown={createRipple}
             onTouchStart={createRipple}
             onClick={() => navigate(`/plant/${plant.id}/edit`)}
-            className="bg-blue-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
+            className="bg-blue-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden font-body text-sm"
           >
             Edit
           </button>
@@ -90,7 +90,7 @@ export default function PlantCard({ plant }) {
             onMouseDown={createRipple}
             onTouchStart={createRipple}
             onClick={handleDelete}
-            className="bg-red-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
+            className="bg-red-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden font-body text-sm"
           >
             Delete
           </button>
@@ -102,15 +102,15 @@ export default function PlantCard({ plant }) {
       >
         <Link to={`/plant/${plant.id}`} className="block mb-2">
           <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-48 object-cover rounded-xl" />
-          <h2 className="font-semibold text-xl font-headline mt-2">{plant.name}</h2>
+          <h2 className="font-bold text-xl font-headline mt-2">{plant.name}</h2>
         </Link>
-        <p className="text-sm text-gray-600 dark:text-gray-400">Last watered: {plant.lastWatered}</p>
-        <p className="text-sm text-green-700 font-medium">Next: {plant.nextWater}</p>
+        <p className="text-sm text-gray-600 dark:text-gray-400 font-body font-medium">Last watered: {plant.lastWatered}</p>
+        <p className="text-sm text-green-700 font-medium font-body">Next: {plant.nextWater}</p>
         <button
           onMouseDown={createRipple}
           onTouchStart={createRipple}
           onClick={handleWatered}
-          className="mt-2 px-3 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200 transition relative overflow-hidden"
+          className="mt-2 px-3 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200 transition relative overflow-hidden font-body text-sm"
         >
           Watered
         </button>
