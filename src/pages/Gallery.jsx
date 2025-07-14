@@ -7,7 +7,16 @@ import FadeInImage from '../components/FadeInImage.jsx'
 
 export function AllGallery() {
   const { plants, addPhoto } = usePlants()
-  const images = plants.flatMap(p => [p.image, ...(p.photos || []).map(ph => (typeof ph === 'object' ? ph.src : ph))])
+  const images = plants.flatMap(p => [
+    p.image,
+    ...(p.photos || []).map(ph => (typeof ph === 'object' ? ph.src : ph)),
+  ])
+  const alts = plants.flatMap(p => [
+    p.name,
+    ...(p.photos || []).map(ph =>
+      typeof ph === 'object' ? ph.note || p.name : p.name
+    ),
+  ])
   const [index, setIndex] = useState(null)
   const [selected, setSelected] = useState(plants[0]?.id || '')
   const [bouncing, setBouncing] = useState(false)
@@ -50,6 +59,7 @@ export function AllGallery() {
       {index !== null && (
         <Lightbox
           images={images}
+          alts={alts}
           startIndex={index}
           onClose={() => setIndex(null)}
           label="Photo viewer"
@@ -101,6 +111,9 @@ export default function Gallery() {
   }
 
   const photos = plant.photos || []
+  const alts = photos.map(ph =>
+    typeof ph === 'object' ? ph.note || plant.name : plant.name
+  )
   const [index, setIndex] = useState(null)
   const [editIndex, setEditIndex] = useState(null)
   const [note, setNote] = useState('')
@@ -174,6 +187,7 @@ export default function Gallery() {
       {index !== null && (
         <Lightbox
           images={photos.map(ph => (typeof ph === 'object' ? ph.src : ph))}
+          alts={alts}
           startIndex={index}
           onClose={() => setIndex(null)}
           label="Photo viewer"
