@@ -20,6 +20,7 @@ test('shows upbeat message when there are no tasks', () => {
   )
   expect(screen.getByText(/all plants are happy/i)).toBeInTheDocument()
   expect(screen.getByTestId('summary-total')).toBeInTheDocument()
+  expect(screen.getByTestId('care-stats')).toBeInTheDocument()
 })
 
 test('summary items render when tasks exist', () => {
@@ -41,6 +42,8 @@ test('summary items render when tasks exist', () => {
   expect(screen.getByTestId('summary-total')).toHaveTextContent('2')
   expect(screen.getByTestId('summary-water')).toHaveTextContent('1')
   expect(screen.getByTestId('summary-fertilize')).toHaveTextContent('1')
+  const stats = screen.getByTestId('care-stats')
+  expect(stats).toBeInTheDocument()
 })
 
 test('featured card appears before summary', () => {
