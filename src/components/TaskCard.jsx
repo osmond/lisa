@@ -138,7 +138,7 @@ export default function TaskCard({ task, onComplete }) {
   return (
     <div
       data-testid="task-wrapper"
-      className="relative flex items-center gap-3 p-5 rounded-2xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden"
+      className={`relative flex items-center gap-3 p-5 rounded-2xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden ${overdue ? 'border-l-4 border-red-500' : ''}`}
       onMouseDown={e => { createRipple(e); handlePointerDown(e) }}
       onTouchStart={e => { createRipple(e); handlePointerDown(e) }}
       onPointerDown={handlePointerDown}
@@ -153,7 +153,7 @@ export default function TaskCard({ task, onComplete }) {
       onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()
-          setShowActions(true)
+          handleComplete()
         }
       }}
     >
@@ -162,6 +162,7 @@ export default function TaskCard({ task, onComplete }) {
           src={task.image}
           alt={task.plantName}
           className={`w-16 h-16 object-cover rounded ${bouncing ? 'bounce-once' : ''}`}
+          onError={e => (e.target.src = '/placeholder.svg')}
         />
         <div className="flex-1">
           <p className="font-medium">{task.type} {task.plantName}</p>
@@ -182,7 +183,9 @@ export default function TaskCard({ task, onComplete }) {
         aria-label="Mark complete"
       >
         <input type="checkbox" checked={checked} readOnly className="task-checkbox" />
+
       </Button>
+
       {checked && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <Drop aria-hidden="true" className="w-8 h-8 text-blue-600 water-drop" />

@@ -26,7 +26,12 @@ export default function PlantSpotlightCard({ plant, nextPlant, onSkip }) {
 
   return (
     <article className="rounded-xl bg-white shadow p-4 space-y-3">
-      <img src={plant.image} alt={plant.name} className="w-full rounded-lg object-cover" />
+      <img
+        src={plant.image}
+        alt={plant.name}
+        className="w-full rounded-lg object-cover"
+        onError={e => (e.target.src = '/placeholder.svg')}
+      />
       <h2 className="text-xl font-semibold">{plant.name}</h2>
       <div className="flex gap-2">
         {plant.light && (

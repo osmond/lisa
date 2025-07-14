@@ -3,16 +3,23 @@ import Lightbox from '../Lightbox.jsx'
 
 test('keyboard navigation and close', () => {
   const images = ['a.jpg', 'b.jpg']
+  const alts = ['First', 'Second']
   const onClose = jest.fn()
   const label = 'Photo viewer'
   render(
-    <Lightbox images={images} startIndex={0} onClose={onClose} label={label} />
+    <Lightbox
+      images={images}
+      alts={alts}
+      startIndex={0}
+      onClose={onClose}
+      label={label}
+    />
   )
   const dialog = screen.getByRole('dialog', { name: label })
   expect(dialog).toHaveAttribute('aria-modal', 'true')
   expect(dialog).toHaveAttribute('aria-label', label)
 
-  const img = screen.getByAltText(/gallery image/i)
+  const img = screen.getByAltText('First')
   expect(img).toHaveAttribute('src', 'a.jpg')
 
   fireEvent.keyDown(window, { key: 'ArrowRight' })
