@@ -364,7 +364,9 @@ export default function PlantDetail() {
       <div className="space-y-2 mt-4 p-4 shadow-sm bg-stone rounded-xl">
         <h2 className="text-subhead font-semibold font-display">Gallery</h2>
         <div className="grid grid-cols-3 gap-2">
-          {(plant.photos || []).map((src, i) => (
+          {(plant.photos || []).map((ph, i) => {
+            const src = typeof ph === 'object' ? ph.src : ph
+            return (
             <div key={i} className="relative">
               <img
                 src={src}
@@ -378,7 +380,8 @@ export default function PlantDetail() {
                 ✕
               </button>
             </div>
-          ))}
+            )
+          })}
         </div>
         <button
           type="button"
