@@ -5,17 +5,16 @@ import plants from '../../plants.json'
 import { AllGallery } from '../Gallery.jsx'
 
 test('clicking add photos button opens file dialog', () => {
-  const clickSpy = jest
-    .spyOn(window.HTMLInputElement.prototype, 'click')
-    .mockImplementation(() => {})
-
-  render(
+  const { container } = render(
     <PlantProvider>
       <MemoryRouter>
         <AllGallery />
       </MemoryRouter>
     </PlantProvider>
   )
+
+  const input = container.querySelector('input[type="file"]')
+  const clickSpy = jest.spyOn(input, 'click').mockImplementation(() => {})
 
   fireEvent.click(screen.getByRole('button', { name: /add photos/i }))
   expect(clickSpy).toHaveBeenCalled()
