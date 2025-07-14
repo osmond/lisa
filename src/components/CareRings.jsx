@@ -7,7 +7,11 @@ export default function CareRings({
   fertTotal = 0,
   size = 48,
   strokeWidth = 4,
+  onClick,
 }) {
+  const totalCompleted = waterCompleted + fertCompleted
+  const totalTasks = waterTotal + fertTotal
+  const noTasks = totalTasks === 0
   const outerRadius = size / 2 - strokeWidth / 2
   const innerRadius = outerRadius - strokeWidth - 2
   const outerCirc = 2 * Math.PI * outerRadius
@@ -26,23 +30,29 @@ export default function CareRings({
   const center = size / 2
   const rotate = `rotate(-90 ${center} ${center})`
 
-  const totalCompleted = waterCompleted + fertCompleted
-  const totalTasks = waterTotal + fertTotal
   const allComplete = totalTasks > 0 && totalCompleted === totalTasks
-  const progressText = allComplete
-    ? 'All Done!'
-    : `${totalCompleted} / ${totalTasks} Tasks`
+  const progressText = noTasks
+    ? 'Rest Day'
+    : allComplete
+    ? '🎉 All done!'
+    : `${totalCompleted} / ${totalTasks} tasks done`
+
+  const displaySize = noTasks ? size * 0.8 : size
 
   return (
-    <div className="inline-flex flex-col items-center" style={{ width: size }}>
-      <div className="relative" style={{ width: size, height: size }}>
+    <div
+      className={`inline-flex flex-col items-center ${onClick ? 'cursor-pointer' : ''}`}
+      style={{ width: displaySize }}
+      onClick={onClick}
+    >
+      <div className="relative" style={{ width: displaySize, height: displaySize }}>
         <svg
-          width={size}
-          height={size}
-          viewBox={`0 0 ${size} ${size}`}
+          width={displaySize}
+          height={displaySize}
+          viewBox={`0 0 ${displaySize} ${displaySize}`}
           role="img"
           aria-label={label}
-          className={allComplete ? 'swirl-once' : ''}
+          className={allComplete ? 'swirl-once' : noTasks ? '' : 'ring-pulse'}
         >
           <circle
             cx={center}

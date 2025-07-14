@@ -1,6 +1,8 @@
 import TaskCard from '../components/TaskCard.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import CareRings from '../components/CareRings.jsx'
+import CareSummaryModal from '../components/CareSummaryModal.jsx'
+import { useState } from 'react'
 
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
@@ -21,6 +23,7 @@ import FeaturedCard from '../components/FeaturedCard.jsx'
 
 export default function Home() {
   const { plants } = usePlants()
+  const [showSummary, setShowSummary] = useState(false)
   const weatherCtx = useWeather()
   const forecast = weatherCtx?.forecast
   const weatherData = { rainTomorrow: forecast?.rainfall || 0 }
@@ -118,15 +121,17 @@ export default function Home() {
       </section>
     )}
     <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
-      {(totalWaterToday > 0 || totalFertilizeToday > 0) && (
-        <div data-testid="care-rings" className="px-1 flex justify-center">
-          <CareRings
-            waterCompleted={wateredTodayCount}
-            waterTotal={totalWaterToday}
-            fertCompleted={fertilizedTodayCount}
-            fertTotal={totalFertilizeToday}
-          />
-        </div>
+      <div data-testid="care-rings" className="px-1 flex justify-center">
+        <CareRings
+          waterCompleted={wateredTodayCount}
+          waterTotal={totalWaterToday}
+          fertCompleted={fertilizedTodayCount}
+          fertTotal={totalFertilizeToday}
+          onClick={() => setShowSummary(true)}
+        />
+      </div>
+      {showSummary && (
+        <CareSummaryModal tasks={tasks} onClose={() => setShowSummary(false)} />
       )}
       <section className="space-y-4">
         <h2 className="font-semibold font-headline">Today’s Tasks</h2>

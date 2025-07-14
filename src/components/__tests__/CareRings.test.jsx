@@ -27,17 +27,36 @@ test('accessible label announces progress', () => {
 })
 
 test('shows combined progress when incomplete', () => {
-  render(
+  const { container } = render(
     <CareRings waterCompleted={1} waterTotal={2} fertCompleted={0} fertTotal={2} />
   )
-  expect(screen.getByText('1 / 4 Tasks')).toBeInTheDocument()
+  expect(screen.getByText('1 / 4 tasks done')).toBeInTheDocument()
+  const svg = container.querySelector('svg')
+  expect(svg.getAttribute('class')).toMatch(/ring-pulse/)
 })
 
 test('shows progress text and swirl when complete', () => {
   const { container } = render(
     <CareRings waterCompleted={2} waterTotal={2} fertCompleted={1} fertTotal={1} />
   )
-  expect(screen.getByText('All Done!')).toBeInTheDocument()
+  expect(screen.getByText('🎉 All done!')).toBeInTheDocument()
   const svg = container.querySelector('svg')
   expect(svg.getAttribute('class')).toMatch(/swirl-once/)
+})
+
+test('shows rest day text when no tasks', () => {
+  const { container } = render(<CareRings />)
+  expect(screen.getByText('Rest Day')).toBeInTheDocument()
+  const svg = container.querySelector('svg')
+  expect(svg.getAttribute('class')).not.toMatch(/ring-pulse|swirl-once/)
+})
+
+test('fires onClick handler', () => {
+  const onClick = jest.fn()
+  render(
+    <CareRings waterCompleted={0} waterTotal={1} fertCompleted={0} fertTotal={1} onClick={onClick} />
+  )
+  const wrapper = screen.getByRole('img').parentElement
+  wrapper && wrapper.click()
+  expect(onClick).toHaveBeenCalled()
 })
