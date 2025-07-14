@@ -4,7 +4,7 @@ import { usePlants } from '../PlantContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
 
-import { CloudSun } from 'phosphor-react'
+import { Sun, CloudSun, Moon } from 'phosphor-react'
 
 import SummaryStrip from '../components/SummaryStrip.jsx'
 
@@ -21,7 +21,15 @@ export default function Home() {
     new Date().toLocaleString('en-US', { timeZone: timezone })
   )
   const hour = now.getHours()
-  const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening'
+  let greeting = 'Good evening'
+  let GreetingIcon = Moon
+  if (hour < 12) {
+    greeting = 'Good morning'
+    GreetingIcon = Sun
+  } else if (hour < 18) {
+    greeting = 'Good afternoon'
+    GreetingIcon = CloudSun
+  }
 
   const todayIso = now.toISOString().slice(0, 10)
   const waterTasks = []
@@ -66,7 +74,13 @@ export default function Home() {
   return (
     <div className="space-y-4">
       <header className="flex flex-col items-start space-y-1">
-        <h1 className="text-2xl font-bold font-display">{greeting}</h1>
+        <h1 className="text-2xl font-bold font-display flex items-center">
+          {greeting}
+          <GreetingIcon
+            data-testid="greeting-icon"
+            className="w-5 h-5 ml-2 animate-fade-in-up"
+          />
+        </h1>
         <p className="flex items-center text-sm text-gray-600">
           <CloudSun className="w-5 h-5 mr-1 text-green-600" />
           {forecast ? `${forecast.temp} - ${forecast.condition}` : 'Loading...'}
