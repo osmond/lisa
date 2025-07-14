@@ -69,6 +69,18 @@ export function AllGallery() {
             </span>
           </Button>
         ))}
+        <Button
+          type="button"
+          aria-label="Add photos"
+          onClick={() => {
+            fileInputRef.current.click()
+            setBouncing(true)
+          }}
+          className={`relative group focus:outline-none ${bouncing ? 'bounce-once' : ''}`}
+        >
+          <div className="w-full h-32 rounded bg-gray-200 dark:bg-gray-700"></div>
+          <span className="absolute inset-0 flex items-center justify-center text-4xl text-primary-green">+</span>
+        </Button>
       </div>
       {index !== null && (
         <Lightbox
@@ -92,17 +104,6 @@ export function AllGallery() {
           </option>
         ))}
       </select>
-      <Button
-        type="button"
-        aria-label="Add photos"
-        onClick={() => {
-          fileInputRef.current.click()
-          setBouncing(true)
-        }}
-        className={`fixed bottom-4 right-4 bg-primary-green text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg ${bouncing ? 'bounce-once' : ''}`}
-      >
-        +
-      </Button>
       <input
         type="file"
         accept="image/*"
@@ -226,7 +227,7 @@ export default function Gallery() {
 
       <div className="space-y-4 mt-4">
         {photos.map((ph, i) => (
-          <div key={i} className="border p-2 rounded">
+          <div key={i} className="border p-4 rounded">
             <div className="flex items-center gap-2">
               <img
                 src={typeof ph === 'object' ? ph.src : ph}
