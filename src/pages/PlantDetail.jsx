@@ -5,7 +5,7 @@ import { Drop } from 'phosphor-react'
 import actionIcons from '../components/ActionIcons.jsx'
 import LogModal from '../components/LogModal.jsx'
 import CareGraph from '../components/CareGraph.jsx'
-import { formatMonth } from '../utils/date.js'
+import { formatMonth, formatWeek } from '../utils/date.js'
 import FadeInImage from '../components/FadeInImage.jsx'
 import { isFrequentWatering } from '../utils/watering.js'
 
@@ -63,15 +63,32 @@ export default function PlantDetail() {
     return list.sort((a, b) => new Date(b.date) - new Date(a.date))
   }, [plant])
 
+  const groupByWeek = useMemo(
+    () => new Set(events.map(e => e.date.slice(0, 7))).size === 1,
+    [events]
+  )
+
   const groupedEvents = useMemo(() => {
     const map = new Map()
-    events.forEach(e => {
-      const key = e.date.slice(0, 7)
-      if (!map.has(key)) map.set(key, [])
-      map.get(key).push(e)
-    })
+
+    if (groupByWeek) {
+      events.forEach(e => {
+        const d = new Date(e.date)
+        const startDay = Math.floor((d.getDate() - 1) / 7) * 7 + 1
+        const key = `${e.date.slice(0, 8)}${String(startDay).padStart(2, '0')}`
+        if (!map.has(key)) map.set(key, [])
+        map.get(key).push(e)
+      })
+    } else {
+      events.forEach(e => {
+        const key = e.date.slice(0, 7)
+        if (!map.has(key)) map.set(key, [])
+        map.get(key).push(e)
+      })
+    }
+
     return Array.from(map.entries())
-  }, [events])
+  }, [events, groupByWeek])
 
   const [openMonths, setOpenMonths] = useState({})
 
@@ -407,6 +424,36 @@ export default function PlantDetail() {
                   </button>
                 </div>
                 {timelineTab === 'list' ? (
+
+                  groupedEvents.map(([monthKey, list]) => (
+                    <div key={monthKey}>
+                      <h3 className="sticky top-0 bg-stone mt-4 text-label font-semibold text-gray-500">
+                        {groupByWeek ? formatWeek(monthKey) : formatMonth(monthKey)}
+                      </h3>
+                      <ul className="relative border-l border-gray-300 pl-4 space-y-6">
+                        {list.map((e, i) => {
+                          const Icon = actionIcons[e.type]
+                          return (
+                            <li key={`${e.date}-${i}`} className="relative">
+                              <span
+                                className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
+                              ></span>
+                              <p className="text-xs text-gray-500">{e.date}</p>
+                              <p className="flex items-center gap-1">
+                                {Icon && <Icon />}
+                                {e.label}
+                              </p>
+                              {e.note && (
+                                <p className="text-xs text-gray-500 italic">{e.note}</p>
+                              )}
+                              {e.mood && <p className="text-xs">{e.mood}</p>}
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    </div>
+                  ))
+
                   groupedEvents.map(([monthKey, list]) => {
                     const isOpen = openMonths[monthKey]
                     return (
@@ -449,6 +496,7 @@ export default function PlantDetail() {
                       </div>
                     )
                   })
+
                 ) : (
                   <CareGraph events={wateringEvents} />
                 )}
