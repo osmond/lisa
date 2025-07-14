@@ -96,6 +96,14 @@ export default function PlantDetail() {
     }
   }
 
+  const handleAddCareLog = () => {
+    const type = window.prompt('Type (e.g. Watered)') || ''
+    if (!type) return
+    const note = window.prompt('Note (optional)') || ''
+    logEvent(plant.id, type, note)
+    showTempToast('Logged')
+  }
+
   if (!plant) {
     return <div className="text-gray-700">Plant not found</div>
   }
@@ -104,25 +112,33 @@ export default function PlantDetail() {
     <div className="space-y-2 relative">
       {toast && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <svg
-            className="w-8 h-8 text-green-600 check-pop"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-          </svg>
+          <div className="w-8 h-8 border-4 border-green-600 rounded-full ring-pop"></div>
         </div>
       )}
       <div aria-live="polite" className="sr-only">{toast}</div>
       <div className="space-y-4">
-        <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-64 object-cover" />
-        <div>
-          <h1 className="text-3xl font-bold font-display">{plant.name}</h1>
-          {plant.nickname && <p className="text-gray-500">{plant.nickname}</p>}
+        <div className="relative -mx-4">
+          <img
+            src={plant.image}
+            alt={plant.name}
+            loading="lazy"
+            className="w-full h-64 object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex flex-col justify-end p-4 space-y-1">
+            <h1 className="text-3xl font-bold font-display text-white">{plant.name}</h1>
+            {plant.nickname && <p className="text-white text-sm">{plant.nickname}</p>}
+            <div className="flex flex-wrap gap-2 text-xs">
+              {plant.light && (
+                <span className="px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">{plant.light}</span>
+              )}
+              {plant.humidity && (
+                <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">{plant.humidity}</span>
+              )}
+              {plant.difficulty && (
+                <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-800">{plant.difficulty}</span>
+              )}
+            </div>
+          </div>
         </div>
 
         <div className="grid gap-1 text-sm">
@@ -147,25 +163,15 @@ export default function PlantDetail() {
           >
             Add Note
           </button>
+          <button
+            type="button"
+            onClick={handleAddCareLog}
+            className="px-4 py-1 bg-accent text-white rounded-full"
+          >
+            + Add care log
+          </button>
         </div>
 
-        <div className="flex flex-wrap gap-2 text-sm">
-          {plant.light && (
-            <span className="px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">
-              {plant.light}
-            </span>
-          )}
-          {plant.humidity && (
-            <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
-              {plant.humidity}
-            </span>
-          )}
-          {plant.difficulty && (
-            <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-800">
-              {plant.difficulty}
-            </span>
-          )}
-        </div>
 
         <div>
           <Link
