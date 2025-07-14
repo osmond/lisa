@@ -46,18 +46,20 @@ export function PlantProvider({ children }) {
   }, [plants])
 
 
-  const logEvent = (id, type, note = '', date = new Date().toISOString().slice(0, 10), mood = '') => {
-
-  const logEvent = (id, type, note = '') => {
-    const now = new Date(
-      new Date().toLocaleString('en-US', { timeZone: timezone })
-    )
-    const date = now.toISOString().slice(0, 10)
-
+  const logEvent = (
+    id,
+    type,
+    note = '',
+    date = new Date().toISOString().slice(0, 10),
+    mood = ''
+  ) => {
     setPlants(prev =>
       prev.map(p =>
         p.id === id
-          ? { ...p, careLog: [...(p.careLog || []), { date, type, note, mood }] }
+          ? {
+              ...p,
+              careLog: [...(p.careLog || []), { date, type, note, mood }],
+            }
           : p
       )
     )
