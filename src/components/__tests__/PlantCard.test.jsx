@@ -49,6 +49,17 @@ const plant = {
   nextWater: '2024-05-07'
 }
 
+test('defaults to placeholder image when src is empty', () => {
+  const noImagePlant = { ...plant, image: '' }
+  const { container } = render(
+    <MemoryRouter>
+      <PlantCard plant={noImagePlant} />
+    </MemoryRouter>
+  )
+  const img = container.querySelector('img')
+  expect(img).toHaveAttribute('src', '/placeholder.svg')
+})
+
 test('renders plant name', () => {
   render(
     <MemoryRouter>

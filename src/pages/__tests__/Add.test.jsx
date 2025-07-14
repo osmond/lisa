@@ -25,4 +25,6 @@ test('addPlant updates context and redirects to MyPlants', () => {
 
   expect(screen.getByRole('heading', { name: /my plants/i })).toBeInTheDocument()
   expect(screen.getByText('Test Plant')).toBeInTheDocument()
+  const img = screen.getByAltText('Test Plant')
+  expect(img).toHaveAttribute('src', '/placeholder.svg')
 })
