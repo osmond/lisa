@@ -23,3 +23,14 @@ test('renders gallery link', () => {
   const galleryLink = container.querySelector('a[href="/gallery"]')
   expect(galleryLink).not.toBeNull()
 })
+
+test('active link icon has nav-bounce animation', () => {
+  const { container } = render(
+    <MemoryRouter initialEntries={["/gallery"]}>
+      <BottomNav />
+    </MemoryRouter>
+  )
+  const activeLink = container.querySelector('a[href="/gallery"]')
+  const icon = activeLink.querySelector('svg')
+  expect(icon).toHaveClass('nav-bounce')
+})
