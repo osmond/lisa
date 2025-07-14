@@ -21,14 +21,20 @@ export default function TaskCard({ task, onComplete }) {
     setTimeout(() => setChecked(false), 400)
   }
 
+  const pillColors = {
+    Water: 'bg-blue-100 text-blue-700',
+    Fertilize: 'bg-orange-100 text-orange-700',
+  }
+  const pillClass = pillColors[task.type] || 'bg-green-100 text-green-700'
+
   return (
     <div
-      className="relative flex items-center gap-3 p-4 rounded-2xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden"
+      className="relative flex items-center gap-3 p-5 rounded-2xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden"
       onMouseDown={createRipple}
       onTouchStart={createRipple}
     >
       <Link to={`/plant/${task.plantId}`} className="flex items-center flex-1 gap-3">
-        <img src={task.image} alt={task.plantName} className="w-12 h-12 object-cover rounded" />
+        <img src={task.image} alt={task.plantName} className="w-16 h-16 object-cover rounded" />
         <div className="flex-1">
           <p className="font-medium">{task.type} {task.plantName}</p>
           {task.reason && (
@@ -41,7 +47,7 @@ export default function TaskCard({ task, onComplete }) {
         onMouseDown={createRipple}
         onTouchStart={createRipple}
         onClick={handleComplete}
-        className="ml-2 bg-green-100 text-green-700 px-3 py-1 rounded relative overflow-hidden"
+        className={`ml-2 px-3 py-1 rounded relative overflow-hidden ${pillClass}`}
         aria-label="Mark complete"
       >
         <input type="checkbox" checked={checked} readOnly className="task-checkbox" />
