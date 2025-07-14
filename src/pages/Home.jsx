@@ -121,7 +121,7 @@ export default function Home() {
             </>
           )}
         </p>
-        <p className="text-lg font-semibold">Hi Jon, Let’s check on your plants.</p>
+        <p className="text-base font-medium text-gray-600">Hi Jon, Let’s check on your plants.</p>
       </header>
     {plants.length > 0 && (
       <section>
