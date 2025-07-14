@@ -66,7 +66,7 @@ export default function Add() {
           className="border rounded p-2"
         />
       </div>
-      <Button type="submit" className="px-4 py-2 bg-primary-green text-white">
+      <Button type="submit" className="px-4 py-2 bg-[var(--km-accent)] text-white">
         Add Plant
       </Button>
     </form>

@@ -107,6 +107,19 @@ export function AllGallery() {
           </option>
         ))}
       </select>
+
+      <Button
+        type="button"
+        aria-label="Add photos"
+        onClick={() => {
+          fileInputRef.current.click()
+          setBouncing(true)
+        }}
+        className={`fixed bottom-4 right-4 bg-[var(--km-accent)] text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg ${bouncing ? 'bounce-once' : ''}`}
+      >
+        +
+      </Button>
+
       <input
         type="file"
         accept="image/*"
@@ -257,7 +270,7 @@ export default function Gallery() {
                       className="w-full border rounded p-1 text-sm"
                     />
                     <div className="flex gap-2 text-sm">
-                      <Button type="submit" className="px-2 py-0.5 bg-primary-green text-white">Save</Button>
+                      <Button type="submit" className="px-2 py-0.5 bg-[var(--km-accent)] text-white">Save</Button>
                       <Button type="button" onClick={() => setEditIndex(null)} className="px-2 py-0.5 border">Cancel</Button>
                     </div>
                   </form>
@@ -267,7 +280,7 @@ export default function Gallery() {
                     {ph.tags && ph.tags.length > 0 && (
                       <p className="text-xs text-gray-500">{ph.tags.join(', ')}</p>
                     )}
-                    <Button type="button" onClick={() => startEdit(i)} className="text-xs text-primary-green underline">Edit</Button>
+                    <Button type="button" onClick={() => startEdit(i)} className="text-xs text-[var(--km-accent)] underline">Edit</Button>
                   </div>
                 )}
               </div>

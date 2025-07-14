@@ -31,7 +31,7 @@ export default function NoteModal({ onSave, onClose }) {
           <Button type="button" onClick={onClose} className="px-3 py-1 bg-gray-200 dark:bg-gray-700">
             Cancel
           </Button>
-          <Button type="submit" className="px-3 py-1 bg-primary-green text-white">
+          <Button type="submit" className="px-3 py-1 bg-[var(--km-accent)] text-white">
             Save
           </Button>
         </div>
