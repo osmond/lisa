@@ -6,6 +6,10 @@ jest.mock('../../WeatherContext.jsx', () => ({
   useWeather: () => ({ forecast: { rainfall: 0 } }),
 }))
 
+jest.mock('../../UserContext.jsx', () => ({
+  useUser: () => ({ username: 'Jon' }),
+}))
+
 const mockPlants = []
 
 jest.mock('../../PlantContext.jsx', () => ({

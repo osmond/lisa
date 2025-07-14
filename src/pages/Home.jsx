@@ -4,6 +4,7 @@ import CareSummaryModal from '../components/CareSummaryModal.jsx'
 import { useState } from 'react'
 
 import { useWeather } from '../WeatherContext.jsx'
+import { useUser } from '../UserContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
 import {
   Sun,
@@ -25,6 +26,7 @@ export default function Home() {
   const [showSummary, setShowSummary] = useState(false)
   const weatherCtx = useWeather()
   const forecast = weatherCtx?.forecast
+  const { username } = useUser()
   const weatherData = { rainTomorrow: forecast?.rainfall || 0 }
 
   const weatherIcons = {
@@ -121,7 +123,7 @@ export default function Home() {
             </>
           )}
         </p>
-        <p className="text-base font-medium text-gray-600">Hi Jon, Let’s check on your plants.</p>
+        <p className="text-base font-medium text-gray-600">Hi {username}, Let’s check on your plants.</p>
       </header>
     {plants.length > 0 && (
       <section>
