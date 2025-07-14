@@ -20,9 +20,6 @@ export default function Home() {
   const timezone = weatherCtx?.timezone
   const weatherData = { rainTomorrow: forecast?.rainfall || 0 }
 
-  const [completedCount, setCompletedCount] = useState(0)
-  const [totalCount, setTotalCount] = useState(0)
-
   const now = new Date(
     new Date().toLocaleString('en-US', { timeZone: timezone })
   )
@@ -68,6 +65,9 @@ export default function Home() {
   const waterCount = waterTasks.length
   const fertilizeCount = fertilizeTasks.length
 
+  const [completedCount, setCompletedCount] = useState(0)
+  const [totalCount, setTotalCount] = useState(waterCount + fertilizeCount)
+
 
   const showRainSuggestion =
     (forecast?.rainfall || 0) > 50 ||
@@ -90,8 +90,6 @@ const handleCompleteAll = type => {
   const list = type === 'Water' ? waterTasks : fertilizeTasks
   list.slice().forEach(t => handleTaskComplete(t))
 }
-
-  }
 
   const [focusIndex, setFocusIndex] = useState(() =>
     plants.length > 0 ? now.getDate() % plants.length : 0

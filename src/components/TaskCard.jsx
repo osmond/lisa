@@ -63,8 +63,7 @@ export default function TaskCard({ task, onComplete }) {
         markWatered(task.plantId, '')
       }
 
-      setShowModal(true)
-      return
+        return
 
     }
     setChecked(true)
@@ -78,6 +77,7 @@ export default function TaskCard({ task, onComplete }) {
   const handleNoteSave = note => {
     markWatered(task.plantId, note)
     setShowNoteModal(false)
+    setShowModal(true)
   }
 
   const pillColors = {
@@ -189,14 +189,10 @@ export default function TaskCard({ task, onComplete }) {
       )}
 
       {showNoteModal && (
-
-        <NoteModal onSave={handleNoteSave} onClose={() => setShowNoteModal(false)} />
-
         <NoteModal
           onSave={handleNoteSave}
           onClose={() => setShowNoteModal(false)}
         />
-
       )}
 
       <TaskActions
