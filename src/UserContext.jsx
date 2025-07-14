@@ -5,7 +5,9 @@ const UserContext = createContext()
 export function UserProvider({ children }) {
   const [name, setName] = useState(() => {
     if (typeof localStorage !== 'undefined') {
+
       const stored = localStorage.getItem('name')
+
       if (stored) return stored
     }
     return ''
@@ -13,7 +15,10 @@ export function UserProvider({ children }) {
 
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {
+
       localStorage.setItem('name', name)
+
+
     }
   }, [name])
 

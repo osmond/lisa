@@ -8,7 +8,9 @@ import Add from './pages/Add'
 import Gallery, { AllGallery } from './pages/Gallery'
 import PhotoTimeline from './pages/PhotoTimeline.jsx'
 import Settings from './pages/Settings'
+
 import Profile from './pages/Profile'
+
 import PlantDetail from './pages/PlantDetail'
 import EditPlant from './pages/EditPlant'
 import BottomNav from './components/BottomNav'

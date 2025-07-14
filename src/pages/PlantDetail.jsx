@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useRef, useMemo, useEffect } from "react";
 import { usePlants } from "../PlantContext.jsx";
-import { Drop } from "phosphor-react";
+import { Drop, Trash } from "phosphor-react";
 import actionIcons from "../components/ActionIcons.jsx";
 import LogModal from "../components/LogModal.jsx";
 import CareGraph from "../components/CareGraph.jsx";
@@ -210,7 +210,7 @@ export default function PlantDetail() {
             onError={(e) => (e.target.src = "/placeholder.svg")}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex flex-col justify-end p-4 space-y-1">
-            <h1 className="text-headline leading-heading tracking-heading font-bold font-display text-white">
+            <h1 className="text-xl font-semibold leading-heading tracking-heading font-display text-white">
               {plant.name}
             </h1>
             {plant.nickname && (
@@ -236,14 +236,14 @@ export default function PlantDetail() {
           </div>
         </div>
 
-        <div className="grid gap-1 text-sm">
+        <div className="grid gap-1 text-sm text-muted">
           <p>
             <strong>Last watered:</strong> {plant.lastWatered}
           </p>
           <p>
             <strong>Next watering:</strong> {plant.nextWater}
             {plant.nextWaterReason && (
-              <span className="ml-1 text-gray-500">{`(${plant.nextWaterReason})`}</span>
+              <span className="ml-1 text-muted">{`(${plant.nextWaterReason})`}</span>
             )}
           </p>
           {plant.lastFertilized && (
@@ -352,7 +352,7 @@ export default function PlantDetail() {
                     id="notes-panel"
                     role="tabpanel"
                     aria-labelledby="notes-tab"
-                    className="shadow-sm bg-stone rounded"
+                    className="shadow-sm bg-stone rounded leading-relaxed"
                   >
                     {plant.notes
                       ? showMore
@@ -375,6 +375,7 @@ export default function PlantDetail() {
                     id="care-panel"
                     role="tabpanel"
                     aria-labelledby="care-tab"
+                    className="leading-relaxed"
                   >
                     {plant.advancedCare || "No advanced care info."}
                   </div>
@@ -561,20 +562,21 @@ export default function PlantDetail() {
           {(plant.photos || []).map((ph, i) => {
             const src = typeof ph === "object" ? ph.src : ph;
             return (
-              <div key={i} className="relative">
+              <Button
+                key={i}
+                onClick={() => removePhoto(plant.id, i)}
+                className="relative group w-full"
+              >
                 <img
                   src={src}
                   alt={`${plant.name} ${i}`}
                   className="object-cover w-full h-24 rounded"
                   onError={(e) => (e.target.src = "/placeholder.svg")}
                 />
-                <Button
-                  className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
-                  onClick={() => removePhoto(plant.id, i)}
-                >
-                  ✕
-                </Button>
-              </div>
+                <span className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity">
+                  <Trash className="w-6 h-6 text-white" aria-hidden="true" />
+                </span>
+              </Button>
             );
           })}
         </div>
