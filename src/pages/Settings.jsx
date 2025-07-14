@@ -22,10 +22,10 @@ export default function Settings() {
 
   return (
     <div className="space-y-6 text-gray-700 dark:text-gray-200">
-      <h1 className="text-headline font-bold font-display">Settings</h1>
+      <h1 className="text-headline leading-heading tracking-heading font-bold font-display">Settings</h1>
 
       <section className="space-y-2 p-4 bg-stone dark:bg-gray-800 rounded-xl shadow-sm">
-        <h2 className="text-subhead font-semibold font-display flex items-center gap-2">
+        <h2 className="text-subhead leading-heading tracking-heading font-semibold font-display flex items-center gap-2">
           {theme === 'dark' ? (
             <Moon className="w-5 h-5" aria-hidden="true" />
           ) : (
@@ -39,12 +39,12 @@ export default function Settings() {
       </section>
 
       <section className="space-y-2 p-4 bg-stone dark:bg-gray-800 rounded-xl shadow-sm">
-        <h2 className="text-subhead font-semibold font-display flex items-center gap-2">
+        <h2 className="text-subhead leading-heading tracking-heading font-semibold font-display flex items-center gap-2">
           <MapPin className="w-5 h-5" aria-hidden="true" />
           Weather Location
         </h2>
         <div className="grid gap-1 max-w-xs">
-          <label htmlFor="location" className="font-medium text-label">Location</label>
+          <label htmlFor="location" className="font-medium text-label leading-label tracking-label">Location</label>
           <input
             id="location"
             type="text"
@@ -56,12 +56,12 @@ export default function Settings() {
       </section>
 
       <section className="space-y-2 p-4 bg-stone dark:bg-gray-800 rounded-xl shadow-sm">
-        <h2 className="text-subhead font-semibold font-display flex items-center gap-2">
+        <h2 className="text-subhead leading-heading tracking-heading font-semibold font-display flex items-center gap-2">
           <Clock className="w-5 h-5" aria-hidden="true" />
           Time Zone
         </h2>
         <div className="grid gap-1 max-w-xs">
-          <label htmlFor="timezone" className="font-medium text-label">Time Zone</label>
+          <label htmlFor="timezone" className="font-medium text-label leading-label tracking-label">Time Zone</label>
           <input
             id="timezone"
             type="text"
@@ -73,12 +73,12 @@ export default function Settings() {
       </section>
 
       <section className="space-y-2 p-4 bg-stone dark:bg-gray-800 rounded-xl shadow-sm">
-        <h2 className="text-subhead font-semibold font-display flex items-center gap-2">
+        <h2 className="text-subhead leading-heading tracking-heading font-semibold font-display flex items-center gap-2">
           <Thermometer className="w-5 h-5" aria-hidden="true" />
           Temperature Units
         </h2>
         <div className="grid gap-1 max-w-xs">
-          <label htmlFor="units" className="font-medium text-label">Units</label>
+          <label htmlFor="units" className="font-medium text-label leading-label tracking-label">Units</label>
           <select
             id="units"
             value={units}

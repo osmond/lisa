@@ -16,6 +16,7 @@ export default function Home() {
   const { plants, markWatered } = usePlants()
   const weatherCtx = useWeather()
   const forecast = weatherCtx?.forecast
+  const weatherError = weatherCtx?.error
   const timezone = weatherCtx?.timezone || 'UTC'
   const weatherData = { rainTomorrow: forecast?.rainfall || 0 }
 
@@ -114,7 +115,7 @@ export default function Home() {
     <div className="space-y-4">
       <header className="flex flex-col items-start space-y-3 py-4 px-4 bg-white rounded-xl">
 
-        <h1 className="text-headline font-bold font-display flex items-center">
+        <h1 className="text-headline leading-heading tracking-heading font-bold font-display flex items-center">
           {greeting}
           <GreetingIcon
             data-testid="greeting-icon"
@@ -123,8 +124,10 @@ export default function Home() {
         </h1>
 
         <p className="flex items-center text-sm text-gray-600">
+
           <CloudSun className="w-5 h-5 mr-1 text-primary-green" />
           {forecast ? `${forecast.temp} - ${forecast.condition}` : 'Loading...'}
+
           {showRainSuggestion && (
             <span className="ml-2" aria-label="rain forecasted">
               💧Skip watering if it rains tomorrow
@@ -142,7 +145,7 @@ export default function Home() {
       </div>
       <section>
         <div className="flex items-center justify-between mb-2">
-          <h2 className="font-semibold font-display text-subhead">Watering</h2>
+          <h2 className="font-semibold font-display text-subhead leading-heading tracking-heading">Watering</h2>
           {waterTasks.length > 1 && (
             <Button
               type="button"
@@ -175,7 +178,7 @@ export default function Home() {
       </section>
       <section>
         <div className="flex items-center justify-between mb-2 mt-4">
-          <h2 className="font-semibold font-display text-subhead">Fertilizing</h2>
+          <h2 className="font-semibold font-display text-subhead leading-heading tracking-heading">Fertilizing</h2>
           {fertilizeTasks.length > 1 && (
             <Button
               type="button"

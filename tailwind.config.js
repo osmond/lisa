@@ -35,6 +35,14 @@ export default {
         label: ['0.875rem', {}],
         detail: ['0.75rem', {}],
       },
+      letterSpacing: {
+        heading: '-0.01em',
+        label: '0.05em',
+      },
+      lineHeight: {
+        heading: '1.25',
+        label: '1.3',
+      },
     },
   },
   plugins: [],

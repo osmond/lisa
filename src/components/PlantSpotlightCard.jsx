@@ -32,7 +32,7 @@ export default function PlantSpotlightCard({ plant, nextPlant, onSkip }) {
         className="w-full rounded-lg object-cover"
         onError={e => (e.target.src = '/placeholder.svg')}
       />
-      <h2 className="text-xl font-semibold">{plant.name}</h2>
+      <h2 className="text-xl font-semibold leading-heading tracking-heading">{plant.name}</h2>
       <div className="flex gap-2">
         {plant.light && (
           <span className="px-2 py-0.5 text-xs rounded-full bg-warning-amber-light text-warning-amber-dark">

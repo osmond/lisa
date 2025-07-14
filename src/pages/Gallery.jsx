@@ -42,7 +42,7 @@ export function AllGallery() {
 
   return (
     <div>
-      <h1 className="text-headline font-bold font-display mb-4">Gallery</h1>
+      <h1 className="text-headline leading-heading tracking-heading font-bold font-display mb-4">Gallery</h1>
       <Link
         to="/gallery/timeline"
         className="inline-flex items-center gap-1 px-3 py-1 mb-2 bg-accent text-white rounded"
@@ -154,7 +154,7 @@ export default function Gallery() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-headline font-bold font-display">{plant.name} Gallery</h1>
+      <h1 className="text-headline leading-heading tracking-heading font-bold font-display">{plant.name} Gallery</h1>
 
       {/* desktop grid */}
       <div className="hidden md:grid grid-cols-2 md:grid-cols-3 gap-4">

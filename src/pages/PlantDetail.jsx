@@ -9,6 +9,7 @@ import { formatMonth, formatWeek } from "../utils/date.js";
 import FadeInImage from "../components/FadeInImage.jsx";
 import { isFrequentWatering } from "../utils/watering.js";
 import Button from "../components/Button.jsx";
+import FloatingLogActions from "../components/FloatingLogActions.jsx";
 
 export default function PlantDetail() {
   const { id } = useParams();
@@ -209,7 +210,7 @@ export default function PlantDetail() {
             onError={(e) => (e.target.src = "/placeholder.svg")}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex flex-col justify-end p-4 space-y-1">
-            <h1 className="text-headline font-bold font-display text-white">
+            <h1 className="text-headline leading-heading tracking-heading font-bold font-display text-white">
               {plant.name}
             </h1>
             {plant.nickname && (
@@ -257,60 +258,11 @@ export default function PlantDetail() {
           )}
         </div>
 
-        <div className="flex gap-2 mt-2">
-          <Button
-            type="button"
-            onClick={handleWatered}
-            className="px-4 py-1 bg-accent text-white rounded-full"
-          >
-            Watered
-          </Button>
-          <Button
-            type="button"
-            onClick={handleLogEvent}
-            className="px-4 py-1 bg-accent text-white rounded-full"
-          >
-            Add Note
-          </Button>
-          <Button
-            type="button"
-            onClick={handleAddCareLog}
-            className="px-4 py-1 bg-accent text-white rounded-full"
-          >
-            + Add care log
-          </Button>
-        </div>
-
-        <div className="mt-2">
-          <div
-            role="group"
-            aria-label="log actions"
-            className="flex text-sm rounded-full overflow-hidden bg-accent text-white divide-x divide-white"
-          >
-            <button
-              type="button"
-              onClick={handleWatered}
-              className="flex-1 px-3 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-            >
-              Watered
-            </button>
-            <button
-              type="button"
-              onClick={handleLogEvent}
-              aria-label="Quick Log"
-              className="flex-1 px-3 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-            >
-              Add Note
-            </button>
-            <button
-              type="button"
-              onClick={handleAddCareLog}
-              className="flex-1 px-3 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-            >
-              + Add care log
-            </button>
-          </div>
-        </div>
+        <FloatingLogActions
+          onWatered={handleWatered}
+          onAddNote={handleLogEvent}
+          onAddCareLog={handleAddCareLog}
+        />
 
         <div className="space-y-2 mt-4 divide-y divide-gray-200 rounded-xl shadow-sm bg-stone">
           <div>
@@ -484,7 +436,7 @@ export default function PlantDetail() {
                   groupByWeek ? (
                     groupedEvents.map(([monthKey, list]) => (
                       <div key={monthKey}>
-                        <h3 className="sticky top-0 bg-stone mt-4 text-label font-semibold text-gray-500">
+                        <h3 className="sticky top-0 bg-stone mt-4 text-label leading-label tracking-label font-semibold text-gray-500">
                           {groupByWeek
                             ? formatWeek(monthKey)
                             : formatMonth(monthKey)}
@@ -528,7 +480,7 @@ export default function PlantDetail() {
                       const isOpen = openMonths[monthKey];
                       return (
                         <div key={monthKey}>
-                          <h3 className="sticky top-0 bg-stone z-10 mt-4 text-label font-semibold text-gray-500">
+                          <h3 className="sticky top-0 bg-stone z-10 mt-4 text-label leading-label tracking-label font-semibold text-gray-500">
                             <button
                               type="button"
                               className="w-full flex justify-between items-center py-2"
@@ -592,7 +544,7 @@ export default function PlantDetail() {
       </div>
       <div className="space-y-2 mt-4 p-4 shadow-sm bg-stone rounded-xl">
         <div className="flex items-center justify-between">
-          <h2 className="text-subhead font-semibold font-display">Gallery</h2>
+          <h2 className="text-subhead leading-heading tracking-heading font-semibold font-display">Gallery</h2>
           <Link
             to={`/plant/${plant.id}/gallery`}
             className="text-primary-green underline flex items-center gap-1"
