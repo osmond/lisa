@@ -20,7 +20,13 @@
     "difficulty": "Easy",
     "activity": [
       "Watered on 2025-07-07",
-      "Rotated on 2025-07-05"
+      "Rotated on 2025-07-05",
+      "Fertilized on 2025-07-01",
+      "Watered heavily on 2025-06-30"
+    ],
+    "careLog": [
+      { "date": "2025-07-05", "type": "Watered", "note": "minor" },
+      { "date": "2025-06-20", "type": "Fertilized", "note": "50% strength" }
     ],
     "notes": "Doing well",
     "advancedCare": "Propagate in water"
@@ -45,7 +51,12 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "activity": [
-      "Watered on 2025-07-10"
+      "Watered on 2025-07-10",
+      "Watered on 2025-06-25",
+      "Fertilized on 2025-06-15"
+    ],
+    "careLog": [
+      { "date": "2025-06-20", "type": "Fertilized", "note": "cactus feed" }
     ],
     "notes": "Prefers dry soil",
     "advancedCare": "Allow soil to dry between waterings"
@@ -70,7 +81,9 @@
     "humidity": "Moderate",
     "difficulty": "Medium",
     "activity": [
-      "Wiped leaves on 2025-07-08"
+      "Wiped leaves on 2025-07-08",
+      "Watered on 2025-07-03",
+      "Fertilized on 2025-06-25"
     ],
     "notes": "Rotate regularly",
     "advancedCare": "Sensitive to drafts"
@@ -96,7 +109,11 @@
     "difficulty": "Easy",
     "activity": [
       "Watered on 2025-07-11",
-      "Removed dead leaves on 2025-07-09"
+      "Removed dead leaves on 2025-07-09",
+      "Fertilized on 2025-07-01"
+    ],
+    "careLog": [
+      { "date": "2025-06-30", "type": "Watered", "note": "extra" }
     ],
     "notes": "Likes humidity",
     "advancedCare": "Clean blooms gently"
@@ -114,14 +131,18 @@
     "lastWatered": "2025-07-01",
     "nextWater": "2025-07-20",
     "lastFertilized": "2025-05-30",
-    "nextFertilize": "2025-07-30",
     "room": "Hallway",
     "urgency": "low",
     "light": "Low light",
     "humidity": "Average",
     "difficulty": "Very Easy",
     "activity": [
-      "Dusting on 2025-06-29"
+      "Dusting on 2025-06-29",
+      "Watered on 2025-06-20",
+      "Fertilized on 2025-05-30"
+    ],
+    "careLog": [
+      { "date": "2025-06-20", "type": "Watered", "note": "deep soak" }
     ],
     "notes": "Tolerates neglect",
     "advancedCare": "Avoid overwatering"
@@ -136,7 +157,6 @@
       "/demo-image-07.jpg",
       "/demo-image-08.jpg"
     ],
-    "lastWatered": "2025-07-02",
     "nextWater": "2025-07-16",
     "lastFertilized": "2025-06-01",
     "nextFertilize": "2025-08-01",
@@ -146,7 +166,12 @@
     "humidity": "Low",
     "difficulty": "Easy",
     "activity": [
-      "Trimmed on 2025-07-01"
+      "Trimmed on 2025-07-01",
+      "Fertilized on 2025-06-01",
+      "Watered on 2025-06-15"
+    ],
+    "careLog": [
+      { "date": "2025-06-01", "type": "Fertilized", "note": "slow release" }
     ],
     "notes": "Useful for burns",
     "advancedCare": "Use cactus soil"
@@ -171,7 +196,9 @@
     "humidity": "Average",
     "difficulty": "Very Easy",
     "activity": [
-      "Trained vine on 2025-07-04"
+      "Trained vine on 2025-07-04",
+      "Watered on 2025-07-01",
+      "Fertilized with organic feed"
     ],
     "notes": "Great for beginners",
     "advancedCare": "Propagate in water"
@@ -196,7 +223,9 @@
     "humidity": "Very high",
     "difficulty": "Medium",
     "activity": [
-      "Misted on 2025-07-08"
+      "Misted on 2025-07-08",
+      "Watered on 2025-06-30",
+      "Fertilized on 2025-06-25"
     ],
     "notes": "Keep soil moist",
     "advancedCare": "Loves filtered water"
@@ -221,7 +250,9 @@
     "humidity": "Moderate",
     "difficulty": "Medium",
     "activity": [
-      "Cleaned leaves on 2025-07-05"
+      "Cleaned leaves on 2025-07-05",
+      "Watered on 2025-07-05",
+      "Fertilized on 2025-06-20"
     ],
     "notes": "Avoid sudden moves",
     "advancedCare": "Top dress with compost"
@@ -246,7 +277,12 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "activity": [
-      "Checked soil moisture on 2025-07-03"
+      "Checked soil moisture on 2025-07-03",
+      "Watered on 2025-07-04",
+      "Fertilized on 2025-06-15"
+    ],
+    "careLog": [
+      { "date": "2025-07-03", "type": "Note", "note": "new leaves" }
     ],
     "notes": "Tolerates low light well",
     "advancedCare": "Rotate monthly for even growth"
