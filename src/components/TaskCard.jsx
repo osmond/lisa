@@ -189,7 +189,11 @@ export default function TaskCard({ task, onComplete }) {
       )}
 
       {showNoteModal && (
-        <NoteModal onSave={handleNoteSave} onClose={() => setShowNoteModal(false)} />
+        <NoteModal
+          onSave={handleNoteSave}
+          onClose={() => setShowNoteModal(false)}
+        />
+      )}
 
       <TaskActions
         visible={showActions}
@@ -198,12 +202,12 @@ export default function TaskCard({ task, onComplete }) {
         onSnooze={handleSnooze}
         onView={handleView}
       />
+
       {showModal && (
         <TaskModal
           onSave={handleSaveModal}
           onClose={() => setShowModal(false)}
         />
-
       )}
     </div>
   )
