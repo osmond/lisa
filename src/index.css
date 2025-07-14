@@ -132,8 +132,10 @@ body {
   }
 }
 
+
 .nav-active {
   animation: nav-fade-scale 0.2s ease;
+  @apply bg-green-50 rounded-full;
 }
 
 @media (prefers-reduced-motion: reduce) {

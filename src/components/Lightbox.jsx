@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 
-export default function Lightbox({ images, startIndex = 0, onClose, label = 'Image viewer' }) {
+export default function Lightbox({
+  images,
+  alts = [],
+  startIndex = 0,
+  onClose,
+  label = 'Image viewer',
+}) {
   const [index, setIndex] = useState(startIndex)
   const closeBtnRef = useRef(null)
   const prevFocusRef = useRef(null)
@@ -51,8 +57,9 @@ export default function Lightbox({ images, startIndex = 0, onClose, label = 'Ima
       </button>
       <img
         src={images[index]}
-        alt="Gallery image"
+        alt={alts[index] || 'Gallery image'}
         className="max-w-full max-h-full object-contain"
+        onError={e => (e.target.src = '/placeholder.svg')}
       />
       <button
         aria-label="Next image"
