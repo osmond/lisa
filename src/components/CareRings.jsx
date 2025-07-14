@@ -79,7 +79,7 @@ export default function CareRings({
             transform={rotate}
           />
         </svg>
-        <div className="absolute inset-0 flex items-center justify-center text-xs font-body font-medium">
+        <div className="absolute inset-0 flex items-center justify-center text-xs font-body font-semibold drop-shadow">
           {progressText}
         </div>
       </div>
