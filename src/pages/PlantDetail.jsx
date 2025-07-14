@@ -197,8 +197,8 @@ export default function PlantDetail() {
           </Link>
         </div>
 
-        <div className="space-y-2">
-          <div className="border rounded-xl">
+        <div className="space-y-2 mt-4 divide-y divide-gray-200 rounded-xl shadow-sm bg-stone">
+          <div>
             <h3 id="activity-header">
               <button
                 ref={el => (sectionRefs.current[0] = el)}
@@ -219,7 +219,7 @@ export default function PlantDetail() {
                 id="activity-panel"
                 role="region"
                 aria-labelledby="activity-header"
-                className="p-4"
+                className="p-4 pb-4"
               >
                 <ul className="list-disc pl-4 space-y-1">
                   {(plant.careLog || []).map((ev, i) => (
@@ -234,7 +234,7 @@ export default function PlantDetail() {
             )}
           </div>
 
-          <div className="border rounded-xl">
+          <div>
             <h3 id="notes-header">
               <button
                 ref={el => (sectionRefs.current[1] = el)}
@@ -255,7 +255,7 @@ export default function PlantDetail() {
                 id="notes-panel"
                 role="region"
                 aria-labelledby="notes-header"
-                className="p-4"
+                className="p-4 pb-4 shadow-sm bg-stone rounded"
               >
                 {plant.notes
                   ? showMore
@@ -275,7 +275,7 @@ export default function PlantDetail() {
             )}
           </div>
 
-          <div className="border rounded-xl">
+          <div>
             <h3 id="care-header">
               <button
                 ref={el => (sectionRefs.current[2] = el)}
@@ -296,14 +296,14 @@ export default function PlantDetail() {
                 id="care-panel"
                 role="region"
                 aria-labelledby="care-header"
-                className="p-4"
+                className="p-4 pb-4"
               >
                 {plant.advancedCare || 'No advanced care info.'}
               </div>
             )}
           </div>
 
-          <div className="border rounded-xl">
+          <div>
             <h3 id="timeline-header">
               <button
                 ref={el => (sectionRefs.current[3] = el)}
@@ -324,7 +324,7 @@ export default function PlantDetail() {
                 id="timeline-panel"
                 role="region"
                 aria-labelledby="timeline-header"
-                className="p-4"
+                className="p-4 pb-4"
               >
                 {groupedEvents.map(([monthKey, list]) => (
                   <div key={monthKey}>
@@ -361,7 +361,7 @@ export default function PlantDetail() {
           </div>
         </div>
       </div>
-      <div className="space-y-2">
+      <div className="space-y-2 mt-4 p-4 shadow-sm bg-stone rounded-xl">
         <h2 className="text-subhead font-semibold font-display">Gallery</h2>
         <div className="grid grid-cols-3 gap-2">
           {(plant.photos || []).map((src, i) => (
