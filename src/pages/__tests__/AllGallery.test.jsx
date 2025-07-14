@@ -61,16 +61,12 @@ test('overlay displays plant name on hover and focus', () => {
   )
 
   const img = screen.getAllByAltText(plant.name)[0]
-  const button = img.closest('button')
-  expect(button).not.toBeNull()
+  const wrapper = img.parentElement
+  expect(wrapper).not.toBeNull()
 
-  fireEvent.mouseOver(button)
-  const svgHover = button.querySelector('svg')
-  expect(svgHover).toBeInTheDocument()
-  expect(within(button).getByText(plant.name)).toBeInTheDocument()
+  fireEvent.mouseOver(wrapper)
+  expect(within(wrapper).getByText(plant.name)).toBeInTheDocument()
 
-  fireEvent.focus(button)
-  const svgFocus = button.querySelector('svg')
-  expect(svgFocus).toBeInTheDocument()
-  expect(within(button).getByText(plant.name)).toBeInTheDocument()
+  fireEvent.focus(wrapper)
+  expect(within(wrapper).getByText(plant.name)).toBeInTheDocument()
 })

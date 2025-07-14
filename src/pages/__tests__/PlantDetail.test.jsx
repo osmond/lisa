@@ -114,10 +114,10 @@ test('gallery preview shows trash icon on hover', () => {
   )
 
   const img = screen.getByAltText(`${plant.name} 0`)
-  const button = img.closest('button')
-  expect(button).not.toBeNull()
+  const wrapper = img.parentElement
+  expect(wrapper).not.toBeNull()
 
-  fireEvent.mouseOver(button)
-  const svg = button.querySelector('svg')
+  fireEvent.mouseOver(wrapper)
+  const svg = wrapper.querySelector('svg')
   expect(svg).toBeInTheDocument()
 })
