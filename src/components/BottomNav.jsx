@@ -47,7 +47,11 @@ export default function BottomNav({ dueCount = 0 }) {
           key={to}
           to={to}
           className={({ isActive }) =>
-            `w-12 flex flex-col items-center text-xs transition-transform duration-150 ${isActive ? 'text-[#A3C293]' : 'text-gray-500'}`
+            `w-12 flex flex-col items-center text-xs transition-transform duration-150 ${
+              isActive
+                ? 'text-[#A3C293] bg-green-50 rounded-full ring-2 ring-[#A3C293]'
+                : 'text-gray-500'
+            }`
           }
         >
           {({ isActive }) => (
