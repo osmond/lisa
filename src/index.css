@@ -138,6 +138,10 @@ body {
   @apply bg-soft-leaf-light rounded-full;
 }
 
+.nav-active-underline {
+  box-shadow: inset 0 -2px 0 theme('colors.primary-green');
+}
+
 @media (prefers-reduced-motion: reduce) {
   .nav-active {
     animation: none;
