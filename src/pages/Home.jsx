@@ -59,7 +59,7 @@ export default function Home() {
 
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <header className="flex flex-col items-start space-y-2">
         <h1 className="text-2xl font-bold font-headline">☀️ {today}</h1>
         <p className="text-sm text-gray-600 font-body">
@@ -71,8 +71,8 @@ export default function Home() {
       </header>
       <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
       {totalWaterToday > 0 && (
-        <div data-testid="water-progress" className="px-1">
-          <p className="text-sm mb-1">💧 {wateredTodayCount} of {totalWaterToday} watered</p>
+        <div data-testid="water-progress" className="space-y-1 px-1">
+          <p className="text-sm">💧 {wateredTodayCount} of {totalWaterToday} watered</p>
           <div className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full">
             <div
               className="h-2 bg-green-500 rounded-full"
@@ -81,8 +81,8 @@ export default function Home() {
           </div>
         </div>
       )}
-      <section>
-        <h2 className="font-semibold font-display mb-2">Today’s Tasks</h2>
+      <section className="space-y-4">
+        <h2 className="font-semibold font-display">Today’s Tasks</h2>
         <div className="space-y-4">
           {tasks.length > 0 ? (
             tasks.map(task => <TaskCard key={task.id} task={task} />)
