@@ -82,3 +82,15 @@ test('filters tasks by urgency and type', () => {
   expect(screen.getByText('Water Fern')).toBeInTheDocument()
   expect(screen.queryByText('Water Palm')).toBeNull()
 })
+
+test('shows placeholder when no tasks remain after filtering', () => {
+  render(
+    <MemoryRouter>
+      <Tasks />
+    </MemoryRouter>
+  )
+  const selects = screen.getAllByRole('combobox')
+  fireEvent.change(selects[0], { target: { value: 'low' } })
+  fireEvent.change(selects[1], { target: { value: 'succulent' } })
+  expect(screen.getByText(/no tasks remaining/i)).toBeInTheDocument()
+})

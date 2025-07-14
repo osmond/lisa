@@ -99,6 +99,10 @@ export default function Tasks() {
         </select>
       </div>
 
+      {filtered.length === 0 ? (
+        <p className="text-gray-700">No tasks remaining</p>
+      ) : (
+        <>
       {overdue.length > 0 && (
         <section>
 
@@ -136,6 +140,8 @@ export default function Tasks() {
             ))}
           </div>
         </section>
+      )}
+        </>
       )}
     </div>
   )
