@@ -574,7 +574,7 @@ export default function PlantDetail() {
                 <span className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity">
                   <Trash className="w-6 h-6 text-white" aria-hidden="true" />
                 </span>
-              </Button>
+              </div>
             );
           })}
         </div>
