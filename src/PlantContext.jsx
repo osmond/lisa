@@ -37,6 +37,7 @@ export function PlantProvider({ children }) {
 
   const weatherCtx = useWeather()
   const weather = { rainTomorrow: weatherCtx?.forecast?.rainfall || 0 }
+  const timezone = weatherCtx?.timezone
 
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {
@@ -45,7 +46,10 @@ export function PlantProvider({ children }) {
   }, [plants])
 
   const logEvent = (id, type, note = '') => {
-    const date = new Date().toISOString().slice(0, 10)
+    const now = new Date(
+      new Date().toLocaleString('en-US', { timeZone: timezone })
+    )
+    const date = now.toISOString().slice(0, 10)
     setPlants(prev =>
       prev.map(p =>
         p.id === id
@@ -56,10 +60,13 @@ export function PlantProvider({ children }) {
   }
 
   const markWatered = (id, note) => {
+    const now = new Date(
+      new Date().toLocaleString('en-US', { timeZone: timezone })
+    )
+    const today = now.toISOString().slice(0, 10)
     setPlants(prev =>
       prev.map(p => {
         if (p.id === id) {
-          const today = new Date().toISOString().slice(0, 10)
           const { date: nextStr, reason } = getNextWateringDate(today, weather)
           return {
             ...p,

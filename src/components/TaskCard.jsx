@@ -4,12 +4,18 @@ import { usePlants } from '../PlantContext.jsx'
 import actionIcons from './ActionIcons.jsx'
 import useRipple from '../utils/useRipple.js'
 import { relativeDate } from '../utils/relativeDate.js'
+import { useWeather } from '../WeatherContext.jsx'
 
 export default function TaskCard({ task, onComplete }) {
   const { markWatered } = usePlants()
   const Icon = actionIcons[task.type]
   const [checked, setChecked] = useState(false)
   const [, createRipple] = useRipple()
+  const { timezone } = useWeather() || {}
+  const tz = timezone || Intl.DateTimeFormat().resolvedOptions().timeZone
+  const now = new Date(
+    new Date().toLocaleString('en-US', { timeZone: tz })
+  )
 
   const handleComplete = () => {
     if (onComplete) {
@@ -43,7 +49,7 @@ export default function TaskCard({ task, onComplete }) {
               className={`text-xs ${
                 (() => {
                   const d = Math.round(
-                    (new Date(task.date) - new Date()) / (1000 * 60 * 60 * 24)
+                    (new Date(task.date) - now) / (1000 * 60 * 60 * 24)
                   )
                   return d < 0
                     ? 'text-red-600'
@@ -53,7 +59,7 @@ export default function TaskCard({ task, onComplete }) {
                 })()
               }`}
             >
-              {relativeDate(task.date)}
+              {relativeDate(task.date, now, tz)}
             </p>
           )}
           {task.reason && (
