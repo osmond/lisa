@@ -102,23 +102,22 @@ export default function Home() {
 
   return (
     <div className="space-y-8">
-      <header className="flex flex-col items-center text-center space-y-2">
+      <header className="flex flex-col items-center text-center space-y-1">
         <p className="text-xs text-gray-400 font-body flex items-center justify-center gap-1">
+          {forecast && (() => {
+            const Icon = weatherIcons[forecast.condition] || Sun
+            return (
+              <Icon
+                className="w-4 h-4 text-gray-400 align-middle"
+                aria-label={forecast.condition}
+              />
+            )
+          })()}
           {weekday}, {monthDay}
           {forecast && (
             <>
               <span aria-hidden="true">·</span>
               <span>{forecast.temp}</span>
-              <span aria-hidden="true">·</span>
-              <span className="flex items-center gap-1">
-                {(() => {
-                  const Icon = weatherIcons[forecast.condition] || Sun
-                  return (
-                    <Icon className="w-4 h-4 text-gray-400" aria-label={forecast.condition} />
-                  )
-                })()}
-                {forecast.condition}
-              </span>
             </>
           )}
         </p>
