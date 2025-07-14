@@ -255,5 +255,83 @@
     ],
     "notes": "Tolerates low light well",
     "advancedCare": "Rotate monthly for even growth"
+  },
+  {
+    "id": 11,
+    "name": "Spider Plant",
+    "nickname": "Chlorophytum",
+    "image": "/demo-image-11.jpg",
+    "photos": [
+      "/demo-image-11.jpg",
+      "/demo-image-05.jpg",
+      "/demo-image-02.jpg"
+    ],
+    "lastWatered": "2025-07-12",
+    "nextWater": "2025-07-20",
+    "lastFertilized": "2025-04-10",
+    "nextFertilize": "2025-07-15",
+    "room": "Kitchen",
+    "urgency": "high",
+    "light": "Bright indirect",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "activity": [
+      "Re-potted on 2025-05-15",
+      "Trimmed on 2025-07-05"
+    ],
+    "notes": "Produces pups frequently",
+    "advancedCare": "Divide crowns to propagate"
+  },
+  {
+    "id": 12,
+    "name": "Jade Plant",
+    "nickname": "Crassula",
+    "image": "/demo-image-04.jpg",
+    "photos": [
+      "/demo-image-04.jpg",
+      "/demo-image-01.jpg",
+      "/demo-image-15.jpg"
+    ],
+    "lastWatered": "2025-07-08",
+    "nextWater": "2025-07-22",
+    "lastFertilized": "2025-05-08",
+    "nextFertilize": "2025-07-08",
+    "room": "Office",
+    "urgency": "overdue",
+    "light": "Bright indirect",
+    "humidity": "Low",
+    "difficulty": "Easy",
+    "activity": [
+      "Fertilized on 2025-05-08",
+      "Pruned on 2025-07-01"
+    ],
+    "notes": "Leaves wrinkle when thirsty",
+    "advancedCare": "Use cactus fertilizer"
+  },
+  {
+    "id": 13,
+    "name": "English Ivy",
+    "nickname": "Hedera",
+    "image": "/demo-image-01.jpg",
+    "photos": [
+      "/demo-image-01.jpg",
+      "/demo-image-08.jpg",
+      "/demo-image-13.jpg"
+    ],
+    "lastWatered": "2025-07-05",
+    "nextWater": "2025-07-19",
+    "lastFertilized": "2025-05-20",
+    "nextFertilize": "2025-07-17",
+    "room": "Patio",
+    "urgency": "medium",
+    "light": "Partial shade",
+    "humidity": "Moderate",
+    "difficulty": "Medium",
+    "activity": [
+      "Trellised on 2025-05-22",
+      "Checked pests on 2025-07-02"
+    ],
+    "notes": "Can be invasive",
+    "advancedCare": "Pinch tips for bushiness"
   }
 ]
