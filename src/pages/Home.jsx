@@ -18,6 +18,7 @@ import {
 
 import CareStats from '../components/CareStats.jsx'
 import FeaturedCard from '../components/FeaturedCard.jsx'
+import happyPlant from '/happy-plant.svg'
 
 
 
@@ -146,11 +147,13 @@ export default function Home() {
           {tasks.length > 0 ? (
             tasks.map(task => <TaskCard key={task.id} task={task} />)
           ) : (
-            <div className="text-sm text-gray-500 space-y-1 text-center">
-              <p>
-                <span role="img" aria-label="Happy plant">🪴</span> All plants are
-                happy today!
-              </p>
+            <div className="text-sm text-gray-500 space-y-1 text-center flex flex-col items-center">
+              <img
+                src={happyPlant}
+                alt="Happy plant"
+                className="w-24 h-24 mb-2"
+              />
+              <p>All plants are happy today!</p>
               <p>Want to add a note or photo today?</p>
             </div>
           )}
