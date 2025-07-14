@@ -181,3 +181,14 @@ test('swipe far left confirms before removing plant', async () => {
   expect(removePlant).toHaveBeenCalledWith(1)
   confirmMock.mockRestore()
 })
+
+test('matches snapshot in dark mode', () => {
+  document.documentElement.classList.add('dark')
+  const { container } = render(
+    <MemoryRouter>
+      <PlantCard plant={plant} />
+    </MemoryRouter>
+  )
+  expect(container.firstChild).toMatchSnapshot()
+  document.documentElement.classList.remove('dark')
+})

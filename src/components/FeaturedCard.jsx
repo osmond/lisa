@@ -47,7 +47,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
       onTouchStart={begin}
       onTouchMove={move}
       onTouchEnd={end}
-      className="relative block overflow-hidden rounded-2xl shadow bg-sage dark:bg-gray-800"
+      className="relative block overflow-hidden rounded-2xl shadow bg-sage dark:bg-gray-700"
       style={{ transform: `translateX(${dx}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
     >
       <img

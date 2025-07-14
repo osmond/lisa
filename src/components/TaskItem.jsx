@@ -60,7 +60,7 @@ export default function TaskItem({ task, onComplete }) {
       onPointerCancel={handlePointerEnd}
       onMouseMove={handlePointerMove}
       onMouseUp={handlePointerEnd}
-      className="relative flex items-center gap-2 p-2 border rounded-2xl bg-white dark:bg-gray-800 overflow-hidden"
+      className="relative flex items-center gap-2 p-2 border dark:border-gray-600 rounded-2xl bg-white dark:bg-gray-700 overflow-hidden"
       style={{ transform: `translateX(${deltaX}px)`, transition: deltaX === 0 ? 'transform 0.2s' : 'none' }}
     >
       <Link to={`/plant/${task.plantId}`} className="flex items-center flex-1 gap-1">
