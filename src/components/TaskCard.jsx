@@ -152,7 +152,7 @@ export default function TaskCard({ task, onComplete }) {
       onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()
-          setShowActions(true)
+          handleComplete()
         }
       }}
     >
@@ -181,6 +181,7 @@ export default function TaskCard({ task, onComplete }) {
         aria-label="Mark complete"
       >
         <input type="checkbox" checked={checked} readOnly className="task-checkbox" />
+        <span className="ml-1">Done</span>
       </button>
       {checked && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
