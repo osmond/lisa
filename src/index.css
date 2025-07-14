@@ -82,6 +82,10 @@ body {
 
 }
 
+.ring-pop {
+  animation: pop 0.3s ease-out;
+}
+
 /* Subtle checkbox accent for task cards */
 .task-checkbox {
   accent-color: theme('colors.green.600');
