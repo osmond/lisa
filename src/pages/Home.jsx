@@ -88,13 +88,12 @@ export default function Home() {
 
   return (
     <div className="space-y-6">
-      <header className="flex flex-col items-start space-y-2">
-        <h1 className="font-headline border-b border-gray-100 pb-1">
-          <span className="flex items-center space-x-1 text-3xl font-bold">
-            <span className="text-xl">☀️</span>
-            <span className="tracking-tight">{weekday}</span>
-          </span>
-          <div className="text-xl tracking-tight">{monthDay}</div>
+
+      <header className="flex flex-col items-start space-y-2 mt-6 pb-4">
+        <h1 className="text-3xl font-bold font-headline flex items-center space-x-1 border-b border-gray-100 pb-1">
+          <span className="text-xl">☀️</span>
+          <span>{today}</span>
+
         </h1>
         <p className="text-sm text-gray-500 font-body flex items-center gap-1">
           {forecast ? (
