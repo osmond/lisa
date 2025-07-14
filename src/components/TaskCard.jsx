@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from './ActionIcons.jsx'
 import useRipple from '../utils/useRipple.js'
+import { relativeDate } from '../utils/relativeDate.js'
 
 export default function TaskCard({ task, onComplete }) {
   const { markWatered } = usePlants()
@@ -37,6 +38,24 @@ export default function TaskCard({ task, onComplete }) {
         <img src={task.image} alt={task.plantName} className="w-16 h-16 object-cover rounded" />
         <div className="flex-1">
           <p className="font-medium">{task.type} {task.plantName}</p>
+          {task.date && (
+            <p
+              className={`text-xs ${
+                (() => {
+                  const d = Math.round(
+                    (new Date(task.date) - new Date()) / (1000 * 60 * 60 * 24)
+                  )
+                  return d < 0
+                    ? 'text-red-600'
+                    : d <= 2
+                    ? 'text-orange-600'
+                    : 'text-green-600'
+                })()
+              }`}
+            >
+              {relativeDate(task.date)}
+            </p>
+          )}
           {task.reason && (
             <p className="text-xs text-gray-500">{task.reason}</p>
           )}

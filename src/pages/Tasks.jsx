@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
+import { relativeDate } from '../utils/relativeDate.js'
 
 export default function Tasks() {
   const { plants } = usePlants()
@@ -44,24 +45,33 @@ export default function Tasks() {
     water: 'bg-blue-500',
     fertilize: 'bg-orange-500',
   }
-
-  const today = new Date().toISOString().slice(0, 10)
-
   return (
     <div className="overflow-y-auto max-h-full p-4">
       <ul className="relative border-l border-gray-300 pl-4 space-y-6">
         {events.map((e, i) => {
-          const overdue = e.type === 'task' && e.date < today
-          const color = colors[e.taskType] || 'bg-green-500'
+          const diff = Math.round(
+            (new Date(e.date) - new Date()) / (1000 * 60 * 60 * 24)
+          )
+          const overdue = e.type === 'task' && diff < 0
+          const dueSoon = e.type === 'task' && diff >= 0 && diff <= 2
+          const baseColor = colors[e.taskType] || 'bg-green-500'
+          const dotColor = overdue
+            ? 'bg-red-500 animate-pulse'
+            : dueSoon
+            ? 'bg-orange-500'
+            : baseColor
+          const textColor = overdue
+            ? 'text-red-600 font-medium'
+            : dueSoon
+            ? 'text-orange-600 font-medium'
+            : 'text-green-600'
           return (
             <li key={i} className="relative animate-fade-in-up">
               <span
-                className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${
-                  overdue ? 'bg-red-500 animate-pulse' : color
-                }`}
+                className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${dotColor}`}
               ></span>
-              <p className="text-xs text-gray-500">{e.date}</p>
-              <p className={overdue ? 'text-red-600 font-medium' : ''}>{e.label}</p>
+              <p className={`text-xs ${textColor}`}>{relativeDate(e.date)}</p>
+              <p className={textColor}>{e.label}</p>
               {e.reason && (
                 <p className="text-xs text-gray-500">{e.reason}</p>
               )}
