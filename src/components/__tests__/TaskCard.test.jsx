@@ -85,6 +85,30 @@ test('mark as done opens modal and saves note', () => {
   expect(screen.getByRole('dialog')).toBeInTheDocument()
 })
 
+test('pressing Enter on card opens note modal', () => {
+  render(
+    <MemoryRouter>
+      <TaskCard task={task} />
+    </MemoryRouter>
+  )
+  const wrapper = screen.getByTestId('task-wrapper')
+  wrapper.focus()
+  fireEvent.keyDown(wrapper, { key: 'Enter', code: 'Enter' })
+  expect(screen.getByLabelText(/note/i)).toBeInTheDocument()
+})
+
+test('pressing Space on card opens note modal', () => {
+  render(
+    <MemoryRouter>
+      <TaskCard task={task} />
+    </MemoryRouter>
+  )
+  const wrapper = screen.getByTestId('task-wrapper')
+  wrapper.focus()
+  fireEvent.keyDown(wrapper, { key: ' ', code: 'Space' })
+  expect(screen.getByLabelText(/note/i)).toBeInTheDocument()
+})
+
 test('cancel note modal does not mark complete', () => {
   const { container } = render(
     <MemoryRouter initialEntries={['/']}>
