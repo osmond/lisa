@@ -23,25 +23,27 @@ export default function TaskCard({ task, onComplete }) {
 
   return (
     <div
-      className="relative flex items-center gap-3 p-4 rounded-2xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden"
+      className="relative flex items-center gap-3 p-4 rounded-2xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden transition-shadow hover:shadow-md active:shadow-lg"
       onMouseDown={createRipple}
       onTouchStart={createRipple}
     >
       <Link to={`/plant/${task.plantId}`} className="flex items-center flex-1 gap-3">
         <img src={task.image} alt={task.plantName} className="w-12 h-12 object-cover rounded" />
         <div className="flex-1">
-          <p className="font-medium">{task.type} {task.plantName}</p>
+          <p className="font-medium flex items-center gap-1">
+            {Icon && <Icon />}
+            <span>{task.type} {task.plantName}</span>
+          </p>
           {task.reason && (
             <p className="text-xs text-gray-500">{task.reason}</p>
           )}
         </div>
-        {Icon && <Icon />}
       </Link>
       <button
         onMouseDown={createRipple}
         onTouchStart={createRipple}
         onClick={handleComplete}
-        className="ml-2 bg-green-100 text-green-700 px-3 py-1 rounded relative overflow-hidden"
+        className={`ml-2 bg-green-100 text-green-700 px-3 py-1 rounded relative overflow-hidden transition active:shadow-inner ${checked ? 'bounce-once' : ''}`}
         aria-label="Mark complete"
       >
         <input type="checkbox" checked={checked} readOnly className="task-checkbox" />
