@@ -24,6 +24,19 @@ test('renders task text', () => {
   expect(screen.getByText('Water')).toBeInTheDocument()
 })
 
+test('applies highlight when urgent', () => {
+  const { container } = render(
+    <PlantProvider>
+      <MemoryRouter>
+        <TaskCard task={task} urgent />
+      </MemoryRouter>
+    </PlantProvider>
+  )
+  const wrapper = container.firstChild
+  expect(wrapper).toHaveClass('ring-2')
+  expect(wrapper).toHaveClass('ring-green-300')
+})
+
 test('icon svg is aria-hidden', () => {
   const { container } = render(
     <PlantProvider>
