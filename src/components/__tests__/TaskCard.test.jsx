@@ -150,4 +150,7 @@ test('overdue tasks use red badge styling', () => {
   )
   const button = screen.getByRole('button', { name: /mark complete/i })
   expect(button).toHaveClass('bg-red-100', 'text-red-700')
+  const wrapper = screen.getByTestId('task-wrapper')
+  expect(wrapper.className).toMatch(/border-l-4/)
+  expect(wrapper.className).toMatch(/border-red-500/)
 })
