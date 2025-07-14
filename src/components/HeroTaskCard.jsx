@@ -34,9 +34,9 @@ export default function HeroTaskCard({ task, onComplete }) {
           className="w-full h-48 object-cover rounded-xl"
         />
         <div>
-          <p className="font-medium text-lg">
-            {task.type} {task.plantName}
-          </p>
+          <p className="font-semibold text-xl">{task.nickname || task.plantName}</p>
+          <p className="text-sm text-gray-500">{task.type}</p>
+          <p className="text-xs text-gray-500">{`🪴 ${task.difficulty} • ${task.light}`}</p>
           {task.reason && (
             <p className="text-sm text-gray-500">{task.reason}</p>
           )}
