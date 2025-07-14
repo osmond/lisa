@@ -14,6 +14,7 @@ Includes:
 - Sample plant data
 - Styled PlantCard components
 - Tasks generated dynamically from plant data
+- Quick Add floating button for new plants
 
 
 ## Weather Feature
