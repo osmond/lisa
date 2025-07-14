@@ -1,5 +1,8 @@
 export function getNextWateringDate(fromDate, weather = {}) {
-  const base = new Date(fromDate);
+  let base = new Date(fromDate);
+  if (isNaN(base.getTime())) {
+    base = new Date();
+  }
   base.setDate(base.getDate() + 7);
 
   let reason = '';

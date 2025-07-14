@@ -11,3 +11,11 @@ test('moves watering earlier when ET0 high', () => {
   expect(date).toBe('2025-07-16')
   expect(reason).toMatch(/ET₀/i)
 })
+
+test('handles invalid fromDate by defaulting to today', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-01-01'))
+  expect(() => getNextWateringDate('')).not.toThrow()
+  const { date } = getNextWateringDate('')
+  expect(date).toBe('2025-01-08')
+  jest.useRealTimers()
+})
