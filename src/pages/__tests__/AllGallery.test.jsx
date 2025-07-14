@@ -1,6 +1,7 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { PlantProvider } from '../../PlantContext.jsx'
+import plants from '../../plants.json'
 import { AllGallery } from '../Gallery.jsx'
 
 test('clicking add photos button opens file dialog', () => {
@@ -46,4 +47,25 @@ test('newly uploaded image is added to gallery', () => {
   expect(updatedCount).toBe(initialCount + 1)
 
   global.FileReader = original
+})
+
+test('overlay displays plant name on hover and focus', () => {
+  const plant = plants[0]
+  render(
+    <PlantProvider>
+      <MemoryRouter>
+        <AllGallery />
+      </MemoryRouter>
+    </PlantProvider>
+  )
+
+  const img = screen.getAllByAltText(plant.name)[0]
+  const button = img.closest('button')
+  expect(button).not.toBeNull()
+
+  fireEvent.mouseOver(button)
+  expect(within(button).getByText(plant.name)).toBeInTheDocument()
+
+  fireEvent.focus(button)
+  expect(within(button).getByText(plant.name)).toBeInTheDocument()
 })

@@ -52,14 +52,21 @@ export function AllGallery() {
       </Link>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
         {images.map((src, i) => (
-          <Button key={i} onClick={() => setIndex(i)} className="focus:outline-none">
+          <Button
+            key={i}
+            onClick={() => setIndex(i)}
+            className="relative group focus:outline-none"
+          >
             <FadeInImage
               src={src}
-              alt={`Plant ${i + 1}`}
+              alt={alts[i] || `Plant ${i + 1}`}
               loading="lazy"
               className="w-full h-32 object-cover rounded transition-transform transform hover:scale-105 active:scale-105"
               onError={e => (e.target.src = '/placeholder.svg')}
             />
+            <span className="absolute inset-0 flex items-center justify-center bg-black/60 text-white text-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100 transition-opacity">
+              {alts[i]}
+            </span>
           </Button>
         ))}
       </div>
