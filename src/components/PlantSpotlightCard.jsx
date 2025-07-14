@@ -45,16 +45,26 @@ export default function PlantSpotlightCard({ plant, nextPlant, onSkip }) {
           </span>
         )}
       </div>
-      <div className="flex gap-3">
-        <Button className="px-3 py-1 bg-accent text-white" onClick={handleWater}>
+      <div className="flex flex-col gap-2">
+        <Button
+          className="w-full px-4 py-2 bg-primary-green text-white"
+          onClick={handleWater}
+        >
           Water
         </Button>
-        <Button className="px-3 py-1 bg-accent text-white" onClick={handleAddNote}>
+        <Button
+          className="w-full px-4 py-1 bg-accent text-white"
+          onClick={handleAddNote}
+        >
           Add Note
         </Button>
-        <Button className="px-3 py-1" onClick={handleSkip}>
+        <button
+          type="button"
+          onClick={handleSkip}
+          className="self-start text-primary-green underline text-sm"
+        >
           Skip
-        </Button>
+        </button>
       </div>
       {nextPlant && (
         <p className="text-sm text-gray-500">Next up: {nextPlant.name}</p>
