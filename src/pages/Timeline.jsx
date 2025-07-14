@@ -60,7 +60,7 @@ export default function Timeline() {
 
   useEffect(() => {
     const monthKeys = groupedEvents.map(([k]) => k)
-    const recent = monthKeys.slice(-2)
+    const recent = monthKeys.slice(0, 2)
     setOpenMonths(prev => {
       const updated = { ...prev }
       monthKeys.forEach(k => {
