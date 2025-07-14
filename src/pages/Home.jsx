@@ -7,6 +7,9 @@ import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
 
 import { Sun, CloudSun, Moon } from 'phosphor-react'
+
+import WeatherIcon from '../components/WeatherIcon.jsx'
+
 import PlantSpotlightCard from '../components/PlantSpotlightCard.jsx'
 
 import SummaryStrip from '../components/SummaryStrip.jsx'
@@ -120,7 +123,10 @@ export default function Home() {
         </h1>
 
         <p className="flex items-center text-sm text-gray-600">
-          <CloudSun className="w-5 h-5 mr-1 text-green-600" />
+          <WeatherIcon
+            condition={forecast?.condition}
+            className="w-5 h-5 mr-1 text-green-600 animate-bounce"
+          />
           {forecast ? `${forecast.temp} - ${forecast.condition}` : 'Loading...'}
         </p>
         <p className="text-sm text-gray-500">{today}</p>
