@@ -102,7 +102,7 @@ export default function Home() {
       <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
       <section>
         <h2 className="font-semibold font-display text-subhead mb-2">Watering</h2>
-        <div className="space-y-4">
+        <div className="space-y-4 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl">
           {waterTasks.length > 0 ? (
             waterTasks.map(task => <TaskCard key={task.id} task={task} />)
           ) : (
@@ -112,7 +112,7 @@ export default function Home() {
       </section>
       <section>
         <h2 className="font-semibold font-display text-subhead mb-2 mt-4">Fertilizing</h2>
-        <div className="space-y-4">
+        <div className="space-y-4 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl">
           {fertilizeTasks.length > 0 ? (
             fertilizeTasks.map(task => <TaskCard key={task.id} task={task} />)
           ) : (
