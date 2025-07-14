@@ -101,9 +101,9 @@ export default function Home() {
 
 
   return (
-    <div className="space-y-6">
-      <header className="flex flex-col items-start space-y-1">
-        <p className="text-sm text-gray-500 font-body flex items-center gap-1">
+    <div className="space-y-8">
+      <header className="flex flex-col items-center text-center space-y-2">
+        <p className="text-xs text-gray-400 font-body flex items-center justify-center gap-1">
           {weekday}, {monthDay}
           {forecast && (
             <>
@@ -122,11 +122,11 @@ export default function Home() {
             </>
           )}
         </p>
-        <p className="text-sm text-gray-400 font-body">Hi Jon, Let’s check on your plants.</p>
+        <p className="text-lg font-semibold">Hi Jon, Let’s check on your plants.</p>
       </header>
     {plants.length > 0 && (
-      <section className="space-y-2">
-        <h2 className="font-semibold font-headline">🌿 Featured Plant</h2>
+      <section>
+        <h2 className="sr-only">Featured Plant</h2>
         <FeaturedCard plants={plants} startIndex={featuredIndex} />
       </section>
     )}
