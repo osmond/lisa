@@ -44,3 +44,26 @@ test('summary items render when tasks exist', () => {
   expect(screen.getByText(/0 of 1 watered/)).toBeInTheDocument()
 })
 
+test('featured card appears before summary', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+  mockPlants.splice(0, mockPlants.length, {
+    id: 1,
+    name: 'Plant A',
+    image: 'a.jpg',
+    lastWatered: '2025-07-03',
+    nextFertilize: '2025-07-10',
+  })
+
+  render(
+    <MemoryRouter>
+      <Home />
+    </MemoryRouter>
+  )
+
+  const featured = screen.getByTestId('featured-card')
+  const summary = screen.getByTestId('summary-total')
+  expect(featured).toBeInTheDocument()
+  const order = featured.compareDocumentPosition(summary)
+  expect(order & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+})
+

@@ -7,6 +7,7 @@ import { getNextWateringDate } from '../utils/watering.js'
 
 
 import SummaryStrip from '../components/SummaryStrip.jsx'
+import FeaturedCard from '../components/FeaturedCard.jsx'
 
 
 
@@ -52,6 +53,13 @@ export default function Home() {
     ? Math.round((wateredTodayCount / totalWaterToday) * 100)
     : 0
 
+  const dayOfYear = Math.floor(
+    (new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000
+  )
+  const featuredTask = waterTasks.length
+    ? waterTasks[dayOfYear % waterTasks.length]
+    : null
+
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
     month: 'long',
@@ -71,9 +79,10 @@ export default function Home() {
             ? `${forecast.temp} and ${(forecast.condition || '').toLowerCase()} — great day to water!`
             : 'Loading...'}
         </p>
-        <p className="text-sm text-gray-600 font-body mt-2">Hi Jon 🌿 Let’s check on your plants.</p>
-      </header>
-      <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
+      <p className="text-sm text-gray-600 font-body mt-2">Hi Jon 🌿 Let’s check on your plants.</p>
+    </header>
+    {featuredTask && <FeaturedCard task={featuredTask} />}
+    <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
       {totalWaterToday > 0 && (
 
         <div data-testid="water-progress" className="space-y-1 px-1">
