@@ -9,28 +9,36 @@ export function WeatherProvider({ children }) {
       const stored = localStorage.getItem('weatherLocation')
       if (stored) return stored
     }
-    return 'London'
+    return 'Saint Paul, Minnesota'
+  })
+  const [units, setUnits] = useState(() => {
+    if (typeof localStorage !== 'undefined') {
+      const stored = localStorage.getItem('weatherUnits')
+      if (stored) return stored
+    }
+    return 'imperial'
   })
 
   useEffect(() => {
     const key = process.env.VITE_WEATHER_API_KEY
     if (!key) return
-    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&units=metric&appid=${key}`
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&units=${units}&appid=${key}`
     fetch(url)
       .then(res => res.json())
       .then(data => {
         if (data && data.list && data.list.length > 0) {
           const next = data.list[0]
           const rainfall = next.pop ? Math.round(next.pop * 100) : 0
+          const symbol = units === 'imperial' ? '°F' : '°C'
           setForecast({
-            temp: Math.round(next.main.temp) + '°C',
+            temp: Math.round(next.main.temp) + symbol,
             condition: next.weather?.[0]?.main,
             rainfall,
           })
         }
       })
       .catch(err => console.error(err))
-  }, [location])
+  }, [location, units])
 
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {
@@ -38,8 +46,14 @@ export function WeatherProvider({ children }) {
     }
   }, [location])
 
+  useEffect(() => {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('weatherUnits', units)
+    }
+  }, [units])
+
   return (
-    <WeatherContext.Provider value={{ forecast, location, setLocation }}>
+    <WeatherContext.Provider value={{ forecast, location, setLocation, units, setUnits }}>
       {children}
     </WeatherContext.Provider>
   )

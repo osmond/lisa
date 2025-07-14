@@ -1,9 +1,11 @@
 import { useTheme } from '../ThemeContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
+import { useUser } from '../UserContext.jsx'
 
 export default function Settings() {
   const { theme, toggleTheme } = useTheme()
-  const { location, setLocation } = useWeather()
+  const { location, setLocation, units, setUnits } = useWeather()
+  const { username, setUsername } = useUser()
 
   return (
     <div className="space-y-4 text-gray-700 dark:text-gray-200">
@@ -15,6 +17,16 @@ export default function Settings() {
         Switch to {theme === 'dark' ? 'Light' : 'Dark'} Mode
       </button>
       <div className="grid gap-1 max-w-xs">
+        <label htmlFor="username" className="font-medium">Name</label>
+        <input
+          id="username"
+          type="text"
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+          className="border rounded p-2"
+        />
+      </div>
+      <div className="grid gap-1 max-w-xs">
         <label htmlFor="location" className="font-medium">Weather Location</label>
         <input
           id="location"
@@ -23,6 +35,18 @@ export default function Settings() {
           onChange={e => setLocation(e.target.value)}
           className="border rounded p-2"
         />
+      </div>
+      <div className="grid gap-1 max-w-xs">
+        <label htmlFor="units" className="font-medium">Temperature Units</label>
+        <select
+          id="units"
+          value={units}
+          onChange={e => setUnits(e.target.value)}
+          className="border rounded p-2"
+        >
+          <option value="imperial">Fahrenheit</option>
+          <option value="metric">Celsius</option>
+        </select>
       </div>
     </div>
   )
