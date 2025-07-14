@@ -63,7 +63,7 @@ export default function TaskCard({ task, onComplete }) {
       }}
       onTouchMove={handlePointerMove}
       onTouchEnd={handlePointerEnd}
-      className="relative flex items-center gap-3 p-3 rounded-xl border shadow-sm bg-white dark:bg-gray-800 overflow-hidden transition-transform duration-150 hover:bg-gray-50 active:scale-95"
+      className="relative flex items-center gap-3 p-3 rounded-xl border shadow bg-stone dark:bg-gray-800 overflow-hidden transition-transform duration-150 hover:bg-gray-50 active:scale-95"
       style={{
         transform: `translateX(${deltaX}px)`,
         transition: deltaX === 0 ? 'transform 0.2s' : 'none',
