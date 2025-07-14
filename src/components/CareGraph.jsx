@@ -18,18 +18,22 @@ export default function CareGraph({ events = [] }) {
   for (let d = 1; d <= daysInMonth; d++) cells.push(d)
 
   return (
-    <div role="grid" className="grid grid-cols-7 gap-1 text-center text-xs">
-      {cells.map((day, i) => (
-        <div
-          key={i}
-          role="gridcell"
-          className={`w-6 h-6 flex items-center justify-center rounded ${
-            day && eventDays.has(day) ? 'bg-blue-400 text-white' : 'bg-gray-100'
-          }`}
-        >
-          {day || ''}
-        </div>
-      ))}
+    <div className="bg-white rounded-xl p-2 shadow-sm inline-block">
+      <div role="grid" className="grid grid-cols-7 gap-1 text-center text-xs">
+        {cells.map((day, i) => (
+          <div
+            key={i}
+            role="gridcell"
+            className={`w-6 h-6 flex items-center justify-center rounded hover:bg-accent/80 ${
+              day && eventDays.has(day)
+                ? 'bg-accent text-white rounded-full'
+                : 'bg-sage'
+            }`}
+          >
+            {day || ''}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
