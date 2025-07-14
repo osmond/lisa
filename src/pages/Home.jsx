@@ -158,7 +158,9 @@ export default function Home() {
       {showSummary && (
         <CareSummaryModal tasks={tasks} onClose={() => setShowSummary(false)} />
       )}
-      {tasks.length > 0 && <hr className="my-4" />}
+      {tasks.length > 0 && (
+        <hr className="my-4 border-t border-neutral-200 dark:border-gray-600" />
+      )}
       <section className="space-y-4">
         <h2 className="font-semibold font-headline">Today’s Tasks</h2>
         <div className="space-y-4">
