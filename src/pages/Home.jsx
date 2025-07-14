@@ -56,9 +56,7 @@ export default function Home() {
   const dayOfYear = Math.floor(
     (new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000
   )
-  const featuredTask = waterTasks.length
-    ? waterTasks[dayOfYear % waterTasks.length]
-    : null
+  const featuredIndex = plants.length ? dayOfYear % plants.length : 0
 
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
@@ -81,7 +79,9 @@ export default function Home() {
         </p>
       <p className="text-sm text-gray-600 font-body mt-2">Hi Jon 🌿 Let’s check on your plants.</p>
     </header>
-    {featuredTask && <FeaturedCard task={featuredTask} />}
+    {plants.length > 0 && (
+      <FeaturedCard plants={plants} startIndex={featuredIndex} />
+    )}
     <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
       {totalWaterToday > 0 && (
         <div data-testid="water-progress" className="space-y-1 px-1">
