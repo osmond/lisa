@@ -7,7 +7,7 @@ import FadeInImage from '../components/FadeInImage.jsx'
 
 export function AllGallery() {
   const { plants, addPhoto } = usePlants()
-  const images = plants.flatMap(p => [p.image, ...(p.photos || [])])
+  const images = plants.flatMap(p => [p.image, ...(p.photos || []).map(ph => (typeof ph === 'object' ? ph.src : ph))])
   const [index, setIndex] = useState(null)
   const [selected, setSelected] = useState(plants[0]?.id || '')
   const [bouncing, setBouncing] = useState(false)
@@ -32,6 +32,9 @@ export function AllGallery() {
   return (
     <div>
       <h1 className="text-headline font-bold font-display mb-4">Gallery</h1>
+      <a href="/gallery/timeline" className="text-sm text-green-700 underline">
+        View by date
+      </a>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
         {images.map((src, i) => (
           <button key={i} onClick={() => setIndex(i)} className="focus:outline-none">
@@ -90,7 +93,7 @@ export function AllGallery() {
 
 export default function Gallery() {
   const { id } = useParams()
-  const { plants } = usePlants()
+  const { plants, updatePhoto } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
 
   if (!plant) {
@@ -99,6 +102,28 @@ export default function Gallery() {
 
   const photos = plant.photos || []
   const [index, setIndex] = useState(null)
+  const [editIndex, setEditIndex] = useState(null)
+  const [note, setNote] = useState('')
+  const [tags, setTags] = useState('')
+
+  const startEdit = i => {
+    const ph = photos[i] || {}
+    setNote(ph.note || '')
+    setTags((ph.tags || []).join(', '))
+    setEditIndex(i)
+  }
+
+  const handleSave = e => {
+    e.preventDefault()
+    updatePhoto(plant.id, editIndex, {
+      note,
+      tags: tags
+        .split(',')
+        .map(t => t.trim())
+        .filter(Boolean),
+    })
+    setEditIndex(null)
+  }
 
   return (
     <div className="space-y-4">
@@ -106,25 +131,30 @@ export default function Gallery() {
 
       {/* desktop grid */}
       <div className="hidden md:grid grid-cols-2 md:grid-cols-3 gap-4">
-        {photos.map((src, i) => (
-          <button
-            key={i}
-            onClick={() => setIndex(i)}
-            className="aspect-video overflow-hidden rounded-lg shadow-lg bg-gray-900 focus:outline-none"
-          >
-            <FadeInImage
+        {photos.map((ph, i) => {
+          const src = typeof ph === 'object' ? ph.src : ph
+          return (
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              className="aspect-video overflow-hidden rounded-lg shadow-lg bg-gray-900 focus:outline-none"
+            >
+              <FadeInImage
               src={src}
               alt={plant.name}
               loading="lazy"
               className="w-full h-full object-cover transition-transform transform hover:scale-105 active:scale-105"
             />
           </button>
-        ))}
+          )
+        })}
       </div>
 
       {/* mobile carousel */}
       <div className="flex md:hidden space-x-4 overflow-x-auto snap-x snap-mandatory">
-        {photos.map((src, i) => (
+        {photos.map((ph, i) => {
+          const src = typeof ph === 'object' ? ph.src : ph
+          return (
           <div key={i} className="snap-center shrink-0 w-full">
             <button
               onClick={() => setIndex(i)}
@@ -138,16 +168,61 @@ export default function Gallery() {
               />
             </button>
           </div>
-        ))}
+          )
+        })}
       </div>
       {index !== null && (
         <Lightbox
-          images={photos}
+          images={photos.map(ph => (typeof ph === 'object' ? ph.src : ph))}
           startIndex={index}
           onClose={() => setIndex(null)}
           label="Photo viewer"
         />
       )}
+
+      <div className="space-y-4 mt-4">
+        {photos.map((ph, i) => (
+          <div key={i} className="border p-2 rounded">
+            <div className="flex items-center gap-2">
+              <img
+                src={typeof ph === 'object' ? ph.src : ph}
+                alt={plant.name}
+                className="w-20 h-20 object-cover rounded"
+              />
+              <div className="flex-1">
+                {editIndex === i ? (
+                  <form onSubmit={handleSave} className="space-y-1">
+                    <textarea
+                      placeholder="Note"
+                      value={note}
+                      onChange={e => setNote(e.target.value)}
+                      className="w-full border rounded p-1 text-sm"
+                    ></textarea>
+                    <input
+                      placeholder="Tags (comma separated)"
+                      value={tags}
+                      onChange={e => setTags(e.target.value)}
+                      className="w-full border rounded p-1 text-sm"
+                    />
+                    <div className="flex gap-2 text-sm">
+                      <button type="submit" className="px-2 py-0.5 bg-green-600 text-white rounded">Save</button>
+                      <button type="button" onClick={() => setEditIndex(null)} className="px-2 py-0.5 border rounded">Cancel</button>
+                    </div>
+                  </form>
+                ) : (
+                  <div className="space-y-1 text-sm">
+                    {ph.note && <p>{ph.note}</p>}
+                    {ph.tags && ph.tags.length > 0 && (
+                      <p className="text-xs text-gray-500">{ph.tags.join(', ')}</p>
+                    )}
+                    <button type="button" onClick={() => startEdit(i)} className="text-xs text-green-600 underline">Edit</button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
 
     </div>
   )
