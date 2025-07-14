@@ -16,6 +16,7 @@ import {
 
 
 import SummaryStrip from '../components/SummaryStrip.jsx'
+import CareStats from '../components/CareStats.jsx'
 import FeaturedCard from '../components/FeaturedCard.jsx'
 
 
@@ -139,6 +140,12 @@ export default function Home() {
       fertCompleted={fertilizedTodayCount}
       fertTotal={totalFertilizeToday}
       onClick={() => setShowSummary(true)}
+    />
+    <CareStats
+      waterCompleted={wateredTodayCount}
+      waterTotal={totalWaterToday}
+      fertCompleted={fertilizedTodayCount}
+      fertTotal={totalFertilizeToday}
     />
       {showSummary && (
         <CareSummaryModal tasks={tasks} onClose={() => setShowSummary(false)} />
