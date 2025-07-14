@@ -5,7 +5,7 @@ import actionIcons from './ActionIcons.jsx'
 import { CheckCircle } from 'phosphor-react'
 import useRipple from '../utils/useRipple.js'
 
-export default function TaskCard({ task, onComplete, urgent = false }) {
+export default function TaskCard({ task, onComplete, urgent = false, overdue = false }) {
   const { markWatered, markFertilized } = usePlants()
   const Icon = actionIcons[task.type]
   const [checked, setChecked] = useState(false)
@@ -66,7 +66,7 @@ export default function TaskCard({ task, onComplete, urgent = false }) {
       }}
       onTouchMove={handlePointerMove}
       onTouchEnd={handlePointerEnd}
-      className={`relative flex items-center gap-3 p-3 rounded-xl border shadow bg-stone dark:bg-gray-800 overflow-hidden transition-transform duration-150 hover:bg-gray-50 active:scale-95 ${urgent ? 'ring-2 ring-green-300' : ''}`}
+      className={`relative flex items-center gap-3 p-3 rounded-xl border shadow bg-stone dark:bg-gray-800 overflow-hidden transition-transform duration-150 hover:bg-gray-50 active:scale-95 ${overdue ? 'ring-2 ring-orange-300' : urgent ? 'ring-2 ring-green-300' : ''}`}
       style={{
         transform: `translateX(${deltaX}px)`,
         transition: deltaX === 0 ? 'transform 0.2s' : 'none',
@@ -107,6 +107,14 @@ export default function TaskCard({ task, onComplete, urgent = false }) {
           aria-hidden="true"
           className={`w-6 h-6 ${checked ? 'text-green-500' : 'text-gray-400'}`}
         />
+        {overdue && (
+          <span
+            className="absolute -top-1 -right-1 bg-orange-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs"
+            data-testid="overdue-badge"
+          >
+            !
+          </span>
+        )}
       </button>
       {checked && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">

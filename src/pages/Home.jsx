@@ -56,7 +56,11 @@ export default function Home() {
         type: 'Water',
         reason,
         urgent: plantUrgent || date === todayIso,
+
         date,
+
+        overdue: date < todayIso,
+
       })
     }
     if (p.nextFertilize && p.nextFertilize <= todayIso) {
@@ -67,7 +71,11 @@ export default function Home() {
         image: p.image,
         type: 'Fertilize',
         urgent: plantUrgent || p.nextFertilize === todayIso,
+
         date: p.nextFertilize,
+
+        overdue: p.nextFertilize < todayIso,
+
       })
     }
   })
@@ -112,8 +120,9 @@ export default function Home() {
 
   return (
     <div className="space-y-8">
-      <header className="flex flex-col items-center text-center space-y-1">
-        <p className="text-xs text-gray-400 font-body flex items-center justify-center gap-1">
+      <header className="flex flex-col items-start text-left space-y-1">
+        <p className="text-base font-medium text-gray-600">Hi {username}, let’s check on your plants.</p>
+        <p className="text-xs text-gray-400 font-body flex items-center gap-1">
           {forecast && (() => {
             const Icon = weatherIcons[forecast.condition] || Sun
             return (
@@ -131,7 +140,6 @@ export default function Home() {
             </>
           )}
         </p>
-        <p className="text-base font-medium text-gray-600">Hi {username}, Let’s check on your plants.</p>
       </header>
     {plants.length > 0 && (
       <section>
@@ -154,7 +162,12 @@ export default function Home() {
         <div className="space-y-4">
           {tasks.length > 0 ? (
             tasks.map(task => (
-              <TaskCard key={task.id} task={task} urgent={task.urgent} />
+              <TaskCard
+                key={task.id}
+                task={task}
+                urgent={task.urgent}
+                overdue={task.overdue}
+              />
             ))
           ) : (
             <div className="text-sm text-gray-500 space-y-1 text-center flex flex-col items-center">

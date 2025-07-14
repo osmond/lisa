@@ -13,6 +13,7 @@ function StatBlock({ label, Icon, completed, total, ringClass }) {
   return (
     <div
       className="flex flex-col items-center"
+      style={{ width: size }}
       data-testid={`stat-${label.toLowerCase()}`}
       aria-label={ariaLabel}
     >
@@ -28,8 +29,8 @@ function StatBlock({ label, Icon, completed, total, ringClass }) {
         </div>
       </div>
       <div className="flex items-center gap-1 mt-1">
-        <Icon className="w-3.5 h-3.5 text-gray-500" aria-hidden="true" />
-        <span className="text-[11px] font-medium text-gray-600 font-body">
+        <Icon className="w-3.5 h-3.5 text-gray-600" aria-hidden="true" />
+        <span className="text-[11px] font-semibold text-gray-700 font-body">
           {label}
         </span>
       </div>
