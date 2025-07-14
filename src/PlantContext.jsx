@@ -15,10 +15,16 @@ export function PlantProvider({ children }) {
   }
 
   const [plants, setPlants] = useState(() => {
+    const mapPhoto = ph => {
+      if (ph && typeof ph === 'object') {
+        return { src: addBase(ph.src), note: ph.note || '', tags: ph.tags || [] }
+      }
+      return { src: addBase(ph), note: '', tags: [] }
+    }
     const mapPlant = p => ({
       ...p,
       image: addBase(p.image),
-      photos: (p.photos || p.gallery || []).map(addBase),
+      photos: (p.photos || p.gallery || []).map(mapPhoto),
       careLog: p.careLog || [],
     })
 
@@ -106,12 +112,29 @@ export function PlantProvider({ children }) {
   }
 
   const addPhoto = (id, url) => {
+    const photoObj = { src: url, note: '', tags: [] }
     setPlants(prev =>
       prev.map(p =>
         p.id === id
-          ? { ...p, photos: [...(p.photos || []), url] }
+          ? { ...p, photos: [...(p.photos || []), photoObj] }
           : p
       )
+    )
+  }
+
+  const updatePhoto = (id, index, updates) => {
+    setPlants(prev =>
+      prev.map(p => {
+        if (p.id === id) {
+          const photos = [...(p.photos || [])]
+          const current = photos[index]
+          if (!current) return p
+          const obj = typeof current === 'object' ? current : { src: current }
+          photos[index] = { ...obj, ...updates }
+          return { ...p, photos }
+        }
+        return p
+      })
     )
   }
 
@@ -137,6 +160,7 @@ export function PlantProvider({ children }) {
         updatePlant,
         removePlant,
         addPhoto,
+        updatePhoto,
         removePhoto,
       }}
     >

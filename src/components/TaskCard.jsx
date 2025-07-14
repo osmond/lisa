@@ -11,12 +11,25 @@ export default function TaskCard({ task, onComplete }) {
   const { markWatered } = usePlants()
   const Icon = actionIcons[task.type]
   const [checked, setChecked] = useState(false)
+  const [bouncing, setBouncing] = useState(false)
   const [, createRipple] = useRipple()
   const { timezone } = useWeather() || {}
   const tz = timezone || Intl.DateTimeFormat().resolvedOptions().timeZone
   const now = new Date(
     new Date().toLocaleString('en-US', { timeZone: tz })
   )
+
+  const daysDiff = task.date
+    ? Math.round((new Date(task.date) - now) / (1000 * 60 * 60 * 24))
+    : 0
+  const overdue = task.date && daysDiff < 0
+  const dueColor = task.date
+    ? daysDiff < 0
+      ? 'text-red-600'
+      : daysDiff <= 2
+      ? 'text-orange-600'
+      : 'text-green-600'
+    : ''
 
   const handleComplete = () => {
     if (onComplete) {
@@ -26,14 +39,21 @@ export default function TaskCard({ task, onComplete }) {
       markWatered(task.plantId, note)
     }
     setChecked(true)
-    setTimeout(() => setChecked(false), 400)
+    setBouncing(true)
+    setTimeout(() => {
+      setChecked(false)
+      setBouncing(false)
+    }, 400)
   }
 
   const pillColors = {
     Water: 'bg-blue-100 text-blue-700',
     Fertilize: 'bg-orange-100 text-orange-700',
+    Overdue: 'bg-red-100 text-red-700',
   }
-  const pillClass = pillColors[task.type] || 'bg-green-100 text-green-700'
+  const pillClass = overdue
+    ? pillColors.Overdue
+    : pillColors[task.type] || 'bg-green-100 text-green-700'
 
   return (
     <div
@@ -42,26 +62,15 @@ export default function TaskCard({ task, onComplete }) {
       onTouchStart={createRipple}
     >
       <Link to={`/plant/${task.plantId}`} className="flex items-center flex-1 gap-3">
-        <img src={task.image} alt={task.plantName} className="w-16 h-16 object-cover rounded" />
+        <img
+          src={task.image}
+          alt={task.plantName}
+          className={`w-16 h-16 object-cover rounded ${bouncing ? 'bounce-once' : ''}`}
+        />
         <div className="flex-1">
           <p className="font-medium">{task.type} {task.plantName}</p>
           {task.date && (
-            <p
-              className={`text-xs ${
-                (() => {
-                  const d = Math.round(
-                    (new Date(task.date) - now) / (1000 * 60 * 60 * 24)
-                  )
-                  return d < 0
-                    ? 'text-red-600'
-                    : d <= 2
-                    ? 'text-orange-600'
-                    : 'text-green-600'
-                })()
-              }`}
-            >
-              {relativeDate(task.date, now, tz)}
-            </p>
+            <p className={`text-xs ${dueColor}`}>{relativeDate(task.date, now, tz)}</p>
           )}
           {task.reason && (
             <p className="text-xs text-gray-500">{task.reason}</p>
