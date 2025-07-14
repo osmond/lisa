@@ -1,20 +1,40 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import FeaturedCard from '../FeaturedCard.jsx'
 
-const task = {
-  plantId: 1,
-  plantName: 'Aloe',
-  image: 'test.jpg',
-  type: 'Water',
-}
+beforeAll(() => {
+  if (typeof PointerEvent === 'undefined') {
+    window.PointerEvent = window.MouseEvent
+  }
+})
 
-test('shows featured label and plant name', () => {
+jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+
+const plants = [
+  { id: 1, name: 'Aloe', image: 'test.jpg', lastWatered: '2025-07-07', nextWater: '2025-07-10' },
+  { id: 2, name: 'Pothos', image: 'test2.jpg', lastWatered: '2025-07-08', nextWater: '2025-07-11' },
+]
+
+test('shows featured label and care summary', () => {
   render(
     <MemoryRouter>
-      <FeaturedCard task={task} />
+      <FeaturedCard plants={plants} />
     </MemoryRouter>
   )
   expect(screen.getByText('🪴 Plant of the Day')).toBeInTheDocument()
   expect(screen.getByText('Aloe')).toBeInTheDocument()
+  expect(screen.getByText('Last watered 3 days ago \u00B7 Needs water today')).toBeInTheDocument()
+})
+
+test('swipe changes plant', () => {
+  render(
+    <MemoryRouter>
+      <FeaturedCard plants={plants} />
+    </MemoryRouter>
+  )
+  const card = screen.getByTestId('featured-card')
+  fireEvent.pointerDown(card, { clientX: 100 })
+  fireEvent.pointerMove(card, { clientX: 20 })
+  fireEvent.pointerUp(card, { clientX: 20 })
+  expect(screen.getByText('Pothos')).toBeInTheDocument()
 })
