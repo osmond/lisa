@@ -11,7 +11,9 @@ import {
 } from 'phosphor-react'
 
 const iconProps = {
-  className: 'w-6 h-6 text-gray-500 dark:text-gray-400',
+  size: 20,
+  weight: 'regular',
+  className: 'text-gray-500 dark:text-gray-400',
   'aria-hidden': 'true',
 }
 export const WaterIcon = () => <Drop {...iconProps} />
