@@ -27,13 +27,19 @@ export default function PhotoTimeline() {
           <ul className="grid grid-cols-2 md:grid-cols-3 gap-2">
             {list.map((photo, i) => (
               <li key={i} className="flex flex-col items-start">
-                <FadeInImage
-                  src={photo.src}
-                  alt={`Photo from ${photo.date}`}
-                  loading="lazy"
-                  className="w-full h-32 object-cover rounded"
-                />
-                <span className="text-xs text-gray-500">{photo.date}</span>
+                <div className="relative group w-full" tabIndex="0">
+                  <FadeInImage
+                    src={photo.src}
+                    alt={`Photo from ${photo.date}`}
+                    loading="lazy"
+                    className="w-full h-32 object-cover rounded"
+                  />
+                  <span
+                    className="absolute inset-0 flex items-center justify-center bg-black/60 text-white text-xs opacity-0 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100 transition-opacity"
+                  >
+                    {photo.date}
+                  </span>
+                </div>
               </li>
             ))}
           </ul>

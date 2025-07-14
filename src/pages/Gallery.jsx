@@ -150,7 +150,7 @@ export default function Gallery() {
             <button
               key={i}
               onClick={() => setIndex(i)}
-              className="aspect-video overflow-hidden rounded-lg shadow-lg bg-gray-900 focus:outline-none"
+              className="relative group aspect-video overflow-hidden rounded-lg shadow-lg bg-gray-900 focus:outline-none"
             >
               <FadeInImage
               src={src}
@@ -158,7 +158,10 @@ export default function Gallery() {
               loading="lazy"
               className="w-full h-full object-cover transition-transform transform hover:scale-105 active:scale-105"
             />
-          </button>
+              <span className="absolute inset-0 flex items-center justify-center bg-black/60 text-white text-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100 transition-opacity">
+                {plant.name}
+              </span>
+            </button>
           )
         })}
       </div>
@@ -171,7 +174,7 @@ export default function Gallery() {
           <div key={i} className="snap-center shrink-0 w-full">
             <button
               onClick={() => setIndex(i)}
-              className="aspect-video overflow-hidden rounded-lg shadow-lg bg-gray-900 w-full h-full focus:outline-none"
+              className="relative group aspect-video overflow-hidden rounded-lg shadow-lg bg-gray-900 w-full h-full focus:outline-none"
             >
               <FadeInImage
                 src={src}
@@ -179,6 +182,9 @@ export default function Gallery() {
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform transform hover:scale-105 active:scale-105"
               />
+              <span className="absolute inset-0 flex items-center justify-center bg-black/60 text-white text-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100 transition-opacity">
+                {plant.name}
+              </span>
             </button>
           </div>
           )
