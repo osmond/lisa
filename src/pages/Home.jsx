@@ -14,12 +14,16 @@ export default function Home() {
   const { plants } = usePlants()
   const weatherCtx = useWeather()
   const forecast = weatherCtx?.forecast
+  const timezone = weatherCtx?.timezone
   const weatherData = { rainTomorrow: forecast?.rainfall || 0 }
 
-  const hour = new Date().getHours()
+  const now = new Date(
+    new Date().toLocaleString('en-US', { timeZone: timezone })
+  )
+  const hour = now.getHours()
   const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening'
 
-  const todayIso = new Date().toISOString().slice(0, 10)
+  const todayIso = now.toISOString().slice(0, 10)
   const waterTasks = []
   const fertilizeTasks = []
   plants.forEach(p => {
@@ -51,10 +55,11 @@ export default function Home() {
   const waterCount = waterTasks.length
   const fertilizeCount = fertilizeTasks.length
 
-  const today = new Date().toLocaleDateString(undefined, {
+  const today = now.toLocaleDateString(undefined, {
     weekday: 'long',
     month: 'long',
     day: 'numeric',
+    timeZone: timezone,
   })
 
 

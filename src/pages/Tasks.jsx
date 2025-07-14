@@ -8,6 +8,7 @@ export default function Tasks() {
   const { plants } = usePlants()
   const weatherCtx = useWeather()
   const weather = { rainTomorrow: weatherCtx?.forecast?.rainfall || 0 }
+  const timezone = weatherCtx?.timezone
 
   const events = useMemo(() => {
     const all = []
@@ -49,8 +50,11 @@ export default function Tasks() {
     <div className="overflow-y-auto max-h-full p-4">
       <ul className="relative border-l border-gray-300 pl-4 space-y-6">
         {events.map((e, i) => {
+          const now = new Date(
+            new Date().toLocaleString('en-US', { timeZone: timezone })
+          )
           const diff = Math.round(
-            (new Date(e.date) - new Date()) / (1000 * 60 * 60 * 24)
+            (new Date(e.date) - now) / (1000 * 60 * 60 * 24)
           )
           const overdue = e.type === 'task' && diff < 0
           const dueSoon = e.type === 'task' && diff >= 0 && diff <= 2
@@ -70,7 +74,7 @@ export default function Tasks() {
               <span
                 className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${dotColor}`}
               ></span>
-              <p className={`text-xs ${textColor}`}>{relativeDate(e.date)}</p>
+              <p className={`text-xs ${textColor}`}>{relativeDate(e.date, now, timezone)}</p>
               <p className={textColor}>{e.label}</p>
               {e.reason && (
                 <p className="text-xs text-gray-500">{e.reason}</p>
