@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from './ActionIcons.jsx'
+import { CheckCircle } from 'phosphor-react'
 import useRipple from '../utils/useRipple.js'
 
 export default function TaskCard({ task, onComplete }) {
@@ -52,32 +53,57 @@ export default function TaskCard({ task, onComplete }) {
       onPointerCancel={handlePointerEnd}
       onMouseMove={handlePointerMove}
       onMouseUp={handlePointerEnd}
-      onMouseDown={e => { createRipple(e); handlePointerDown(e) }}
-      onTouchStart={e => { createRipple(e); handlePointerDown(e) }}
+      onMouseDown={e => {
+        createRipple(e)
+        handlePointerDown(e)
+      }}
+      onTouchStart={e => {
+        createRipple(e)
+        handlePointerDown(e)
+      }}
       onTouchMove={handlePointerMove}
       onTouchEnd={handlePointerEnd}
-      className="relative flex items-center gap-3 p-4 rounded-2xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden transition-transform duration-150 hover:shadow-md active:scale-95"
-      style={{ transform: `translateX(${deltaX}px)`, transition: deltaX === 0 ? 'transform 0.2s' : 'none' }}
+      className="relative flex items-center gap-3 p-3 rounded-xl border shadow-sm bg-white dark:bg-gray-800 overflow-hidden transition-transform duration-150 hover:bg-gray-50 active:scale-95"
+      style={{
+        transform: `translateX(${deltaX}px)`,
+        transition: deltaX === 0 ? 'transform 0.2s' : 'none',
+      }}
     >
-      <Link to={`/plant/${task.plantId}`} className="flex items-center flex-1 gap-3">
-        <img src={task.image} alt={task.plantName} className="w-12 h-12 object-cover rounded" />
+      <Link
+        to={`/plant/${task.plantId}`}
+        className="flex items-center flex-1 gap-3"
+      >
+        <img
+          src={task.image}
+          alt={task.plantName}
+          className="w-12 h-12 object-cover rounded-md"
+        />
         <div className="flex-1">
-          <p className="font-medium">{task.plantName}</p>
-          <p className="text-xs text-gray-500">{task.type}</p>
+          <p className="font-semibold">{task.plantName}</p>
+          <p className="text-sm text-gray-500">{task.type}</p>
           {task.reason && (
             <p className="text-xs text-gray-500">{task.reason}</p>
           )}
         </div>
-        {Icon && <Icon />}
+        {Icon && <Icon aria-hidden="true" />}
       </Link>
       <button
         onMouseDown={createRipple}
         onTouchStart={createRipple}
         onClick={handleComplete}
-        className="ml-2 bg-green-100 text-green-700 px-3 py-1 rounded relative overflow-hidden"
+        className="ml-auto relative"
         aria-label="Mark complete"
       >
-        <input type="checkbox" checked={checked} readOnly className="task-checkbox" />
+        <input
+          type="checkbox"
+          checked={checked}
+          readOnly
+          className="sr-only task-checkbox"
+        />
+        <CheckCircle
+          aria-hidden="true"
+          className={`w-6 h-6 ${checked ? 'text-green-500' : 'text-gray-400'}`}
+        />
       </button>
       {checked && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
