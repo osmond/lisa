@@ -91,10 +91,16 @@ export default function TaskCard({ task, onComplete, urgent = false }) {
         {Icon && <Icon aria-hidden="true" />}
       </Link>
       <button
+        type="button"
         onMouseDown={createRipple}
         onTouchStart={createRipple}
+        onKeyDown={e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            createRipple(e)
+          }
+        }}
         onClick={handleComplete}
-        className="ml-auto relative"
+        className="ml-auto relative focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500"
         aria-label="Mark complete"
       >
         <input
