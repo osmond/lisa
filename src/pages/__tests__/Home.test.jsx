@@ -39,7 +39,7 @@ test('shows messages when there are no tasks', () => {
 
 test('summary items render when tasks exist', async () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
-  mockPlants.splice(0, mockPlants.length, {
+  global.mockPlants.splice(0, global.mockPlants.length, {
     id: 1,
     name: 'Plant A',
     image: 'a.jpg',
@@ -76,7 +76,7 @@ test('renders correct greeting icon for morning time', () => {
 test('progress updates when completing a task', async () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
   jest.spyOn(window, 'prompt').mockReturnValue('')
-  mockPlants.splice(0, mockPlants.length,
+  global.mockPlants.splice(0, global.mockPlants.length,
     { id: 1, name: 'A', image: 'a.jpg', lastWatered: '2025-07-03' }
   )
   const { findByRole } = render(
@@ -94,9 +94,10 @@ test('progress updates when completing a task', async () => {
 test('complete all marks every task', async () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
   jest.spyOn(window, 'prompt').mockReturnValue('')
-  mockPlants.splice(0, mockPlants.length,
-    { id: 1, name: 'A', image: 'a.jpg', lastWatered: '2025-07-03' },
-    { id: 2, name: 'B', image: 'b.jpg', lastWatered: '2025-07-03' }
+  mockForecast = { rainfall: 100 }
+  global.mockPlants.splice(0, global.mockPlants.length,
+    { id: 1, name: 'A', image: 'a.jpg', lastWatered: '2025-07-02' },
+    { id: 2, name: 'B', image: 'b.jpg', lastWatered: '2025-07-02' }
   )
 
 

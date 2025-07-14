@@ -137,16 +137,6 @@ const handleCompleteAll = type => {
         <p className="text-sm text-gray-500">{today}</p>
       </header>
 
-      <div className="flex justify-center space-x-3 overflow-x-auto py-2">
-        {plants.map(p => (
-          <img
-            key={p.id}
-            src={p.image}
-            alt={p.name}
-            className="w-32 h-32 object-cover rounded-lg flex-shrink-0"
-          />
-        ))}
-      </div>
 
       <PlantSpotlightCard plant={spotlightPlant} nextPlant={nextPlant} onSkip={handleSkip} />
 

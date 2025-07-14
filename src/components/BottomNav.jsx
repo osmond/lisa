@@ -12,6 +12,7 @@ const iconProps = {
   'aria-hidden': 'true',
 }
 
+
 const HomeIconComponent = ({ active, ...props }) => (
   <HouseSimple weight={active ? 'fill' : 'regular'} {...iconProps} {...props} />
 )
@@ -27,6 +28,7 @@ const GalleryIcon = ({ active, ...props }) => (
 const UserIcon = ({ active, ...props }) => (
   <User weight={active ? 'fill' : 'regular'} {...iconProps} {...props} />
 )
+
 
 
 export default function BottomNav({ dueCount = 0 }) {
