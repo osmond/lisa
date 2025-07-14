@@ -5,7 +5,7 @@ import actionIcons from './ActionIcons.jsx'
 import { CheckCircle } from 'phosphor-react'
 import useRipple from '../utils/useRipple.js'
 
-export default function TaskCard({ task, onComplete }) {
+export default function TaskCard({ task, onComplete, urgent = false }) {
   const { markWatered, markFertilized } = usePlants()
   const Icon = actionIcons[task.type]
   const [checked, setChecked] = useState(false)
@@ -66,7 +66,7 @@ export default function TaskCard({ task, onComplete }) {
       }}
       onTouchMove={handlePointerMove}
       onTouchEnd={handlePointerEnd}
-      className="relative flex items-center gap-3 p-3 rounded-xl border shadow bg-stone dark:bg-gray-800 overflow-hidden transition-transform duration-150 hover:bg-gray-50 active:scale-95"
+      className={`relative flex items-center gap-3 p-3 rounded-xl border shadow bg-stone dark:bg-gray-800 overflow-hidden transition-transform duration-150 hover:bg-gray-50 active:scale-95 ${urgent ? 'ring-2 ring-green-300' : ''}`}
       style={{
         transform: `translateX(${deltaX}px)`,
         transition: deltaX === 0 ? 'transform 0.2s' : 'none',

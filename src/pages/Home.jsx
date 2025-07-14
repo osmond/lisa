@@ -45,6 +45,7 @@ export default function Home() {
   const fertilizeTasks = []
   plants.forEach(p => {
     const { date, reason } = getNextWateringDate(p.lastWatered, weatherData)
+    const plantUrgent = p.urgency === 'high'
     if (date <= todayIso) {
       waterTasks.push({
         id: `w-${p.id}`,
@@ -53,6 +54,7 @@ export default function Home() {
         image: p.image,
         type: 'Water',
         reason,
+        urgent: plantUrgent || date === todayIso,
       })
     }
     if (p.nextFertilize && p.nextFertilize <= todayIso) {
@@ -62,6 +64,7 @@ export default function Home() {
         plantName: p.name,
         image: p.image,
         type: 'Fertilize',
+        urgent: plantUrgent || p.nextFertilize === todayIso,
       })
     }
   })
@@ -144,7 +147,9 @@ export default function Home() {
         <h2 className="font-semibold font-headline">Today’s Tasks</h2>
         <div className="space-y-4">
           {tasks.length > 0 ? (
-            tasks.map(task => <TaskCard key={task.id} task={task} />)
+            tasks.map(task => (
+              <TaskCard key={task.id} task={task} urgent={task.urgent} />
+            ))
           ) : (
             <div className="text-sm text-gray-500 space-y-1 text-center">
               <p>
