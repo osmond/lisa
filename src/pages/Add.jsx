@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
+import Button from "../components/Button.jsx"
 
 export default function Add() {
   const { addPlant } = usePlants()
@@ -65,12 +66,9 @@ export default function Add() {
           className="border rounded p-2"
         />
       </div>
-      <button
-        type="submit"
-        className="px-4 py-2 bg-green-600 text-white rounded"
-      >
+      <Button type="submit" className="px-4 py-2 bg-green-600 text-white">
         Add Plant
-      </button>
+      </Button>
     </form>
   )
 }

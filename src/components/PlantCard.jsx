@@ -4,6 +4,7 @@ import useRipple from '../utils/useRipple.js'
 import { usePlants } from '../PlantContext.jsx'
 import FadeInImage from './FadeInImage.jsx'
 import NoteModal from './NoteModal.jsx'
+import Button from "./Button.jsx"
 
 export default function PlantCard({ plant }) {
   const navigate = useNavigate()
@@ -83,31 +84,31 @@ export default function PlantCard({ plant }) {
         group-focus-within:opacity-100 group-focus-within:pointer-events-auto group-focus-within:animate-fade-in-up
         ${showActions ? 'opacity-100 pointer-events-auto animate-fade-in-up' : ''}`}
       >
-        <button
+        <Button
           onMouseDown={createRipple}
           onTouchStart={createRipple}
           onClick={handleWatered}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 pointer-events-auto relative overflow-hidden"
         >
           Water
-        </button>
+        </Button>
         <div className="flex gap-2">
-          <button
+          <Button
             onMouseDown={createRipple}
             onTouchStart={createRipple}
             onClick={() => navigate(`/plant/${plant.id}/edit`)}
-            className="bg-blue-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
+            className="bg-blue-600 text-white px-2 py-1 pointer-events-auto relative overflow-hidden"
           >
             Edit
-          </button>
-          <button
+          </Button>
+          <Button
             onMouseDown={createRipple}
             onTouchStart={createRipple}
             onClick={handleDelete}
-            className="bg-red-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
+            className="bg-red-600 text-white px-2 py-1 pointer-events-auto relative overflow-hidden"
           >
             Delete
-          </button>
+          </Button>
         </div>
       </div>
       <div
@@ -126,14 +127,14 @@ export default function PlantCard({ plant }) {
         </Link>
         <p className="text-sm text-gray-600 dark:text-gray-400">Last watered: {plant.lastWatered}</p>
         <p className="text-sm text-green-700 font-medium">Next: {plant.nextWater}</p>
-        <button
+        <Button
           onMouseDown={createRipple}
           onTouchStart={createRipple}
           onClick={handleWatered}
-          className="mt-2 px-3 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200 transition relative overflow-hidden"
+          className="mt-2 px-3 py-1 bg-green-100 text-green-700 hover:bg-green-200 transition relative overflow-hidden"
         >
           Watered
-        </button>
+        </Button>
       </div>
       {showNoteModal && (
         <NoteModal onSave={handleNoteSave} onClose={() => setShowNoteModal(false)} />

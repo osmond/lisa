@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
+import Button from "../components/Button.jsx"
 
 export default function EditPlant() {
   const { id } = useParams()
@@ -76,12 +77,9 @@ export default function EditPlant() {
           className="border rounded p-2"
         />
       </div>
-      <button
-        type="submit"
-        className="px-4 py-2 bg-green-600 text-white rounded"
-      >
+      <Button type="submit" className="px-4 py-2 bg-green-600 text-white">
         Save Changes
-      </button>
+      </Button>
     </form>
   )
 }

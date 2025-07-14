@@ -1,5 +1,6 @@
 import TaskCard from '../components/TaskCard.jsx'
 import { useState, useEffect } from 'react'
+import Button from "../components/Button.jsx"
 import { usePlants } from '../PlantContext.jsx'
 
 import { useWeather } from '../WeatherContext.jsx'
@@ -150,9 +151,9 @@ const handleCompleteAll = type => {
           {waterTasks.length > 0 ? (
             <>
               {waterTasks.length > 1 && (
-                <button type="button" onClick={() => handleCompleteAll('Water')} className="text-xs text-green-700 underline">
+                <Button type="button" onClick={() => handleCompleteAll('Water')} className="text-xs text-green-700 underline">
                   Complete All
-                </button>
+                </Button>
               )}
               {waterTasks.map(task => (
                 <TaskCard key={task.id} task={task} onComplete={handleTaskComplete} />
@@ -169,9 +170,9 @@ const handleCompleteAll = type => {
           {fertilizeTasks.length > 0 ? (
             <>
               {fertilizeTasks.length > 1 && (
-                <button type="button" onClick={() => handleCompleteAll('Fertilize')} className="text-xs text-green-700 underline">
+                <Button type="button" onClick={() => handleCompleteAll('Fertilize')} className="text-xs text-green-700 underline">
                   Complete All
-                </button>
+                </Button>
               )}
               {fertilizeTasks.map(task => (
                 <TaskCard key={task.id} task={task} onComplete={handleTaskComplete} />

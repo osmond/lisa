@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
+import Button from "../components/Button.jsx"
 
 export default function MyPlants() {
   const { plants } = usePlants()
@@ -49,14 +50,14 @@ export default function MyPlants() {
 
       <div className="flex justify-center gap-2 mb-4">
         {['Sites', 'Plants', 'Pictures'].map(v => (
-          <button
+          <Button
             key={v}
             type="button"
             onClick={() => setView(v)}
             className={`px-3 py-1 rounded-full text-sm ${view === v ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700'}`}
           >
             {v}
-          </button>
+          </Button>
         ))}
       </div>
 

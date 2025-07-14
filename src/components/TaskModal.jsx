@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
+import Button from "./Button.jsx"
 export default function TaskModal({ onSave, onClose }) {
   const [amount, setAmount] = useState('')
   const [note, setNote] = useState('')
@@ -52,8 +53,12 @@ export default function TaskModal({ onSave, onClose }) {
           />
         </div>
         <div className="flex justify-end gap-2">
-          <button type="button" onClick={onClose} className="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700">Cancel</button>
-          <button type="submit" className="px-3 py-1 rounded bg-green-600 text-white">Save</button>
+          <Button type="button" onClick={onClose} className="px-3 py-1 bg-gray-200 dark:bg-gray-700">
+            Cancel
+          </Button>
+          <Button type="submit" className="px-3 py-1 bg-green-600 text-white">
+            Save
+          </Button>
         </div>
       </form>
     </div>
