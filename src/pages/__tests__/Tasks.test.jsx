@@ -1,37 +1,84 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import Tasks from '../Tasks.jsx'
 
-const samplePlants = [
-  {
-    id: 1,
-    name: 'Plant A',
-    lastWatered: '2025-07-10',
-    activity: ['Repotted'],
-  },
-  {
-    id: 2,
-    name: 'Plant B',
-    lastWatered: '2025-07-08',
-    activity: ['Watered on 2025-07-10'],
-  },
-]
-
-jest.mock('../../PlantContext.jsx', () => ({
-  usePlants: () => ({ plants: samplePlants }),
-}))
-
 jest.mock('../../WeatherContext.jsx', () => ({
-  useWeather: () => ({ forecast: { rainfall: 0 } }),
+  useWeather: () => ({ forecast: { rainfall: 0 }, timezone: 'UTC' }),
 }))
 
-test('ignores activities without valid dates when generating events', () => {
-  render(<Tasks />)
+let mockPlants = []
+jest.mock('../../PlantContext.jsx', () => ({
+  usePlants: () => ({ plants: mockPlants }),
+}))
 
-  expect(screen.queryByText(/Repotted/)).toBeNull()
+beforeEach(() => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+  mockPlants = [
+    {
+      id: 1,
+      name: 'Fern',
+      image: 'a.jpg',
+      lastWatered: '2025-07-01',
+      urgency: 'overdue',
+      type: 'fern',
+    },
+    {
+      id: 2,
+      name: 'Aloe',
+      image: 'b.jpg',
+      lastWatered: '2025-07-03',
+      urgency: 'high',
+      type: 'succulent',
+    },
+    {
+      id: 3,
+      name: 'Palm',
+      image: 'c.jpg',
+      lastWatered: '2025-07-05',
+      urgency: 'low',
+      type: 'fern',
+    },
+  ]
+})
 
-  const items = screen.getAllByRole('listitem')
-  expect(items).toHaveLength(3)
-  expect(items[0]).toHaveTextContent('Plant B: Watered on 2025-07-10')
-  expect(items[1]).toHaveTextContent('Water Plant B')
-  expect(items[2]).toHaveTextContent('Water Plant A')
+afterEach(() => {
+  jest.useRealTimers()
+})
+
+test('groups tasks by date', () => {
+  render(
+    <MemoryRouter>
+      <Tasks />
+    </MemoryRouter>
+  )
+
+  expect(screen.getByRole('heading', { name: /needs attention/i })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: /today/i })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: /upcoming/i })).toBeInTheDocument()
+
+  const needs = screen.getByRole('heading', { name: /needs attention/i }).nextSibling
+  expect(needs).toHaveTextContent('Water Fern')
+  const today = screen.getByRole('heading', { name: /today/i }).nextSibling
+  expect(today).toHaveTextContent('Water Aloe')
+  const upcoming = screen.getByRole('heading', { name: /upcoming/i }).nextSibling
+  expect(upcoming).toHaveTextContent('Water Palm')
+})
+
+test('filters tasks by urgency and type', () => {
+  render(
+    <MemoryRouter>
+      <Tasks />
+    </MemoryRouter>
+  )
+  const selects = screen.getAllByRole('combobox')
+  // first select is urgency
+  fireEvent.change(selects[0], { target: { value: 'overdue' } })
+
+  expect(screen.getByText('Water Fern')).toBeInTheDocument()
+  expect(screen.queryByText('Water Aloe')).toBeNull()
+
+  // second select is type
+  fireEvent.change(selects[1], { target: { value: 'fern' } })
+  expect(screen.getByText('Water Fern')).toBeInTheDocument()
+  expect(screen.queryByText('Water Palm')).toBeNull()
 })

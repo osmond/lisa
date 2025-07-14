@@ -1,21 +1,28 @@
 import TaskCard from '../components/TaskCard.jsx'
+import { useState } from 'react'
 import { usePlants } from '../PlantContext.jsx'
+import { useState, useEffect } from 'react'
 
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
 
 import { Sun, CloudSun, Moon } from 'phosphor-react'
+import PlantSpotlightCard from '../components/PlantSpotlightCard.jsx'
 
 import SummaryStrip from '../components/SummaryStrip.jsx'
+import ProgressRing from '../components/ProgressRing.jsx'
 
 
 
 export default function Home() {
-  const { plants } = usePlants()
+  const { plants, markWatered } = usePlants()
   const weatherCtx = useWeather()
   const forecast = weatherCtx?.forecast
   const timezone = weatherCtx?.timezone
   const weatherData = { rainTomorrow: forecast?.rainfall || 0 }
+
+  const [completedCount, setCompletedCount] = useState(0)
+  const [totalCount, setTotalCount] = useState(0)
 
   const now = new Date(
     new Date().toLocaleString('en-US', { timeZone: timezone })
@@ -59,9 +66,44 @@ export default function Home() {
     }
   })
   const tasks = [...waterTasks, ...fertilizeTasks]
-  const totalCount = tasks.length
   const waterCount = waterTasks.length
   const fertilizeCount = fertilizeTasks.length
+
+
+  const showRainSuggestion =
+    (forecast?.rainfall || 0) > 50 ||
+    waterTasks.some(t => t.reason === 'rain expected tomorrow')
+
+
+  useEffect(() => {
+    setTotalCount(waterCount + fertilizeCount + completedCount)
+  }, [waterCount, fertilizeCount, completedCount])
+
+  const handleTaskComplete = task => {
+    if (task.type === 'Water') {
+      const note = window.prompt('Optional note') || ''
+      markWatered(task.plantId, note)
+    }
+    setCompletedCount(c => c + 1)
+  }
+
+  const handleCompleteAll = type => {
+    const list = type === 'Water' ? waterTasks : fertilizeTasks
+    list.slice().forEach(t => handleTaskComplete(t))
+
+  const [focusIndex, setFocusIndex] = useState(() =>
+    plants.length > 0 ? now.getDate() % plants.length : 0
+  )
+  const spotlightPlant = plants[focusIndex]
+  const nextPlant = plants.length > 1 ? plants[(focusIndex + 1) % plants.length] : null
+
+  const handleSkip = () => {
+    if (plants.length > 0) {
+      setFocusIndex((focusIndex + 1) % plants.length)
+    }
+
+  }
+
 
   const today = now.toLocaleDateString(undefined, {
     weekday: 'long',
@@ -86,25 +128,46 @@ export default function Home() {
         <p className="flex items-center text-sm text-gray-600">
           <CloudSun className="w-5 h-5 mr-1 text-green-600" />
           {forecast ? `${forecast.temp} - ${forecast.condition}` : 'Loading...'}
+          {showRainSuggestion && (
+            <span className="ml-2" aria-label="rain forecasted">
+              💧Skip watering if it rains tomorrow
+            </span>
+          )}
         </p>
         <p className="text-sm text-gray-500">{today}</p>
       </header>
-      <div className="flex space-x-3 overflow-x-auto py-2">
+
+      <div className="flex justify-center space-x-3 overflow-x-auto py-2">
         {plants.map(p => (
           <img
             key={p.id}
             src={p.image}
             alt={p.name}
-            className="w-24 h-24 object-cover rounded-lg flex-shrink-0"
+            className="w-32 h-32 object-cover rounded-lg flex-shrink-0"
           />
         ))}
       </div>
+
+      <PlantSpotlightCard plant={spotlightPlant} nextPlant={nextPlant} onSkip={handleSkip} />
+
       <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
+      <div className="flex justify-center">
+        <ProgressRing completed={completedCount} total={totalCount} />
+      </div>
       <section>
         <h2 className="font-semibold font-display text-subhead mb-2">Watering</h2>
         <div className="space-y-4 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl">
           {waterTasks.length > 0 ? (
-            waterTasks.map(task => <TaskCard key={task.id} task={task} />)
+            <>
+              {waterTasks.length > 1 && (
+                <button type="button" onClick={() => handleCompleteAll('Water')} className="text-xs text-green-700 underline">
+                  Complete All
+                </button>
+              )}
+              {waterTasks.map(task => (
+                <TaskCard key={task.id} task={task} onComplete={handleTaskComplete} />
+              ))}
+            </>
           ) : (
             <p className="text-sm text-gray-500">No watering needed</p>
           )}
@@ -114,7 +177,16 @@ export default function Home() {
         <h2 className="font-semibold font-display text-subhead mb-2 mt-4">Fertilizing</h2>
         <div className="space-y-4 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl">
           {fertilizeTasks.length > 0 ? (
-            fertilizeTasks.map(task => <TaskCard key={task.id} task={task} />)
+            <>
+              {fertilizeTasks.length > 1 && (
+                <button type="button" onClick={() => handleCompleteAll('Fertilize')} className="text-xs text-green-700 underline">
+                  Complete All
+                </button>
+              )}
+              {fertilizeTasks.map(task => (
+                <TaskCard key={task.id} task={task} onComplete={handleTaskComplete} />
+              ))}
+            </>
           ) : (
             <p className="text-sm text-gray-500">No fertilizing needed</p>
           )}
