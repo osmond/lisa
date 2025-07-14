@@ -261,6 +261,8 @@ export default function PlantDetail() {
           </Button>
         </div>
 
+        </div>
+
         <div className="mt-2">
           <div
             role="group"
@@ -278,6 +280,9 @@ export default function PlantDetail() {
               type="button"
               onClick={handleLogEvent}
               aria-label="Log note"
+
+  
+
               className="flex-1 px-3 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               Add Note
@@ -453,6 +458,7 @@ export default function PlantDetail() {
                 </div>
                 {timelineTab === 'list' ? (
 
+
                   groupedEvents.map(([monthKey, list]) => {
                     const isOpen = openMonths[monthKey]
                     return (
@@ -471,6 +477,7 @@ export default function PlantDetail() {
                           </button>
                         </h3>
                         {isOpen && (
+
                           <ul className="relative border-l border-gray-300 pl-4 space-y-6">
                             {list.map((e, i) => {
                               const Icon = actionIcons[e.type]
@@ -492,11 +499,50 @@ export default function PlantDetail() {
                               )
                             })}
                           </ul>
-                        )}
-                      </div>
-                    )
-                  })
-
+                        </div>
+                      ))
+                    : groupedEvents.map(([monthKey, list]) => {
+                        const isOpen = openMonths[monthKey]
+                        return (
+                          <div key={monthKey}>
+                            <h3 className="sticky top-0 bg-stone z-10 mt-4 text-label font-semibold text-gray-500">
+                              <button
+                                type="button"
+                                className="w-full flex justify-between items-center py-2"
+                                aria-expanded={isOpen}
+                                onClick={() =>
+                                  setOpenMonths(prev => ({ ...prev, [monthKey]: !prev[monthKey] }))
+                                }
+                              >
+                                {formatMonth(monthKey)} <span>{isOpen ? '-' : '+'}</span>
+                              </button>
+                            </h3>
+                            {isOpen && (
+                              <ul className="relative border-l border-gray-300 pl-4 space-y-6">
+                                {list.map((e, i) => {
+                                  const Icon = actionIcons[e.type]
+                                  return (
+                                    <li key={`${e.date}-${i}`} className="relative">
+                                      <span
+                                        className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
+                                      ></span>
+                                      <p className="text-xs text-gray-500">{e.date}</p>
+                                      <p className="flex items-center gap-1">
+                                        {Icon && <Icon />}
+                                        {e.label}
+                                      </p>
+                                      {e.note && (
+                                        <p className="text-xs text-gray-500 italic">{e.note}</p>
+                                      )}
+                                      {e.mood && <p className="text-xs">{e.mood}</p>}
+                                    </li>
+                                  )
+                                })}
+                              </ul>
+                            )}
+                          </div>
+                        )
+                      })
                 ) : (
                   <CareGraph events={wateringEvents} />
                 )}
