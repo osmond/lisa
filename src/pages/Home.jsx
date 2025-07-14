@@ -1,6 +1,8 @@
 import TaskCard from '../components/TaskCard.jsx'
 import HeroTaskCard from '../components/HeroTaskCard.jsx'
 import { usePlants } from '../PlantContext.jsx'
+import { useState } from 'react'
+import confetti from 'canvas-confetti'
 
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
@@ -13,6 +15,7 @@ import SummaryStrip from '../components/SummaryStrip.jsx'
 
 export default function Home() {
   const { plants } = usePlants()
+  const [completedIds, setCompletedIds] = useState([])
   const username = 'Kay'
   const weatherCtx = useWeather()
   const forecast = weatherCtx?.forecast
@@ -45,8 +48,23 @@ export default function Home() {
   })
   const tasks = [...waterTasks, ...fertilizeTasks]
   const totalCount = tasks.length
-  const waterCount = waterTasks.length
-  const fertilizeCount = fertilizeTasks.length
+  const completedCount = completedIds.length
+
+  const handleTaskComplete = task => {
+    setCompletedIds(prev =>
+      prev.includes(task.id) ? prev : [...prev, task.id]
+    )
+  }
+
+  const handleCompleteAll = () => {
+    if (completedIds.length === totalCount) return
+    setCompletedIds(tasks.map(t => t.id))
+    try {
+      confetti()
+    } catch {
+      /* ignore */
+    }
+  }
 
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
@@ -67,16 +85,22 @@ export default function Home() {
         </p>
         <p className="font-display">Hi, {username}. Let’s check on your plants 🌱</p>
       </header>
-      <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
+      <SummaryStrip completed={completedCount} total={totalCount} />
       <section>
         <h2 className="font-semibold font-display mb-2">Today’s Tasks</h2>
         <div className="space-y-4">
           {tasks.length > 0 ? (
             <>
-              <HeroTaskCard task={tasks[0]} />
+              <HeroTaskCard task={tasks[0]} onComplete={handleTaskComplete} />
               {tasks.slice(1).map(task => (
-                <TaskCard key={task.id} task={task} />
+                <TaskCard key={task.id} task={task} onComplete={handleTaskComplete} />
               ))}
+              <button
+                onClick={handleCompleteAll}
+                className="w-full bg-green-600 text-white py-2 rounded"
+              >
+                Complete All
+              </button>
             </>
           ) : (
             <p className="text-sm text-gray-500">All plants are happy today!</p>

@@ -21,7 +21,7 @@ test('shows upbeat message when there are no tasks', () => {
   expect(screen.getByText(/all plants are happy/i)).toBeInTheDocument()
 })
 
-test('summary items render when tasks exist', () => {
+test('summary progress renders when tasks exist', () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
   mockPlants.splice(0, mockPlants.length, {
     id: 1,
@@ -37,8 +37,8 @@ test('summary items render when tasks exist', () => {
     </MemoryRouter>
   )
 
-  expect(screen.getByTestId('summary-total')).toHaveTextContent('2')
-  expect(screen.getByTestId('summary-water')).toHaveTextContent('1')
-  expect(screen.getByTestId('summary-fertilize')).toHaveTextContent('1')
+  expect(screen.getByTestId('summary-progress')).toHaveTextContent(
+    '0 of 2 plants watered today'
+  )
 })
 
