@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import Home from './pages/Home'
 import MyPlants from './pages/MyPlants'
 import Tasks from './pages/Tasks'
+import CareView from './pages/CareView'
 import Add from './pages/Add'
 import Gallery, { AllGallery } from './pages/Gallery'
 import Settings from './pages/Settings'
@@ -30,6 +31,7 @@ export default function App() {
           <div ref={nodeRef}>
             <Routes location={location}>
             <Route path="/" element={<Home />} />
+            <Route path="/care" element={<CareView />} />
             <Route path="/myplants" element={<MyPlants />} />
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/add" element={<Add />} />
