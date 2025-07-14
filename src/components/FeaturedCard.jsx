@@ -6,7 +6,9 @@ export default function FeaturedCard({ task }) {
     <Link
       to={`/plant/${task.plantId}`}
       data-testid="featured-card"
-      className="relative block overflow-hidden rounded-2xl shadow-sm"
+
+      className="block overflow-hidden rounded-2xl shadow bg-sage dark:bg-gray-800"
+
     >
       <img
         src={task.image}
