@@ -12,9 +12,12 @@ export default function PlantDetail() {
   const { plants, addPhoto, removePhoto, markWatered, logEvent } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
 
-  const sectionNames = ['activity', 'notes', 'care', 'timeline']
+  const sectionNames = ['info', 'timeline']
+  const tabNames = ['activity', 'notes', 'care']
   const sectionRefs = useRef([])
-  const [openSection, setOpenSection] = useState('activity')
+  const tabRefs = useRef([])
+  const [openSection, setOpenSection] = useState('info')
+  const [activeTab, setActiveTab] = useState('activity')
   const [showMore, setShowMore] = useState(false)
   const fileInputRef = useRef()
   const [toast, setToast] = useState('')
@@ -87,6 +90,16 @@ export default function PlantDetail() {
       const nextIndex = (index + dir + sectionNames.length) % sectionNames.length
       setOpenSection(sectionNames[nextIndex])
       sectionRefs.current[nextIndex]?.focus()
+    }
+  }
+
+  const handleTabKeyDown = (e, index) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      e.preventDefault()
+      const dir = e.key === 'ArrowRight' ? 1 : -1
+      const nextIndex = (index + dir + tabNames.length) % tabNames.length
+      setActiveTab(tabNames[nextIndex])
+      tabRefs.current[nextIndex]?.focus()
     }
   }
 
@@ -202,106 +215,107 @@ export default function PlantDetail() {
 
         <div className="space-y-2 mt-4 divide-y divide-gray-200 rounded-xl shadow-sm bg-stone">
           <div>
-            <h3 id="activity-header">
+            <h3 id="info-header">
               <button
                 ref={el => (sectionRefs.current[0] = el)}
-                aria-expanded={openSection === 'activity'}
-                aria-controls="activity-panel"
+                aria-expanded={openSection === 'info'}
+                aria-controls="info-panel"
                 className="w-full text-left flex justify-between items-center p-2 text-subhead"
                 onClick={() =>
-                  setOpenSection(openSection === 'activity' ? null : 'activity')
+                  setOpenSection(openSection === 'info' ? null : 'info')
                 }
                 onKeyDown={e => handleKeyDown(e, 0)}
               >
-                Activity
-                <span>{openSection === 'activity' ? '-' : '+'}</span>
+                Details
+                <span>{openSection === 'info' ? '-' : '+'}</span>
               </button>
             </h3>
-            {openSection === 'activity' && (
+            {openSection === 'info' && (
               <div
-                id="activity-panel"
+                id="info-panel"
                 role="region"
-                aria-labelledby="activity-header"
+                aria-labelledby="info-header"
                 className="p-4 pb-4"
               >
-                <ul className="list-disc pl-4 space-y-1">
-                  {(plant.careLog || []).map((ev, i) => (
-                    <li key={i}>
-                      {ev.type} on {ev.date}
-                      {ev.note ? ` - ${ev.note}` : ''}
-                      {ev.mood ? ` (${ev.mood})` : ''}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-
-          <div>
-            <h3 id="notes-header">
-              <button
-                ref={el => (sectionRefs.current[1] = el)}
-                aria-expanded={openSection === 'notes'}
-                aria-controls="notes-panel"
-                className="w-full text-left flex justify-between items-center p-2 text-subhead"
-                onClick={() =>
-                  setOpenSection(openSection === 'notes' ? null : 'notes')
-                }
-                onKeyDown={e => handleKeyDown(e, 1)}
-              >
-                Notes
-                <span>{openSection === 'notes' ? '-' : '+'}</span>
-              </button>
-            </h3>
-            {openSection === 'notes' && (
-              <div
-                id="notes-panel"
-                role="region"
-                aria-labelledby="notes-header"
-                className="p-4 pb-4 shadow-sm bg-stone rounded"
-              >
-                {plant.notes
-                  ? showMore
-                    ? plant.notes
-                    : plant.notes.slice(0, 160)
-                  : 'No notes yet.'}
-                {plant.notes && plant.notes.length > 160 && (
+                <div role="tablist" aria-label="Plant info" className="flex gap-2 mb-2">
                   <button
-                    type="button"
-                    onClick={() => setShowMore(!showMore)}
-                    className="ml-2 text-green-600 underline"
+                    ref={el => (tabRefs.current[0] = el)}
+                    id="activity-tab"
+                    role="tab"
+                    aria-selected={activeTab === 'activity'}
+                    aria-controls="activity-panel"
+                    className={`px-2 py-1 rounded ${activeTab === 'activity' ? 'bg-green-600 text-white' : 'bg-white text-black'}`}
+                    onClick={() => setActiveTab('activity')}
+                    onKeyDown={e => handleTabKeyDown(e, 0)}
                   >
-                    {showMore ? 'Show less' : 'Show more'}
+                    Activity
                   </button>
+                  <button
+                    ref={el => (tabRefs.current[1] = el)}
+                    id="notes-tab"
+                    role="tab"
+                    aria-selected={activeTab === 'notes'}
+                    aria-controls="notes-panel"
+                    className={`px-2 py-1 rounded ${activeTab === 'notes' ? 'bg-green-600 text-white' : 'bg-white text-black'}`}
+                    onClick={() => setActiveTab('notes')}
+                    onKeyDown={e => handleTabKeyDown(e, 1)}
+                  >
+                    Notes
+                  </button>
+                  <button
+                    ref={el => (tabRefs.current[2] = el)}
+                    id="care-tab"
+                    role="tab"
+                    aria-selected={activeTab === 'care'}
+                    aria-controls="care-panel"
+                    className={`px-2 py-1 rounded ${activeTab === 'care' ? 'bg-green-600 text-white' : 'bg-white text-black'}`}
+                    onClick={() => setActiveTab('care')}
+                    onKeyDown={e => handleTabKeyDown(e, 2)}
+                  >
+                    Advanced
+                  </button>
+                </div>
+                {activeTab === 'activity' && (
+                  <div id="activity-panel" role="tabpanel" aria-labelledby="activity-tab">
+                    <ul className="list-disc pl-4 space-y-1">
+                      {(plant.careLog || []).map((ev, i) => (
+                        <li key={i}>
+                          {ev.type} on {ev.date}
+                          {ev.note ? ` - ${ev.note}` : ''}
+                          {ev.mood ? ` (${ev.mood})` : ''}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
-              </div>
-            )}
-          </div>
-
-          <div>
-            <h3 id="care-header">
-              <button
-                ref={el => (sectionRefs.current[2] = el)}
-                aria-expanded={openSection === 'care'}
-                aria-controls="care-panel"
-                className="w-full text-left flex justify-between items-center p-2 text-subhead"
-                onClick={() =>
-                  setOpenSection(openSection === 'care' ? null : 'care')
-                }
-                onKeyDown={e => handleKeyDown(e, 2)}
-              >
-                Advanced
-                <span>{openSection === 'care' ? '-' : '+'}</span>
-              </button>
-            </h3>
-            {openSection === 'care' && (
-              <div
-                id="care-panel"
-                role="region"
-                aria-labelledby="care-header"
-                className="p-4 pb-4"
-              >
-                {plant.advancedCare || 'No advanced care info.'}
+                {activeTab === 'notes' && (
+                  <div
+                    id="notes-panel"
+                    role="tabpanel"
+                    aria-labelledby="notes-tab"
+                    className="shadow-sm bg-stone rounded"
+                  >
+                    {plant.notes
+                      ? showMore
+                        ? plant.notes
+                        : plant.notes.slice(0, 160)
+                      : 'No notes yet.'}
+                    {plant.notes && plant.notes.length > 160 && (
+                      <button
+                        type="button"
+                        onClick={() => setShowMore(!showMore)}
+                        className="ml-2 text-green-600 underline"
+                      >
+                        {showMore ? 'Show less' : 'Show more'}
+                      </button>
+                    )}
+                  </div>
+                )}
+                {activeTab === 'care' && (
+                  <div id="care-panel" role="tabpanel" aria-labelledby="care-tab">
+                    {plant.advancedCare || 'No advanced care info.'}
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -309,14 +323,14 @@ export default function PlantDetail() {
           <div>
             <h3 id="timeline-header">
               <button
-                ref={el => (sectionRefs.current[3] = el)}
+                ref={el => (sectionRefs.current[1] = el)}
                 aria-expanded={openSection === 'timeline'}
                 aria-controls="timeline-panel"
                 className="w-full text-left flex justify-between items-center p-2 text-subhead"
                 onClick={() =>
                   setOpenSection(openSection === 'timeline' ? null : 'timeline')
                 }
-                onKeyDown={e => handleKeyDown(e, 3)}
+                onKeyDown={e => handleKeyDown(e, 1)}
               >
                 Timeline
                 <span>{openSection === 'timeline' ? '-' : '+'}</span>

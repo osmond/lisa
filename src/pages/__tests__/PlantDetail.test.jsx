@@ -35,22 +35,34 @@ test('accordion keyboard navigation works', () => {
     </PlantProvider>
   )
 
-  const buttons = [
-    screen.getByRole('button', { name: /Activity/ }),
-    screen.getByRole('button', { name: /Notes/ }),
-    screen.getByRole('button', { name: /Advanced/ }),
+  const accordionButtons = [
+    screen.getByRole('button', { name: /Details/ }),
     screen.getByRole('button', { name: /Timeline/ }),
   ]
 
-  expect(buttons[0]).toHaveAttribute('aria-expanded', 'true')
-  expect(buttons[1]).toHaveAttribute('aria-expanded', 'false')
+  expect(accordionButtons[0]).toHaveAttribute('aria-expanded', 'true')
+  expect(accordionButtons[1]).toHaveAttribute('aria-expanded', 'false')
 
-  buttons[0].focus()
-  fireEvent.keyDown(buttons[0], { key: 'ArrowDown' })
+  accordionButtons[0].focus()
+  fireEvent.keyDown(accordionButtons[0], { key: 'ArrowDown' })
 
-  expect(buttons[0]).toHaveAttribute('aria-expanded', 'false')
-  expect(buttons[1]).toHaveAttribute('aria-expanded', 'true')
-  expect(document.activeElement).toBe(buttons[1])
+  expect(accordionButtons[0]).toHaveAttribute('aria-expanded', 'false')
+  expect(accordionButtons[1]).toHaveAttribute('aria-expanded', 'true')
+  expect(document.activeElement).toBe(accordionButtons[1])
+
+  fireEvent.keyDown(accordionButtons[1], { key: 'ArrowUp' })
+
+  const tabs = [
+    screen.getByRole('tab', { name: /Activity/ }),
+    screen.getByRole('tab', { name: /Notes/ }),
+    screen.getByRole('tab', { name: /Advanced/ }),
+  ]
+
+  expect(tabs[0]).toHaveAttribute('aria-selected', 'true')
+  tabs[0].focus()
+  fireEvent.keyDown(tabs[0], { key: 'ArrowRight' })
+  expect(tabs[1]).toHaveAttribute('aria-selected', 'true')
+  expect(document.activeElement).toBe(tabs[1])
 })
 
 test('add note opens log modal', () => {
