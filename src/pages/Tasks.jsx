@@ -40,35 +40,64 @@ export default function Tasks() {
     return all.sort((a, b) => new Date(a.date) - new Date(b.date))
   }, [plants, weather])
 
+  const groupedEvents = useMemo(() => {
+    const map = new Map()
+    events.forEach(e => {
+      if (!map.has(e.date)) map.set(e.date, [])
+      map.get(e.date).push(e)
+    })
+    return Array.from(map.entries()).sort(
+      (a, b) => new Date(a[0]) - new Date(b[0])
+    )
+  }, [events])
+
   const colors = {
     water: 'bg-blue-500',
     fertilize: 'bg-orange-500',
   }
 
   const today = new Date().toISOString().slice(0, 10)
+  const tomorrow = new Date()
+  tomorrow.setDate(tomorrow.getDate() + 1)
+  const tomorrowStr = tomorrow.toISOString().slice(0, 10)
 
   return (
     <div className="overflow-y-auto max-h-full p-4">
-      <ul className="relative border-l border-gray-300 pl-4 space-y-6">
-        {events.map((e, i) => {
-          const overdue = e.type === 'task' && e.date < today
-          const color = colors[e.taskType] || 'bg-green-500'
-          return (
-            <li key={i} className="relative animate-fade-in-up">
-              <span
-                className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${
-                  overdue ? 'bg-red-500 animate-pulse' : color
-                }`}
-              ></span>
-              <p className="text-xs text-gray-500 font-body">{e.date}</p>
-              <p className={`font-medium font-body ${overdue ? 'text-red-600' : ''}`}>{e.label}</p>
-              {e.reason && (
-                <p className="text-xs text-gray-500 font-body">{e.reason}</p>
-              )}
-            </li>
-          )
-        })}
-      </ul>
+      {groupedEvents.map(([dateKey, list]) => {
+        const heading =
+          dateKey === today
+            ? 'Today'
+            : dateKey === tomorrowStr
+            ? 'Tomorrow'
+            : dateKey < today
+            ? `Past Due - ${dateKey}`
+            : dateKey
+        return (
+          <div key={dateKey}>
+            <h3 className="mt-4 text-sm font-semibold text-gray-500">{heading}</h3>
+            <ul className="relative border-l border-gray-300 pl-4 space-y-6">
+              {list.map((e, i) => {
+                const overdue = e.type === 'task' && e.date < today
+                const color = colors[e.taskType] || 'bg-green-500'
+                return (
+                  <li key={`${e.date}-${i}`} className="relative animate-fade-in-up">
+                    <span
+                      className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${
+                        overdue ? 'bg-red-500 animate-pulse' : color
+                      }`}
+                    ></span>
+                    <p className="text-xs text-gray-500 font-body">{e.date}</p>
+                    <p className={`font-medium font-body ${overdue ? 'text-red-600' : ''}`}>{e.label}</p>
+                    {e.reason && (
+                      <p className="text-xs text-gray-500 font-body">{e.reason}</p>
+                    )}
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        )
+      })}
     </div>
   )
 }
