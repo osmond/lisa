@@ -56,9 +56,6 @@ export default function App() {
 
 
       <FloatingAddButton />
-      <BottomNav />
-
-
       <BottomNav dueCount={dueCount} />
 
     </div>
