@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import BottomNav from '../BottomNav.jsx'
 
@@ -12,6 +12,15 @@ test('all icons are aria-hidden', () => {
   svgs.forEach(svg => {
     expect(svg).toHaveAttribute('aria-hidden', 'true')
   })
+})
+
+test('renders add actions button', () => {
+  render(
+    <MemoryRouter>
+      <BottomNav />
+    </MemoryRouter>
+  )
+  expect(screen.getByRole('button', { name: /add/i })).toBeInTheDocument()
 })
 
 test('renders gallery link', () => {
