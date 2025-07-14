@@ -4,6 +4,7 @@ import { usePlants } from '../PlantContext.jsx'
 import { Drop } from 'phosphor-react'
 import actionIcons from '../components/ActionIcons.jsx'
 import LogModal from '../components/LogModal.jsx'
+import CareGraph from '../components/CareGraph.jsx'
 import { formatMonth } from '../utils/date.js'
 import FadeInImage from '../components/FadeInImage.jsx'
 
@@ -20,6 +21,7 @@ export default function PlantDetail() {
   const [toast, setToast] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [modalType, setModalType] = useState('Note')
+  const [timelineTab, setTimelineTab] = useState('list')
 
   const events = useMemo(() => {
     if (!plant) return []
@@ -61,6 +63,11 @@ export default function PlantDetail() {
     })
     return Array.from(map.entries())
   }, [events])
+
+  const wateringEvents = useMemo(
+    () => events.filter(e => /water/i.test(e.label)),
+    [events]
+  )
 
   const colors = {
     water: 'bg-blue-500',
@@ -326,36 +333,64 @@ export default function PlantDetail() {
                 aria-labelledby="timeline-header"
                 className="p-4 pb-4"
               >
-                {groupedEvents.map(([monthKey, list]) => (
-                  <div key={monthKey}>
-                    <h3 className="mt-4 text-label font-semibold text-gray-500">
-                      {formatMonth(monthKey)}
-                    </h3>
-                    <ul className="relative border-l border-gray-300 pl-4 space-y-6">
-                      {list.map((e, i) => {
-                        const Icon = actionIcons[e.type]
-                        return (
-                          <li key={`${e.date}-${i}`} className="relative">
-                            <span
-                              className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
-                            ></span>
-                            <p className="text-xs text-gray-500">{e.date}</p>
-                            <p className="flex items-center gap-1">
-                              {Icon && <Icon />}
-                              {e.label}
-                            </p>
-                            {e.note && (
-                              <p className="text-xs text-gray-500 italic">{e.note}</p>
-                            )}
-                            {e.mood && (
-                              <p className="text-xs">{e.mood}</p>
-                            )}
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  </div>
-                ))}
+                <div className="mb-2 flex gap-2" role="tablist">
+                  <button
+                    role="tab"
+                    aria-selected={timelineTab === 'list'}
+                    className={`px-2 py-1 rounded ${
+                      timelineTab === 'list'
+                        ? 'bg-green-600 text-white'
+                        : 'bg-gray-200'
+                    }`}
+                    onClick={() => setTimelineTab('list')}
+                  >
+                    Events
+                  </button>
+                  <button
+                    role="tab"
+                    aria-selected={timelineTab === 'graph'}
+                    className={`px-2 py-1 rounded ${
+                      timelineTab === 'graph'
+                        ? 'bg-green-600 text-white'
+                        : 'bg-gray-200'
+                    }`}
+                    onClick={() => setTimelineTab('graph')}
+                  >
+                    Care Graph
+                  </button>
+                </div>
+                {timelineTab === 'list' ? (
+                  groupedEvents.map(([monthKey, list]) => (
+                    <div key={monthKey}>
+                      <h3 className="mt-4 text-label font-semibold text-gray-500">
+                        {formatMonth(monthKey)}
+                      </h3>
+                      <ul className="relative border-l border-gray-300 pl-4 space-y-6">
+                        {list.map((e, i) => {
+                          const Icon = actionIcons[e.type]
+                          return (
+                            <li key={`${e.date}-${i}`} className="relative">
+                              <span
+                                className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
+                              ></span>
+                              <p className="text-xs text-gray-500">{e.date}</p>
+                              <p className="flex items-center gap-1">
+                                {Icon && <Icon />}
+                                {e.label}
+                              </p>
+                              {e.note && (
+                                <p className="text-xs text-gray-500 italic">{e.note}</p>
+                              )}
+                              {e.mood && <p className="text-xs">{e.mood}</p>}
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    </div>
+                  ))
+                ) : (
+                  <CareGraph events={wateringEvents} />
+                )}
               </div>
             )}
           </div>
