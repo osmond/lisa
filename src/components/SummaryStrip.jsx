@@ -52,16 +52,21 @@ export default function SummaryStrip({
     >
       {items.map(item => {
         const pct = item.totalTasks > 0 ? Math.min(item.completed / item.totalTasks, 1) : 0
+        let subtitle = 'Rest Day'
+        if (item.totalTasks > 0) {
+          subtitle = item.completed >= item.totalTasks ? 'All done' : `${item.completed} / ${item.totalTasks} done`
+        }
         return (
           <div key={item.label} className="flex-1 flex justify-center">
-            <div className="relative" style={{ width: size, height: size }}>
+            <div className="relative shadow-sm rounded-full" style={{ width: size, height: size }}>
               <ProgressRing percent={pct} size={size} colorClass={colors[item.color].ring} />
               <div className={`${colors[item.color].bg} absolute inset-2 rounded-full flex flex-col items-center justify-center space-y-1`}>
                 <div className="flex items-center justify-center gap-1">
                   <item.Icon className={`w-4 h-4 ${colors[item.color].text}`} aria-hidden="true" />
                   <p className="text-xs text-gray-500 font-medium font-body">{item.label}</p>
                 </div>
-                <p className={`text-lg font-semibold font-body ${colors[item.color].text}`} data-testid={`summary-${item.label.toLowerCase()}`}>{item.count}</p>
+                <p className={`text-sm font-semibold font-body ${colors[item.color].text}`} data-testid={`summary-${item.label.toLowerCase()}`}>{item.count}</p>
+                <p className="text-[10px] text-gray-400 font-body">{subtitle}</p>
               </div>
             </div>
           </div>
