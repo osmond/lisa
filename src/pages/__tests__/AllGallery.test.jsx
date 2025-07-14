@@ -63,8 +63,12 @@ test('overlay displays plant name on hover and focus', () => {
   expect(button).not.toBeNull()
 
   fireEvent.mouseOver(button)
+  const svgHover = button.querySelector('svg')
+  expect(svgHover).toBeInTheDocument()
   expect(within(button).getByText(plant.name)).toBeInTheDocument()
 
   fireEvent.focus(button)
+  const svgFocus = button.querySelector('svg')
+  expect(svgFocus).toBeInTheDocument()
   expect(within(button).getByText(plant.name)).toBeInTheDocument()
 })
