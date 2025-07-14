@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from './ActionIcons.jsx'
@@ -8,6 +8,7 @@ export default function HeroTaskCard({ task, onComplete }) {
   const { markWatered } = usePlants()
   const Icon = actionIcons[task.type]
   const [checked, setChecked] = useState(false)
+  const timeoutRef = useRef(null)
   const [, createRipple] = useRipple()
 
   const handleComplete = () => {
@@ -18,8 +19,16 @@ export default function HeroTaskCard({ task, onComplete }) {
       markWatered(task.plantId, note)
     }
     setChecked(true)
-    setTimeout(() => setChecked(false), 400)
+    timeoutRef.current = setTimeout(() => setChecked(false), 400)
   }
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
 
   return (
     <div

@@ -62,3 +62,20 @@ test('clicking card adds ripple effect', () => {
   fireEvent.mouseDown(wrapper)
   expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
 })
+
+test('clears timeout on unmount', () => {
+  jest.useFakeTimers()
+  const clearSpy = jest.spyOn(global, 'clearTimeout')
+  const { unmount } = render(
+    <PlantProvider>
+      <MemoryRouter>
+        <TaskCard task={task} />
+      </MemoryRouter>
+    </PlantProvider>
+  )
+  fireEvent.click(screen.getByRole('checkbox'))
+  unmount()
+  expect(clearSpy).toHaveBeenCalled()
+  clearSpy.mockRestore()
+  jest.useRealTimers()
+})
