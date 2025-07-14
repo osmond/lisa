@@ -5,17 +5,16 @@ import plants from '../../plants.json'
 import { AllGallery } from '../Gallery.jsx'
 
 test('clicking add photos button opens file dialog', () => {
-  const clickSpy = jest
-    .spyOn(window.HTMLInputElement.prototype, 'click')
-    .mockImplementation(() => {})
-
-  render(
+  const { container } = render(
     <PlantProvider>
       <MemoryRouter>
         <AllGallery />
       </MemoryRouter>
     </PlantProvider>
   )
+
+  const input = container.querySelector('input[type="file"]')
+  const clickSpy = jest.spyOn(input, 'click').mockImplementation(() => {})
 
   fireEvent.click(screen.getByRole('button', { name: /add photos/i }))
   expect(clickSpy).toHaveBeenCalled()
@@ -64,8 +63,12 @@ test('overlay displays plant name on hover and focus', () => {
   expect(button).not.toBeNull()
 
   fireEvent.mouseOver(button)
+  const svgHover = button.querySelector('svg')
+  expect(svgHover).toBeInTheDocument()
   expect(within(button).getByText(plant.name)).toBeInTheDocument()
 
   fireEvent.focus(button)
+  const svgFocus = button.querySelector('svg')
+  expect(svgFocus).toBeInTheDocument()
   expect(within(button).getByText(plant.name)).toBeInTheDocument()
 })

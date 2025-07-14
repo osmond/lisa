@@ -1,7 +1,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Calendar } from 'phosphor-react'
+import { Calendar, MagnifyingGlassPlus } from 'phosphor-react'
 import { usePlants } from '../PlantContext.jsx'
 import Lightbox from '../components/Lightbox.jsx'
 import FadeInImage from '../components/FadeInImage.jsx'
@@ -57,6 +57,7 @@ export function AllGallery() {
             onClick={() => setIndex(i)}
             className="relative group aspect-square overflow-hidden focus:outline-none"
           >
+
             <FadeInImage
               src={src}
               alt={alts[i] || `Plant ${i + 1}`}
@@ -67,8 +68,21 @@ export function AllGallery() {
             <span className="absolute inset-0 flex items-center justify-center bg-black/60 text-white text-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100 transition-opacity">
               {alts[i]}
             </span>
+
           </Button>
         ))}
+        <Button
+          type="button"
+          aria-label="Add photos"
+          onClick={() => {
+            fileInputRef.current.click()
+            setBouncing(true)
+          }}
+          className={`relative group focus:outline-none ${bouncing ? 'bounce-once' : ''}`}
+        >
+          <div className="w-full h-32 rounded bg-gray-200 dark:bg-gray-700"></div>
+          <span className="absolute inset-0 flex items-center justify-center text-4xl text-primary-green">+</span>
+        </Button>
       </div>
       {index !== null && (
         <Lightbox
@@ -92,17 +106,6 @@ export function AllGallery() {
           </option>
         ))}
       </select>
-      <Button
-        type="button"
-        aria-label="Add photos"
-        onClick={() => {
-          fileInputRef.current.click()
-          setBouncing(true)
-        }}
-        className={`fixed bottom-4 right-4 bg-primary-green text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg ${bouncing ? 'bounce-once' : ''}`}
-      >
-        +
-      </Button>
       <input
         type="file"
         accept="image/*"
@@ -201,6 +204,9 @@ export default function Gallery() {
                 className="w-full h-full object-cover transition-transform transform hover:scale-105 active:scale-105"
                 onError={e => (e.target.src = '/placeholder.svg')}
               />
+              <span className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity">
+                <MagnifyingGlassPlus className="w-6 h-6 text-white" aria-hidden="true" />
+              </span>
 
               <span className="absolute inset-0 flex items-center justify-center bg-black/60 text-white text-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100 transition-opacity">
                 {plant.name}
@@ -226,7 +232,7 @@ export default function Gallery() {
 
       <div className="space-y-4 mt-4">
         {photos.map((ph, i) => (
-          <div key={i} className="border p-2 rounded">
+          <div key={i} className="border p-4 rounded">
             <div className="flex items-center gap-2">
               <img
                 src={typeof ph === 'object' ? ph.src : ph}
