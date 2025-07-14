@@ -173,8 +173,8 @@ test('overdue tasks use amber badge styling', () => {
     </MemoryRouter>
   )
   const button = screen.getByRole('button', { name: /mark complete/i })
-  expect(button).toHaveClass('bg-amber-100', 'text-amber-700')
+  expect(button).toHaveClass('bg-warning-amber-light', 'text-warning-amber-dark')
   const wrapper = screen.getByTestId('task-wrapper')
   expect(wrapper.className).toMatch(/border-l-4/)
-  expect(wrapper.className).toMatch(/border-amber-500/)
+  expect(wrapper.className).toMatch(/border-warning-amber/)
 })

@@ -77,7 +77,7 @@ export default function EditPlant() {
           className="border rounded p-2"
         />
       </div>
-      <Button type="submit" className="px-4 py-2 bg-green-600 text-white">
+      <Button type="submit" className="px-4 py-2 bg-primary-green text-white">
         Save Changes
       </Button>
     </form>

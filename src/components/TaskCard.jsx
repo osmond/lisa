@@ -44,10 +44,10 @@ export default function TaskCard({ task, onComplete }) {
   const overdue = task.date && daysDiff < 0
   const dueColor = task.date
     ? daysDiff < 0
-      ? 'text-amber-600'
+      ? 'text-warning-amber'
       : daysDiff <= 2
-      ? 'text-orange-600'
-      : 'text-green-600'
+      ? 'text-fertilizer-orange'
+      : 'text-primary-green'
     : ''
 
   const handleComplete = () => {
@@ -82,13 +82,13 @@ export default function TaskCard({ task, onComplete }) {
   }
 
   const pillColors = {
-    Water: 'bg-blue-100 text-blue-700',
-    Fertilize: 'bg-orange-100 text-orange-700',
-    Overdue: 'bg-amber-100 text-amber-700',
+    Water: 'bg-water-blue-light text-water-blue-dark',
+    Fertilize: 'bg-fertilizer-orange-light text-fertilizer-orange-dark',
+    Overdue: 'bg-warning-amber-light text-warning-amber-dark',
   }
   const pillClass = overdue
     ? pillColors.Overdue
-    : pillColors[task.type] || 'bg-green-100 text-green-700'
+    : pillColors[task.type] || 'bg-soft-leaf text-primary-green-dark'
 
   const handlePointerDown = e => {
     startX.current = e.clientX ?? e.touches?.[0]?.clientX ?? 0
@@ -138,7 +138,7 @@ export default function TaskCard({ task, onComplete }) {
   return (
     <div
       data-testid="task-wrapper"
-      className={`relative flex items-center gap-3 p-5 rounded-2xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden ${overdue ? 'border-l-4 border-amber-500 shadow-amber-200' : ''}`}
+      className={`relative flex items-center gap-3 p-5 rounded-2xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden ${overdue ? 'border-l-4 border-warning-amber shadow-warning-amber-light' : ''}`}
       onMouseDown={e => { createRipple(e); handlePointerDown(e) }}
       onTouchStart={e => { createRipple(e); handlePointerDown(e) }}
       onPointerDown={handlePointerDown}
@@ -188,7 +188,7 @@ export default function TaskCard({ task, onComplete }) {
 
       {checked && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <Drop aria-hidden="true" className="w-8 h-8 text-blue-600 water-drop" />
+          <Drop aria-hidden="true" className="w-8 h-8 text-water-blue water-drop" />
         </div>
       )}
 

@@ -62,7 +62,7 @@ test('active link has bg style applied', () => {
     </MemoryRouter>
   )
   const activeLink = container.querySelector('a[href="/gallery"]')
-  expect(activeLink.className).toEqual(expect.stringContaining('bg-green-50'))
+  expect(activeLink.className).toEqual(expect.stringContaining('bg-soft-leaf-light'))
 })
 
 test('shows dynamic tasks badge', () => {
