@@ -58,8 +58,10 @@ export default function Home() {
   )
   const featuredIndex = plants.length ? dayOfYear % plants.length : 0
 
-  const today = new Date().toLocaleDateString(undefined, {
+  const weekday = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
+  })
+  const monthDay = new Date().toLocaleDateString(undefined, {
     month: 'long',
     day: 'numeric',
   })
@@ -68,17 +70,20 @@ export default function Home() {
   return (
     <div className="space-y-6">
       <header className="flex flex-col items-start space-y-2">
-        <h1 className="text-3xl font-bold font-headline flex items-center space-x-1 border-b border-gray-100 pb-1">
-          <span className="text-xl">☀️</span>
-          <span>{today}</span>
+        <h1 className="font-headline border-b border-gray-100 pb-1">
+          <span className="flex items-center space-x-1 text-3xl font-bold">
+            <span className="text-xl">☀️</span>
+            <span className="tracking-tight">{weekday}</span>
+          </span>
+          <div className="text-xl tracking-tight">{monthDay}</div>
         </h1>
         <p className="text-sm text-gray-500 font-body">
           {forecast
             ? `${forecast.temp} and ${(forecast.condition || '').toLowerCase()} — great day to water!`
             : 'Loading...'}
         </p>
-      <p className="text-sm text-gray-600 font-body mt-2">Hi Jon 🌿 Let’s check on your plants.</p>
-    </header>
+        <p className="text-sm text-gray-500 font-body mt-2">Hi Jon 🌿 Let’s check on your plants.</p>
+      </header>
     {plants.length > 0 && (
       <FeaturedCard plants={plants} startIndex={featuredIndex} />
     )}
