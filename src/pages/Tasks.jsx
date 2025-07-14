@@ -102,7 +102,7 @@ export default function Tasks() {
       {overdue.length > 0 && (
         <section>
           <h2 className="font-semibold mb-2">Needs attention</h2>
-          <div className="space-y-4">
+          <div className="space-y-4 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl">
             {overdue.map(task => (
               <TaskCard key={task.id} task={task} />
             ))}
@@ -113,7 +113,7 @@ export default function Tasks() {
       {today.length > 0 && (
         <section>
           <h2 className="font-semibold mb-2">Today</h2>
-          <div className="space-y-4">
+          <div className="space-y-4 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl">
             {today.map(task => (
               <TaskCard key={task.id} task={task} />
             ))}
@@ -124,7 +124,7 @@ export default function Tasks() {
       {upcoming.length > 0 && (
         <section>
           <h2 className="font-semibold mb-2">Upcoming</h2>
-          <div className="space-y-4">
+          <div className="space-y-4 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl">
             {upcoming.map(task => (
               <TaskCard key={task.id} task={task} />
             ))}
