@@ -16,6 +16,7 @@ export default function Home() {
   const { plants, markWatered } = usePlants()
   const weatherCtx = useWeather()
   const forecast = weatherCtx?.forecast
+  const weatherError = weatherCtx?.error
   const timezone = weatherCtx?.timezone || 'UTC'
   const weatherData = { rainTomorrow: forecast?.rainfall || 0 }
 
@@ -124,7 +125,11 @@ export default function Home() {
 
         <p className="flex items-center text-sm text-gray-600">
           <CloudSun className="w-5 h-5 mr-1 text-green-600" />
-          {forecast ? `${forecast.temp} - ${forecast.condition}` : 'Loading...'}
+          {weatherError
+            ? 'Weather unavailable'
+            : forecast
+            ? `${forecast.temp} - ${forecast.condition}`
+            : 'Loading...'}
           {showRainSuggestion && (
             <span className="ml-2" aria-label="rain forecasted">
               💧Skip watering if it rains tomorrow
