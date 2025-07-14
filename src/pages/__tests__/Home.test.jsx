@@ -42,6 +42,7 @@ test('summary items render when tasks exist', () => {
   expect(screen.getByTestId('summary-water')).toHaveTextContent('1')
   expect(screen.getByTestId('summary-fertilize')).toHaveTextContent('1')
   expect(screen.getByText(/0 of 1 watered/)).toBeInTheDocument()
+  expect(screen.getAllByTestId('water-drop')).toHaveLength(1)
 })
 
 test('featured card appears before summary', () => {
