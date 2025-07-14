@@ -68,6 +68,7 @@ export function AllGallery() {
         type="button"
         aria-label="Add photos"
         onClick={() => {
+          fileInputRef.current.focus()
           fileInputRef.current.click()
           setBouncing(true)
         }}
@@ -76,6 +77,8 @@ export function AllGallery() {
         +
       </button>
       <input
+        id="add-photos-input"
+        aria-label="Add photos input"
         type="file"
         accept="image/*"
         multiple
