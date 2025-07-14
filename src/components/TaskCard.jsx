@@ -137,7 +137,7 @@ export default function TaskCard({ task, onComplete }) {
   return (
     <div
       data-testid="task-wrapper"
-      className="relative flex items-center gap-3 p-5 rounded-2xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden"
+      className={`relative flex items-center gap-3 p-5 rounded-2xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden ${overdue ? 'border-l-4 border-red-500' : ''}`}
       onMouseDown={e => { createRipple(e); handlePointerDown(e) }}
       onTouchStart={e => { createRipple(e); handlePointerDown(e) }}
       onPointerDown={handlePointerDown}
