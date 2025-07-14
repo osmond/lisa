@@ -52,7 +52,7 @@ export default function CareStats({
       Icon: ListChecks,
       completed: totalCompleted,
       total: totalTasks,
-      ringClass: 'text-green-500',
+      ringClass: 'text-green-600',
     },
     {
       label: 'Water',
@@ -66,7 +66,7 @@ export default function CareStats({
       Icon: Sun,
       completed: fertCompleted,
       total: fertTotal,
-      ringClass: 'text-yellow-500',
+      ringClass: 'text-yellow-700',
     },
   ]
   return (

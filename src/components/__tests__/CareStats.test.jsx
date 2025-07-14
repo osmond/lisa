@@ -24,3 +24,27 @@ test('renders stats with numbers and icons', () => {
   const texts = screen.getAllByTestId('stat-text').map(el => el.textContent)
   expect(texts).toEqual(['3/4', '1/2', '2/2'])
 })
+
+test('rings use accessible color classes', () => {
+  const { container } = render(
+    <CareStats waterCompleted={1} waterTotal={2} fertCompleted={2} fertTotal={2} />
+  )
+  const getCircle = id =>
+    screen.getByTestId(id).querySelector('svg circle')
+  expect(getCircle('stat-total')).toHaveClass('text-green-600')
+  expect(getCircle('stat-water')).toHaveClass('text-blue-500')
+  expect(getCircle('stat-fertilize')).toHaveClass('text-yellow-700')
+})
+
+test('ring colors remain in dark mode', () => {
+  document.documentElement.classList.add('dark')
+  const { container } = render(
+    <CareStats waterCompleted={1} waterTotal={2} fertCompleted={2} fertTotal={2} />
+  )
+  const getCircle = id =>
+    screen.getByTestId(id).querySelector('svg circle')
+  expect(getCircle('stat-total')).toHaveClass('text-green-600')
+  expect(getCircle('stat-water')).toHaveClass('text-blue-500')
+  expect(getCircle('stat-fertilize')).toHaveClass('text-yellow-700')
+  document.documentElement.classList.remove('dark')
+})
