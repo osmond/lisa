@@ -32,29 +32,39 @@ export default function PlantSpotlightCard({ plant, nextPlant, onSkip }) {
         className="w-full rounded-lg object-cover"
         onError={e => (e.target.src = '/placeholder.svg')}
       />
-      <h2 className="text-xl font-semibold">{plant.name}</h2>
+      <h2 className="text-xl font-semibold leading-heading tracking-heading">{plant.name}</h2>
       <div className="flex gap-2">
         {plant.light && (
-          <span className="px-2 py-0.5 text-xs rounded-full bg-yellow-100 text-yellow-800">
+          <span className="px-2 py-0.5 text-xs rounded-full bg-warning-amber-light text-warning-amber-dark">
             {plant.light}
           </span>
         )}
         {plant.difficulty && (
-          <span className="px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-800">
+          <span className="px-2 py-0.5 text-xs rounded-full bg-soft-leaf text-primary-green-dark">
             {plant.difficulty}
           </span>
         )}
       </div>
-      <div className="flex gap-3">
-        <Button className="px-3 py-1 bg-accent text-white" onClick={handleWater}>
+      <div className="flex flex-col gap-2">
+        <Button
+          className="w-full px-4 py-2 bg-primary-green text-white"
+          onClick={handleWater}
+        >
           Water
         </Button>
-        <Button className="px-3 py-1 bg-accent text-white" onClick={handleAddNote}>
+        <Button
+          className="w-full px-4 py-1 bg-accent text-white"
+          onClick={handleAddNote}
+        >
           Add Note
         </Button>
-        <Button className="px-3 py-1" onClick={handleSkip}>
+        <button
+          type="button"
+          onClick={handleSkip}
+          className="self-start text-primary-green underline text-sm"
+        >
           Skip
-        </Button>
+        </button>
       </div>
       {nextPlant && (
         <p className="text-sm text-gray-500">Next up: {nextPlant.name}</p>

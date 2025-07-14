@@ -100,3 +100,24 @@ test('view gallery link shows photo count', () => {
   expect(link).toHaveAttribute('href', `/plant/${plant.id}/gallery`)
   expect(link).toHaveTextContent(String(plant.photos.length))
 })
+
+test('gallery preview shows trash icon on hover', () => {
+  const plant = plants[0]
+  render(
+    <PlantProvider>
+      <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </PlantProvider>
+  )
+
+  const img = screen.getByAltText(`${plant.name} 0`)
+  const button = img.closest('button')
+  expect(button).not.toBeNull()
+
+  fireEvent.mouseOver(button)
+  const svg = button.querySelector('svg')
+  expect(svg).toBeInTheDocument()
+})

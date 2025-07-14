@@ -1,7 +1,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Calendar } from 'phosphor-react'
+import { Calendar, MagnifyingGlassPlus } from 'phosphor-react'
 import { usePlants } from '../PlantContext.jsx'
 import Lightbox from '../components/Lightbox.jsx'
 import FadeInImage from '../components/FadeInImage.jsx'
@@ -42,7 +42,7 @@ export function AllGallery() {
 
   return (
     <div>
-      <h1 className="text-headline font-bold font-display mb-4">Gallery</h1>
+      <h1 className="text-headline leading-heading tracking-heading font-bold font-display mb-4">Gallery</h1>
       <Link
         to="/gallery/timeline"
         className="inline-flex items-center gap-1 px-3 py-1 mb-2 bg-accent text-white rounded"
@@ -52,16 +52,38 @@ export function AllGallery() {
       </Link>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
         {images.map((src, i) => (
-          <Button key={i} onClick={() => setIndex(i)} className="focus:outline-none">
-            <FadeInImage
-              src={src}
-              alt={`Plant ${i + 1}`}
-              loading="lazy"
-              className="w-full h-32 object-cover rounded transition-transform transform hover:scale-105 active:scale-105"
-              onError={e => (e.target.src = '/placeholder.svg')}
-            />
+          <Button
+            key={i}
+            onClick={() => setIndex(i)}
+            className="relative group focus:outline-none"
+          >
+          <FadeInImage
+            src={src}
+            alt={alts[i] || `Plant ${i + 1}`}
+            loading="lazy"
+            className="w-full h-32 object-cover rounded transition-transform transform hover:scale-105 active:scale-105"
+            onError={e => (e.target.src = '/placeholder.svg')}
+          />
+          <span className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity">
+            <MagnifyingGlassPlus className="w-6 h-6 text-white" aria-hidden="true" />
+          </span>
+          <span className="absolute inset-0 flex items-center justify-center bg-black/60 text-white text-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100 transition-opacity">
+            {alts[i]}
+          </span>
           </Button>
         ))}
+        <Button
+          type="button"
+          aria-label="Add photos"
+          onClick={() => {
+            fileInputRef.current.click()
+            setBouncing(true)
+          }}
+          className={`relative group focus:outline-none ${bouncing ? 'bounce-once' : ''}`}
+        >
+          <div className="w-full h-32 rounded bg-gray-200 dark:bg-gray-700"></div>
+          <span className="absolute inset-0 flex items-center justify-center text-4xl text-primary-green">+</span>
+        </Button>
       </div>
       {index !== null && (
         <Lightbox
@@ -85,17 +107,6 @@ export function AllGallery() {
           </option>
         ))}
       </select>
-      <Button
-        type="button"
-        aria-label="Add photos"
-        onClick={() => {
-          fileInputRef.current.click()
-          setBouncing(true)
-        }}
-        className={`fixed bottom-4 right-4 bg-green-600 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg ${bouncing ? 'bounce-once' : ''}`}
-      >
-        +
-      </Button>
       <input
         type="file"
         accept="image/*"
@@ -147,7 +158,7 @@ export default function Gallery() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-headline font-bold font-display">{plant.name} Gallery</h1>
+      <h1 className="text-headline leading-heading tracking-heading font-bold font-display">{plant.name} Gallery</h1>
 
       {/* desktop grid */}
       <div className="hidden md:grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -194,6 +205,9 @@ export default function Gallery() {
                 className="w-full h-full object-cover transition-transform transform hover:scale-105 active:scale-105"
                 onError={e => (e.target.src = '/placeholder.svg')}
               />
+              <span className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity">
+                <MagnifyingGlassPlus className="w-6 h-6 text-white" aria-hidden="true" />
+              </span>
 
               <span className="absolute inset-0 flex items-center justify-center bg-black/60 text-white text-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100 transition-opacity">
                 {plant.name}
@@ -219,7 +233,7 @@ export default function Gallery() {
 
       <div className="space-y-4 mt-4">
         {photos.map((ph, i) => (
-          <div key={i} className="border p-2 rounded">
+          <div key={i} className="border p-4 rounded">
             <div className="flex items-center gap-2">
               <img
                 src={typeof ph === 'object' ? ph.src : ph}
@@ -243,7 +257,7 @@ export default function Gallery() {
                       className="w-full border rounded p-1 text-sm"
                     />
                     <div className="flex gap-2 text-sm">
-                      <Button type="submit" className="px-2 py-0.5 bg-green-600 text-white">Save</Button>
+                      <Button type="submit" className="px-2 py-0.5 bg-primary-green text-white">Save</Button>
                       <Button type="button" onClick={() => setEditIndex(null)} className="px-2 py-0.5 border">Cancel</Button>
                     </div>
                   </form>
@@ -253,7 +267,7 @@ export default function Gallery() {
                     {ph.tags && ph.tags.length > 0 && (
                       <p className="text-xs text-gray-500">{ph.tags.join(', ')}</p>
                     )}
-                    <Button type="button" onClick={() => startEdit(i)} className="text-xs text-green-600 underline">Edit</Button>
+                    <Button type="button" onClick={() => startEdit(i)} className="text-xs text-primary-green underline">Edit</Button>
                   </div>
                 )}
               </div>

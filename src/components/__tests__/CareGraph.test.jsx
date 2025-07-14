@@ -9,7 +9,7 @@ test('renders grid with highlighted events', () => {
   const { container } = render(<CareGraph events={events} />)
   const cells = container.querySelectorAll('[role="gridcell"]')
   expect(cells.length).toBeGreaterThan(30)
-  const highlights = container.querySelectorAll('.bg-blue-400')
+  const highlights = container.querySelectorAll('.bg-accent')
   expect(highlights).toHaveLength(2)
 })
 

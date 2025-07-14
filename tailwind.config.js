@@ -3,12 +3,31 @@ export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
+
       colors: {
         offwhite: '#f9faf8',
         sage: '#eaf4ec',
         stone: '#f2f2f2',
         accent: '#87a96b',
+        'primary-green': '#87a96b',
+        'primary-green-dark': '#15803d',
+        'soft-leaf': '#eaf4ec',
+        'soft-leaf-light': '#f0f7f2',
+        'neutral-canvas': '#f9faf8',
+        'water-blue': '#2563eb',
+        'water-blue-dark': '#1d4ed8',
+        'water-blue-light': '#dbeafe',
+        'fertilizer-orange': '#ea580c',
+        'fertilizer-orange-dark': '#c2410c',
+        'fertilizer-orange-light': '#ffedd5',
+        'warning-amber': '#f59e0b',
+        'warning-amber-dark': '#b45309',
+        'warning-amber-light': '#fef3c7',
+        'danger-red': '#dc2626',
+        'km-accent': '#A3C293',
+        'km-muted': '#6B7280',
       },
+
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         display: ['"Cabinet Grotesk"', 'Recoleta', 'sans-serif'],
@@ -19,6 +38,14 @@ export default {
         subhead: ['1.25rem', {}],
         label: ['0.875rem', {}],
         detail: ['0.75rem', {}],
+      },
+      letterSpacing: {
+        heading: '-0.01em',
+        label: '0.05em',
+      },
+      lineHeight: {
+        heading: '1.25',
+        label: '1.3',
       },
     },
   },

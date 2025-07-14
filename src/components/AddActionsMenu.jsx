@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { PlusIcon } from '@radix-ui/react-icons'
+import { PlusCircle } from 'phosphor-react'
 
 export default function AddActionsMenu({
   onAddPlant,
@@ -33,9 +33,9 @@ export default function AddActionsMenu({
         aria-haspopup="true"
         aria-expanded={open}
         onClick={() => setOpen(o => !o)}
-        className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white"
+        className="w-12 h-12 bg-primary-green rounded-full flex items-center justify-center text-white"
       >
-        <PlusIcon aria-hidden="true" />
+        <PlusCircle weight="duotone" aria-hidden="true" />
       </button>
       {open && (
         <div

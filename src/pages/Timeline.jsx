@@ -73,10 +73,10 @@ export default function Timeline() {
   }, [groupedEvents])
 
   const colors = {
-    water: 'bg-blue-500',
-    fertilize: 'bg-yellow-500',
+    water: 'bg-water-blue',
+    fertilize: 'bg-warning-amber',
     note: 'bg-gray-400',
-    log: 'bg-green-400',
+    log: 'bg-primary-green',
   }
 
   return (
@@ -85,7 +85,7 @@ export default function Timeline() {
         const isOpen = openMonths[monthKey]
         return (
           <div key={monthKey}>
-            <h3 className="sticky top-0 bg-stone z-10 mt-4 text-label font-semibold text-gray-500">
+            <h3 className="sticky top-0 bg-stone z-10 mt-4 text-label leading-label tracking-label font-semibold text-gray-500">
               <button
                 type="button"
                 className="w-full flex justify-between items-center py-2"

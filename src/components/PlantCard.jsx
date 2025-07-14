@@ -88,7 +88,7 @@ export default function PlantCard({ plant }) {
           onMouseDown={createRipple}
           onTouchStart={createRipple}
           onClick={handleWatered}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 pointer-events-auto relative overflow-hidden"
+          className="bg-water-blue hover:bg-water-blue-dark text-white px-2 py-1 pointer-events-auto relative overflow-hidden"
         >
           Water
         </Button>
@@ -97,7 +97,7 @@ export default function PlantCard({ plant }) {
             onMouseDown={createRipple}
             onTouchStart={createRipple}
             onClick={() => navigate(`/plant/${plant.id}/edit`)}
-            className="bg-blue-600 text-white px-2 py-1 pointer-events-auto relative overflow-hidden"
+            className="bg-water-blue text-white px-2 py-1 pointer-events-auto relative overflow-hidden"
           >
             Edit
           </Button>
@@ -105,7 +105,7 @@ export default function PlantCard({ plant }) {
             onMouseDown={createRipple}
             onTouchStart={createRipple}
             onClick={handleDelete}
-            className="bg-red-600 text-white px-2 py-1 pointer-events-auto relative overflow-hidden"
+            className="bg-danger-red text-white px-2 py-1 pointer-events-auto relative overflow-hidden"
           >
             Delete
           </Button>
@@ -123,15 +123,15 @@ export default function PlantCard({ plant }) {
             className="w-full h-48 object-cover rounded-xl"
             onError={e => (e.target.src = '/placeholder.svg')}
           />
-          <h2 className="font-semibold text-xl font-display mt-2">{plant.name}</h2>
+          <h2 className="font-semibold text-xl font-display leading-heading tracking-heading mt-2">{plant.name}</h2>
         </Link>
         <p className="text-sm text-gray-600 dark:text-gray-400">Last watered: {plant.lastWatered}</p>
-        <p className="text-sm text-green-700 font-medium">Next: {plant.nextWater}</p>
+        <p className="text-sm text-primary-green-dark font-medium">Next: {plant.nextWater}</p>
         <Button
           onMouseDown={createRipple}
           onTouchStart={createRipple}
           onClick={handleWatered}
-          className="mt-2 px-3 py-1 bg-green-100 text-green-700 hover:bg-green-200 transition relative overflow-hidden"
+          className="mt-2 px-3 py-1 bg-soft-leaf text-primary-green-dark hover:bg-soft-leaf-light transition relative overflow-hidden"
         >
           Watered
         </Button>

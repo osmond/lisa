@@ -4,6 +4,7 @@ const WeatherContext = createContext()
 
 export function WeatherProvider({ children }) {
   const [forecast, setForecast] = useState(null)
+  const [error, setError] = useState(null)
   const [location, setLocation] = useState(() => {
     if (typeof localStorage !== 'undefined') {
       const stored = localStorage.getItem('weatherLocation')
@@ -32,6 +33,7 @@ export function WeatherProvider({ children }) {
   useEffect(() => {
     const key = process.env.VITE_WEATHER_API_KEY
     if (!key) return
+    setError(null)
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&units=${units}&appid=${key}`
     fetch(url)
       .then(res => res.json())
@@ -45,9 +47,15 @@ export function WeatherProvider({ children }) {
             condition: next.weather?.[0]?.main,
             rainfall,
           })
+        } else {
+          setForecast(null)
+          setError('No weather data')
         }
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+        console.error(err)
+        setError(err.message || 'Failed to fetch weather')
+      })
   }, [location, units])
 
   useEffect(() => {
@@ -72,6 +80,7 @@ export function WeatherProvider({ children }) {
     <WeatherContext.Provider
       value={{
         forecast,
+        error,
         location,
         setLocation,
         timezone,

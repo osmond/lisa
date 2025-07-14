@@ -39,7 +39,7 @@ export default function BottomNav({ dueCount = 0 }) {
     { type: 'add' },
     { to: '/tasks', label: 'Care', icon: CheckIcon },
     { to: '/gallery', label: 'Gallery', icon: GalleryIcon },
-    { to: '/settings', label: 'Profile', icon: UserIcon },
+    { to: '/profile', label: 'Profile', icon: UserIcon },
   ]
 
   return (
@@ -57,8 +57,8 @@ export default function BottomNav({ dueCount = 0 }) {
             className={({ isActive }) =>
               `w-12 flex flex-col items-center text-xs transition-transform duration-150 ${
                 isActive
-                  ? 'text-[#A3C293] bg-green-50 dark:bg-gray-700'
-                  : 'text-gray-500'
+                  ? 'text-km-accent bg-soft-leaf-light dark:bg-gray-700'
+                  : 'text-km-muted'
               }`
             }
           >

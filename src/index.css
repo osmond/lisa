@@ -9,7 +9,7 @@ body {
 
 .dark body {
   @apply text-gray-100;
-  background: linear-gradient(135deg, theme('colors.gray.800'), theme('colors.green.900'));
+  background: linear-gradient(135deg, theme('colors.gray.800'), theme('colors.primary-green-dark'));
 }
 
 @keyframes fade-in-up {
@@ -103,7 +103,7 @@ body {
 
 /* Subtle checkbox accent for task cards */
 .task-checkbox {
-  accent-color: theme('colors.green.600');
+  accent-color: theme('colors.primary-green');
 }
 
 @keyframes water-drop {
@@ -135,7 +135,7 @@ body {
 
 .nav-active {
   animation: nav-fade-scale 0.2s ease;
-  @apply bg-green-50 rounded-full;
+  @apply bg-soft-leaf-light rounded-full;
 }
 
 @media (prefers-reduced-motion: reduce) {
