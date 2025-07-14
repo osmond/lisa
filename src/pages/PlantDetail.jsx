@@ -7,6 +7,7 @@ import LogModal from '../components/LogModal.jsx'
 import CareGraph from '../components/CareGraph.jsx'
 import { formatMonth } from '../utils/date.js'
 import FadeInImage from '../components/FadeInImage.jsx'
+import { isFrequentWatering } from '../utils/watering.js'
 
 export default function PlantDetail() {
   const { id } = useParams()
@@ -24,6 +25,9 @@ export default function PlantDetail() {
   const [toast, setToast] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [modalType, setModalType] = useState('Note')
+  const overWatering = plant
+    ? isFrequentWatering(plant.careLog, plant.name)
+    : false
 
   const [timelineTab, setTimelineTab] = useState('list')
 
@@ -190,6 +194,11 @@ export default function PlantDetail() {
           </p>
           {plant.lastFertilized && (
             <p><strong>Last fertilized:</strong> {plant.lastFertilized}</p>
+          )}
+          {overWatering && (
+            <p className="text-xs text-red-600">
+              Tip: {plant.name} may not need water so frequently.
+            </p>
           )}
         </div>
         <div className="flex gap-2 mt-2">

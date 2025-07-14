@@ -13,3 +13,23 @@ export function getNextWateringDate(fromDate, weather = {}) {
 
   return { date: base.toISOString().slice(0, 10), reason };
 }
+
+export const WATER_INTERVALS = {
+  'Snake Plant': 14,
+  'ZZ Plant': 14,
+  'Aloe Vera': 14,
+  'Jade Plant': 14,
+};
+
+export function isFrequentWatering(careLog = [], plantName = '') {
+  const interval = WATER_INTERVALS[plantName] || 7;
+  const watering = careLog
+    .filter(ev => /water/i.test(ev.type))
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+  if (watering.length < 2) return false;
+  const last = watering[watering.length - 1];
+  const prev = watering[watering.length - 2];
+  const diff =
+    (new Date(last.date) - new Date(prev.date)) / (1000 * 60 * 60 * 24);
+  return diff < interval / 2;
+}
