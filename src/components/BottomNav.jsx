@@ -13,12 +13,12 @@ const iconProps = {
   'aria-hidden': 'true',
 }
 
-const HomeIconComponent = () => <HomeIcon {...iconProps} />
-const ListIcon = () => <ListBulletIcon {...iconProps} />
-const CheckIcon = () => <CheckCircledIcon {...iconProps} />
-const GalleryIcon = () => <ImageIcon {...iconProps} />
-const AddIcon = () => <PlusIcon {...iconProps} />
-const UserIcon = () => <PersonIcon {...iconProps} />
+const HomeIconComponent = props => <HomeIcon {...iconProps} {...props} />
+const ListIcon = props => <ListBulletIcon {...iconProps} {...props} />
+const CheckIcon = props => <CheckCircledIcon {...iconProps} {...props} />
+const GalleryIcon = props => <ImageIcon {...iconProps} {...props} />
+const AddIcon = props => <PlusIcon {...iconProps} {...props} />
+const UserIcon = props => <PersonIcon {...iconProps} {...props} />
 
 export default function BottomNav({ dueCount = 0 }) {
   const items = [
@@ -40,8 +40,15 @@ export default function BottomNav({ dueCount = 0 }) {
             `flex flex-col items-center text-xs transition-transform duration-150 ${isActive ? 'text-green-700 scale-110' : 'text-gray-500'}`
           }
         >
-          <Icon className="mb-1 transition-colors duration-150" aria-hidden="true" />
-          {label}
+          {({ isActive }) => (
+            <>
+              <Icon
+                className={`mb-1 transition-colors duration-150 ${isActive ? 'nav-bounce' : ''}`}
+                aria-hidden="true"
+              />
+              {label}
+            </>
+          )}
         </NavLink>
       ))}
     </nav>
