@@ -26,38 +26,57 @@ export default function CareRings({
   const center = size / 2
   const rotate = `rotate(-90 ${center} ${center})`
 
+  const totalCompleted = waterCompleted + fertCompleted
+  const totalTasks = waterTotal + fertTotal
+  const allComplete = totalTasks > 0 && totalCompleted === totalTasks
+  const progressText = allComplete
+    ? 'All Done!'
+    : `${totalCompleted} / ${totalTasks} Tasks`
+
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox={`0 0 ${size} ${size}`}
-      role="img"
-      aria-label={label}
-    >
-      <circle
-        cx={center}
-        cy={center}
-        r={outerRadius}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={strokeWidth}
-        strokeDasharray={outerCirc}
-        strokeDashoffset={waterOffset}
-        className="text-blue-500 transition-[stroke-dashoffset] duration-300"
-        transform={rotate}
-      />
-      <circle
-        cx={center}
-        cy={center}
-        r={innerRadius}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={strokeWidth}
-        strokeDasharray={innerCirc}
-        strokeDashoffset={fertOffset}
-        className="text-green-500 transition-[stroke-dashoffset] duration-300"
-        transform={rotate}
-      />
-    </svg>
+    <div className="inline-flex flex-col items-center" style={{ width: size }}>
+      <div className="relative" style={{ width: size, height: size }}>
+        <svg
+          width={size}
+          height={size}
+          viewBox={`0 0 ${size} ${size}`}
+          role="img"
+          aria-label={label}
+          className={allComplete ? 'swirl-once' : ''}
+        >
+          <circle
+            cx={center}
+            cy={center}
+            r={outerRadius}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={strokeWidth}
+            strokeDasharray={outerCirc}
+            strokeDashoffset={waterOffset}
+            className="text-blue-500 transition-[stroke-dashoffset] duration-300"
+            transform={rotate}
+          />
+          <circle
+            cx={center}
+            cy={center}
+            r={innerRadius}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={strokeWidth}
+            strokeDasharray={innerCirc}
+            strokeDashoffset={fertOffset}
+            className="text-green-500 transition-[stroke-dashoffset] duration-300"
+            transform={rotate}
+          />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center text-xs font-body font-medium">
+          {progressText}
+        </div>
+      </div>
+      <div className="text-xs text-gray-500 font-body mt-1">
+        <div>Water: {waterCompleted}/{waterTotal}</div>
+        <div>Fertilizer: {fertCompleted}/{fertTotal}</div>
+      </div>
+    </div>
   )
 }

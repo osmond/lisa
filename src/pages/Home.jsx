@@ -113,7 +113,7 @@ export default function Home() {
     )}
     <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
       {(totalWaterToday > 0 || totalFertilizeToday > 0) && (
-        <div data-testid="care-rings" className="px-1">
+        <div data-testid="care-rings" className="px-1 flex justify-center">
           <CareRings
             waterCompleted={wateredTodayCount}
             waterTotal={totalWaterToday}
