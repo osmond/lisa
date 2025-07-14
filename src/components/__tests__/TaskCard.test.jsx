@@ -37,6 +37,20 @@ test('applies highlight when urgent', () => {
   expect(wrapper).toHaveClass('ring-green-300')
 })
 
+test('applies overdue styling', () => {
+  const { container } = render(
+    <PlantProvider>
+      <MemoryRouter>
+        <TaskCard task={task} overdue />
+      </MemoryRouter>
+    </PlantProvider>
+  )
+  const wrapper = container.firstChild
+  expect(wrapper).toHaveClass('ring-2')
+  expect(wrapper).toHaveClass('ring-orange-300')
+  expect(screen.getByTestId('overdue-badge')).toBeInTheDocument()
+})
+
 test('icon svg is aria-hidden', () => {
   const { container } = render(
     <PlantProvider>
