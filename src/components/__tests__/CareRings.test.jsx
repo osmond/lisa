@@ -13,8 +13,8 @@ test('ring percentages set stroke offsets', () => {
   const innerCirc = parseFloat(inner.getAttribute('stroke-dasharray'))
   const outerOffset = parseFloat(outer.getAttribute('stroke-dashoffset'))
   const innerOffset = parseFloat(inner.getAttribute('stroke-dashoffset'))
-  expect(outerOffset).toBeCloseTo(outerCirc * 0.75)
-  expect(innerOffset).toBeCloseTo(innerCirc * 0.5)
+  expect(outerOffset).toBeCloseTo(outerCirc * 0.5)
+  expect(innerOffset).toBeCloseTo(innerCirc * 0.75)
 })
 
 test('accessible label announces progress', () => {

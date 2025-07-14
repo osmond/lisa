@@ -16,8 +16,8 @@ export default function CareRings({
   const waterPct = waterTotal > 0 ? Math.min(waterCompleted / waterTotal, 1) : 0
   const fertPct = fertTotal > 0 ? Math.min(fertCompleted / fertTotal, 1) : 0
 
-  const waterOffset = innerCirc * (1 - waterPct)
-  const fertOffset = outerCirc * (1 - fertPct)
+  const waterOffset = outerCirc * (1 - waterPct)
+  const fertOffset = innerCirc * (1 - fertPct)
 
   const label = `${Math.round(waterPct * 100)}% watered, ${Math.round(
     fertPct * 100
@@ -42,8 +42,8 @@ export default function CareRings({
         stroke="currentColor"
         strokeWidth={strokeWidth}
         strokeDasharray={outerCirc}
-        strokeDashoffset={fertOffset}
-        className="text-green-500 transition-[stroke-dashoffset] duration-300"
+        strokeDashoffset={waterOffset}
+        className="text-blue-500 transition-[stroke-dashoffset] duration-300"
         transform={rotate}
       />
       <circle
@@ -54,8 +54,8 @@ export default function CareRings({
         stroke="currentColor"
         strokeWidth={strokeWidth}
         strokeDasharray={innerCirc}
-        strokeDashoffset={waterOffset}
-        className="text-blue-500 transition-[stroke-dashoffset] duration-300"
+        strokeDashoffset={fertOffset}
+        className="text-green-500 transition-[stroke-dashoffset] duration-300"
         transform={rotate}
       />
     </svg>
