@@ -145,7 +145,13 @@ export default function Home() {
           {tasks.length > 0 ? (
             tasks.map(task => <TaskCard key={task.id} task={task} />)
           ) : (
-            <p className="text-sm text-gray-500">All plants are happy today!</p>
+            <div className="text-sm text-gray-500 space-y-1 text-center">
+              <p>
+                <span role="img" aria-label="Happy plant">🪴</span> All plants are
+                happy today!
+              </p>
+              <p>Want to add a note or photo today?</p>
+            </div>
           )}
         </div>
       </section>
