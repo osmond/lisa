@@ -1,4 +1,5 @@
 import TaskCard from '../components/TaskCard.jsx'
+import HeroTaskCard from '../components/HeroTaskCard.jsx'
 import { usePlants } from '../PlantContext.jsx'
 
 import { useWeather } from '../WeatherContext.jsx'
@@ -69,7 +70,12 @@ export default function Home() {
         <h2 className="font-semibold font-display mb-2">Today’s Tasks</h2>
         <div className="space-y-4">
           {tasks.length > 0 ? (
-            tasks.map(task => <TaskCard key={task.id} task={task} />)
+            <>
+              <HeroTaskCard task={tasks[0]} />
+              {tasks.slice(1).map(task => (
+                <TaskCard key={task.id} task={task} />
+              ))}
+            </>
           ) : (
             <p className="text-sm text-gray-500">All plants are happy today!</p>
           )}
