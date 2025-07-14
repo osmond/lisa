@@ -56,6 +56,7 @@ export default function Home() {
         type: 'Water',
         reason,
         urgent: plantUrgent || date === todayIso,
+        overdue: date < todayIso,
       })
     }
     if (p.nextFertilize && p.nextFertilize <= todayIso) {
@@ -66,6 +67,7 @@ export default function Home() {
         image: p.image,
         type: 'Fertilize',
         urgent: plantUrgent || p.nextFertilize === todayIso,
+        overdue: p.nextFertilize < todayIso,
       })
     }
   })
@@ -150,7 +152,12 @@ export default function Home() {
         <div className="space-y-4">
           {tasks.length > 0 ? (
             tasks.map(task => (
-              <TaskCard key={task.id} task={task} urgent={task.urgent} />
+              <TaskCard
+                key={task.id}
+                task={task}
+                urgent={task.urgent}
+                overdue={task.overdue}
+              />
             ))
           ) : (
             <div className="text-sm text-gray-500 space-y-1 text-center flex flex-col items-center">
