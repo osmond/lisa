@@ -38,6 +38,7 @@ export default function Timeline() {
           date: ev.date,
           label: `${ev.type} ${p.name}`,
           note: ev.note,
+          mood: ev.mood,
           type: 'log',
         })
       })
@@ -84,6 +85,9 @@ export default function Timeline() {
                   </p>
                   {e.note && (
                     <p className="text-xs text-gray-500 italic">{e.note}</p>
+                  )}
+                  {e.mood && (
+                    <p className="text-xs">{e.mood}</p>
                   )}
                 </li>
               )
