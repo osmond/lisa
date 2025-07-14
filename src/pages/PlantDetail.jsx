@@ -561,11 +561,11 @@ export default function PlantDetail() {
           {(plant.photos || []).map((ph, i) => {
             const src = typeof ph === "object" ? ph.src : ph;
             return (
-              <div key={i} className="relative">
+              <div key={i} className="relative aspect-square overflow-hidden">
                 <img
                   src={src}
                   alt={`${plant.name} ${i}`}
-                  className="object-cover w-full h-24 rounded"
+                  className="object-cover w-full h-full rounded"
                   onError={(e) => (e.target.src = "/placeholder.svg")}
                 />
                 <Button
