@@ -5,11 +5,16 @@ import ProgressRing from './ProgressRing.jsx'
 function StatBlock({ label, Icon, completed, total, ringClass }) {
   const pct = total > 0 ? Math.min(completed / total, 1) : 0
   const display = `${completed}/${total}`
+
   const size = 64
+
+  const ariaLabel = `${completed} of ${total} ${label.toLowerCase()} tasks done`
+
   return (
     <div
       className="flex flex-col items-center"
       data-testid={`stat-${label.toLowerCase()}`}
+      aria-label={ariaLabel}
     >
       <div className="relative" style={{ width: size, height: size }}>
         <ProgressRing percent={pct} size={size} colorClass={ringClass} />
