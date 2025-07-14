@@ -1,6 +1,6 @@
 import TaskCard from '../components/TaskCard.jsx'
 import { usePlants } from '../PlantContext.jsx'
-import WaterProgress from '../components/WaterProgress.jsx'
+import CareRings from '../components/CareRings.jsx'
 
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
@@ -68,9 +68,10 @@ export default function Home() {
 
   const wateredTodayCount = plants.filter(p => p.lastWatered === todayIso).length
   const totalWaterToday = wateredTodayCount + waterTasks.length
-  const waterPercent = totalWaterToday
-    ? Math.round((wateredTodayCount / totalWaterToday) * 100)
-    : 0
+  const fertilizedTodayCount = plants.filter(
+    p => p.lastFertilized === todayIso
+  ).length
+  const totalFertilizeToday = fertilizeTasks.length + fertilizedTodayCount
 
   const dayOfYear = Math.floor(
     (new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000
@@ -111,10 +112,14 @@ export default function Home() {
       <FeaturedCard plants={plants} startIndex={featuredIndex} />
     )}
     <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
-      {totalWaterToday > 0 && (
-        <div data-testid="water-progress" className="space-y-1 px-1">
-          <p className="text-sm">💧 {wateredTodayCount} of {totalWaterToday} watered</p>
-          <WaterProgress completed={wateredTodayCount} total={totalWaterToday} />
+      {(totalWaterToday > 0 || totalFertilizeToday > 0) && (
+        <div data-testid="care-rings" className="px-1">
+          <CareRings
+            waterCompleted={wateredTodayCount}
+            waterTotal={totalWaterToday}
+            fertCompleted={fertilizedTodayCount}
+            fertTotal={totalFertilizeToday}
+          />
         </div>
       )}
       <section className="space-y-4">
