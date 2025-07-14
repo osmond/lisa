@@ -43,6 +43,11 @@ const task = {
   type: 'Water'
 }
 
+const overdueTask = {
+  ...task,
+  date: '2000-01-01',
+}
+
 test('renders task text', () => {
   render(
     <MemoryRouter>
@@ -87,6 +92,7 @@ test('clicking card adds ripple effect', () => {
   expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
 })
 
+
 test('swipe reveals action buttons', () => {
   render(
     <MemoryRouter>
@@ -117,4 +123,16 @@ test('water action opens modal and saves note', () => {
   })
   fireEvent.click(screen.getByText('Save'))
   expect(markWatered).toHaveBeenCalledWith(1, 'test note')
+
+test('overdue tasks use red badge styling', () => {
+  render(
+    <PlantProvider>
+      <MemoryRouter>
+        <TaskCard task={overdueTask} />
+      </MemoryRouter>
+    </PlantProvider>
+  )
+  const button = screen.getByRole('button', { name: /mark complete/i })
+  expect(button).toHaveClass('bg-red-100', 'text-red-700')
+
 })
