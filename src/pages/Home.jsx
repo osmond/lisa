@@ -116,9 +116,9 @@ const handleCompleteAll = type => {
 
   return (
     <div className="space-y-4">
-      <header className="flex flex-col items-start space-y-1">
+      <header className="flex flex-col items-start space-y-3 py-4 px-4 bg-white rounded-xl">
 
-        <h1 className="text-2xl font-bold font-display flex items-center">
+        <h1 className="text-headline font-bold font-display flex items-center">
           {greeting}
           <GreetingIcon
             data-testid="greeting-icon"
@@ -135,7 +135,7 @@ const handleCompleteAll = type => {
             </span>
           )}
         </p>
-        <p className="text-sm text-gray-500">{today}</p>
+        <p className="text-subhead text-gray-500">{today}</p>
       </header>
 
 
