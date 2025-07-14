@@ -79,7 +79,22 @@ body {
 }
 .check-pop {
   animation: pop 0.3s ease-out;
+}
 
+@keyframes bloom {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.bloom-pop {
+  display: inline-block;
+  animation: bloom 0.4s ease-out;
 }
 
 /* Subtle checkbox accent for task cards */

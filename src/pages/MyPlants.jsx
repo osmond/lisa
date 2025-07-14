@@ -49,7 +49,7 @@ export default function MyPlants() {
           {filtered.map(plant => (
             <Link key={plant.id} to={`/plant/${plant.id}`} className="block">
               <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-40 object-cover rounded-lg" />
-              <p className="mt-1 text-center text-sm">{plant.name}</p>
+              <p className="mt-1 text-center text-sm font-semibold font-headline">{plant.name}</p>
             </Link>
           ))}
         </div>

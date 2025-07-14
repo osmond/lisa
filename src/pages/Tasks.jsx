@@ -60,10 +60,10 @@ export default function Tasks() {
                   overdue ? 'bg-red-500 animate-pulse' : color
                 }`}
               ></span>
-              <p className="text-xs text-gray-500">{e.date}</p>
-              <p className={overdue ? 'text-red-600 font-medium' : ''}>{e.label}</p>
+              <p className="text-xs text-gray-500 font-body">{e.date}</p>
+              <p className={`font-medium font-body ${overdue ? 'text-red-600' : ''}`}>{e.label}</p>
               {e.reason && (
-                <p className="text-xs text-gray-500">{e.reason}</p>
+                <p className="text-xs text-gray-500 font-body">{e.reason}</p>
               )}
             </li>
           )

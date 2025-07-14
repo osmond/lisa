@@ -1,6 +1,6 @@
 import TaskCard from '../components/TaskCard.jsx'
 import { usePlants } from '../PlantContext.jsx'
-import { Leaf } from 'phosphor-react'
+import WaterProgress from '../components/WaterProgress.jsx'
 
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
@@ -84,20 +84,9 @@ export default function Home() {
     {featuredTask && <FeaturedCard task={featuredTask} />}
     <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
       {totalWaterToday > 0 && (
-
         <div data-testid="water-progress" className="space-y-1 px-1">
           <p className="text-sm">💧 {wateredTodayCount} of {totalWaterToday} watered</p>
-          <div className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full relative" role="progressbar" aria-valuemin="0" aria-valuemax={totalWaterToday} aria-valuenow={wateredTodayCount}>
-            <div
-              className="h-2 rounded-full bg-gradient-to-r from-green-400 via-green-500 to-green-600 transition-all"
-              style={{ width: `${waterPercent}%` }}
-            ></div>
-            <Leaf
-              aria-hidden="true"
-              className="absolute -top-1 w-4 h-4 text-green-600 transition-transform"
-              style={{ left: `calc(${waterPercent}% - 0.5rem)` }}
-            />
-          </div>
+          <WaterProgress completed={wateredTodayCount} total={totalWaterToday} />
         </div>
       )}
       <section className="space-y-4">
