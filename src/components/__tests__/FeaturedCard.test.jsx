@@ -37,6 +37,7 @@ test('shows featured label and care summary', () => {
   expect(screen.getByText('🌿 Featured Plant of the Day')).toBeInTheDocument()
   expect(screen.getByText('Aloe')).toBeInTheDocument()
   expect(screen.getByText('Last watered 3 days ago \u00B7 Needs water today')).toBeInTheDocument()
+  expect(screen.getByLabelText('View details for Aloe')).toBeInTheDocument()
 })
 
 test('swipe changes plant', () => {
@@ -50,6 +51,7 @@ test('swipe changes plant', () => {
   fireEvent.pointerMove(card, { clientX: 20 })
   fireEvent.pointerUp(card, { clientX: 20 })
   expect(screen.getByText('Pothos')).toBeInTheDocument()
+  expect(screen.getByLabelText('View details for Pothos')).toBeInTheDocument()
 })
 
 test('shows Water Now button when watering is due', () => {
