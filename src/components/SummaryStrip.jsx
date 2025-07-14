@@ -11,7 +11,7 @@ export default function SummaryStrip({ total, watered, fertilized }) {
       {items.map(item => (
         <div key={item.label} className="flex-1">
           <div className="bg-sage rounded-full text-center py-2">
-            <p className="text-xs text-gray-500 font-body">{item.label}</p>
+            <p className="text-xs text-gray-500 font-medium font-body">{item.label}</p>
             <p className="text-lg font-semibold font-body" data-testid={`summary-${item.label.toLowerCase()}`}>{item.count}</p>
           </div>
         </div>
