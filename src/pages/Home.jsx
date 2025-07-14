@@ -56,7 +56,11 @@ export default function Home() {
         type: 'Water',
         reason,
         urgent: plantUrgent || date === todayIso,
+
+        date,
+
         overdue: date < todayIso,
+
       })
     }
     if (p.nextFertilize && p.nextFertilize <= todayIso) {
@@ -67,11 +71,17 @@ export default function Home() {
         image: p.image,
         type: 'Fertilize',
         urgent: plantUrgent || p.nextFertilize === todayIso,
+
+        date: p.nextFertilize,
+
         overdue: p.nextFertilize < todayIso,
+
       })
     }
   })
-  const tasks = [...waterTasks, ...fertilizeTasks]
+  const tasks = [...waterTasks, ...fertilizeTasks].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  )
   const totalCount = tasks.length
   const waterCount = waterTasks.length
   const fertilizeCount = fertilizeTasks.length

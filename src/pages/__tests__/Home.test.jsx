@@ -72,3 +72,31 @@ test('featured card appears before care stats', () => {
   expect(order & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
 })
 
+test('earliest due task appears first', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+  mockPlants.splice(0, mockPlants.length,
+    {
+      id: 1,
+      name: 'Plant A',
+      image: 'a.jpg',
+      lastWatered: '2025-07-02',
+    },
+    {
+      id: 2,
+      name: 'Plant B',
+      image: 'b.jpg',
+      lastWatered: '2025-07-03',
+    }
+  )
+
+  render(
+    <MemoryRouter>
+      <Home />
+    </MemoryRouter>
+  )
+
+  const tasks = screen.getAllByTestId('task-card')
+  expect(tasks[0]).toHaveTextContent('Plant A')
+  expect(tasks[1]).toHaveTextContent('Plant B')
+})
+
