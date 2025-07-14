@@ -108,8 +108,9 @@ export default function Home() {
 
   return (
     <div className="space-y-8">
-      <header className="flex flex-col items-center text-center space-y-1">
-        <p className="text-xs text-gray-400 font-body flex items-center justify-center gap-1">
+      <header className="flex flex-col items-start text-left space-y-1">
+        <p className="text-base font-medium text-gray-600">Hi {username}, let’s check on your plants.</p>
+        <p className="text-xs text-gray-400 font-body flex items-center gap-1">
           {forecast && (() => {
             const Icon = weatherIcons[forecast.condition] || Sun
             return (
@@ -127,7 +128,6 @@ export default function Home() {
             </>
           )}
         </p>
-        <p className="text-base font-medium text-gray-600">Hi {username}, Let’s check on your plants.</p>
       </header>
     {plants.length > 0 && (
       <section>
