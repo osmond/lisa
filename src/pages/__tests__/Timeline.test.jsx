@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import Timeline from '../Timeline.jsx'
 
 const samplePlants = [
@@ -73,4 +73,26 @@ test('displays month headers when events span months', () => {
   expect(headings).toHaveLength(2)
   expect(headings[0]).toHaveTextContent('July 2025')
   expect(headings[1]).toHaveTextContent('August 2025')
+})
+
+test('month headings are sticky and old months collapse by default', () => {
+  mockPlants = [
+    { id: 1, name: 'A', lastWatered: '2025-05-01' },
+    { id: 2, name: 'B', lastWatered: '2025-06-01' },
+    { id: 3, name: 'C', lastWatered: '2025-07-01' },
+  ]
+
+  render(<Timeline />)
+
+  // headings have sticky classes
+  const mayHeading = screen.getByRole('heading', { name: /May 2025/ })
+  expect(mayHeading.className).toMatch(/sticky/)
+
+  // older month (May) should be collapsed initially
+  expect(screen.queryByText('Watered A')).toBeNull()
+
+  // toggle open
+  const toggle = screen.getByRole('button', { name: /May 2025/ })
+  fireEvent.click(toggle)
+  expect(screen.getByText('Watered A')).toBeInTheDocument()
 })

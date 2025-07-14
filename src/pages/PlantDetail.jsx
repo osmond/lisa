@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
-import { useState, useRef, useMemo } from 'react'
+import { useState, useRef, useMemo, useEffect } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 import { Drop } from 'phosphor-react'
 import actionIcons from '../components/ActionIcons.jsx'
@@ -72,6 +72,22 @@ export default function PlantDetail() {
     })
     return Array.from(map.entries())
   }, [events])
+
+  const [openMonths, setOpenMonths] = useState({})
+
+  useEffect(() => {
+    const monthKeys = groupedEvents.map(([k]) => k)
+    const recent = monthKeys.slice(-2)
+    setOpenMonths(prev => {
+      const updated = { ...prev }
+      monthKeys.forEach(k => {
+        if (updated[k] === undefined) {
+          updated[k] = recent.includes(k)
+        }
+      })
+      return updated
+    })
+  }, [groupedEvents])
 
   const wateringEvents = useMemo(
     () => events.filter(e => /water/i.test(e.label)),
@@ -392,34 +408,48 @@ export default function PlantDetail() {
                   </button>
                 </div>
                 {timelineTab === 'list' ? (
-                  groupedEvents.map(([monthKey, list]) => (
-                    <div key={monthKey}>
-                      <h3 className="mt-4 text-label font-semibold text-gray-500">
-                        {formatMonth(monthKey)}
-                      </h3>
-                      <ul className="relative border-l border-gray-300 pl-4 space-y-6">
-                        {list.map((e, i) => {
-                          const Icon = actionIcons[e.type]
-                          return (
-                            <li key={`${e.date}-${i}`} className="relative">
-                              <span
-                                className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
-                              ></span>
-                              <p className="text-xs text-gray-500">{e.date}</p>
-                              <p className="flex items-center gap-1">
-                                {Icon && <Icon />}
-                                {e.label}
-                              </p>
-                              {e.note && (
-                                <p className="text-xs text-gray-500 italic">{e.note}</p>
-                              )}
-                              {e.mood && <p className="text-xs">{e.mood}</p>}
-                            </li>
-                          )
-                        })}
-                      </ul>
-                    </div>
-                  ))
+                  groupedEvents.map(([monthKey, list]) => {
+                    const isOpen = openMonths[monthKey]
+                    return (
+                      <div key={monthKey}>
+                        <h3 className="sticky top-0 bg-stone z-10 mt-4 text-label font-semibold text-gray-500">
+                          <button
+                            type="button"
+                            className="w-full flex justify-between items-center py-2"
+                            aria-expanded={isOpen}
+                            onClick={() =>
+                              setOpenMonths(prev => ({ ...prev, [monthKey]: !prev[monthKey] }))
+                            }
+                          >
+                            {formatMonth(monthKey)} <span>{isOpen ? '-' : '+'}</span>
+                          </button>
+                        </h3>
+                        {isOpen && (
+                          <ul className="relative border-l border-gray-300 pl-4 space-y-6">
+                            {list.map((e, i) => {
+                              const Icon = actionIcons[e.type]
+                              return (
+                                <li key={`${e.date}-${i}`} className="relative">
+                                  <span
+                                    className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
+                                  ></span>
+                                  <p className="text-xs text-gray-500">{e.date}</p>
+                                  <p className="flex items-center gap-1">
+                                    {Icon && <Icon />}
+                                    {e.label}
+                                  </p>
+                                  {e.note && (
+                                    <p className="text-xs text-gray-500 italic">{e.note}</p>
+                                  )}
+                                  {e.mood && <p className="text-xs">{e.mood}</p>}
+                                </li>
+                              )
+                            })}
+                          </ul>
+                        )}
+                      </div>
+                    )
+                  })
                 ) : (
                   <CareGraph events={wateringEvents} />
                 )}
