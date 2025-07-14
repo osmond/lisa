@@ -89,7 +89,10 @@ export default function Home() {
 
 const handleCompleteAll = type => {
   const list = type === 'Water' ? waterTasks : fertilizeTasks
-  list.slice().forEach(t => handleTaskComplete(t))
+  if (type === 'Water') {
+    list.forEach(t => markWatered(t.plantId, ''))
+  }
+  setCompletedCount(c => c + list.length)
 }
 
   const [focusIndex, setFocusIndex] = useState(() =>
@@ -146,17 +149,31 @@ const handleCompleteAll = type => {
         <ProgressRing completed={completedCount} total={totalCount} />
       </div>
       <section>
-        <h2 className="font-semibold font-display text-subhead mb-2">Watering</h2>
-        <div className="space-y-4 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl">
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="font-semibold font-display text-subhead">Watering</h2>
+          {waterTasks.length > 1 && (
+            <Button
+              type="button"
+              onClick={() => handleCompleteAll('Water')}
+              className="bg-green-600 text-white px-3 py-1"
+              data-testid="complete-all-water"
+            >
+              Complete All
+            </Button>
+          )}
+        </div>
+        <div
+          className="space-y-4 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl"
+          data-testid="water-list"
+        >
           {waterTasks.length > 0 ? (
             <>
-              {waterTasks.length > 1 && (
-                <Button type="button" onClick={() => handleCompleteAll('Water')} className="text-xs text-green-700 underline">
-                  Complete All
-                </Button>
-              )}
               {waterTasks.map(task => (
-                <TaskCard key={task.id} task={task} onComplete={handleTaskComplete} />
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  onComplete={handleTaskComplete}
+                />
               ))}
             </>
           ) : (
@@ -165,17 +182,31 @@ const handleCompleteAll = type => {
         </div>
       </section>
       <section>
-        <h2 className="font-semibold font-display text-subhead mb-2 mt-4">Fertilizing</h2>
-        <div className="space-y-4 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl">
+        <div className="flex items-center justify-between mb-2 mt-4">
+          <h2 className="font-semibold font-display text-subhead">Fertilizing</h2>
+          {fertilizeTasks.length > 1 && (
+            <Button
+              type="button"
+              onClick={() => handleCompleteAll('Fertilize')}
+              className="bg-green-600 text-white px-3 py-1"
+              data-testid="complete-all-fertilize"
+            >
+              Complete All
+            </Button>
+          )}
+        </div>
+        <div
+          className="space-y-4 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl"
+          data-testid="fertilize-list"
+        >
           {fertilizeTasks.length > 0 ? (
             <>
-              {fertilizeTasks.length > 1 && (
-                <Button type="button" onClick={() => handleCompleteAll('Fertilize')} className="text-xs text-green-700 underline">
-                  Complete All
-                </Button>
-              )}
               {fertilizeTasks.map(task => (
-                <TaskCard key={task.id} task={task} onComplete={handleTaskComplete} />
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  onComplete={handleTaskComplete}
+                />
               ))}
             </>
           ) : (

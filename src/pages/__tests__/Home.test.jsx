@@ -11,6 +11,9 @@ jest.mock('../../WeatherContext.jsx', () => ({
 
 afterEach(() => {
   mockForecast = { rainfall: 0 }
+  if (window.prompt && window.prompt.mockClear) {
+    window.prompt.mockClear()
+  }
 })
 
 const mockPlants = []
@@ -93,7 +96,7 @@ test('progress updates when completing a task', async () => {
 
 test('complete all marks every task', async () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
-  jest.spyOn(window, 'prompt').mockReturnValue('')
+  const promptSpy = jest.spyOn(window, 'prompt').mockReturnValue('')
   mockForecast = { rainfall: 100 }
   global.mockPlants.splice(0, global.mockPlants.length,
     { id: 1, name: 'A', image: 'a.jpg', lastWatered: '2025-07-02' },
@@ -110,8 +113,11 @@ test('complete all marks every task', async () => {
 
   const progress = await findByRole('progressbar')
   expect(progress).toHaveAttribute('aria-valuenow', '0')
-  fireEvent.click(screen.getByRole('button', { name: /complete all/i }))
+  const button = screen.getByRole('button', { name: /complete all/i })
+  expect(screen.getByTestId('water-list')).not.toContainElement(button)
+  fireEvent.click(button)
   expect(global.markWatered).toHaveBeenCalledTimes(2)
+  expect(promptSpy).not.toHaveBeenCalled()
   expect(progress).toHaveAttribute('aria-valuenow', '2')
 
 })
