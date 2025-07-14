@@ -59,9 +59,11 @@ export default function Home() {
     <div className="space-y-4">
       <header className="flex flex-col items-start space-y-1">
         <h1 className="text-2xl font-bold font-display">{today}</h1>
-        <p className="flex items-center text-sm text-gray-600">
+        <p className="flex items-center text-sm italic text-gray-500">
           <CloudSun className="w-5 h-5 mr-1 text-green-600" />
-          {forecast ? `${forecast.temp} - ${forecast.condition}` : 'Loading...'}
+          {forecast
+            ? `${forecast.temp} and ${forecast.condition?.toLowerCase()} — great day to water!`
+            : 'Loading...'}
         </p>
         <p className="font-display">Hi, {username}. Let’s check on your plants 🌱</p>
       </header>
