@@ -17,7 +17,7 @@ export default function Home() {
   const { plants, markWatered } = usePlants()
   const weatherCtx = useWeather()
   const forecast = weatherCtx?.forecast
-  const timezone = weatherCtx?.timezone
+  const timezone = weatherCtx?.timezone || 'UTC'
   const weatherData = { rainTomorrow: forecast?.rainfall || 0 }
 
   const now = new Date(

@@ -35,7 +35,7 @@ test('does not render add link', () => {
   expect(addLink).toBeNull()
 })
 
-test('active link icon has nav-bounce animation', () => {
+test('active link icon has nav-active animation', () => {
   const { container } = render(
     <MemoryRouter initialEntries={["/gallery"]}>
       <BottomNav />
@@ -43,14 +43,16 @@ test('active link icon has nav-bounce animation', () => {
   )
   const activeLink = container.querySelector('a[href="/gallery"]')
   const icon = activeLink.querySelector('svg')
-  expect(icon).toHaveClass('nav-bounce')
+  expect(icon).toHaveClass('nav-active')
 })
 
-test('shows dynamic tasks label', () => {
-  const { getByText } = render(
+test('shows dynamic tasks badge', () => {
+  const { container } = render(
     <MemoryRouter>
       <BottomNav dueCount={3} />
     </MemoryRouter>
   )
-  expect(getByText('To-Do (3)')).toBeInTheDocument()
+  const tasksLink = container.querySelector('a[href="/tasks"]')
+  const badge = tasksLink.querySelector('span span')
+  expect(badge).toHaveTextContent('3')
 })
