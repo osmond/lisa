@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import Lightbox from '../components/Lightbox.jsx'
 import FadeInImage from '../components/FadeInImage.jsx'
+import PhotoThumb from '../components/PhotoThumb.jsx'
+import EditNoteModal from '../components/EditNoteModal.jsx'
 
 export function AllGallery() {
   const { plants, addPhoto } = usePlants()
@@ -90,7 +92,7 @@ export function AllGallery() {
 
 export default function Gallery() {
   const { id } = useParams()
-  const { plants } = usePlants()
+  const { plants, updatePlant } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
 
   if (!plant) {
@@ -99,6 +101,21 @@ export default function Gallery() {
 
   const photos = plant.photos || []
   const [index, setIndex] = useState(null)
+  const [noteModal, setNoteModal] = useState(false)
+
+  const handleSharePhoto = src => {
+    if (navigator.share) {
+      navigator.share({ url: src }).catch(() => {})
+    }
+  }
+
+  const handleSetCover = src => {
+    updatePlant(plant.id, { image: src })
+  }
+
+  const handleEditNote = () => {
+    setNoteModal(true)
+  }
 
   return (
     <div className="space-y-4">
@@ -107,18 +124,15 @@ export default function Gallery() {
       {/* desktop grid */}
       <div className="hidden md:grid grid-cols-2 md:grid-cols-3 gap-4">
         {photos.map((src, i) => (
-          <button
+          <PhotoThumb
             key={i}
+            src={src}
+            alt={plant.name}
             onClick={() => setIndex(i)}
-            className="aspect-video overflow-hidden rounded-lg shadow-lg bg-gray-900 focus:outline-none"
-          >
-            <FadeInImage
-              src={src}
-              alt={plant.name}
-              loading="lazy"
-              className="w-full h-full object-cover transition-transform transform hover:scale-105 active:scale-105"
-            />
-          </button>
+            onShare={() => handleSharePhoto(src)}
+            onEdit={handleEditNote}
+            onCover={() => handleSetCover(src)}
+          />
         ))}
       </div>
 
@@ -126,17 +140,14 @@ export default function Gallery() {
       <div className="flex md:hidden space-x-4 overflow-x-auto snap-x snap-mandatory">
         {photos.map((src, i) => (
           <div key={i} className="snap-center shrink-0 w-full">
-            <button
+            <PhotoThumb
+              src={src}
+              alt={plant.name}
               onClick={() => setIndex(i)}
-              className="aspect-video overflow-hidden rounded-lg shadow-lg bg-gray-900 w-full h-full focus:outline-none"
-            >
-              <FadeInImage
-                src={src}
-                alt={plant.name}
-                loading="lazy"
-                className="w-full h-full object-cover transition-transform transform hover:scale-105 active:scale-105"
-              />
-            </button>
+              onShare={() => handleSharePhoto(src)}
+              onEdit={handleEditNote}
+              onCover={() => handleSetCover(src)}
+            />
           </div>
         ))}
       </div>
@@ -146,6 +157,13 @@ export default function Gallery() {
           startIndex={index}
           onClose={() => setIndex(null)}
           label="Photo viewer"
+        />
+      )}
+      {noteModal && (
+        <EditNoteModal
+          initial={plant.notes || ''}
+          onSave={note => updatePlant(plant.id, { notes: note })}
+          onClose={() => setNoteModal(false)}
         />
       )}
 

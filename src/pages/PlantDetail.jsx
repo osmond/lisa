@@ -6,10 +6,19 @@ import actionIcons from '../components/ActionIcons.jsx'
 import LogModal from '../components/LogModal.jsx'
 import { formatMonth } from '../utils/date.js'
 import FadeInImage from '../components/FadeInImage.jsx'
+import EditNoteModal from '../components/EditNoteModal.jsx'
+import PhotoThumb from '../components/PhotoThumb.jsx'
 
 export default function PlantDetail() {
   const { id } = useParams()
-  const { plants, addPhoto, removePhoto, markWatered, logEvent } = usePlants()
+  const {
+    plants,
+    addPhoto,
+    removePhoto,
+    markWatered,
+    logEvent,
+    updatePlant,
+  } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
 
   const sectionNames = ['activity', 'notes', 'care', 'timeline']
@@ -20,6 +29,7 @@ export default function PlantDetail() {
   const [toast, setToast] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [modalType, setModalType] = useState('Note')
+  const [noteModal, setNoteModal] = useState(false)
 
   const events = useMemo(() => {
     if (!plant) return []
@@ -107,6 +117,20 @@ export default function PlantDetail() {
   const handleAddCareLog = () => {
     setModalType('')
     setShowModal(true)
+  }
+
+  const handleSharePhoto = src => {
+    if (navigator.share) {
+      navigator.share({ url: src }).catch(() => {})
+    }
+  }
+
+  const handleSetCover = src => {
+    updatePlant(plant.id, { image: src })
+  }
+
+  const handleEditNote = () => {
+    setNoteModal(true)
   }
 
   const handleSaveLog = ({ type, note, date, mood }) => {
@@ -365,19 +389,15 @@ export default function PlantDetail() {
         <h2 className="text-subhead font-semibold font-display">Gallery</h2>
         <div className="grid grid-cols-3 gap-2">
           {(plant.photos || []).map((src, i) => (
-            <div key={i} className="relative">
-              <img
-                src={src}
-                alt={`${plant.name} ${i}`}
-                className="object-cover w-full h-24 rounded"
-              />
-              <button
-                className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
-                onClick={() => removePhoto(plant.id, i)}
-              >
-                ✕
-              </button>
-            </div>
+            <PhotoThumb
+              key={i}
+              src={src}
+              alt={`${plant.name} ${i}`}
+              onRemove={() => removePhoto(plant.id, i)}
+              onShare={() => handleSharePhoto(src)}
+              onEdit={handleEditNote}
+              onCover={() => handleSetCover(src)}
+            />
           ))}
         </div>
         <button
@@ -401,6 +421,13 @@ export default function PlantDetail() {
           onSave={handleSaveLog}
           onClose={() => setShowModal(false)}
           defaultType={modalType}
+        />
+      )}
+      {noteModal && (
+        <EditNoteModal
+          initial={plant.notes || ''}
+          onSave={note => updatePlant(plant.id, { notes: note })}
+          onClose={() => setNoteModal(false)}
         />
       )}
   </div>
