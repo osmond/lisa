@@ -89,27 +89,33 @@ export default function Home() {
 
   return (
     <div className="space-y-6">
-      <header className="flex flex-col items-start space-y-2">
+      <header className="flex flex-col items-start space-y-1">
         <p className="text-sm text-gray-500 font-body flex items-center gap-1">
-          <span>{weekday}, {monthDay}</span>
-          {forecast ? (
+          {weekday}, {monthDay}
+          {forecast && (
             <>
-              {(() => {
-                const Icon = weatherIcons[forecast.condition] || Sun
-                return (
-                  <Icon className="w-4 h-4 text-gray-400" aria-label={forecast.condition} />
-                )
-              })()}
-              <span>{forecast.temp}, {forecast.condition}</span>
+              <span aria-hidden="true">·</span>
+              <span>{forecast.temp}</span>
+              <span aria-hidden="true">·</span>
+              <span className="flex items-center gap-1">
+                {(() => {
+                  const Icon = weatherIcons[forecast.condition] || Sun
+                  return (
+                    <Icon className="w-4 h-4 text-gray-400" aria-label={forecast.condition} />
+                  )
+                })()}
+                {forecast.condition}
+              </span>
             </>
-          ) : (
-            'Loading...'
           )}
         </p>
-        <p className="text-sm text-gray-500 font-body mt-2">Hi Jon, Let’s check on your plants.</p>
+        <p className="text-sm text-gray-400 font-body">Hi Jon, Let’s check on your plants.</p>
       </header>
     {plants.length > 0 && (
-      <FeaturedCard plants={plants} startIndex={featuredIndex} />
+      <section className="space-y-2">
+        <h2 className="font-semibold font-headline">🌿 Featured Plant</h2>
+        <FeaturedCard plants={plants} startIndex={featuredIndex} />
+      </section>
     )}
     <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
       {(totalWaterToday > 0 || totalFertilizeToday > 0) && (

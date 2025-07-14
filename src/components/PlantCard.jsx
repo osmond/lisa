@@ -104,7 +104,6 @@ export default function PlantCard({ plant }) {
           <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-48 object-cover rounded-xl" />
           <h2 className="font-bold text-xl font-headline mt-2">{plant.name}</h2>
         </Link>
-        <p className="text-sm text-gray-600 dark:text-gray-400 font-body font-medium">Last watered: {plant.lastWatered}</p>
         <p className="text-sm text-green-700 font-medium font-body">Next: {plant.nextWater}</p>
         <button
           onMouseDown={createRipple}
