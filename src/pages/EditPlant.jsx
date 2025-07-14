@@ -35,9 +35,9 @@ export default function EditPlant() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
-      <h1 className="text-headline font-bold font-display">Edit Plant</h1>
+      <h1 className="text-headline leading-heading tracking-heading font-bold font-display">Edit Plant</h1>
       <div className="grid gap-1">
-        <label htmlFor="name" className="font-medium text-label">Name</label>
+        <label htmlFor="name" className="font-medium text-label leading-label tracking-label">Name</label>
         <input
           id="name"
           type="text"
@@ -48,7 +48,7 @@ export default function EditPlant() {
         />
       </div>
       <div className="grid gap-1">
-        <label htmlFor="image" className="font-medium text-label">Image URL</label>
+        <label htmlFor="image" className="font-medium text-label leading-label tracking-label">Image URL</label>
         <input
           id="image"
           type="text"
@@ -58,7 +58,7 @@ export default function EditPlant() {
         />
       </div>
       <div className="grid gap-1">
-        <label htmlFor="lastWatered" className="font-medium text-label">Last Watered</label>
+        <label htmlFor="lastWatered" className="font-medium text-label leading-label tracking-label">Last Watered</label>
         <input
           id="lastWatered"
           type="date"
@@ -68,7 +68,7 @@ export default function EditPlant() {
         />
       </div>
       <div className="grid gap-1">
-        <label htmlFor="nextWater" className="font-medium text-label">Next Watering</label>
+        <label htmlFor="nextWater" className="font-medium text-label leading-label tracking-label">Next Watering</label>
         <input
           id="nextWater"
           type="date"
