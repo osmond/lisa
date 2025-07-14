@@ -39,7 +39,7 @@ export default function BottomNav({ dueCount = 0 }) {
     { type: 'add' },
     { to: '/tasks', label: 'Care', icon: CheckIcon },
     { to: '/gallery', label: 'Gallery', icon: GalleryIcon },
-    { to: '/settings', label: 'Profile', icon: UserIcon },
+    { to: '/profile', label: 'Profile', icon: UserIcon },
   ]
 
   return (
