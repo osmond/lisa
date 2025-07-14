@@ -21,8 +21,8 @@ const UserIcon = () => <PersonIcon {...iconProps} />
 export default function BottomNav() {
   const items = [
     { to: '/', label: 'Home', icon: HomeIconComponent },
+    { to: '/care', label: 'Task View', icon: CheckIcon },
     { to: '/myplants', label: 'My Plants', icon: ListIcon },
-    { to: '/tasks', label: 'Tasks', icon: CheckIcon },
     { to: '/gallery', label: 'Gallery', icon: GalleryIcon },
     { to: '/settings', label: 'Profile', icon: UserIcon },
   ]
