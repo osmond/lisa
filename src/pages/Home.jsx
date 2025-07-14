@@ -67,7 +67,7 @@ export default function Home() {
 
   return (
     <div className="space-y-6">
-      <header className="flex flex-col items-start space-y-2">
+      <header className="flex flex-col items-start space-y-2 mt-6 pb-4">
         <h1 className="text-3xl font-bold font-headline flex items-center space-x-1 border-b border-gray-100 pb-1">
           <span className="text-xl">☀️</span>
           <span>{today}</span>
