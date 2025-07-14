@@ -43,6 +43,20 @@ npm test
 
 ---
 
+## 🔍 Linting
+
+Run ESLint to check for code issues:
+```bash
+npm run lint
+```
+
+Automatically fix problems with:
+```bash
+npm run lint:fix
+```
+
+---
+
 ## ⚙️ Getting Started
 
 ### Install dependencies:
