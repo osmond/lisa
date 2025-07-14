@@ -4,7 +4,6 @@ import { usePlants } from '../PlantContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
 
-import { CloudSun } from 'phosphor-react'
 
 import SummaryStrip from '../components/SummaryStrip.jsx'
 
@@ -55,12 +54,14 @@ export default function Home() {
 
   return (
     <div className="space-y-4">
-      <header className="flex flex-col items-start space-y-1">
-        <h1 className="text-2xl font-bold font-display">{today}</h1>
-        <p className="flex items-center text-sm text-gray-600">
-          <CloudSun className="w-5 h-5 mr-1 text-green-600" />
-          {forecast ? `${forecast.temp} - ${forecast.condition}` : 'Loading...'}
+      <header className="flex flex-col items-start space-y-2">
+        <h1 className="text-2xl font-bold font-headline">☀️ {today}</h1>
+        <p className="text-sm text-gray-600 font-body">
+          {forecast
+            ? `${forecast.temp} and ${(forecast.condition || '').toLowerCase()} — great day to water!`
+            : 'Loading...'}
         </p>
+        <p className="text-sm text-gray-600 font-body">Hi Jon 🌿 Let’s check on your plants.</p>
       </header>
       <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
       <section>
