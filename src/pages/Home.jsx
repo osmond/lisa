@@ -91,6 +91,8 @@ export default function Home() {
     const list = type === 'Water' ? waterTasks : fertilizeTasks
     list.slice().forEach(t => handleTaskComplete(t))
 
+  }
+
   const [focusIndex, setFocusIndex] = useState(() =>
     plants.length > 0 ? now.getDate() % plants.length : 0
   )
