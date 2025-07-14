@@ -12,6 +12,7 @@ import SummaryStrip from '../components/SummaryStrip.jsx'
 
 export default function Home() {
   const { plants } = usePlants()
+  const username = 'Kay'
   const weatherCtx = useWeather()
   const forecast = weatherCtx?.forecast
   const weatherData = { rainTomorrow: forecast?.rainfall || 0 }
@@ -61,6 +62,7 @@ export default function Home() {
           <CloudSun className="w-5 h-5 mr-1 text-green-600" />
           {forecast ? `${forecast.temp} - ${forecast.condition}` : 'Loading...'}
         </p>
+        <p className="font-display">Hi, {username}. Let’s check on your plants 🌱</p>
       </header>
       <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
       <section>
