@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 import useRipple from '../utils/useRipple.js'
 import { usePlants } from '../PlantContext.jsx'
 import FadeInImage from './FadeInImage.jsx'
+import NoteModal from './NoteModal.jsx'
 
 export default function PlantCard({ plant }) {
   const navigate = useNavigate()
@@ -10,11 +11,23 @@ export default function PlantCard({ plant }) {
   const startX = useRef(0)
   const [deltaX, setDeltaX] = useState(0)
   const [showActions, setShowActions] = useState(false)
+  const [showNoteModal, setShowNoteModal] = useState(false)
   const [, createRipple] = useRipple()
 
   const handleWatered = () => {
-    const note = window.prompt('Optional note') || ''
+    if (typeof document !== 'undefined') {
+      setShowNoteModal(true)
+    } else if (typeof window !== 'undefined' && typeof window.prompt === 'function') {
+      const note = window.prompt('Optional note') || ''
+      markWatered(plant.id, note)
+    } else {
+      markWatered(plant.id, '')
+    }
+  }
+
+  const handleNoteSave = note => {
     markWatered(plant.id, note)
+    setShowNoteModal(false)
   }
 
   const handleDelete = () => {
@@ -103,7 +116,7 @@ export default function PlantCard({ plant }) {
       >
         <Link to={`/plant/${plant.id}`} className="block mb-2">
           <FadeInImage
-            src={plant.image}
+            src={plant.image || '/placeholder.svg'}
             alt={plant.name}
             loading="lazy"
             className="w-full h-48 object-cover rounded-xl"
@@ -121,6 +134,9 @@ export default function PlantCard({ plant }) {
           Watered
         </button>
       </div>
+      {showNoteModal && (
+        <NoteModal onSave={handleNoteSave} onClose={() => setShowNoteModal(false)} />
+      )}
     </div>
   )
 }

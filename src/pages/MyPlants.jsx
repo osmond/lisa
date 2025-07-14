@@ -41,7 +41,7 @@ export default function MyPlants() {
   )
   const noResults = filtered.length === 0
 
-  const images = plants.flatMap(p => [p.image, ...(p.photos || [])])
+  const images = plants.flatMap(p => [p.image, ...(p.photos || []).map(ph => (typeof ph === 'object' ? ph.src : ph))])
 
   return (
     <div>

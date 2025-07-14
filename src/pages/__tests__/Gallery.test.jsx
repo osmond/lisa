@@ -4,16 +4,18 @@ import Gallery from '../Gallery.jsx'
 import plants from '../../plants.json'
 import { PlantProvider } from '../../PlantContext.jsx'
 
+const Wrapper = ({ children }) => <PlantProvider>{children}</PlantProvider>
+
 test('renders gallery images for plant', () => {
   const plant = plants[0]
   render(
-    <PlantProvider>
+    <Wrapper>
       <MemoryRouter initialEntries={[`/plant/${plant.id}/gallery`]}>
         <Routes>
           <Route path="/plant/:id/gallery" element={<Gallery />} />
         </Routes>
       </MemoryRouter>
-    </PlantProvider>
+    </Wrapper>
   )
 
   const images = screen.getAllByAltText(plant.name)
@@ -23,17 +25,50 @@ test('renders gallery images for plant', () => {
 test('lightbox opens when image clicked', () => {
   const plant = plants[0]
   render(
-    <PlantProvider>
-      <MemoryRouter initialEntries={[`/plant/${plant.id}/gallery`]}>
+    <Wrapper>
+      <MemoryRouter initialEntries={[`/plant/${plant.id}/gallery`]}> 
         <Routes>
           <Route path="/plant/:id/gallery" element={<Gallery />} />
         </Routes>
       </MemoryRouter>
-    </PlantProvider>
+    </Wrapper>
   )
 
   const img = screen.getAllByAltText(plant.name)[0]
   fireEvent.click(img)
 
   expect(screen.getByRole('dialog')).toBeInTheDocument()
+})
+
+test('photo note persists after saving', () => {
+  const plant = plants[0]
+  const { rerender } = render(
+    <Wrapper>
+      <MemoryRouter initialEntries={[`/plant/${plant.id}/gallery`]}>
+        <Routes>
+          <Route path="/plant/:id/gallery" element={<Gallery />} />
+        </Routes>
+      </MemoryRouter>
+    </Wrapper>
+  )
+
+  fireEvent.click(screen.getAllByText('Edit')[0])
+  fireEvent.change(screen.getByPlaceholderText('Note'), {
+    target: { value: 'hello' },
+  })
+  fireEvent.click(screen.getByText('Save'))
+
+  expect(screen.getByText('hello')).toBeInTheDocument()
+
+  rerender(
+    <Wrapper>
+      <MemoryRouter initialEntries={[`/plant/${plant.id}/gallery`]}>
+        <Routes>
+          <Route path="/plant/:id/gallery" element={<Gallery />} />
+        </Routes>
+      </MemoryRouter>
+    </Wrapper>
+  )
+
+  expect(screen.getByText('hello')).toBeInTheDocument()
 })
