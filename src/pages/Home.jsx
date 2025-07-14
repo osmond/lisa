@@ -12,8 +12,6 @@ import PlantSpotlightCard from '../components/PlantSpotlightCard.jsx'
 import SummaryStrip from '../components/SummaryStrip.jsx'
 import ProgressRing from '../components/ProgressRing.jsx'
 
-
-
 export default function Home() {
   const { plants, markWatered } = usePlants()
   const weatherCtx = useWeather()
@@ -69,11 +67,9 @@ export default function Home() {
   const [completedCount, setCompletedCount] = useState(0)
   const [totalCount, setTotalCount] = useState(waterCount + fertilizeCount)
 
-
   const showRainSuggestion =
     (forecast?.rainfall || 0) > 50 ||
     waterTasks.some(t => t.reason === 'rain expected tomorrow')
-
 
   useEffect(() => {
     setTotalCount(waterCount + fertilizeCount + completedCount)
@@ -87,10 +83,13 @@ export default function Home() {
     setCompletedCount(c => c + 1)
   }
 
-const handleCompleteAll = type => {
-  const list = type === 'Water' ? waterTasks : fertilizeTasks
-  list.slice().forEach(t => handleTaskComplete(t))
-}
+  const handleCompleteAll = type => {
+    const list = type === 'Water' ? waterTasks : fertilizeTasks
+    if (type === 'Water') {
+      list.forEach(t => markWatered(t.plantId, ''))
+    }
+    setCompletedCount(c => c + list.length)
+  }
 
   const [focusIndex, setFocusIndex] = useState(() =>
     plants.length > 0 ? now.getDate() % plants.length : 0
@@ -102,9 +101,7 @@ const handleCompleteAll = type => {
     if (plants.length > 0) {
       setFocusIndex((focusIndex + 1) % plants.length)
     }
-
   }
-
 
   const today = now.toLocaleDateString(undefined, {
     weekday: 'long',
@@ -112,7 +109,6 @@ const handleCompleteAll = type => {
     day: 'numeric',
     timeZone: timezone,
   })
-
 
   return (
     <div className="space-y-4">
@@ -138,7 +134,6 @@ const handleCompleteAll = type => {
         <p className="text-subhead text-gray-500">{today}</p>
       </header>
 
-
       <PlantSpotlightCard plant={spotlightPlant} nextPlant={nextPlant} onSkip={handleSkip} />
 
       <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
@@ -146,17 +141,31 @@ const handleCompleteAll = type => {
         <ProgressRing completed={completedCount} total={totalCount} />
       </div>
       <section>
-        <h2 className="font-semibold font-display text-subhead mb-2">Watering</h2>
-        <div className="space-y-6 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl">
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="font-semibold font-display text-subhead">Watering</h2>
+          {waterTasks.length > 1 && (
+            <Button
+              type="button"
+              onClick={() => handleCompleteAll('Water')}
+              className="bg-green-600 text-white px-3 py-1"
+              data-testid="complete-all-water"
+            >
+              Complete All
+            </Button>
+          )}
+        </div>
+        <div
+          className="space-y-4 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl"
+          data-testid="water-list"
+        >
           {waterTasks.length > 0 ? (
             <>
-              {waterTasks.length > 1 && (
-                <Button type="button" onClick={() => handleCompleteAll('Water')} className="text-xs text-green-700 underline">
-                  Complete All
-                </Button>
-              )}
               {waterTasks.map(task => (
-                <TaskCard key={task.id} task={task} onComplete={handleTaskComplete} />
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  onComplete={handleTaskComplete}
+                />
               ))}
             </>
           ) : (
@@ -165,17 +174,31 @@ const handleCompleteAll = type => {
         </div>
       </section>
       <section>
-        <h2 className="font-semibold font-display text-subhead mb-2 mt-4">Fertilizing</h2>
-        <div className="space-y-6 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl">
+        <div className="flex items-center justify-between mb-2 mt-4">
+          <h2 className="font-semibold font-display text-subhead">Fertilizing</h2>
+          {fertilizeTasks.length > 1 && (
+            <Button
+              type="button"
+              onClick={() => handleCompleteAll('Fertilize')}
+              className="bg-green-600 text-white px-3 py-1"
+              data-testid="complete-all-fertilize"
+            >
+              Complete All
+            </Button>
+          )}
+        </div>
+        <div
+          className="space-y-4 divide-y divide-gray-200 p-4 shadow-sm bg-stone rounded-xl"
+          data-testid="fertilize-list"
+        >
           {fertilizeTasks.length > 0 ? (
             <>
-              {fertilizeTasks.length > 1 && (
-                <Button type="button" onClick={() => handleCompleteAll('Fertilize')} className="text-xs text-green-700 underline">
-                  Complete All
-                </Button>
-              )}
               {fertilizeTasks.map(task => (
-                <TaskCard key={task.id} task={task} onComplete={handleTaskComplete} />
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  onComplete={handleTaskComplete}
+                />
               ))}
             </>
           ) : (
