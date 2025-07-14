@@ -32,6 +32,9 @@ export function AllGallery() {
   return (
     <div>
       <h1 className="text-headline font-bold font-display mb-4">Gallery</h1>
+      <a href="/gallery/timeline" className="text-sm text-green-700 underline">
+        View by date
+      </a>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
         {images.map((src, i) => (
           <button key={i} onClick={() => setIndex(i)} className="focus:outline-none">
