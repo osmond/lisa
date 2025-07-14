@@ -89,13 +89,13 @@ export default function Home() {
         </p>
         <p className="text-sm text-gray-500">{today}</p>
       </header>
-      <div className="flex space-x-3 overflow-x-auto py-2">
+      <div className="flex justify-center space-x-3 overflow-x-auto py-2">
         {plants.map(p => (
           <img
             key={p.id}
             src={p.image}
             alt={p.name}
-            className="w-24 h-24 object-cover rounded-lg flex-shrink-0"
+            className="w-32 h-32 object-cover rounded-lg flex-shrink-0"
           />
         ))}
       </div>
