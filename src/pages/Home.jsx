@@ -45,6 +45,12 @@ export default function Home() {
   const waterCount = waterTasks.length
   const fertilizeCount = fertilizeTasks.length
 
+  const wateredTodayCount = plants.filter(p => p.lastWatered === todayIso).length
+  const totalWaterToday = wateredTodayCount + waterTasks.length
+  const waterPercent = totalWaterToday
+    ? Math.round((wateredTodayCount / totalWaterToday) * 100)
+    : 0
+
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
     month: 'long',
@@ -64,6 +70,17 @@ export default function Home() {
         <p className="text-sm text-gray-600 font-body">Hi Jon 🌿 Let’s check on your plants.</p>
       </header>
       <SummaryStrip total={totalCount} watered={waterCount} fertilized={fertilizeCount} />
+      {totalWaterToday > 0 && (
+        <div data-testid="water-progress" className="px-1">
+          <p className="text-sm mb-1">💧 {wateredTodayCount} of {totalWaterToday} watered</p>
+          <div className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full">
+            <div
+              className="h-2 bg-green-500 rounded-full"
+              style={{ width: `${waterPercent}%` }}
+            ></div>
+          </div>
+        </div>
+      )}
       <section>
         <h2 className="font-semibold font-display mb-2">Today’s Tasks</h2>
         <div className="space-y-4">
