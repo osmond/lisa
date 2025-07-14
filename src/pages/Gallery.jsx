@@ -1,6 +1,7 @@
 
 import { useState, useRef, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import { Calendar } from 'phosphor-react'
 import { usePlants } from '../PlantContext.jsx'
 import Lightbox from '../components/Lightbox.jsx'
 import FadeInImage from '../components/FadeInImage.jsx'
@@ -32,9 +33,13 @@ export function AllGallery() {
   return (
     <div>
       <h1 className="text-headline font-bold font-display mb-4">Gallery</h1>
-      <a href="/gallery/timeline" className="text-sm text-green-700 underline">
-        View by date
-      </a>
+      <Link
+        to="/gallery/timeline"
+        className="inline-flex items-center gap-1 px-3 py-1 mb-2 bg-accent text-white rounded"
+      >
+        <Calendar className="w-4 h-4" aria-hidden="true" />
+        <span>View by date</span>
+      </Link>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
         {images.map((src, i) => (
           <button key={i} onClick={() => setIndex(i)} className="focus:outline-none">
