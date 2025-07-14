@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useRef, useState } from 'react'
 import { ArrowRight } from 'phosphor-react'
 import { formatCareSummary } from '../utils/date.js'
+import { usePlants } from '../PlantContext.jsx'
 
 export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
   const items = plants.length ? plants : task ? [task] : []
@@ -28,11 +29,22 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
     startX.current = 0
   }
 
+  const { markWatered } = usePlants()
+
   const plant = items[index]
   const name = plant.plantName || plant.name
   const id = plant.plantId || plant.id
   const preview = formatCareSummary(plant.lastWatered, plant.nextWater)
   const imageSrc = (plant.photos && plant.photos[0]) || plant.image || '/demo-image-01.jpg'
+
+  const today = new Date().toISOString().slice(0, 10)
+  const showWaterButton = plant.nextWater && plant.nextWater <= today
+
+  const handleWater = e => {
+    e.preventDefault()
+    e.stopPropagation()
+    markWatered(id, '')
+  }
 
   return (
     <Link
@@ -63,6 +75,17 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
         {preview && (
           <p className="text-sm opacity-90">{preview}</p>
         )}
+
+        {showWaterButton && (
+          <button
+            onClick={handleWater}
+            className="mt-1 px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm font-body text-white pointer-events-auto"
+          >
+            Water Now
+          </button>
+        )}
+
+
         <ArrowRight
           size={24}
           weight="bold"
@@ -70,6 +93,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
           aria-label={`View details for ${name}`}
           data-testid="view-details"
         />
+
       </div>
     </Link>
   )
