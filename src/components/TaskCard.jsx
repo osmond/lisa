@@ -6,11 +6,13 @@ import actionIcons from './ActionIcons.jsx'
 import useRipple from '../utils/useRipple.js'
 import { relativeDate } from '../utils/relativeDate.js'
 import { useWeather } from '../WeatherContext.jsx'
+import NoteModal from './NoteModal.jsx'
 
 export default function TaskCard({ task, onComplete }) {
   const { markWatered } = usePlants()
   const Icon = actionIcons[task.type]
   const [checked, setChecked] = useState(false)
+  const [showNoteModal, setShowNoteModal] = useState(false)
   const [, createRipple] = useRipple()
   const { timezone } = useWeather() || {}
   const tz = timezone || Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -22,11 +24,22 @@ export default function TaskCard({ task, onComplete }) {
     if (onComplete) {
       onComplete(task)
     } else if (task.type === 'Water') {
-      const note = window.prompt('Optional note') || ''
-      markWatered(task.plantId, note)
+      if (typeof document !== 'undefined') {
+        setShowNoteModal(true)
+      } else if (typeof window !== 'undefined' && typeof window.prompt === 'function') {
+        const note = window.prompt('Optional note') || ''
+        markWatered(task.plantId, note)
+      } else {
+        markWatered(task.plantId, '')
+      }
     }
     setChecked(true)
     setTimeout(() => setChecked(false), 400)
+  }
+
+  const handleNoteSave = note => {
+    markWatered(task.plantId, note)
+    setShowNoteModal(false)
   }
 
   const pillColors = {
@@ -82,6 +95,9 @@ export default function TaskCard({ task, onComplete }) {
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <Drop aria-hidden="true" className="w-8 h-8 text-blue-600 water-drop" />
         </div>
+      )}
+      {showNoteModal && (
+        <NoteModal onSave={handleNoteSave} onClose={() => setShowNoteModal(false)} />
       )}
     </div>
   )

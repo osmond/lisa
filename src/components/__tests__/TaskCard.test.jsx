@@ -1,7 +1,23 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import TaskCard from '../TaskCard.jsx'
-import { PlantProvider } from '../../PlantContext.jsx'
+import { usePlants } from '../../PlantContext.jsx'
+
+const markWatered = jest.fn()
+
+jest.mock('../../PlantContext.jsx', () => ({
+  usePlants: jest.fn(),
+}))
+
+const usePlantsMock = usePlants
+
+beforeEach(() => {
+  markWatered.mockClear()
+  usePlantsMock.mockReturnValue({
+    plants: [],
+    markWatered,
+  })
+})
 
 const task = {
   id: 1,
@@ -13,51 +29,59 @@ const task = {
 
 test('renders task text', () => {
   render(
-    <PlantProvider>
-      <MemoryRouter>
-        <TaskCard task={task} />
-      </MemoryRouter>
-    </PlantProvider>
+    <MemoryRouter>
+      <TaskCard task={task} />
+    </MemoryRouter>
   )
   expect(screen.getByText('Water Monstera')).toBeInTheDocument()
 })
 
 test('icon svg is aria-hidden', () => {
   const { container } = render(
-    <PlantProvider>
-      <MemoryRouter>
-        <TaskCard task={task} />
-      </MemoryRouter>
-    </PlantProvider>
+    <MemoryRouter>
+      <TaskCard task={task} />
+    </MemoryRouter>
   )
   const svg = container.querySelector('svg')
   expect(svg).toHaveAttribute('aria-hidden', 'true')
 })
 
-test('mark as done does not navigate and shows animation', () => {
-  jest.spyOn(window, 'prompt').mockReturnValue('')
+test('mark as done opens modal and saves note', () => {
   const { container } = render(
-    <PlantProvider>
-      <MemoryRouter initialEntries={['/']}>
-        <Routes>
-          <Route path="/" element={<TaskCard task={task} />} />
-          <Route path="/plant/:id" element={<div>Plant Page</div>} />
-        </Routes>
-      </MemoryRouter>
-    </PlantProvider>
+    <MemoryRouter initialEntries={['/']}>
+      <Routes>
+        <Route path="/" element={<TaskCard task={task} />} />
+        <Route path="/plant/:id" element={<div>Plant Page</div>} />
+      </Routes>
+    </MemoryRouter>
   )
   fireEvent.click(screen.getByRole('checkbox'))
+  fireEvent.change(screen.getByLabelText(/note/i), { target: { value: 'ok' } })
+  fireEvent.click(screen.getByText('Save'))
+  expect(markWatered).toHaveBeenCalledWith(1, 'ok')
   expect(screen.queryByText('Plant Page')).not.toBeInTheDocument()
+  expect(container.querySelector('.water-drop')).toBeInTheDocument()
+})
+
+test('cancel note modal does not mark complete', () => {
+  const { container } = render(
+    <MemoryRouter initialEntries={['/']}>
+      <Routes>
+        <Route path="/" element={<TaskCard task={task} />} />
+      </Routes>
+    </MemoryRouter>
+  )
+  fireEvent.click(screen.getByRole('checkbox'))
+  fireEvent.click(screen.getByText('Cancel'))
+  expect(markWatered).not.toHaveBeenCalled()
   expect(container.querySelector('.water-drop')).toBeInTheDocument()
 })
 
 test('clicking card adds ripple effect', () => {
   const { container } = render(
-    <PlantProvider>
-      <MemoryRouter>
-        <TaskCard task={task} />
-      </MemoryRouter>
-    </PlantProvider>
+    <MemoryRouter>
+      <TaskCard task={task} />
+    </MemoryRouter>
   )
   const wrapper = container.firstChild
   fireEvent.mouseDown(wrapper)
