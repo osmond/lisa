@@ -91,9 +91,24 @@ export default function Home() {
         <div className="space-y-4">
           {tasks.length > 0 ? (
             <>
-              <HeroTaskCard task={tasks[0]} onComplete={handleTaskComplete} />
-              {tasks.slice(1).map(task => (
-                <TaskCard key={task.id} task={task} onComplete={handleTaskComplete} />
+              {tasks.map((task, idx) => (
+                <div
+                  key={task.id}
+                  className="animate-fade-in-up"
+                  style={{ animationDelay: `${idx * 100}ms` }}
+                >
+                  {idx === 0 ? (
+                    <HeroTaskCard
+                      task={task}
+                      onComplete={handleTaskComplete}
+                    />
+                  ) : (
+                    <TaskCard
+                      task={task}
+                      onComplete={handleTaskComplete}
+                    />
+                  )}
+                </div>
               ))}
               <button
                 onClick={handleCompleteAll}
