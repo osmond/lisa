@@ -43,7 +43,10 @@ export default function BottomNav({ dueCount = 0 }) {
   ]
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 border-t bg-white dark:bg-gray-800 flex justify-around py-2">
+    <nav
+      aria-label="Bottom navigation"
+      className="fixed bottom-0 left-0 right-0 border-t bg-white dark:bg-gray-800 flex justify-around py-2"
+    >
 
       {items.map(item =>
         item.type === 'add' ? (

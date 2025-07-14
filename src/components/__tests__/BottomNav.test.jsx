@@ -75,3 +75,13 @@ test('shows dynamic tasks badge', () => {
   const badge = tasksLink.querySelector('span span')
   expect(badge).toHaveTextContent('3')
 })
+
+test('nav element has accessible label', () => {
+  const { container } = render(
+    <MemoryRouter>
+      <BottomNav />
+    </MemoryRouter>
+  )
+  const nav = container.querySelector('nav')
+  expect(nav).toHaveAttribute('aria-label', 'Bottom navigation')
+})
