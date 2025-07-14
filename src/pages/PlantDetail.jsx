@@ -209,7 +209,7 @@ export default function PlantDetail() {
             onError={(e) => (e.target.src = "/placeholder.svg")}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex flex-col justify-end p-4 space-y-1">
-            <h1 className="text-headline font-bold font-display text-white">
+            <h1 className="text-headline leading-heading tracking-heading font-bold font-display text-white">
               {plant.name}
             </h1>
             {plant.nickname && (
@@ -484,7 +484,7 @@ export default function PlantDetail() {
                   groupByWeek ? (
                     groupedEvents.map(([monthKey, list]) => (
                       <div key={monthKey}>
-                        <h3 className="sticky top-0 bg-stone mt-4 text-label font-semibold text-gray-500">
+                        <h3 className="sticky top-0 bg-stone mt-4 text-label leading-label tracking-label font-semibold text-gray-500">
                           {groupByWeek
                             ? formatWeek(monthKey)
                             : formatMonth(monthKey)}
@@ -528,7 +528,7 @@ export default function PlantDetail() {
                       const isOpen = openMonths[monthKey];
                       return (
                         <div key={monthKey}>
-                          <h3 className="sticky top-0 bg-stone z-10 mt-4 text-label font-semibold text-gray-500">
+                          <h3 className="sticky top-0 bg-stone z-10 mt-4 text-label leading-label tracking-label font-semibold text-gray-500">
                             <button
                               type="button"
                               className="w-full flex justify-between items-center py-2"
@@ -592,7 +592,7 @@ export default function PlantDetail() {
       </div>
       <div className="space-y-2 mt-4 p-4 shadow-sm bg-stone rounded-xl">
         <div className="flex items-center justify-between">
-          <h2 className="text-subhead font-semibold font-display">Gallery</h2>
+          <h2 className="text-subhead leading-heading tracking-heading font-semibold font-display">Gallery</h2>
           <Link
             to={`/plant/${plant.id}/gallery`}
             className="text-green-600 underline flex items-center gap-1"

@@ -114,7 +114,7 @@ export default function Home() {
     <div className="space-y-4">
       <header className="flex flex-col items-start space-y-3 py-4 px-4 bg-white rounded-xl">
 
-        <h1 className="text-headline font-bold font-display flex items-center">
+        <h1 className="text-headline leading-heading tracking-heading font-bold font-display flex items-center">
           {greeting}
           <GreetingIcon
             data-testid="greeting-icon"
@@ -142,7 +142,7 @@ export default function Home() {
       </div>
       <section>
         <div className="flex items-center justify-between mb-2">
-          <h2 className="font-semibold font-display text-subhead">Watering</h2>
+          <h2 className="font-semibold font-display text-subhead leading-heading tracking-heading">Watering</h2>
           {waterTasks.length > 1 && (
             <Button
               type="button"
@@ -175,7 +175,7 @@ export default function Home() {
       </section>
       <section>
         <div className="flex items-center justify-between mb-2 mt-4">
-          <h2 className="font-semibold font-display text-subhead">Fertilizing</h2>
+          <h2 className="font-semibold font-display text-subhead leading-heading tracking-heading">Fertilizing</h2>
           {fertilizeTasks.length > 1 && (
             <Button
               type="button"

@@ -123,7 +123,7 @@ export default function PlantCard({ plant }) {
             className="w-full h-48 object-cover rounded-xl"
             onError={e => (e.target.src = '/placeholder.svg')}
           />
-          <h2 className="font-semibold text-xl font-display mt-2">{plant.name}</h2>
+          <h2 className="font-semibold text-xl font-display leading-heading tracking-heading mt-2">{plant.name}</h2>
         </Link>
         <p className="text-sm text-gray-600 dark:text-gray-400">Last watered: {plant.lastWatered}</p>
         <p className="text-sm text-green-700 font-medium">Next: {plant.nextWater}</p>

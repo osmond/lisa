@@ -21,7 +21,7 @@ export default function PhotoTimeline() {
     <div className="p-4 space-y-4 text-gray-700 dark:text-gray-200 overflow-y-auto max-h-full">
       {grouped.map(([monthKey, list]) => (
         <div key={monthKey}>
-          <h3 className="mt-4 text-label font-semibold text-gray-500">
+          <h3 className="mt-4 text-label leading-label tracking-label font-semibold text-gray-500">
             {formatMonth(monthKey)}
           </h3>
           <ul className="grid grid-cols-2 md:grid-cols-3 gap-2">
