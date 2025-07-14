@@ -83,10 +83,6 @@ export default function CareRings({
           {progressText}
         </div>
       </div>
-      <div className="text-xs text-gray-500 font-body mt-1">
-        <div>Water: {waterCompleted}/{waterTotal}</div>
-        <div>Fertilizer: {fertCompleted}/{fertTotal}</div>
-      </div>
     </div>
   )
 }
