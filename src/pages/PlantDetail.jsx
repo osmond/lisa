@@ -237,36 +237,11 @@ export default function PlantDetail() {
           )}
         </div>
 
-        <div className="flex gap-2 mt-2">
-          <Button
-            type="button"
-            onClick={handleWatered}
-            className="px-4 py-1 bg-accent text-white rounded-full"
-          >
-            Watered
-          </Button>
-          <Button
-            type="button"
-            onClick={handleLogEvent}
-            className="px-4 py-1 bg-accent text-white rounded-full"
-          >
-            Add Note
-          </Button>
-          <Button
-            type="button"
-            onClick={handleAddCareLog}
-            className="px-4 py-1 bg-accent text-white rounded-full"
-          >
-            + Add care log
-          </Button>
-
-        </div>
-
-        <div className="mt-2">
+        <div className="fixed bottom-20 left-0 right-0 px-4 flex justify-center pointer-events-none">
           <div
             role="group"
             aria-label="log actions"
-            className="flex text-sm rounded-full overflow-hidden bg-accent text-white divide-x divide-white"
+            className="flex text-sm rounded-full overflow-hidden bg-accent text-white divide-x divide-white pointer-events-auto"
           >
             <button
               type="button"
@@ -278,7 +253,6 @@ export default function PlantDetail() {
             <button
               type="button"
               onClick={handleLogEvent}
-              aria-label="Quick Log"
               className="flex-1 px-3 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               Add Note
@@ -291,7 +265,6 @@ export default function PlantDetail() {
               + Add care log
             </button>
           </div>
-
         </div>
 
 
