@@ -7,11 +7,11 @@ export default {
         offwhite: '#f9faf8',
         sage: '#eaf4ec',
         stone: '#f2f2f2',
-        accent: '#7fb77e',
+        accent: '#87a96b',
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['"Clash Display"', 'sans-serif'],
+        display: ['"Cabinet Grotesk"', 'Recoleta', 'sans-serif'],
         body: ['Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
