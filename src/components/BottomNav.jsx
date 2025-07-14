@@ -1,24 +1,24 @@
 import { NavLink } from 'react-router-dom'
 import {
-  CheckCircledIcon,
-  HomeIcon,
-  ImageIcon,
-  ListBulletIcon,
-  PersonIcon,
-  PlusIcon,
-} from '@radix-ui/react-icons'
+  House,
+  ListBullets,
+  CheckCircle,
+  Image,
+  Plus,
+  User,
+} from 'phosphor-react'
 
 const iconProps = {
   className: 'w-6 h-6',
   'aria-hidden': 'true',
 }
 
-const HomeIconComponent = () => <HomeIcon {...iconProps} />
-const ListIcon = () => <ListBulletIcon {...iconProps} />
-const CheckIcon = () => <CheckCircledIcon {...iconProps} />
-const GalleryIcon = () => <ImageIcon {...iconProps} />
-const AddIcon = () => <PlusIcon {...iconProps} />
-const UserIcon = () => <PersonIcon {...iconProps} />
+const HomeIconComponent = () => <House {...iconProps} />
+const ListIcon = () => <ListBullets {...iconProps} />
+const CheckIcon = () => <CheckCircle {...iconProps} />
+const GalleryIcon = () => <Image {...iconProps} />
+const AddIcon = () => <Plus {...iconProps} />
+const UserIcon = () => <User {...iconProps} />
 
 export default function BottomNav() {
   const items = [
