@@ -501,7 +501,7 @@ export default function PlantDetail() {
                           </ul>
                         )}
                       </div>
-                    ))
+                    )
                     : groupedEvents.map(([monthKey, list]) => {
                         const isOpen = openMonths[monthKey]
                         return (
