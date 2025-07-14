@@ -76,6 +76,15 @@ test('shows dynamic tasks badge', () => {
   expect(badge).toHaveTextContent('3')
 })
 
+test('nav element has accessible label', () => {
+  const { container } = render(
+    <MemoryRouter>
+      <BottomNav />
+    </MemoryRouter>
+  )
+  const nav = container.querySelector('nav')
+  expect(nav).toHaveAttribute('aria-label', 'Bottom navigation')
+
 test('inactive labels are hidden and active label visible', () => {
   const { container } = render(
     <MemoryRouter initialEntries={["/gallery"]}>
@@ -90,4 +99,5 @@ test('inactive labels are hidden and active label visible', () => {
   const homeLink = container.querySelector('a[href="/"]')
   const homeLabel = homeLink.querySelector('span')
   expect(homeLabel).toHaveClass('hidden')
+
 })
