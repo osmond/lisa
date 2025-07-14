@@ -19,6 +19,7 @@ test('shows upbeat message when there are no tasks', () => {
     </MemoryRouter>
   )
   expect(screen.getByText(/all plants are happy/i)).toBeInTheDocument()
+  expect(screen.queryByTestId('water-progress')).toBeNull()
 })
 
 test('summary items render when tasks exist', () => {
@@ -40,5 +41,6 @@ test('summary items render when tasks exist', () => {
   expect(screen.getByTestId('summary-total')).toHaveTextContent('2')
   expect(screen.getByTestId('summary-water')).toHaveTextContent('1')
   expect(screen.getByTestId('summary-fertilize')).toHaveTextContent('1')
+  expect(screen.getByText(/0 of 1 watered/)).toBeInTheDocument()
 })
 
