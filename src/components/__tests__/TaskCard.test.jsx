@@ -35,6 +35,7 @@ test('applies highlight when urgent', () => {
   const wrapper = container.firstChild
   expect(wrapper).toHaveClass('ring-2')
   expect(wrapper).toHaveClass('ring-green-300')
+  expect(wrapper).toHaveClass('dark:ring-green-400')
 })
 
 test('applies overdue styling', () => {
@@ -133,4 +134,17 @@ test.skip('swipe right marks task complete', async () => {
     fireEvent.touchEnd(wrapper)
   })
   expect(onComplete).toHaveBeenCalledWith(task)
+})
+
+test('matches snapshot in dark mode', () => {
+  document.documentElement.classList.add('dark')
+  const { container } = render(
+    <PlantProvider>
+      <MemoryRouter>
+        <TaskCard task={task} urgent />
+      </MemoryRouter>
+    </PlantProvider>
+  )
+  expect(container.firstChild).toMatchSnapshot()
+  document.documentElement.classList.remove('dark')
 })

@@ -66,7 +66,9 @@ export default function TaskCard({ task, onComplete, urgent = false, overdue = f
       }}
       onTouchMove={handlePointerMove}
       onTouchEnd={handlePointerEnd}
-      className={`relative flex items-center gap-3 p-3 rounded-xl border shadow bg-stone dark:bg-gray-800 overflow-hidden transition-transform duration-150 hover:bg-gray-50 active:scale-95 ${overdue ? 'ring-2 ring-orange-300' : urgent ? 'ring-2 ring-green-300' : ''}`}
+
+      className={`relative flex items-center gap-3 p-3 rounded-xl border dark:border-gray-600 shadow bg-stone dark:bg-gray-700 overflow-hidden transition-transform duration-150 hover:bg-gray-50 active:scale-95 ${urgent ? 'ring-2 ring-green-300 dark:ring-green-400' : ''}`}
+
       style={{
         transform: `translateX(${deltaX}px)`,
         transition: deltaX === 0 ? 'transform 0.2s' : 'none',

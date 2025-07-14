@@ -54,7 +54,7 @@ export function AllGallery() {
 
       <select
         aria-label="Select plant"
-        className="fixed bottom-20 right-4 bg-white dark:bg-gray-800 border rounded p-1"
+        className="fixed bottom-20 right-4 bg-white dark:bg-gray-700 border dark:border-gray-600 rounded p-1"
         value={selected}
         onChange={e => setSelected(e.target.value)}
       >

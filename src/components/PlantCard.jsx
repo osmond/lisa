@@ -97,7 +97,7 @@ export default function PlantCard({ plant }) {
         </div>
       </div>
       <div
-        className="p-4 border rounded-2xl shadow-sm bg-white dark:bg-gray-800"
+        className="p-4 border dark:border-gray-600 rounded-2xl shadow-sm bg-white dark:bg-gray-700"
         style={{ transform: `translateX(${deltaX}px)`, transition: deltaX === 0 ? 'transform 0.2s' : 'none' }}
       >
         <Link to={`/plant/${plant.id}`} className="block mb-2">

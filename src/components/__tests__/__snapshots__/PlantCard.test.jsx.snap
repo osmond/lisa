@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot in dark mode 1`] = `
+<div
+  class="relative overflow-hidden group"
+  data-testid="card-wrapper"
+>
+  <div
+    class="absolute inset-0 flex justify-between items-center px-4 transition
+        pointer-events-none opacity-0
+        group-hover:opacity-100 group-hover:pointer-events-auto group-hover:animate-fade-in-up
+        group-focus-within:opacity-100 group-focus-within:pointer-events-auto group-focus-within:animate-fade-in-up
+        "
+  >
+    <button
+      class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
+    >
+      Water
+    </button>
+    <div
+      class="flex gap-2"
+    >
+      <button
+        class="bg-blue-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden font-body text-sm"
+      >
+        Edit
+      </button>
+      <button
+        class="bg-red-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden font-body text-sm"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+  <div
+    class="p-4 border dark:border-gray-600 rounded-2xl shadow-sm bg-white dark:bg-gray-700"
+    style="transform: translateX(0px); transition: transform 0.2s;"
+  >
+    <a
+      class="block mb-2"
+      href="/plant/1"
+    >
+      <img
+        alt="Aloe Vera"
+        class="w-full h-48 object-cover rounded-xl"
+        loading="lazy"
+        src="test.jpg"
+      />
+      <h2
+        class="font-bold text-xl font-headline mt-2"
+      >
+        Aloe Vera
+      </h2>
+    </a>
+    <p
+      class="text-sm text-green-700 font-medium font-body"
+    >
+      Next: 
+      2024-05-07
+    </p>
+    <button
+      class="mt-2 px-3 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200 transition relative overflow-hidden font-body text-sm"
+    >
+      Watered
+    </button>
+  </div>
+</div>
+`;
