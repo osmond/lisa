@@ -31,6 +31,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
   const name = plant.plantName || plant.name
   const id = plant.plantId || plant.id
   const preview = formatCareSummary(plant.lastWatered, plant.nextWater)
+  const imageSrc = (plant.photos && plant.photos[0]) || plant.image || '/demo-image-01.jpg'
 
   return (
     <Link
@@ -50,7 +51,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
       style={{ transform: `translateX(${dx}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
     >
       <img
-        src={plant.image}
+        src={imageSrc}
         alt={name}
         className="w-full h-64 object-cover"
       />

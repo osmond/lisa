@@ -75,10 +75,21 @@ export default function Home() {
   ).length
   const totalFertilizeToday = fertilizeTasks.length + fertilizedTodayCount
 
-  const dayOfYear = Math.floor(
-    (new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000
-  )
-  const featuredIndex = plants.length ? dayOfYear % plants.length : 0
+  const soonestPlant = [...plants]
+    .sort((a, b) => {
+      const nextA = Math.min(
+        new Date(a.nextWater),
+        a.nextFertilize ? new Date(a.nextFertilize) : new Date('9999-12-31')
+      )
+      const nextB = Math.min(
+        new Date(b.nextWater),
+        b.nextFertilize ? new Date(b.nextFertilize) : new Date('9999-12-31')
+      )
+      return nextA - nextB
+    })[0]
+  const featuredIndex = soonestPlant
+    ? plants.findIndex(p => p.id === soonestPlant.id)
+    : 0
 
   const weekday = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
