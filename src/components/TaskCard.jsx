@@ -161,6 +161,7 @@ export default function TaskCard({ task, onComplete }) {
           src={task.image}
           alt={task.plantName}
           className={`w-16 h-16 object-cover rounded ${bouncing ? 'bounce-once' : ''}`}
+          onError={e => (e.target.src = '/placeholder.svg')}
         />
         <div className="flex-1">
           <p className="font-medium">{task.type} {task.plantName}</p>
