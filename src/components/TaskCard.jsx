@@ -6,8 +6,12 @@ import actionIcons from './ActionIcons.jsx'
 import useRipple from '../utils/useRipple.js'
 import { relativeDate } from '../utils/relativeDate.js'
 import { useWeather } from '../WeatherContext.jsx'
+
+import NoteModal from './NoteModal.jsx'
+
 import TaskActions from './TaskActions.jsx'
 import TaskModal from './TaskModal.jsx'
+
 
 export default function TaskCard({ task, onComplete }) {
   const { markWatered, updatePlant } = usePlants()
@@ -15,12 +19,16 @@ export default function TaskCard({ task, onComplete }) {
   const Icon = actionIcons[task.type]
   const [checked, setChecked] = useState(false)
 
+  const [showNoteModal, setShowNoteModal] = useState(false)
+
+
   const [showActions, setShowActions] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const startX = useRef(0)
   const [deltaX, setDeltaX] = useState(0)
 
   const [bouncing, setBouncing] = useState(false)
+
 
   const [, createRipple] = useRipple()
   const { timezone } = useWeather() || {}
@@ -45,8 +53,19 @@ export default function TaskCard({ task, onComplete }) {
     if (onComplete) {
       onComplete(task)
     } else if (task.type === 'Water') {
+
+      if (typeof document !== 'undefined') {
+        setShowNoteModal(true)
+      } else if (typeof window !== 'undefined' && typeof window.prompt === 'function') {
+        const note = window.prompt('Optional note') || ''
+        markWatered(task.plantId, note)
+      } else {
+        markWatered(task.plantId, '')
+      }
+
       setShowModal(true)
       return
+
     }
     setChecked(true)
     setBouncing(true)
@@ -54,6 +73,11 @@ export default function TaskCard({ task, onComplete }) {
       setChecked(false)
       setBouncing(false)
     }, 400)
+  }
+
+  const handleNoteSave = note => {
+    markWatered(task.plantId, note)
+    setShowNoteModal(false)
   }
 
   const pillColors = {
@@ -163,6 +187,10 @@ export default function TaskCard({ task, onComplete }) {
           <Drop aria-hidden="true" className="w-8 h-8 text-blue-600 water-drop" />
         </div>
       )}
+
+      {showNoteModal && (
+        <NoteModal onSave={handleNoteSave} onClose={() => setShowNoteModal(false)} />
+
       <TaskActions
         visible={showActions}
         onWater={handleWater}
@@ -175,6 +203,7 @@ export default function TaskCard({ task, onComplete }) {
           onSave={handleSaveModal}
           onClose={() => setShowModal(false)}
         />
+
       )}
     </div>
   )

@@ -69,15 +69,27 @@ test('renders plant name', () => {
   expect(screen.getByText('Aloe Vera')).toBeInTheDocument()
 })
 
-test('water button triggers watering', () => {
-  jest.spyOn(window, 'prompt').mockReturnValue('')
+test('water button submits note via modal', () => {
   render(
     <MemoryRouter>
       <PlantCard plant={plant} />
     </MemoryRouter>
   )
   fireEvent.click(screen.getByText('Water'))
-  expect(markWatered).toHaveBeenCalledWith(1, '')
+  fireEvent.change(screen.getByLabelText(/note/i), { target: { value: 'hi' } })
+  fireEvent.click(screen.getByText('Save'))
+  expect(markWatered).toHaveBeenCalledWith(1, 'hi')
+})
+
+test('cancel note modal does not water', () => {
+  render(
+    <MemoryRouter>
+      <PlantCard plant={plant} />
+    </MemoryRouter>
+  )
+  fireEvent.click(screen.getByText('Water'))
+  fireEvent.click(screen.getByText('Cancel'))
+  expect(markWatered).not.toHaveBeenCalled()
 })
 
 test('edit button navigates to edit page', () => {

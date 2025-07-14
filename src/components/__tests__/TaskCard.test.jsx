@@ -3,6 +3,9 @@ import { MemoryRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import TaskCard from '../TaskCard.jsx'
 import { usePlants } from '../../PlantContext.jsx'
 
+
+const markWatered = jest.fn()
+
 beforeAll(() => {
   if (typeof PointerEvent === 'undefined') {
     window.PointerEvent = window.MouseEvent
@@ -17,6 +20,15 @@ jest.mock('react-router-dom', () => {
 jest.mock('../../PlantContext.jsx', () => ({
   usePlants: jest.fn(),
 }))
+
+
+const usePlantsMock = usePlants
+
+beforeEach(() => {
+  markWatered.mockClear()
+  usePlantsMock.mockReturnValue({
+    plants: [],
+    markWatered,
 
 const navigateMock = jest.fn()
 const markWatered = jest.fn()
@@ -67,8 +79,13 @@ test('icon svg is aria-hidden', () => {
   expect(svg).toHaveAttribute('aria-hidden', 'true')
 })
 
+
+test('mark as done opens modal and saves note', () => {
+  const { container } = render(
+
 test('mark as done opens modal', () => {
   render(
+
     <MemoryRouter initialEntries={['/']}>
       <Routes>
         <Route path="/" element={<TaskCard task={task} />} />
@@ -77,8 +94,25 @@ test('mark as done opens modal', () => {
     </MemoryRouter>
   )
   fireEvent.click(screen.getByRole('checkbox'))
+  fireEvent.change(screen.getByLabelText(/note/i), { target: { value: 'ok' } })
+  fireEvent.click(screen.getByText('Save'))
+  expect(markWatered).toHaveBeenCalledWith(1, 'ok')
   expect(screen.queryByText('Plant Page')).not.toBeInTheDocument()
   expect(screen.getByRole('dialog')).toBeInTheDocument()
+})
+
+test('cancel note modal does not mark complete', () => {
+  const { container } = render(
+    <MemoryRouter initialEntries={['/']}>
+      <Routes>
+        <Route path="/" element={<TaskCard task={task} />} />
+      </Routes>
+    </MemoryRouter>
+  )
+  fireEvent.click(screen.getByRole('checkbox'))
+  fireEvent.click(screen.getByText('Cancel'))
+  expect(markWatered).not.toHaveBeenCalled()
+  expect(container.querySelector('.water-drop')).toBeInTheDocument()
 })
 
 test('clicking card adds ripple effect', () => {
@@ -86,6 +120,7 @@ test('clicking card adds ripple effect', () => {
     <MemoryRouter>
       <TaskCard task={task} />
     </MemoryRouter>
+
   )
   const wrapper = container.firstChild
   fireEvent.mouseDown(wrapper)
@@ -131,6 +166,7 @@ test('overdue tasks use red badge styling', () => {
         <TaskCard task={overdueTask} />
       </MemoryRouter>
     </PlantProvider>
+
   )
   const button = screen.getByRole('button', { name: /mark complete/i })
   expect(button).toHaveClass('bg-red-100', 'text-red-700')
