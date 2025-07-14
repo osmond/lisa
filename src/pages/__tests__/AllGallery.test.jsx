@@ -16,8 +16,11 @@ test('clicking add photos button opens file dialog', () => {
   const input = container.querySelector('input[type="file"]')
   const clickSpy = jest.spyOn(input, 'click').mockImplementation(() => {})
 
-  const buttons = screen.getAllByRole('button', { name: /add photos/i })
-  fireEvent.click(buttons[0])
+
+  fireEvent.click(
+    screen.getAllByRole('button', { name: /add photos/i })[0]
+  )
+
   expect(clickSpy).toHaveBeenCalled()
 })
 
