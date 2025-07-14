@@ -13,6 +13,7 @@ function StatBlock({ label, Icon, completed, total, ringClass }) {
   return (
     <div
       className="flex flex-col items-center"
+      style={{ width: size }}
       data-testid={`stat-${label.toLowerCase()}`}
       aria-label={ariaLabel}
     >
