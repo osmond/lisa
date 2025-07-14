@@ -3,11 +3,13 @@
 @tailwind utilities;
 
 body {
-  @apply bg-offwhite text-gray-900 font-body;
+  @apply text-gray-900 font-body;
+  background: linear-gradient(135deg, theme('colors.sage'), theme('colors.offwhite'));
 }
 
 .dark body {
-  @apply bg-gray-900 text-gray-100;
+  @apply text-gray-100;
+  background: linear-gradient(135deg, theme('colors.gray.800'), theme('colors.green.900'));
 }
 
 @keyframes fade-in-up {
