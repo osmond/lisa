@@ -182,7 +182,12 @@ export default function PlantDetail() {
 
         <div className="grid gap-1 text-sm">
           <p><strong>Last watered:</strong> {plant.lastWatered}</p>
-          <p><strong>Next watering:</strong> {plant.nextWater}</p>
+          <p>
+            <strong>Next watering:</strong> {plant.nextWater}
+            {plant.nextWaterReason && (
+              <span className="ml-1 text-gray-500">{`(${plant.nextWaterReason})`}</span>
+            )}
+          </p>
           {plant.lastFertilized && (
             <p><strong>Last fertilized:</strong> {plant.lastFertilized}</p>
           )}
