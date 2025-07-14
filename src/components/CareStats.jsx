@@ -5,22 +5,28 @@ import ProgressRing from './ProgressRing.jsx'
 function StatBlock({ label, Icon, completed, total, ringClass }) {
   const pct = total > 0 ? Math.min(completed / total, 1) : 0
   const display = `${completed}/${total}`
+  const size = 64
   return (
     <div
       className="flex flex-col items-center"
       data-testid={`stat-${label.toLowerCase()}`}
     >
-      <div className="relative" style={{ width: 80, height: 80 }}>
-        <ProgressRing percent={pct} size={80} colorClass={ringClass} />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-sm font-semibold font-body" data-testid="stat-text">
+      <div className="relative" style={{ width: size, height: size }}>
+        <ProgressRing percent={pct} size={size} colorClass={ringClass} />
+        <div className="bg-white absolute inset-2 rounded-full flex items-center justify-center">
+          <span
+            className="text-sm font-semibold font-body"
+            data-testid="stat-text"
+          >
             {display}
           </span>
         </div>
       </div>
       <div className="flex items-center gap-1 mt-1">
-        <Icon className="w-4 h-4 text-gray-500" aria-hidden="true" />
-        <span className="text-xs font-medium text-gray-600 font-body">{label}</span>
+        <Icon className="w-3.5 h-3.5 text-gray-500" aria-hidden="true" />
+        <span className="text-[11px] font-medium text-gray-600 font-body">
+          {label}
+        </span>
       </div>
     </div>
   )
