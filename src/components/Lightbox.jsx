@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 
 
 import Button from "./Button.jsx"
-export default function Lightbox({ images, startIndex = 0, onClose, label = 'Image viewer' }) {
 
 export default function Lightbox({
   images,
