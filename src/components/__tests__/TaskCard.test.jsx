@@ -48,6 +48,7 @@ test('applies overdue styling', () => {
   )
   const wrapper = container.firstChild
 
+
   expect(wrapper).not.toHaveClass('ring-2')
 
   expect(screen.getByTestId('overdue-badge')).toBeInTheDocument()
