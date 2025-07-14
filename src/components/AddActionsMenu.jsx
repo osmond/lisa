@@ -33,7 +33,7 @@ export default function AddActionsMenu({
         aria-haspopup="true"
         aria-expanded={open}
         onClick={() => setOpen(o => !o)}
-        className="w-12 h-12 bg-primary-green rounded-full flex items-center justify-center text-white"
+        className="w-12 h-12 bg-[var(--km-accent)] rounded-full flex items-center justify-center text-white"
       >
         <PlusIcon aria-hidden="true" />
       </button>

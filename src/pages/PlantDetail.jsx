@@ -117,7 +117,7 @@ export default function PlantDetail() {
     water: "bg-water-blue",
     fertilize: "bg-warning-amber",
     note: "bg-gray-400",
-    log: "bg-primary-green",
+    log: "bg-[var(--km-accent)]",
   };
 
   const handleFiles = (e) => {
@@ -193,7 +193,7 @@ export default function PlantDetail() {
               className="w-8 h-8 text-water-blue water-drop"
             />
           ) : (
-            <div className="w-8 h-8 border-4 border-primary-green rounded-full ring-pop"></div>
+            <div className="w-8 h-8 border-4 border-[var(--km-accent)] rounded-full ring-pop"></div>
           )}
         </div>
       )}
@@ -228,7 +228,7 @@ export default function PlantDetail() {
                 </span>
               )}
               {plant.difficulty && (
-                <span className="px-2 py-0.5 rounded-full bg-soft-leaf text-primary-green-dark">
+                <span className="px-2 py-0.5 rounded-full bg-soft-leaf text-[var(--km-accent)]">
                   {plant.difficulty}
                 </span>
               )}
@@ -299,7 +299,7 @@ export default function PlantDetail() {
                     role="tab"
                     aria-selected={activeTab === "activity"}
                     aria-controls="activity-panel"
-                    className={`px-2 py-1 rounded ${activeTab === "activity" ? "bg-primary-green text-white" : "bg-white text-black"}`}
+                    className={`px-2 py-1 rounded ${activeTab === "activity" ? "bg-[var(--km-accent)] text-white" : "bg-white text-black"}`}
                     onClick={() => setActiveTab("activity")}
                     onKeyDown={(e) => handleTabKeyDown(e, 0)}
                   >
@@ -311,7 +311,7 @@ export default function PlantDetail() {
                     role="tab"
                     aria-selected={activeTab === "notes"}
                     aria-controls="notes-panel"
-                    className={`px-2 py-1 rounded ${activeTab === "notes" ? "bg-primary-green text-white" : "bg-white text-black"}`}
+                    className={`px-2 py-1 rounded ${activeTab === "notes" ? "bg-[var(--km-accent)] text-white" : "bg-white text-black"}`}
                     onClick={() => setActiveTab("notes")}
                     onKeyDown={(e) => handleTabKeyDown(e, 1)}
                   >
@@ -323,7 +323,7 @@ export default function PlantDetail() {
                     role="tab"
                     aria-selected={activeTab === "care"}
                     aria-controls="care-panel"
-                    className={`px-2 py-1 rounded ${activeTab === "care" ? "bg-primary-green text-white" : "bg-white text-black"}`}
+                    className={`px-2 py-1 rounded ${activeTab === "care" ? "bg-[var(--km-accent)] text-white" : "bg-white text-black"}`}
                     onClick={() => setActiveTab("care")}
                     onKeyDown={(e) => handleTabKeyDown(e, 2)}
                   >
@@ -363,7 +363,7 @@ export default function PlantDetail() {
                       <Button
                         type="button"
                         onClick={() => setShowMore(!showMore)}
-                        className="ml-2 text-primary-green underline"
+                        className="ml-2 text-[var(--km-accent)] underline"
                       >
                         {showMore ? "Show less" : "Show more"}
                       </Button>
@@ -412,7 +412,7 @@ export default function PlantDetail() {
                     aria-selected={timelineTab === "list"}
                     className={`px-2 py-1 rounded ${
                       timelineTab === "list"
-                        ? "bg-primary-green text-white"
+                        ? "bg-[var(--km-accent)] text-white"
                         : "bg-gray-200"
                     }`}
                     onClick={() => setTimelineTab("list")}
@@ -424,7 +424,7 @@ export default function PlantDetail() {
                     aria-selected={timelineTab === "graph"}
                     className={`px-2 py-1 rounded ${
                       timelineTab === "graph"
-                        ? "bg-primary-green text-white"
+                        ? "bg-[var(--km-accent)] text-white"
                         : "bg-gray-200"
                     }`}
                     onClick={() => setTimelineTab("graph")}
@@ -547,7 +547,7 @@ export default function PlantDetail() {
           <h2 className="text-subhead leading-heading tracking-heading font-semibold font-display">Gallery</h2>
           <Link
             to={`/plant/${plant.id}/gallery`}
-            className="text-primary-green underline flex items-center gap-1"
+            className="text-[var(--km-accent)] underline flex items-center gap-1"
           >
             View Gallery
             {plant.photos && (
@@ -581,7 +581,7 @@ export default function PlantDetail() {
         <Button
           type="button"
           onClick={() => fileInputRef.current.click()}
-          className="mt-2 px-3 py-1 bg-primary-green text-white"
+          className="mt-2 px-3 py-1 bg-[var(--km-accent)] text-white"
         >
           Add Photo
         </Button>

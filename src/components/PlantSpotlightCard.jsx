@@ -40,7 +40,7 @@ export default function PlantSpotlightCard({ plant, nextPlant, onSkip }) {
           </span>
         )}
         {plant.difficulty && (
-          <span className="px-2 py-0.5 text-xs rounded-full bg-soft-leaf text-primary-green-dark">
+          <span className="px-2 py-0.5 text-xs rounded-full bg-soft-leaf text-[var(--km-accent)]">
             {plant.difficulty}
           </span>
         )}

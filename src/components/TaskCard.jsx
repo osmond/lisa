@@ -47,7 +47,7 @@ export default function TaskCard({ task, onComplete }) {
       ? 'text-warning-amber'
       : daysDiff <= 2
       ? 'text-fertilizer-orange'
-      : 'text-primary-green'
+      : 'text-[var(--km-accent)]'
     : ''
 
   const handleComplete = () => {
@@ -88,7 +88,7 @@ export default function TaskCard({ task, onComplete }) {
   }
   const pillClass = overdue
     ? pillColors.Overdue
-    : pillColors[task.type] || 'bg-soft-leaf text-primary-green-dark'
+    : pillColors[task.type] || 'bg-soft-leaf text-[var(--km-accent)]'
 
   const handlePointerDown = e => {
     startX.current = e.clientX ?? e.touches?.[0]?.clientX ?? 0

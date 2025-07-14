@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --km-surface: #F7F8F3;
+  --km-accent: #6E8B63;
+  --km-highlight: #F2EDD5;
+  --km-alert: #FFD9C0;
+}
+
 body {
   @apply text-gray-900 font-body;
   background: linear-gradient(135deg, theme('colors.sage'), theme('colors.offwhite'));
@@ -9,7 +16,7 @@ body {
 
 .dark body {
   @apply text-gray-100;
-  background: linear-gradient(135deg, theme('colors.gray.800'), theme('colors.primary-green-dark'));
+  background: linear-gradient(135deg, theme('colors.gray.800'), var(--km-accent));
 }
 
 @keyframes fade-in-up {
@@ -103,7 +110,7 @@ body {
 
 /* Subtle checkbox accent for task cards */
 .task-checkbox {
-  accent-color: theme('colors.primary-green');
+  accent-color: var(--km-accent);
 }
 
 @keyframes water-drop {

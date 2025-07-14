@@ -76,7 +76,7 @@ export default function Timeline() {
     water: 'bg-water-blue',
     fertilize: 'bg-warning-amber',
     note: 'bg-gray-400',
-    log: 'bg-primary-green',
+    log: 'bg-[var(--km-accent)]',
   }
 
   return (
