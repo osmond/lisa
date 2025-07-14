@@ -80,3 +80,20 @@ test('add note opens log modal', () => {
   fireEvent.click(screen.getByText('Add Note'))
   expect(screen.getByRole('dialog')).toBeInTheDocument()
 })
+
+test('view gallery link shows photo count', () => {
+  const plant = plants[0]
+  render(
+    <PlantProvider>
+      <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </PlantProvider>
+  )
+
+  const link = screen.getByRole('link', { name: /view gallery/i })
+  expect(link).toHaveAttribute('href', `/plant/${plant.id}/gallery`)
+  expect(link).toHaveTextContent(String(plant.photos.length))
+})
