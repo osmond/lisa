@@ -32,6 +32,7 @@ export default function PhotoTimeline() {
                   alt={`Photo from ${photo.date}`}
                   loading="lazy"
                   className="w-full h-32 object-cover rounded"
+                  onError={e => (e.target.src = '/placeholder.svg')}
                 />
                 <span className="text-xs text-gray-500">{photo.date}</span>
               </li>

@@ -53,6 +53,7 @@ export default function Lightbox({ images, startIndex = 0, onClose, label = 'Ima
         src={images[index]}
         alt="Gallery image"
         className="max-w-full max-h-full object-contain"
+        onError={e => (e.target.src = '/placeholder.svg')}
       />
       <button
         aria-label="Next image"
