@@ -562,11 +562,13 @@ export default function PlantDetail() {
           {(plant.photos || []).map((ph, i) => {
             const src = typeof ph === "object" ? ph.src : ph;
             return (
+
+
               <Button
                 key={i}
-                type="button"
                 onClick={() => removePhoto(plant.id, i)}
-                className="relative group aspect-square overflow-hidden focus:outline-none"
+                className="relative group aspect-square overflow-hidden w-full"
+
               >
                 <img
                   src={src}
