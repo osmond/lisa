@@ -8,6 +8,9 @@ test('renders stats with numbers and icons', () => {
   expect(screen.getByTestId('stat-water')).toBeInTheDocument()
   expect(screen.getByTestId('stat-fertilize')).toBeInTheDocument()
   expect(screen.getByTestId('stat-total')).toBeInTheDocument()
+  expect(screen.getByLabelText('3 of 4 total tasks done')).toBeInTheDocument()
+  expect(screen.getByLabelText('1 of 2 water tasks done')).toBeInTheDocument()
+  expect(screen.getByLabelText('2 of 2 fertilize tasks done')).toBeInTheDocument()
   const svgs = container.querySelectorAll('svg')
   expect(svgs.length).toBeGreaterThanOrEqual(6)
   svgs.forEach(svg => {
