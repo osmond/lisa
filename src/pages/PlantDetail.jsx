@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useRef, useMemo, useEffect } from "react";
 import { usePlants } from "../PlantContext.jsx";
-import { Drop } from "phosphor-react";
+import { Drop, Trash } from "phosphor-react";
 import actionIcons from "../components/ActionIcons.jsx";
 import LogModal from "../components/LogModal.jsx";
 import CareGraph from "../components/CareGraph.jsx";
@@ -561,20 +561,21 @@ export default function PlantDetail() {
           {(plant.photos || []).map((ph, i) => {
             const src = typeof ph === "object" ? ph.src : ph;
             return (
-              <div key={i} className="relative">
+              <Button
+                key={i}
+                onClick={() => removePhoto(plant.id, i)}
+                className="relative group w-full"
+              >
                 <img
                   src={src}
                   alt={`${plant.name} ${i}`}
                   className="object-cover w-full h-24 rounded"
                   onError={(e) => (e.target.src = "/placeholder.svg")}
                 />
-                <Button
-                  className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
-                  onClick={() => removePhoto(plant.id, i)}
-                >
-                  ✕
-                </Button>
-              </div>
+                <span className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity">
+                  <Trash className="w-6 h-6 text-white" aria-hidden="true" />
+                </span>
+              </Button>
             );
           })}
         </div>
