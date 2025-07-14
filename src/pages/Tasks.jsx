@@ -63,10 +63,13 @@ export default function Tasks() {
 
   return (
     <div className="overflow-y-auto max-h-full p-4">
-      {groupedEvents.map(([dateKey, list]) => {
-        const heading =
-          dateKey === today
-            ? 'Today'
+      {groupedEvents.length === 0 ? (
+        <p className="text-center text-gray-500">No tasks coming up.</p>
+      ) : (
+        groupedEvents.map(([dateKey, list]) => {
+          const heading =
+            dateKey === today
+              ? 'Today'
             : dateKey === tomorrowStr
             ? 'Tomorrow'
             : dateKey < today
@@ -97,7 +100,8 @@ export default function Tasks() {
             </ul>
           </div>
         )
-      })}
+        })
+      )}
     </div>
   )
 }

@@ -16,13 +16,19 @@ const samplePlants = [
   },
 ]
 
+let mockPlants = samplePlants
+
 jest.mock('../../PlantContext.jsx', () => ({
-  usePlants: () => ({ plants: samplePlants }),
+  usePlants: () => ({ plants: mockPlants }),
 }))
 
 jest.mock('../../WeatherContext.jsx', () => ({
   useWeather: () => ({ forecast: { rainfall: 0 } }),
 }))
+
+beforeEach(() => {
+  mockPlants = samplePlants
+})
 
 test('ignores activities without valid dates when generating events', () => {
   render(<Tasks />)
@@ -34,4 +40,12 @@ test('ignores activities without valid dates when generating events', () => {
   expect(items[0]).toHaveTextContent('Plant B: Watered on 2025-07-10')
   expect(items[1]).toHaveTextContent('Water Plant B')
   expect(items[2]).toHaveTextContent('Water Plant A')
+})
+
+test('shows friendly message when there are no tasks', () => {
+  mockPlants = []
+  render(<Tasks />)
+
+  expect(screen.getByText(/no tasks coming up/i)).toBeInTheDocument()
+  expect(screen.queryAllByRole('listitem')).toHaveLength(0)
 })
