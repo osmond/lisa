@@ -1,8 +1,19 @@
 import { render, screen, fireEvent, act } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import PlantCard from '../PlantCard.jsx'
 import { MemoryRouter, useNavigate } from 'react-router-dom'
 import { usePlants } from '../../PlantContext.jsx'
+
+async function swipe(element, startX, endX) {
+  fireEvent.pointerDown(element, { clientX: startX, buttons: 1 })
+  fireEvent.pointerMove(element, { clientX: endX, buttons: 1 })
+  fireEvent.pointerUp(element, { clientX: endX })
+
+  await act(async () => {
+    fireEvent.touchStart(element, { touches: [{ clientX: startX }] })
+    fireEvent.touchMove(element, { touches: [{ clientX: endX }] })
+    fireEvent.touchEnd(element, { changedTouches: [{ clientX: endX }] })
+  })
+}
 
 beforeAll(() => {
   if (typeof PointerEvent === 'undefined') {
@@ -116,7 +127,7 @@ test('clicking card adds ripple effect', () => {
   expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
 })
 
-test.skip('swipe right waters plant', async () => {
+test('swipe right waters plant', async () => {
   jest.spyOn(window, 'prompt').mockReturnValue('')
   render(
     <MemoryRouter>
@@ -124,18 +135,8 @@ test.skip('swipe right waters plant', async () => {
     </MemoryRouter>
   )
   const wrapper = screen.getByTestId('card-wrapper')
-
-  fireEvent.pointerDown(wrapper, { clientX: 0, buttons: 1 })
-  fireEvent.pointerMove(wrapper, { clientX: 100, buttons: 1 })
-  fireEvent.pointerUp(wrapper, { clientX: 100 })
-
-  const user = userEvent.setup()
-  await act(async () => {
-    fireEvent.touchStart(wrapper, { touches: [{ clientX: 0 }] })
-    fireEvent.touchMove(wrapper, { touches: [{ clientX: 80 }] })
-    fireEvent.touchEnd(wrapper)
-  })
-
+  await swipe(wrapper, 0, 100)
+  
   expect(markWatered).toHaveBeenCalledWith(1, '')
 })
 
@@ -146,16 +147,7 @@ test('swipe left navigates to edit page', async () => {
     </MemoryRouter>
   )
   const wrapper = screen.getByTestId('card-wrapper')
-  const user = userEvent.setup()
-  await act(async () => {
-    fireEvent.pointerDown(wrapper, { clientX: 100, buttons: 1 })
-    fireEvent.pointerMove(wrapper, { clientX: 20, buttons: 1 })
-    fireEvent.pointerUp(wrapper, { clientX: 20 })
-
-    fireEvent.touchStart(wrapper, { touches: [{ clientX: 100 }] })
-    fireEvent.touchMove(wrapper, { touches: [{ clientX: 20 }] })
-    fireEvent.touchEnd(wrapper)
-  })
+  await swipe(wrapper, 100, 20)
   expect(navigateMock).toHaveBeenCalledWith('/plant/1/edit')
 })
 
@@ -167,16 +159,7 @@ test('swipe far left confirms before removing plant', async () => {
     </MemoryRouter>
   )
   const wrapper = screen.getByTestId('card-wrapper')
-  const user = userEvent.setup()
-  await act(async () => {
-    fireEvent.pointerDown(wrapper, { clientX: 200, buttons: 1 })
-    fireEvent.pointerMove(wrapper, { clientX: 0, buttons: 1 })
-    fireEvent.pointerUp(wrapper, { clientX: 0 })
-
-    fireEvent.touchStart(wrapper, { touches: [{ clientX: 200 }] })
-    fireEvent.touchMove(wrapper, { touches: [{ clientX: 0 }] })
-    fireEvent.touchEnd(wrapper)
-  })
+  await swipe(wrapper, 200, 0)
   expect(confirmMock).toHaveBeenCalled()
   expect(removePlant).toHaveBeenCalledWith(1)
   confirmMock.mockRestore()
