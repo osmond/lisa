@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from './ActionIcons.jsx'
@@ -8,6 +8,8 @@ export default function TaskCard({ task, onComplete }) {
   const { markWatered } = usePlants()
   const Icon = actionIcons[task.type]
   const [checked, setChecked] = useState(false)
+  const startX = useRef(0)
+  const [deltaX, setDeltaX] = useState(0)
   const [, createRipple] = useRipple()
 
   const handleComplete = () => {
@@ -21,16 +23,47 @@ export default function TaskCard({ task, onComplete }) {
     setTimeout(() => setChecked(false), 400)
   }
 
+  const handlePointerDown = e => {
+    startX.current = e.clientX ?? e.touches?.[0]?.clientX ?? 0
+  }
+
+  const handlePointerMove = e => {
+    if (!startX.current) return
+    const currentX = e.clientX ?? e.touches?.[0]?.clientX ?? 0
+    setDeltaX(currentX - startX.current)
+  }
+
+  const handlePointerEnd = e => {
+    const currentX = e?.clientX ?? e?.changedTouches?.[0]?.clientX ?? startX.current
+    const diff = deltaX || (currentX - startX.current)
+    setDeltaX(0)
+    startX.current = 0
+    if (diff > 75) {
+      handleComplete()
+    }
+  }
+
   return (
     <div
-      className="relative flex items-center gap-3 p-4 rounded-2xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden"
-      onMouseDown={createRipple}
-      onTouchStart={createRipple}
+      data-testid="task-card"
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerEnd}
+      onPointerCancel={handlePointerEnd}
+      onMouseMove={handlePointerMove}
+      onMouseUp={handlePointerEnd}
+      onMouseDown={e => { createRipple(e); handlePointerDown(e) }}
+      onTouchStart={e => { createRipple(e); handlePointerDown(e) }}
+      onTouchMove={handlePointerMove}
+      onTouchEnd={handlePointerEnd}
+      className="relative flex items-center gap-3 p-4 rounded-2xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden transition-transform duration-150 hover:shadow-md active:scale-95"
+      style={{ transform: `translateX(${deltaX}px)`, transition: deltaX === 0 ? 'transform 0.2s' : 'none' }}
     >
       <Link to={`/plant/${task.plantId}`} className="flex items-center flex-1 gap-3">
         <img src={task.image} alt={task.plantName} className="w-12 h-12 object-cover rounded" />
         <div className="flex-1">
-          <p className="font-medium">{task.type} {task.plantName}</p>
+          <p className="font-medium">{task.plantName}</p>
+          <p className="text-xs text-gray-500">{task.type}</p>
           {task.reason && (
             <p className="text-xs text-gray-500">{task.reason}</p>
           )}
