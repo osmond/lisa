@@ -166,15 +166,15 @@ test('water action opens modal and saves note', () => {
   expect(markWatered).toHaveBeenCalledWith(1, 'test note')
 })
 
-test('overdue tasks use red badge styling', () => {
+test('overdue tasks use amber badge styling', () => {
   render(
     <MemoryRouter>
       <TaskCard task={overdueTask} />
     </MemoryRouter>
   )
   const button = screen.getByRole('button', { name: /mark complete/i })
-  expect(button).toHaveClass('bg-red-100', 'text-red-700')
+  expect(button).toHaveClass('bg-amber-100', 'text-amber-700')
   const wrapper = screen.getByTestId('task-wrapper')
   expect(wrapper.className).toMatch(/border-l-4/)
-  expect(wrapper.className).toMatch(/border-red-500/)
+  expect(wrapper.className).toMatch(/border-amber-500/)
 })
