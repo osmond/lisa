@@ -16,7 +16,6 @@ export default function Home() {
   const { plants, markWatered } = usePlants()
   const weatherCtx = useWeather()
   const forecast = weatherCtx?.forecast
-  const weatherError = weatherCtx?.error
   const timezone = weatherCtx?.timezone || 'UTC'
   const weatherData = { rainTomorrow: forecast?.rainfall || 0 }
 
@@ -61,7 +60,6 @@ export default function Home() {
       })
     }
   })
-  const tasks = [...waterTasks, ...fertilizeTasks]
   const waterCount = waterTasks.length
   const fertilizeCount = fertilizeTasks.length
 
