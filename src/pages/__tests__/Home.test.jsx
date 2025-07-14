@@ -43,3 +43,16 @@ test('summary items render when tasks exist', () => {
   expect(screen.getByTestId('summary-fertilize')).toHaveTextContent('1')
 })
 
+test('renders correct greeting icon for morning time', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10T08:00:00Z'))
+
+  render(
+    <MemoryRouter>
+      <Home />
+    </MemoryRouter>
+  )
+
+  const icon = screen.getByTestId('greeting-icon')
+  expect(icon.innerHTML).toContain('<circle')
+})
+
