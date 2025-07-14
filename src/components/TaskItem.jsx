@@ -66,9 +66,9 @@ export default function TaskItem({ task, onComplete }) {
           alt={task.plantName}
           className="w-16 h-16 object-cover rounded"
         />
-        <div className="flex-1">
+        <div className="flex-1 font-body">
           <p className="font-medium">
-            {task.type} {task.plantName}
+            {task.type} <span className="font-semibold">{task.plantName}</span>
           </p>
           {task.reason && (
             <p className="text-xs text-gray-500">{task.reason}</p>
@@ -80,7 +80,7 @@ export default function TaskItem({ task, onComplete }) {
         onMouseDown={createRipple}
         onTouchStart={createRipple}
         onClick={handleComplete}
-        className="ml-2 px-3 py-1 bg-green-100 text-green-700 rounded text-sm relative overflow-hidden"
+        className="ml-2 px-3 py-1 bg-green-100 text-green-700 rounded text-sm relative overflow-hidden font-body"
       >
         Done
       </button>
