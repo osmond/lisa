@@ -563,8 +563,11 @@ export default function PlantDetail() {
             const src = typeof ph === "object" ? ph.src : ph;
             return (
 
-              <div key={i} className="relative aspect-square overflow-hidden">
-
+              <Button
+                key={i}
+                onClick={() => removePhoto(plant.id, i)}
+                className="relative group aspect-square overflow-hidden w-full"
+              >
                 <img
                   src={src}
                   alt={`${plant.name} ${i}`}

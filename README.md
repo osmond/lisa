@@ -17,6 +17,7 @@ A lightweight, mobile-first plant care app built with **React**, **Vite**, and *
 - Local photo gallery per plant
 - Timeline journaling
 - Mobile-first layout
+- Icons from `phosphor-react` **v1.4.1** *(only icons available in this version are usable; consider `Leaf`, `Drop`, `ImageSquare`, `SquaresFour`, etc.)*
 
 ---
 
