@@ -5,7 +5,6 @@ import {
   ImageIcon,
   ListBulletIcon,
   PersonIcon,
-  PlusIcon,
 } from '@radix-ui/react-icons'
 
 const iconProps = {
@@ -17,7 +16,6 @@ const HomeIconComponent = () => <HomeIcon {...iconProps} />
 const ListIcon = () => <ListBulletIcon {...iconProps} />
 const CheckIcon = () => <CheckCircledIcon {...iconProps} />
 const GalleryIcon = () => <ImageIcon {...iconProps} />
-const AddIcon = () => <PlusIcon {...iconProps} />
 const UserIcon = () => <PersonIcon {...iconProps} />
 
 export default function BottomNav() {
@@ -26,7 +24,6 @@ export default function BottomNav() {
     { to: '/myplants', label: 'My Plants', icon: ListIcon },
     { to: '/tasks', label: 'Tasks', icon: CheckIcon },
     { to: '/gallery', label: 'Gallery', icon: GalleryIcon },
-    { to: '/add', label: 'Add', icon: AddIcon },
     { to: '/settings', label: 'Profile', icon: UserIcon },
   ]
 
