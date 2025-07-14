@@ -10,6 +10,7 @@ import Settings from './pages/Settings'
 import PlantDetail from './pages/PlantDetail'
 import EditPlant from './pages/EditPlant'
 import BottomNav from './components/BottomNav'
+import Fab from './components/Fab'
 import NotFound from './pages/NotFound'
 
 export default function App() {
@@ -47,6 +48,7 @@ export default function App() {
       </SwitchTransition>
 
 
+      <Fab />
       <BottomNav />
     </div>
   )
