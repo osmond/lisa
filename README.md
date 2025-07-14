@@ -1,114 +1,111 @@
-# 🌿 Kaymaria v2
+# 🌿 Lisa // a minimalist plant care app
 
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Vite](https://img.shields.io/badge/built%20with-vite-646CFF.svg?logo=vite&logoColor=white)](https://vitejs.dev)
 [![React](https://img.shields.io/badge/react-18+-61DAFB?logo=react)](https://reactjs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/tailwindcss-3.x-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 
-A minimalist, mobile-first plant care app built with **React**, **Vite**, and **Tailwind CSS**. Kaymaria helps you track watering, fertilizing, notes, and more — all with gentle weather-based suggestions and beautiful swipeable UI.
+A lightweight, mobile-first plant care app built with **React**, **Vite**, and **Tailwind CSS**. Lisa helps you track watering, fertilizing, and notes — with gentle, weather-based suggestions and a swipeable UI.
 
 ---
 
-Includes:
-- Basic routing (Home, Timeline, Gallery)
-- Sample plant data
-- Styled PlantCard components
-- Tasks generated dynamically from plant data
+## 🌱 Features
 
+- Plant care dashboard with weather awareness
+- Add water, fertilizer, and custom notes per plant
+- Swipeable task cards
+- Local photo gallery per plant
+- Timeline journaling
+- Mobile-first layout
 
-## Weather Feature
+---
 
-Kaymaria can display local weather data and suggest when to water
-your plants. The app retrieves current conditions from OpenWeather
-using an API key you provide.
-A `.env.example` file is included at the project root and lists the required environment variable.
+## ☀️ Weather Suggestions
 
-### Get an API Key
+Lisa adjusts plant care based on today’s local weather.
 
-1. Sign up at [OpenWeather](https://openweathermap.org/api) and create a key.
-2. Copy `.env.example` to `.env` in the project root and replace `your_key_here`
-   with your actual API key.
+1. [Get a free API key from OpenWeather](https://openweathermap.org/api)
+2. Copy `.env.example` to `.env` and replace the placeholder with your API key
+3. Run `npm run dev` and open the app to see real-time weather-based watering advice
 
-### How It Works
+The weather feature uses `VITE_WEATHER_API_KEY`, exposed to the frontend via Vite.
 
-Vite exposes `VITE_WEATHER_API_KEY` to the frontend. The Home page uses
-this key to fetch today’s weather and adjust watering tasks based on the
-temperature and conditions.
+---
 
-### Viewing Suggestions
+## 🧪 Running Tests
 
-Run the dev server with `npm run dev` after adding your key. Open the
-app in your browser to see weather info and watering suggestions on the
-home screen.
-
-## Running Tests
-
-Run `npm install` before `npm test`:
+Install dependencies before testing:
 
 ```bash
 npm install
 npm test
 ```
 
-## Requirements
-- Node.js 18 or later
+---
 
-## Installation
+## ⚙️ Getting Started
+
+### Install dependencies:
 ```bash
 npm install
 ```
 
-## Running the Dev Server
+### Run the development server:
 ```bash
 npm run dev
 ```
-This command prints a local development URL (usually `http://localhost:5173/`).
-Open that URL in your browser to view the app.
 
-## Building for Production
+Then open [http://localhost:5173](http://localhost:5173) in your browser.
 
-1. **Install dependencies** (only the first time):
-   ```bash
-   npm install
-   ```
+---
 
-2. **Run the build**. If you plan to host the app under a subdirectory such as `/lisa/`, set the `VITE_BASE_PATH` variable when invoking the command so Vite and the router know where the app lives:
-   - macOS/Linux
-     ```bash
-     VITE_BASE_PATH=/lisa/ npm run build
-     ```
-   - Windows (Command Prompt)
-     ```cmd
-     set VITE_BASE_PATH=/lisa/ && npm run build
-     ```
-   - Windows (PowerShell)
-     ```powershell
-     $env:VITE_BASE_PATH="/lisa/"
-     npm run build
-     ```
+## 🚀 Production Build & Deploy
 
-   If the app will be served from the site root (for example `https://example.com/`), you can omit `VITE_BASE_PATH`:
-   ```bash
-   npm run build
-   ```
+### 1. Build the app
 
-3. **Preview locally (optional)**. After building, test the optimized build:
-   ```bash
-   npm run preview
-   ```
-   This starts a local server and prints a URL for you to open in the browser.
+If you’re hosting under a subdirectory (e.g. `/lisa/`), set the base path:
 
-4. **Deploy**. Upload the contents of the generated `dist/` folder to your web server. If you used a base path, ensure the files are hosted under that same subdirectory.
+**macOS/Linux:**
+```bash
+VITE_BASE_PATH=/lisa/ npm run build
+```
 
-## Mobile Browser Testing
+**Windows (CMD):**
+```cmd
+set VITE_BASE_PATH=/lisa/ && npm run build
+```
 
-Swipe gestures were manually tested on Chrome, Safari and Firefox on iOS and Android devices.
+**Windows (PowerShell):**
+```powershell
+$env:VITE_BASE_PATH="/lisa/"
+npm run build
+```
 
-- **Chrome**: gestures trigger the correct actions with smooth animation.
-- **Safari**: works as expected with no visual issues.
-- **Firefox**: swipe detection works but animations are slightly less smooth.
+If deploying at the root of a domain (e.g. `example.com`), skip the base path:
+```bash
+npm run build
+```
 
+### 2. Preview locally (optional)
+```bash
+npm run preview
+```
 
-## License
+### 3. Deploy
+Upload the contents of the `dist/` folder to your web host. Be sure to match your base path if applicable.
+
+---
+
+## 📱 Mobile Testing
+
+Swipe gestures were manually tested across:
+
+- **Chrome**: Works smoothly
+- **Safari**: Fully functional
+- **Firefox**: Functional with slightly choppier animations
+
+---
+
+## 🪴 License
 
 [MIT](LICENSE)
