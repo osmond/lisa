@@ -40,5 +40,7 @@ test('summary progress renders when tasks exist', () => {
   expect(screen.getByTestId('summary-progress')).toHaveTextContent(
     '0 of 2 plants watered today'
   )
+  expect(screen.getByText('💧 Water Today – Plant A')).toBeInTheDocument()
+  expect(screen.getByText('🌱 Fertilize Today – Plant A')).toBeInTheDocument()
 })
 
