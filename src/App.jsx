@@ -12,7 +12,6 @@ import PlantDetail from './pages/PlantDetail'
 import EditPlant from './pages/EditPlant'
 import BottomNav from './components/BottomNav'
 
-import FloatingAddButton from './components/FloatingAddButton'
 
 import useDueTasksCount from './utils/useDueTasksCount.js'
 
@@ -55,7 +54,6 @@ export default function App() {
       </SwitchTransition>
 
 
-      <FloatingAddButton />
       <BottomNav dueCount={dueCount} />
 
     </div>
