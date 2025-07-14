@@ -90,3 +90,18 @@ body {
 .task-checkbox {
   accent-color: theme('colors.green.600');
 }
+
+@keyframes water-drop {
+  from {
+    transform: scale(0);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.water-drop {
+  animation: water-drop 0.4s ease-out;
+}
