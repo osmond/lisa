@@ -74,6 +74,32 @@ export function PlantProvider({ children }) {
     logEvent(id, 'Watered', note)
   }
 
+  const markFertilized = (id, note) => {
+    setPlants(prev =>
+      prev.map(p => {
+        if (p.id === id) {
+          const today = new Date().toISOString().slice(0, 10)
+          let nextDate = new Date(today)
+          if (p.lastFertilized && p.nextFertilize) {
+            const last = new Date(p.lastFertilized)
+            const next = new Date(p.nextFertilize)
+            const diff = Math.round((next - last) / 86400000) || 30
+            nextDate.setDate(nextDate.getDate() + diff)
+          } else {
+            nextDate.setMonth(nextDate.getMonth() + 1)
+          }
+          return {
+            ...p,
+            lastFertilized: today,
+            nextFertilize: nextDate.toISOString().slice(0, 10),
+          }
+        }
+        return p
+      })
+    )
+    logEvent(id, 'Fertilized', note)
+  }
+
   const addPlant = plant => {
     setPlants(prev => {
       const nextId = prev.reduce((m, p) => Math.max(m, p.id), 0) + 1
@@ -119,6 +145,7 @@ export function PlantProvider({ children }) {
       value={{
         plants,
         markWatered,
+        markFertilized,
         logEvent,
         addPlant,
         updatePlant,

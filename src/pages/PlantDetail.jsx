@@ -6,7 +6,7 @@ import { formatMonth } from '../utils/date.js'
 
 export default function PlantDetail() {
   const { id } = useParams()
-  const { plants, addPhoto, removePhoto, markWatered, logEvent } = usePlants()
+  const { plants, addPhoto, removePhoto, markWatered, markFertilized, logEvent } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
 
   const sectionNames = ['activity', 'notes', 'care', 'timeline']
@@ -88,6 +88,11 @@ export default function PlantDetail() {
     showTempToast('Watered')
   }
 
+  const handleFertilized = () => {
+    markFertilized(plant.id, '')
+    showTempToast('Fertilized')
+  }
+
   const handleLogEvent = () => {
     const note = window.prompt('Note') || ''
     if (note) {
@@ -139,6 +144,13 @@ export default function PlantDetail() {
             className="px-4 py-1 bg-accent text-white rounded-full"
           >
             Watered
+          </button>
+          <button
+            type="button"
+            onClick={handleFertilized}
+            className="px-4 py-1 bg-accent text-white rounded-full"
+          >
+            Fertilized
           </button>
           <button
             type="button"

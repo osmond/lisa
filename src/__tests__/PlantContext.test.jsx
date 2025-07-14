@@ -16,6 +16,21 @@ function TestComponent() {
   )
 }
 
+function FertTestComponent() {
+  const { plants, markFertilized } = usePlants()
+  const plant = plants[0]
+  return (
+    <div>
+      <button onClick={() => markFertilized(plant.id, 'fert note')}>log</button>
+      <ul>
+        {(plant.careLog || []).map((e, i) => (
+          <li key={i}>{e.note}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 test('markWatered stores notes in careLog', () => {
   render(
     <PlantProvider>
@@ -25,4 +40,15 @@ test('markWatered stores notes in careLog', () => {
 
   fireEvent.click(screen.getByText('log'))
   expect(screen.getByText('test note')).toBeInTheDocument()
+})
+
+test('markFertilized stores notes in careLog', () => {
+  render(
+    <PlantProvider>
+      <FertTestComponent />
+    </PlantProvider>
+  )
+
+  fireEvent.click(screen.getByText('log'))
+  expect(screen.getByText('fert note')).toBeInTheDocument()
 })

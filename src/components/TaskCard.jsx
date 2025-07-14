@@ -6,7 +6,7 @@ import { CheckCircle } from 'phosphor-react'
 import useRipple from '../utils/useRipple.js'
 
 export default function TaskCard({ task, onComplete }) {
-  const { markWatered } = usePlants()
+  const { markWatered, markFertilized } = usePlants()
   const Icon = actionIcons[task.type]
   const [checked, setChecked] = useState(false)
   const startX = useRef(0)
@@ -19,6 +19,9 @@ export default function TaskCard({ task, onComplete }) {
     } else if (task.type === 'Water') {
       const note = window.prompt('Optional note') || ''
       markWatered(task.plantId, note)
+    } else if (task.type === 'Fertilize') {
+      const note = window.prompt('Optional note') || ''
+      markFertilized(task.plantId, note)
     }
     setChecked(true)
     setTimeout(() => setChecked(false), 400)
