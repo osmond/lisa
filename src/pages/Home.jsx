@@ -1,7 +1,6 @@
 import TaskCard from '../components/TaskCard.jsx'
-import { useState } from 'react'
-import { usePlants } from '../PlantContext.jsx'
 import { useState, useEffect } from 'react'
+import { usePlants } from '../PlantContext.jsx'
 
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
@@ -87,9 +86,10 @@ export default function Home() {
     setCompletedCount(c => c + 1)
   }
 
-  const handleCompleteAll = type => {
-    const list = type === 'Water' ? waterTasks : fertilizeTasks
-    list.slice().forEach(t => handleTaskComplete(t))
+const handleCompleteAll = type => {
+  const list = type === 'Water' ? waterTasks : fertilizeTasks
+  list.slice().forEach(t => handleTaskComplete(t))
+}
 
   const [focusIndex, setFocusIndex] = useState(() =>
     plants.length > 0 ? now.getDate() % plants.length : 0

@@ -73,9 +73,6 @@ test('renders correct greeting icon for morning time', () => {
 })
 
 
-test('shows rain suggestion when heavy rain is forecast', () => {
-  mockForecast = { temp: '70°F', condition: 'Cloudy', rainfall: 60 }
-
 test('progress updates when completing a task', () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
   jest.spyOn(window, 'prompt').mockReturnValue('')
