@@ -75,3 +75,19 @@ test('shows dynamic tasks badge', () => {
   const badge = tasksLink.querySelector('span span')
   expect(badge).toHaveTextContent('3')
 })
+
+test('inactive labels are hidden and active label visible', () => {
+  const { container } = render(
+    <MemoryRouter initialEntries={["/gallery"]}>
+      <BottomNav />
+    </MemoryRouter>
+  )
+  const activeLink = container.querySelector('a[href="/gallery"]')
+  const activeLabel = activeLink.querySelector('span')
+  expect(activeLabel).toHaveClass('block')
+  expect(activeLabel).not.toHaveClass('hidden')
+
+  const homeLink = container.querySelector('a[href="/"]')
+  const homeLabel = homeLink.querySelector('span')
+  expect(homeLabel).toHaveClass('hidden')
+})
