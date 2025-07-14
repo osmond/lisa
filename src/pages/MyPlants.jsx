@@ -45,7 +45,7 @@ export default function MyPlants() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold font-display mb-4">My Plants</h1>
+      <h1 className="text-headline font-bold font-display mb-4">My Plants</h1>
 
       <div className="flex justify-center gap-2 mb-4">
         {['Sites', 'Plants', 'Pictures'].map(v => (
@@ -102,7 +102,7 @@ export default function MyPlants() {
           {roomData.map(r => (
             <div key={r.room} className="border rounded-xl p-3 shadow-sm">
               <div className="flex justify-between items-center mb-2">
-                <h2 className="font-semibold">{r.room}</h2>
+                <h2 className="font-semibold text-subhead">{r.room}</h2>
                 <span className="px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-800">{r.taskCount} tasks</span>
               </div>
               <div className="grid grid-cols-2 gap-1">

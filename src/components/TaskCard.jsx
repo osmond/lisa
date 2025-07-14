@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Drop } from 'phosphor-react'
 import { Link } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from './ActionIcons.jsx'
@@ -79,17 +80,7 @@ export default function TaskCard({ task, onComplete }) {
       </button>
       {checked && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <svg
-            className="w-8 h-8 text-green-600 check-pop"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-          </svg>
+          <Drop aria-hidden="true" className="w-8 h-8 text-blue-600 water-drop" />
         </div>
       )}
     </div>

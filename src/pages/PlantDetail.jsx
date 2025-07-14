@@ -1,8 +1,11 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState, useRef, useMemo } from 'react'
 import { usePlants } from '../PlantContext.jsx'
+import { Drop } from 'phosphor-react'
 import actionIcons from '../components/ActionIcons.jsx'
+import LogModal from '../components/LogModal.jsx'
 import { formatMonth } from '../utils/date.js'
+import FadeInImage from '../components/FadeInImage.jsx'
 
 export default function PlantDetail() {
   const { id } = useParams()
@@ -15,6 +18,8 @@ export default function PlantDetail() {
   const [showMore, setShowMore] = useState(false)
   const fileInputRef = useRef()
   const [toast, setToast] = useState('')
+  const [showModal, setShowModal] = useState(false)
+  const [modalType, setModalType] = useState('Note')
 
   const events = useMemo(() => {
     if (!plant) return []
@@ -36,7 +41,13 @@ export default function PlantDetail() {
       }
     })
     ;(plant.careLog || []).forEach(ev => {
-      list.push({ date: ev.date, label: ev.type, note: ev.note, type: 'log' })
+      list.push({
+        date: ev.date,
+        label: ev.type,
+        note: ev.note,
+        mood: ev.mood,
+        type: 'log',
+      })
     })
     return list.sort((a, b) => new Date(a.date) - new Date(b.date))
   }, [plant])
@@ -89,18 +100,18 @@ export default function PlantDetail() {
   }
 
   const handleLogEvent = () => {
-    const note = window.prompt('Note') || ''
-    if (note) {
-      logEvent(plant.id, 'Note', note)
-      showTempToast('Logged')
-    }
+    setModalType('Note')
+    setShowModal(true)
   }
 
   const handleAddCareLog = () => {
-    const type = window.prompt('Type (e.g. Watered)') || ''
+    setModalType('')
+    setShowModal(true)
+  }
+
+  const handleSaveLog = ({ type, note, date, mood }) => {
     if (!type) return
-    const note = window.prompt('Note (optional)') || ''
-    logEvent(plant.id, type, note)
+    logEvent(plant.id, type, note, date, mood)
     showTempToast('Logged')
   }
 
@@ -112,20 +123,24 @@ export default function PlantDetail() {
     <div className="space-y-2 relative">
       {toast && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="w-8 h-8 border-4 border-green-600 rounded-full ring-pop"></div>
+          {toast === 'Watered' ? (
+            <Drop aria-hidden="true" className="w-8 h-8 text-blue-600 water-drop" />
+          ) : (
+            <div className="w-8 h-8 border-4 border-green-600 rounded-full ring-pop"></div>
+          )}
         </div>
       )}
       <div aria-live="polite" className="sr-only">{toast}</div>
       <div className="space-y-4">
         <div className="relative -mx-4">
-          <img
+          <FadeInImage
             src={plant.image}
             alt={plant.name}
             loading="lazy"
             className="w-full h-64 object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex flex-col justify-end p-4 space-y-1">
-            <h1 className="text-3xl font-bold font-display text-white">{plant.name}</h1>
+            <h1 className="text-headline font-bold font-display text-white">{plant.name}</h1>
             {plant.nickname && <p className="text-white text-sm">{plant.nickname}</p>}
             <div className="flex flex-wrap gap-2 text-xs">
               {plant.light && (
@@ -189,7 +204,7 @@ export default function PlantDetail() {
                 ref={el => (sectionRefs.current[0] = el)}
                 aria-expanded={openSection === 'activity'}
                 aria-controls="activity-panel"
-                className="w-full text-left flex justify-between items-center p-2"
+                className="w-full text-left flex justify-between items-center p-2 text-subhead"
                 onClick={() =>
                   setOpenSection(openSection === 'activity' ? null : 'activity')
                 }
@@ -211,6 +226,7 @@ export default function PlantDetail() {
                     <li key={i}>
                       {ev.type} on {ev.date}
                       {ev.note ? ` - ${ev.note}` : ''}
+                      {ev.mood ? ` (${ev.mood})` : ''}
                     </li>
                   ))}
                 </ul>
@@ -224,7 +240,7 @@ export default function PlantDetail() {
                 ref={el => (sectionRefs.current[1] = el)}
                 aria-expanded={openSection === 'notes'}
                 aria-controls="notes-panel"
-                className="w-full text-left flex justify-between items-center p-2"
+                className="w-full text-left flex justify-between items-center p-2 text-subhead"
                 onClick={() =>
                   setOpenSection(openSection === 'notes' ? null : 'notes')
                 }
@@ -265,7 +281,7 @@ export default function PlantDetail() {
                 ref={el => (sectionRefs.current[2] = el)}
                 aria-expanded={openSection === 'care'}
                 aria-controls="care-panel"
-                className="w-full text-left flex justify-between items-center p-2"
+                className="w-full text-left flex justify-between items-center p-2 text-subhead"
                 onClick={() =>
                   setOpenSection(openSection === 'care' ? null : 'care')
                 }
@@ -293,7 +309,7 @@ export default function PlantDetail() {
                 ref={el => (sectionRefs.current[3] = el)}
                 aria-expanded={openSection === 'timeline'}
                 aria-controls="timeline-panel"
-                className="w-full text-left flex justify-between items-center p-2"
+                className="w-full text-left flex justify-between items-center p-2 text-subhead"
                 onClick={() =>
                   setOpenSection(openSection === 'timeline' ? null : 'timeline')
                 }
@@ -312,7 +328,7 @@ export default function PlantDetail() {
               >
                 {groupedEvents.map(([monthKey, list]) => (
                   <div key={monthKey}>
-                    <h3 className="mt-4 text-sm font-semibold text-gray-500">
+                    <h3 className="mt-4 text-label font-semibold text-gray-500">
                       {formatMonth(monthKey)}
                     </h3>
                     <ul className="relative border-l border-gray-300 pl-4 space-y-6">
@@ -331,6 +347,9 @@ export default function PlantDetail() {
                             {e.note && (
                               <p className="text-xs text-gray-500 italic">{e.note}</p>
                             )}
+                            {e.mood && (
+                              <p className="text-xs">{e.mood}</p>
+                            )}
                           </li>
                         )
                       })}
@@ -343,7 +362,7 @@ export default function PlantDetail() {
         </div>
       </div>
       <div className="space-y-2">
-        <h2 className="text-xl font-semibold font-display">Gallery</h2>
+        <h2 className="text-subhead font-semibold font-display">Gallery</h2>
         <div className="grid grid-cols-3 gap-2">
           {(plant.photos || []).map((src, i) => (
             <div key={i} className="relative">
@@ -377,6 +396,13 @@ export default function PlantDetail() {
           className="hidden"
         />
       </div>
+      {showModal && (
+        <LogModal
+          onSave={handleSaveLog}
+          onClose={() => setShowModal(false)}
+          defaultType={modalType}
+        />
+      )}
   </div>
 )
 }

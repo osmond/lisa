@@ -25,6 +25,19 @@ body {
   animation: fade-in-up 0.3s ease both;
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease both;
+}
+
 
 @keyframes bounce-once {
   0%, 100% {
@@ -89,4 +102,19 @@ body {
 /* Subtle checkbox accent for task cards */
 .task-checkbox {
   accent-color: theme('colors.green.600');
+}
+
+@keyframes water-drop {
+  from {
+    transform: scale(0);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.water-drop {
+  animation: water-drop 0.4s ease-out;
 }
