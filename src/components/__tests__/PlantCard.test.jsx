@@ -150,8 +150,7 @@ test('clicking card adds ripple effect', () => {
   expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
 })
 
-test('swipe right waters plant', async () => {
-  jest.spyOn(window, 'prompt').mockReturnValue('')
+test('swipe right opens note modal', async () => {
   render(
     <MemoryRouter>
       <PlantCard plant={plant} />
@@ -159,8 +158,8 @@ test('swipe right waters plant', async () => {
   )
   const wrapper = screen.getByTestId('card-wrapper')
   await swipe(wrapper, 0, 100)
-  
-  expect(markWatered).toHaveBeenCalledWith(1, '')
+
+  expect(screen.getByRole('dialog')).toBeInTheDocument()
 })
 
 test('swipe left navigates to edit page', async () => {

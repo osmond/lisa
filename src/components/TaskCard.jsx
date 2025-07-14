@@ -189,10 +189,14 @@ export default function TaskCard({ task, onComplete }) {
       )}
 
       {showNoteModal && (
+
+        <NoteModal onSave={handleNoteSave} onClose={() => setShowNoteModal(false)} />
+
         <NoteModal
           onSave={handleNoteSave}
           onClose={() => setShowNoteModal(false)}
         />
+
       )}
 
       <TaskActions

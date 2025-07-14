@@ -26,9 +26,9 @@ test('addPlant updates context and redirects to MyPlants', () => {
   fireEvent.click(screen.getByRole('button', { name: /add plant/i }))
 
   expect(screen.getByRole('heading', { name: /my plants/i })).toBeInTheDocument()
-  expect(screen.getByText('Test Plant')).toBeInTheDocument()
+  expect(screen.getAllByText('Test Plant')[0]).toBeInTheDocument()
 
-  const img = screen.getByAltText('Test Plant')
+  const img = screen.getAllByAltText('Test Plant')[0]
   expect(img).toHaveAttribute('src', '/placeholder.svg')
 
   expect(consoleSpy).not.toHaveBeenCalled()

@@ -86,9 +86,10 @@ export default function Home() {
     setCompletedCount(c => c + 1)
   }
 
-  const handleCompleteAll = type => {
-    const list = type === 'Water' ? waterTasks : fertilizeTasks
-    list.slice().forEach(t => handleTaskComplete(t))
+const handleCompleteAll = type => {
+  const list = type === 'Water' ? waterTasks : fertilizeTasks
+  list.slice().forEach(t => handleTaskComplete(t))
+}
 
   }
 

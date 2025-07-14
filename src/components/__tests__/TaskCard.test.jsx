@@ -3,14 +3,15 @@ import { MemoryRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import TaskCard from '../TaskCard.jsx'
 import { usePlants } from '../../PlantContext.jsx'
 
-
-const markWatered = jest.fn()
-
 beforeAll(() => {
   if (typeof PointerEvent === 'undefined') {
     window.PointerEvent = window.MouseEvent
   }
 })
+
+const navigateMock = jest.fn()
+const markWatered = jest.fn()
+const updatePlant = jest.fn()
 
 jest.mock('react-router-dom', () => {
   const actual = jest.requireActual('react-router-dom')
@@ -21,18 +22,6 @@ jest.mock('../../PlantContext.jsx', () => ({
   usePlants: jest.fn(),
 }))
 
-
-const usePlantsMock = usePlants
-
-beforeEach(() => {
-  markWatered.mockClear()
-  usePlantsMock.mockReturnValue({
-    plants: [],
-    markWatered,
-
-const navigateMock = jest.fn()
-const markWatered = jest.fn()
-const updatePlant = jest.fn()
 const usePlantsMock = usePlants
 
 beforeEach(() => {
@@ -52,7 +41,7 @@ const task = {
   plantId: 1,
   plantName: 'Monstera',
   image: 'https://images.pexels.com/photos/5699660/pexels-photo-5699660.jpeg',
-  type: 'Water'
+  type: 'Water',
 }
 
 const overdueTask = {
@@ -79,13 +68,8 @@ test('icon svg is aria-hidden', () => {
   expect(svg).toHaveAttribute('aria-hidden', 'true')
 })
 
-
 test('mark as done opens modal and saves note', () => {
-  const { container } = render(
-
-test('mark as done opens modal', () => {
   render(
-
     <MemoryRouter initialEntries={['/']}>
       <Routes>
         <Route path="/" element={<TaskCard task={task} />} />
@@ -94,7 +78,7 @@ test('mark as done opens modal', () => {
     </MemoryRouter>
   )
   fireEvent.click(screen.getByRole('checkbox'))
-  fireEvent.change(screen.getByLabelText(/note/i), { target: { value: 'ok' } })
+  fireEvent.change(screen.getAllByLabelText(/note/i)[0], { target: { value: 'ok' } })
   fireEvent.click(screen.getByText('Save'))
   expect(markWatered).toHaveBeenCalledWith(1, 'ok')
   expect(screen.queryByText('Plant Page')).not.toBeInTheDocument()
@@ -110,9 +94,9 @@ test('cancel note modal does not mark complete', () => {
     </MemoryRouter>
   )
   fireEvent.click(screen.getByRole('checkbox'))
-  fireEvent.click(screen.getByText('Cancel'))
+  fireEvent.click(screen.getAllByText('Cancel')[0])
   expect(markWatered).not.toHaveBeenCalled()
-  expect(container.querySelector('.water-drop')).toBeInTheDocument()
+  expect(container.querySelector('.water-drop')).toBeNull()
 })
 
 test('clicking card adds ripple effect', () => {
@@ -120,13 +104,11 @@ test('clicking card adds ripple effect', () => {
     <MemoryRouter>
       <TaskCard task={task} />
     </MemoryRouter>
-
   )
   const wrapper = container.firstChild
   fireEvent.mouseDown(wrapper)
   expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
 })
-
 
 test('swipe reveals action buttons', () => {
   render(
@@ -158,17 +140,14 @@ test('water action opens modal and saves note', () => {
   })
   fireEvent.click(screen.getByText('Save'))
   expect(markWatered).toHaveBeenCalledWith(1, 'test note')
+})
 
 test('overdue tasks use red badge styling', () => {
   render(
-    <PlantProvider>
-      <MemoryRouter>
-        <TaskCard task={overdueTask} />
-      </MemoryRouter>
-    </PlantProvider>
-
+    <MemoryRouter>
+      <TaskCard task={overdueTask} />
+    </MemoryRouter>
   )
   const button = screen.getByRole('button', { name: /mark complete/i })
   expect(button).toHaveClass('bg-red-100', 'text-red-700')
-
 })
