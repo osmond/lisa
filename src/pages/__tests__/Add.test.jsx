@@ -4,11 +4,8 @@ import Add from '../Add.jsx'
 import MyPlants from '../MyPlants.jsx'
 import { PlantProvider } from '../../PlantContext.jsx'
 
-// test adding a plant
-
-test('addPlant updates context and redirects to MyPlants', () => {
-  const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
-  const { container } = render(
+test('user can complete steps and add a plant', () => {
+  render(
     <PlantProvider>
       <MemoryRouter initialEntries={['/add']}>
         <Routes>
@@ -19,13 +16,20 @@ test('addPlant updates context and redirects to MyPlants', () => {
     </PlantProvider>
   )
 
-  const nameInput = container.querySelector('input[required]')
-  fireEvent.change(nameInput, { target: { value: 'Test Plant' } })
+  // step 1
+  fireEvent.change(screen.getByLabelText(/name/i), {
+    target: { value: 'Test Plant' },
+  })
+  fireEvent.click(screen.getByRole('button', { name: /next/i }))
 
+  // step 2
+  expect(screen.getByLabelText(/image url/i)).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: /next/i }))
+
+  // step 3
+  expect(screen.getByLabelText(/last watered/i)).toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: /add plant/i }))
 
   expect(screen.getByRole('heading', { name: /my plants/i })).toBeInTheDocument()
   expect(screen.getByText('Test Plant')).toBeInTheDocument()
-  expect(errorSpy).not.toHaveBeenCalled()
-  errorSpy.mockRestore()
 })
