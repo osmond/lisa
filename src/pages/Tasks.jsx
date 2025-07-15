@@ -45,6 +45,17 @@ export default function Tasks() {
     }
   }, [typeFilter, urgencyFilter, sortBy])
 
+  const handleResetFilters = () => {
+    setTypeFilter('All')
+    setUrgencyFilter('All')
+    setSortBy('date')
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem('tasksTypeFilter')
+      localStorage.removeItem('tasksUrgencyFilter')
+      localStorage.removeItem('tasksSortBy')
+    }
+  }
+
   const urgencies = [...new Set(plants.map(p => p.urgency).filter(Boolean))]
 
   const todayIso = new Date().toISOString().slice(0, 10)
@@ -240,6 +251,14 @@ export default function Tasks() {
           ) : (
             <ListBulletIcon className="w-4 h-4" aria-hidden="true" />
           )}
+        </button>
+        <button
+          type="button"
+          onClick={handleResetFilters}
+          className="border rounded p-1"
+          aria-label="Reset filters"
+        >
+          Reset Filters
         </button>
       </div>
 
