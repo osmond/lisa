@@ -140,7 +140,9 @@ test('arrow left navigates to edit page', () => {
   expect(navigateMock).toHaveBeenCalledWith('/plant/1/edit')
 })
 
+
 test('delete key confirms before removing plant', () => {
+
   render(
     <MemoryRouter>
       <PlantCard plant={plant} />
