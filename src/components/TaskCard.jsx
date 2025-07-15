@@ -103,7 +103,7 @@ export default function TaskCard({
         start(e)
       }}
 
-      className={`relative flex items-center gap-3 p-4 rounded-2xl border dark:border-gray-600 shadow-md overflow-hidden transition-transform duration-150 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500${completed ? ' bg-gray-100 dark:bg-gray-800 opacity-50' : ' bg-sage dark:bg-gray-700 ring-2 ring-accent hover:bg-sage/80'}${urgent ? ' ring-green-300 dark:ring-green-400' : ''}${overdue ? ' ring-orange-300' : ''}`}
+      className={`relative flex items-center gap-3 p-4 rounded-2xl border dark:border-gray-600 shadow-md overflow-hidden transition-transform duration-150 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-healthy-500${completed ? ' bg-gray-100 dark:bg-gray-800 opacity-50' : ' bg-sage dark:bg-gray-700 ring-2 ring-accent hover:bg-sage/80'}${urgent ? ' ring-healthy-300 dark:ring-healthy-400' : ''}${overdue ? ' ring-fertilize-300' : ''}`}
 
       onTouchMove={move}
       onTouchEnd={end}
@@ -130,10 +130,10 @@ export default function TaskCard({
             <Badge
               colorClass={`text-xs ${
                 task.type === 'Water'
-                  ? 'bg-blue-200 text-blue-800'
+                  ? 'bg-water-200 text-water-800'
                   : task.type === 'Fertilize'
-                  ? 'bg-orange-200 text-orange-800'
-                  : 'bg-gray-200 text-gray-700'
+                  ? 'bg-fertilize-200 text-fertilize-800'
+                  : 'bg-healthy-200 text-healthy-800'
               }`}
             >
               {completed
@@ -166,7 +166,7 @@ export default function TaskCard({
         }}
         onClick={handleComplete}
         disabled={completed}
-        className="ml-auto relative focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500"
+        className="ml-auto relative focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-healthy-500"
         aria-label="Mark complete"
       >
         <input
@@ -177,11 +177,11 @@ export default function TaskCard({
         />
         <CheckCircle
           aria-hidden="true"
-          className={`w-6 h-6 ${isChecked ? 'text-green-500' : 'text-gray-400'}`}
+          className={`w-6 h-6 ${isChecked ? 'text-healthy-500' : 'text-gray-400'}`}
         />
         {overdue && (
           <span
-            className="absolute -top-1 -right-1 bg-orange-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs"
+            className="absolute -top-1 -right-1 bg-fertilize-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs"
             data-testid="overdue-badge"
           >
             !
@@ -191,7 +191,7 @@ export default function TaskCard({
       {(checked || completed) && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none task-complete-fade">
           <svg
-            className="w-8 h-8 text-green-600 check-pop"
+            className="w-8 h-8 text-healthy-600 check-pop"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"

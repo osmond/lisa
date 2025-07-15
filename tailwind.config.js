@@ -1,3 +1,5 @@
+import colors from 'tailwindcss/colors'
+
 export default {
   darkMode: 'class',
   content: ["./index.html", "./src/**/*.{js,jsx}"],
@@ -8,6 +10,9 @@ export default {
         sage: '#eaf4ec',
         stone: '#f2f2f2',
         accent: '#7fb77e',
+        water: colors.blue,
+        fertilize: colors.orange,
+        healthy: colors.green,
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
