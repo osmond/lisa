@@ -4,8 +4,10 @@ import { usePlants } from '../PlantContext.jsx'
 import actionIcons from './ActionIcons.jsx'
 import { CheckCircle } from 'phosphor-react'
 
+
 import { createRipple } from '../utils/interactions.js'
 import useSwipe from '../hooks/useSwipe.js'
+
 
 import { getWateringInfo } from '../utils/watering.js'
 import NoteModal from './NoteModal.jsx'
@@ -60,13 +62,6 @@ export default function TaskCard({
   }
 
 
-  const { dx: deltaX, start, move, end } = useSwipe(diff => {
-    if (diff > 75) {
-      handleComplete()
-    }
-  })
-
-
   return (
     <>
     <div
@@ -74,6 +69,7 @@ export default function TaskCard({
       tabIndex="0"
       aria-label={`Task card for ${task.plantName}`}
       onKeyDown={handleKeyDown}
+
 
       onPointerDown={e => { createRipple(e); start(e) }}
       onPointerMove={move}
@@ -94,6 +90,7 @@ export default function TaskCard({
 
       onTouchMove={move}
       onTouchEnd={end}
+
 
 
       style={{
