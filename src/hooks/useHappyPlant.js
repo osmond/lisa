@@ -1,12 +1,14 @@
 import { useState } from 'react'
+import { addBase as addBaseFn } from '../PlantContext.jsx'
 
 export default function useHappyPlant() {
   const [src] = useState(() => {
+    const addBase = addBaseFn || (u => u)
     const images = [
-      '/happy-plant.svg',
-      '/happy-plant2.svg',
-      '/happy-plant3.svg',
-      '/happy-plant4.svg',
+      addBase('/happy-plant.svg'),
+      addBase('/happy-plant2.svg'),
+      addBase('/happy-plant3.svg'),
+      addBase('/happy-plant4.svg'),
     ]
     const today = new Date().toISOString().slice(0, 10)
 
