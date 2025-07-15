@@ -121,7 +121,7 @@ Lisa includes a web app manifest and service worker so you can install it on mob
 
 ## Dark Mode
 
-Lisa ships with built‑in light and dark themes. The app automatically detects your preference using the `prefers-color-scheme` media query. A toggle on the **Settings** page lets you switch modes manually, and the choice is stored locally so it persists across visits.
+Lisa ships with built‑in light and dark themes. The app now defaults to light mode regardless of system settings. A toggle on the **Settings** page lets you switch modes manually, and the choice is stored locally so it persists across visits.
 
 ## useSwipe Hook
 
