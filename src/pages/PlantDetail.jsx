@@ -134,7 +134,7 @@ export default function PlantDetail() {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2 text-sm">
+        <div className="flex flex-wrap gap-2 text-base">
           <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
             <Drop className="w-4 h-4" />
             <span className="font-semibold">Last watered:</span>
@@ -157,29 +157,32 @@ export default function PlantDetail() {
           <button
             type="button"
             onClick={handleWatered}
-            className="px-4 py-1 bg-accent text-white rounded-full"
+            className="px-4 py-1 bg-accent text-white rounded-full flex items-center gap-1"
           >
+            <Drop className="w-4 h-4" aria-hidden="true" />
             Watered
           </button>
           <button
             type="button"
             onClick={handleFertilized}
-            className="px-4 py-1 bg-accent text-white rounded-full"
+            className="px-4 py-1 bg-accent text-white rounded-full flex items-center gap-1"
           >
+            <Flower className="w-4 h-4" aria-hidden="true" />
             Fertilized
           </button>
           <button
             type="button"
             onClick={handleLogEvent}
-            className="px-4 py-1 bg-accent text-white rounded-full"
+            className="px-4 py-1 bg-accent text-white rounded-full flex items-center gap-1"
           >
+            <Note className="w-4 h-4" aria-hidden="true" />
             Add Note
           </button>
         </div>
 
         <div className="space-y-1">
-          <h3 className="text-sm font-semibold font-headline">Care Profile</h3>
-          <div className="flex flex-wrap gap-2 text-sm">
+          <h3 className="text-base font-semibold font-headline">Care Profile</h3>
+          <div className="flex flex-wrap gap-2 text-base">
             {plant.light && (
               <Badge Icon={Sun} colorClass="bg-yellow-100 text-yellow-800">
                 {plant.light}

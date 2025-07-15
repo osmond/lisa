@@ -1,5 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { Pencil1Icon, TrashIcon } from '@radix-ui/react-icons'
+import { Drop } from 'phosphor-react'
 
 import { createRipple } from '../utils/interactions.js'
 import useSwipe from '../hooks/useSwipe.js'
@@ -104,8 +106,9 @@ export default function PlantCard({ plant }) {
           onMouseDown={createRipple}
           onTouchStart={createRipple}
           onClick={handleWatered}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden flex items-center gap-1"
         >
+          <Drop className="w-4 h-4" aria-hidden="true" />
           Water
         </button>
         <div className="flex gap-2">
@@ -113,22 +116,24 @@ export default function PlantCard({ plant }) {
             onMouseDown={createRipple}
             onTouchStart={createRipple}
             onClick={() => navigate(`/plant/${plant.id}/edit`)}
-            className="bg-blue-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden font-body text-sm"
+            className="bg-blue-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden font-body text-sm flex items-center gap-1"
           >
+            <Pencil1Icon className="w-4 h-4" aria-hidden="true" />
             Edit
           </button>
           <button
             onMouseDown={createRipple}
             onTouchStart={createRipple}
             onClick={handleDelete}
-            className="bg-red-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden font-body text-sm"
+            className="bg-red-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden font-body text-sm flex items-center gap-1"
           >
+            <TrashIcon className="w-4 h-4" aria-hidden="true" />
             Delete
           </button>
         </div>
       </div>
       <div
-        className="p-4 border dark:border-gray-600 rounded-2xl shadow-sm bg-white dark:bg-gray-700"
+        className="p-4 border dark:border-gray-600 rounded-2xl shadow-md bg-white dark:bg-gray-700"
         style={{ transform: `translateX(${deltaX}px)`, transition: deltaX === 0 ? 'transform 0.2s' : 'none' }}
       >
         <Link to={`/plant/${plant.id}`} className="block mb-2">
@@ -140,8 +145,9 @@ export default function PlantCard({ plant }) {
           onMouseDown={createRipple}
           onTouchStart={createRipple}
           onClick={handleWatered}
-          className="mt-2 px-3 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200 transition relative overflow-hidden font-body text-sm"
+          className="mt-2 px-3 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200 transition relative overflow-hidden font-body text-sm flex items-center gap-1"
         >
+          <Drop className="w-4 h-4" aria-hidden="true" />
           Watered
         </button>
       </div>
