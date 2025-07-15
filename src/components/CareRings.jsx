@@ -89,7 +89,7 @@ export default function CareRings({
             style={{ opacity: fertOpacity, cursor: onFertClick ? 'pointer' : 'default' }}
           />
         </svg>
-        <div className="absolute inset-0 flex items-center justify-center text-xs font-body font-semibold drop-shadow">
+        <div className="absolute inset-0 flex items-center justify-center text-xs font-body font-semibold drop-shadow pointer-events-none">
           {progressText}
         </div>
       </div>
