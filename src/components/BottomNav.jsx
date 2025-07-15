@@ -21,7 +21,7 @@ export default function BottomNav() {
     { to: '/', label: 'Home', icon: HomeIconComponent },
     { to: '/care', label: 'Task View', icon: CheckIcon },
     { to: '/myplants', label: 'My Plants', icon: ListIcon },
-    { to: '/settings', label: 'Profile', icon: UserIcon },
+    { to: '/settings', label: 'Settings', icon: UserIcon },
   ]
 
   return (
