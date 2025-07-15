@@ -60,3 +60,23 @@ test('fires onClick handler', () => {
   wrapper && wrapper.click()
   expect(onClick).toHaveBeenCalled()
 })
+
+test('fires onWaterClick handler', () => {
+  const onWaterClick = jest.fn()
+  render(
+    <CareRings waterCompleted={1} waterTotal={2} fertCompleted={0} fertTotal={1} onWaterClick={onWaterClick} />
+  )
+  const circles = screen.getByRole('img').querySelectorAll('circle')
+  circles[0].dispatchEvent(new MouseEvent('click', { bubbles: true }))
+  expect(onWaterClick).toHaveBeenCalled()
+})
+
+test('fires onFertClick handler', () => {
+  const onFertClick = jest.fn()
+  render(
+    <CareRings waterCompleted={1} waterTotal={2} fertCompleted={0} fertTotal={1} onFertClick={onFertClick} />
+  )
+  const circles = screen.getByRole('img').querySelectorAll('circle')
+  circles[1].dispatchEvent(new MouseEvent('click', { bubbles: true }))
+  expect(onFertClick).toHaveBeenCalled()
+})

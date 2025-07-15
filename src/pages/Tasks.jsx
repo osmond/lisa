@@ -198,6 +198,9 @@ export default function Tasks() {
   const totalWaterToday = wateredTodayCount + dueWaterCount
   const totalFertilizeToday = fertilizedTodayCount + dueFertCount
 
+  const handleWaterRingClick = () => setTypeFilter('water')
+  const handleFertRingClick = () => setTypeFilter('fertilize')
+
   return (
     <div className="overflow-y-auto max-h-full p-4">
 
@@ -207,6 +210,8 @@ export default function Tasks() {
           waterTotal={totalWaterToday}
           fertCompleted={fertilizedTodayCount}
           fertTotal={totalFertilizeToday}
+          onWaterClick={handleWaterRingClick}
+          onFertClick={handleFertRingClick}
         />
       </div>
 

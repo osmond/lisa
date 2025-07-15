@@ -8,6 +8,8 @@ export default function CareRings({
   size = 48,
   strokeWidth = 4,
   onClick,
+  onWaterClick,
+  onFertClick,
 }) {
   const totalCompleted = waterCompleted + fertCompleted
   const totalTasks = waterTotal + fertTotal
@@ -63,8 +65,12 @@ export default function CareRings({
             strokeWidth={strokeWidth}
             strokeDasharray={outerCirc}
             strokeDashoffset={waterOffset}
-            className="text-blue-500 transition-[stroke-dashoffset] duration-300"
+            className={`text-blue-500 transition-[stroke-dashoffset] duration-300 ${onWaterClick ? 'cursor-pointer' : ''}`}
             transform={rotate}
+            onClick={e => {
+              e.stopPropagation()
+              onWaterClick && onWaterClick()
+            }}
           />
           <circle
             cx={center}
@@ -75,8 +81,12 @@ export default function CareRings({
             strokeWidth={strokeWidth}
             strokeDasharray={innerCirc}
             strokeDashoffset={fertOffset}
-            className="text-green-500 transition-[stroke-dashoffset] duration-300"
+            className={`text-green-500 transition-[stroke-dashoffset] duration-300 ${onFertClick ? 'cursor-pointer' : ''}`}
             transform={rotate}
+            onClick={e => {
+              e.stopPropagation()
+              onFertClick && onFertClick()
+            }}
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center text-xs font-body font-semibold drop-shadow">
