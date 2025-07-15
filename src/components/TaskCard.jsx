@@ -6,6 +6,7 @@ import { CheckCircle } from 'phosphor-react'
 import useRipple from '../utils/useRipple.js'
 import { getWateringInfo } from '../utils/watering.js'
 import NoteModal from './NoteModal.jsx'
+import Badge from './Badge.jsx'
 
 export default function TaskCard({
   task,
@@ -121,8 +122,8 @@ export default function TaskCard({
         <div className="flex-1">
           <p className={`${compact ? '' : 'text-lg'} font-bold font-headline`}>{task.plantName}</p>
           <p className={`${compact ? 'text-sm' : 'text-base'} font-body`}>
-            <span
-              className={`px-2 py-0.5 rounded-full text-xs ${
+            <Badge
+              colorClass={`text-xs ${
                 task.type === 'Water'
                   ? 'bg-blue-200 text-blue-800'
                   : task.type === 'Fertilize'
@@ -141,7 +142,7 @@ export default function TaskCard({
                 : task.type === 'Fertilize'
                 ? 'To Fertilize'
                 : task.type}
-            </span>
+            </Badge>
           </p>
           {!compact && task.reason && (
             <p className="text-sm text-gray-500 font-body">{task.reason}</p>
