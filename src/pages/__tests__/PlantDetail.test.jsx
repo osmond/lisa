@@ -79,14 +79,14 @@ test('opens lightbox from gallery', () => {
   const thumb = screen.getByAltText(`${plant.name} 0`)
   fireEvent.click(thumb)
 
-  const dialog = screen.getByRole('dialog', { name: /image viewer/i })
-  expect(dialog).toBeInTheDocument()
+  const viewerDialog = screen.getByRole('dialog', { name: /image viewer/i })
+  expect(viewerDialog).toBeInTheDocument()
 
-  const img = screen.getByAltText(/gallery image/i)
-  expect(img).toHaveAttribute('src', plant.photos[0])
+  const viewerImg = screen.getByAltText(/gallery image/i)
+  expect(viewerImg).toHaveAttribute('src', plant.photos[0])
 
   fireEvent.keyDown(window, { key: 'ArrowRight' })
-  expect(img).toHaveAttribute('src', plant.photos[1])
+  expect(viewerImg).toHaveAttribute('src', plant.photos[1])
 
   fireEvent.keyDown(window, { key: 'Escape' })
   expect(screen.queryByRole('dialog', { name: /image viewer/i })).toBeNull()
