@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useState, useRef, useMemo } from 'react'
 
 import {
@@ -426,23 +426,8 @@ export default function PlantDetail() {
           />
         )}
       </div>
-      {lightboxIndex !== null && (
-        <Lightbox
-          images={plant.photos || []}
-          startIndex={lightboxIndex}
-          onClose={() => setLightboxIndex(null)}
-          label={`${plant.name} gallery`}
-        />
-      )}
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
-      )}
-      {lightboxIndex !== null && (
-        <Lightbox
-          images={plant.photos || []}
-          startIndex={lightboxIndex}
-          onClose={() => setLightboxIndex(null)}
-        />
       )}
   </div>
 )

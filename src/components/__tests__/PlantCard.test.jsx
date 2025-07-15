@@ -157,6 +157,21 @@ test('delete key confirms before removing plant', () => {
   expect(removePlant).toHaveBeenCalledWith(1)
 })
 
+test('backspace key confirms before removing plant', () => {
+  render(
+    <MemoryRouter>
+      <PlantCard plant={plant} />
+    </MemoryRouter>
+  )
+  const wrapper = screen.getByTestId('card-wrapper')
+  wrapper.focus()
+  fireEvent.keyDown(wrapper, { key: 'Backspace' })
+  const dialog = screen.getByRole('dialog', { name: /delete this plant/i })
+  expect(dialog).toBeInTheDocument()
+  fireEvent.click(screen.getByText('Confirm'))
+  expect(removePlant).toHaveBeenCalledWith(1)
+})
+
 test.skip('swipe right waters plant', async () => {
   render(
     <MemoryRouter>

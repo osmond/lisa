@@ -24,9 +24,7 @@ export default function PlantCard({ plant }) {
       navigate(`/plant/${plant.id}/edit`)
     } else if (e.key === 'Delete' || e.key === 'Backspace') {
       e.preventDefault()
-      if (window.confirm('Delete this plant?')) {
-        removePlant(plant.id)
-      }
+      setShowConfirm(true)
     }
   }
 
