@@ -28,6 +28,13 @@ test('user can complete steps and add a plant', () => {
 
   // step 3
   expect(screen.getByLabelText(/last watered/i)).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: /next/i }))
+
+  // step 4
+  expect(screen.getByLabelText(/location/i)).toBeInTheDocument()
+  fireEvent.change(screen.getByLabelText(/location/i), { target: { value: 'Desk' } })
+  fireEvent.change(screen.getByLabelText(/notes/i), { target: { value: 'Thrives' } })
+  fireEvent.change(screen.getByLabelText(/care level/i), { target: { value: 'easy' } })
   fireEvent.click(screen.getByRole('button', { name: /add plant/i }))
 
   expect(screen.getByRole('heading', { name: /my plants/i })).toBeInTheDocument()
