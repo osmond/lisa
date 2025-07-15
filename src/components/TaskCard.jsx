@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from './ActionIcons.jsx'
-import { CheckCircle, Clock, WarningCircle } from 'phosphor-react'
+import { CheckCircle } from 'phosphor-react'
 import useRipple from '../utils/useRipple.js'
 import { getWateringInfo } from '../utils/watering.js'
 import NoteModal from './NoteModal.jsx'
@@ -91,41 +91,25 @@ export default function TaskCard({
       onTouchMove={handlePointerMove}
       onTouchEnd={handlePointerEnd}
 
-
-      className={`relative flex items-start gap-3 p-4 rounded-2xl border dark:border-gray-600 shadow-sm bg-white dark:bg-gray-700 overflow-hidden transition-transform duration-150 hover:bg-gray-50 active:scale-95 animate-fade-in-up${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}${overdue ? ' ring-orange-300' : ''}${completed ? ' opacity-50' : ''}`}
-
+      className={`relative flex items-center gap-3 p-4 rounded-2xl border dark:border-gray-600 shadow-sm overflow-hidden transition-transform duration-150 active:scale-95${completed ? ' bg-gray-100 dark:bg-gray-800 opacity-50' : ' bg-sage dark:bg-gray-700 ring-2 ring-accent hover:bg-sage/80'}${urgent ? ' ring-green-300 dark:ring-green-400' : ''}${overdue ? ' ring-orange-300' : ''}`}
 
       style={{
         transform: `translateX(${deltaX}px)`,
         transition: deltaX === 0 ? 'transform 0.2s' : 'none',
       }}
     >
-      {(urgent || overdue) && (
-        <span
-          className={`absolute inset-y-0 left-0 w-1 ${overdue ? 'bg-orange-400' : 'bg-green-400'}`}
-          aria-hidden="true"
-        ></span>
-      )}
       <Link
         to={`/plant/${task.plantId}`}
-        className="flex items-start flex-1 gap-3"
+        className="flex items-center flex-1 gap-3"
       >
-        <div className="relative">
-          <img
-            src={task.image}
-            alt={task.plantName}
-            className={`w-12 h-12 object-cover rounded-md ${completed ? 'grayscale' : ''}`}
-          />
-          {completed && (
-            <CheckCircle
-              className="w-4 h-4 text-green-500 absolute -bottom-1 -right-1 bg-white rounded-full"
-              aria-hidden="true"
-            />
-          )}
-        </div>
-        <div className="flex-1 space-y-1">
-          <div className="flex items-center justify-between">
-            <p className="font-bold font-headline">{task.plantName}</p>
+        <img
+          src={task.image}
+          alt={task.plantName}
+          className="w-12 h-12 object-cover rounded-md"
+        />
+        <div className="flex-1">
+          <p className="font-bold font-headline">{task.plantName}</p>
+          <p className="text-sm font-body">
             <span
               className={`px-2 py-0.5 rounded-full text-xs ${
                 task.type === 'Water'
@@ -141,21 +125,18 @@ export default function TaskCard({
                   : task.type === 'Fertilize'
                   ? 'Fertilized'
                   : task.type
+                : task.type === 'Water'
+                ? 'To Water'
+                : task.type === 'Fertilize'
+                ? 'To Fertilize'
                 : task.type}
             </span>
-          </div>
-          <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-300">
-            {Icon && <Icon aria-hidden="true" />}
-            {completed ? (
-              <CheckCircle className="w-4 h-4 text-green-500" aria-hidden="true" />
-            ) : overdue ? (
-              <WarningCircle className="w-4 h-4 text-orange-500" aria-hidden="true" />
-            ) : null}
-          </div>
+          </p>
           {task.reason && (
             <p className="text-xs text-gray-500 font-body">{task.reason}</p>
           )}
         </div>
+        {Icon && <Icon aria-hidden="true" />}
       </Link>
       <button
         type="button"
@@ -205,9 +186,11 @@ export default function TaskCard({
           </svg>
         </div>
       )}
-      <div className="mt-2 flex items-center gap-1 text-xs text-gray-500">
-        <Clock className="w-4 h-4" aria-hidden="true" />
-        <span aria-label={`ET₀: ${eto ?? 'N/A'} | Last watered ${daysSince ?? '?'} days ago`}>
+      <div className="mt-2">
+        <span
+          className="px-2 py-0.5 text-xs rounded-full bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100"
+          aria-label={`ET₀: ${eto ?? 'N/A'} | Last watered ${daysSince ?? '?'} days ago`}
+        >
           ET₀: {eto ?? '—'} | Last watered {daysSince ?? '?'} days ago
         </span>
       </div>
