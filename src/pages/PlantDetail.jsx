@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useState, useRef, useMemo } from 'react'
+
 import {
   Activity,
   Note,
