@@ -1,10 +1,11 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
 
 import TaskCard from '../components/TaskCard.jsx'
 import TaskTabs from '../components/TaskTabs.jsx'
+import { ListBulletIcon, ViewGridIcon } from '@radix-ui/react-icons'
 
 
 
@@ -14,9 +15,39 @@ export default function Tasks() {
   const weather = { rainTomorrow: weatherCtx?.forecast?.rainfall || 0 }
   const [viewMode, setViewMode] = useState('Upcoming')
 
-  const [typeFilter, setTypeFilter] = useState('All')
-  const [urgencyFilter, setUrgencyFilter] = useState('All')
-  const [sortBy, setSortBy] = useState('date')
+  const [typeFilter, setTypeFilter] = useState(() => {
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem('tasksTypeFilter') || 'All'
+    }
+    return 'All'
+  })
+  const [urgencyFilter, setUrgencyFilter] = useState(() => {
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem('tasksUrgencyFilter') || 'All'
+    }
+    return 'All'
+  })
+  const [sortBy, setSortBy] = useState(() => {
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem('tasksSortBy') || 'date'
+    }
+    return 'date'
+  })
+  const [layout, setLayout] = useState(() => {
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem('tasksLayout') || 'list'
+    }
+    return 'list'
+  })
+
+  useEffect(() => {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('tasksTypeFilter', typeFilter)
+      localStorage.setItem('tasksUrgencyFilter', urgencyFilter)
+      localStorage.setItem('tasksSortBy', sortBy)
+      localStorage.setItem('tasksLayout', layout)
+    }
+  }, [typeFilter, urgencyFilter, sortBy, layout])
 
   const urgencies = [...new Set(plants.map(p => p.urgency).filter(Boolean))]
 
@@ -198,6 +229,18 @@ export default function Tasks() {
           <option value="date">By Date</option>
           <option value="name">By Plant Name</option>
         </select>
+        <button
+          type="button"
+          onClick={() => setLayout(prev => (prev === 'list' ? 'grid' : 'list'))}
+          className="border rounded p-1 flex items-center"
+          aria-label={`Switch to ${layout === 'list' ? 'grid' : 'list'} view`}
+        >
+          {layout === 'list' ? (
+            <ViewGridIcon className="w-4 h-4" aria-hidden="true" />
+          ) : (
+            <ListBulletIcon className="w-4 h-4" aria-hidden="true" />
+          )}
+        </button>
       </div>
 
       <TaskTabs value={viewMode} onChange={setViewMode} />
@@ -304,7 +347,7 @@ export default function Tasks() {
           return (
             <div key={dateKey}>
               <h3 className="mt-4 text-sm font-semibold text-gray-500">{heading}</h3>
-              <div className="space-y-4">
+              <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-4'}>
                 {list.map((e, i) => {
                   const task = {
                     id: `${e.taskType}-${e.plantId}-${i}`,
