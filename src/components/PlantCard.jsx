@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Pencil1Icon, TrashIcon } from '@radix-ui/react-icons'
 import { Drop } from 'phosphor-react'
 
@@ -17,6 +17,14 @@ export default function PlantCard({ plant }) {
   const [showActions, setShowActions] = useState(false)
   const [showNote, setShowNote] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
+  const [showDeletePrompt, setShowDeletePrompt] = useState(false)
+
+  const LONG_PRESS_MS = 600
+  const EDIT_THRESHOLD = 100
+  const DELETE_THRESHOLD = 200
+  const COMPLETE_THRESHOLD = 100
+
+  const longPressTimer = useRef(null)
 
   const handleKeyDown = e => {
     if (e.key === 'ArrowRight') {
@@ -59,17 +67,41 @@ export default function PlantCard({ plant }) {
 
 
   const { dx: deltaX, start, move, end } = useSwipe(diff => {
-    if (diff > 75) {
+    if (diff > COMPLETE_THRESHOLD) {
       handleWatered()
-    } else if (diff < -150) {
-      handleDelete()
-    } else if (diff < -75) {
+      navigator.vibrate?.(10)
+    } else if (diff < -DELETE_THRESHOLD) {
+      setShowDeletePrompt(true)
+      setShowConfirm(true)
+    } else if (diff < -EDIT_THRESHOLD) {
       navigate(`/plant/${plant.id}/edit`)
+      navigator.vibrate?.(10)
     }
   })
 
 
 
+
+  const handlePointerDown = e => {
+    createRipple(e)
+    start(e)
+    setShowDeletePrompt(false)
+    longPressTimer.current = setTimeout(() => setShowActions(true), LONG_PRESS_MS)
+  }
+
+  const handlePointerMove = e => {
+    move(e)
+    if (Math.abs(deltaX) > 5 && longPressTimer.current) {
+      clearTimeout(longPressTimer.current)
+      longPressTimer.current = null
+    }
+  }
+
+  const handlePointerUp = e => {
+    clearTimeout(longPressTimer.current)
+    longPressTimer.current = null
+    end(e)
+  }
 
   return (
     <>
@@ -80,17 +112,17 @@ export default function PlantCard({ plant }) {
       onKeyDown={handleKeyDown}
 
 
-      onMouseDown={e => { createRipple(e); start(e) }}
-      onTouchStart={e => { createRipple(e); start(e) }}
+      onMouseDown={handlePointerDown}
+      onTouchStart={handlePointerDown}
       className="relative overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-      onPointerDown={e => { createRipple(e); start(e) }}
-      onPointerMove={move}
-      onPointerUp={end}
-      onPointerCancel={end}
-      onMouseMove={move}
-      onMouseUp={end}
-      onTouchMove={move}
-      onTouchEnd={end}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
+      onMouseMove={handlePointerMove}
+      onMouseUp={handlePointerUp}
+      onTouchMove={handlePointerMove}
+      onTouchEnd={handlePointerUp}
 
 
       onClick={() => setShowActions(true)}
@@ -132,6 +164,36 @@ export default function PlantCard({ plant }) {
           </button>
         </div>
       </div>
+      {(deltaX < -40 || showDeletePrompt) && (
+        <div className="absolute inset-0 flex justify-end items-center pr-4 pointer-events-none">
+          {showDeletePrompt ? (
+            <button
+              onClick={() => {
+                setShowDeletePrompt(false)
+                handleDelete()
+              }}
+              className="bg-red-600 text-white px-3 py-1 rounded pointer-events-auto"
+            >
+              Delete?
+            </button>
+          ) : (
+            <div className="flex items-center gap-2">
+              <div
+                className={`bg-blue-600 text-white px-2 py-1 rounded flex items-center gap-1 transition-opacity ${deltaX < -40 ? 'opacity-100' : 'opacity-0'}`}
+              >
+                <Pencil1Icon className="w-4 h-4" aria-hidden="true" />
+                <span className="text-sm font-body">Edit</span>
+              </div>
+              <div
+                className={`bg-red-600 text-white px-2 py-1 rounded flex items-center gap-1 transition-opacity ${deltaX < -120 ? 'opacity-100' : 'opacity-0'}`}
+              >
+                <TrashIcon className="w-4 h-4" aria-hidden="true" />
+                <span className="text-sm font-body">Delete</span>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
       <div
         className="p-4 rounded-2xl shadow-md bg-white dark:bg-gray-700"
         style={{ transform: `translateX(${deltaX}px)`, transition: deltaX === 0 ? 'transform 0.2s' : 'none' }}
