@@ -9,6 +9,7 @@ import Add from './pages/Add'
 import Settings from './pages/Settings'
 import PlantDetail from './pages/PlantDetail'
 import EditPlant from './pages/EditPlant'
+import Timeline from './pages/Timeline'
 import BottomNav from './components/BottomNav'
 import Fab from './components/Fab'
 import NotFound from './pages/NotFound'
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/add" element={<Add />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/timeline" element={<Timeline />} />
             <Route path="/plant/:id" element={<PlantDetail />} />
             <Route path="/plant/:id/edit" element={<EditPlant />} />
             <Route path="*" element={<NotFound />} />
