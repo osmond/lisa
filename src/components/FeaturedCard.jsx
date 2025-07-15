@@ -2,7 +2,10 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { formatCareSummary } from '../utils/date.js'
 
-import { createRipple, useSwipe } from '../utils/interactions.js'
+
+import useSwipe from '../hooks/useSwipe.js'
+import { createRipple } from '../utils/interactions.js'
+
 
 
 export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
@@ -43,7 +46,18 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
       aria-label={`Featured plant card for ${name}`}
       onKeyDown={handleKeyDown}
 
-      {...handlers}
+
+      onPointerDown={e => { createRipple(e); start(e) }}
+      onPointerMove={move}
+      onPointerUp={end}
+      onPointerCancel={end}
+      onMouseDown={start}
+      onMouseMove={move}
+      onMouseUp={end}
+      onTouchStart={start}
+      onTouchMove={move}
+      onTouchEnd={end}
+
 
       className="relative block overflow-hidden rounded-2xl shadow bg-sage dark:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
       style={{ transform: `translateX(${dx}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}

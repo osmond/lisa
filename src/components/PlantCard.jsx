@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-import { createRipple, useSwipe } from '../utils/interactions.js'
+import { createRipple } from '../utils/interactions.js'
+
 
 import { usePlants } from '../PlantContext.jsx'
 import NoteModal from './NoteModal.jsx'
@@ -13,18 +14,6 @@ export default function PlantCard({ plant }) {
   const [showActions, setShowActions] = useState(false)
   const [showNote, setShowNote] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
-  const { deltaX, handlers } = useSwipe({
-    ripple: true,
-    onEnd: diff => {
-      if (diff > 75) {
-        handleWatered()
-      } else if (diff < -150) {
-        handleDelete()
-      } else if (diff < -75) {
-        navigate(`/plant/${plant.id}/edit`)
-      }
-    },
-  })
 
   const handleKeyDown = e => {
     if (e.key === 'ArrowRight') {
@@ -76,8 +65,19 @@ export default function PlantCard({ plant }) {
       aria-label={`Plant card for ${plant.name}`}
       onKeyDown={handleKeyDown}
 
-      {...handlers}
+
+      onMouseDown={e => { createRipple(e); start(e) }}
+      onTouchStart={e => { createRipple(e); start(e) }}
       className="relative overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+      onPointerDown={e => { createRipple(e); start(e) }}
+      onPointerMove={move}
+      onPointerUp={end}
+      onPointerCancel={end}
+      onMouseMove={move}
+      onMouseUp={end}
+      onTouchMove={move}
+      onTouchEnd={end}
+
 
       onClick={() => setShowActions(true)}
     >
