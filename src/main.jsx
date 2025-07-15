@@ -26,7 +26,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    const swPath = `${import.meta.env.VITE_BASE_PATH || '/'}sw.js`
+    const base = import.meta.env.VITE_BASE_PATH || '/'
+    const swPath = `${base.endsWith('/') ? base : base + '/'}sw.js`
     navigator.serviceWorker.register(swPath).catch((err) => {
       console.error('Service worker registration failed:', err)
     })
