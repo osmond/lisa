@@ -23,3 +23,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </UserProvider>
   </React.StrictMode>
 )
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    const swPath = `${import.meta.env.VITE_BASE_PATH || '/'}sw.js`
+    navigator.serviceWorker.register(swPath).catch((err) => {
+      console.error('Service worker registration failed:', err)
+    })
+  })
+}

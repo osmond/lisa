@@ -100,6 +100,10 @@ Open that URL in your browser to view the app.
 
 4. **Deploy**. Upload the contents of the generated `dist/` folder to your web server. If you used a base path, ensure the files are hosted under that same subdirectory.
 
+## Progressive Web App
+
+Kaymaria includes a web app manifest and service worker so you can install it on mobile devices and continue using it offline. After building and serving the app, visit it in your browser and choose **Add to Home Screen** to install.
+
 ## Mobile Browser Testing
 
 Swipe gestures were manually tested on Chrome, Safari and Firefox on iOS and Android devices.
