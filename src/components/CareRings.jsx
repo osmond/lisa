@@ -60,7 +60,7 @@ export default function CareRings({
             cx={center}
             cy={center}
             r={outerRadius}
-            fill="none"
+            fill="transparent"
             stroke="currentColor"
             strokeWidth={strokeWidth}
             strokeDasharray={outerCirc}
@@ -76,7 +76,7 @@ export default function CareRings({
             cx={center}
             cy={center}
             r={innerRadius}
-            fill="none"
+            fill="transparent"
             stroke="currentColor"
             strokeWidth={strokeWidth}
             strokeDasharray={innerCirc}
