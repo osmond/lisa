@@ -2,11 +2,12 @@ import { render, screen, fireEvent, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import TaskCard from '../TaskCard.jsx'
-import { usePlants } from '../../PlantContext.jsx'
+import { PlantProvider, usePlants } from '../../PlantContext.jsx'
 
-jest.mock('../../PlantContext.jsx', () => ({
-  usePlants: jest.fn(),
-}))
+jest.mock('../../PlantContext.jsx', () => {
+  const actual = jest.requireActual('../../PlantContext.jsx')
+  return { ...actual, usePlants: jest.fn() }
+})
 
 const usePlantsMock = usePlants
 
@@ -122,6 +123,17 @@ test('shows info chip with accessibility label', () => {
     expect.stringContaining('Last watered 3 days ago')
   )
   jest.useRealTimers()
+})
+
+test('compact mode hides reason and ET₀ info', () => {
+  const compactTask = { ...task, reason: 'Needs water' }
+  render(
+    <MemoryRouter>
+      <TaskCard task={compactTask} compact />
+    </MemoryRouter>
+  )
+  expect(screen.queryByText('Needs water')).not.toBeInTheDocument()
+  expect(screen.queryByText(/ET₀/)).not.toBeInTheDocument()
 })
 
 test('mark as done does not navigate', () => {

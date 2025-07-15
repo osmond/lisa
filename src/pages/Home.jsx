@@ -173,6 +173,7 @@ export default function Home() {
                 task={task}
                 urgent={task.urgent}
                 overdue={task.overdue}
+                compact
               />
             ))
           ) : (
