@@ -106,11 +106,11 @@ export default function TaskCard({
         <img
           src={task.image}
           alt={task.plantName}
-          className="w-12 h-12 object-cover rounded-md"
+          className={`${compact ? 'w-12 h-12' : 'w-16 h-16'} object-cover rounded-md`}
         />
         <div className="flex-1">
-          <p className="font-bold font-headline">{task.plantName}</p>
-          <p className="text-sm font-body">
+          <p className={`${compact ? '' : 'text-lg'} font-bold font-headline`}>{task.plantName}</p>
+          <p className={`${compact ? 'text-sm' : 'text-base'} font-body`}>
             <span
               className={`px-2 py-0.5 rounded-full text-xs ${
                 task.type === 'Water'
@@ -134,7 +134,7 @@ export default function TaskCard({
             </span>
           </p>
           {!compact && task.reason && (
-            <p className="text-xs text-gray-500 font-body">{task.reason}</p>
+            <p className="text-sm text-gray-500 font-body">{task.reason}</p>
           )}
         </div>
         {Icon && <Icon aria-hidden="true" />}
@@ -190,7 +190,7 @@ export default function TaskCard({
       {!compact && (
         <div className="mt-2">
           <span
-            className="px-2 py-0.5 text-xs rounded-full bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100"
+            className="px-2 py-0.5 text-sm rounded-full bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100"
             aria-label={`ET₀: ${eto ?? 'N/A'} | Last watered ${daysSince ?? '?'} days ago`}
           >
             ET₀: {eto ?? '—'} | Last watered {daysSince ?? '?'} days ago
