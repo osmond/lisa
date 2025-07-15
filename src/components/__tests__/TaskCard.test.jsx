@@ -22,7 +22,7 @@ test('renders task text', () => {
     </PlantProvider>
   )
   expect(screen.getByText('Monstera')).toBeInTheDocument()
-  expect(screen.getByText('To Water')).toBeInTheDocument()
+  expect(screen.getByText('Water')).toBeInTheDocument()
 })
 
 test('applies highlight when urgent', () => {

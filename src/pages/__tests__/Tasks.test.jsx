@@ -49,9 +49,9 @@ test('ignores activities without valid dates when generating events', () => {
   const cards = screen.getAllByTestId('task-card')
 
   expect(cards).toHaveLength(2)
-  expect(cards[0]).toHaveTextContent('To Water')
+  expect(cards[0]).toHaveTextContent('Water')
   expect(cards[0]).toHaveTextContent('Plant B')
-  expect(cards[1]).toHaveTextContent('To Water')
+  expect(cards[1]).toHaveTextContent('Water')
   expect(cards[1]).toHaveTextContent('Plant A')
   expect(cards.length).toBeGreaterThan(0)
 
@@ -85,9 +85,9 @@ test('filters by type', () => {
 
   const cards = screen.getAllByTestId('task-card')
   expect(cards).toHaveLength(2)
-  expect(cards[0]).toHaveTextContent('To Water')
+  expect(cards[0]).toHaveTextContent('Water')
   expect(cards[0]).toHaveTextContent('Plant B')
-  expect(cards[1]).toHaveTextContent('To Water')
+  expect(cards[1]).toHaveTextContent('Water')
   expect(cards[1]).toHaveTextContent('Plant A')
 })
 
