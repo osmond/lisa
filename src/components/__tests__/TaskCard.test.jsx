@@ -60,6 +60,8 @@ test('renders task text', () => {
   const badge = screen.getByText('To Water')
   expect(badge).toBeInTheDocument()
   expect(badge).toHaveClass('inline-flex')
+  expect(badge).toHaveClass('bg-water-200')
+  expect(badge).toHaveClass('text-water-800')
 })
 
 test('incomplete tasks show alert style', () => {
@@ -87,8 +89,8 @@ test('applies highlight when urgent', () => {
   )
   const wrapper = container.querySelector('[data-testid="task-card"]')
   expect(wrapper).toHaveClass('ring-2')
-  expect(wrapper).toHaveClass('ring-green-300')
-  expect(wrapper).toHaveClass('dark:ring-green-400')
+  expect(wrapper).toHaveClass('ring-healthy-300')
+  expect(wrapper).toHaveClass('dark:ring-healthy-400')
 })
 
 test('applies overdue styling', () => {
@@ -101,8 +103,10 @@ test('applies overdue styling', () => {
   )
   const wrapper = container.querySelector('[data-testid="task-card"]')
   expect(wrapper).toHaveClass('ring-2')
-  expect(wrapper).toHaveClass('ring-orange-300')
-  expect(screen.getByTestId('overdue-badge')).toBeInTheDocument()
+  expect(wrapper).toHaveClass('ring-fertilize-300')
+  const badge = screen.getByTestId('overdue-badge')
+  expect(badge).toBeInTheDocument()
+  expect(badge).toHaveClass('bg-fertilize-500')
 })
 
 test('shows completed state', () => {
