@@ -172,7 +172,7 @@ test('backspace key confirms before removing plant', () => {
   expect(removePlant).toHaveBeenCalledWith(1)
 })
 
-test.skip('swipe right waters plant', async () => {
+test('swipe right waters plant', async () => {
   render(
     <MemoryRouter>
       <PlantCard plant={plant} />
@@ -191,7 +191,7 @@ test.skip('swipe right waters plant', async () => {
     fireEvent.touchEnd(wrapper)
   })
 
-  expect(markWatered).toHaveBeenCalledWith(1, '')
+  expect(screen.getByRole('dialog', { name: /optional note/i })).toBeInTheDocument()
 })
 
 test('swipe left navigates to edit page', async () => {
@@ -204,6 +204,7 @@ test('swipe left navigates to edit page', async () => {
   const user = userEvent.setup()
   await act(async () => {
     fireEvent.pointerDown(wrapper, { clientX: 100, buttons: 1 })
+    expect(wrapper.querySelector('.ripple-effect')).toBeInTheDocument()
     fireEvent.pointerMove(wrapper, { clientX: 20, buttons: 1 })
     fireEvent.pointerUp(wrapper, { clientX: 20 })
 
@@ -224,6 +225,7 @@ test('swipe far left shows confirm modal and removes plant', async () => {
   const user = userEvent.setup()
   await act(async () => {
     fireEvent.pointerDown(wrapper, { clientX: 200, buttons: 1 })
+    expect(wrapper.querySelector('.ripple-effect')).toBeInTheDocument()
     fireEvent.pointerMove(wrapper, { clientX: 0, buttons: 1 })
     fireEvent.pointerUp(wrapper, { clientX: 0 })
 
