@@ -2,15 +2,19 @@ import { useMemo } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
+import TaskCard from '../components/TaskCard.jsx'
 
 export default function Tasks() {
   const { plants } = usePlants()
   const weatherCtx = useWeather()
   const weather = { rainTomorrow: weatherCtx?.forecast?.rainfall || 0 }
 
+  const todayIso = new Date().toISOString().slice(0, 10)
+
   const events = useMemo(() => {
     const all = []
     plants.forEach(p => {
+      const plantUrgent = p.urgency === 'high'
       if (p.lastWatered) {
         const { date, reason } = getNextWateringDate(p.lastWatered, weather)
         all.push({
@@ -19,7 +23,11 @@ export default function Tasks() {
           type: 'task',
           taskType: 'water',
           plantId: p.id,
+          plantName: p.name,
+          image: p.image,
           reason,
+          urgent: plantUrgent || date === todayIso,
+          overdue: date < todayIso,
         })
       }
       if (p.nextFertilize) {
@@ -28,17 +36,31 @@ export default function Tasks() {
           label: `Fertilize ${p.name}`,
           type: 'task',
           taskType: 'fertilize',
+          plantId: p.id,
+          plantName: p.name,
+          image: p.image,
+          urgent: plantUrgent || p.nextFertilize === todayIso,
+          overdue: p.nextFertilize < todayIso,
         })
       }
       ;(p.activity || []).forEach(a => {
         const m = a.match(/(\d{4}-\d{2}-\d{2})/)
         if (m) {
-          all.push({ date: m[1], label: `${p.name}: ${a}`, type: 'past' })
+          all.push({
+            date: m[1],
+            label: `${p.name}: ${a}`,
+            type: 'past',
+            taskType: 'note',
+            plantId: p.id,
+            plantName: p.name,
+            image: p.image,
+            reason: `${p.name}: ${a}`,
+          })
         }
       })
     })
     return all.sort((a, b) => new Date(a.date) - new Date(b.date))
-  }, [plants, weather])
+  }, [plants, weather, todayIso])
 
   const groupedEvents = useMemo(() => {
     const map = new Map()
@@ -50,11 +72,6 @@ export default function Tasks() {
       (a, b) => new Date(a[0]) - new Date(b[0])
     )
   }, [events])
-
-  const colors = {
-    water: 'bg-blue-500',
-    fertilize: 'bg-orange-500',
-  }
 
   const today = new Date().toISOString().slice(0, 10)
   const tomorrow = new Date()
@@ -70,36 +87,41 @@ export default function Tasks() {
           const heading =
             dateKey === today
               ? 'Today'
-            : dateKey === tomorrowStr
-            ? 'Tomorrow'
-            : dateKey < today
-            ? `Past Due - ${dateKey}`
-            : dateKey
-        return (
-          <div key={dateKey}>
-            <h3 className="mt-4 text-sm font-semibold text-gray-500">{heading}</h3>
-            <ul className="relative border-l border-gray-300 pl-4 space-y-6">
-              {list.map((e, i) => {
-                const overdue = e.type === 'task' && e.date < today
-                const color = colors[e.taskType] || 'bg-green-500'
-                return (
-                  <li key={`${e.date}-${i}`} className="relative animate-fade-in-up">
-                    <span
-                      className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${
-                        overdue ? 'bg-red-500 animate-pulse' : color
-                      }`}
-                    ></span>
-                    <p className="text-xs text-gray-500 font-body">{e.date}</p>
-                    <p className={`font-medium font-body ${overdue ? 'text-red-600' : ''}`}>{e.label}</p>
-                    {e.reason && (
-                      <p className="text-xs text-gray-500 font-body">{e.reason}</p>
-                    )}
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-        )
+              : dateKey === tomorrowStr
+              ? 'Tomorrow'
+              : dateKey < today
+              ? `Past Due - ${dateKey}`
+              : dateKey
+          return (
+            <div key={dateKey}>
+              <h3 className="mt-4 text-sm font-semibold text-gray-500">{heading}</h3>
+              <div className="space-y-4">
+                {list.map((e, i) => {
+                  const task = {
+                    id: `${e.taskType}-${e.plantId}-${i}`,
+                    plantId: e.plantId,
+                    plantName: e.plantName,
+                    image: e.image,
+                    type:
+                      e.taskType === 'water'
+                        ? 'Water'
+                        : e.taskType === 'fertilize'
+                        ? 'Fertilize'
+                        : 'Note',
+                    reason: e.reason,
+                  }
+                  return (
+                    <TaskCard
+                      key={`${e.date}-${i}`}
+                      task={task}
+                      urgent={!!e.urgent}
+                      overdue={!!e.overdue}
+                    />
+                  )
+                })}
+              </div>
+            </div>
+          )
         })
       )}
     </div>
