@@ -172,7 +172,7 @@ test('backspace key confirms before removing plant', () => {
   expect(removePlant).toHaveBeenCalledWith(1)
 })
 
-test.skip('swipe right waters plant', async () => {
+test('swipe right waters plant', async () => {
   render(
     <MemoryRouter>
       <PlantCard plant={plant} />
@@ -191,7 +191,7 @@ test.skip('swipe right waters plant', async () => {
     fireEvent.touchEnd(wrapper)
   })
 
-  expect(markWatered).toHaveBeenCalledWith(1, '')
+  expect(screen.getByRole('dialog', { name: /optional note/i })).toBeInTheDocument()
 })
 
 test('swipe left navigates to edit page', async () => {

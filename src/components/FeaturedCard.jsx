@@ -1,19 +1,22 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { formatCareSummary } from '../utils/date.js'
+
+import useSwipe from '../hooks/useSwipe.js'
+
 import { createRipple, useSwipe } from '../utils/interactions.js'
+
 
 export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
   const items = plants.length ? plants : task ? [task] : []
   if (!items.length) return null
 
   const [index, setIndex] = useState(startIndex)
-  const { deltaX: dx, handlers } = useSwipe({
-    ripple: true,
-    onEnd: diff => {
-      if (diff > 50) setIndex(i => (i - 1 + items.length) % items.length)
-      else if (diff < -50) setIndex(i => (i + 1) % items.length)
-    },
+
+  const { dx, start, move, end } = useSwipe(diff => {
+    if (diff > 50) setIndex(i => (i - 1 + items.length) % items.length)
+    else if (diff < -50) setIndex(i => (i + 1) % items.length)
+
   })
 
   const handleKeyDown = e => {
@@ -39,7 +42,20 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
       data-testid="featured-card"
       aria-label={`Featured plant card for ${name}`}
       onKeyDown={handleKeyDown}
+
+      onPointerDown={start}
+      onPointerMove={move}
+      onPointerUp={end}
+      onPointerCancel={end}
+      onMouseDown={start}
+      onMouseMove={move}
+      onMouseUp={end}
+      onTouchStart={start}
+      onTouchMove={move}
+      onTouchEnd={end}
+
       {...handlers}
+
       className="relative block overflow-hidden rounded-2xl shadow bg-sage dark:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
       style={{ transform: `translateX(${dx}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
     >

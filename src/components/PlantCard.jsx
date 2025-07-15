@@ -1,9 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { createRipple, useSwipe } from '../utils/interactions.js'
+
+import useRipple from '../utils/useRipple.js'
+
 import { usePlants } from '../PlantContext.jsx'
 import NoteModal from './NoteModal.jsx'
 import ConfirmModal from './ConfirmModal.jsx'
+import useSwipe from '../hooks/useSwipe.js'
 
 export default function PlantCard({ plant }) {
   const navigate = useNavigate()
@@ -63,6 +66,18 @@ export default function PlantCard({ plant }) {
     handleSaveNote('')
   }
 
+
+  const { dx: deltaX, start, move, end } = useSwipe(diff => {
+    if (diff > 75) {
+      handleWatered()
+    } else if (diff < -150) {
+      handleDelete()
+    } else if (diff < -75) {
+      navigate(`/plant/${plant.id}/edit`)
+    }
+  })
+
+
   return (
     <>
     <div
@@ -70,8 +85,22 @@ export default function PlantCard({ plant }) {
       tabIndex="0"
       aria-label={`Plant card for ${plant.name}`}
       onKeyDown={handleKeyDown}
+
+      onMouseDown={e => { createRipple(e); start(e) }}
+      onTouchStart={e => { createRipple(e); start(e) }}
+      className="relative overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+      onPointerDown={start}
+      onPointerMove={move}
+      onPointerUp={end}
+      onPointerCancel={end}
+      onMouseMove={move}
+      onMouseUp={end}
+      onTouchMove={move}
+      onTouchEnd={end}
+
       {...handlers}
       className="relative overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+
       onClick={() => setShowActions(true)}
     >
       <div
