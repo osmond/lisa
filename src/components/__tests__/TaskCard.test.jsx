@@ -142,7 +142,7 @@ test('shows info chip with accessibility label', () => {
       </BaseCard>
     </MemoryRouter>
   )
-  const chip = screen.getByText(/ET₀/i)
+  const chip = screen.getByText(/Evapotranspiration/i)
   expect(chip).toHaveAttribute(
     'aria-label',
     expect.stringContaining('Last watered 3 days ago')
@@ -150,7 +150,7 @@ test('shows info chip with accessibility label', () => {
   jest.useRealTimers()
 })
 
-test('compact mode hides reason and ET₀ info', () => {
+test('compact mode hides reason and evapotranspiration info', () => {
   const compactTask = { ...task, reason: 'Needs water' }
   render(
     <MemoryRouter>
@@ -160,7 +160,7 @@ test('compact mode hides reason and ET₀ info', () => {
     </MemoryRouter>
   )
   expect(screen.queryByText('Needs water')).not.toBeInTheDocument()
-  expect(screen.queryByText(/ET₀/)).not.toBeInTheDocument()
+  expect(screen.queryByText(/Evapotranspiration/)).not.toBeInTheDocument()
 })
 
 test('mark as done does not navigate', () => {
