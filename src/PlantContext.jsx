@@ -5,14 +5,15 @@ import { getNextWateringDate } from './utils/watering.js'
 
 const PlantContext = createContext()
 
+export const addBase = url => {
+  if (!url) return url
+  if (/^https?:/.test(url) || url.startsWith('data:')) return url
+  const base = (process.env.VITE_BASE_PATH || '/').replace(/\/$/, '')
+  if (url.startsWith(base)) return url
+  return `${base}${url.startsWith('/') ? '' : '/'}${url}`
+}
+
 export function PlantProvider({ children }) {
-  const addBase = url => {
-    if (!url) return url
-    if (/^https?:/.test(url) || url.startsWith('data:')) return url
-    const base = (process.env.VITE_BASE_PATH || '/').replace(/\/$/, '')
-    if (url.startsWith(base)) return url
-    return `${base}${url.startsWith('/') ? '' : '/'}${url}`
-  }
 
   const [plants, setPlants] = useState(() => {
     const mapPlant = p => ({

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { usePlants } from '../PlantContext.jsx'
+import { usePlants, addBase } from '../PlantContext.jsx'
 
 export default function Add() {
   const { addPlant } = usePlants()
@@ -19,7 +19,7 @@ export default function Add() {
   const handleSubmit = e => {
     e.preventDefault()
     if (!name) return
-    const imagePath = image || '/demo-image-01.jpg'
+    const imagePath = addBase(image || '/demo-image-01.jpg')
     addPlant({ name, image: imagePath, lastWatered, nextWater })
     navigate('/myplants')
   }
