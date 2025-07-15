@@ -25,6 +25,19 @@ test('renders task text', () => {
   expect(screen.getByText('To Water')).toBeInTheDocument()
 })
 
+test('incomplete tasks show alert style', () => {
+  const { container } = render(
+    <PlantProvider>
+      <MemoryRouter>
+        <TaskCard task={task} />
+      </MemoryRouter>
+    </PlantProvider>
+  )
+  const wrapper = container.firstChild
+  expect(wrapper).toHaveClass('bg-sage')
+  expect(wrapper).toHaveClass('ring-accent')
+})
+
 test('applies highlight when urgent', () => {
   const { container } = render(
     <PlantProvider>
@@ -48,10 +61,8 @@ test('applies overdue styling', () => {
     </PlantProvider>
   )
   const wrapper = container.firstChild
-
-
-  expect(wrapper).not.toHaveClass('ring-2')
-
+  expect(wrapper).toHaveClass('ring-2')
+  expect(wrapper).toHaveClass('ring-orange-300')
   expect(screen.getByTestId('overdue-badge')).toBeInTheDocument()
 })
 
@@ -65,8 +76,10 @@ test('shows completed state', () => {
   )
   const wrapper = container.firstChild
   expect(wrapper).toHaveClass('opacity-50')
+  expect(wrapper).toHaveClass('bg-gray-100')
   const checkbox = container.querySelector('input[type="checkbox"]')
   expect(checkbox).toBeChecked()
+  expect(container.querySelector('.check-pop')).toBeInTheDocument()
 })
 
 test('icon svg is aria-hidden', () => {
