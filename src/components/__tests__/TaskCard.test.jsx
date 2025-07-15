@@ -89,8 +89,8 @@ test('applies highlight when urgent', () => {
   )
   const wrapper = container.querySelector('[data-testid="task-card"]')
   expect(wrapper).toHaveClass('ring-2')
-  expect(wrapper).toHaveClass('ring-healthy-300')
-  expect(wrapper).toHaveClass('dark:ring-healthy-400')
+  expect(wrapper).toHaveClass('ring-green-300')
+  expect(wrapper).toHaveClass('dark:ring-green-400')
 })
 
 test('applies overdue styling', () => {
@@ -103,7 +103,7 @@ test('applies overdue styling', () => {
   )
   const wrapper = container.querySelector('[data-testid="task-card"]')
   expect(wrapper).toHaveClass('ring-2')
-  expect(wrapper).toHaveClass('ring-fertilize-300')
+  expect(wrapper).toHaveClass('ring-orange-300')
   const badge = screen.getByTestId('overdue-badge')
   expect(badge).toBeInTheDocument()
   expect(badge).toHaveClass('bg-fertilize-500')
