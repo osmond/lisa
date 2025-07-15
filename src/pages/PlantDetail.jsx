@@ -4,6 +4,7 @@ import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
 import { formatMonth } from '../utils/date.js'
+import { Drop, CalendarCheck, Flower } from 'phosphor-react'
 
 export default function PlantDetail() {
   const { id } = useParams()
@@ -147,11 +148,20 @@ export default function PlantDetail() {
           </div>
         </div>
 
-        <div className="grid gap-1 text-sm">
-          <p><strong>Last watered:</strong> {plant.lastWatered}</p>
-          <p><strong>Next watering:</strong> {plant.nextWater}</p>
+        <div className="flex flex-wrap gap-2 text-sm">
+          <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
+            <Drop className="w-4 h-4" />
+            Last watered: {plant.lastWatered}
+          </span>
+          <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-100 text-green-800">
+            <CalendarCheck className="w-4 h-4" />
+            Next watering: {plant.nextWater}
+          </span>
           {plant.lastFertilized && (
-            <p><strong>Last fertilized:</strong> {plant.lastFertilized}</p>
+            <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-100 text-orange-800">
+              <Flower className="w-4 h-4" />
+              Last fertilized: {plant.lastFertilized}
+            </span>
           )}
         </div>
         <div className="flex gap-2 mt-2">
