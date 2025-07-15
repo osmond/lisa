@@ -112,6 +112,9 @@ Swipe gestures were manually tested on Chrome, Safari and Firefox on iOS and And
 - **Safari**: works as expected with no visual issues.
 - **Firefox**: swipe detection works but animations are slightly less smooth.
 
+## Security
+
+After updating dependencies to `vite@7` and `@vitejs/plugin-react@4.6.0`, running `npm audit` reports **0 vulnerabilities**.
 
 ## License
 
