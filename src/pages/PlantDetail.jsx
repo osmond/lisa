@@ -3,6 +3,8 @@ import { useState, useRef, useMemo } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
+import Badge from '../components/Badge.jsx'
+import { Sun, Drop, Gauge } from 'phosphor-react'
 import { formatMonth } from '../utils/date.js'
 import { Drop, CalendarCheck, Flower } from 'phosphor-react'
 
@@ -188,22 +190,25 @@ export default function PlantDetail() {
           </button>
         </div>
 
-        <div className="flex flex-wrap gap-2 text-sm">
-          {plant.light && (
-            <span className="px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">
-              {plant.light}
-            </span>
-          )}
-          {plant.humidity && (
-            <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
-              {plant.humidity}
-            </span>
-          )}
-          {plant.difficulty && (
-            <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-800">
-              {plant.difficulty}
-            </span>
-          )}
+        <div className="space-y-1">
+          <h3 className="text-sm font-semibold font-headline">Care Profile</h3>
+          <div className="flex flex-wrap gap-2 text-sm">
+            {plant.light && (
+              <Badge Icon={Sun} colorClass="bg-yellow-100 text-yellow-800">
+                {plant.light}
+              </Badge>
+            )}
+            {plant.humidity && (
+              <Badge Icon={Drop} colorClass="bg-blue-100 text-blue-800">
+                {plant.humidity}
+              </Badge>
+            )}
+            {plant.difficulty && (
+              <Badge Icon={Gauge} colorClass="bg-green-100 text-green-800">
+                {plant.difficulty}
+              </Badge>
+            )}
+          </div>
         </div>
 
 
