@@ -167,20 +167,6 @@ export default function Tasks() {
     return entries
   }, [events, sortBy, viewMode])
 
-
-
-  const colors = {
-    water: 'bg-blue-500',
-    fertilize: 'bg-orange-500',
-  }
-
-  const statusClasses = {
-    overdue: 'bg-red-100 text-red-600',
-    today: 'bg-yellow-100 text-yellow-800',
-    scheduled: 'bg-green-100 text-green-700',
-  }
-
-
   const today = new Date().toISOString().slice(0, 10)
   const tomorrow = new Date()
   tomorrow.setDate(tomorrow.getDate() + 1)
