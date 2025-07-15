@@ -357,8 +357,8 @@ export default function PlantDetail() {
                             <span
                               className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
                             ></span>
-                            <p className="text-xs text-gray-500">{e.date}</p>
-                            <p className="flex items-center gap-1">
+                            <p className="text-xs text-gray-400">{e.date}</p>
+                            <p className="flex items-center gap-1 font-medium">
                               {Icon && <Icon />}
                               {e.label}
                             </p>
