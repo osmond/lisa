@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+// createRipple is kept for components that rely on it via useRipple
 
 export function createRipple(e, target) {
   const el = target || e?.currentTarget
@@ -18,44 +18,4 @@ export function createRipple(e, target) {
   circle.className = 'ripple-effect'
   el.appendChild(circle)
   setTimeout(() => circle.remove(), 500)
-}
-
-export function useSwipe(options = {}) {
-  const { onEnd, ripple = false } = options
-  const startX = useRef(0)
-  const [deltaX, setDeltaX] = useState(0)
-
-  const down = e => {
-    startX.current = e.clientX ?? e.touches?.[0]?.clientX ?? 0
-    if (ripple) createRipple(e)
-  }
-
-  const move = e => {
-    if (!startX.current) return
-    const x = e.clientX ?? e.touches?.[0]?.clientX ?? 0
-    setDeltaX(x - startX.current)
-  }
-
-  const end = e => {
-    const x = e?.clientX ?? e?.changedTouches?.[0]?.clientX ?? startX.current
-    const diff = deltaX || (x - startX.current)
-    onEnd?.(diff)
-    setDeltaX(0)
-    startX.current = 0
-  }
-
-  const handlers = {
-    onPointerDown: down,
-    onPointerMove: move,
-    onPointerUp: end,
-    onPointerCancel: end,
-    onMouseDown: down,
-    onMouseMove: move,
-    onMouseUp: end,
-    onTouchStart: down,
-    onTouchMove: move,
-    onTouchEnd: end,
-  }
-
-  return { deltaX, handlers }
 }
