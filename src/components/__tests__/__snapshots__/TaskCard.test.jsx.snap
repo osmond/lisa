@@ -2,7 +2,7 @@
 
 exports[`matches snapshot in dark mode 1`] = `
 <div
-  class="rounded-2xl border dark:border-gray-600 shadow-sm p-4  "
+  class="rounded-2xl border dark:border-gray-600 shadow-md p-4  "
 >
   <div
     aria-label="Task card for Monstera"
