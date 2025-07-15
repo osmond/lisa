@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 
@@ -12,6 +12,11 @@ export default function EditPlant() {
   const [image, setImage] = useState('')
   const [lastWatered, setLastWatered] = useState('')
   const [nextWater, setNextWater] = useState('')
+  const nameInputRef = useRef(null)
+
+  useEffect(() => {
+    nameInputRef.current?.focus()
+  }, [])
 
   useEffect(() => {
     if (plant) {
@@ -42,6 +47,7 @@ export default function EditPlant() {
           type="text"
           value={name}
           onChange={e => setName(e.target.value)}
+          ref={nameInputRef}
           className="border rounded p-2"
           required
         />
