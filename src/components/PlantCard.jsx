@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-import useRipple from '../utils/useRipple.js'
+import { createRipple } from '../utils/interactions.js'
 
 import { usePlants } from '../PlantContext.jsx'
 import NoteModal from './NoteModal.jsx'
@@ -14,18 +14,6 @@ export default function PlantCard({ plant }) {
   const [showActions, setShowActions] = useState(false)
   const [showNote, setShowNote] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
-  const { deltaX, handlers } = useSwipe({
-    ripple: true,
-    onEnd: diff => {
-      if (diff > 75) {
-        handleWatered()
-      } else if (diff < -150) {
-        handleDelete()
-      } else if (diff < -75) {
-        navigate(`/plant/${plant.id}/edit`)
-      }
-    },
-  })
 
   const handleKeyDown = e => {
     if (e.key === 'ArrowRight') {
@@ -97,9 +85,6 @@ export default function PlantCard({ plant }) {
       onMouseUp={end}
       onTouchMove={move}
       onTouchEnd={end}
-
-      {...handlers}
-      className="relative overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
 
       onClick={() => setShowActions(true)}
     >
