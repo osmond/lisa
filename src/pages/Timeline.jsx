@@ -23,6 +23,17 @@ export default function Timeline() {
     fertilize: 'bg-yellow-500',
     note: 'bg-gray-400',
     log: 'bg-green-400',
+    iconBlue: 'text-blue-500',
+    iconYellow: 'text-yellow-500',
+    iconGray: 'text-gray-400',
+    iconGreen: 'text-green-500',
+  }
+
+  const iconColors = {
+    water: colors.iconBlue,
+    fertilize: colors.iconYellow,
+    note: colors.iconGray,
+    log: colors.iconGreen,
   }
 
   return (
@@ -42,7 +53,9 @@ export default function Timeline() {
                   ></span>
                   <p className="text-xs text-gray-500">{e.date}</p>
                   <p className="flex items-center gap-1">
-                    {Icon && <Icon />}
+                    {Icon && (
+                      <Icon className={`w-5 h-5 ${iconColors[e.type]}`} />
+                    )}
                     {e.label}
                   </p>
                   {e.note && (
