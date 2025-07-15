@@ -16,6 +16,10 @@ Includes:
 - Tasks generated dynamically from plant data
 - Quick Add floating button for new plants
 
+## Using the UI
+
+Task cards can be swiped **right** to mark them complete and **left** to edit or delete them. Plant cards respond to the same gestures. Keyboard users can hit the **Left/Right** arrow keys or **Enter** to trigger these actions thanks to the underlying `PlantCard` and `TaskCard` components.
+
 ## Plant Detail View
 
 Each plant page opens with a full-width hero image and a set of badges
