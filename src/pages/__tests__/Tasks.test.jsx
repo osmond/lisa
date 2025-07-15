@@ -49,9 +49,9 @@ test('ignores activities without valid dates when generating events', () => {
   const cards = screen.getAllByTestId('task-card')
 
   expect(cards).toHaveLength(2)
-  expect(cards[0]).toHaveTextContent('Water')
+  expect(cards[0]).toHaveTextContent('To Water')
   expect(cards[0]).toHaveTextContent('Plant B')
-  expect(cards[1]).toHaveTextContent('Water')
+  expect(cards[1]).toHaveTextContent('To Water')
   expect(cards[1]).toHaveTextContent('Plant A')
   expect(cards.length).toBeGreaterThan(0)
 
@@ -85,9 +85,9 @@ test('filters by type', () => {
 
   const cards = screen.getAllByTestId('task-card')
   expect(cards).toHaveLength(2)
-  expect(cards[0]).toHaveTextContent('Water')
+  expect(cards[0]).toHaveTextContent('To Water')
   expect(cards[0]).toHaveTextContent('Plant B')
-  expect(cards[1]).toHaveTextContent('Water')
+  expect(cards[1]).toHaveTextContent('To Water')
   expect(cards[1]).toHaveTextContent('Plant A')
 })
 
@@ -123,4 +123,25 @@ test('switching to Past tab shows past events', async () => {
   expect(cards[0]).toHaveTextContent('Plant B: Watered on 2025-07-10')
 
 
+})
+
+test('completed tasks are styled', () => {
+  const today = new Date().toISOString().slice(0, 10)
+  mockPlants = [
+    {
+      id: 1,
+      name: 'Plant C',
+      lastWatered: today,
+      nextFertilize: today,
+      lastFertilized: today,
+    },
+  ]
+  render(
+    <MemoryRouter>
+      <Tasks />
+    </MemoryRouter>
+  )
+  const cards = screen.getAllByTestId('task-card')
+  expect(cards[0]).toHaveClass('opacity-50')
+  expect(cards.some(c => c.textContent.includes('Watered'))).toBe(true)
 })

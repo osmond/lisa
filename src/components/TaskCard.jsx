@@ -6,10 +6,17 @@ import { CheckCircle } from 'phosphor-react'
 import useRipple from '../utils/useRipple.js'
 import { getWateringInfo } from '../utils/watering.js'
 
-export default function TaskCard({ task, onComplete, urgent = false, overdue = false }) {
+export default function TaskCard({
+  task,
+  onComplete,
+  urgent = false,
+  overdue = false,
+  completed = false,
+}) {
   const { markWatered, markFertilized } = usePlants()
   const Icon = actionIcons[task.type]
   const [checked, setChecked] = useState(false)
+  const isChecked = checked || completed
   const startX = useRef(0)
   const [deltaX, setDeltaX] = useState(0)
   const [, createRipple] = useRipple()
@@ -70,7 +77,7 @@ export default function TaskCard({ task, onComplete, urgent = false, overdue = f
       onTouchMove={handlePointerMove}
       onTouchEnd={handlePointerEnd}
 
-      className={`relative flex items-center gap-3 p-4 rounded-2xl border dark:border-gray-600 shadow-sm bg-white dark:bg-gray-700 overflow-hidden transition-transform duration-150 hover:bg-gray-50 active:scale-95${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}${overdue ? ' ring-orange-300' : ''}`}
+      className={`relative flex items-center gap-3 p-4 rounded-2xl border dark:border-gray-600 shadow-sm bg-white dark:bg-gray-700 overflow-hidden transition-transform duration-150 hover:bg-gray-50 active:scale-95${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}${overdue ? ' ring-orange-300' : ''}${completed ? ' opacity-50' : ''}`}
 
       style={{
         transform: `translateX(${deltaX}px)`,
@@ -88,7 +95,29 @@ export default function TaskCard({ task, onComplete, urgent = false, overdue = f
         />
         <div className="flex-1">
           <p className="font-bold font-headline">{task.plantName}</p>
-          <p className="text-sm text-gray-500 font-body">{task.type}</p>
+          <p className="text-sm font-body">
+            <span
+              className={`px-2 py-0.5 rounded-full text-xs ${
+                task.type === 'Water'
+                  ? 'bg-blue-200 text-blue-800'
+                  : task.type === 'Fertilize'
+                  ? 'bg-orange-200 text-orange-800'
+                  : 'bg-gray-200 text-gray-700'
+              }`}
+            >
+              {completed
+                ? task.type === 'Water'
+                  ? 'Watered'
+                  : task.type === 'Fertilize'
+                  ? 'Fertilized'
+                  : task.type
+                : task.type === 'Water'
+                ? 'To Water'
+                : task.type === 'Fertilize'
+                ? 'To Fertilize'
+                : task.type}
+            </span>
+          </p>
           {task.reason && (
             <p className="text-xs text-gray-500 font-body">{task.reason}</p>
           )}
@@ -105,18 +134,19 @@ export default function TaskCard({ task, onComplete, urgent = false, overdue = f
           }
         }}
         onClick={handleComplete}
+        disabled={completed}
         className="ml-auto relative focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500"
         aria-label="Mark complete"
       >
         <input
           type="checkbox"
-          checked={checked}
+          checked={isChecked}
           readOnly
           className="sr-only task-checkbox"
         />
         <CheckCircle
           aria-hidden="true"
-          className={`w-6 h-6 ${checked ? 'text-green-500' : 'text-gray-400'}`}
+          className={`w-6 h-6 ${isChecked ? 'text-green-500' : 'text-gray-400'}`}
         />
         {overdue && (
           <span

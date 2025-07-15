@@ -5,6 +5,7 @@ import { getNextWateringDate } from '../utils/watering.js'
 
 import TaskCard from '../components/TaskCard.jsx'
 import TaskTabs from '../components/TaskTabs.jsx'
+import CareRings from '../components/CareRings.jsx'
 import { ListBulletIcon, ViewGridIcon } from '@radix-ui/react-icons'
 
 
@@ -74,6 +75,7 @@ export default function Tasks() {
           reason,
           urgent: plantUrgent || date === todayIso,
           overdue: date < todayIso,
+          completed: p.lastWatered === todayIso,
         })
       }
       if (p.nextFertilize) {
@@ -90,7 +92,7 @@ export default function Tasks() {
           overdue: p.nextFertilize < todayIso,
 
           plantUrgency: p.urgency,
-
+          completed: p.lastFertilized === todayIso,
         })
       }
       ;(p.activity || []).forEach(a => {
@@ -189,8 +191,31 @@ export default function Tasks() {
   tomorrow.setDate(tomorrow.getDate() + 1)
   const tomorrowStr = tomorrow.toISOString().slice(0, 10)
 
+  const wateredTodayCount = plants.filter(p => p.lastWatered === todayIso).length
+  const fertilizedTodayCount = plants.filter(
+    p => p.lastFertilized === todayIso
+  ).length
+  const dueWaterCount = plants.filter(p => {
+    const { date } = getNextWateringDate(p.lastWatered, weather)
+    return date <= todayIso
+  }).length
+  const dueFertCount = plants.filter(
+    p => p.nextFertilize && p.nextFertilize <= todayIso
+  ).length
+  const totalWaterToday = wateredTodayCount + dueWaterCount
+  const totalFertilizeToday = fertilizedTodayCount + dueFertCount
+
   return (
     <div className="overflow-y-auto max-h-full p-4">
+
+      <div className="flex justify-center mb-4">
+        <CareRings
+          waterCompleted={wateredTodayCount}
+          waterTotal={totalWaterToday}
+          fertCompleted={fertilizedTodayCount}
+          fertTotal={totalFertilizeToday}
+        />
+      </div>
 
       <div className="flex flex-wrap gap-2 mb-4">
         <select
@@ -309,6 +334,7 @@ export default function Tasks() {
                         ? 'Fertilize'
                         : 'Note',
                     reason: e.reason,
+                    completed: e.completed,
                   }
                   return (
                     <TaskCard
@@ -316,6 +342,7 @@ export default function Tasks() {
                       task={task}
                       urgent={!!e.urgent}
                       overdue={!!e.overdue}
+                      completed={e.completed}
                     />
                   )
                 })}
