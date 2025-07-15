@@ -1,10 +1,29 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState, useRef, useMemo } from 'react'
+
 import { Activity, Note, Gear, Clock } from 'phosphor-react'
+
+import { PlusIcon } from '@radix-ui/react-icons'
+import Lightbox from '../components/Lightbox.jsx'
+
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
+
+import Lightbox from '../components/Lightbox.jsx'
+
+
+import Lightbox from '../components/Lightbox.jsx'
+
+import Badge from '../components/Badge.jsx'
+import { Sun, Drop, Gauge } from 'phosphor-react'
+
 import { formatMonth } from '../utils/date.js'
+
+import { buildEvents, groupEventsByMonth } from '../utils/events.js'
+
+import { Drop, CalendarCheck, Flower } from 'phosphor-react'
+
 
 export default function PlantDetail() {
   const { id } = useParams()
@@ -18,41 +37,14 @@ export default function PlantDetail() {
   const fileInputRef = useRef()
   const [toast, setToast] = useState('')
   const [showNoteModal, setShowNoteModal] = useState(false)
+  const [lightboxIndex, setLightboxIndex] = useState(null)
 
-  const events = useMemo(() => {
-    if (!plant) return []
-    const list = []
-    if (plant.lastWatered) {
-      list.push({ date: plant.lastWatered, label: 'Watered', type: 'water' })
-    }
-    if (plant.lastFertilized) {
-      list.push({
-        date: plant.lastFertilized,
-        label: 'Fertilized',
-        type: 'fertilize',
-      })
-    }
-    ;(plant.activity || []).forEach(a => {
-      const m = a.match(/(\d{4}-\d{2}-\d{2})/)
-      if (m) {
-        list.push({ date: m[1], label: a, type: 'note' })
-      }
-    })
-    ;(plant.careLog || []).forEach(ev => {
-      list.push({ date: ev.date, label: ev.type, note: ev.note, type: 'log' })
-    })
-    return list.sort((a, b) => new Date(a.date) - new Date(b.date))
-  }, [plant])
+  const events = useMemo(() => buildEvents(plant), [plant])
 
-  const groupedEvents = useMemo(() => {
-    const map = new Map()
-    events.forEach(e => {
-      const key = e.date.slice(0, 7)
-      if (!map.has(key)) map.set(key, [])
-      map.get(key).push(e)
-    })
-    return Array.from(map.entries())
-  }, [events])
+  const groupedEvents = useMemo(
+    () => groupEventsByMonth(events),
+    [events]
+  )
 
   const colors = {
     water: 'bg-blue-500',
@@ -135,17 +127,33 @@ export default function PlantDetail() {
       )}
       <div aria-live="polite" className="sr-only">{toast}</div>
       <div className="space-y-4">
-        <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-64 object-cover" />
-        <div>
-          <h1 className="text-3xl font-bold font-headline">{plant.name}</h1>
-          {plant.nickname && <p className="text-gray-500">{plant.nickname}</p>}
+        <div className="relative rounded-t-2xl overflow-hidden">
+          <img
+            src={plant.image}
+            alt={plant.name}
+            loading="lazy"
+            className="w-full h-64 object-cover"
+          />
+          <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 via-black/30 to-transparent text-white">
+            <h1 className="text-3xl font-bold font-headline">{plant.name}</h1>
+            {plant.nickname && <p className="text-gray-200">{plant.nickname}</p>}
+          </div>
         </div>
 
-        <div className="grid gap-1 text-sm">
-          <p><strong>Last watered:</strong> {plant.lastWatered}</p>
-          <p><strong>Next watering:</strong> {plant.nextWater}</p>
+        <div className="flex flex-wrap gap-2 text-sm">
+          <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
+            <Drop className="w-4 h-4" />
+            Last watered: {plant.lastWatered}
+          </span>
+          <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-100 text-green-800">
+            <CalendarCheck className="w-4 h-4" />
+            Next watering: {plant.nextWater}
+          </span>
           {plant.lastFertilized && (
-            <p><strong>Last fertilized:</strong> {plant.lastFertilized}</p>
+            <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-100 text-orange-800">
+              <Flower className="w-4 h-4" />
+              Last fertilized: {plant.lastFertilized}
+            </span>
           )}
         </div>
         <div className="flex gap-2 mt-2">
@@ -172,22 +180,25 @@ export default function PlantDetail() {
           </button>
         </div>
 
-        <div className="flex flex-wrap gap-2 text-sm">
-          {plant.light && (
-            <span className="px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">
-              {plant.light}
-            </span>
-          )}
-          {plant.humidity && (
-            <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
-              {plant.humidity}
-            </span>
-          )}
-          {plant.difficulty && (
-            <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-800">
-              {plant.difficulty}
-            </span>
-          )}
+        <div className="space-y-1">
+          <h3 className="text-sm font-semibold font-headline">Care Profile</h3>
+          <div className="flex flex-wrap gap-2 text-sm">
+            {plant.light && (
+              <Badge Icon={Sun} colorClass="bg-yellow-100 text-yellow-800">
+                {plant.light}
+              </Badge>
+            )}
+            {plant.humidity && (
+              <Badge Icon={Drop} colorClass="bg-blue-100 text-blue-800">
+                {plant.humidity}
+              </Badge>
+            )}
+            {plant.difficulty && (
+              <Badge Icon={Gauge} colorClass="bg-green-100 text-green-800">
+                {plant.difficulty}
+              </Badge>
+            )}
+          </div>
         </div>
 
 
@@ -365,14 +376,28 @@ export default function PlantDetail() {
       </div>
       <div className="space-y-2">
         <h2 className="text-xl font-semibold font-headline">Gallery</h2>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="flex gap-2 overflow-x-auto pb-2">
+          <div className="relative flex-shrink-0 w-24 h-24">
+            <button
+              type="button"
+              onClick={() => fileInputRef.current.click()}
+              className="w-full h-full flex items-center justify-center bg-gray-200 rounded"
+            >
+              <PlusIcon className="w-6 h-6 text-gray-600" aria-hidden="true" />
+              <span className="sr-only">Add Photo</span>
+            </button>
+          </div>
           {(plant.photos || []).map((src, i) => (
+
             <div key={i} className="relative">
-              <img
-                src={src}
-                alt={`${plant.name} ${i}`}
-                className="object-cover w-full h-24 rounded"
-              />
+              <button type="button" onClick={() => setLightboxIndex(i)} className="block focus:outline-none">
+                <img
+                  src={src}
+                  alt={`${plant.name} ${i}`}
+                  className="object-cover w-full h-24 rounded"
+                />
+              </button>
+
               <button
                 className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
                 onClick={() => removePhoto(plant.id, i)}
@@ -382,13 +407,6 @@ export default function PlantDetail() {
             </div>
           ))}
         </div>
-        <button
-          type="button"
-          onClick={() => fileInputRef.current.click()}
-          className="mt-2 px-3 py-1 bg-green-600 text-white rounded"
-        >
-          Add Photo
-        </button>
         <input
           type="file"
           accept="image/*"
@@ -397,9 +415,32 @@ export default function PlantDetail() {
           onChange={handleFiles}
           className="hidden"
         />
+        {lightboxIndex !== null && (
+          <Lightbox
+            images={plant.photos}
+            startIndex={lightboxIndex}
+            onClose={() => setLightboxIndex(null)}
+            label="Photo viewer"
+          />
+        )}
       </div>
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={plant.photos || []}
+          startIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          label={`${plant.name} gallery`}
+        />
+      )}
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
+      )}
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={plant.photos || []}
+          startIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
       )}
   </div>
 )

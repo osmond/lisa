@@ -40,4 +40,5 @@ test('shows notes from care log in activity tab', () => {
   expect(
     screen.getByText('Watered on 2025-07-02 - deep soak')
   ).toBeInTheDocument()
+
 })
