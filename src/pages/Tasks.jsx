@@ -2,7 +2,10 @@ import { useMemo, useState } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
-import TaskTabs from '../components/TaskTabs.jsx'
+
+import TaskCard from '../components/TaskCard.jsx'
+
+
 
 export default function Tasks() {
   const { plants } = usePlants()
@@ -16,9 +19,12 @@ export default function Tasks() {
 
   const urgencies = [...new Set(plants.map(p => p.urgency).filter(Boolean))]
 
+  const todayIso = new Date().toISOString().slice(0, 10)
+
   const events = useMemo(() => {
     const all = []
     plants.forEach(p => {
+      const plantUrgent = p.urgency === 'high'
       if (p.lastWatered) {
         const { date, reason } = getNextWateringDate(p.lastWatered, weather)
         all.push({
@@ -28,8 +34,14 @@ export default function Tasks() {
           taskType: 'water',
           plantId: p.id,
           plantName: p.name,
+
+          image: p.image,
+
           plantUrgency: p.urgency,
+
           reason,
+          urgent: plantUrgent || date === todayIso,
+          overdue: date < todayIso,
         })
       }
       if (p.nextFertilize) {
@@ -40,7 +52,13 @@ export default function Tasks() {
           taskType: 'fertilize',
           plantId: p.id,
           plantName: p.name,
+
+          image: p.image,
+          urgent: plantUrgent || p.nextFertilize === todayIso,
+          overdue: p.nextFertilize < todayIso,
+
           plantUrgency: p.urgency,
+
         })
       }
       ;(p.activity || []).forEach(a => {
@@ -53,11 +71,22 @@ export default function Tasks() {
             taskType: 'note',
             plantId: p.id,
             plantName: p.name,
+
+            image: p.image,
+            reason: `${p.name}: ${a}`,
+          })
+        }
+      })
+    })
+    return all.sort((a, b) => new Date(a.date) - new Date(b.date))
+  }, [plants, weather, todayIso])
+
             plantUrgency: p.urgency,
           })
         }
       })
     })
+
 
     const filtered = all.filter(e => {
       const typeMatch =
@@ -124,6 +153,7 @@ export default function Tasks() {
   }, [upcomingEvents, pastEvents, viewMode])
 
 
+
   const colors = {
     water: 'bg-blue-500',
     fertilize: 'bg-orange-500',
@@ -134,6 +164,7 @@ export default function Tasks() {
     today: 'bg-yellow-100 text-yellow-800',
     scheduled: 'bg-green-100 text-green-700',
   }
+
 
   const today = new Date().toISOString().slice(0, 10)
   const tomorrow = new Date()
@@ -267,6 +298,7 @@ export default function Tasks() {
           </div>
         )
 
+
               : dateKey === tomorrowStr
               ? 'Tomorrow'
               : dateKey < today
@@ -275,6 +307,35 @@ export default function Tasks() {
           return (
             <div key={dateKey}>
               <h3 className="mt-4 text-sm font-semibold text-gray-500">{heading}</h3>
+
+              <div className="space-y-4">
+                {list.map((e, i) => {
+                  const task = {
+                    id: `${e.taskType}-${e.plantId}-${i}`,
+                    plantId: e.plantId,
+                    plantName: e.plantName,
+                    image: e.image,
+                    type:
+                      e.taskType === 'water'
+                        ? 'Water'
+                        : e.taskType === 'fertilize'
+                        ? 'Fertilize'
+                        : 'Note',
+                    reason: e.reason,
+                  }
+                  return (
+                    <TaskCard
+                      key={`${e.date}-${i}`}
+                      task={task}
+                      urgent={!!e.urgent}
+                      overdue={!!e.overdue}
+                    />
+                  )
+                })}
+              </div>
+            </div>
+          )
+
               <ul className="relative border-l border-gray-300 pl-4 space-y-6">
                 {list.map((e, i) => {
                   const overdue = e.type === 'task' && e.date < today
@@ -297,6 +358,7 @@ export default function Tasks() {
               </ul>
             </div>
           )
+
 
         })
       )}
