@@ -1,4 +1,4 @@
-import { getNextWateringDate } from '../watering.js'
+import { getNextWateringDate, getWateringInfo } from '../watering.js'
 
 test('postpones watering when rain expected', () => {
   const { date, reason } = getNextWateringDate('2025-07-10', { rainTomorrow: 5 })
@@ -18,4 +18,16 @@ test('handles invalid fromDate by defaulting to today', () => {
   const { date } = getNextWateringDate('')
   expect(date).toBe('2025-01-08')
   jest.useRealTimers()
+})
+
+test('returns days since last watered', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+  const { daysSince } = getWateringInfo('2025-07-07')
+  expect(daysSince).toBe(3)
+  jest.useRealTimers()
+})
+
+test('includes eto value when provided', () => {
+  const { eto } = getWateringInfo('2025-07-07', { eto: 5 })
+  expect(eto).toBe(5)
 })

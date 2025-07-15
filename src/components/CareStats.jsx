@@ -19,7 +19,7 @@ function StatBlock({ label, Icon, completed, total, ringClass }) {
     >
       <div className="relative" style={{ width: size, height: size }}>
         <ProgressRing percent={pct} size={size} colorClass={ringClass} />
-        <div className="bg-white absolute inset-2 rounded-full flex items-center justify-center">
+        <div className="bg-white absolute inset-2 rounded-full flex items-center justify-center overflow-hidden">
           <div className="flex flex-col items-center">
             <Icon className="w-3 h-3" aria-hidden="true" />
             <span
@@ -32,7 +32,6 @@ function StatBlock({ label, Icon, completed, total, ringClass }) {
         </div>
       </div>
       <div className="flex items-center gap-1 mt-1">
-        <Icon className="w-3.5 h-3.5 text-gray-600" aria-hidden="true" />
         <span className="text-[11px] font-semibold text-gray-700 font-body">
           {label}
         </span>

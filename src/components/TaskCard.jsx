@@ -4,6 +4,7 @@ import { usePlants } from '../PlantContext.jsx'
 import actionIcons from './ActionIcons.jsx'
 import { CheckCircle } from 'phosphor-react'
 import useRipple from '../utils/useRipple.js'
+import { getWateringInfo } from '../utils/watering.js'
 
 export default function TaskCard({ task, onComplete, urgent = false, overdue = false }) {
   const { markWatered, markFertilized } = usePlants()
@@ -12,6 +13,8 @@ export default function TaskCard({ task, onComplete, urgent = false, overdue = f
   const startX = useRef(0)
   const [deltaX, setDeltaX] = useState(0)
   const [, createRipple] = useRipple()
+
+  const { daysSince, eto } = getWateringInfo(task.lastWatered, { eto: task.eto })
 
   const handleComplete = () => {
     if (onComplete) {
@@ -139,6 +142,14 @@ export default function TaskCard({ task, onComplete, urgent = false, overdue = f
           </svg>
         </div>
       )}
+      <div className="mt-2">
+        <span
+          className="px-2 py-0.5 text-xs rounded-full bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100"
+          aria-label={`ET₀: ${eto ?? 'N/A'} | Last watered ${daysSince ?? '?'} days ago`}
+        >
+          ET₀: {eto ?? '—'} | Last watered {daysSince ?? '?'} days ago
+        </span>
+      </div>
     </div>
   )
 }

@@ -1,4 +1,9 @@
+
 import { render, screen, fireEvent } from '@testing-library/react'
+
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+
 import Tasks from '../Tasks.jsx'
 
 const samplePlants = [
@@ -36,10 +41,9 @@ test('ignores activities without valid dates when generating events', () => {
   expect(screen.queryByText(/Repotted/)).toBeNull()
 
   const items = screen.getAllByRole('listitem')
-  expect(items).toHaveLength(3)
-  expect(items[0]).toHaveTextContent('Plant B: Watered on 2025-07-10')
-  expect(items[1]).toHaveTextContent('Water Plant B')
-  expect(items[2]).toHaveTextContent('Water Plant A')
+  expect(items).toHaveLength(2)
+  expect(items[0]).toHaveTextContent('Water Plant B')
+  expect(items[1]).toHaveTextContent('Water Plant A')
 })
 
 test('shows friendly message when there are no tasks', () => {
@@ -49,6 +53,7 @@ test('shows friendly message when there are no tasks', () => {
   expect(screen.getByText(/no tasks coming up/i)).toBeInTheDocument()
   expect(screen.queryAllByRole('listitem')).toHaveLength(0)
 })
+
 
 test('filters by type', () => {
   render(<Tasks />)
@@ -70,4 +75,15 @@ test('sorts by plant name', () => {
 
   const items = screen.getAllByRole('listitem')
   expect(items[0]).toHaveTextContent('Plant A')
+=======
+test('switching to Past tab shows past events', async () => {
+  render(<Tasks />)
+
+  const pastTab = screen.getByRole('tab', { name: /Past/i })
+  await userEvent.click(pastTab)
+
+  const items = screen.getAllByRole('listitem')
+  expect(items).toHaveLength(1)
+  expect(items[0]).toHaveTextContent('Plant B: Watered on 2025-07-10')
+
 })

@@ -17,7 +17,7 @@ test('renders stats with numbers and icons', () => {
   expect(screen.getByLabelText('1 of 2 water tasks done')).toBeInTheDocument()
   expect(screen.getByLabelText('2 of 2 fertilize tasks done')).toBeInTheDocument()
   const svgs = container.querySelectorAll('svg')
-  expect(svgs.length).toBeGreaterThanOrEqual(9)
+  expect(svgs.length).toBe(6)
   svgs.forEach(svg => {
     expect(svg).toHaveAttribute('aria-hidden', 'true')
   })
