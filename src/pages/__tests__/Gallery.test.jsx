@@ -5,6 +5,7 @@ import plants from '../../plants.json'
 import { PlantProvider } from '../../PlantContext.jsx'
 
 test('renders gallery images for plant', () => {
+  const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
   const plant = plants[0]
   render(
     <PlantProvider>
@@ -18,6 +19,8 @@ test('renders gallery images for plant', () => {
 
   const images = screen.getAllByAltText(plant.name)
   expect(images.length).toBeGreaterThanOrEqual(plant.photos.length)
+  expect(errorSpy).not.toHaveBeenCalled()
+  errorSpy.mockRestore()
 })
 
 test('lightbox opens when image clicked', () => {
