@@ -67,7 +67,7 @@ export default function CareView() {
     <div>
       <h1 className="text-2xl font-bold font-headline mb-4">Today’s Plants</h1>
       <div className="flex gap-2 mb-4">
-        <select className="border rounded p-1" value={sort} onChange={e => setSort(e.target.value)}>
+        <select className="dropdown-select" value={sort} onChange={e => setSort(e.target.value)}>
           <option value="urgent">Most Urgent</option>
           <option value="name">A–Z</option>
         </select>
