@@ -52,3 +52,31 @@ test('accordion keyboard navigation works', () => {
   expect(buttons[1]).toHaveAttribute('aria-expanded', 'true')
   expect(document.activeElement).toBe(buttons[1])
 })
+
+test('opens lightbox from gallery and handles keyboard navigation', () => {
+  const plant = plants[0]
+  render(
+    <PlantProvider>
+      <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </PlantProvider>
+  )
+
+  const thumb = screen.getByAltText(`${plant.name} 0`)
+  fireEvent.click(thumb)
+
+  const dialog = screen.getByRole('dialog', { name: /image viewer/i })
+  expect(dialog).toBeInTheDocument()
+
+  const img = screen.getByAltText(/gallery image/i)
+  expect(img).toHaveAttribute('src', plant.photos[0])
+
+  fireEvent.keyDown(window, { key: 'ArrowRight' })
+  expect(img).toHaveAttribute('src', plant.photos[1])
+
+  fireEvent.keyDown(window, { key: 'Escape' })
+  expect(screen.queryByRole('dialog', { name: /image viewer/i })).toBeNull()
+})

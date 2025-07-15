@@ -3,6 +3,7 @@ import { useState, useRef, useMemo } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
+import Lightbox from '../components/Lightbox.jsx'
 import { formatMonth } from '../utils/date.js'
 
 export default function PlantDetail() {
@@ -17,6 +18,7 @@ export default function PlantDetail() {
   const fileInputRef = useRef()
   const [toast, setToast] = useState('')
   const [showNoteModal, setShowNoteModal] = useState(false)
+  const [lightboxIndex, setLightboxIndex] = useState(null)
 
   const events = useMemo(() => {
     if (!plant) return []
@@ -358,7 +360,8 @@ export default function PlantDetail() {
               <img
                 src={src}
                 alt={`${plant.name} ${i}`}
-                className="object-cover w-full h-24 rounded"
+                className="object-cover w-full h-24 rounded cursor-pointer"
+                onClick={() => setLightboxIndex(i)}
               />
               <button
                 className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
@@ -387,6 +390,13 @@ export default function PlantDetail() {
       </div>
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
+      )}
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={plant.photos || []}
+          startIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
       )}
   </div>
 )
