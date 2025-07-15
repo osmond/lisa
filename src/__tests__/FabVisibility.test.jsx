@@ -22,7 +22,7 @@ const routesWithFab = [
   '/',
   '/myplants',
   '/add',
-  '/settings',
+  '/profile',
   '/timeline',
   '/plant/1',
   '/plant/1/edit',

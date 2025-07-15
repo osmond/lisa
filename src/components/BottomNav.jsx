@@ -25,7 +25,7 @@ export default function BottomNav() {
     { to: '/myplants', label: 'My Plants', icon: ListIcon },
 
     { to: '/timeline', label: 'Timeline', icon: CalendarIconComponent },
-    { to: '/settings', label: 'Profile', icon: UserIcon },
+    { to: '/profile', label: 'Profile', icon: UserIcon },
 
   ]
 

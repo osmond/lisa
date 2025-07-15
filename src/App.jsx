@@ -37,7 +37,7 @@ export default function App() {
             <Route path="/myplants" element={<MyPlants />} />
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/add" element={<Add />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route path="/profile" element={<Settings />} />
             <Route path="/timeline" element={<Timeline />} />
             <Route path="/plant/:id" element={<PlantDetail />} />
             <Route path="/plant/:id/edit" element={<EditPlant />} />
