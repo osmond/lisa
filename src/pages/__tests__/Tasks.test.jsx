@@ -1,7 +1,4 @@
-
 import { render, screen, fireEvent } from '@testing-library/react'
-
-import { render, screen } from '@testing-library/react'
 
 import { MemoryRouter } from 'react-router-dom'
 
@@ -97,7 +94,8 @@ test('sorts by plant name', () => {
 
   const items = screen.getAllByRole('listitem')
   expect(items[0]).toHaveTextContent('Plant A')
-=======
+})
+
 test('switching to Past tab shows past events', async () => {
   render(<Tasks />)
 
