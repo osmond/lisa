@@ -179,14 +179,6 @@ export default function PlantDetail() {
           )}
         </div>
 
-        <div>
-          <Link
-            to={`/plant/${plant.id}/gallery`}
-            className="text-green-600 underline"
-          >
-            View Gallery
-          </Link>
-        </div>
 
         <div className="space-y-2">
           <div className="border rounded-xl">

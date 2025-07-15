@@ -10,7 +10,7 @@ A minimalist, mobile-first plant care app built with **React**, **Vite**, and **
 ---
 
 Includes:
-- Basic routing (Home, Timeline, Gallery)
+- Basic routing (Home, Timeline)
 - Sample plant data
 - Styled PlantCard components
 - Tasks generated dynamically from plant data

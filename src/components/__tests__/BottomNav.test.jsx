@@ -14,12 +14,12 @@ test('all icons are aria-hidden', () => {
   })
 })
 
-test('renders gallery link', () => {
+test('does not render gallery link', () => {
   const { container } = render(
     <MemoryRouter>
       <BottomNav />
     </MemoryRouter>
   )
   const galleryLink = container.querySelector('a[href="/gallery"]')
-  expect(galleryLink).not.toBeNull()
+  expect(galleryLink).toBeNull()
 })

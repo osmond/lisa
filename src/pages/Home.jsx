@@ -216,12 +216,6 @@ export default function Home() {
               <p>Want to add a note or photo today?</p>
               <div className="flex gap-2 mt-2">
                 <Link
-                  to="/gallery"
-                  className="px-3 py-1 bg-green-100 text-green-700 rounded text-xs"
-                >
-                  View gallery
-                </Link>
-                <Link
                   to="/timeline"
                   className="px-3 py-1 bg-green-100 text-green-700 rounded text-xs"
                 >
