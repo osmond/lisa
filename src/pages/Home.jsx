@@ -1,4 +1,5 @@
 import TaskCard from '../components/TaskCard.jsx'
+import BaseCard from '../components/BaseCard.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import CareSummaryModal from '../components/CareSummaryModal.jsx'
 
@@ -173,13 +174,14 @@ export default function Home() {
         <div className="space-y-4">
           {tasks.length > 0 ? (
             tasks.map(task => (
-              <TaskCard
-                key={task.id}
-                task={task}
-                urgent={task.urgent}
-                overdue={task.overdue}
-                compact
-              />
+              <BaseCard key={task.id} variant="task">
+                <TaskCard
+                  task={task}
+                  urgent={task.urgent}
+                  overdue={task.overdue}
+                  compact
+                />
+              </BaseCard>
             ))
           ) : (
             <div className="text-sm text-gray-500 space-y-1 text-center flex flex-col items-center">

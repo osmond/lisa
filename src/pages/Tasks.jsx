@@ -4,6 +4,7 @@ import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
 
 import TaskCard from '../components/TaskCard.jsx'
+import BaseCard from '../components/BaseCard.jsx'
 import TaskTabs from '../components/TaskTabs.jsx'
 import CareRings from '../components/CareRings.jsx'
 import { ListBulletIcon, ViewGridIcon } from '@radix-ui/react-icons'
@@ -293,13 +294,14 @@ export default function Tasks() {
                     completed: e.completed,
                   }
                   return (
-                    <TaskCard
-                      key={`${e.date}-${i}`}
-                      task={task}
-                      urgent={!!e.urgent}
-                      overdue={!!e.overdue}
-                      completed={e.completed}
-                    />
+                    <BaseCard key={`${e.date}-${i}`} variant="task">
+                      <TaskCard
+                        task={task}
+                        urgent={!!e.urgent}
+                        overdue={!!e.overdue}
+                        completed={e.completed}
+                      />
+                    </BaseCard>
                   )
                 })}
               </div>
@@ -344,14 +346,15 @@ export default function Tasks() {
                     completed: e.completed,
                   }
                   return (
-                    <TaskCard
-                      key={`${e.date}-${i}`}
-                      task={task}
-                      urgent={!!e.urgent}
-                      overdue={!!e.overdue}
-                      completed={e.completed}
-                      compact={viewMode !== 'Past'}
-                    />
+                    <BaseCard key={`${e.date}-${i}`} variant="task">
+                      <TaskCard
+                        task={task}
+                        urgent={!!e.urgent}
+                        overdue={!!e.overdue}
+                        completed={e.completed}
+                        compact={viewMode !== 'Past'}
+                      />
+                    </BaseCard>
                   )
                 })}
               </div>
