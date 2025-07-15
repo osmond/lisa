@@ -4,6 +4,7 @@ import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
 
 import TaskCard from '../components/TaskCard.jsx'
+import TaskTabs from '../components/TaskTabs.jsx'
 
 
 
@@ -81,30 +82,6 @@ export default function Tasks() {
     return all.sort((a, b) => new Date(a.date) - new Date(b.date))
   }, [plants, weather, todayIso])
 
-            plantUrgency: p.urgency,
-          })
-        }
-      })
-    })
-
-
-    const filtered = all.filter(e => {
-      const typeMatch =
-        typeFilter === 'All' || e.taskType === typeFilter
-      const urgMatch =
-        urgencyFilter === 'All' || e.plantUrgency === urgencyFilter
-      return typeMatch && urgMatch
-    })
-
-    const sorted = [...filtered].sort((a, b) => {
-      if (sortBy === 'name') {
-        return (a.plantName || '').localeCompare(b.plantName || '')
-      }
-      return new Date(a.date) - new Date(b.date)
-    })
-
-    return sorted
-  }, [plants, weather, typeFilter, urgencyFilter, sortBy])
 
   const upcomingEvents = useMemo(
     () => events.filter(e => e.type === 'task'),
@@ -146,11 +123,6 @@ export default function Tasks() {
     }
     return entries
   }, [events, sortBy])
-
-    return Array.from(map.entries()).sort(
-      (a, b) => new Date(a[0]) - new Date(b[0])
-    )
-  }, [upcomingEvents, pastEvents, viewMode])
 
 
 
@@ -206,7 +178,6 @@ export default function Tasks() {
           <option value="name">By Plant Name</option>
         </select>
       </div>
-      {groupedEvents.length === 0 ? (
 
       <TaskTabs value={viewMode} onChange={setViewMode} />
       {viewMode === 'By Plant' ? (
@@ -299,69 +270,10 @@ export default function Tasks() {
         )
 
 
-              : dateKey === tomorrowStr
-              ? 'Tomorrow'
-              : dateKey < today
-              ? `Past Due - ${dateKey}`
-              : dateKey
-          return (
-            <div key={dateKey}>
-              <h3 className="mt-4 text-sm font-semibold text-gray-500">{heading}</h3>
-
-              <div className="space-y-4">
-                {list.map((e, i) => {
-                  const task = {
-                    id: `${e.taskType}-${e.plantId}-${i}`,
-                    plantId: e.plantId,
-                    plantName: e.plantName,
-                    image: e.image,
-                    type:
-                      e.taskType === 'water'
-                        ? 'Water'
-                        : e.taskType === 'fertilize'
-                        ? 'Fertilize'
-                        : 'Note',
-                    reason: e.reason,
-                  }
-                  return (
-                    <TaskCard
-                      key={`${e.date}-${i}`}
-                      task={task}
-                      urgent={!!e.urgent}
-                      overdue={!!e.overdue}
-                    />
-                  )
-                })}
-              </div>
-            </div>
-          )
-
-              <ul className="relative border-l border-gray-300 pl-4 space-y-6">
-                {list.map((e, i) => {
-                  const overdue = e.type === 'task' && e.date < today
-                  const color = colors[e.taskType] || 'bg-green-500'
-                  return (
-                    <li key={`${e.date}-${i}`} className="relative animate-fade-in-up">
-                      <span
-                        className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${
-                          overdue ? 'bg-red-500 animate-pulse' : color
-                        }`}
-                      ></span>
-                      <p className="text-xs text-gray-500 font-body">{e.date}</p>
-                      <p className={`font-medium font-body ${overdue ? 'text-red-600' : ''}`}>{e.label}</p>
-                      {e.reason && (
-                        <p className="text-xs text-gray-500 font-body">{e.reason}</p>
-                      )}
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-          )
 
 
         })
-      )}
+        )}
     </div>
   )
 }
