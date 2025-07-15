@@ -208,9 +208,10 @@ export default function TaskCard({
         <div className="mt-2">
           <span
             className="px-2 py-0.5 text-sm rounded-full bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 opacity-70"
-            aria-label={`ET₀: ${eto ?? 'N/A'} | Last watered ${daysSince ?? '?'} days ago`}
+            aria-label={`Evapotranspiration (ET₀): ${eto ?? 'N/A'} mm | Last watered ${daysSince ?? '?'} days ago`}
+            title="Evapotranspiration (ET₀) is water lost from soil and plants"
           >
-            ET₀: {eto ?? '—'} | Last watered {daysSince ?? '?'} days ago
+            Evapotranspiration (ET₀): {eto ?? '—'} mm | Last watered {daysSince ?? '?'} days ago
           </span>
         </div>
       )}
