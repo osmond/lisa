@@ -115,13 +115,13 @@ exports[`matches snapshot in dark mode 1`] = `
     class="mt-2"
   >
     <span
-      aria-label="ET₀: N/A | Last watered 8 days ago"
+      aria-label="ET₀: N/A | Last watered 9 days ago"
       class="px-2 py-0.5 text-sm rounded-full bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100"
     >
       ET₀: 
       —
        | Last watered 
-      8
+      9
        days ago
     </span>
   </div>
