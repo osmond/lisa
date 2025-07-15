@@ -5,8 +5,12 @@ import Lightbox from '../components/Lightbox.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
+
+import Lightbox from '../components/Lightbox.jsx'
+
 import Badge from '../components/Badge.jsx'
 import { Sun, Drop, Gauge } from 'phosphor-react'
+
 import { formatMonth } from '../utils/date.js'
 
 import { buildEvents, groupEventsByMonth } from '../utils/events.js'
@@ -369,7 +373,9 @@ export default function PlantDetail() {
               <img
                 src={src}
                 alt={`${plant.name} ${i}`}
-                className="object-cover w-full h-full rounded"
+
+                className="object-cover w-full h-24 rounded cursor-pointer"
+
                 onClick={() => setLightboxIndex(i)}
               />
               <button
@@ -400,6 +406,13 @@ export default function PlantDetail() {
       </div>
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
+      )}
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={plant.photos || []}
+          startIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
       )}
   </div>
 )
