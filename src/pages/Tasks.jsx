@@ -7,6 +7,7 @@ import TaskCard from '../components/TaskCard.jsx'
 import TaskTabs from '../components/TaskTabs.jsx'
 import CareRings from '../components/CareRings.jsx'
 import { ListBulletIcon, ViewGridIcon } from '@radix-ui/react-icons'
+import useTaskLayout from '../hooks/useTaskLayout.js'
 
 
 
@@ -34,21 +35,15 @@ export default function Tasks() {
     }
     return 'date'
   })
-  const [layout, setLayout] = useState(() => {
-    if (typeof localStorage !== 'undefined') {
-      return localStorage.getItem('tasksLayout') || 'list'
-    }
-    return 'list'
-  })
+  const [layout, toggleLayout] = useTaskLayout()
 
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem('tasksTypeFilter', typeFilter)
       localStorage.setItem('tasksUrgencyFilter', urgencyFilter)
       localStorage.setItem('tasksSortBy', sortBy)
-      localStorage.setItem('tasksLayout', layout)
     }
-  }, [typeFilter, urgencyFilter, sortBy, layout])
+  }, [typeFilter, urgencyFilter, sortBy])
 
   const urgencies = [...new Set(plants.map(p => p.urgency).filter(Boolean))]
 
@@ -250,7 +245,7 @@ export default function Tasks() {
         </select>
         <button
           type="button"
-          onClick={() => setLayout(prev => (prev === 'list' ? 'grid' : 'list'))}
+          onClick={toggleLayout}
           className="border rounded p-1 flex items-center"
           aria-label={`Switch to ${layout === 'list' ? 'grid' : 'list'} view`}
         >

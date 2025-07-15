@@ -3,9 +3,11 @@ import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import TaskCard from '../TaskCard.jsx'
 import { usePlants } from '../../PlantContext.jsx'
+import { PlantProvider } from '../../PlantContext.jsx'
 
 jest.mock('../../PlantContext.jsx', () => ({
   usePlants: jest.fn(),
+  PlantProvider: ({ children }) => <>{children}</>,
 }))
 
 const usePlantsMock = usePlants
