@@ -1,6 +1,6 @@
 {
-  "name": "Kaymaria Plant Tracker",
-  "short_name": "Kaymaria",
+  "name": "Lisa Plant Tracker",
+  "short_name": "Lisa",
   "description": "A minimalist plant care app built with React and Vite.",
   "start_url": ".",
   "display": "standalone",

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kaymaria-cache-v1'
+const CACHE_NAME = 'lisa-cache-v1'
 
 // Determine the base path of the application. When the app is served from a
 // subdirectory (e.g. https://example.com/lisa/), the service worker will live

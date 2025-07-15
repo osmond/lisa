@@ -1,11 +1,11 @@
-# 🌿 Kaymaria v2
+# 🌿 Lisa v2
 
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Vite](https://img.shields.io/badge/built%20with-vite-646CFF.svg?logo=vite&logoColor=white)](https://vitejs.dev)
 [![React](https://img.shields.io/badge/react-18+-61DAFB?logo=react)](https://reactjs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/tailwindcss-3.x-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 
-A minimalist, mobile-first plant care app built with **React**, **Vite**, and **Tailwind CSS**. Kaymaria helps you track watering, fertilizing, notes, and more — all with gentle weather-based suggestions and beautiful swipeable UI.
+A minimalist, mobile-first plant care app built with **React**, **Vite**, and **Tailwind CSS**. Lisa helps you track watering, fertilizing, notes, and more — all with gentle weather-based suggestions and beautiful swipeable UI.
 
 ---
 
@@ -34,7 +34,7 @@ section on this page lists your watering, fertilizing and note history.
 
 ## Weather Feature
 
-Kaymaria can display local weather data and suggest when to water
+Lisa can display local weather data and suggest when to water
 your plants. The app retrieves current conditions from OpenWeather
 using an API key you provide.
 A `.env.example` file is included at the project root and lists the required environment variable.
@@ -117,11 +117,11 @@ Open that URL in your browser to view the app.
 
 ## Progressive Web App
 
-Kaymaria includes a web app manifest and service worker so you can install it on mobile devices and continue using it offline. After building and serving the app, visit it in your browser and choose **Add to Home Screen** to install.
+Lisa includes a web app manifest and service worker so you can install it on mobile devices and continue using it offline. After building and serving the app, visit it in your browser and choose **Add to Home Screen** to install.
 
 ## Dark Mode
 
-Kaymaria ships with built‑in light and dark themes. The app automatically detects your preference using the `prefers-color-scheme` media query. A toggle on the **Settings** page lets you switch modes manually, and the choice is stored locally so it persists across visits.
+Lisa ships with built‑in light and dark themes. The app automatically detects your preference using the `prefers-color-scheme` media query. A toggle on the **Settings** page lets you switch modes manually, and the choice is stored locally so it persists across visits.
 
 ## useSwipe Hook
 
