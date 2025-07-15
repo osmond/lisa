@@ -134,10 +134,17 @@ export default function PlantDetail() {
       )}
       <div aria-live="polite" className="sr-only">{toast}</div>
       <div className="space-y-4">
-        <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-64 object-cover" />
-        <div>
-          <h1 className="text-3xl font-bold font-headline">{plant.name}</h1>
-          {plant.nickname && <p className="text-gray-500">{plant.nickname}</p>}
+        <div className="relative rounded-t-2xl overflow-hidden">
+          <img
+            src={plant.image}
+            alt={plant.name}
+            loading="lazy"
+            className="w-full h-64 object-cover"
+          />
+          <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 via-black/30 to-transparent text-white">
+            <h1 className="text-3xl font-bold font-headline">{plant.name}</h1>
+            {plant.nickname && <p className="text-gray-200">{plant.nickname}</p>}
+          </div>
         </div>
 
         <div className="grid gap-1 text-sm">
