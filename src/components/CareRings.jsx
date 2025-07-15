@@ -7,7 +7,9 @@ export default function CareRings({
   fertTotal = 0,
   size = 48,
   strokeWidth = 4,
-  onClick,
+  onWaterClick,
+  onFertClick,
+  activeFilter = 'All',
 }) {
   const totalCompleted = waterCompleted + fertCompleted
   const totalTasks = waterTotal + fertTotal
@@ -39,11 +41,15 @@ export default function CareRings({
 
   const displaySize = size
 
+  const waterOpacity =
+    activeFilter === 'All' ? 1 : activeFilter === 'water' ? 1 : 0.3
+  const fertOpacity =
+    activeFilter === 'All' ? 1 : activeFilter === 'fertilize' ? 1 : 0.3
+
   return (
     <div
-      className={`inline-flex flex-col items-center ${onClick ? 'cursor-pointer' : ''}`}
+      className="inline-flex flex-col items-center"
       style={{ width: displaySize, flexBasis: displaySize }}
-      onClick={onClick}
     >
       <div className="relative" style={{ width: displaySize, height: displaySize }}>
         <svg
@@ -65,6 +71,8 @@ export default function CareRings({
             strokeDashoffset={waterOffset}
             className="text-blue-500 transition-[stroke-dashoffset] duration-300"
             transform={rotate}
+            onClick={onWaterClick}
+            style={{ opacity: waterOpacity, cursor: onWaterClick ? 'pointer' : 'default' }}
           />
           <circle
             cx={center}
@@ -77,6 +85,8 @@ export default function CareRings({
             strokeDashoffset={fertOffset}
             className="text-green-500 transition-[stroke-dashoffset] duration-300"
             transform={rotate}
+            onClick={onFertClick}
+            style={{ opacity: fertOpacity, cursor: onFertClick ? 'pointer' : 'default' }}
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center text-xs font-body font-semibold drop-shadow">
