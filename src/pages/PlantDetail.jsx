@@ -156,16 +156,19 @@ export default function PlantDetail() {
         <div className="flex flex-wrap gap-2 text-sm">
           <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
             <Drop className="w-4 h-4" />
-            Last watered: {plant.lastWatered}
+            <span className="font-semibold">Last watered:</span>
+            <span>{plant.lastWatered}</span>
           </span>
           <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-100 text-green-800">
             <CalendarCheck className="w-4 h-4" />
-            Next watering: {plant.nextWater}
+            <span className="font-semibold">Next watering:</span>
+            <span>{plant.nextWater}</span>
           </span>
           {plant.lastFertilized && (
             <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-100 text-orange-800">
               <Flower className="w-4 h-4" />
-              Last fertilized: {plant.lastFertilized}
+              <span className="font-semibold">Last fertilized:</span>
+              <span>{plant.lastFertilized}</span>
             </span>
           )}
         </div>
