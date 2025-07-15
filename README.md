@@ -119,6 +119,10 @@ Open that URL in your browser to view the app.
 
 Kaymaria includes a web app manifest and service worker so you can install it on mobile devices and continue using it offline. After building and serving the app, visit it in your browser and choose **Add to Home Screen** to install.
 
+## Dark Mode
+
+Kaymaria ships with built‑in light and dark themes. The app automatically detects your preference using the `prefers-color-scheme` media query. A toggle on the **Settings** page lets you switch modes manually, and the choice is stored locally so it persists across visits.
+
 ## useSwipe Hook
 
 `useSwipe` provides basic swipe detection. It returns the current horizontal distance and functions you can attach to your element's pointer events.
