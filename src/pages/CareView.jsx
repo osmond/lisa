@@ -2,6 +2,7 @@ import { usePlants } from '../PlantContext.jsx'
 import { useState } from 'react'
 import { useWeather } from '../WeatherContext.jsx'
 import TaskCard from '../components/TaskCard.jsx'
+import BaseCard from '../components/BaseCard.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
 
 export default function CareView() {
@@ -73,13 +74,14 @@ export default function CareView() {
       </div>
       <div className="space-y-4">
         {sorted.map(task => (
-          <TaskCard
-            key={task.id}
-            task={task}
-            urgent={task.urgent}
-            overdue={task.overdue}
-            completed={task.completed}
-          />
+          <BaseCard key={task.id} variant="task">
+            <TaskCard
+              task={task}
+              urgent={task.urgent}
+              overdue={task.overdue}
+              completed={task.completed}
+            />
+          </BaseCard>
         ))}
       </div>
     </div>

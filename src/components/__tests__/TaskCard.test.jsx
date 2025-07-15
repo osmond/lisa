@@ -2,6 +2,7 @@ import { render, screen, fireEvent, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import TaskCard from '../TaskCard.jsx'
+import BaseCard from '../BaseCard.jsx'
 
 import { PlantProvider, usePlants } from '../../PlantContext.jsx'
 
@@ -50,7 +51,9 @@ const task = {
 test('renders task text', () => {
   render(
     <MemoryRouter>
-      <TaskCard task={task} />
+      <BaseCard variant="task">
+        <TaskCard task={task} />
+      </BaseCard>
     </MemoryRouter>
   )
   expect(screen.getByText('Monstera')).toBeInTheDocument()
@@ -63,11 +66,13 @@ test('incomplete tasks show alert style', () => {
   const { container } = render(
     <PlantProvider>
       <MemoryRouter>
-        <TaskCard task={task} />
+        <BaseCard variant="task">
+          <TaskCard task={task} />
+        </BaseCard>
       </MemoryRouter>
     </PlantProvider>
   )
-  const wrapper = container.firstChild
+  const wrapper = container.querySelector('[data-testid="task-card"]')
   expect(wrapper).toHaveClass('bg-sage')
   expect(wrapper).toHaveClass('ring-accent')
 })
@@ -75,10 +80,12 @@ test('incomplete tasks show alert style', () => {
 test('applies highlight when urgent', () => {
   const { container } = render(
     <MemoryRouter>
-      <TaskCard task={task} urgent />
+      <BaseCard variant="task">
+        <TaskCard task={task} urgent />
+      </BaseCard>
     </MemoryRouter>
   )
-  const wrapper = container.firstChild
+  const wrapper = container.querySelector('[data-testid="task-card"]')
   expect(wrapper).toHaveClass('ring-2')
   expect(wrapper).toHaveClass('ring-green-300')
   expect(wrapper).toHaveClass('dark:ring-green-400')
@@ -87,10 +94,12 @@ test('applies highlight when urgent', () => {
 test('applies overdue styling', () => {
   const { container } = render(
     <MemoryRouter>
-      <TaskCard task={task} overdue />
+      <BaseCard variant="task">
+        <TaskCard task={task} overdue />
+      </BaseCard>
     </MemoryRouter>
   )
-  const wrapper = container.firstChild
+  const wrapper = container.querySelector('[data-testid="task-card"]')
   expect(wrapper).toHaveClass('ring-2')
   expect(wrapper).toHaveClass('ring-orange-300')
   expect(screen.getByTestId('overdue-badge')).toBeInTheDocument()
@@ -99,10 +108,12 @@ test('applies overdue styling', () => {
 test('shows completed state', () => {
   const { container } = render(
     <MemoryRouter>
-      <TaskCard task={task} completed />
+      <BaseCard variant="task">
+        <TaskCard task={task} completed />
+      </BaseCard>
     </MemoryRouter>
   )
-  const wrapper = container.firstChild
+  const wrapper = container.querySelector('[data-testid="task-card"]')
   expect(wrapper).toHaveClass('opacity-50')
   expect(wrapper).toHaveClass('bg-gray-100')
   const checkbox = container.querySelector('input[type="checkbox"]')
@@ -113,7 +124,9 @@ test('shows completed state', () => {
 test('icon svg is aria-hidden', () => {
   const { container } = render(
     <MemoryRouter>
-      <TaskCard task={task} />
+      <BaseCard variant="task">
+        <TaskCard task={task} />
+      </BaseCard>
     </MemoryRouter>
   )
   const svg = container.querySelector('svg')
@@ -124,7 +137,9 @@ test('shows info chip with accessibility label', () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
   render(
     <MemoryRouter>
-      <TaskCard task={task} />
+      <BaseCard variant="task">
+        <TaskCard task={task} />
+      </BaseCard>
     </MemoryRouter>
   )
   const chip = screen.getByText(/ET₀/i)
@@ -139,7 +154,9 @@ test('compact mode hides reason and ET₀ info', () => {
   const compactTask = { ...task, reason: 'Needs water' }
   render(
     <MemoryRouter>
-      <TaskCard task={compactTask} compact />
+      <BaseCard variant="task">
+        <TaskCard task={compactTask} compact />
+      </BaseCard>
     </MemoryRouter>
   )
   expect(screen.queryByText('Needs water')).not.toBeInTheDocument()
@@ -150,7 +167,14 @@ test('mark as done does not navigate', () => {
   render(
     <MemoryRouter initialEntries={['/']}>
       <Routes>
-        <Route path="/" element={<TaskCard task={task} />} />
+        <Route
+          path="/"
+          element={(
+            <BaseCard variant="task">
+              <TaskCard task={task} />
+            </BaseCard>
+          )}
+        />
         <Route path="/plant/:id" element={<div>Plant Page</div>} />
       </Routes>
     </MemoryRouter>
@@ -165,7 +189,9 @@ test('mark as done does not navigate', () => {
 test('completing with note calls log function', () => {
   render(
     <MemoryRouter>
-      <TaskCard task={task} />
+      <BaseCard variant="task">
+        <TaskCard task={task} />
+      </BaseCard>
     </MemoryRouter>
   )
   fireEvent.click(screen.getByRole('checkbox'))
@@ -178,10 +204,12 @@ test('completing with note calls log function', () => {
 test('clicking card adds ripple effect', () => {
   const { container } = render(
     <MemoryRouter>
-      <TaskCard task={task} />
+      <BaseCard variant="task">
+        <TaskCard task={task} />
+      </BaseCard>
     </MemoryRouter>
   )
-  const wrapper = container.firstChild
+  const wrapper = container.querySelector('[data-testid="task-card"]')
   fireEvent.mouseDown(wrapper)
   expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
 })
@@ -190,7 +218,9 @@ test('keyboard Enter and Space trigger completion with ripple', async () => {
   const onComplete = jest.fn()
   const { container } = render(
     <MemoryRouter>
-      <TaskCard task={task} onComplete={onComplete} />
+      <BaseCard variant="task">
+        <TaskCard task={task} onComplete={onComplete} />
+      </BaseCard>
     </MemoryRouter>
   )
   const button = screen.getByRole('button', { name: /mark complete/i })
@@ -209,7 +239,9 @@ test('arrow right marks task complete', () => {
   const onComplete = jest.fn()
   render(
     <MemoryRouter>
-      <TaskCard task={task} onComplete={onComplete} />
+      <BaseCard variant="task">
+        <TaskCard task={task} onComplete={onComplete} />
+      </BaseCard>
     </MemoryRouter>
   )
   const wrapper = screen.getByTestId('task-card')
@@ -222,7 +254,9 @@ test('swipe right marks task complete', async () => {
   const onComplete = jest.fn()
   render(
     <MemoryRouter>
-      <TaskCard task={task} onComplete={onComplete} />
+      <BaseCard variant="task">
+        <TaskCard task={task} onComplete={onComplete} />
+      </BaseCard>
     </MemoryRouter>
   )
   const wrapper = screen.getByTestId('task-card')
@@ -243,7 +277,9 @@ test('matches snapshot in dark mode', () => {
   document.documentElement.classList.add('dark')
   const { container } = render(
     <MemoryRouter>
-      <TaskCard task={task} urgent />
+      <BaseCard variant="task">
+        <TaskCard task={task} urgent />
+      </BaseCard>
     </MemoryRouter>
   )
   expect(container.firstChild).toMatchSnapshot()
