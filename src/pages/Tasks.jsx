@@ -56,6 +56,12 @@ export default function Tasks() {
     fertilize: 'bg-orange-500',
   }
 
+  const statusClasses = {
+    overdue: 'bg-red-100 text-red-600',
+    today: 'bg-yellow-100 text-yellow-800',
+    scheduled: 'bg-green-100 text-green-700',
+  }
+
   const today = new Date().toISOString().slice(0, 10)
   const tomorrow = new Date()
   tomorrow.setDate(tomorrow.getDate() + 1)
@@ -81,6 +87,14 @@ export default function Tasks() {
             <ul className="relative border-l border-gray-300 pl-4 space-y-6">
               {list.map((e, i) => {
                 const overdue = e.type === 'task' && e.date < today
+                const dueToday = e.type === 'task' && e.date === today
+                const status = overdue
+                  ? 'overdue'
+                  : dueToday
+                  ? 'today'
+                  : e.type === 'task'
+                  ? 'scheduled'
+                  : null
                 const color = colors[e.taskType] || 'bg-green-500'
                 return (
                   <li key={`${e.date}-${i}`} className="relative animate-fade-in-up">
@@ -91,6 +105,17 @@ export default function Tasks() {
                     ></span>
                     <p className="text-xs text-gray-500 font-body">{e.date}</p>
                     <p className={`font-medium font-body ${overdue ? 'text-red-600' : ''}`}>{e.label}</p>
+                    {status && (
+                      <span
+                        className={`ml-2 px-1.5 py-0.5 rounded text-xs font-body ${statusClasses[status]}`}
+                      >
+                        {status === 'today'
+                          ? 'Due today'
+                          : status === 'overdue'
+                          ? 'Overdue'
+                          : 'Scheduled'}
+                      </span>
+                    )}
                     {e.reason && (
                       <p className="text-xs text-gray-500 font-body">{e.reason}</p>
                     )}
