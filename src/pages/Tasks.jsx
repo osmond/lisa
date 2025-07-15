@@ -80,27 +80,19 @@ export default function Tasks() {
       })
     })
 
-    return all.sort((a, b) => new Date(a.date) - new Date(b.date))
-  }, [plants, weather, todayIso])
-
-
     const filtered = all.filter(e => {
-      const typeMatch =
-        typeFilter === 'All' || e.taskType === typeFilter
+      const typeMatch = typeFilter === 'All' || e.taskType === typeFilter
       const urgMatch =
         urgencyFilter === 'All' || e.plantUrgency === urgencyFilter
       return typeMatch && urgMatch
     })
-
     const sorted = [...filtered].sort((a, b) => {
-      if (sortBy === 'name') {
-        return (a.plantName || '').localeCompare(b.plantName || '')
-      }
-      return new Date(a.date) - new Date(b.date)
+      return sortBy === 'name'
+        ? (a.plantName || '').localeCompare(b.plantName || '')
+        : new Date(a.date) - new Date(b.date)
     })
-
     return sorted
-  }, [plants, weather, typeFilter, urgencyFilter, sortBy])
+  }, [plants, weather, todayIso, typeFilter, urgencyFilter, sortBy])
 
 
 
@@ -292,45 +284,6 @@ export default function Tasks() {
           </div>
         )
 
-
-
-
-
-              : dateKey === tomorrowStr
-              ? 'Tomorrow'
-              : dateKey < today
-              ? `Past Due - ${dateKey}`
-              : dateKey
-          return (
-            <div key={dateKey}>
-              <h3 className="mt-4 text-sm font-semibold text-gray-500">{heading}</h3>
-              <div className="space-y-4">
-                {list.map((e, i) => {
-                  const task = {
-                    id: `${e.taskType}-${e.plantId}-${i}`,
-                    plantId: e.plantId,
-                    plantName: e.plantName,
-                    image: e.image,
-                    type:
-                      e.taskType === 'water'
-                        ? 'Water'
-                        : e.taskType === 'fertilize'
-                        ? 'Fertilize'
-                        : 'Note',
-                    reason: e.reason,
-                  }
-                  return (
-                    <TaskCard
-                      key={`${e.date}-${i}`}
-                      task={task}
-                      urgent={!!e.urgent}
-                      overdue={!!e.overdue}
-                    />
-                  )
-                })}
-              </div>
-            </div>
-          )
 
         })
         )}
