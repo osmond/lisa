@@ -24,9 +24,13 @@ exports[`matches snapshot in dark mode 1`] = `
         Monstera
       </p>
       <p
-        class="text-sm text-gray-500 font-body"
+        class="text-sm font-body"
       >
-        Water
+        <span
+          class="px-2 py-0.5 rounded-full text-xs bg-blue-200 text-blue-800"
+        >
+          To Water
+        </span>
       </p>
     </div>
     <svg
