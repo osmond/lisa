@@ -1,7 +1,16 @@
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useState, useRef, useMemo } from 'react'
-
-import { Activity, Note, Gear, Clock } from 'phosphor-react'
+import {
+  Activity,
+  Note,
+  Gear,
+  Clock,
+  Sun,
+  Drop,
+  Gauge,
+  CalendarCheck,
+  Flower,
+} from 'phosphor-react'
 
 import { PlusIcon } from '@radix-ui/react-icons'
 import Lightbox from '../components/Lightbox.jsx'
@@ -10,19 +19,11 @@ import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
 
-import Lightbox from '../components/Lightbox.jsx'
-
-
-import Lightbox from '../components/Lightbox.jsx'
-
 import Badge from '../components/Badge.jsx'
-import { Sun, Drop, Gauge } from 'phosphor-react'
 
 import { formatMonth } from '../utils/date.js'
 
 import { buildEvents, groupEventsByMonth } from '../utils/events.js'
-
-import { Drop, CalendarCheck, Flower } from 'phosphor-react'
 
 
 export default function PlantDetail() {
@@ -424,23 +425,8 @@ export default function PlantDetail() {
           />
         )}
       </div>
-      {lightboxIndex !== null && (
-        <Lightbox
-          images={plant.photos || []}
-          startIndex={lightboxIndex}
-          onClose={() => setLightboxIndex(null)}
-          label={`${plant.name} gallery`}
-        />
-      )}
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
-      )}
-      {lightboxIndex !== null && (
-        <Lightbox
-          images={plant.photos || []}
-          startIndex={lightboxIndex}
-          onClose={() => setLightboxIndex(null)}
-        />
       )}
   </div>
 )
