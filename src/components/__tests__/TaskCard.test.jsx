@@ -231,6 +231,7 @@ test.skip('swipe right marks task complete', async () => {
 })
 
 test('matches snapshot in dark mode', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-16'))
   document.documentElement.classList.add('dark')
   const { container } = render(
     <MemoryRouter>
@@ -239,4 +240,5 @@ test('matches snapshot in dark mode', () => {
   )
   expect(container.firstChild).toMatchSnapshot()
   document.documentElement.classList.remove('dark')
+  jest.useRealTimers()
 })
