@@ -204,6 +204,7 @@ test('swipe left navigates to edit page', async () => {
   const user = userEvent.setup()
   await act(async () => {
     fireEvent.pointerDown(wrapper, { clientX: 100, buttons: 1 })
+    expect(wrapper.querySelector('.ripple-effect')).toBeInTheDocument()
     fireEvent.pointerMove(wrapper, { clientX: 20, buttons: 1 })
     fireEvent.pointerUp(wrapper, { clientX: 20 })
 
@@ -224,6 +225,7 @@ test('swipe far left shows confirm modal and removes plant', async () => {
   const user = userEvent.setup()
   await act(async () => {
     fireEvent.pointerDown(wrapper, { clientX: 200, buttons: 1 })
+    expect(wrapper.querySelector('.ripple-effect')).toBeInTheDocument()
     fireEvent.pointerMove(wrapper, { clientX: 0, buttons: 1 })
     fireEvent.pointerUp(wrapper, { clientX: 0 })
 
