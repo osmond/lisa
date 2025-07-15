@@ -18,7 +18,7 @@ import {
   CloudSnow,
   CloudFog,
 } from 'phosphor-react'
-import CareStats from '../components/CareStats.jsx'
+import CareRings from '../components/CareRings.jsx'
 import FeaturedCard from '../components/FeaturedCard.jsx'
 import useHappyPlant from '../hooks/useHappyPlant.js'
 
@@ -27,6 +27,7 @@ import useHappyPlant from '../hooks/useHappyPlant.js'
 export default function Home() {
   const { plants } = usePlants()
   const [showSummary, setShowSummary] = useState(false)
+  const [typeFilter, setTypeFilter] = useState('All')
   const happyPlant = useHappyPlant()
 
 
@@ -87,9 +88,15 @@ export default function Home() {
       })
     }
   })
-  const tasks = [...waterTasks, ...fertilizeTasks].sort(
+  const allTasks = [...waterTasks, ...fertilizeTasks].sort(
     (a, b) => new Date(a.date) - new Date(b.date)
   )
+
+  const tasks = allTasks.filter(t => {
+    if (typeFilter === 'water') return t.type === 'Water'
+    if (typeFilter === 'fertilize') return t.type === 'Fertilize'
+    return true
+  })
   const totalCount = tasks.length
   const waterCount = waterTasks.length
   const fertilizeCount = fertilizeTasks.length
@@ -100,6 +107,9 @@ export default function Home() {
     p => p.lastFertilized === todayIso
   ).length
   const totalFertilizeToday = fertilizeTasks.length + fertilizedTodayCount
+
+  const handleWaterRingClick = () => setTypeFilter('water')
+  const handleFertRingClick = () => setTypeFilter('fertilize')
 
   const soonestPlant = [...plants]
     .sort((a, b) => {
@@ -155,11 +165,14 @@ export default function Home() {
         <FeaturedCard plants={plants} startIndex={featuredIndex} />
       </section>
     )}
-    <CareStats
+    <CareRings
       waterCompleted={wateredTodayCount}
       waterTotal={totalWaterToday}
       fertCompleted={fertilizedTodayCount}
       fertTotal={totalFertilizeToday}
+      onClick={() => setShowSummary(true)}
+      onWaterClick={handleWaterRingClick}
+      onFertClick={handleFertRingClick}
     />
       {showSummary && (
         <CareSummaryModal tasks={tasks} onClose={() => setShowSummary(false)} />
