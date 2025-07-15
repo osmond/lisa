@@ -9,7 +9,8 @@ const task = {
   plantId: 1,
   plantName: 'Monstera',
   image: 'https://images.pexels.com/photos/5699660/pexels-photo-5699660.jpeg',
-  type: 'Water'
+  type: 'Water',
+  lastWatered: '2025-07-07'
 }
 
 test('renders task text', () => {
@@ -64,6 +65,23 @@ test('icon svg is aria-hidden', () => {
   )
   const svg = container.querySelector('svg')
   expect(svg).toHaveAttribute('aria-hidden', 'true')
+})
+
+test('shows info chip with accessibility label', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+  render(
+    <PlantProvider>
+      <MemoryRouter>
+        <TaskCard task={task} />
+      </MemoryRouter>
+    </PlantProvider>
+  )
+  const chip = screen.getByText(/ET₀/i)
+  expect(chip).toHaveAttribute(
+    'aria-label',
+    expect.stringContaining('Last watered 3 days ago')
+  )
+  jest.useRealTimers()
 })
 
 test('mark as done does not navigate', () => {

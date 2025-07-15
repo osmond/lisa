@@ -57,6 +57,7 @@ export default function Home() {
         image: p.image,
         type: 'Water',
         reason,
+        lastWatered: p.lastWatered,
         urgent: plantUrgent || date === todayIso,
 
         date,
@@ -72,6 +73,7 @@ export default function Home() {
         plantName: p.name,
         image: p.image,
         type: 'Fertilize',
+        lastWatered: p.lastWatered,
         urgent: plantUrgent || p.nextFertilize === todayIso,
 
         date: p.nextFertilize,
