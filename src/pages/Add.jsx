@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 
@@ -10,6 +10,11 @@ export default function Add() {
   const [image, setImage] = useState('')
   const [lastWatered, setLastWatered] = useState('')
   const [nextWater, setNextWater] = useState('')
+  const nameInputRef = useRef(null)
+
+  useEffect(() => {
+    nameInputRef.current?.focus()
+  }, [])
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -29,6 +34,7 @@ export default function Add() {
           type="text"
           value={name}
           onChange={e => setName(e.target.value)}
+          ref={nameInputRef}
           className="border rounded p-2"
           required
         />
