@@ -1,15 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import useRipple from '../utils/useRipple.js'
 import { usePlants } from '../PlantContext.jsx'
 import NoteModal from './NoteModal.jsx'
 import ConfirmModal from './ConfirmModal.jsx'
+import useSwipe from '../hooks/useSwipe.js'
 
 export default function PlantCard({ plant }) {
   const navigate = useNavigate()
   const { markWatered, removePlant } = usePlants()
-  const startX = useRef(0)
-  const [deltaX, setDeltaX] = useState(0)
   const [showActions, setShowActions] = useState(false)
   const [showNote, setShowNote] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
@@ -54,21 +53,7 @@ export default function PlantCard({ plant }) {
     handleSaveNote('')
   }
 
-  const handlePointerDown = e => {
-    startX.current = e.clientX ?? e.touches?.[0]?.clientX ?? 0
-  }
-
-  const handlePointerMove = e => {
-    if (!startX.current) return
-    const currentX = e.clientX ?? e.touches?.[0]?.clientX ?? 0
-    setDeltaX(currentX - startX.current)
-  }
-
-  const handlePointerEnd = e => {
-    const currentX = e?.clientX ?? e?.changedTouches?.[0]?.clientX ?? startX.current
-    const diff = deltaX || (currentX - startX.current)
-    setDeltaX(0)
-    startX.current = 0
+  const { dx: deltaX, start, move, end } = useSwipe(diff => {
     if (diff > 75) {
       handleWatered()
     } else if (diff < -150) {
@@ -76,7 +61,7 @@ export default function PlantCard({ plant }) {
     } else if (diff < -75) {
       navigate(`/plant/${plant.id}/edit`)
     }
-  }
+  })
 
   return (
     <>
@@ -85,17 +70,17 @@ export default function PlantCard({ plant }) {
       tabIndex="0"
       aria-label={`Plant card for ${plant.name}`}
       onKeyDown={handleKeyDown}
-      onMouseDown={e => { createRipple(e); handlePointerDown(e) }}
-      onTouchStart={e => { createRipple(e); handlePointerDown(e) }}
+      onMouseDown={e => { createRipple(e); start(e) }}
+      onTouchStart={e => { createRipple(e); start(e) }}
       className="relative overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerEnd}
-      onPointerCancel={handlePointerEnd}
-      onMouseMove={handlePointerMove}
-      onMouseUp={handlePointerEnd}
-      onTouchMove={handlePointerMove}
-      onTouchEnd={handlePointerEnd}
+      onPointerDown={start}
+      onPointerMove={move}
+      onPointerUp={end}
+      onPointerCancel={end}
+      onMouseMove={move}
+      onMouseUp={end}
+      onTouchMove={move}
+      onTouchEnd={end}
       onClick={() => setShowActions(true)}
     >
       <div

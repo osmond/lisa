@@ -5,6 +5,12 @@ import TaskCard from '../TaskCard.jsx'
 
 import { PlantProvider, usePlants } from '../../PlantContext.jsx'
 
+beforeAll(() => {
+  if (typeof PointerEvent === 'undefined') {
+    window.PointerEvent = window.MouseEvent
+  }
+})
+
 jest.mock('../../PlantContext.jsx', () => {
   const actual = jest.requireActual('../../PlantContext.jsx')
   return { ...actual, usePlants: jest.fn() }
@@ -210,7 +216,7 @@ test('arrow right marks task complete', () => {
   expect(onComplete).toHaveBeenCalledWith(task)
 })
 
-test.skip('swipe right marks task complete', async () => {
+test('swipe right marks task complete', async () => {
   const onComplete = jest.fn()
   render(
     <MemoryRouter>
