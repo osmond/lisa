@@ -8,7 +8,11 @@ import NoteModal from '../components/NoteModal.jsx'
 import Badge from '../components/Badge.jsx'
 import { Sun, Drop, Gauge } from 'phosphor-react'
 import { formatMonth } from '../utils/date.js'
+
+import { buildEvents, groupEventsByMonth } from '../utils/events.js'
+
 import { Drop, CalendarCheck, Flower } from 'phosphor-react'
+
 
 export default function PlantDetail() {
   const { id } = useParams()
@@ -24,40 +28,12 @@ export default function PlantDetail() {
   const [showNoteModal, setShowNoteModal] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(null)
 
-  const events = useMemo(() => {
-    if (!plant) return []
-    const list = []
-    if (plant.lastWatered) {
-      list.push({ date: plant.lastWatered, label: 'Watered', type: 'water' })
-    }
-    if (plant.lastFertilized) {
-      list.push({
-        date: plant.lastFertilized,
-        label: 'Fertilized',
-        type: 'fertilize',
-      })
-    }
-    ;(plant.activity || []).forEach(a => {
-      const m = a.match(/(\d{4}-\d{2}-\d{2})/)
-      if (m) {
-        list.push({ date: m[1], label: a, type: 'note' })
-      }
-    })
-    ;(plant.careLog || []).forEach(ev => {
-      list.push({ date: ev.date, label: ev.type, note: ev.note, type: 'log' })
-    })
-    return list.sort((a, b) => new Date(a.date) - new Date(b.date))
-  }, [plant])
+  const events = useMemo(() => buildEvents(plant), [plant])
 
-  const groupedEvents = useMemo(() => {
-    const map = new Map()
-    events.forEach(e => {
-      const key = e.date.slice(0, 7)
-      if (!map.has(key)) map.set(key, [])
-      map.get(key).push(e)
-    })
-    return Array.from(map.entries())
-  }, [events])
+  const groupedEvents = useMemo(
+    () => groupEventsByMonth(events),
+    [events]
+  )
 
   const colors = {
     water: 'bg-blue-500',

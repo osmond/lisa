@@ -2,58 +2,21 @@ import { usePlants } from '../PlantContext.jsx'
 import { useMemo } from 'react'
 import actionIcons from '../components/ActionIcons.jsx'
 import { formatMonth } from '../utils/date.js'
+import { buildEvents, groupEventsByMonth } from '../utils/events.js'
 
 export default function Timeline() {
   const { plants } = usePlants()
 
-  const events = useMemo(() => {
-    const all = []
-    plants.forEach(p => {
-      if (p.lastWatered) {
-        all.push({
-          date: p.lastWatered,
-          label: `Watered ${p.name}`,
-          type: 'water',
-        })
-      }
-      if (p.lastFertilized) {
-        all.push({
-          date: p.lastFertilized,
-          label: `Fertilized ${p.name}`,
-          type: 'fertilize',
-        })
-      }
-      ;(p.activity || []).forEach(a => {
-        const m = a.match(/(\d{4}-\d{2}-\d{2})/)
-        if (m) {
-          all.push({
-            date: m[1],
-            label: `${p.name}: ${a}`,
-            type: 'note',
-          })
-        }
-      })
-      ;(p.careLog || []).forEach(ev => {
-        all.push({
-          date: ev.date,
-          label: `${ev.type} ${p.name}`,
-          note: ev.note,
-          type: 'log',
-        })
-      })
-    })
-    return all.sort((a, b) => new Date(a.date) - new Date(b.date))
-  }, [plants])
+  const events = useMemo(
+    () => buildEvents(plants, { includePlantName: true }),
+    [plants]
+  )
 
-  const groupedEvents = useMemo(() => {
-    const map = new Map()
-    events.forEach(e => {
-      const key = e.date.slice(0, 7)
-      if (!map.has(key)) map.set(key, [])
-      map.get(key).push(e)
-    })
-    return Array.from(map.entries())
-  }, [events])
+  const groupedEvents = useMemo(
+    () => groupEventsByMonth(events),
+    [events]
+  )
+
 
   const colors = {
     water: 'bg-blue-500',
