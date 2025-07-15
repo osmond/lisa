@@ -144,6 +144,19 @@ body {
   animation: ring-complete 0.8s ease-in-out;
 }
 
+@keyframes task-complete-fade {
+  from {
+    background-color: rgba(74, 222, 128, 0.4);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+.task-complete-fade {
+  animation: task-complete-fade 0.4s ease-out forwards;
+}
+
 /* Dropdown select styling */
 .dropdown-select {
   @apply px-2 py-1 pr-8 border border-gray-300 rounded bg-white;

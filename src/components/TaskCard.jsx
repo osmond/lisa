@@ -189,7 +189,7 @@ export default function TaskCard({
         )}
       </button>
       {(checked || completed) && (
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none task-complete-fade">
           <svg
             className="w-8 h-8 text-green-600 check-pop"
             xmlns="http://www.w3.org/2000/svg"
