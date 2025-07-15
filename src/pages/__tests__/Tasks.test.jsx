@@ -68,7 +68,7 @@ test('shows friendly message when there are no tasks', () => {
     </MemoryRouter>
   )
 
-  expect(screen.getByText(/no tasks coming up/i)).toBeInTheDocument()
+  expect(screen.getByText(/All caught up/i)).toBeInTheDocument()
   expect(screen.queryAllByTestId('task-card')).toHaveLength(0)
 })
 

@@ -132,6 +132,8 @@ export default function Tasks() {
     [events]
   )
 
+  const noUpcomingTasks = upcomingEvents.length === 0
+
   const pastEvents = useMemo(
     () =>
       events
@@ -238,7 +240,11 @@ export default function Tasks() {
       <TaskTabs value={viewMode} onChange={setViewMode} />
       {viewMode === 'By Plant' ? (
         eventsByPlant.length === 0 ? (
-          <p className="text-center text-gray-500">No tasks coming up.</p>
+          <p className="text-center text-gray-500">
+            {noUpcomingTasks
+              ? 'All caught up! Your plants are feeling great 🌞'
+              : 'No tasks coming up.'}
+          </p>
         ) : (
           eventsByPlant.map(({ plant, list }) => (
             <div key={plant?.id ?? 'none'}>
@@ -269,7 +275,11 @@ export default function Tasks() {
           ))
         )
       ) : groupedEvents.length === 0 ? (
-        <p className="text-center text-gray-500">No tasks coming up.</p>
+        <p className="text-center text-gray-500">
+          {noUpcomingTasks
+            ? 'All caught up! Your plants are feeling great 🌞'
+            : 'No tasks coming up.'}
+        </p>
       ) : (
         groupedEvents.map(([dateKey, list]) => {
           const heading =
