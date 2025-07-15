@@ -16,6 +16,17 @@ Includes:
 - Tasks generated dynamically from plant data
 - Quick Add floating button for new plants
 
+## Plant Detail View
+
+Each plant page opens with a full-width hero image and a set of badges
+summarizing light, humidity and care difficulty.  Below the details is a
+swipeable gallery carousel of your uploaded photos.
+
+Click or tap a photo to launch the Lightbox viewer. Navigate between
+images with the on-screen arrows or your keyboard’s Left/Right keys, and
+close the viewer with **Esc** or the “×” button. The collapsible **Timeline**
+section on this page lists your watering, fertilizing and note history.
+
 
 ## Weather Feature
 
@@ -112,6 +123,9 @@ Swipe gestures were manually tested on Chrome, Safari and Firefox on iOS and And
 - **Safari**: works as expected with no visual issues.
 - **Firefox**: swipe detection works but animations are slightly less smooth.
 
+## Security
+
+After updating dependencies to `vite@7` and `@vitejs/plugin-react@4.6.0`, running `npm audit` reports **0 vulnerabilities**.
 
 ## License
 
