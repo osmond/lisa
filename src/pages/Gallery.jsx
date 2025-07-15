@@ -6,7 +6,10 @@ import Lightbox from '../components/Lightbox.jsx'
 
 export function AllGallery() {
   const { plants, addPhoto } = usePlants()
-  const images = plants.flatMap(p => [p.image, ...(p.photos || [])])
+  // Gather all plant images and photos, filtering out any empty strings
+  const images = plants
+    .flatMap(p => [p.image, ...(p.photos || [])])
+    .filter(Boolean)
   const [index, setIndex] = useState(null)
   const [selected, setSelected] = useState(plants[0]?.id || '')
   const [bouncing, setBouncing] = useState(false)
@@ -96,7 +99,8 @@ export default function Gallery() {
     return <div className="text-gray-700">Plant not found</div>
   }
 
-  const photos = plant.photos || []
+  // Filter out any empty photo entries
+  const photos = (plant.photos || []).filter(Boolean)
   const [index, setIndex] = useState(null)
 
   return (

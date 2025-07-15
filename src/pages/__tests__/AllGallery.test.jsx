@@ -7,6 +7,7 @@ test('clicking add photos button opens file dialog', () => {
   const clickSpy = jest
     .spyOn(window.HTMLInputElement.prototype, 'click')
     .mockImplementation(() => {})
+  const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
 
   render(
     <PlantProvider>
@@ -18,6 +19,8 @@ test('clicking add photos button opens file dialog', () => {
 
   fireEvent.click(screen.getByRole('button', { name: /add photos/i }))
   expect(clickSpy).toHaveBeenCalled()
+  expect(errorSpy).not.toHaveBeenCalled()
+  errorSpy.mockRestore()
 })
 
 test('newly uploaded image is added to gallery', () => {
@@ -28,6 +31,7 @@ test('newly uploaded image is added to gallery', () => {
     }
   }
   global.FileReader = MockFileReader
+  const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
 
   const { container } = render(
     <PlantProvider>
@@ -46,4 +50,6 @@ test('newly uploaded image is added to gallery', () => {
   expect(updatedCount).toBe(initialCount + 1)
 
   global.FileReader = original
+  expect(errorSpy).not.toHaveBeenCalled()
+  errorSpy.mockRestore()
 })
