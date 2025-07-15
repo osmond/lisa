@@ -16,3 +16,16 @@ export function getNextWateringDate(fromDate, weather = {}) {
 
   return { date: base.toISOString().slice(0, 10), reason };
 }
+
+export function getWateringInfo(lastWatered, weather = {}) {
+  const eto = weather.eto ?? null;
+  let daysSince = null;
+  if (lastWatered) {
+    const last = new Date(lastWatered);
+    if (!isNaN(last.getTime())) {
+      const today = new Date();
+      daysSince = Math.max(0, Math.round((today - last) / 86400000));
+    }
+  }
+  return { eto, daysSince };
+}
