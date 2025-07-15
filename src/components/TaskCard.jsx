@@ -5,6 +5,7 @@ import actionIcons from './ActionIcons.jsx'
 import { CheckCircle } from 'phosphor-react'
 import useRipple from '../utils/useRipple.js'
 import { getWateringInfo } from '../utils/watering.js'
+import NoteModal from './NoteModal.jsx'
 
 export default function TaskCard({
   task,
@@ -19,6 +20,7 @@ export default function TaskCard({
   const isChecked = checked || completed
   const startX = useRef(0)
   const [deltaX, setDeltaX] = useState(0)
+  const [showNote, setShowNote] = useState(false)
   const [, createRipple] = useRipple()
 
   const { daysSince, eto } = getWateringInfo(task.lastWatered, { eto: task.eto })
@@ -26,15 +28,26 @@ export default function TaskCard({
   const handleComplete = () => {
     if (onComplete) {
       onComplete(task)
-    } else if (task.type === 'Water') {
-      const note = window.prompt('Optional note') || ''
+      setChecked(true)
+      setTimeout(() => setChecked(false), 400)
+    } else {
+      setShowNote(true)
+    }
+  }
+
+  const handleSaveNote = note => {
+    if (task.type === 'Water') {
       markWatered(task.plantId, note)
     } else if (task.type === 'Fertilize') {
-      const note = window.prompt('Optional note') || ''
       markFertilized(task.plantId, note)
     }
     setChecked(true)
     setTimeout(() => setChecked(false), 400)
+    setShowNote(false)
+  }
+
+  const handleCancelNote = () => {
+    handleSaveNote('')
   }
 
   const handlePointerDown = e => {
@@ -58,6 +71,7 @@ export default function TaskCard({
   }
 
   return (
+    <>
     <div
       data-testid="task-card"
       onPointerDown={handlePointerDown}
@@ -181,5 +195,9 @@ export default function TaskCard({
         </span>
       </div>
     </div>
+    {showNote && (
+      <NoteModal label="Optional note" onSave={handleSaveNote} onCancel={handleCancelNote} />
+    )}
+    </>
   )
 }
