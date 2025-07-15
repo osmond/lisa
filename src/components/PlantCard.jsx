@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useRef, useState } from 'react'
 import useRipple from '../utils/useRipple.js'
 import { usePlants } from '../PlantContext.jsx'
+import NoteModal from './NoteModal.jsx'
 
 export default function PlantCard({ plant }) {
   const navigate = useNavigate()
@@ -9,17 +10,26 @@ export default function PlantCard({ plant }) {
   const startX = useRef(0)
   const [deltaX, setDeltaX] = useState(0)
   const [showActions, setShowActions] = useState(false)
+  const [showNote, setShowNote] = useState(false)
   const [, createRipple] = useRipple()
 
   const handleWatered = () => {
-    const note = window.prompt('Optional note') || ''
-    markWatered(plant.id, note)
+    setShowNote(true)
   }
 
   const handleDelete = () => {
     if (window.confirm('Delete this plant?')) {
       removePlant(plant.id)
     }
+  }
+
+  const handleSaveNote = note => {
+    markWatered(plant.id, note)
+    setShowNote(false)
+  }
+
+  const handleCancelNote = () => {
+    handleSaveNote('')
   }
 
   const handlePointerDown = e => {
@@ -47,6 +57,7 @@ export default function PlantCard({ plant }) {
   }
 
   return (
+    <>
     <div
       data-testid="card-wrapper"
       onMouseDown={e => { createRipple(e); handlePointerDown(e) }}
@@ -115,5 +126,9 @@ export default function PlantCard({ plant }) {
         </button>
       </div>
     </div>
+    {showNote && (
+      <NoteModal label="Optional note" onSave={handleSaveNote} onCancel={handleCancelNote} />
+    )}
+    </>
   )
 }

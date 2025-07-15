@@ -5,6 +5,7 @@ import actionIcons from './ActionIcons.jsx'
 import { CheckCircle, Clock, WarningCircle } from 'phosphor-react'
 import useRipple from '../utils/useRipple.js'
 import { getWateringInfo } from '../utils/watering.js'
+import NoteModal from './NoteModal.jsx'
 
 export default function TaskCard({
   task,
@@ -19,6 +20,7 @@ export default function TaskCard({
   const isChecked = checked || completed
   const startX = useRef(0)
   const [deltaX, setDeltaX] = useState(0)
+  const [showNote, setShowNote] = useState(false)
   const [, createRipple] = useRipple()
 
   const { daysSince, eto } = getWateringInfo(task.lastWatered, { eto: task.eto })
@@ -26,15 +28,26 @@ export default function TaskCard({
   const handleComplete = () => {
     if (onComplete) {
       onComplete(task)
-    } else if (task.type === 'Water') {
-      const note = window.prompt('Optional note') || ''
+      setChecked(true)
+      setTimeout(() => setChecked(false), 400)
+    } else {
+      setShowNote(true)
+    }
+  }
+
+  const handleSaveNote = note => {
+    if (task.type === 'Water') {
       markWatered(task.plantId, note)
     } else if (task.type === 'Fertilize') {
-      const note = window.prompt('Optional note') || ''
       markFertilized(task.plantId, note)
     }
     setChecked(true)
     setTimeout(() => setChecked(false), 400)
+    setShowNote(false)
+  }
+
+  const handleCancelNote = () => {
+    handleSaveNote('')
   }
 
   const handlePointerDown = e => {
@@ -58,6 +71,7 @@ export default function TaskCard({
   }
 
   return (
+    <>
     <div
       data-testid="task-card"
       onPointerDown={handlePointerDown}
@@ -77,7 +91,9 @@ export default function TaskCard({
       onTouchMove={handlePointerMove}
       onTouchEnd={handlePointerEnd}
 
+
       className={`relative flex items-start gap-3 p-4 rounded-2xl border dark:border-gray-600 shadow-sm bg-white dark:bg-gray-700 overflow-hidden transition-transform duration-150 hover:bg-gray-50 active:scale-95 animate-fade-in-up${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}${overdue ? ' ring-orange-300' : ''}${completed ? ' opacity-50' : ''}`}
+
 
       style={{
         transform: `translateX(${deltaX}px)`,
@@ -174,7 +190,7 @@ export default function TaskCard({
           </span>
         )}
       </button>
-      {checked && (
+      {(checked || completed) && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <svg
             className="w-8 h-8 text-green-600 check-pop"
@@ -196,5 +212,9 @@ export default function TaskCard({
         </span>
       </div>
     </div>
+    {showNote && (
+      <NoteModal label="Optional note" onSave={handleSaveNote} onCancel={handleCancelNote} />
+    )}
+    </>
   )
 }
