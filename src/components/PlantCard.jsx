@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 import useRipple from '../utils/useRipple.js'
 import { usePlants } from '../PlantContext.jsx'
 import NoteModal from './NoteModal.jsx'
+import ConfirmModal from './ConfirmModal.jsx'
 
 export default function PlantCard({ plant }) {
   const navigate = useNavigate()
@@ -11,6 +12,7 @@ export default function PlantCard({ plant }) {
   const [deltaX, setDeltaX] = useState(0)
   const [showActions, setShowActions] = useState(false)
   const [showNote, setShowNote] = useState(false)
+  const [showConfirm, setShowConfirm] = useState(false)
   const [, createRipple] = useRipple()
 
   const handleKeyDown = e => {
@@ -31,9 +33,16 @@ export default function PlantCard({ plant }) {
   }
 
   const handleDelete = () => {
-    if (window.confirm('Delete this plant?')) {
-      removePlant(plant.id)
-    }
+    setShowConfirm(true)
+  }
+
+  const confirmDelete = () => {
+    removePlant(plant.id)
+    setShowConfirm(false)
+  }
+
+  const cancelDelete = () => {
+    setShowConfirm(false)
   }
 
   const handleSaveNote = note => {
@@ -144,6 +153,13 @@ export default function PlantCard({ plant }) {
     </div>
     {showNote && (
       <NoteModal label="Optional note" onSave={handleSaveNote} onCancel={handleCancelNote} />
+    )}
+    {showConfirm && (
+      <ConfirmModal
+        label="Delete this plant?"
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+      />
     )}
     </>
   )
