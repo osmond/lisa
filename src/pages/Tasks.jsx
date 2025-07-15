@@ -271,26 +271,33 @@ export default function Tasks() {
               <h3 className="mt-4 text-sm font-semibold text-gray-500">
                 {plant?.name || 'Unknown'}
               </h3>
-              <ul className="relative border-l border-gray-300 pl-4 space-y-6">
+              <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-4'}>
                 {list.map((e, i) => {
-                  const overdue = e.date < today
-                  const color = colors[e.taskType] || 'bg-green-500'
+                  const task = {
+                    id: `${e.taskType}-${e.plantId}-${i}`,
+                    plantId: e.plantId,
+                    plantName: e.plantName,
+                    image: e.image,
+                    type:
+                      e.taskType === 'water'
+                        ? 'Water'
+                        : e.taskType === 'fertilize'
+                        ? 'Fertilize'
+                        : 'Note',
+                    reason: e.reason,
+                    completed: e.completed,
+                  }
                   return (
-                    <li key={`${e.date}-${i}`} className="relative animate-fade-in-up">
-                      <span
-                        className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${
-                          overdue ? 'bg-red-500 animate-pulse' : color
-                        }`}
-                      ></span>
-                      <p className="text-xs text-gray-500 font-body">{e.date}</p>
-                      <p className={`font-medium font-body ${overdue ? 'text-red-600' : ''}`}>{e.label}</p>
-                      {e.reason && (
-                        <p className="text-xs text-gray-500 font-body">{e.reason}</p>
-                      )}
-                    </li>
+                    <TaskCard
+                      key={`${e.date}-${i}`}
+                      task={task}
+                      urgent={!!e.urgent}
+                      overdue={!!e.overdue}
+                      completed={e.completed}
+                    />
                   )
                 })}
-              </ul>
+              </div>
             </div>
           ))
         )
