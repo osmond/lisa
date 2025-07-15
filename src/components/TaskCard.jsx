@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from './ActionIcons.jsx'
 import { CheckCircle } from 'phosphor-react'
+import useToast from "../hooks/useToast.js"
 
 
 import { createRipple } from '../utils/interactions.js'
@@ -23,6 +24,7 @@ export default function TaskCard({
 }) {
   const { markWatered, markFertilized } = usePlants()
   const Icon = actionIcons[task.type]
+  const { Toast, showToast } = useToast()
   const [checked, setChecked] = useState(false)
   const isChecked = checked || completed
   const [showNote, setShowNote] = useState(false)
@@ -35,10 +37,18 @@ export default function TaskCard({
   }
 
   const { daysSince, eto } = getWateringInfo(task.lastWatered, { eto: task.eto })
+  const toastMsg =
+    task.type === "Water"
+      ? `Watered ${task.plantName} 🌿`
+      : task.type === "Fertilize"
+      ? `Fertilized ${task.plantName} 🌿`
+      : `Completed ${task.plantName}`
+
 
   const handleComplete = () => {
     if (onComplete) {
       onComplete(task)
+      showToast(toastMsg)
       setChecked(true)
       setTimeout(() => setChecked(false), 400)
     } else {
@@ -49,8 +59,10 @@ export default function TaskCard({
   const handleSaveNote = note => {
     if (task.type === 'Water') {
       markWatered(task.plantId, note)
+      showToast(toastMsg)
     } else if (task.type === 'Fertilize') {
       markFertilized(task.plantId, note)
+      showToast(toastMsg)
     }
     setChecked(true)
     setTimeout(() => setChecked(false), 400)
@@ -191,6 +203,7 @@ export default function TaskCard({
           </svg>
         </div>
       )}
+      <Toast />
       {!compact && (
         <div className="mt-2">
           <span

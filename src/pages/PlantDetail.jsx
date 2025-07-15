@@ -20,6 +20,7 @@ import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
 
+import useToast from "../hooks/useToast.js"
 import Badge from '../components/Badge.jsx'
 
 import { formatMonth } from '../utils/date.js'
@@ -37,7 +38,7 @@ export default function PlantDetail() {
   const [openSection, setOpenSection] = useState('timeline')
   const [showMore, setShowMore] = useState(false)
   const fileInputRef = useRef()
-  const [toast, setToast] = useState('')
+  const { Toast, showToast } = useToast()
   const [showNoteModal, setShowNoteModal] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(null)
 
@@ -86,19 +87,14 @@ export default function PlantDetail() {
     }
   }
 
-  const showTempToast = msg => {
-    setToast(msg)
-    setTimeout(() => setToast(''), 800)
-  }
-
   const handleWatered = () => {
     markWatered(plant.id, '')
-    showTempToast('Watered')
+    showToast('Watered')
   }
 
   const handleFertilized = () => {
     markFertilized(plant.id, '')
-    showTempToast('Fertilized')
+    showToast('Fertilized')
   }
 
   const handleLogEvent = () => {
@@ -108,7 +104,7 @@ export default function PlantDetail() {
   const saveNote = note => {
     if (note) {
       logEvent(plant.id, 'Note', note)
-      showTempToast('Logged')
+      showToast('Logged')
     }
     setShowNoteModal(false)
   }
@@ -123,22 +119,7 @@ export default function PlantDetail() {
 
   return (
     <div className="space-y-2 relative">
-      {toast && (
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <svg
-            className="w-8 h-8 text-green-600 check-pop"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-          </svg>
-        </div>
-      )}
-      <div aria-live="polite" className="sr-only">{toast}</div>
+      <Toast />
       <div className="space-y-4">
         <div className="relative rounded-t-2xl overflow-hidden">
           <img
