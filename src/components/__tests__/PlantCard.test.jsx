@@ -181,13 +181,13 @@ test('swipe right waters plant', async () => {
   const wrapper = screen.getByTestId('card-wrapper')
 
   fireEvent.pointerDown(wrapper, { clientX: 0, buttons: 1 })
-  fireEvent.pointerMove(wrapper, { clientX: 100, buttons: 1 })
-  fireEvent.pointerUp(wrapper, { clientX: 100 })
+  fireEvent.pointerMove(wrapper, { clientX: 120, buttons: 1 })
+  fireEvent.pointerUp(wrapper, { clientX: 120 })
 
   const user = userEvent.setup()
   await act(async () => {
     fireEvent.touchStart(wrapper, { touches: [{ clientX: 0 }] })
-    fireEvent.touchMove(wrapper, { touches: [{ clientX: 80 }] })
+    fireEvent.touchMove(wrapper, { touches: [{ clientX: 120 }] })
     fireEvent.touchEnd(wrapper)
   })
 
@@ -203,12 +203,12 @@ test('swipe left navigates to edit page', async () => {
   const wrapper = screen.getByTestId('card-wrapper')
   const user = userEvent.setup()
   await act(async () => {
-    fireEvent.pointerDown(wrapper, { clientX: 100, buttons: 1 })
+    fireEvent.pointerDown(wrapper, { clientX: 150, buttons: 1 })
     expect(wrapper.querySelector('.ripple-effect')).toBeInTheDocument()
     fireEvent.pointerMove(wrapper, { clientX: 20, buttons: 1 })
     fireEvent.pointerUp(wrapper, { clientX: 20 })
 
-    fireEvent.touchStart(wrapper, { touches: [{ clientX: 100 }] })
+    fireEvent.touchStart(wrapper, { touches: [{ clientX: 150 }] })
     fireEvent.touchMove(wrapper, { touches: [{ clientX: 20 }] })
     fireEvent.touchEnd(wrapper)
   })
@@ -224,16 +224,16 @@ test('swipe far left shows confirm modal and removes plant', async () => {
   const wrapper = screen.getByTestId('card-wrapper')
   const user = userEvent.setup()
   await act(async () => {
-    fireEvent.pointerDown(wrapper, { clientX: 200, buttons: 1 })
+    fireEvent.pointerDown(wrapper, { clientX: 220, buttons: 1 })
     expect(wrapper.querySelector('.ripple-effect')).toBeInTheDocument()
     fireEvent.pointerMove(wrapper, { clientX: 0, buttons: 1 })
     fireEvent.pointerUp(wrapper, { clientX: 0 })
 
-    fireEvent.touchStart(wrapper, { touches: [{ clientX: 200 }] })
+    fireEvent.touchStart(wrapper, { touches: [{ clientX: 220 }] })
     fireEvent.touchMove(wrapper, { touches: [{ clientX: 0 }] })
     fireEvent.touchEnd(wrapper)
   })
-  const dialog = screen.getByRole('dialog', { name: /delete this plant/i })
+  const dialog = await screen.findByRole('dialog', { name: /delete this plant/i })
   expect(dialog).toBeInTheDocument()
   fireEvent.click(screen.getByText('Confirm'))
   expect(removePlant).toHaveBeenCalledWith(1)
