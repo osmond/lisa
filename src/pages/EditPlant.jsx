@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { usePlants } from '../PlantContext.jsx'
+import { usePlants, addBase } from '../PlantContext.jsx'
 
 export default function EditPlant() {
   const { id } = useParams()
@@ -17,6 +17,16 @@ export default function EditPlant() {
   useEffect(() => {
     nameInputRef.current?.focus()
   }, [])
+
+  const handleFileChange = e => {
+    const file = e.target.files && e.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = ev => setImage(ev.target.result)
+      reader.readAsDataURL(file)
+    }
+    e.target.value = ''
+  }
 
   useEffect(() => {
     if (plant) {
@@ -62,6 +72,23 @@ export default function EditPlant() {
           className="border rounded p-2"
         />
       </div>
+      <div className="grid gap-1">
+        <label htmlFor="imageFile" className="font-medium">Upload Photo</label>
+        <input
+          id="imageFile"
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="border rounded p-2"
+        />
+      </div>
+      {image && (
+        <img
+          src={addBase(image)}
+          alt="Preview"
+          className="object-cover w-24 h-24 rounded"
+        />
+      )}
       <div className="grid gap-1">
         <label htmlFor="lastWatered" className="font-medium">Last Watered</label>
         <input
