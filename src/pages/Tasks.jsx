@@ -338,6 +338,7 @@ export default function Tasks() {
                       urgent={!!e.urgent}
                       overdue={!!e.overdue}
                       completed={e.completed}
+                      compact={viewMode !== 'Past'}
                     />
                   )
                 })}
