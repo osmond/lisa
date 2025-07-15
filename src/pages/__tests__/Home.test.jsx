@@ -24,7 +24,6 @@ test('shows upbeat message when there are no tasks', () => {
   )
   expect(screen.getByText(/all plants are happy/i)).toBeInTheDocument()
   expect(screen.getByTestId('care-stats')).toBeInTheDocument()
-  expect(screen.getByRole('link', { name: /view gallery/i })).toBeInTheDocument()
   expect(
     screen.getByRole('link', { name: /add a journal entry/i })
   ).toBeInTheDocument()
