@@ -42,13 +42,13 @@ test('accordion keyboard navigation works', () => {
     screen.getByRole('button', { name: /Timeline/ }),
   ]
 
-  expect(buttons[0]).toHaveAttribute('aria-expanded', 'true')
-  expect(buttons[1]).toHaveAttribute('aria-expanded', 'false')
+  expect(buttons[3]).toHaveAttribute('aria-expanded', 'true')
+  expect(buttons[0]).toHaveAttribute('aria-expanded', 'false')
 
   buttons[0].focus()
   fireEvent.keyDown(buttons[0], { key: 'ArrowDown' })
 
-  expect(buttons[0]).toHaveAttribute('aria-expanded', 'false')
+  expect(buttons[3]).toHaveAttribute('aria-expanded', 'false')
   expect(buttons[1]).toHaveAttribute('aria-expanded', 'true')
   expect(document.activeElement).toBe(buttons[1])
 })
