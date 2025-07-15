@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
 import { createRipple } from '../utils/interactions.js'
+import useSwipe from '../hooks/useSwipe.js'
 
 
 import { usePlants } from '../PlantContext.jsx'
@@ -53,6 +54,17 @@ export default function PlantCard({ plant }) {
   const handleCancelNote = () => {
     handleSaveNote('')
   }
+
+
+  const { dx: deltaX, start, move, end } = useSwipe(diff => {
+    if (diff > 75) {
+      handleWatered()
+    } else if (diff < -150) {
+      handleDelete()
+    } else if (diff < -75) {
+      navigate(`/plant/${plant.id}/edit`)
+    }
+  })
 
 
 

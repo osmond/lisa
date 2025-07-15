@@ -14,12 +14,9 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
 
   const [index, setIndex] = useState(startIndex)
 
-  const { deltaX: dx, handlers } = useSwipe({
-    ripple: true,
-    onEnd: diff => {
-      if (diff > 50) setIndex(i => (i - 1 + items.length) % items.length)
-      else if (diff < -50) setIndex(i => (i + 1) % items.length)
-    },
+  const { dx: deltaX, start, move, end } = useSwipe(diff => {
+    if (diff > 50) setIndex(i => (i - 1 + items.length) % items.length)
+    else if (diff < -50) setIndex(i => (i + 1) % items.length)
   })
 
   const handleKeyDown = e => {
@@ -60,7 +57,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
 
 
       className="relative block overflow-hidden rounded-2xl shadow bg-sage dark:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-      style={{ transform: `translateX(${dx}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
+      style={{ transform: `translateX(${deltaX}px)`, transition: deltaX === 0 ? 'transform 0.2s' : 'none' }}
     >
       <img
         src={imageSrc}
