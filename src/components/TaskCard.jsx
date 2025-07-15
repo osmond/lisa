@@ -13,6 +13,7 @@ export default function TaskCard({
   urgent = false,
   overdue = false,
   completed = false,
+  compact = false,
 }) {
   const { markWatered, markFertilized } = usePlants()
   const Icon = actionIcons[task.type]
@@ -132,7 +133,7 @@ export default function TaskCard({
                 : task.type}
             </span>
           </p>
-          {task.reason && (
+          {!compact && task.reason && (
             <p className="text-xs text-gray-500 font-body">{task.reason}</p>
           )}
         </div>
@@ -186,14 +187,16 @@ export default function TaskCard({
           </svg>
         </div>
       )}
-      <div className="mt-2">
-        <span
-          className="px-2 py-0.5 text-xs rounded-full bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100"
-          aria-label={`ET₀: ${eto ?? 'N/A'} | Last watered ${daysSince ?? '?'} days ago`}
-        >
-          ET₀: {eto ?? '—'} | Last watered {daysSince ?? '?'} days ago
-        </span>
-      </div>
+      {!compact && (
+        <div className="mt-2">
+          <span
+            className="px-2 py-0.5 text-xs rounded-full bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100"
+            aria-label={`ET₀: ${eto ?? 'N/A'} | Last watered ${daysSince ?? '?'} days ago`}
+          >
+            ET₀: {eto ?? '—'} | Last watered {daysSince ?? '?'} days ago
+          </span>
+        </div>
+      )}
     </div>
     {showNote && (
       <NoteModal label="Optional note" onSave={handleSaveNote} onCancel={handleCancelNote} />
