@@ -121,29 +121,29 @@ Kaymaria includes a web app manifest and service worker so you can install it on
 
 ## useSwipe Hook
 
-`useSwipe` provides swipe detection with an optional ripple effect. It returns the current horizontal distance and a `handlers` object you can spread onto any element.
+`useSwipe` provides basic swipe detection. It returns the current horizontal distance and functions you can attach to your element's pointer events.
 
 ```jsx
-import { useSwipe, createRipple } from './src/utils/interactions'
+import useSwipe from './src/hooks/useSwipe'
 
 function Example() {
-  const { deltaX, handlers } = useSwipe({
-    ripple: true,
-    onEnd: diff => {
-      if (diff > 50) console.log('swiped right')
-      else if (diff < -50) console.log('swiped left')
-    },
+  const { dx, start, move, end } = useSwipe(diff => {
+    if (diff > 50) console.log('swiped right')
+    else if (diff < -50) console.log('swiped left')
   })
 
   return (
-    <div {...handlers} style={{ transform: `translateX(${deltaX}px)` }}>
+    <div
+      onPointerDown={start}
+      onPointerMove={move}
+      onPointerUp={end}
+      onPointerCancel={end}
+      style={{ transform: `translateX(${dx}px)` }}
+    >
       Swipe me
     </div>
   )
 }
-
-// Manual ripple usage
-<button onMouseDown={createRipple}>Tap</button>
 ```
 
 ## Mobile Browser Testing
