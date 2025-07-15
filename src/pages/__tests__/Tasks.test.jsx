@@ -34,6 +34,7 @@ jest.mock('../../WeatherContext.jsx', () => ({
 
 beforeEach(() => {
   mockPlants = samplePlants
+  localStorage.clear()
 })
 
 test('ignores activities without valid dates when generating events', () => {
@@ -47,17 +48,11 @@ test('ignores activities without valid dates when generating events', () => {
 
 
   const cards = screen.getAllByTestId('task-card')
-  expect(cards).toHaveLength(3)
-  expect(cards[0]).toHaveTextContent('Plant B: Watered on 2025-07-10')
+  expect(cards).toHaveLength(2)
+  expect(cards[0]).toHaveTextContent('Water')
+  expect(cards[0]).toHaveTextContent('Plant B')
   expect(cards[1]).toHaveTextContent('Water')
-  expect(cards[1]).toHaveTextContent('Plant B')
-  expect(cards[2]).toHaveTextContent('Water')
-  expect(cards[2]).toHaveTextContent('Plant A')
-
-  const items = screen.getAllByRole('listitem')
-  expect(items).toHaveLength(2)
-  expect(items[0]).toHaveTextContent('Water Plant B')
-  expect(items[1]).toHaveTextContent('Water Plant A')
+  expect(cards[1]).toHaveTextContent('Plant A')
 
 })
 
@@ -75,35 +70,49 @@ test('shows friendly message when there are no tasks', () => {
 
 
 test('filters by type', () => {
-  render(<Tasks />)
+  render(
+    <MemoryRouter>
+      <Tasks />
+    </MemoryRouter>
+  )
 
   const selects = screen.getAllByRole('combobox')
   fireEvent.change(selects[0], { target: { value: 'water' } })
 
-  const items = screen.getAllByRole('listitem')
-  expect(items).toHaveLength(2)
-  expect(items[0]).toHaveTextContent('Water Plant B')
-  expect(items[1]).toHaveTextContent('Water Plant A')
+  const cards = screen.getAllByTestId('task-card')
+  expect(cards).toHaveLength(2)
+  expect(cards[0]).toHaveTextContent('Water')
+  expect(cards[0]).toHaveTextContent('Plant B')
+  expect(cards[1]).toHaveTextContent('Water')
+  expect(cards[1]).toHaveTextContent('Plant A')
 })
 
 test('sorts by plant name', () => {
-  render(<Tasks />)
+  render(
+    <MemoryRouter>
+      <Tasks />
+    </MemoryRouter>
+  )
 
   const selects = screen.getAllByRole('combobox')
   fireEvent.change(selects[2], { target: { value: 'name' } })
 
-  const items = screen.getAllByRole('listitem')
-  expect(items[0]).toHaveTextContent('Plant A')
+  const cards = screen.getAllByTestId('task-card')
+  expect(cards[0]).toHaveTextContent('Plant A')
 })
 
 test('switching to Past tab shows past events', async () => {
-  render(<Tasks />)
+  render(
+    <MemoryRouter>
+      <Tasks />
+    </MemoryRouter>
+  )
 
   const pastTab = screen.getByRole('tab', { name: /Past/i })
   await userEvent.click(pastTab)
 
-  const items = screen.getAllByRole('listitem')
-  expect(items).toHaveLength(1)
-  expect(items[0]).toHaveTextContent('Plant B: Watered on 2025-07-10')
+  const cards = screen.getAllByTestId('task-card')
+  expect(cards).toHaveLength(1)
+  expect(cards[0]).toHaveTextContent('Plant B: Watered on 2025-07-10')
 
 })
