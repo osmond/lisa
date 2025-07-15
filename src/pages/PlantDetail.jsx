@@ -20,7 +20,7 @@ import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
 
-import useToast from "../hooks/useToast.js"
+import useToast from "../hooks/useToast.jsx"
 import Badge from '../components/Badge.jsx'
 
 import { formatMonth } from '../utils/date.js'

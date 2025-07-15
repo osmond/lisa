@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from './ActionIcons.jsx'
 import { CheckCircle } from 'phosphor-react'
-import useToast from "../hooks/useToast.js"
+import useToast from "../hooks/useToast.jsx"
 
 
 import { createRipple } from '../utils/interactions.js'
