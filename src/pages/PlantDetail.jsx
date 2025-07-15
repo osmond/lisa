@@ -158,7 +158,7 @@ export default function PlantDetail() {
             </span>
           )}
         </div>
-        <div className="flex gap-2 mt-2">
+        <div className="flex gap-2 mt-3">
           <button
             type="button"
             onClick={handleWatered}
@@ -204,7 +204,7 @@ export default function PlantDetail() {
         </div>
 
 
-        <div className="space-y-2">
+        <div className="space-y-2 mt-4">
           <div className="border rounded-xl">
             <h3 id="activity-header">
               <button
