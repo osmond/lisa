@@ -110,6 +110,11 @@ export default function Tasks() {
         }
       })
     })
+
+    return all.sort((a, b) => new Date(a.date) - new Date(b.date))
+  }, [plants, weather, todayIso])
+
+
     const filtered = all.filter(e => {
       const typeMatch =
         typeFilter === 'All' || e.taskType === typeFilter
@@ -127,6 +132,7 @@ export default function Tasks() {
 
     return sorted
   }, [plants, weather, typeFilter, urgencyFilter, sortBy])
+
 
 
   const upcomingEvents = useMemo(
@@ -169,6 +175,7 @@ export default function Tasks() {
     }
     return entries
   }, [events, sortBy])
+
 
 
   const colors = {
@@ -235,6 +242,7 @@ export default function Tasks() {
           )}
         </button>
       </div>
+
       <TaskTabs value={viewMode} onChange={setViewMode} />
       {viewMode === 'By Plant' ? (
         eventsByPlant.length === 0 ? (
@@ -275,6 +283,62 @@ export default function Tasks() {
           const heading =
             dateKey === today
               ? 'Today'
+
+
+            : dateKey === tomorrowStr
+            ? 'Tomorrow'
+            : dateKey < today
+            ? `Past Due - ${dateKey}`
+            : dateKey
+        return (
+          <div key={dateKey}>
+            <h3 className="mt-4 text-sm font-semibold text-gray-500">{heading}</h3>
+            <ul className="relative border-l border-gray-300 pl-4 space-y-6">
+              {list.map((e, i) => {
+                const overdue = e.type === 'task' && e.date < today
+                const dueToday = e.type === 'task' && e.date === today
+                const status = overdue
+                  ? 'overdue'
+                  : dueToday
+                  ? 'today'
+                  : e.type === 'task'
+                  ? 'scheduled'
+                  : null
+                const color = colors[e.taskType] || 'bg-green-500'
+                return (
+                  <li key={`${e.date}-${i}`} className="relative animate-fade-in-up">
+                    <span
+                      className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${
+                        overdue ? 'bg-red-500 animate-pulse' : color
+                      }`}
+                    ></span>
+                    <p className="text-xs text-gray-500 font-body">{e.date}</p>
+                    <p className={`font-medium font-body ${overdue ? 'text-red-600' : ''}`}>{e.label}</p>
+                    {status && (
+                      <span
+                        className={`ml-2 px-1.5 py-0.5 rounded text-xs font-body ${statusClasses[status]}`}
+                      >
+                        {status === 'today'
+                          ? 'Due today'
+                          : status === 'overdue'
+                          ? 'Overdue'
+                          : 'Scheduled'}
+                      </span>
+                    )}
+                    {e.reason && (
+                      <p className="text-xs text-gray-500 font-body">{e.reason}</p>
+                    )}
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        )
+
+
+
+
+
               : dateKey === tomorrowStr
               ? 'Tomorrow'
               : dateKey < today
@@ -310,8 +374,9 @@ export default function Tasks() {
               </div>
             </div>
           )
+
         })
-      )}
+        )}
     </div>
   )
 }

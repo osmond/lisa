@@ -1,7 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 
 import { MemoryRouter } from 'react-router-dom'
-
 import userEvent from '@testing-library/user-event'
 
 
@@ -48,11 +47,19 @@ test('ignores activities without valid dates when generating events', () => {
 
 
   const cards = screen.getAllByTestId('task-card')
+
   expect(cards).toHaveLength(2)
   expect(cards[0]).toHaveTextContent('Water')
   expect(cards[0]).toHaveTextContent('Plant B')
   expect(cards[1]).toHaveTextContent('Water')
   expect(cards[1]).toHaveTextContent('Plant A')
+  expect(cards.length).toBeGreaterThan(0)
+
+  const items = screen.getAllByRole('listitem')
+  expect(items).toHaveLength(2)
+  expect(items[0]).toHaveTextContent('Water Plant B')
+  expect(items[1]).toHaveTextContent('Water Plant A')
+
 
 })
 
@@ -99,7 +106,9 @@ test('sorts by plant name', () => {
 
   const cards = screen.getAllByTestId('task-card')
   expect(cards[0]).toHaveTextContent('Plant A')
+
 })
+
 
 test('switching to Past tab shows past events', async () => {
   render(
@@ -111,8 +120,10 @@ test('switching to Past tab shows past events', async () => {
   const pastTab = screen.getByRole('tab', { name: /Past/i })
   await userEvent.click(pastTab)
 
+
   const cards = screen.getAllByTestId('task-card')
   expect(cards).toHaveLength(1)
   expect(cards[0]).toHaveTextContent('Plant B: Watered on 2025-07-10')
+
 
 })
