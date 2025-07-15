@@ -23,3 +23,13 @@ test('does not render gallery link', () => {
   const galleryLink = container.querySelector('a[href="/gallery"]')
   expect(galleryLink).toBeNull()
 })
+
+test('renders timeline navigation link', () => {
+  const { container } = render(
+    <MemoryRouter>
+      <BottomNav />
+    </MemoryRouter>
+  )
+  const timelineLink = container.querySelector('a[href="/timeline"]')
+  expect(timelineLink).toBeInTheDocument()
+})
