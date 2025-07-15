@@ -72,17 +72,19 @@ export default function CareView() {
           <option value="name">A–Z</option>
         </select>
       </div>
-      <div className="space-y-4">
-        {sorted.map(task => (
-          <BaseCard key={task.id} variant="task">
-            <TaskCard
-              task={task}
-              urgent={task.urgent}
-              overdue={task.overdue}
-              completed={task.completed}
-            />
-          </BaseCard>
-        ))}
+      <div className="pb-24">
+        <div className="space-y-4">
+          {sorted.map(task => (
+            <BaseCard key={task.id} variant="task">
+              <TaskCard
+                task={task}
+                urgent={task.urgent}
+                overdue={task.overdue}
+                completed={task.completed}
+              />
+            </BaseCard>
+          ))}
+        </div>
       </div>
     </div>
   )
