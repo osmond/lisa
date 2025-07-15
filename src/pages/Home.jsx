@@ -19,7 +19,6 @@ import {
   CloudFog,
 } from 'phosphor-react'
 import CareStats from '../components/CareStats.jsx'
-import CareRings from '../components/CareRings.jsx'
 import FeaturedCard from '../components/FeaturedCard.jsx'
 import useHappyPlant from '../hooks/useHappyPlant.js'
 
@@ -28,7 +27,6 @@ import useHappyPlant from '../hooks/useHappyPlant.js'
 export default function Home() {
   const { plants } = usePlants()
   const [showSummary, setShowSummary] = useState(false)
-  const [typeFilter, setTypeFilter] = useState('All')
   const happyPlant = useHappyPlant()
 
 
@@ -92,10 +90,6 @@ export default function Home() {
   const tasks = [...waterTasks, ...fertilizeTasks].sort(
     (a, b) => new Date(a.date) - new Date(b.date)
   )
-  const filteredTasks =
-    typeFilter === 'All'
-      ? tasks
-      : tasks.filter(t => t.type.toLowerCase() === typeFilter)
   const totalCount = tasks.length
   const waterCount = waterTasks.length
   const fertilizeCount = fertilizeTasks.length
@@ -106,14 +100,6 @@ export default function Home() {
     p => p.lastFertilized === todayIso
   ).length
   const totalFertilizeToday = fertilizeTasks.length + fertilizedTodayCount
-
-  const handleWaterRingClick = () => {
-    setTypeFilter(prev => (prev === 'water' ? 'All' : 'water'))
-  }
-
-  const handleFertRingClick = () => {
-    setTypeFilter(prev => (prev === 'fertilize' ? 'All' : 'fertilize'))
-  }
 
   const soonestPlant = [...plants]
     .sort((a, b) => {
@@ -175,21 +161,10 @@ export default function Home() {
       fertCompleted={fertilizedTodayCount}
       fertTotal={totalFertilizeToday}
     />
-    <div className="flex justify-center">
-      <CareRings
-        waterCompleted={wateredTodayCount}
-        waterTotal={totalWaterToday}
-        fertCompleted={fertilizedTodayCount}
-        fertTotal={totalFertilizeToday}
-        onWaterClick={handleWaterRingClick}
-        onFertClick={handleFertRingClick}
-        activeFilter={typeFilter}
-      />
-    </div>
       {showSummary && (
-        <CareSummaryModal tasks={filteredTasks} onClose={() => setShowSummary(false)} />
+        <CareSummaryModal tasks={tasks} onClose={() => setShowSummary(false)} />
       )}
-      {filteredTasks.length > 0 && (
+      {tasks.length > 0 && (
         <hr className="my-4 border-t border-neutral-200 dark:border-gray-600" />
       )}
       <section className="space-y-4">
@@ -197,8 +172,8 @@ export default function Home() {
           <h2 className="font-semibold font-headline">Today’s Tasks</h2>
         </div>
         <div className="space-y-4">
-          {filteredTasks.length > 0 ? (
-            filteredTasks.map(task => (
+          {tasks.length > 0 ? (
+            tasks.map(task => (
               <BaseCard key={task.id} variant="task">
                 <TaskCard
                   task={task}

@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import CareRings from '../CareRings.jsx'
 
 test('ring percentages set stroke offsets', () => {
@@ -51,22 +51,12 @@ test('shows rest day text when no tasks', () => {
   expect(svg.getAttribute('class')).not.toMatch(/ring-pulse|swirl-once/)
 })
 
-test('fires ring click handlers', () => {
-  const onWater = jest.fn()
-  const onFert = jest.fn()
+test('fires onClick handler', () => {
+  const onClick = jest.fn()
   render(
-    <CareRings
-      waterCompleted={0}
-      waterTotal={1}
-      fertCompleted={0}
-      fertTotal={1}
-      onWaterClick={onWater}
-      onFertClick={onFert}
-    />
+    <CareRings waterCompleted={0} waterTotal={1} fertCompleted={0} fertTotal={1} onClick={onClick} />
   )
-  const circles = screen.getByRole('img').querySelectorAll('circle')
-  fireEvent.click(circles[0])
-  fireEvent.click(circles[1])
-  expect(onWater).toHaveBeenCalled()
-  expect(onFert).toHaveBeenCalled()
+  const wrapper = screen.getByRole('img').parentElement
+  wrapper && wrapper.click()
+  expect(onClick).toHaveBeenCalled()
 })
