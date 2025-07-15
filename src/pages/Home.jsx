@@ -1,7 +1,13 @@
 import TaskCard from '../components/TaskCard.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import CareSummaryModal from '../components/CareSummaryModal.jsx'
+
+import { useState } from 'react'
+import { ListBulletIcon, ViewGridIcon } from '@radix-ui/react-icons'
+import useTaskLayout from '../hooks/useTaskLayout.js'
+
 import { useState, useEffect } from 'react'
+
 
 import { Link } from 'react-router-dom'
 
@@ -28,12 +34,16 @@ import happyPlant from '/happy-plant.svg'
 export default function Home() {
   const { plants } = usePlants()
   const [showSummary, setShowSummary] = useState(false)
+
+  const [layout, toggleLayout] = useTaskLayout()
+
   const [layout, setLayout] = useState(() => {
     if (typeof localStorage !== 'undefined') {
       return localStorage.getItem('homeLayout') || 'list'
     }
     return 'list'
   })
+
   const weatherCtx = useWeather()
   const forecast = weatherCtx?.forecast
   const { username } = useUser()
@@ -179,6 +189,22 @@ export default function Home() {
       <section className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="font-semibold font-headline">Today’s Tasks</h2>
+
+          {tasks.length > 0 && (
+            <button
+              type="button"
+              onClick={toggleLayout}
+              className="border rounded p-1 flex items-center"
+              aria-label={`Switch to ${layout === 'list' ? 'grid' : 'list'} view`}
+            >
+              {layout === 'list' ? (
+                <ViewGridIcon className="w-4 h-4" aria-hidden="true" />
+              ) : (
+                <ListBulletIcon className="w-4 h-4" aria-hidden="true" />
+              )}
+            </button>
+          )}
+
           <button
             type="button"
             onClick={() => setLayout(prev => (prev === 'list' ? 'grid' : 'list'))}
@@ -191,6 +217,7 @@ export default function Home() {
               <ListBulletIcon className="w-4 h-4" aria-hidden="true" />
             )}
           </button>
+
         </div>
         <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-4'}>
           {tasks.length > 0 ? (

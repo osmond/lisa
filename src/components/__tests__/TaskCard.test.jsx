@@ -2,12 +2,22 @@ import { render, screen, fireEvent, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import TaskCard from '../TaskCard.jsx'
+
+import { usePlants } from '../../PlantContext.jsx'
+import { PlantProvider } from '../../PlantContext.jsx'
+
+jest.mock('../../PlantContext.jsx', () => ({
+  usePlants: jest.fn(),
+  PlantProvider: ({ children }) => <>{children}</>,
+}))
+
 import { PlantProvider, usePlants } from '../../PlantContext.jsx'
 
 jest.mock('../../PlantContext.jsx', () => {
   const actual = jest.requireActual('../../PlantContext.jsx')
   return { ...actual, usePlants: jest.fn() }
 })
+
 
 const usePlantsMock = usePlants
 
