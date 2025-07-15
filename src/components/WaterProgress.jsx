@@ -13,6 +13,8 @@ export default function WaterProgress({ completed = 0, total = 0 }) {
           onMouseDown={createRipple}
           onTouchStart={createRipple}
           className="relative inline-flex overflow-hidden rounded-full"
+          aria-label={`Water drop ${i + 1} of ${total}`}
+          title={`Water drop ${i + 1} of ${total}`}
         >
           <Drop
             aria-hidden="true"
