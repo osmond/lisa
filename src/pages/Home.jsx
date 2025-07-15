@@ -19,13 +19,14 @@ import {
 } from 'phosphor-react'
 import CareStats from '../components/CareStats.jsx'
 import FeaturedCard from '../components/FeaturedCard.jsx'
-import happyPlant from '/happy-plant.svg'
+import useHappyPlant from '../hooks/useHappyPlant.js'
 
 
 
 export default function Home() {
   const { plants } = usePlants()
   const [showSummary, setShowSummary] = useState(false)
+  const happyPlant = useHappyPlant()
 
 
   const weatherCtx = useWeather()
