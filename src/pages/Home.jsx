@@ -200,7 +200,7 @@ export default function Home() {
                   Add a journal entry
                 </Link>
                 <Link
-                  to="/settings"
+                  to="/profile"
                   className="px-3 py-1 bg-green-100 text-green-700 rounded text-xs"
                 >
                   Set a reminder
