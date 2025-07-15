@@ -428,6 +428,7 @@ export default function PlantDetail() {
               images={plant.photos}
               startIndex={lightboxIndex}
               onClose={() => setLightboxIndex(null)}
+              label={`${plant.name} gallery`}
             />
           </div>
         )}
