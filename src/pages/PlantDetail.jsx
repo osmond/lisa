@@ -8,6 +8,9 @@ import NoteModal from '../components/NoteModal.jsx'
 
 import Lightbox from '../components/Lightbox.jsx'
 
+
+import Lightbox from '../components/Lightbox.jsx'
+
 import Badge from '../components/Badge.jsx'
 import { Sun, Drop, Gauge } from 'phosphor-react'
 
@@ -25,7 +28,7 @@ export default function PlantDetail() {
 
   const sectionNames = ['activity', 'notes', 'care', 'timeline']
   const sectionRefs = useRef([])
-  const [openSection, setOpenSection] = useState('activity')
+  const [openSection, setOpenSection] = useState('timeline')
   const [showMore, setShowMore] = useState(false)
   const fileInputRef = useRef()
   const [toast, setToast] = useState('')
@@ -369,15 +372,16 @@ export default function PlantDetail() {
             </button>
           </div>
           {(plant.photos || []).map((src, i) => (
-            <div key={i} className="relative flex-shrink-0 w-24 h-24">
-              <img
-                src={src}
-                alt={`${plant.name} ${i}`}
 
-                className="object-cover w-full h-24 rounded cursor-pointer"
+            <div key={i} className="relative">
+              <button type="button" onClick={() => setLightboxIndex(i)} className="block focus:outline-none">
+                <img
+                  src={src}
+                  alt={`${plant.name} ${i}`}
+                  className="object-cover w-full h-24 rounded"
+                />
+              </button>
 
-                onClick={() => setLightboxIndex(i)}
-              />
               <button
                 className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
                 onClick={() => removePhoto(plant.id, i)}
@@ -404,6 +408,14 @@ export default function PlantDetail() {
           />
         )}
       </div>
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={plant.photos || []}
+          startIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          label={`${plant.name} gallery`}
+        />
+      )}
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
       )}
