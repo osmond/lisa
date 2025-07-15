@@ -136,7 +136,7 @@ export default function PlantDetail() {
 
 
         <div className="flex flex-wrap gap-2 text-base">
-          <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
+          <Badge Icon={Drop} colorClass="bg-blue-100 text-blue-800">
             <Drop className="w-4 h-4" />
 
             <span className="font-semibold">Last watered:</span>
