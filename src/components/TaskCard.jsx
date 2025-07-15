@@ -61,6 +61,11 @@ export default function TaskCard({
     handleSaveNote('')
   }
 
+  const { dx: deltaX, start, move, end } = useSwipe(diff => {
+    if (diff > 75) {
+      handleComplete()
+    }
+  })
 
   return (
     <>
