@@ -33,9 +33,9 @@ export default function PlantDetail() {
   const { plants, addPhoto, removePhoto, markWatered, markFertilized, logEvent } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
 
-  const sectionNames = ['activity', 'notes', 'care', 'timeline']
-  const sectionRefs = useRef([])
-  const [openSection, setOpenSection] = useState('timeline')
+  const tabNames = ['activity', 'notes', 'care', 'timeline']
+  const tabRefs = useRef([])
+  const [activeTab, setActiveTab] = useState('timeline')
   const [showMore, setShowMore] = useState(false)
   const fileInputRef = useRef()
   const { Toast, showToast } = useToast()
@@ -78,12 +78,12 @@ export default function PlantDetail() {
   }
 
   const handleKeyDown = (e, index) => {
-    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
       e.preventDefault()
-      const dir = e.key === 'ArrowDown' ? 1 : -1
-      const nextIndex = (index + dir + sectionNames.length) % sectionNames.length
-      setOpenSection(sectionNames[nextIndex])
-      sectionRefs.current[nextIndex]?.focus()
+      const dir = e.key === 'ArrowRight' ? 1 : -1
+      const nextIndex = (index + dir + tabNames.length) % tabNames.length
+      setActiveTab(tabNames[nextIndex])
+      tabRefs.current[nextIndex]?.focus()
     }
   }
 
@@ -200,176 +200,155 @@ export default function PlantDetail() {
 
 
         <div className="space-y-2 mt-4">
-          <div className="border rounded-xl">
-            <h3 id="activity-header">
+          <div role="tablist" className="flex gap-2">
+            <button
+              ref={el => (tabRefs.current[0] = el)}
+              role="tab"
+              id="activity-tab"
+              aria-controls="activity-panel"
+              aria-selected={activeTab === 'activity'}
+              onClick={() => setActiveTab('activity')}
+              onKeyDown={e => handleKeyDown(e, 0)}
+              className={`px-3 py-1 rounded-full text-sm font-medium focus:outline-none ${
+                activeTab === 'activity'
+                  ? 'bg-green-600 text-white'
+                  : 'bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200'
+              }`}
+            >
+              Activity
+            </button>
+            <button
+              ref={el => (tabRefs.current[1] = el)}
+              role="tab"
+              id="notes-tab"
+              aria-controls="notes-panel"
+              aria-selected={activeTab === 'notes'}
+              onClick={() => setActiveTab('notes')}
+              onKeyDown={e => handleKeyDown(e, 1)}
+              className={`px-3 py-1 rounded-full text-sm font-medium focus:outline-none ${
+                activeTab === 'notes'
+                  ? 'bg-green-600 text-white'
+                  : 'bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200'
+              }`}
+            >
+              Notes
+            </button>
+            <button
+              ref={el => (tabRefs.current[2] = el)}
+              role="tab"
+              id="care-tab"
+              aria-controls="care-panel"
+              aria-selected={activeTab === 'care'}
+              onClick={() => setActiveTab('care')}
+              onKeyDown={e => handleKeyDown(e, 2)}
+              className={`px-3 py-1 rounded-full text-sm font-medium focus:outline-none ${
+                activeTab === 'care'
+                  ? 'bg-green-600 text-white'
+                  : 'bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200'
+              }`}
+            >
+              Advanced
+            </button>
+            <button
+              ref={el => (tabRefs.current[3] = el)}
+              role="tab"
+              id="timeline-tab"
+              aria-controls="timeline-panel"
+              aria-selected={activeTab === 'timeline'}
+              onClick={() => setActiveTab('timeline')}
+              onKeyDown={e => handleKeyDown(e, 3)}
+              className={`px-3 py-1 rounded-full text-sm font-medium focus:outline-none ${
+                activeTab === 'timeline'
+                  ? 'bg-green-600 text-white'
+                  : 'bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200'
+              }`}
+            >
+              Timeline
+            </button>
+          </div>
+          <div
+            role="tabpanel"
+            id="activity-panel"
+            aria-labelledby="activity-tab"
+            hidden={activeTab !== 'activity'}
+            className="p-4 border rounded-xl"
+          >
+            <ul className="list-disc pl-4 space-y-1">
+              {(plant.careLog || []).map((ev, i) => (
+                <li key={i}>
+                  {ev.type} on {ev.date}
+                  {ev.note ? ` - ${ev.note}` : ''}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div
+            role="tabpanel"
+            id="notes-panel"
+            aria-labelledby="notes-tab"
+            hidden={activeTab !== 'notes'}
+            className="p-4 border rounded-xl"
+          >
+            {plant.notes
+              ? showMore
+                ? plant.notes
+                : plant.notes.slice(0, 160)
+              : 'No notes yet.'}
+            {plant.notes && plant.notes.length > 160 && (
               <button
-                ref={el => (sectionRefs.current[0] = el)}
-                aria-expanded={openSection === 'activity'}
-                aria-controls="activity-panel"
-                className="w-full text-left flex justify-between items-center p-2"
-                onClick={() =>
-                  setOpenSection(openSection === 'activity' ? null : 'activity')
-                }
-                onKeyDown={e => handleKeyDown(e, 0)}
+                type="button"
+                onClick={() => setShowMore(!showMore)}
+                className="ml-2 text-green-600 underline"
               >
-                <span className="flex items-center gap-1">
-                  <Activity className="w-4 h-4" />
-                  Activity
-                </span>
-                <span>{openSection === 'activity' ? '-' : '+'}</span>
+                {showMore ? 'Show less' : 'Show more'}
               </button>
-            </h3>
-            {openSection === 'activity' && (
-              <div
-                id="activity-panel"
-                role="region"
-                aria-labelledby="activity-header"
-                className="p-4"
-              >
-                <ul className="list-disc pl-4 space-y-1">
-                  {(plant.careLog || []).map((ev, i) => (
-                    <li key={i}>
-                      {ev.type} on {ev.date}
-                      {ev.note ? ` - ${ev.note}` : ''}
-                    </li>
-                  ))}
+            )}
+          </div>
+          <div
+            role="tabpanel"
+            id="care-panel"
+            aria-labelledby="care-tab"
+            hidden={activeTab !== 'care'}
+            className="p-4 border rounded-xl"
+          >
+            {plant.advancedCare || 'No advanced care info.'}
+          </div>
+          <div
+            role="tabpanel"
+            id="timeline-panel"
+            aria-labelledby="timeline-tab"
+            hidden={activeTab !== 'timeline'}
+            className="p-4 border rounded-xl"
+          >
+            {groupedEvents.map(([monthKey, list]) => (
+              <div key={monthKey}>
+                <h3 className="mt-4 text-sm font-semibold text-gray-500">
+                  {formatMonth(monthKey)}
+                </h3>
+                <ul className="relative border-l border-gray-200 pl-4 space-y-6">
+                  {list.map((e, i) => {
+                    const Icon = actionIcons[e.type]
+                    return (
+                      <li key={`${e.date}-${i}`} className="relative">
+                        <span
+                          className={`absolute left-[-6px] top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
+                        ></span>
+
+                        <p className="text-xs text-gray-400">{e.date}</p>
+                        <p className="flex items-center gap-1 font-medium">
+                          {Icon && <Icon />}
+
+                          {e.label}
+                        </p>
+                        {e.note && (
+                          <p className="text-xs text-gray-500 italic">{e.note}</p>
+                        )}
+                      </li>
+                    )
+                  })}
                 </ul>
               </div>
-            )}
-          </div>
-
-          <div className="border rounded-xl">
-            <h3 id="notes-header">
-              <button
-                ref={el => (sectionRefs.current[1] = el)}
-                aria-expanded={openSection === 'notes'}
-                aria-controls="notes-panel"
-                className="w-full text-left flex justify-between items-center p-2"
-                onClick={() =>
-                  setOpenSection(openSection === 'notes' ? null : 'notes')
-                }
-                onKeyDown={e => handleKeyDown(e, 1)}
-              >
-                <span className="flex items-center gap-1">
-                  <Note className="w-4 h-4" />
-                  Notes
-                </span>
-                <span>{openSection === 'notes' ? '-' : '+'}</span>
-              </button>
-            </h3>
-            {openSection === 'notes' && (
-              <div
-                id="notes-panel"
-                role="region"
-                aria-labelledby="notes-header"
-                className="p-4"
-              >
-                {plant.notes
-                  ? showMore
-                    ? plant.notes
-                    : plant.notes.slice(0, 160)
-                  : 'No notes yet.'}
-                {plant.notes && plant.notes.length > 160 && (
-                  <button
-                    type="button"
-                    onClick={() => setShowMore(!showMore)}
-                    className="ml-2 text-green-600 underline"
-                  >
-                    {showMore ? 'Show less' : 'Show more'}
-                  </button>
-                )}
-              </div>
-            )}
-          </div>
-
-          <div className="border rounded-xl">
-            <h3 id="care-header">
-              <button
-                ref={el => (sectionRefs.current[2] = el)}
-                aria-expanded={openSection === 'care'}
-                aria-controls="care-panel"
-                className="w-full text-left flex justify-between items-center p-2"
-                onClick={() =>
-                  setOpenSection(openSection === 'care' ? null : 'care')
-                }
-                onKeyDown={e => handleKeyDown(e, 2)}
-              >
-                <span className="flex items-center gap-1">
-                  <Gear className="w-4 h-4" />
-                  Advanced
-                </span>
-                <span>{openSection === 'care' ? '-' : '+'}</span>
-              </button>
-            </h3>
-            {openSection === 'care' && (
-              <div
-                id="care-panel"
-                role="region"
-                aria-labelledby="care-header"
-                className="p-4"
-              >
-                {plant.advancedCare || 'No advanced care info.'}
-              </div>
-            )}
-          </div>
-
-          <div className="border rounded-xl">
-            <h3 id="timeline-header">
-              <button
-                ref={el => (sectionRefs.current[3] = el)}
-                aria-expanded={openSection === 'timeline'}
-                aria-controls="timeline-panel"
-                className="w-full text-left flex justify-between items-center p-2"
-                onClick={() =>
-                  setOpenSection(openSection === 'timeline' ? null : 'timeline')
-                }
-                onKeyDown={e => handleKeyDown(e, 3)}
-              >
-                <span className="flex items-center gap-1">
-                  <Clock className="w-4 h-4" />
-                  Timeline
-                </span>
-                <span>{openSection === 'timeline' ? '-' : '+'}</span>
-              </button>
-            </h3>
-            {openSection === 'timeline' && (
-              <div
-                id="timeline-panel"
-                role="region"
-                aria-labelledby="timeline-header"
-                className="p-4"
-              >
-                {groupedEvents.map(([monthKey, list]) => (
-                  <div key={monthKey}>
-                    <h3 className="mt-4 text-sm font-semibold text-gray-500">
-                      {formatMonth(monthKey)}
-                    </h3>
-                    <ul className="relative border-l border-gray-200 pl-4 space-y-6">
-                      {list.map((e, i) => {
-                        const Icon = actionIcons[e.type]
-                        return (
-                          <li key={`${e.date}-${i}`} className="relative">
-                            <span
-                              className={`absolute left-[-6px] top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
-                            ></span>
-
-                            <p className="text-xs text-gray-400">{e.date}</p>
-                            <p className="flex items-center gap-1 font-medium">
-                              {Icon && <Icon />}
-
-                              {e.label}
-                            </p>
-                            {e.note && (
-                              <p className="text-xs text-gray-500 italic">{e.note}</p>
-                            )}
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            )}
+            ))}
           </div>
         </div>
       </div>
