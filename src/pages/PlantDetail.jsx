@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useState, useRef, useMemo } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
+import NoteModal from '../components/NoteModal.jsx'
 import { formatMonth } from '../utils/date.js'
 
 export default function PlantDetail() {
@@ -15,6 +16,7 @@ export default function PlantDetail() {
   const [showMore, setShowMore] = useState(false)
   const fileInputRef = useRef()
   const [toast, setToast] = useState('')
+  const [showNoteModal, setShowNoteModal] = useState(false)
 
   const events = useMemo(() => {
     if (!plant) return []
@@ -94,11 +96,19 @@ export default function PlantDetail() {
   }
 
   const handleLogEvent = () => {
-    const note = window.prompt('Note') || ''
+    setShowNoteModal(true)
+  }
+
+  const saveNote = note => {
     if (note) {
       logEvent(plant.id, 'Note', note)
       showTempToast('Logged')
     }
+    setShowNoteModal(false)
+  }
+
+  const cancelNote = () => {
+    setShowNoteModal(false)
   }
 
   if (!plant) {
@@ -375,6 +385,9 @@ export default function PlantDetail() {
           className="hidden"
         />
       </div>
+      {showNoteModal && (
+        <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
+      )}
   </div>
 )
 }
