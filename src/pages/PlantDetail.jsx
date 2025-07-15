@@ -53,6 +53,17 @@ export default function PlantDetail() {
     fertilize: 'bg-yellow-500',
     note: 'bg-gray-400',
     log: 'bg-green-400',
+    iconBlue: 'text-blue-500',
+    iconYellow: 'text-yellow-500',
+    iconGray: 'text-gray-400',
+    iconGreen: 'text-green-500',
+  }
+
+  const iconColors = {
+    water: colors.iconBlue,
+    fertilize: colors.iconYellow,
+    note: colors.iconGray,
+    log: colors.iconGreen,
   }
 
   const handleFiles = e => {
@@ -158,7 +169,7 @@ export default function PlantDetail() {
             </span>
           )}
         </div>
-        <div className="flex gap-2 mt-2">
+        <div className="flex gap-2 mt-3">
           <button
             type="button"
             onClick={handleWatered}
@@ -204,7 +215,7 @@ export default function PlantDetail() {
         </div>
 
 
-        <div className="space-y-2">
+        <div className="space-y-2 mt-4">
           <div className="border rounded-xl">
             <h3 id="activity-header">
               <button
@@ -349,17 +360,19 @@ export default function PlantDetail() {
                     <h3 className="mt-4 text-sm font-semibold text-gray-500">
                       {formatMonth(monthKey)}
                     </h3>
-                    <ul className="relative border-l border-gray-300 pl-4 space-y-6">
+                    <ul className="relative border-l border-gray-200 pl-4 space-y-6">
                       {list.map((e, i) => {
                         const Icon = actionIcons[e.type]
                         return (
                           <li key={`${e.date}-${i}`} className="relative">
                             <span
-                              className={`absolute -left-2 top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
+                              className={`absolute left-[-6px] top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
                             ></span>
+
                             <p className="text-xs text-gray-400">{e.date}</p>
                             <p className="flex items-center gap-1 font-medium">
                               {Icon && <Icon />}
+
                               {e.label}
                             </p>
                             {e.note && (
@@ -428,6 +441,7 @@ export default function PlantDetail() {
               images={plant.photos}
               startIndex={lightboxIndex}
               onClose={() => setLightboxIndex(null)}
+              label={`${plant.name} gallery`}
             />
           </div>
         )}

@@ -74,12 +74,19 @@ test('opens lightbox from gallery', () => {
   const img = screen.getByAltText(`${plant.name} 0`)
   fireEvent.click(img.closest('button'))
 
-  const dialog = screen.getByRole('dialog', { name: `${plant.name} gallery` })
-  expect(dialog).toBeInTheDocument()
+  const dialogsAfterOpen = screen.getAllByRole('dialog', {
+    name: `${plant.name} gallery`,
+  })
+  // First dialog is the gallery overlay
+  expect(dialogsAfterOpen[0]).toBeInTheDocument()
   const thumb = screen.getByAltText(`${plant.name} 0`)
   fireEvent.click(thumb)
 
-  const viewerDialog = screen.getByRole('dialog', { name: /image viewer/i })
+  const dialogs = screen.getAllByRole('dialog', {
+    name: `${plant.name} gallery`,
+  })
+  // The first dialog is the gallery overlay; the second is the Lightbox viewer
+  const viewerDialog = dialogs[1]
   expect(viewerDialog).toBeInTheDocument()
 
   const viewerImg = screen.getByAltText(/gallery image/i)
@@ -89,6 +96,8 @@ test('opens lightbox from gallery', () => {
   expect(viewerImg).toHaveAttribute('src', plant.photos[1])
 
   fireEvent.keyDown(window, { key: 'Escape' })
-  expect(screen.queryByRole('dialog', { name: /image viewer/i })).toBeNull()
+  expect(
+    screen.queryByRole('dialog', { name: `${plant.name} gallery` })
+  ).toBeNull()
 
 })
