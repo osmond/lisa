@@ -2,7 +2,7 @@
 
 exports[`matches snapshot in dark mode 1`] = `
 <div
-  class="relative flex items-center gap-3 p-4 rounded-2xl border dark:border-gray-600 shadow-sm bg-white dark:bg-gray-700 overflow-hidden transition-transform duration-150 hover:bg-gray-50 active:scale-95 ring-2 ring-green-300 dark:ring-green-400"
+  class="relative flex items-center gap-3 p-4 rounded-2xl border dark:border-gray-600 shadow-sm overflow-hidden transition-transform duration-150 active:scale-95 bg-sage dark:bg-gray-700 ring-2 ring-accent hover:bg-sage/80 ring-green-300 dark:ring-green-400"
   data-testid="task-card"
   style="transform: translateX(0px); transition: transform 0.2s;"
 >
