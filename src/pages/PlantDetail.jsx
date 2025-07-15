@@ -1,5 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState, useRef, useMemo } from 'react'
+import { PlusIcon } from '@radix-ui/react-icons'
+import Lightbox from '../components/Lightbox.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
@@ -20,6 +22,7 @@ export default function PlantDetail() {
   const fileInputRef = useRef()
   const [toast, setToast] = useState('')
   const [showNoteModal, setShowNoteModal] = useState(false)
+  const [lightboxIndex, setLightboxIndex] = useState(null)
 
   const events = useMemo(() => {
     if (!plant) return []
@@ -374,13 +377,24 @@ export default function PlantDetail() {
       </div>
       <div className="space-y-2">
         <h2 className="text-xl font-semibold font-headline">Gallery</h2>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="flex gap-2 overflow-x-auto pb-2">
+          <div className="relative flex-shrink-0 w-24 h-24">
+            <button
+              type="button"
+              onClick={() => fileInputRef.current.click()}
+              className="w-full h-full flex items-center justify-center bg-gray-200 rounded"
+            >
+              <PlusIcon className="w-6 h-6 text-gray-600" aria-hidden="true" />
+              <span className="sr-only">Add Photo</span>
+            </button>
+          </div>
           {(plant.photos || []).map((src, i) => (
-            <div key={i} className="relative">
+            <div key={i} className="relative flex-shrink-0 w-24 h-24">
               <img
                 src={src}
                 alt={`${plant.name} ${i}`}
-                className="object-cover w-full h-24 rounded"
+                className="object-cover w-full h-full rounded"
+                onClick={() => setLightboxIndex(i)}
               />
               <button
                 className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
@@ -391,13 +405,6 @@ export default function PlantDetail() {
             </div>
           ))}
         </div>
-        <button
-          type="button"
-          onClick={() => fileInputRef.current.click()}
-          className="mt-2 px-3 py-1 bg-green-600 text-white rounded"
-        >
-          Add Photo
-        </button>
         <input
           type="file"
           accept="image/*"
@@ -406,6 +413,14 @@ export default function PlantDetail() {
           onChange={handleFiles}
           className="hidden"
         />
+        {lightboxIndex !== null && (
+          <Lightbox
+            images={plant.photos}
+            startIndex={lightboxIndex}
+            onClose={() => setLightboxIndex(null)}
+            label="Photo viewer"
+          />
+        )}
       </div>
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
