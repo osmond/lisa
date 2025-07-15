@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+
 import { MemoryRouter } from 'react-router-dom'
 import userEvent from '@testing-library/user-event'
 
@@ -86,6 +87,7 @@ test('sorts by plant name', () => {
   fireEvent.change(selects[2], { target: { value: 'name' } })
 
   const items = screen.getAllByRole('listitem')
+
   expect(items[0]).toHaveTextContent(/Plant A/)
 })
 

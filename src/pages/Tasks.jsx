@@ -79,8 +79,29 @@ export default function Tasks() {
         }
       })
     })
+
     return all.sort((a, b) => new Date(a.date) - new Date(b.date))
   }, [plants, weather, todayIso])
+
+
+    const filtered = all.filter(e => {
+      const typeMatch =
+        typeFilter === 'All' || e.taskType === typeFilter
+      const urgMatch =
+        urgencyFilter === 'All' || e.plantUrgency === urgencyFilter
+      return typeMatch && urgMatch
+    })
+
+    const sorted = [...filtered].sort((a, b) => {
+      if (sortBy === 'name') {
+        return (a.plantName || '').localeCompare(b.plantName || '')
+      }
+      return new Date(a.date) - new Date(b.date)
+    })
+
+    return sorted
+  }, [plants, weather, typeFilter, urgencyFilter, sortBy])
+
 
 
   const upcomingEvents = useMemo(
@@ -186,7 +207,9 @@ export default function Tasks() {
         ) : (
           eventsByPlant.map(({ plant, list }) => (
             <div key={plant?.id ?? 'none'}>
-              <h3 className="mt-4 text-sm font-semibold text-gray-500">{plant?.name || 'Unknown'}</h3>
+              <h3 className="mt-4 text-sm font-semibold text-gray-500">
+                {plant?.name || 'Unknown'}
+              </h3>
               <ul className="relative border-l border-gray-300 pl-4 space-y-6">
                 {list.map((e, i) => {
                   const overdue = e.date < today
@@ -211,13 +234,13 @@ export default function Tasks() {
           ))
         )
       ) : groupedEvents.length === 0 ? (
-
         <p className="text-center text-gray-500">No tasks coming up.</p>
       ) : (
         groupedEvents.map(([dateKey, list]) => {
           const heading =
             dateKey === today
               ? 'Today'
+
 
             : dateKey === tomorrowStr
             ? 'Tomorrow'
@@ -271,6 +294,43 @@ export default function Tasks() {
 
 
 
+
+
+              : dateKey === tomorrowStr
+              ? 'Tomorrow'
+              : dateKey < today
+              ? `Past Due - ${dateKey}`
+              : dateKey
+          return (
+            <div key={dateKey}>
+              <h3 className="mt-4 text-sm font-semibold text-gray-500">{heading}</h3>
+              <div className="space-y-4">
+                {list.map((e, i) => {
+                  const task = {
+                    id: `${e.taskType}-${e.plantId}-${i}`,
+                    plantId: e.plantId,
+                    plantName: e.plantName,
+                    image: e.image,
+                    type:
+                      e.taskType === 'water'
+                        ? 'Water'
+                        : e.taskType === 'fertilize'
+                        ? 'Fertilize'
+                        : 'Note',
+                    reason: e.reason,
+                  }
+                  return (
+                    <TaskCard
+                      key={`${e.date}-${i}`}
+                      task={task}
+                      urgent={!!e.urgent}
+                      overdue={!!e.overdue}
+                    />
+                  )
+                })}
+              </div>
+            </div>
+          )
 
         })
         )}
