@@ -141,7 +141,6 @@ test('arrow left navigates to edit page', () => {
 })
 
 test('delete key confirms before removing plant', () => {
-  const confirmMock = jest.spyOn(window, 'confirm').mockReturnValue(true)
   render(
     <MemoryRouter>
       <PlantCard plant={plant} />
@@ -150,9 +149,10 @@ test('delete key confirms before removing plant', () => {
   const wrapper = screen.getByTestId('card-wrapper')
   wrapper.focus()
   fireEvent.keyDown(wrapper, { key: 'Delete' })
-  expect(confirmMock).toHaveBeenCalled()
+  const dialog = screen.getByRole('dialog', { name: /delete this plant/i })
+  expect(dialog).toBeInTheDocument()
+  fireEvent.click(screen.getByText('Confirm'))
   expect(removePlant).toHaveBeenCalledWith(1)
-  confirmMock.mockRestore()
 })
 
 test.skip('swipe right waters plant', async () => {
