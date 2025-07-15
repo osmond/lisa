@@ -286,3 +286,24 @@ test('matches snapshot in dark mode', () => {
   document.documentElement.classList.remove('dark')
   jest.useRealTimers()
 })
+
+test('shows toast on completion', () => {
+  jest.useFakeTimers()
+  render(
+    <MemoryRouter>
+      <BaseCard variant="task">
+        <TaskCard task={task} />
+      </BaseCard>
+    </MemoryRouter>
+  )
+  fireEvent.click(screen.getByRole('checkbox'))
+  const dialog = screen.getByRole('dialog', { name: /optional note/i })
+  fireEvent.change(dialog.querySelector('textarea'), { target: { value: '' } })
+  fireEvent.click(screen.getByText('Save'))
+  expect(screen.getByText('Watered Monstera 🌿')).toBeInTheDocument()
+  act(() => {
+    jest.runAllTimers()
+  })
+  expect(screen.queryByText('Watered Monstera 🌿')).not.toBeInTheDocument()
+  jest.useRealTimers()
+})
