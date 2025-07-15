@@ -23,8 +23,10 @@ export default function BottomNav() {
     { to: '/', label: 'Home', icon: HomeIconComponent },
     { to: '/care', label: 'Task View', icon: CheckIcon },
     { to: '/myplants', label: 'My Plants', icon: ListIcon },
+
     { to: '/timeline', label: 'Timeline', icon: CalendarIconComponent },
     { to: '/settings', label: 'Profile', icon: UserIcon },
+
   ]
 
   return (
