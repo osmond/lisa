@@ -23,13 +23,8 @@ exports[`matches snapshot in dark mode 1`] = `
       <div
         class="flex-1"
       >
-
         <p
           class="text-lg font-bold font-headline"
-
-        <span
-          class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-blue-200 text-blue-800"
-
         >
           Monstera
         </p>
@@ -37,7 +32,7 @@ exports[`matches snapshot in dark mode 1`] = `
           class="text-base font-body"
         >
           <span
-            class="px-2 py-0.5 rounded-full text-xs bg-blue-200 text-blue-800"
+            class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-blue-200 text-blue-800"
           >
             To Water
           </span>

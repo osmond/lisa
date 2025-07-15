@@ -1,12 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
+
 import { createRipple } from '../utils/interactions.js'
+
 
 import { usePlants } from '../PlantContext.jsx'
 import NoteModal from './NoteModal.jsx'
 import ConfirmModal from './ConfirmModal.jsx'
-import useSwipe from '../hooks/useSwipe.js'
 
 export default function PlantCard({ plant }) {
   const navigate = useNavigate()
@@ -55,15 +56,6 @@ export default function PlantCard({ plant }) {
   }
 
 
-  const { dx: deltaX, start, move, end } = useSwipe(diff => {
-    if (diff > 75) {
-      handleWatered()
-    } else if (diff < -150) {
-      handleDelete()
-    } else if (diff < -75) {
-      navigate(`/plant/${plant.id}/edit`)
-    }
-  })
 
 
   return (
@@ -73,6 +65,7 @@ export default function PlantCard({ plant }) {
       tabIndex="0"
       aria-label={`Plant card for ${plant.name}`}
       onKeyDown={handleKeyDown}
+
 
       onMouseDown={e => { createRipple(e); start(e) }}
       onTouchStart={e => { createRipple(e); start(e) }}
@@ -85,6 +78,7 @@ export default function PlantCard({ plant }) {
       onMouseUp={end}
       onTouchMove={move}
       onTouchEnd={end}
+
 
       onClick={() => setShowActions(true)}
     >

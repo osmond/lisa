@@ -2,8 +2,6 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { formatCareSummary } from '../utils/date.js'
 
-import useSwipe from '../hooks/useSwipe.js'
-
 import { createRipple, useSwipe } from '../utils/interactions.js'
 
 
@@ -13,10 +11,12 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
 
   const [index, setIndex] = useState(startIndex)
 
-  const { dx, start, move, end } = useSwipe(diff => {
-    if (diff > 50) setIndex(i => (i - 1 + items.length) % items.length)
-    else if (diff < -50) setIndex(i => (i + 1) % items.length)
-
+  const { deltaX: dx, handlers } = useSwipe({
+    ripple: true,
+    onEnd: diff => {
+      if (diff > 50) setIndex(i => (i - 1 + items.length) % items.length)
+      else if (diff < -50) setIndex(i => (i + 1) % items.length)
+    },
   })
 
   const handleKeyDown = e => {
@@ -42,17 +42,6 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
       data-testid="featured-card"
       aria-label={`Featured plant card for ${name}`}
       onKeyDown={handleKeyDown}
-
-      onPointerDown={start}
-      onPointerMove={move}
-      onPointerUp={end}
-      onPointerCancel={end}
-      onMouseDown={start}
-      onMouseMove={move}
-      onMouseUp={end}
-      onTouchStart={start}
-      onTouchMove={move}
-      onTouchEnd={end}
 
       {...handlers}
 
