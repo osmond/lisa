@@ -38,3 +38,17 @@ test('swipe changes plant', () => {
   fireEvent.pointerUp(card, { clientX: 20 })
   expect(screen.getByText('Pothos')).toBeInTheDocument()
 })
+
+test('arrow keys change plant', () => {
+  render(
+    <MemoryRouter>
+      <FeaturedCard plants={plants} />
+    </MemoryRouter>
+  )
+  const card = screen.getByTestId('featured-card')
+  card.focus()
+  fireEvent.keyDown(card, { key: 'ArrowRight' })
+  expect(screen.getByText('Pothos')).toBeInTheDocument()
+  fireEvent.keyDown(card, { key: 'ArrowLeft' })
+  expect(screen.getByText('Aloe')).toBeInTheDocument()
+})

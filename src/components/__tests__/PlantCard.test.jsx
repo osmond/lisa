@@ -118,6 +118,45 @@ test('clicking card adds ripple effect', () => {
   expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
 })
 
+test('arrow right opens watering note modal', () => {
+  render(
+    <MemoryRouter>
+      <PlantCard plant={plant} />
+    </MemoryRouter>
+  )
+  const wrapper = screen.getByTestId('card-wrapper')
+  wrapper.focus()
+  fireEvent.keyDown(wrapper, { key: 'ArrowRight' })
+  expect(screen.getByRole('dialog', { name: /optional note/i })).toBeInTheDocument()
+})
+
+test('arrow left navigates to edit page', () => {
+  render(
+    <MemoryRouter>
+      <PlantCard plant={plant} />
+    </MemoryRouter>
+  )
+  const wrapper = screen.getByTestId('card-wrapper')
+  wrapper.focus()
+  fireEvent.keyDown(wrapper, { key: 'ArrowLeft' })
+  expect(navigateMock).toHaveBeenCalledWith('/plant/1/edit')
+})
+
+test('delete key confirms before removing plant', () => {
+  const confirmMock = jest.spyOn(window, 'confirm').mockReturnValue(true)
+  render(
+    <MemoryRouter>
+      <PlantCard plant={plant} />
+    </MemoryRouter>
+  )
+  const wrapper = screen.getByTestId('card-wrapper')
+  wrapper.focus()
+  fireEvent.keyDown(wrapper, { key: 'Delete' })
+  expect(confirmMock).toHaveBeenCalled()
+  expect(removePlant).toHaveBeenCalledWith(1)
+  confirmMock.mockRestore()
+})
+
 test.skip('swipe right waters plant', async () => {
   render(
     <MemoryRouter>

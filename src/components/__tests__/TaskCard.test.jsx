@@ -197,6 +197,19 @@ test('keyboard Enter and Space trigger completion with ripple', async () => {
   expect(onComplete).toHaveBeenCalledTimes(2)
 })
 
+test('arrow right marks task complete', () => {
+  const onComplete = jest.fn()
+  render(
+    <MemoryRouter>
+      <TaskCard task={task} onComplete={onComplete} />
+    </MemoryRouter>
+  )
+  const wrapper = screen.getByTestId('task-card')
+  wrapper.focus()
+  fireEvent.keyDown(wrapper, { key: 'ArrowRight' })
+  expect(onComplete).toHaveBeenCalledWith(task)
+})
+
 test.skip('swipe right marks task complete', async () => {
   const onComplete = jest.fn()
   render(

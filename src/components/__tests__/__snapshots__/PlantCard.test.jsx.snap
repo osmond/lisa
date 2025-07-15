@@ -2,8 +2,10 @@
 
 exports[`matches snapshot in dark mode 1`] = `
 <div
-  class="relative overflow-hidden group"
+  aria-label="Plant card for Aloe Vera"
+  class="relative overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
   data-testid="card-wrapper"
+  tabindex="0"
 >
   <div
     class="absolute inset-0 flex justify-between items-center px-4 transition
