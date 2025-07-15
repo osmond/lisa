@@ -166,7 +166,7 @@ export default function Tasks() {
       return entries.sort((a, b) => new Date(a[0]) - new Date(b[0]))
     }
     return entries
-  }, [events, sortBy])
+  }, [events, sortBy, viewMode])
 
 
 
