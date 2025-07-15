@@ -21,6 +21,10 @@ test('renders plant details without duplicates', () => {
 
   const images = screen.getAllByAltText(plant.name)
   expect(images).toHaveLength(1)
+
+  expect(screen.getByText(plant.light)).toBeInTheDocument()
+  expect(screen.getByText(plant.humidity)).toBeInTheDocument()
+  expect(screen.getByText(plant.difficulty)).toBeInTheDocument()
 })
 
 test('accordion keyboard navigation works', () => {
@@ -42,8 +46,8 @@ test('accordion keyboard navigation works', () => {
     screen.getByRole('button', { name: /Timeline/ }),
   ]
 
-  expect(buttons[0]).toHaveAttribute('aria-expanded', 'true')
-  expect(buttons[1]).toHaveAttribute('aria-expanded', 'false')
+  expect(buttons[3]).toHaveAttribute('aria-expanded', 'true')
+  expect(buttons[0]).toHaveAttribute('aria-expanded', 'false')
 
   buttons[0].focus()
   fireEvent.keyDown(buttons[0], { key: 'ArrowDown' })
@@ -51,4 +55,23 @@ test('accordion keyboard navigation works', () => {
   expect(buttons[0]).toHaveAttribute('aria-expanded', 'false')
   expect(buttons[1]).toHaveAttribute('aria-expanded', 'true')
   expect(document.activeElement).toBe(buttons[1])
+})
+
+test('opens lightbox from gallery', () => {
+  const plant = plants[0]
+  render(
+    <PlantProvider>
+      <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </PlantProvider>
+  )
+
+  const img = screen.getByAltText(`${plant.name} 0`)
+  fireEvent.click(img.closest('button'))
+
+  const dialog = screen.getByRole('dialog', { name: `${plant.name} gallery` })
+  expect(dialog).toBeInTheDocument()
 })

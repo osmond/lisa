@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import PlantDetail from '../PlantDetail.jsx'
 
@@ -33,6 +33,8 @@ test('shows notes from care log in activity tab', () => {
       </Routes>
     </MemoryRouter>
   )
+
+  fireEvent.click(screen.getByRole('button', { name: /Activity/ }))
 
   expect(screen.getByText('Watered on 2025-07-02 - deep soak')).toBeInTheDocument()
 })

@@ -3,6 +3,7 @@ import { useState, useRef, useMemo } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
+import Lightbox from '../components/Lightbox.jsx'
 import { formatMonth } from '../utils/date.js'
 
 export default function PlantDetail() {
@@ -12,11 +13,12 @@ export default function PlantDetail() {
 
   const sectionNames = ['activity', 'notes', 'care', 'timeline']
   const sectionRefs = useRef([])
-  const [openSection, setOpenSection] = useState('activity')
+  const [openSection, setOpenSection] = useState('timeline')
   const [showMore, setShowMore] = useState(false)
   const fileInputRef = useRef()
   const [toast, setToast] = useState('')
   const [showNoteModal, setShowNoteModal] = useState(false)
+  const [lightboxIndex, setLightboxIndex] = useState(null)
 
   const events = useMemo(() => {
     if (!plant) return []
@@ -355,11 +357,13 @@ export default function PlantDetail() {
         <div className="grid grid-cols-3 gap-2">
           {(plant.photos || []).map((src, i) => (
             <div key={i} className="relative">
-              <img
-                src={src}
-                alt={`${plant.name} ${i}`}
-                className="object-cover w-full h-24 rounded"
-              />
+              <button type="button" onClick={() => setLightboxIndex(i)} className="block focus:outline-none">
+                <img
+                  src={src}
+                  alt={`${plant.name} ${i}`}
+                  className="object-cover w-full h-24 rounded"
+                />
+              </button>
               <button
                 className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
                 onClick={() => removePhoto(plant.id, i)}
@@ -385,6 +389,14 @@ export default function PlantDetail() {
           className="hidden"
         />
       </div>
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={plant.photos || []}
+          startIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          label={`${plant.name} gallery`}
+        />
+      )}
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
       )}
