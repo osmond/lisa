@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Flower } from 'phosphor-react'
 import { usePlants } from '../PlantContext.jsx'
 
 export default function MyPlants() {
@@ -43,7 +44,15 @@ export default function MyPlants() {
         </select>
       </div>
       {noResults ? (
-        <p className="text-gray-700">No plants yet. Add one to get started!</p>
+        <div className="text-center text-gray-700 space-y-4">
+          <Flower className="w-20 h-20 mx-auto text-green-400" aria-hidden="true" />
+          <Link
+            to="/add"
+            className="inline-block px-4 py-2 bg-green-600 text-white rounded"
+          >
+            Add Plant
+          </Link>
+        </div>
       ) : (
         <div className="grid grid-cols-2 gap-4">
           {filtered.map(plant => {
