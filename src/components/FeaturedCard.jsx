@@ -10,6 +10,16 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
   const startX = useRef(0)
   const [dx, setDx] = useState(0)
 
+  const handleKeyDown = e => {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault()
+      setIndex(i => (i + 1) % items.length)
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      setIndex(i => (i - 1 + items.length) % items.length)
+    }
+  }
+
   const begin = e => {
     startX.current = e.clientX ?? e.touches?.[0]?.clientX ?? 0
   }
@@ -37,6 +47,8 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
     <Link
       to={`/plant/${id}`}
       data-testid="featured-card"
+      aria-label={`Featured plant card for ${name}`}
+      onKeyDown={handleKeyDown}
       onPointerDown={begin}
       onPointerMove={move}
       onPointerUp={end}
@@ -47,7 +59,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
       onTouchStart={begin}
       onTouchMove={move}
       onTouchEnd={end}
-      className="relative block overflow-hidden rounded-2xl shadow bg-sage dark:bg-gray-700"
+      className="relative block overflow-hidden rounded-2xl shadow bg-sage dark:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
       style={{ transform: `translateX(${dx}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
     >
       <img

@@ -13,6 +13,19 @@ export default function PlantCard({ plant }) {
   const [showNote, setShowNote] = useState(false)
   const [, createRipple] = useRipple()
 
+  const handleKeyDown = e => {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault()
+      handleWatered()
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      navigate(`/plant/${plant.id}/edit`)
+    } else if (e.key === 'Delete' || e.key === 'Backspace') {
+      e.preventDefault()
+      handleDelete()
+    }
+  }
+
   const handleWatered = () => {
     setShowNote(true)
   }
@@ -60,9 +73,12 @@ export default function PlantCard({ plant }) {
     <>
     <div
       data-testid="card-wrapper"
+      tabIndex="0"
+      aria-label={`Plant card for ${plant.name}`}
+      onKeyDown={handleKeyDown}
       onMouseDown={e => { createRipple(e); handlePointerDown(e) }}
       onTouchStart={e => { createRipple(e); handlePointerDown(e) }}
-      className="relative overflow-hidden group"
+      className="relative overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerEnd}
