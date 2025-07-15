@@ -111,27 +111,19 @@ export default function Tasks() {
       })
     })
 
-    return all.sort((a, b) => new Date(a.date) - new Date(b.date))
-  }, [plants, weather, todayIso])
-
-
     const filtered = all.filter(e => {
-      const typeMatch =
-        typeFilter === 'All' || e.taskType === typeFilter
+      const typeMatch = typeFilter === 'All' || e.taskType === typeFilter
       const urgMatch =
         urgencyFilter === 'All' || e.plantUrgency === urgencyFilter
       return typeMatch && urgMatch
     })
-
     const sorted = [...filtered].sort((a, b) => {
-      if (sortBy === 'name') {
-        return (a.plantName || '').localeCompare(b.plantName || '')
-      }
-      return new Date(a.date) - new Date(b.date)
+      return sortBy === 'name'
+        ? (a.plantName || '').localeCompare(b.plantName || '')
+        : new Date(a.date) - new Date(b.date)
     })
-
     return sorted
-  }, [plants, weather, typeFilter, urgencyFilter, sortBy])
+  }, [plants, weather, todayIso, typeFilter, urgencyFilter, sortBy])
 
 
 
@@ -374,6 +366,7 @@ export default function Tasks() {
               </div>
             </div>
           )
+
 
         })
         )}
