@@ -119,6 +119,33 @@ Open that URL in your browser to view the app.
 
 Kaymaria includes a web app manifest and service worker so you can install it on mobile devices and continue using it offline. After building and serving the app, visit it in your browser and choose **Add to Home Screen** to install.
 
+## useSwipe Hook
+
+`useSwipe` provides swipe detection with an optional ripple effect. It returns the current horizontal distance and a `handlers` object you can spread onto any element.
+
+```jsx
+import { useSwipe, createRipple } from './src/utils/interactions'
+
+function Example() {
+  const { deltaX, handlers } = useSwipe({
+    ripple: true,
+    onEnd: diff => {
+      if (diff > 50) console.log('swiped right')
+      else if (diff < -50) console.log('swiped left')
+    },
+  })
+
+  return (
+    <div {...handlers} style={{ transform: `translateX(${deltaX}px)` }}>
+      Swipe me
+    </div>
+  )
+}
+
+// Manual ripple usage
+<button onMouseDown={createRipple}>Tap</button>
+```
+
 ## Mobile Browser Testing
 
 Swipe gestures were manually tested on Chrome, Safari and Firefox on iOS and Android devices.

@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from './ActionIcons.jsx'
 import { CheckCircle } from 'phosphor-react'
+
 import useRipple from '../utils/useRipple.js'
 import useSwipe from '../hooks/useSwipe.js'
+
 import { getWateringInfo } from '../utils/watering.js'
 import NoteModal from './NoteModal.jsx'
+import Badge from './Badge.jsx'
 
 export default function TaskCard({
   task,
@@ -21,7 +24,14 @@ export default function TaskCard({
   const [checked, setChecked] = useState(false)
   const isChecked = checked || completed
   const [showNote, setShowNote] = useState(false)
-  const [, createRipple] = useRipple()
+  const { deltaX, handlers } = useSwipe({
+    ripple: true,
+    onEnd: diff => {
+      if (diff > 75) {
+        handleComplete()
+      }
+    },
+  })
 
   const handleKeyDown = e => {
     if (e.key === 'ArrowRight') {
@@ -57,11 +67,13 @@ export default function TaskCard({
     handleSaveNote('')
   }
 
+
   const { dx: deltaX, start, move, end } = useSwipe(diff => {
     if (diff > 75) {
       handleComplete()
     }
   })
+
 
   return (
     <>
@@ -70,6 +82,7 @@ export default function TaskCard({
       tabIndex="0"
       aria-label={`Task card for ${task.plantName}`}
       onKeyDown={handleKeyDown}
+
       onPointerDown={start}
       onPointerMove={move}
       onPointerUp={end}
@@ -86,6 +99,9 @@ export default function TaskCard({
       }}
       onTouchMove={move}
       onTouchEnd={end}
+
+      {...handlers}
+
 
       className={`relative flex items-center gap-3 p-4 rounded-2xl border dark:border-gray-600 shadow-sm overflow-hidden transition-transform duration-150 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500${completed ? ' bg-gray-100 dark:bg-gray-800 opacity-50' : ' bg-sage dark:bg-gray-700 ring-2 ring-accent hover:bg-sage/80'}${urgent ? ' ring-green-300 dark:ring-green-400' : ''}${overdue ? ' ring-orange-300' : ''}`}
 
@@ -106,8 +122,8 @@ export default function TaskCard({
         <div className="flex-1">
           <p className={`${compact ? '' : 'text-lg'} font-bold font-headline`}>{task.plantName}</p>
           <p className={`${compact ? 'text-sm' : 'text-base'} font-body`}>
-            <span
-              className={`px-2 py-0.5 rounded-full text-xs ${
+            <Badge
+              colorClass={`text-xs ${
                 task.type === 'Water'
                   ? 'bg-blue-200 text-blue-800'
                   : task.type === 'Fertilize'
@@ -126,7 +142,7 @@ export default function TaskCard({
                 : task.type === 'Fertilize'
                 ? 'To Fertilize'
                 : task.type}
-            </span>
+            </Badge>
           </p>
           {!compact && task.reason && (
             <p className="text-sm text-gray-500 font-body">{task.reason}</p>
