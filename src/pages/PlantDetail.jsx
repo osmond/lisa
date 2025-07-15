@@ -1,7 +1,11 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState, useRef, useMemo } from 'react'
+
+import { Activity, Note, Gear, Clock } from 'phosphor-react'
+
 import { PlusIcon } from '@radix-ui/react-icons'
 import Lightbox from '../components/Lightbox.jsx'
+
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
@@ -211,7 +215,10 @@ export default function PlantDetail() {
                 }
                 onKeyDown={e => handleKeyDown(e, 0)}
               >
-                Activity
+                <span className="flex items-center gap-1">
+                  <Activity className="w-4 h-4" />
+                  Activity
+                </span>
                 <span>{openSection === 'activity' ? '-' : '+'}</span>
               </button>
             </h3>
@@ -246,7 +253,10 @@ export default function PlantDetail() {
                 }
                 onKeyDown={e => handleKeyDown(e, 1)}
               >
-                Notes
+                <span className="flex items-center gap-1">
+                  <Note className="w-4 h-4" />
+                  Notes
+                </span>
                 <span>{openSection === 'notes' ? '-' : '+'}</span>
               </button>
             </h3>
@@ -287,7 +297,10 @@ export default function PlantDetail() {
                 }
                 onKeyDown={e => handleKeyDown(e, 2)}
               >
-                Advanced
+                <span className="flex items-center gap-1">
+                  <Gear className="w-4 h-4" />
+                  Advanced
+                </span>
                 <span>{openSection === 'care' ? '-' : '+'}</span>
               </button>
             </h3>
@@ -315,7 +328,10 @@ export default function PlantDetail() {
                 }
                 onKeyDown={e => handleKeyDown(e, 3)}
               >
-                Timeline
+                <span className="flex items-center gap-1">
+                  <Clock className="w-4 h-4" />
+                  Timeline
+                </span>
                 <span>{openSection === 'timeline' ? '-' : '+'}</span>
               </button>
             </h3>

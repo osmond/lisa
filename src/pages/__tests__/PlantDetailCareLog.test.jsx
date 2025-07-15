@@ -34,7 +34,11 @@ test('shows notes from care log in activity tab', () => {
     </MemoryRouter>
   )
 
-  fireEvent.click(screen.getByRole('button', { name: /Activity/ }))
+  const activityButton = screen.getByRole('button', { name: /Activity/ })
+  fireEvent.click(activityButton)
 
-  expect(screen.getByText('Watered on 2025-07-02 - deep soak')).toBeInTheDocument()
+  expect(
+    screen.getByText('Watered on 2025-07-02 - deep soak')
+  ).toBeInTheDocument()
+
 })
