@@ -142,7 +142,7 @@ test('shows info chip with accessibility label', () => {
       </BaseCard>
     </MemoryRouter>
   )
-  const chip = screen.getByText(/ET₀/i)
+  const chip = screen.getByText(/Water loss \(ET₀\)/i)
   expect(chip).toHaveAttribute(
     'aria-label',
     expect.stringContaining('Last watered 3 days ago')
@@ -160,7 +160,7 @@ test('compact mode hides reason and ET₀ info', () => {
     </MemoryRouter>
   )
   expect(screen.queryByText('Needs water')).not.toBeInTheDocument()
-  expect(screen.queryByText(/ET₀/)).not.toBeInTheDocument()
+  expect(screen.queryByText(/Water loss \(ET₀\)/i)).not.toBeInTheDocument()
 })
 
 test('mark as done does not navigate', () => {
