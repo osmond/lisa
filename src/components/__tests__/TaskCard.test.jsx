@@ -45,7 +45,7 @@ test('renders task text', () => {
     </MemoryRouter>
   )
   expect(screen.getByText('Monstera')).toBeInTheDocument()
-  expect(screen.getByText('To Water')).toBeInTheDocument()
+  expect(screen.getByText('Water')).toBeInTheDocument()
 })
 
 test('incomplete tasks show alert style', () => {
