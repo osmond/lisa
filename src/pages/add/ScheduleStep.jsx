@@ -24,7 +24,7 @@ export default function ScheduleStep({ lastWatered, nextWater, dispatch, onBack,
       </div>
       <div className="flex gap-2">
         <button type="button" onClick={onBack} className="px-4 py-2 bg-gray-200 rounded">Back</button>
-        <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">Add Plant</button>
+        <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">Next</button>
       </div>
     </form>
   )
