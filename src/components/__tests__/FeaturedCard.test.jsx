@@ -33,6 +33,9 @@ test('swipe changes plant', () => {
     </MemoryRouter>
   )
   const card = screen.getByTestId('featured-card')
+  fireEvent.pointerDown(card, { clientX: 80 })
+  expect(card.querySelector('.ripple-effect')).toBeInTheDocument()
+  card.querySelector('.ripple-effect')?.remove()
   fireEvent.pointerDown(card, { clientX: 100 })
   fireEvent.pointerMove(card, { clientX: 20 })
   fireEvent.pointerUp(card, { clientX: 20 })

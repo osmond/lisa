@@ -1,9 +1,9 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from './ActionIcons.jsx'
 import { CheckCircle } from 'phosphor-react'
-import useRipple from '../utils/useRipple.js'
+import { createRipple, useSwipe } from '../utils/interactions.js'
 import { getWateringInfo } from '../utils/watering.js'
 import NoteModal from './NoteModal.jsx'
 
@@ -19,10 +19,15 @@ export default function TaskCard({
   const Icon = actionIcons[task.type]
   const [checked, setChecked] = useState(false)
   const isChecked = checked || completed
-  const startX = useRef(0)
-  const [deltaX, setDeltaX] = useState(0)
   const [showNote, setShowNote] = useState(false)
-  const [, createRipple] = useRipple()
+  const { deltaX, handlers } = useSwipe({
+    ripple: true,
+    onEnd: diff => {
+      if (diff > 75) {
+        handleComplete()
+      }
+    },
+  })
 
   const handleKeyDown = e => {
     if (e.key === 'ArrowRight') {
@@ -58,25 +63,6 @@ export default function TaskCard({
     handleSaveNote('')
   }
 
-  const handlePointerDown = e => {
-    startX.current = e.clientX ?? e.touches?.[0]?.clientX ?? 0
-  }
-
-  const handlePointerMove = e => {
-    if (!startX.current) return
-    const currentX = e.clientX ?? e.touches?.[0]?.clientX ?? 0
-    setDeltaX(currentX - startX.current)
-  }
-
-  const handlePointerEnd = e => {
-    const currentX = e?.clientX ?? e?.changedTouches?.[0]?.clientX ?? startX.current
-    const diff = deltaX || (currentX - startX.current)
-    setDeltaX(0)
-    startX.current = 0
-    if (diff > 75) {
-      handleComplete()
-    }
-  }
 
   return (
     <>
@@ -85,22 +71,7 @@ export default function TaskCard({
       tabIndex="0"
       aria-label={`Task card for ${task.plantName}`}
       onKeyDown={handleKeyDown}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerEnd}
-      onPointerCancel={handlePointerEnd}
-      onMouseMove={handlePointerMove}
-      onMouseUp={handlePointerEnd}
-      onMouseDown={e => {
-        createRipple(e)
-        handlePointerDown(e)
-      }}
-      onTouchStart={e => {
-        createRipple(e)
-        handlePointerDown(e)
-      }}
-      onTouchMove={handlePointerMove}
-      onTouchEnd={handlePointerEnd}
+      {...handlers}
 
       className={`relative flex items-center gap-3 p-4 rounded-2xl border dark:border-gray-600 shadow-sm overflow-hidden transition-transform duration-150 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500${completed ? ' bg-gray-100 dark:bg-gray-800 opacity-50' : ' bg-sage dark:bg-gray-700 ring-2 ring-accent hover:bg-sage/80'}${urgent ? ' ring-green-300 dark:ring-green-400' : ''}${overdue ? ' ring-orange-300' : ''}`}
 
