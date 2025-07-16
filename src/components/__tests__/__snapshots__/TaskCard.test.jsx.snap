@@ -21,54 +21,67 @@ exports[`matches snapshot in dark mode 1`] = `
         src="https://images.pexels.com/photos/5699660/pexels-photo-5699660.jpeg"
       />
       <div
-        class="flex-1"
+        class="flex-1 min-w-0"
       >
-        <p
-          class="text-lg font-bold font-headline"
+        <div
+          class="flex items-center justify-between gap-2"
         >
-          Monstera
-        </p>
+          <p
+            class="text-lg font-bold font-headline truncate"
+          >
+            Monstera
+          </p>
+          <svg
+            aria-hidden="true"
+            class="w-5 h-5 text-gray-500 dark:text-gray-400 shrink-0"
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              fill="none"
+              height="256"
+              width="256"
+            />
+            <path
+              d="M208,144c0-72-80-128-80-128S48,72,48,144a80,80,0,0,0,160,0Z"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="16"
+            />
+            <path
+              d="M136.1,191.2a47.9,47.9,0,0,0,39.2-39.1"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="16"
+            />
+          </svg>
+        </div>
         <p
-          class="text-base font-body"
+          class="text-base font-body flex flex-wrap items-center gap-1 text-gray-600 dark:text-gray-300"
         >
           <span
             class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-water-200 text-water-800"
           >
             To Water
           </span>
+          <span
+            class="text-xs text-gray-500"
+          >
+            · 
+            9
+             
+            days
+             since care
+          </span>
         </p>
       </div>
-      <svg
-        aria-hidden="true"
-        class="w-6 h-6 text-gray-500 dark:text-gray-400"
-        fill="currentColor"
-        height="1em"
-        viewBox="0 0 256 256"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          fill="none"
-          height="256"
-          width="256"
-        />
-        <path
-          d="M208,144c0-72-80-128-80-128S48,72,48,144a80,80,0,0,0,160,0Z"
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="16"
-        />
-        <path
-          d="M136.1,191.2a47.9,47.9,0,0,0,39.2-39.1"
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="16"
-        />
-      </svg>
     </a>
     <button
       aria-label="Mark complete"

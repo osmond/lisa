@@ -81,6 +81,21 @@ body {
   animation: pop 0.3s ease-out;
 }
 
+@keyframes fly-in {
+  from {
+    transform: translateX(-20px) scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.swipe-check {
+  animation: fly-in 0.3s ease-out;
+}
+
 @keyframes bloom {
   from {
     transform: scale(0.5);
