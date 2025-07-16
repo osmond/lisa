@@ -1,12 +1,6 @@
-import { useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { CheckCircle, Drop, Sun } from 'phosphor-react'
 import actionIcons from './ActionIcons.jsx'
 import { getWateringInfo } from '../utils/watering.js'
-import useSwipe from '../hooks/useSwipe.js'
-import { createRipple } from '../utils/interactions.js'
-import { usePlants } from '../PlantContext.jsx'
-import NoteModal from './NoteModal.jsx'
 import Badge from './Badge.jsx'
 
 export default function TaskCard({
@@ -20,145 +14,15 @@ export default function TaskCard({
   const Icon = actionIcons[task.type]
   const { daysSince, eto } = getWateringInfo(task.lastWatered, { eto: task.eto })
 
-  const navigate = useNavigate()
-  const { markWatered, markFertilized, logEvent, updatePlant } = usePlants()
-
-  const [showMenu, setShowMenu] = useState(false)
-  const [showNote, setShowNote] = useState(false)
-  const [animateComplete, setAnimateComplete] = useState(false)
-  const LONG_PRESS_MS = 600
-  const COMPLETE_THRESHOLD = 80
-  const MENU_THRESHOLD = 60
-  const longPressTimer = useRef(null)
-
-  const handleComplete = () => {
-    if (task.type === 'Water') {
-      markWatered(task.plantId, '')
-    } else if (task.type === 'Fertilize') {
-      markFertilized(task.plantId, '')
-    }
-    setAnimateComplete(true)
-    navigator.vibrate?.(10)
-    setTimeout(() => setAnimateComplete(false), 600)
-  }
-
-  const handleAddNote = () => {
-    setShowMenu(false)
-    setShowNote(true)
-  }
-
-  const handleSaveNote = note => {
-    if (note) {
-      logEvent(task.plantId, 'Note', note)
-    }
-    setShowNote(false)
-  }
-
-  const handleSnooze = () => {
-    const tomorrow = new Date()
-    tomorrow.setDate(tomorrow.getDate() + 1)
-    if (task.type === 'Water') {
-      updatePlant(task.plantId, {
-        nextWater: tomorrow.toISOString().slice(0, 10),
-      })
-    } else if (task.type === 'Fertilize') {
-      updatePlant(task.plantId, {
-        nextFertilize: tomorrow.toISOString().slice(0, 10),
-      })
-    }
-    setShowMenu(false)
-  }
-
-  const handleEdit = () => {
-    navigate(`/plant/${task.plantId}/edit`)
-    setShowMenu(false)
-  }
-
-  const { dx: deltaX, start, move, end } = useSwipe(diff => {
-    if (!swipeable) return
-    if (diff > COMPLETE_THRESHOLD) {
-      handleComplete()
-    } else if (diff < -MENU_THRESHOLD) {
-      setShowMenu(true)
-      navigator.vibrate?.(10)
-    }
-  })
-
-  const handlePointerDown = e => {
-    if (!swipeable) return
-    createRipple(e)
-    start(e)
-    longPressTimer.current = setTimeout(() => setShowMenu(true), LONG_PRESS_MS)
-  }
-
-  const handlePointerMove = e => {
-    if (!swipeable) return
-    move(e)
-    if (Math.abs(deltaX) > 5 && longPressTimer.current) {
-      clearTimeout(longPressTimer.current)
-      longPressTimer.current = null
-    }
-  }
-
-  const handlePointerUp = e => {
-    if (!swipeable) return
-    clearTimeout(longPressTimer.current)
-    longPressTimer.current = null
-    end(e)
-  }
-
   return (
-    <>
-      {showNote && (
-        <NoteModal label="Add Note" onSave={handleSaveNote} onCancel={() => setShowNote(false)} />
-      )}
-      <div
-        data-testid="task-card"
-        tabIndex="0"
-        aria-label={`Task card for ${task.plantName}`}
-        onPointerDown={swipeable ? handlePointerDown : undefined}
-        onPointerMove={swipeable ? handlePointerMove : undefined}
-        onPointerUp={swipeable ? handlePointerUp : undefined}
-        onPointerCancel={swipeable ? handlePointerUp : undefined}
-        onMouseDown={swipeable ? handlePointerDown : undefined}
-        onMouseMove={swipeable ? handlePointerMove : undefined}
-        onMouseUp={swipeable ? handlePointerUp : undefined}
-        onTouchStart={swipeable ? handlePointerDown : undefined}
-        onTouchMove={swipeable ? handlePointerMove : undefined}
-        onTouchEnd={swipeable ? handlePointerUp : undefined}
-        className="relative overflow-hidden rounded-xl"
-      >
-        {showMenu && (
-          <div className="absolute inset-0 flex justify-end items-center gap-2 pr-4 bg-gray-100 dark:bg-gray-600">
-            <button
-              type="button"
-              onClick={handleAddNote}
-              className="bg-white dark:bg-gray-700 px-3 py-1 rounded text-sm"
-            >
-              Add Note
-            </button>
-            <button
-              type="button"
-              onClick={handleSnooze}
-              className="bg-white dark:bg-gray-700 px-3 py-1 rounded text-sm"
-            >
-              Snooze
-            </button>
-            <button
-              type="button"
-              onClick={handleEdit}
-              className="bg-white dark:bg-gray-700 px-3 py-1 rounded text-sm"
-            >
-              Edit Plant
-            </button>
-          </div>
-        )}
+    <div
+      data-testid="task-card"
+      tabIndex="0"
+      aria-label={`Task card for ${task.plantName}`}
+      className="relative overflow-hidden rounded-xl"
+    >
         <div
-          className={`relative flex items-center gap-3 px-4 py-3 shadow-sm ${completed || animateComplete ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : 'bg-white dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
-          style={{
-            transform: swipeable ? `translateX(${showMenu ? -100 : deltaX}px)` : undefined,
-            transition: swipeable && deltaX === 0 ? 'transform 0.2s' : undefined,
-          }}
+          className={`relative flex items-center gap-3 px-4 py-3 shadow-sm ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : 'bg-white dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
         >
           <div className="flex items-center flex-1 gap-3">
             <img src={task.image} alt={task.plantName} className="w-12 h-12 rounded-lg object-cover" />
@@ -182,12 +46,12 @@ export default function TaskCard({
                       : 'bg-healthy-100 text-healthy-800'
                   }`}
                 >
-                  {completed || animateComplete
+                  {completed
                     ? task.type === 'Water'
                       ? 'Watered!'
                       : task.type === 'Fertilize'
-                      ? 'Fertilized!'
-                      : task.type
+                        ? 'Fertilized!'
+                        : task.type
                     : task.type === 'Water'
                     ? 'To Water'
                     : task.type === 'Fertilize'
@@ -211,8 +75,8 @@ export default function TaskCard({
             className="ml-auto relative focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-healthy-500"
             aria-label="Mark complete"
           >
-            <input type="checkbox" checked={completed || animateComplete} readOnly className="sr-only task-checkbox" />
-            <CheckCircle aria-hidden="true" className={`w-6 h-6 ${completed || animateComplete ? 'text-healthy-500' : 'text-gray-400'}`} />
+            <input type="checkbox" checked={completed} readOnly className="sr-only task-checkbox" />
+            <CheckCircle aria-hidden="true" className={`w-6 h-6 ${completed ? 'text-healthy-500' : 'text-gray-400'}`} />
             {overdue && (
               <span
                 className="absolute -top-1 -right-1 bg-fertilize-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs overdue-ping"
@@ -222,7 +86,7 @@ export default function TaskCard({
               </span>
             )}
           </button>
-          {(completed || animateComplete) && (
+          {completed && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none task-complete-fade">
               <svg
                 className="w-8 h-8 text-healthy-600 check-pop"
@@ -250,7 +114,6 @@ export default function TaskCard({
           )}
         </div>
       </div>
-    </>
   )
 }
 

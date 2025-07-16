@@ -12,7 +12,6 @@ exports[`matches snapshot in dark mode 1`] = `
   >
     <div
       class="relative flex items-center gap-3 px-4 py-3 shadow-sm bg-white dark:bg-gray-700 ring-2 ring-green-300 dark:ring-green-400"
-      style="transform: translateX(0px); transition: transform 0.2s;"
     >
       <div
         class="flex items-center flex-1 gap-3"
