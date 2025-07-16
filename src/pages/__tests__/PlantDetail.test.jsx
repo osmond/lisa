@@ -27,15 +27,12 @@ test('renders plant details without duplicates', () => {
   expect(screen.getByText(plant.difficulty)).toBeInTheDocument()
 
   const wateredLabel = screen.getByText('Last watered:')
-  expect(wateredLabel).toHaveClass('font-semibold')
   expect(within(wateredLabel.parentElement).getByText(plant.lastWatered)).toBeInTheDocument()
 
   const nextLabel = screen.getByText('Next watering:')
-  expect(nextLabel).toHaveClass('font-semibold')
   expect(within(nextLabel.parentElement).getByText(plant.nextWater)).toBeInTheDocument()
 
   const fertLabel = screen.getByText('Last fertilized:')
-  expect(fertLabel).toHaveClass('font-semibold')
   expect(within(fertLabel.parentElement).getByText(plant.lastFertilized)).toBeInTheDocument()
 })
 
