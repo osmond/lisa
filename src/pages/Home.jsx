@@ -150,7 +150,7 @@ export default function Home() {
         </p>
       </header>
     {plants.length > 0 && (
-      <section>
+      <section className="mb-4">
         <h2 className="sr-only">Featured Plant</h2>
         <FeaturedCard plants={plants} startIndex={featuredIndex} />
       </section>
