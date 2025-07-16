@@ -30,15 +30,6 @@ import { formatMonth, formatDate } from '../utils/date.js'
 import { buildEvents, groupEventsByMonth } from '../utils/events.js'
 
 
-const iconColors = {
-  water: 'text-blue-500',
-  fertilize: 'text-yellow-500',
-  note: 'text-gray-400',
-  log: 'text-green-500',
-  advanced: 'text-purple-500',
-  noteText: 'text-gray-400',
-}
-
 const bulletColors = {
   water: 'bg-blue-500',
   fertilize: 'bg-yellow-500',
@@ -248,9 +239,12 @@ export default function PlantDetail() {
                   const Icon = actionIcons[e.type]
                   return (
                     <div key={`${e.date}-${i}`} className="relative text-sm">
-                      <div className={`absolute -left-5 top-1 w-3 h-3 rounded-full ${bulletColors[e.type]}`}></div>
-                      <p className="flex items-start gap-2 text-gray-700 dark:text-gray-200 ml-1">
-                        {Icon && <Icon className={`w-4 h-4 ${iconColors[e.type]}`} aria-hidden="true" />}
+                      {Icon && (
+                        <div className={`absolute -left-5 top-[0.25rem] w-4 h-4 flex items-center justify-center rounded-full ${bulletColors[e.type]}`}>
+                          <Icon className="w-3 h-3 text-white" aria-hidden="true" />
+                        </div>
+                      )}
+                      <p className="flex items-start text-gray-700 dark:text-gray-200">
                         <span>
                           <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
                           {e.note && (
