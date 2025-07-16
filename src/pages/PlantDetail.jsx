@@ -10,16 +10,26 @@ import QuickStatsCard from '../components/QuickStatsCard.jsx'
 import CareProfileCard from '../components/CareProfileCard.jsx'
 import ActivityTabs from '../components/ActivityTabs.jsx'
 import GalleryPanel from '../components/GalleryPanel.jsx'
-
 import { usePlants } from '../PlantContext.jsx'
 import NoteModal from '../components/NoteModal.jsx'
-
+import Accordion from '../components/Accordion.jsx'
 import useToast from "../hooks/useToast.jsx"
-
 import { formatDate } from '../utils/date.js'
-
 import { buildEvents, groupEventsByMonth } from '../utils/events.js'
 
+const iconColors = {
+  water: 'text-blue-500',
+  fertilize: 'text-yellow-500',
+  note: 'text-gray-400',
+  log: 'text-green-500',
+}
+
+const bulletColors = {
+  water: 'bg-blue-500',
+  fertilize: 'bg-yellow-500',
+  note: 'bg-gray-400',
+  log: 'bg-green-500',
+}
 
 export default function PlantDetail() {
   const { id } = useParams()
@@ -33,12 +43,7 @@ export default function PlantDetail() {
   const [showActionsMenu, setShowActionsMenu] = useState(false)
 
   const events = useMemo(() => buildEvents(plant), [plant])
-
-  const groupedEvents = useMemo(
-    () => groupEventsByMonth(events),
-    [events]
-  )
-
+  const groupedEvents = useMemo(() => groupEventsByMonth(events), [events])
 
   const handleWatered = () => {
     markWatered(plant.id, '')
@@ -56,10 +61,6 @@ export default function PlantDetail() {
 
   const handleEdit = () => {
     navigate(`/plant/${plant.id}/edit`)
-  }
-
-  const handleAddPhoto = () => {
-    fileInputRef.current?.click()
   }
 
   const saveNote = note => {
@@ -119,18 +120,6 @@ export default function PlantDetail() {
                   Edit Plant
                 </button>
               </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowActionsMenu(false)
-                    handleAddPhoto()
-                  }}
-                  className="block px-3 py-1 text-sm text-left w-full hover:bg-gray-100"
-                >
-                  Add Photo
-                </button>
-              </li>
             </ul>
           )}
           <div className="absolute bottom-3 left-4 text-white drop-shadow">
@@ -140,6 +129,7 @@ export default function PlantDetail() {
             )}
           </div>
         </div>
+
         <QuickStatsCard
           lastWatered={plant.lastWatered}
           nextWater={plant.nextWater}
@@ -163,18 +153,19 @@ export default function PlantDetail() {
           difficulty={plant.difficulty}
         />
 
-
         <ActivityTabs plant={plant} events={events} groupedEvents={groupedEvents} />
       </div>
+
       <GalleryPanel
         plant={plant}
         addPhoto={addPhoto}
         removePhoto={removePhoto}
         inputRef={fileInputRef}
       />
+
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
       )}
-  </div>
-)
+    </div>
+  )
 }

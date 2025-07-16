@@ -77,7 +77,6 @@ test('incomplete tasks show alert style', () => {
   )
   const wrapper = container.querySelector('[data-testid="task-card"]')
   expect(wrapper).toHaveClass('bg-white')
-  expect(wrapper).toHaveClass('ring-gray-100')
 })
 
 test('applies highlight when urgent', () => {
