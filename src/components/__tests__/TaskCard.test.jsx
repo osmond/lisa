@@ -1,10 +1,8 @@
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { MemoryRouter, Routes, Route } from 'react-router-dom'
+import { MemoryRouter } from 'react-router-dom'
 import TaskCard from '../TaskCard.jsx'
 import BaseCard from '../BaseCard.jsx'
-
-import { PlantProvider, usePlants } from '../../PlantContext.jsx'
 
 beforeAll(() => {
   if (typeof PointerEvent === 'undefined') {
@@ -12,32 +10,6 @@ beforeAll(() => {
   }
 })
 
-jest.mock('../../PlantContext.jsx', () => {
-  const actual = jest.requireActual('../../PlantContext.jsx')
-  return { ...actual, usePlants: jest.fn() }
-})
-
-
-const usePlantsMock = usePlants
-
-const markWatered = jest.fn()
-const markFertilized = jest.fn()
-
-beforeEach(() => {
-  markWatered.mockClear()
-  markFertilized.mockClear()
-  usePlantsMock.mockReturnValue({
-    plants: [],
-    markWatered,
-    markFertilized,
-    logEvent: jest.fn(),
-    addPlant: jest.fn(),
-    updatePlant: jest.fn(),
-    removePlant: jest.fn(),
-    addPhoto: jest.fn(),
-    removePhoto: jest.fn(),
-  })
-})
 
 const task = {
   id: 1,
@@ -67,13 +39,11 @@ test('renders task text', () => {
 
 test('incomplete tasks show alert style', () => {
   const { container } = render(
-    <PlantProvider>
-      <MemoryRouter>
-        <BaseCard variant="task">
-          <TaskCard task={task} />
-        </BaseCard>
-      </MemoryRouter>
-    </PlantProvider>
+    <MemoryRouter>
+      <BaseCard variant="task">
+        <TaskCard task={task} />
+      </BaseCard>
+    </MemoryRouter>
   )
   const wrapper = container.querySelector('[data-testid="task-card"]')
   expect(wrapper).toHaveClass('bg-white')
@@ -166,131 +136,23 @@ test('compact mode hides reason and evapotranspiration info', () => {
   expect(screen.queryByText(/Evapotranspiration/)).not.toBeInTheDocument()
 })
 
-test('mark as done does not navigate', () => {
-  render(
-    <MemoryRouter initialEntries={['/']}>
-      <Routes>
-        <Route
-          path="/"
-          element={(
-            <BaseCard variant="task">
-              <TaskCard task={task} />
-            </BaseCard>
-          )}
-        />
-        <Route path="/plant/:id" element={<div>Plant Page</div>} />
-      </Routes>
-    </MemoryRouter>
-  )
-  fireEvent.click(screen.getByRole('checkbox'))
-  expect(markWatered).toHaveBeenCalledWith(1, '')
-  expect(screen.queryByText('Plant Page')).not.toBeInTheDocument()
-})
-
-test('completing task logs watering', () => {
-  render(
-    <MemoryRouter>
-      <BaseCard variant="task">
-        <TaskCard task={task} />
-      </BaseCard>
-    </MemoryRouter>
-  )
-  fireEvent.click(screen.getByRole('checkbox'))
-  expect(markWatered).toHaveBeenCalledWith(1, '')
-})
-
-test('clicking card adds ripple effect', () => {
+test('card is non-interactive', async () => {
+  const onComplete = jest.fn()
   const { container } = render(
     <MemoryRouter>
       <BaseCard variant="task">
-        <TaskCard task={task} />
+        <TaskCard task={task} onComplete={onComplete} />
       </BaseCard>
     </MemoryRouter>
   )
   const wrapper = container.querySelector('[data-testid="task-card"]')
-  fireEvent.mouseDown(wrapper)
-  expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
-})
-
-test('keyboard Enter and Space trigger completion with ripple', async () => {
-  const onComplete = jest.fn()
-  const { container } = render(
-    <MemoryRouter>
-      <BaseCard variant="task">
-        <TaskCard task={task} onComplete={onComplete} />
-      </BaseCard>
-    </MemoryRouter>
-  )
-  const button = screen.getByRole('button', { name: /mark complete/i })
   const user = userEvent.setup()
-  button.focus()
+  await user.click(wrapper)
   await user.keyboard('{Enter}')
-  expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
-  expect(onComplete).toHaveBeenCalledWith(task)
-  container.querySelector('.ripple-effect')?.remove()
-  await user.keyboard(' ')
-  expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
-  expect(onComplete).toHaveBeenCalledTimes(2)
-})
-
-test('arrow right marks task complete', () => {
-  const onComplete = jest.fn()
-  render(
-    <MemoryRouter>
-      <BaseCard variant="task">
-        <TaskCard task={task} onComplete={onComplete} />
-      </BaseCard>
-    </MemoryRouter>
-  )
-  const wrapper = screen.getByTestId('task-card')
-  wrapper.focus()
-  fireEvent.keyDown(wrapper, { key: 'ArrowRight' })
-  expect(onComplete).toHaveBeenCalledWith(task)
-})
-
-test('swipe right marks task complete', async () => {
-  const onComplete = jest.fn()
-  render(
-    <MemoryRouter>
-      <BaseCard variant="task">
-        <TaskCard task={task} onComplete={onComplete} />
-      </BaseCard>
-    </MemoryRouter>
-  )
-  const wrapper = screen.getByTestId('task-card')
-  fireEvent.pointerDown(wrapper, { clientX: 0, buttons: 1 })
-  fireEvent.pointerMove(wrapper, { clientX: 80, buttons: 1 })
-  fireEvent.pointerUp(wrapper, { clientX: 80 })
-  const user = userEvent.setup()
-  await act(async () => {
-    fireEvent.touchStart(wrapper, { touches: [{ clientX: 0 }] })
-    fireEvent.touchMove(wrapper, { touches: [{ clientX: 80 }] })
-    fireEvent.touchEnd(wrapper)
-  })
-  expect(onComplete).toHaveBeenCalledWith(task)
-})
-
-test('swipe gestures disabled when swipeable is false', async () => {
-  const onComplete = jest.fn()
-  const { container } = render(
-    <MemoryRouter>
-      <BaseCard variant="task">
-        <TaskCard task={task} onComplete={onComplete} swipeable={false} />
-      </BaseCard>
-    </MemoryRouter>
-  )
-  const wrapper = screen.getByTestId('task-card')
-  fireEvent.pointerDown(wrapper, { clientX: 0, buttons: 1 })
-  fireEvent.pointerMove(wrapper, { clientX: 80, buttons: 1 })
-  fireEvent.pointerUp(wrapper, { clientX: 80 })
-  await act(async () => {
-    fireEvent.touchStart(wrapper, { touches: [{ clientX: 0 }] })
-    fireEvent.touchMove(wrapper, { touches: [{ clientX: 80 }] })
-    fireEvent.touchEnd(wrapper)
-  })
+  expect(container.querySelector('.ripple-effect')).not.toBeInTheDocument()
   expect(onComplete).not.toHaveBeenCalled()
-  expect(container.querySelector('[data-testid="task-card"]').style.transform).toBe('translateX(0px)')
 })
+
 
 test('matches snapshot in dark mode', () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-16'))
@@ -307,20 +169,3 @@ test('matches snapshot in dark mode', () => {
   jest.useRealTimers()
 })
 
-test('shows toast on completion', () => {
-  jest.useFakeTimers()
-  render(
-    <MemoryRouter>
-      <BaseCard variant="task">
-        <TaskCard task={task} />
-      </BaseCard>
-    </MemoryRouter>
-  )
-  fireEvent.click(screen.getByRole('checkbox'))
-  expect(screen.getByText('Watered Monstera 🌿')).toBeInTheDocument()
-  act(() => {
-    jest.runAllTimers()
-  })
-  expect(screen.queryByText('Watered Monstera 🌿')).not.toBeInTheDocument()
-  jest.useRealTimers()
-})
