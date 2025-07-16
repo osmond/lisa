@@ -61,12 +61,9 @@ export default function PlantDetail() {
   const [showLegend, setShowLegend] = useState(false)
 
   const events = useMemo(() => buildEvents(plant), [plant])
-  const pinnedEvents = events.filter(e => ['noteText', 'advanced'].includes(e.type))
-  const filteredEvents = events.filter(e => !['noteText', 'advanced'].includes(e.type))
-
   const groupedEvents = useMemo(
-    () => groupEventsByMonth(filteredEvents),
-    [filteredEvents]
+    () => groupEventsByMonth(events),
+    [events]
   )
 
 
@@ -233,25 +230,6 @@ export default function PlantDetail() {
           </div>
         </section>
 
-        {(pinnedEvents.length > 0) && (
-        <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-2">
-          <h3 className="flex items-center gap-2 font-semibold font-headline mb-1">
-            <Info className="w-5 h-5 text-purple-600" aria-hidden="true" />
-            Tips & Traits
-          </h3>
-          <ul className="space-y-2 text-sm">
-            {pinnedEvents.map((e, i) => {
-              const Icon = actionIcons[e.type] || Info
-              return (
-                <li key={i} className="flex items-start gap-2">
-                  <Icon className={`w-4 h-4 ${iconColors[e.type]}`} aria-hidden="true" />
-                  <span>{e.note}</span>
-                </li>
-              )
-            })}
-          </ul>
-        </section>
-        )}
 
         <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-4">
           <h3 className="flex items-center gap-2 font-semibold font-headline mb-1">
