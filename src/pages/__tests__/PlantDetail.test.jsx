@@ -3,17 +3,20 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import PlantDetail from '../PlantDetail.jsx'
 import plants from '../../plants.json'
 import { PlantProvider } from '../../PlantContext.jsx'
+import { MenuProvider } from '../../MenuContext.jsx'
 
 test('renders plant details without duplicates', () => {
   const plant = plants[0]
   render(
-    <PlantProvider>
-      <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
-        <Routes>
-          <Route path="/plant/:id" element={<PlantDetail />} />
-        </Routes>
-      </MemoryRouter>
-    </PlantProvider>
+    <MenuProvider>
+      <PlantProvider>
+        <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+          <Routes>
+            <Route path="/plant/:id" element={<PlantDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </PlantProvider>
+    </MenuProvider>
   )
 
   const headings = screen.getAllByRole('heading', { name: plant.name })
@@ -58,13 +61,15 @@ test('renders plant details without duplicates', () => {
 test('displays all sections', () => {
   const plant = plants[0]
   render(
-    <PlantProvider>
-      <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
-        <Routes>
-          <Route path="/plant/:id" element={<PlantDetail />} />
-        </Routes>
-      </MemoryRouter>
-    </PlantProvider>
+    <MenuProvider>
+      <PlantProvider>
+        <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+          <Routes>
+            <Route path="/plant/:id" element={<PlantDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </PlantProvider>
+    </MenuProvider>
   )
 
   expect(screen.getByRole('heading', { name: /quick stats/i })).toBeInTheDocument()
@@ -77,13 +82,15 @@ test('opens lightbox from gallery', () => {
 
   const plant = plants[0]
   render(
-    <PlantProvider>
-      <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
-        <Routes>
-          <Route path="/plant/:id" element={<PlantDetail />} />
-        </Routes>
-      </MemoryRouter>
-    </PlantProvider>
+    <MenuProvider>
+      <PlantProvider>
+        <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+          <Routes>
+            <Route path="/plant/:id" element={<PlantDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </PlantProvider>
+    </MenuProvider>
   )
 
   const img = screen.getByAltText(`${plant.name} 0`)
@@ -124,13 +131,15 @@ test('opens lightbox from gallery', () => {
 test('view all button opens the viewer from first image', () => {
   const plant = plants[0]
   render(
-    <PlantProvider>
-      <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
-        <Routes>
-          <Route path="/plant/:id" element={<PlantDetail />} />
-        </Routes>
-      </MemoryRouter>
-    </PlantProvider>
+    <MenuProvider>
+      <PlantProvider>
+        <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+          <Routes>
+            <Route path="/plant/:id" element={<PlantDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </PlantProvider>
+    </MenuProvider>
   )
 
   const viewAll = screen.getByRole('button', { name: /view all photos/i })
