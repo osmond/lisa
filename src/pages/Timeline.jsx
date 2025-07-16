@@ -1,7 +1,7 @@
 import { usePlants } from '../PlantContext.jsx'
 import { useMemo } from 'react'
 import actionIcons from '../components/ActionIcons.jsx'
-import { formatMonth } from '../utils/date.js'
+import { formatMonth, formatDate } from '../utils/date.js'
 import { buildEvents, groupEventsByMonth } from '../utils/events.js'
 
 export default function Timeline() {
@@ -53,8 +53,9 @@ export default function Timeline() {
                   >
                     {Icon && <Icon className={`w-4 h-4 ${iconColors[e.type]}`} />}
                   </div>
-                  <p className="text-xs text-gray-400">{e.date}</p>
-                  <p className="font-medium">{e.label}</p>
+                  <p className="font-medium">
+                    {formatDate(e.date)} — {e.label}
+                  </p>
                   {e.note && (
                     <p className="text-xs text-gray-500 italic">{e.note}</p>
                   )}

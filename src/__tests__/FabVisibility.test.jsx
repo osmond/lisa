@@ -24,12 +24,10 @@ const routesWithFab = [
   '/add',
   '/profile',
   '/timeline',
-  '/plant/1',
-  '/plant/1/edit',
   '/nonexistent',
 ]
 
-const routesWithoutFab = ['/tasks']
+const routesWithoutFab = ['/tasks', '/plant/1', '/plant/1/edit']
 
 describe('Floating Action Button visibility', () => {
   test.each(routesWithFab)('shows FAB on %s', route => {

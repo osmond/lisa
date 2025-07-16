@@ -51,7 +51,7 @@ test('renders care log notes', () => {
   ]
 
   render(<Timeline />)
-  expect(screen.getByText('Watered Plant A')).toBeInTheDocument()
+  expect(screen.getByText(/Watered Plant A/)).toBeInTheDocument()
   expect(screen.getByText('deep soak')).toBeInTheDocument()
 })
 
