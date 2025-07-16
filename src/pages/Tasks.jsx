@@ -4,6 +4,7 @@ import { useWeather } from '../WeatherContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
 
 import TaskCard from '../components/TaskCard.jsx'
+import UnifiedTaskCard from '../components/UnifiedTaskCard.jsx'
 import BaseCard from '../components/BaseCard.jsx'
 import TaskTabs from '../components/TaskTabs.jsx'
 import CareRings from '../components/CareRings.jsx'
@@ -277,41 +278,33 @@ export default function Tasks() {
               : 'No tasks coming up.'}
           </p>
         ) : (
-          eventsByPlant.map(({ plant, list }) => (
-            <div key={plant?.id ?? 'none'}>
-              <h3 className="mt-4 text-sm font-semibold text-gray-500">
-                {plant?.name || 'Unknown'}
-              </h3>
-              <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-4'}>
-                {list.map((e, i) => {
-                  const task = {
-                    id: `${e.taskType}-${e.plantId}-${i}`,
-                    plantId: e.plantId,
-                    plantName: e.plantName,
-                    image: e.image,
-                    type:
-                      e.taskType === 'water'
-                        ? 'Water'
-                        : e.taskType === 'fertilize'
-                        ? 'Fertilize'
-                        : 'Note',
-                    reason: e.reason,
-                    completed: e.completed,
-                  }
-                  return (
-                    <BaseCard key={`${e.date}-${i}`} variant="task">
-                      <TaskCard
-                        task={task}
-                        urgent={!!e.urgent}
-                        overdue={!!e.overdue}
-                        completed={e.completed}
-                      />
-                    </BaseCard>
-                  )
-                })}
-              </div>
-            </div>
-          ))
+          <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-4'}>
+          {eventsByPlant.map(({ plant, list }) => {
+            const dueWater = list.some(e => e.taskType === 'water' && !e.completed)
+            const dueFertilize = list.some(
+              e => e.taskType === 'fertilize' && !e.completed
+            )
+            const urgent = list.some(e => e.urgent)
+            const overdue = list.some(e => e.overdue)
+            const lastCared = [plant?.lastWatered, plant?.lastFertilized]
+              .filter(Boolean)
+              .sort((a, b) => new Date(b) - new Date(a))[0]
+            return (
+              <BaseCard key={plant?.id ?? 'none'} variant="task">
+                <UnifiedTaskCard
+                  plant={{
+                    ...plant,
+                    dueWater,
+                    dueFertilize,
+                    lastCared,
+                  }}
+                  urgent={urgent}
+                  overdue={overdue}
+                />
+              </BaseCard>
+            )
+          })}
+          </div>
         )
       ) : groupedEvents.length === 0 ? (
         <p className="text-center text-gray-500">

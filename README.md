@@ -19,6 +19,7 @@ Includes:
 ## Using the UI
 
 Task cards now render as static summaries with no swipe gestures. Plant cards remain interactive and support swiping or keyboard shortcuts through the underlying `PlantCard` component.
+The Tasks page groups care by plant using a `UnifiedTaskCard` that shows a thumbnail, upcoming needs and quick "Water Now" or "Fertilize Now" buttons when due.
 
 ## Plant Detail View
 
