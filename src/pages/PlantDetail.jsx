@@ -57,6 +57,13 @@ export default function PlantDetail() {
     log: 'text-green-500',
   }
 
+  const bulletColors = {
+    water: 'bg-blue-500',
+    fertilize: 'bg-yellow-500',
+    note: 'bg-gray-400',
+    log: 'bg-green-500',
+  }
+
   const handleFiles = e => {
     const files = Array.from(e.target.files || [])
     files.forEach(file => {
@@ -168,34 +175,34 @@ export default function PlantDetail() {
             </ul>
           )}
           <div className="absolute bottom-3 left-4 text-white drop-shadow">
-            <h2 className="text-2xl font-semibold">{plant.name}</h2>
+            <h2 className="text-xl font-semibold">{plant.name}</h2>
             {plant.nickname && (
-              <p className="text-sm opacity-90">{plant.nickname}</p>
+              <p className="text-sm text-gray-200">{plant.nickname}</p>
             )}
           </div>
         </div>
-        <div className="bg-green-50 p-4 rounded-xl shadow-sm space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-blue-700 flex items-center gap-1">
+        <div className="bg-gray-50 rounded-xl p-4 space-y-2 shadow-sm">
+          <div className="flex items-center justify-between text-sm">
+            <span className="flex items-center gap-1 text-blue-700">
               <Drop className="w-3 h-3" aria-hidden="true" />
               Last watered:
             </span>
-            <span className="text-sm font-medium text-gray-900">{plant.lastWatered}</span>
+            <span className="font-medium text-gray-900">{plant.lastWatered}</span>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-green-700 flex items-center gap-1">
+          <div className="flex items-center justify-between text-sm">
+            <span className="flex items-center gap-1 text-green-700">
               <CalendarCheck className="w-3 h-3" aria-hidden="true" />
               Next watering:
             </span>
-            <span className="text-sm font-medium text-gray-900">{plant.nextWater}</span>
+            <span className="font-medium text-gray-900">{plant.nextWater}</span>
           </div>
           {plant.lastFertilized && (
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-yellow-700 flex items-center gap-1">
+            <div className="flex items-center justify-between text-sm">
+              <span className="flex items-center gap-1 text-amber-700">
                 <Flower className="w-3 h-3" aria-hidden="true" />
                 Last fertilized:
               </span>
-              <span className="text-sm font-medium text-gray-900">{plant.lastFertilized}</span>
+              <span className="font-medium text-gray-900">{plant.lastFertilized}</span>
             </div>
           )}
         </div>
@@ -203,12 +210,18 @@ export default function PlantDetail() {
 
         <div className="space-y-1 mt-4">
           <h3 className="text-base font-semibold font-headline">Care Profile</h3>
+          {plant.light && (
+            <>
+              <h4 className="text-xs font-semibold text-gray-500 mb-1">Light Needs</h4>
+              <div className="flex gap-2 mb-3">
+                <Badge Icon={Sun} colorClass="bg-yellow-50 text-yellow-800 text-xs">
+                  {plant.light}
+                </Badge>
+              </div>
+            </>
+          )}
+          <h4 className="text-xs font-semibold text-gray-500 mb-1 mt-1">Care Tags</h4>
           <div className="flex flex-wrap gap-2">
-            {plant.light && (
-              <Badge Icon={Sun} colorClass="bg-yellow-50 text-yellow-800 text-xs">
-                {plant.light}
-              </Badge>
-            )}
             {plant.humidity && (
               <Badge Icon={Drop} colorClass="bg-blue-50 text-blue-800 text-xs">
                 {plant.humidity}
@@ -346,18 +359,21 @@ export default function PlantDetail() {
           >
             {groupedEvents.map(([monthKey, list]) => (
               <div key={monthKey} className="mt-6 first:mt-0">
-                <div className="text-sm text-gray-500">{formatMonth(monthKey)}</div>
-                <div className="ml-3 border-l border-gray-200 space-y-3 mt-2 pl-3">
+                <div className="text-sm font-semibold text-gray-500">{formatMonth(monthKey)}</div>
+                <div className="ml-3 border-l-2 border-gray-200 space-y-4 mt-2 pl-5">
                   {list.map((e, i) => {
                     const Icon = actionIcons[e.type]
                     return (
-                      <div key={`${e.date}-${i}`} className="flex items-start gap-3 text-sm">
-                        <div className={`mt-0.5 ${iconColors[e.type]}`}>{Icon && <Icon className="w-4 h-4" aria-hidden="true" />}</div>
-                        <p className="text-gray-700">
-                          <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
-                          {e.note && (
-                            <>: <em>{e.note}</em></>
-                          )}
+                      <div key={`${e.date}-${i}`} className="relative text-sm">
+                        <div className={`absolute -left-5 top-1 w-3 h-3 rounded-full ${bulletColors[e.type]}`}></div>
+                        <p className="flex items-start gap-2 text-gray-700 ml-1">
+                          {Icon && <Icon className={`w-4 h-4 ${iconColors[e.type]}`} aria-hidden="true" />}
+                          <span>
+                            <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
+                            {e.note && (
+                              <>: <em>{e.note}</em></>
+                            )}
+                          </span>
                         </p>
                       </div>
                     )
