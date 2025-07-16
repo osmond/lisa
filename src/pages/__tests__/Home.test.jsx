@@ -105,8 +105,6 @@ test('earliest due task appears first', () => {
 })
 
 
-test('tasks container renders with background', () => {
-
 test('featured section provides extra spacing', () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
   mockPlants.splice(0, mockPlants.length, {
@@ -130,6 +128,5 @@ test('featured section provides extra spacing', () => {
 
   const section = screen.getByTestId('featured-card').closest('section')
   expect(section).toHaveClass('mb-4')
->
 })
 
