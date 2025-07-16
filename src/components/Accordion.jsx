@@ -13,7 +13,7 @@ export default function Accordion({ title, defaultOpen = false, children }) {
       >
         <span>{title}</span>
         <span className="text-sm text-green-600">
-          {open ? 'Collapse' : 'Expand'}
+          {open ? 'Hide Details' : 'Show Details'}
         </span>
       </button>
       {open && <div className="p-4">{children}</div>}

@@ -49,7 +49,9 @@ test('tab keyboard navigation works', () => {
   )
 
   // Expand section first
-  fireEvent.click(screen.getByRole('button', { name: /Activity & Notes Expand/i }))
+  fireEvent.click(
+    screen.getByRole('button', { name: /Activity & Notes Show Details/i })
+  )
 
   const tabs = [
     screen.getByRole('tab', { name: /Activity/ }),
@@ -82,16 +84,16 @@ test('sections collapsed by default', () => {
   )
 
   expect(
-    screen.getByRole('button', { name: /Activity & Notes Expand/i })
+    screen.getByRole('button', { name: /Activity & Notes Show Details/i })
   ).toHaveAttribute('aria-expanded', 'false')
   expect(
-    screen.getByRole('button', { name: /Gallery Expand/i })
+    screen.getByRole('button', { name: /Gallery Show Details/i })
   ).toHaveAttribute('aria-expanded', 'false')
   expect(
-    screen.getByRole('button', { name: /Quick Stats Collapse/i })
+    screen.getByRole('button', { name: /Quick Stats Hide Details/i })
   ).toHaveAttribute('aria-expanded', 'true')
   expect(
-    screen.getByRole('button', { name: /Care Profile Collapse/i })
+    screen.getByRole('button', { name: /Care Profile Hide Details/i })
   ).toHaveAttribute('aria-expanded', 'true')
 })
 
@@ -109,7 +111,7 @@ test('opens lightbox from gallery', () => {
     </PlantProvider>
   )
 
-  fireEvent.click(screen.getByRole('button', { name: /Gallery Expand/i }))
+  fireEvent.click(screen.getByRole('button', { name: /Gallery Show Details/i }))
 
   const img = screen.getByAltText(`${plant.name} 0`)
   fireEvent.click(img.closest('button'))
