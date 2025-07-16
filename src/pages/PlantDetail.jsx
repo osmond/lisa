@@ -180,7 +180,7 @@ export default function PlantDetail() {
               <CalendarCheck className="w-4 h-4" aria-hidden="true" />
               Next watering:
             </span>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <span className="text-gray-700">{plant.nextWater}</span>
               <button
                 type="button"
@@ -198,7 +198,7 @@ export default function PlantDetail() {
                 <Flower className="w-4 h-4" aria-hidden="true" />
                 Next fertilizing:
               </span>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <span className="text-gray-700">{plant.nextFertilize}</span>
                 <button
                   type="button"
@@ -220,13 +220,11 @@ export default function PlantDetail() {
               <span className="text-gray-700">{plant.lastFertilized}</span>
             </div>
           )}
-        </section>
-
-        <section className="bg-white rounded-xl shadow-sm p-4 space-y-3">
-          <h3 className="flex items-center gap-2 font-semibold font-headline">
-            <Sun className="w-5 h-5 text-yellow-600" aria-hidden="true" />
-            Care Profile
-          </h3>
+          <div className="border-t pt-3 space-y-3">
+            <h3 className="flex items-center gap-2 font-semibold font-headline">
+              <Sun className="w-5 h-5 text-yellow-600" aria-hidden="true" />
+              Care Profile
+            </h3>
           {plant.light && (
             <>
               <h4 className="text-xs font-semibold text-gray-500 mb-1">Light Needs</h4>
@@ -249,6 +247,7 @@ export default function PlantDetail() {
                 {plant.difficulty}
               </Badge>
             )}
+          </div>
           </div>
         </section>
 
