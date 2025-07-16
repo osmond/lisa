@@ -389,7 +389,6 @@ export default function PlantDetail() {
         </Accordion>
       </div>
       <Accordion title="Gallery" defaultOpen={false}>
-        <h2 className="text-xl font-semibold font-headline">Gallery</h2>
         <div className="flex gap-3 overflow-x-auto pb-2">
           {(plant.photos || []).map((src, i) => (
             
