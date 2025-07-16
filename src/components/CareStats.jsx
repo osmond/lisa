@@ -72,7 +72,10 @@ export default function CareStats({
     },
   ]
   return (
-    <div className="flex justify-around gap-4 flex-wrap" data-testid="care-stats">
+    <div
+      className="flex justify-around gap-4 flex-wrap my-4"
+      data-testid="care-stats"
+    >
       {stats.map(s => (
         <StatBlock key={s.label} {...s} />
       ))}

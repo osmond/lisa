@@ -54,3 +54,8 @@ test('ring colors remain in dark mode', () => {
   expect(getCircle('stat-fertilize')).toHaveClass('text-yellow-700')
   document.documentElement.classList.remove('dark')
 })
+
+test('container has vertical margins for spacing', () => {
+  render(<CareStats />)
+  expect(screen.getByTestId('care-stats')).toHaveClass('my-4')
+})
