@@ -55,7 +55,7 @@ test('renders plant details without duplicates', () => {
 })
 
 
-test('sections collapsed by default', () => {
+test('displays all sections', () => {
   const plant = plants[0]
   render(
     <PlantProvider>
@@ -67,18 +67,10 @@ test('sections collapsed by default', () => {
     </PlantProvider>
   )
 
-  expect(
-    screen.getByRole('button', { name: /Activity & Notes Show Details/i })
-  ).toHaveAttribute('aria-expanded', 'false')
-  expect(
-    screen.getByRole('button', { name: /Gallery Show Details/i })
-  ).toHaveAttribute('aria-expanded', 'false')
-  expect(
-    screen.getByRole('button', { name: /Quick Stats Hide Details/i })
-  ).toHaveAttribute('aria-expanded', 'true')
-  expect(
-    screen.getByRole('button', { name: /Care Profile Hide Details/i })
-  ).toHaveAttribute('aria-expanded', 'true')
+  expect(screen.getByRole('heading', { name: /quick stats/i })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: /care profile/i })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: /activity & notes/i })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: /gallery/i })).toBeInTheDocument()
 })
 
 
@@ -94,8 +86,6 @@ test('opens lightbox from gallery', () => {
       </MemoryRouter>
     </PlantProvider>
   )
-
-  fireEvent.click(screen.getByRole('button', { name: /Gallery Show Details/i }))
 
   const img = screen.getByAltText(`${plant.name} 0`)
   fireEvent.click(img.closest('button'))

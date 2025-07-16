@@ -9,6 +9,8 @@ import {
   CalendarCheck,
   Flower,
   DotsThreeVertical,
+  Image,
+  Note,
 } from 'phosphor-react'
 
 import { PlusIcon } from '@radix-ui/react-icons'
@@ -17,7 +19,6 @@ import Lightbox from '../components/Lightbox.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
-import Accordion from '../components/Accordion.jsx'
 
 import useToast from "../hooks/useToast.jsx"
 import Badge from '../components/Badge.jsx'
@@ -162,7 +163,11 @@ export default function PlantDetail() {
             )}
           </div>
         </div>
-        <Accordion title="Quick Stats" defaultOpen>
+        <section className="bg-white rounded-xl shadow-sm p-4 space-y-3">
+          <h3 className="flex items-center gap-2 font-semibold font-headline">
+            <Clock className="w-5 h-5 text-gray-600" aria-hidden="true" />
+            Quick Stats
+          </h3>
           <div className="flex justify-between items-center text-sm">
             <span className="flex items-center gap-1 text-blue-600">
               <Drop className="w-4 h-4" aria-hidden="true" />
@@ -215,20 +220,13 @@ export default function PlantDetail() {
               <span className="text-gray-700">{plant.lastFertilized}</span>
             </div>
           )}
-        </Accordion>
+        </section>
 
-        {events.length > 0 && (
-          <div className="mt-4 border-l-4 border-blue-500 pl-4">
-            <p className="text-sm font-medium text-gray-800">
-              {events[events.length - 1].label} on {formatDate(events[events.length - 1].date)}
-            </p>
-            {events[events.length - 1].note && (
-              <p className="text-xs italic text-green-700 mt-1">“{events[events.length - 1].note}”</p>
-            )}
-          </div>
-        )}
-
-        <Accordion title="Care Profile" defaultOpen>
+        <section className="bg-white rounded-xl shadow-sm p-4 space-y-3">
+          <h3 className="flex items-center gap-2 font-semibold font-headline">
+            <Sun className="w-5 h-5 text-yellow-600" aria-hidden="true" />
+            Care Profile
+          </h3>
           {plant.light && (
             <>
               <h4 className="text-xs font-semibold text-gray-500 mb-1">Light Needs</h4>
@@ -252,60 +250,73 @@ export default function PlantDetail() {
               </Badge>
             )}
           </div>
-        </Accordion>
+        </section>
 
-
-        <Accordion title="Activity & Notes" defaultOpen={false}>
-          <div className="p-4 border border-gray-100 rounded-xl bg-white shadow-sm">
-            {groupedEvents.map(([monthKey, list]) => (
-              <div key={monthKey} className="mt-6 first:mt-0">
-                <div className="text-sm font-semibold text-gray-500">{formatMonth(monthKey)}</div>
-                <div className="ml-3 border-l-2 border-gray-200 space-y-4 mt-2 pl-5">
-                  {list.map((e, i) => {
-                    const Icon = actionIcons[e.type]
-                    return (
-                      <div key={`${e.date}-${i}`} className="relative text-sm">
-                        <div className={`absolute -left-5 top-1 w-3 h-3 rounded-full ${bulletColors[e.type]}`}></div>
-                        <p className="flex items-start gap-2 text-gray-700 ml-1">
-                          {Icon && <Icon className={`w-4 h-4 ${iconColors[e.type]}`} aria-hidden="true" />}
-                          <span>
-                            <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
-                            {e.note && (
-                              <>: <em>{e.note}</em></>
-                            )}
-                          </span>
-                        </p>
-                      </div>
-                    )
-                  })}
-                </div>
+        <section className="bg-white rounded-xl shadow-sm p-4 space-y-4">
+          <h3 className="flex items-center gap-2 font-semibold font-headline mb-1">
+            <Note className="w-5 h-5 text-gray-600" aria-hidden="true" />
+            Activity & Notes
+          </h3>
+          {groupedEvents.map(([monthKey, list]) => (
+            <div key={monthKey} className="mt-2 first:mt-0">
+              <div className="text-sm font-semibold text-gray-500">{formatMonth(monthKey)}</div>
+              <div className="ml-3 border-l-2 border-gray-200 space-y-4 mt-2 pl-5">
+                {list.map((e, i) => {
+                  const Icon = actionIcons[e.type]
+                  return (
+                    <div key={`${e.date}-${i}`} className="relative text-sm">
+                      <div className={`absolute -left-5 top-1 w-3 h-3 rounded-full ${bulletColors[e.type]}`}></div>
+                      <p className="flex items-start gap-2 text-gray-700 ml-1">
+                        {Icon && <Icon className={`w-4 h-4 ${iconColors[e.type]}`} aria-hidden="true" />}
+                        <span>
+                          <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
+                          {e.note && (
+                            <>: <em>{e.note}</em></>
+                          )}
+                        </span>
+                      </p>
+                    </div>
+                  )
+                })}
               </div>
-            ))}
-          </div>
-        </Accordion>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={handleLogEvent}
+            className="mt-2 inline-flex items-center gap-1 px-2 py-1 bg-gray-100 rounded text-sm"
+          >
+            + Add Note
+          </button>
+        </section>
       </div>
-      <Accordion title="Gallery" defaultOpen={false}>
+
+      <section className="bg-white rounded-xl shadow-sm p-4 space-y-2">
+        <h3 className="flex items-center gap-2 font-semibold font-headline mb-1">
+          <Image className="w-5 h-5 text-gray-600" aria-hidden="true" />
+          Gallery
+        </h3>
         <div className="flex gap-3 overflow-x-auto pb-2">
           {(plant.photos || []).map((photo, i) => {
             const { src, caption } = photo
             return (
-            <div key={i} className="relative flex flex-col items-center">
-              <button type="button" onClick={() => setLightboxIndex(i)} className="block focus:outline-none">
-                <img
-                  src={src}
-                  alt={`${plant.name} ${i}`}
-                  className="object-cover w-full h-24 rounded"
-                />
-              </button>
-              {caption && <p className="text-xs mt-1 w-24 text-center">{caption}</p>}
+              <div key={i} className="relative flex flex-col items-center">
+                <button type="button" onClick={() => setLightboxIndex(i)} className="block focus:outline-none">
+                  <img
+                    src={src}
+                    alt={`${plant.name} ${i}`}
+                    className="object-cover w-full h-24 rounded"
+                  />
+                </button>
+                {caption && <p className="text-xs mt-1 w-24 text-center">{caption}</p>}
 
-              <button
-                className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
-                onClick={() => removePhoto(plant.id, i)}
-              >
-                ✕
-              </button>
-            </div>
+                <button
+                  className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
+                  onClick={() => removePhoto(plant.id, i)}
+                >
+                  ✕
+                </button>
+              </div>
             )
           })}
         </div>
@@ -340,7 +351,7 @@ export default function PlantDetail() {
             />
           </div>
         )}
-      </Accordion>
+      </section>
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
       )}
