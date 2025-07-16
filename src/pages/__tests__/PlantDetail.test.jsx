@@ -135,10 +135,14 @@ test('opens lightbox from gallery', () => {
   expect(viewerDialog).toBeInTheDocument()
 
   const viewerImg = screen.getByAltText(/gallery image/i)
-  expect(viewerImg).toHaveAttribute('src', plant.photos[0])
+  expect(viewerImg).toHaveAttribute('src', plant.photos[0].src)
+  expect(screen.getAllByText(plant.photos[0].caption).length).toBeGreaterThan(0)
 
   fireEvent.keyDown(window, { key: 'ArrowRight' })
-  expect(viewerImg).toHaveAttribute('src', plant.photos[1])
+  expect(viewerImg).toHaveAttribute('src', plant.photos[1].src)
+  if (plant.photos[1].caption) {
+    expect(screen.getAllByText(plant.photos[1].caption).length).toBeGreaterThan(0)
+  }
 
   fireEvent.keyDown(window, { key: 'Escape' })
   expect(
