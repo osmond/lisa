@@ -25,7 +25,7 @@ beforeEach(() => {
   ]
 })
 
-test('shows notes from care log in activity tab', () => {
+test('shows notes from care log in timeline', () => {
   render(
     <MemoryRouter initialEntries={['/plant/1']}>
       <Routes>
@@ -38,11 +38,10 @@ test('shows notes from care log in activity tab', () => {
     screen.getByRole('button', { name: /Activity & Notes Show Details/i })
   )
 
-  const activityTab = screen.getByRole('tab', { name: /Activity/ })
-  fireEvent.click(activityTab)
-
   expect(
-    screen.getByText('Watered on 2025-07-02 - deep soak')
-  ).toBeInTheDocument()
+    screen.getAllByText((content, node) =>
+      node.textContent === 'July 2, 2025 — Watered: deep soak'
+    ).length
+  ).toBeGreaterThan(0)
 
 })

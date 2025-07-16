@@ -66,6 +66,24 @@ export function buildEvents(source, { includePlantName = false } = {}) {
         type: 'fertilize',
       })
     }
+
+    if (p.notes) {
+      addEvent({
+        date: '2100-01-01',
+        label: includePlantName ? `${p.name} note` : 'Note',
+        note: p.notes,
+        type: 'noteText',
+      })
+    }
+
+    if (p.advancedCare) {
+      addEvent({
+        date: '2100-01-01',
+        label: includePlantName ? `${p.name} care tip` : 'Advanced care',
+        note: p.advancedCare,
+        type: 'advanced',
+      })
+    }
   })
 
   return events.sort((a, b) => new Date(a.date) - new Date(b.date))
