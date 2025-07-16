@@ -13,13 +13,21 @@ export const addBase = url => {
   return `${base}${url.startsWith('/') ? '' : '/'}${url}`
 }
 
+const mapPhoto = photo => {
+  if (!photo) return photo
+  if (typeof photo === 'string') {
+    return { src: addBase(photo) }
+  }
+  return { ...photo, src: addBase(photo.src) }
+}
+
 export function PlantProvider({ children }) {
 
   const [plants, setPlants] = useState(() => {
     const mapPlant = p => ({
       ...p,
       image: addBase(p.image),
-      photos: (p.photos || p.gallery || []).map(addBase),
+      photos: (p.photos || p.gallery || []).map(mapPhoto),
       careLog: p.careLog || [],
     })
 
@@ -119,11 +127,12 @@ export function PlantProvider({ children }) {
     setPlants(prev => prev.filter(p => p.id !== id))
   }
 
-  const addPhoto = (id, url) => {
+  const addPhoto = (id, photo) => {
+    const newPhoto = mapPhoto(photo)
     setPlants(prev =>
       prev.map(p =>
         p.id === id
-          ? { ...p, photos: [...(p.photos || []), url] }
+          ? { ...p, photos: [...(p.photos || []), newPhoto] }
           : p
       )
     )
