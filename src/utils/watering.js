@@ -29,3 +29,13 @@ export function getWateringInfo(lastWatered, weather = {}) {
   }
   return { eto, daysSince };
 }
+
+export function getWateringProgress(lastWatered, nextWater, today = new Date()) {
+  const last = new Date(lastWatered);
+  const next = new Date(nextWater);
+  if (isNaN(last) || isNaN(next) || next <= last) return 0;
+  const total = (next - last) / 86400000;
+  if (total <= 0) return 0;
+  const elapsed = Math.min(Math.max((today - last) / 86400000, 0), total);
+  return elapsed / total;
+}

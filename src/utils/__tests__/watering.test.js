@@ -1,4 +1,8 @@
-import { getNextWateringDate, getWateringInfo } from '../watering.js'
+import {
+  getNextWateringDate,
+  getWateringInfo,
+  getWateringProgress,
+} from '../watering.js'
 
 test('postpones watering when rain expected', () => {
   const { date, reason } = getNextWateringDate('2025-07-10', { rainTomorrow: 5 })
@@ -30,4 +34,11 @@ test('returns days since last watered', () => {
 test('includes eto value when provided', () => {
   const { eto } = getWateringInfo('2025-07-07', { eto: 5 })
   expect(eto).toBe(5)
+})
+
+test('calculates watering progress percentage', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-04'))
+  const pct = getWateringProgress('2025-07-01', '2025-07-08')
+  expect(pct).toBeCloseTo(3 / 7)
+  jest.useRealTimers()
 })

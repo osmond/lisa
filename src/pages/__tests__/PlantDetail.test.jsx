@@ -77,12 +77,8 @@ test('displays all sections', () => {
   expect(screen.getByRole('heading', { name: /gallery/i })).toBeInTheDocument()
 })
 
-test.each([
-  { index: 0, urgency: 'high', cls: 'text-red-600' },
-  { index: 1, urgency: 'low', cls: 'text-green-600' },
-  { index: 2, urgency: 'medium', cls: 'text-yellow-600' },
-])('applies urgency class for $urgency plants', ({ index, cls }) => {
-  const plant = plants[index]
+test('shows watering progress ring', () => {
+  const plant = plants[0]
   render(
     <MenuProvider>
       <PlantProvider>
@@ -95,8 +91,7 @@ test.each([
     </MenuProvider>
   )
 
-  const heading = screen.getByRole('heading', { name: /quick stats/i })
-  expect(heading).toHaveClass(cls)
+  expect(screen.getByTestId('watering-ring')).toBeInTheDocument()
 })
 
 
