@@ -76,7 +76,7 @@ test('featured card appears before care stats', () => {
   expect(order & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
 })
 
-test('earliest due task appears first', () => {
+test('earliest due plant appears first', () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
   mockPlants.splice(0, mockPlants.length,
     {
@@ -99,9 +99,34 @@ test('earliest due task appears first', () => {
     </MemoryRouter>
   )
 
-  const tasks = screen.getAllByTestId('task-card')
-  expect(tasks[0]).toHaveTextContent('Plant A')
-  expect(tasks[1]).toHaveTextContent('Plant B')
+  const groups = screen.getAllByTestId('plant-task-card')
+  expect(groups[0]).toHaveTextContent('Plant A')
+  expect(groups[1]).toHaveTextContent('Plant B')
+})
+
+test('tasks for a plant consolidate into one card', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+  mockPlants.splice(0, mockPlants.length,
+    {
+      id: 1,
+      name: 'Plant A',
+      image: 'a.jpg',
+      lastWatered: '2025-07-03',
+      nextFertilize: '2025-07-10',
+    }
+  )
+
+  render(
+    <MemoryRouter>
+      <Home />
+    </MemoryRouter>
+  )
+
+  const groups = screen.getAllByTestId('plant-task-card')
+  expect(groups).toHaveLength(1)
+  expect(groups[0]).toHaveTextContent('Plant A')
+  expect(groups[0].textContent).toMatch(/Water/)
+  expect(groups[0].textContent).toMatch(/Fertilize/)
 })
 
 
