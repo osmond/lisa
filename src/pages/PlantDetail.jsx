@@ -195,34 +195,9 @@ export default function PlantDetail() {
             </Badge>
           )}
         </div>
-        <div className="flex gap-2 mt-3 items-center">
-          <button
-            type="button"
-            onClick={handleWatered}
-            className="px-3 py-1 rounded-full bg-accent text-white text-sm font-medium flex items-center gap-1"
-          >
-            <Drop className="w-4 h-4" aria-hidden="true" />
-            Watered
-          </button>
-          <button
-            type="button"
-            onClick={handleFertilized}
-            className="px-3 py-1 rounded-full bg-accent text-white text-sm font-medium flex items-center gap-1"
-          >
-            <Flower className="w-4 h-4" aria-hidden="true" />
-            Fertilized
-          </button>
-          <button
-            type="button"
-            onClick={handleLogEvent}
-            className="px-3 py-1 rounded-full bg-accent text-white text-sm font-medium flex items-center gap-1"
-          >
-            <Note className="w-4 h-4" aria-hidden="true" />
-            Add Note
-          </button>
-        </div>
 
-        <div className="space-y-1">
+
+        <div className="space-y-1 mt-4">
           <h3 className="text-base font-semibold font-headline">Care Profile</h3>
           <div className="flex flex-wrap gap-2 text-base">
             {plant.light && (
@@ -363,29 +338,32 @@ export default function PlantDetail() {
             id="timeline-panel"
             aria-labelledby="timeline-tab"
             hidden={activeTab !== 'timeline'}
-            className="p-4 border rounded-xl"
+            className="p-4 border border-gray-100 rounded-xl bg-white shadow-sm"
           >
             {groupedEvents.map(([monthKey, list]) => (
               <div key={monthKey}>
                 <h3 className="mt-6 text-base font-semibold text-gray-600">
                   {formatMonth(monthKey)}
                 </h3>
-                <ul className="relative border-l border-gray-300 pl-6 ml-2 space-y-8">
+                <ul className="ml-2 space-y-8">
                   {list.map((e, i) => {
                     const Icon = actionIcons[e.type]
                     return (
-                      <li key={`${e.date}-${i}`} className="relative pl-4">
-                        <div
-                          className={`absolute -left-3 top-0 flex items-center justify-center w-6 h-6 rounded-full ${colors[e.type]}`}
-                        >
-                          {Icon && <Icon className={`w-4 h-4 ${iconColors[e.type]}`} />}
+                      <li
+                        key={`${e.date}-${i}`}
+                        className="relative flex items-start space-x-2 pl-4 before:absolute before:top-0 before:bottom-0 before:left-6 before:w-px before:bg-gray-300"
+                      >
+                        <div className={`w-4 h-4 rounded-full mt-1 flex items-center justify-center ${colors[e.type]}`}>
+                          {Icon && <Icon className={`w-3 h-3 ${iconColors[e.type]}`} aria-hidden="true" />}
                         </div>
-                        <p className="font-medium">
-                          {formatDate(e.date)} — {e.label}
-                        </p>
-                        {e.note && (
-                          <p className="text-xs text-gray-500 italic">{e.note}</p>
-                        )}
+                        <div>
+                          <p className="font-medium">
+                            {formatDate(e.date)} — {e.label}
+                          </p>
+                          {e.note && (
+                            <p className="text-xs text-gray-500 italic">{e.note}</p>
+                          )}
+                        </div>
                       </li>
                     )
                   })}
