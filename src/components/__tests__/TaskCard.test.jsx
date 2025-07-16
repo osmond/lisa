@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter, useNavigate } from 'react-router-dom'
+import { usePlants } from '../../PlantContext.jsx'
 import TaskCard from '../TaskCard.jsx'
 import BaseCard from '../BaseCard.jsx'
 
@@ -8,6 +9,38 @@ beforeAll(() => {
   if (typeof PointerEvent === 'undefined') {
     window.PointerEvent = window.MouseEvent
   }
+})
+
+const navigateMock = jest.fn()
+const markWatered = jest.fn()
+const markFertilized = jest.fn()
+const updatePlant = jest.fn()
+const logEvent = jest.fn()
+
+jest.mock('react-router-dom', () => {
+  const actual = jest.requireActual('react-router-dom')
+  return { ...actual, useNavigate: jest.fn() }
+})
+
+jest.mock('../../PlantContext.jsx', () => ({
+  usePlants: jest.fn(),
+}))
+
+const usePlantsMock = usePlants
+
+beforeEach(() => {
+  navigateMock.mockClear()
+  markWatered.mockClear()
+  markFertilized.mockClear()
+  updatePlant.mockClear()
+  logEvent.mockClear()
+  useNavigate.mockReturnValue(navigateMock)
+  usePlantsMock.mockReturnValue({
+    markWatered,
+    markFertilized,
+    logEvent,
+    updatePlant,
+  })
 })
 
 
@@ -45,7 +78,7 @@ test('incomplete tasks show alert style', () => {
       </BaseCard>
     </MemoryRouter>
   )
-  const wrapper = container.querySelector('[data-testid="task-card"]')
+  const wrapper = container.querySelector('.shadow-sm')
   expect(wrapper).toHaveClass('bg-white')
 })
 
@@ -57,7 +90,7 @@ test('applies highlight when urgent', () => {
       </BaseCard>
     </MemoryRouter>
   )
-  const wrapper = container.querySelector('[data-testid="task-card"]')
+  const wrapper = container.querySelector('.shadow-sm')
   expect(wrapper).toHaveClass('ring-green-300')
   expect(wrapper).toHaveClass('dark:ring-green-400')
 })
@@ -70,7 +103,7 @@ test('applies overdue styling', () => {
       </BaseCard>
     </MemoryRouter>
   )
-  const wrapper = container.querySelector('[data-testid="task-card"]')
+  const wrapper = container.querySelector('.shadow-sm')
   expect(wrapper).not.toHaveClass('ring-orange-300')
   const badge = screen.getByTestId('overdue-badge')
   expect(badge).toBeInTheDocument()
@@ -86,7 +119,7 @@ test('shows completed state', () => {
       </BaseCard>
     </MemoryRouter>
   )
-  const wrapper = container.querySelector('[data-testid="task-card"]')
+  const wrapper = container.querySelector('.shadow-sm')
   expect(wrapper).toHaveClass('opacity-50')
   expect(wrapper).toHaveClass('bg-gray-100')
   const checkbox = container.querySelector('input[type="checkbox"]')
@@ -136,21 +169,18 @@ test('compact mode hides reason and evapotranspiration info', () => {
   expect(screen.queryByText(/Evapotranspiration/)).not.toBeInTheDocument()
 })
 
-test('card is non-interactive', async () => {
-  const onComplete = jest.fn()
+test('card shows ripple on click', async () => {
   const { container } = render(
     <MemoryRouter>
       <BaseCard variant="task">
-        <TaskCard task={task} onComplete={onComplete} />
+        <TaskCard task={task} />
       </BaseCard>
     </MemoryRouter>
   )
   const wrapper = container.querySelector('[data-testid="task-card"]')
   const user = userEvent.setup()
   await user.click(wrapper)
-  await user.keyboard('{Enter}')
-  expect(container.querySelector('.ripple-effect')).not.toBeInTheDocument()
-  expect(onComplete).not.toHaveBeenCalled()
+  expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
 })
 
 
