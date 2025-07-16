@@ -48,6 +48,9 @@ test('tab keyboard navigation works', () => {
     </PlantProvider>
   )
 
+  // Expand section first
+  fireEvent.click(screen.getByRole('button', { name: /Activity & Notes Expand/i }))
+
   const tabs = [
     screen.getByRole('tab', { name: /Activity/ }),
     screen.getByRole('tab', { name: /Notes/ }),
@@ -66,6 +69,32 @@ test('tab keyboard navigation works', () => {
   expect(document.activeElement).toBe(tabs[1])
 })
 
+test('sections collapsed by default', () => {
+  const plant = plants[0]
+  render(
+    <PlantProvider>
+      <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </PlantProvider>
+  )
+
+  expect(
+    screen.getByRole('button', { name: /Activity & Notes Expand/i })
+  ).toHaveAttribute('aria-expanded', 'false')
+  expect(
+    screen.getByRole('button', { name: /Gallery Expand/i })
+  ).toHaveAttribute('aria-expanded', 'false')
+  expect(
+    screen.getByRole('button', { name: /Quick Stats Collapse/i })
+  ).toHaveAttribute('aria-expanded', 'true')
+  expect(
+    screen.getByRole('button', { name: /Care Profile Collapse/i })
+  ).toHaveAttribute('aria-expanded', 'true')
+})
+
 
 test('opens lightbox from gallery', () => {
 
@@ -79,6 +108,8 @@ test('opens lightbox from gallery', () => {
       </MemoryRouter>
     </PlantProvider>
   )
+
+  fireEvent.click(screen.getByRole('button', { name: /Gallery Expand/i }))
 
   const img = screen.getByAltText(`${plant.name} 0`)
   fireEvent.click(img.closest('button'))
