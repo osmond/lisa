@@ -104,3 +104,14 @@ test('earliest due task appears first', () => {
   expect(tasks[1]).toHaveTextContent('Plant B')
 })
 
+test('tasks container renders with background', () => {
+  render(
+    <MemoryRouter>
+      <Home />
+    </MemoryRouter>
+  )
+  const container = screen.getByTestId('tasks-container')
+  expect(container).toBeInTheDocument()
+  expect(container).toHaveClass('bg-sage')
+})
+
