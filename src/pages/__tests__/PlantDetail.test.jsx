@@ -34,6 +34,9 @@ test('renders plant details without duplicates', () => {
 
   const fertLabel = screen.getByText('Last fertilized:')
   expect(within(fertLabel.parentElement).getByText(plant.lastFertilized)).toBeInTheDocument()
+
+  const subHeadings = screen.getAllByRole('heading', { level: 4 })
+  expect(subHeadings).toHaveLength(2)
 })
 
 test('tab keyboard navigation works', () => {

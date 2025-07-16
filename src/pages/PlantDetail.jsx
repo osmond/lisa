@@ -210,7 +210,6 @@ export default function PlantDetail() {
         )}
 
         <Accordion title="Care Profile" defaultOpen>
-          <h3 className="text-base font-semibold font-headline">Care Profile</h3>
           {plant.light && (
             <>
               <h4 className="text-xs font-semibold text-gray-500 mb-1">Light Needs</h4>
