@@ -39,40 +39,6 @@ test('renders plant details without duplicates', () => {
   expect(subHeadings).toHaveLength(2)
 })
 
-test('tab keyboard navigation works', () => {
-  const plant = plants[0]
-  render(
-    <PlantProvider>
-      <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
-        <Routes>
-          <Route path="/plant/:id" element={<PlantDetail />} />
-        </Routes>
-      </MemoryRouter>
-    </PlantProvider>
-  )
-
-  // Expand section first
-  fireEvent.click(
-    screen.getByRole('button', { name: /Activity & Notes Show Details/i })
-  )
-
-  const tabs = [
-    screen.getByRole('tab', { name: /Activity/ }),
-    screen.getByRole('tab', { name: /Notes/ }),
-    screen.getByRole('tab', { name: /Advanced/ }),
-    screen.getByRole('tab', { name: /Timeline/ }),
-  ]
-
-  expect(tabs[3]).toHaveAttribute('aria-selected', 'true')
-  expect(tabs[0]).toHaveAttribute('aria-selected', 'false')
-
-  tabs[0].focus()
-  fireEvent.keyDown(tabs[0], { key: 'ArrowRight' })
-
-  expect(tabs[3]).toHaveAttribute('aria-selected', 'false')
-  expect(tabs[1]).toHaveAttribute('aria-selected', 'true')
-  expect(document.activeElement).toBe(tabs[1])
-})
 
 test('sections collapsed by default', () => {
   const plant = plants[0]

@@ -32,6 +32,8 @@ export const icons = {
   rotate: RotateIcon,
   note: NoteIcon,
   log: LogIcon,
+  advanced: LogIcon,
+  noteText: NoteIcon,
 }
 
 export default icons
