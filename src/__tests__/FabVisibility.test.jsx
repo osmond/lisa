@@ -44,7 +44,7 @@ describe('Menu contents based on route', () => {
     expect(links.length).toBeGreaterThan(0)
   })
 
-  test.each(plantRoutes)('does not show Add Plant link on %s', route => {
+  test.each(plantRoutes)('shows Add Plant link on %s', route => {
     render(
       <MemoryRouter initialEntries={[route]}>
         <App />
@@ -53,6 +53,7 @@ describe('Menu contents based on route', () => {
 
     const button = screen.getByRole('button', { name: /open navigation menu/i })
     fireEvent.click(button)
-    expect(screen.queryByRole('link', { name: /add plant/i })).toBeNull()
+    const link = screen.getByRole('link', { name: /add plant/i })
+    expect(link).toBeInTheDocument()
   })
 })

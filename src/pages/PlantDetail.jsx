@@ -7,10 +7,12 @@ import {
   Drop,
   Gauge,
   CalendarCheck,
+  CalendarBlank,
   Flower,
   Image,
   Note,
   Info,
+  House,
   ArrowLeft,
   CaretDown,
   CaretRight,
@@ -114,13 +116,14 @@ export default function PlantDetail() {
 
   useEffect(() => {
     const plantItems = [
-      { onClick: handleLogEvent, label: 'Add Note', Icon: Note },
-      { onClick: openFileInput, label: 'Add Photo', Icon: Image },
-      { onClick: handleEdit, label: 'Edit Plant', Icon: Pencil1Icon },
+      { to: '/', label: 'Home', Icon: House },
+      { to: '/timeline', label: 'Timeline', Icon: CalendarBlank },
+      { onClick: () => setLightboxIndex(0), label: 'Gallery', Icon: Image },
+      { to: '/add', label: 'Add Plant', Icon: PlusIcon },
     ]
-    setMenu({ items: plantItems, Icon: PlusIcon })
+    setMenu({ items: plantItems, Icon: PlusIcon, modal: true })
     return () => setMenu(defaultMenu)
-  }, [setMenu, plant?.id])
+  }, [setMenu, plant?.id, setLightboxIndex])
 
   useEffect(() => {
     const defaults = {}

@@ -19,6 +19,7 @@ export const defaultMenu = {
     { to: '/profile', label: 'Profile', Icon: UserCircle },
   ],
   Icon: Hamburger,
+  modal: false,
 }
 
 export function MenuProvider({ children }) {
