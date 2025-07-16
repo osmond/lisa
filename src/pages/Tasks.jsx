@@ -280,9 +280,17 @@ export default function Tasks() {
         ) : (
           <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-4'}>
           {eventsByPlant.map(({ plant, list }) => {
-            const dueWater = list.some(e => e.taskType === 'water' && !e.completed)
+            const dueWater = list.some(
+              e =>
+                e.taskType === 'water' &&
+                !e.completed &&
+                (e.overdue || e.date <= todayIso)
+            )
             const dueFertilize = list.some(
-              e => e.taskType === 'fertilize' && !e.completed
+              e =>
+                e.taskType === 'fertilize' &&
+                !e.completed &&
+                (e.overdue || e.date <= todayIso)
             )
             const urgent = list.some(e => e.urgent)
             const overdue = list.some(e => e.overdue)

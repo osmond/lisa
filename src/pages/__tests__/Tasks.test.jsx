@@ -149,12 +149,21 @@ test('completed tasks are styled', () => {
   )
 })
 
-test('By Plant view shows buttons only for due tasks', async () => {
+
+test('future watering date does not show Water Now button', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+
   render(
     <MemoryRouter>
       <Tasks />
     </MemoryRouter>
   )
+
+  const tab = screen.getByRole('tab', { name: /By Plant/i })
+  fireEvent.click(tab)
+
+  expect(screen.queryByText('Water Now')).toBeNull()
+  jest.useRealTimers()
 
   const byPlantTab = screen.getByRole('tab', { name: /By Plant/i })
   await userEvent.click(byPlantTab)
@@ -164,4 +173,5 @@ test('By Plant view shows buttons only for due tasks', async () => {
 
   expect(within(cards[0]).getByText('Water Now')).toBeInTheDocument()
   expect(within(cards[1]).queryByText('Water Now')).toBeNull()
+
 })
