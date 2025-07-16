@@ -49,11 +49,24 @@ export default function Lightbox({ images, startIndex = 0, onClose, label = 'Ima
       >
         ‹
       </button>
-      <img
-        src={images[index]}
-        alt="Gallery image"
-        className="max-w-full max-h-full object-contain"
-      />
+      {(() => {
+        const current =
+          typeof images[index] === 'string' ? { src: images[index] } : images[index]
+        return (
+          <>
+            <img
+              src={current.src}
+              alt="Gallery image"
+              className="max-w-full max-h-full object-contain"
+            />
+            {current.caption && (
+              <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/60 px-2 py-1 rounded text-sm">
+                {current.caption}
+              </p>
+            )}
+          </>
+        )
+      })()}
       <button
         aria-label="Next image"
         className="absolute right-4 text-white text-3xl"
