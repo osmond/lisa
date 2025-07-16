@@ -11,6 +11,7 @@ import {
   DotsThreeVertical,
   Image,
   Note,
+  Info,
 } from 'phosphor-react'
 
 import { PlusIcon } from '@radix-ui/react-icons'
@@ -20,6 +21,7 @@ import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
+import LegendModal from '../components/LegendModal.jsx'
 
 import useToast from "../hooks/useToast.jsx"
 import Badge from '../components/Badge.jsx'
@@ -58,12 +60,15 @@ export default function PlantDetail() {
   const [showNoteModal, setShowNoteModal] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(null)
   const [showActionsMenu, setShowActionsMenu] = useState(false)
+  const [showLegend, setShowLegend] = useState(false)
 
   const events = useMemo(() => buildEvents(plant), [plant])
+  const pinnedEvents = events.filter(e => ['noteText', 'advanced'].includes(e.type))
+  const filteredEvents = events.filter(e => !['noteText', 'advanced'].includes(e.type))
 
   const groupedEvents = useMemo(
-    () => groupEventsByMonth(events),
-    [events]
+    () => groupEventsByMonth(filteredEvents),
+    [filteredEvents]
   )
 
 
@@ -124,7 +129,16 @@ export default function PlantDetail() {
 
       <Toast />
       <div className="space-y-4">
-        <div className="rounded-xl shadow-md overflow-hidden relative">
+        <div className="relative">
+          <div className="hidden lg:block absolute inset-0 rounded-xl overflow-hidden -z-10">
+            <img
+              src={plant.image}
+              alt=""
+              className="w-full h-full object-cover blur-2xl scale-110"
+              aria-hidden="true"
+            />
+          </div>
+          <div className="rounded-xl shadow-md overflow-hidden relative">
           <img
             src={plant.image}
             alt={plant.name}
@@ -170,104 +184,109 @@ export default function PlantDetail() {
             )}
           </div>
         </div>
+        </div>
         <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-3">
           <h3 className="flex items-center gap-2 font-semibold font-headline">
             <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Quick Stats
           </h3>
-          <div className="flex justify-between items-center text-sm">
-            <span className="flex items-center gap-1 text-blue-600">
-              <Drop className="w-4 h-4" aria-hidden="true" />
-              Last watered:
-            </span>
-            <span className="text-gray-700 dark:text-gray-200">{plant.lastWatered}</span>
-          </div>
-          <div className="flex justify-between items-center text-sm">
-            <span className="flex items-center gap-1 text-green-600">
-              <CalendarCheck className="w-4 h-4" aria-hidden="true" />
-              Next watering:
-            </span>
-
-            <div className="flex items-center gap-3">
-              <span className="text-gray-700">{plant.nextWater}</span>
-
+          <ul className="space-y-2 text-sm">
+            <li className="flex items-center gap-2">
+              <Drop className="w-4 h-4 text-blue-600" aria-hidden="true" />
+              <span className="flex-1">Last watered:</span>
+              <span className="text-gray-700 dark:text-gray-200">{plant.lastWatered}</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <CalendarCheck className="w-4 h-4 text-green-600" aria-hidden="true" />
+              <span className="flex-1">Next watering:</span>
+              <span className="text-gray-700 dark:text-gray-200">{plant.nextWater}</span>
               <button
                 type="button"
                 onClick={handleWatered}
                 aria-label={`Mark ${plant.name} as watered`}
-                className="px-2 py-0.5 bg-blue-600 text-white rounded text-xs"
+                className="ml-2 px-2 py-0.5 border border-blue-600 text-blue-600 rounded text-xs"
               >
                 Water Now
               </button>
-            </div>
-          </div>
-          {plant.nextFertilize && (
-            <div className="flex justify-between items-center text-sm">
-              <span className="flex items-center gap-1 text-yellow-600">
-                <Flower className="w-4 h-4" aria-hidden="true" />
-                Next fertilizing:
-              </span>
-
-              <div className="flex items-center gap-3">
-                <span className="text-gray-700">{plant.nextFertilize}</span>
-
+            </li>
+            {plant.nextFertilize && (
+              <li className="flex items-center gap-2">
+                <Flower className="w-4 h-4 text-yellow-600" aria-hidden="true" />
+                <span className="flex-1">Next fertilizing:</span>
+                <span className="text-gray-700 dark:text-gray-200">{plant.nextFertilize}</span>
                 <button
                   type="button"
                   onClick={handleFertilized}
                   aria-label={`Mark ${plant.name} as fertilized`}
-                  className="px-2 py-0.5 bg-yellow-600 text-white rounded text-xs"
+                  className="ml-2 px-2 py-0.5 border border-yellow-600 text-yellow-600 rounded text-xs"
                 >
                   Fertilize Now
                 </button>
-              </div>
-            </div>
-          )}
-          {plant.lastFertilized && (
-            <div className="flex justify-between items-center text-sm">
-              <span className="flex items-center gap-1 text-yellow-600">
-                <Flower className="w-4 h-4" aria-hidden="true" />
-                Last fertilized:
-              </span>
-              <span className="text-gray-700 dark:text-gray-200">{plant.lastFertilized}</span>
-            </div>
-          )}
+              </li>
+            )}
+            {plant.lastFertilized && (
+              <li className="flex items-center gap-2">
+                <Flower className="w-4 h-4 text-yellow-600" aria-hidden="true" />
+                <span className="flex-1">Last fertilized:</span>
+                <span className="text-gray-700 dark:text-gray-200">{plant.lastFertilized}</span>
+              </li>
+            )}
+          </ul>
 
           <div className="border-t pt-3 space-y-3">
             <h3 className="flex items-center gap-2 font-semibold font-headline">
               <Sun className="w-5 h-5 text-yellow-600" aria-hidden="true" />
-              Care Profile
+              Care Tags
             </h3>
 
-          {plant.light && (
-            <>
-              <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Light Needs</h4>
-              <div className="flex gap-2 mb-3">
+            <div className="flex flex-wrap gap-2">
+              {plant.light && (
                 <Badge Icon={Sun} colorClass="bg-yellow-50 text-yellow-800 text-xs">
                   {plant.light}
                 </Badge>
-              </div>
-            </>
-          )}
-          <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1 mt-1">Care Tags</h4>
-          <div className="flex flex-wrap gap-2">
-            {plant.humidity && (
-              <Badge Icon={Drop} colorClass="bg-blue-50 text-blue-800 text-xs">
-                {plant.humidity}
-              </Badge>
-            )}
-            {plant.difficulty && (
-              <Badge Icon={Gauge} colorClass="bg-green-50 text-green-800 text-xs">
-                {plant.difficulty}
-              </Badge>
-            )}
-          </div>
+              )}
+              {plant.humidity && (
+                <Badge Icon={Drop} colorClass="bg-blue-50 text-blue-800 text-xs">
+                  {plant.humidity}
+                </Badge>
+              )}
+              {plant.difficulty && (
+                <Badge Icon={Gauge} colorClass="bg-green-50 text-green-800 text-xs">
+                  {plant.difficulty}
+                </Badge>
+              )}
+            </div>
           </div>
         </section>
+
+        {(pinnedEvents.length > 0) && (
+        <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-2">
+          <h3 className="flex items-center gap-2 font-semibold font-headline mb-1">
+            <Info className="w-5 h-5 text-purple-600" aria-hidden="true" />
+            Tips & Traits
+          </h3>
+          <ul className="space-y-2 text-sm">
+            {pinnedEvents.map((e, i) => {
+              const Icon = actionIcons[e.type] || Info
+              return (
+                <li key={i} className="flex items-start gap-2">
+                  <Icon className={`w-4 h-4 ${iconColors[e.type]}`} aria-hidden="true" />
+                  <span>{e.note}</span>
+                </li>
+              )
+            })}
+          </ul>
+        </section>
+        )}
 
         <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-4">
           <h3 className="flex items-center gap-2 font-semibold font-headline mb-1">
             <Note className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Activity & Notes
+            <button type="button" onClick={() => setShowLegend(true)} className="ml-auto text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+              <Info className="w-4 h-4" aria-hidden="true" />
+              <span className="sr-only">Legend</span>
+            </button>
           </h3>
           {groupedEvents.map(([monthKey, list]) => (
             <div key={monthKey} className="mt-2 first:mt-0">
@@ -375,6 +394,9 @@ export default function PlantDetail() {
       </section>
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
+      )}
+      {showLegend && (
+        <LegendModal onClose={() => setShowLegend(false)} />
       )}
       <PlantDetailFab onAddNote={handleLogEvent} onAddPhoto={openFileInput} />
     </div>

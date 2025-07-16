@@ -18,7 +18,7 @@ export default function PlantDetailFab({ onAddNote, onAddPhoto }) {
   return (
     <div className="fixed bottom-20 right-4 flex flex-col items-end z-20">
       {open && (
-        <ul className="mb-2 bg-white dark:bg-gray-700 rounded shadow-lg text-sm overflow-hidden">
+        <ul className="mb-2 bg-white dark:bg-gray-700 rounded-lg shadow-lg text-sm overflow-hidden py-2">
           <li>
             <button
               type="button"
