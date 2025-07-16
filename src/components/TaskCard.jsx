@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { Pencil1Icon, TrashIcon } from '@radix-ui/react-icons'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from './ActionIcons.jsx'
 import { CheckCircle } from 'phosphor-react'
@@ -12,6 +13,7 @@ import useSwipe from '../hooks/useSwipe.js'
 
 import { getWateringInfo } from '../utils/watering.js'
 import Badge from './Badge.jsx'
+import ConfirmModal from './ConfirmModal.jsx'
 
 export default function TaskCard({
   task,
@@ -21,16 +23,28 @@ export default function TaskCard({
   completed = false,
   compact = false,
 }) {
-  const { markWatered, markFertilized } = usePlants()
+  const navigate = useNavigate()
+  const { markWatered, markFertilized, removePlant } = usePlants()
   const Icon = actionIcons[task.type]
   const { Toast, showToast } = useToast()
   const [checked, setChecked] = useState(false)
   const isChecked = checked || completed
+  const [showConfirm, setShowConfirm] = useState(false)
+  const [showDeletePrompt, setShowDeletePrompt] = useState(false)
+  const COMPLETE_THRESHOLD = 75
+  const EDIT_THRESHOLD = 100
+  const DELETE_THRESHOLD = 200
 
   const handleKeyDown = e => {
     if (e.key === 'ArrowRight') {
       e.preventDefault()
       handleComplete()
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      navigate(`/plant/${task.plantId}/edit`)
+    } else if (e.key === 'Delete' || e.key === 'Backspace') {
+      e.preventDefault()
+      setShowConfirm(true)
     }
   }
 
@@ -59,12 +73,30 @@ export default function TaskCard({
   }
 
   const { dx: deltaX, start, move, end } = useSwipe(diff => {
-    if (diff > 75) {
+    if (diff > COMPLETE_THRESHOLD) {
       handleComplete()
+    } else if (diff < -DELETE_THRESHOLD) {
+      setShowDeletePrompt(true)
+      setShowConfirm(true)
+    } else if (diff < -EDIT_THRESHOLD) {
+      navigate(`/plant/${task.plantId}/edit`)
     }
   })
 
   const swipeProgress = Math.max(0, Math.min(deltaX / 80, 1))
+
+  const confirmDelete = () => {
+    removePlant(task.plantId)
+    setShowConfirm(false)
+  }
+
+  const cancelDelete = () => {
+    setShowConfirm(false)
+  }
+
+  const handleDelete = () => {
+    setShowConfirm(true)
+  }
 
   return (
     <>
@@ -91,7 +123,7 @@ export default function TaskCard({
       }}
 
 
-      className={`relative flex items-center gap-3 px-4 py-3 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-transform duration-150 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500${completed ? ' bg-gray-100 dark:bg-gray-800 opacity-50 ring-1 ring-gray-100' : ' bg-white dark:bg-gray-700 ring-1 ring-gray-100'}${urgent ? ' ring-green-300 dark:ring-green-400' : ''}`}
+      className={`relative flex items-center gap-3 px-4 py-3 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-transform duration-150 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500${completed ? ' bg-gray-100 dark:bg-gray-800 opacity-50' : ' bg-white dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
 
 
       onTouchMove={move}
@@ -117,6 +149,36 @@ export default function TaskCard({
             className="w-8 h-8 text-healthy-600 swipe-check"
             style={{ marginLeft: `${8 + Math.min(deltaX, 80) / 2}px` }}
           />
+        </div>
+      )}
+      {(deltaX < -40 || showDeletePrompt) && (
+        <div className="absolute inset-0 flex justify-end items-center pr-4 pointer-events-none">
+          {showDeletePrompt ? (
+            <button
+              onClick={() => {
+                setShowDeletePrompt(false)
+                handleDelete()
+              }}
+              className="bg-red-600 text-white px-3 py-1 rounded pointer-events-auto"
+            >
+              Delete?
+            </button>
+          ) : (
+            <div className="flex items-center gap-2">
+              <div
+                className={`bg-blue-600 text-white px-2 py-1 rounded flex items-center gap-1 transition-opacity ${deltaX < -40 ? 'opacity-100' : 'opacity-0'}`}
+              >
+                <Pencil1Icon className="w-4 h-4" aria-hidden="true" />
+                <span className="text-sm font-body">Edit</span>
+              </div>
+              <div
+                className={`bg-red-600 text-white px-2 py-1 rounded flex items-center gap-1 transition-opacity ${deltaX < -120 ? 'opacity-100' : 'opacity-0'}`}
+              >
+                <TrashIcon className="w-4 h-4" aria-hidden="true" />
+                <span className="text-sm font-body">Delete</span>
+              </div>
+            </div>
+          )}
         </div>
       )}
       <Link
@@ -234,6 +296,13 @@ export default function TaskCard({
         </div>
       )}
     </div>
+    {showConfirm && (
+      <ConfirmModal
+        label="Delete this plant?"
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+      />
+    )}
     </>
   )
 }
