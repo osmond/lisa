@@ -114,7 +114,7 @@ export default function PlantDetail() {
   }
 
   return (
-    <div className="space-y-4 pt-4 pb-safe px-4 relative text-left">
+    <div className="space-y-8 pt-4 pb-safe px-4 relative text-left">
       <Toast />
       <div className="space-y-4">
         <div className="rounded-xl shadow-md overflow-hidden relative">
