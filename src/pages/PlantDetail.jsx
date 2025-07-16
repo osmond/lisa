@@ -4,8 +4,6 @@ import { useState, useRef, useMemo } from 'react'
 import {
   Activity,
   Note,
-  Gear,
-  Clock,
   Sun,
   Drop,
   Gauge,
