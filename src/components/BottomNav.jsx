@@ -36,7 +36,6 @@ export default function BottomNav() {
                 />
               </span>
               <span className="sr-only">{label}</span>
-              {isActive && <span className="text-xs">{label}</span>}
             </>
           )}
         </NavLink>
