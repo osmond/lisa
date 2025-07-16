@@ -247,7 +247,7 @@ export default function PlantDetail() {
               aria-selected={activeTab === 'activity'}
               onClick={() => setActiveTab('activity')}
               onKeyDown={e => handleKeyDown(e, 0)}
-              className={`relative px-4 py-2 rounded-full text-sm font-medium focus:outline-none after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-white after:transition-transform after:duration-300 ${
+              className={`relative px-3 py-1 rounded-full text-sm font-medium focus:outline-none after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-white after:transition-transform after:duration-300 ${
                 activeTab === 'activity'
                   ? 'bg-green-600 text-white after:scale-x-100'
                   : 'bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200 after:scale-x-0'
@@ -264,7 +264,7 @@ export default function PlantDetail() {
               aria-selected={activeTab === 'notes'}
               onClick={() => setActiveTab('notes')}
               onKeyDown={e => handleKeyDown(e, 1)}
-              className={`relative px-4 py-2 rounded-full text-sm font-medium focus:outline-none after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-white after:transition-transform after:duration-300 ${
+              className={`relative px-3 py-1 rounded-full text-sm font-medium focus:outline-none after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-white after:transition-transform after:duration-300 ${
                 activeTab === 'notes'
                   ? 'bg-green-600 text-white after:scale-x-100'
                   : 'bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200 after:scale-x-0'
@@ -281,7 +281,7 @@ export default function PlantDetail() {
               aria-selected={activeTab === 'care'}
               onClick={() => setActiveTab('care')}
               onKeyDown={e => handleKeyDown(e, 2)}
-              className={`relative px-4 py-2 rounded-full text-sm font-medium focus:outline-none after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-white after:transition-transform after:duration-300 ${
+              className={`relative px-3 py-1 rounded-full text-sm font-medium focus:outline-none after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-white after:transition-transform after:duration-300 ${
                 activeTab === 'care'
                   ? 'bg-green-600 text-white after:scale-x-100'
                   : 'bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200 after:scale-x-0'
@@ -297,7 +297,7 @@ export default function PlantDetail() {
               aria-selected={activeTab === 'timeline'}
               onClick={() => setActiveTab('timeline')}
               onKeyDown={e => handleKeyDown(e, 3)}
-              className={`relative px-4 py-2 rounded-full text-sm font-medium focus:outline-none after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-white after:transition-transform after:duration-300 ${
+              className={`relative px-3 py-1 rounded-full text-sm font-medium focus:outline-none after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-white after:transition-transform after:duration-300 ${
                 activeTab === 'timeline'
                   ? 'bg-green-600 text-white after:scale-x-100'
                   : 'bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200 after:scale-x-0'
