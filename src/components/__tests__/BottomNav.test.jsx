@@ -1,11 +1,14 @@
 import { render, fireEvent, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import BottomNav from '../BottomNav.jsx'
+import { MenuProvider } from '../../MenuContext.jsx'
 
 test('all icons are aria-hidden', () => {
   const { container } = render(
     <MemoryRouter>
-      <BottomNav />
+      <MenuProvider>
+        <BottomNav />
+      </MenuProvider>
     </MemoryRouter>
   )
   const svgs = container.querySelectorAll('svg')
@@ -17,7 +20,9 @@ test('all icons are aria-hidden', () => {
 test('does not render gallery link', () => {
   const { container } = render(
     <MemoryRouter>
-      <BottomNav />
+      <MenuProvider>
+        <BottomNav />
+      </MenuProvider>
     </MemoryRouter>
   )
   // open the menu
@@ -29,10 +34,25 @@ test('does not render gallery link', () => {
 test('renders timeline navigation link', () => {
   const { container } = render(
     <MemoryRouter>
-      <BottomNav />
+      <MenuProvider>
+        <BottomNav />
+      </MenuProvider>
     </MemoryRouter>
   )
   fireEvent.click(screen.getByRole('button', { name: /open navigation menu/i }))
   const timelineLink = container.querySelector('a[href="/timeline"]')
   expect(timelineLink).toBeInTheDocument()
+})
+
+test('renders add plant navigation link', () => {
+  const { container } = render(
+    <MemoryRouter>
+      <MenuProvider>
+        <BottomNav />
+      </MenuProvider>
+    </MemoryRouter>
+  )
+  fireEvent.click(screen.getByRole('button', { name: /open navigation menu/i }))
+  const addLink = container.querySelector('a[href="/add"]')
+  expect(addLink).toBeInTheDocument()
 })

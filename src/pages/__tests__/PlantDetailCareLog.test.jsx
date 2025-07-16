@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import PlantDetail from '../PlantDetail.jsx'
+import { MenuProvider } from '../../MenuContext.jsx'
 
 let mockPlants = []
 jest.mock('../../PlantContext.jsx', () => ({
@@ -27,11 +28,13 @@ beforeEach(() => {
 
 test('shows notes from care log in timeline', () => {
   render(
-    <MemoryRouter initialEntries={['/plant/1']}>
-      <Routes>
-        <Route path="/plant/:id" element={<PlantDetail />} />
-      </Routes>
-    </MemoryRouter>
+    <MenuProvider>
+      <MemoryRouter initialEntries={['/plant/1']}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </MenuProvider>
   )
 
   expect(screen.getByText('July 2, 2025')).toBeInTheDocument()

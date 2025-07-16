@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import App from '../App.jsx'
 
@@ -18,35 +18,41 @@ jest.mock('../ThemeContext.jsx', () => ({
   useTheme: () => ({ theme: 'light', toggleTheme: () => {} }),
 }))
 
-const routesWithFab = [
+const routesWithAddLink = [
   '/',
   '/myplants',
   '/add',
   '/profile',
   '/timeline',
+  '/tasks',
   '/nonexistent',
 ]
 
-const routesWithoutFab = ['/tasks', '/plant/1', '/plant/1/edit']
+const plantRoutes = ['/plant/1']
 
-describe('Floating Action Button visibility', () => {
-  test.each(routesWithFab)('shows FAB on %s', route => {
+describe('Menu contents based on route', () => {
+  test.each(routesWithAddLink)('shows Add Plant link on %s', route => {
     render(
       <MemoryRouter initialEntries={[route]}>
         <App />
       </MemoryRouter>
     )
 
-    expect(screen.getByLabelText(/add plant/i)).toBeInTheDocument()
+    const button = screen.getByRole('button', { name: /open navigation menu/i })
+    fireEvent.click(button)
+    const links = screen.getAllByRole('link', { name: /add plant/i })
+    expect(links.length).toBeGreaterThan(0)
   })
 
-  test.each(routesWithoutFab)('hides FAB on %s', route => {
+  test.each(plantRoutes)('does not show Add Plant link on %s', route => {
     render(
       <MemoryRouter initialEntries={[route]}>
         <App />
       </MemoryRouter>
     )
 
-    expect(screen.queryByLabelText(/add plant/i)).toBeNull()
+    const button = screen.getByRole('button', { name: /open navigation menu/i })
+    fireEvent.click(button)
+    expect(screen.queryByRole('link', { name: /add plant/i })).toBeNull()
   })
 })

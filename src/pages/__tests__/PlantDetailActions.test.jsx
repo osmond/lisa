@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import PlantDetail from '../PlantDetail.jsx'
 import { usePlants } from '../../PlantContext.jsx'
+import { MenuProvider } from '../../MenuContext.jsx'
 
 const markWatered = jest.fn()
 const markFertilized = jest.fn()
@@ -40,11 +41,13 @@ beforeEach(() => {
 
 test('quick stats action buttons trigger handlers', () => {
   render(
-    <MemoryRouter initialEntries={['/plant/1']}>
-      <Routes>
-        <Route path="/plant/:id" element={<PlantDetail />} />
-      </Routes>
-    </MemoryRouter>
+    <MenuProvider>
+      <MemoryRouter initialEntries={['/plant/1']}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </MenuProvider>
   )
 
   fireEvent.click(

@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useState, useRef, useMemo } from 'react'
+import { useState, useRef, useMemo, useEffect } from 'react'
 
 import {
   Clock,
@@ -13,13 +13,13 @@ import {
   Info,
 } from 'phosphor-react'
 
-import { PlusIcon } from '@radix-ui/react-icons'
 import Lightbox from '../components/Lightbox.jsx'
 
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
-import PlantDetailFab from '../components/PlantDetailFab.jsx'
+import { PlusIcon, Pencil1Icon } from '@radix-ui/react-icons'
+import { useMenu, defaultMenu } from '../MenuContext.jsx'
 import LegendModal from '../components/LegendModal.jsx'
 
 import useToast from "../hooks/useToast.jsx"
@@ -90,6 +90,18 @@ export default function PlantDetail() {
   const handleEdit = () => {
     navigate(`/plant/${plant.id}/edit`)
   }
+
+  const { setMenu } = useMenu()
+
+  useEffect(() => {
+    const plantItems = [
+      { onClick: handleLogEvent, label: 'Add Note', Icon: Note },
+      { onClick: openFileInput, label: 'Add Photo', Icon: Image },
+      { onClick: handleEdit, label: 'Edit Plant', Icon: Pencil1Icon },
+    ]
+    setMenu({ items: plantItems, Icon: PlusIcon })
+    return () => setMenu(defaultMenu)
+  }, [setMenu, plant?.id])
 
 
   const saveNote = note => {
@@ -334,11 +346,6 @@ export default function PlantDetail() {
       {showLegend && (
         <LegendModal onClose={() => setShowLegend(false)} />
       )}
-      <PlantDetailFab
-        onAddNote={handleLogEvent}
-        onAddPhoto={openFileInput}
-        onEdit={handleEdit}
-      />
     </div>
   )
 }

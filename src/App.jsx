@@ -10,15 +10,14 @@ import PlantDetail from './pages/PlantDetail'
 import EditPlant from './pages/EditPlant'
 import Timeline from './pages/Timeline'
 import BottomNav from './components/BottomNav'
-import Fab from './components/Fab'
+import { MenuProvider } from './MenuContext.jsx'
 import NotFound from './pages/NotFound'
 
 export default function App() {
   const location = useLocation()
   const nodeRef = useRef(null)
-  const hideFabRoutes = ['/tasks', '/plant']
-  const showFab = !hideFabRoutes.some(r => location.pathname.startsWith(r))
   return (
+    <MenuProvider>
     <div id="main-content" className="pb-24 px-4 pt-8 font-body overflow-hidden">{/* bottom padding for nav */}
 
       <SwitchTransition>
@@ -47,8 +46,8 @@ export default function App() {
       </SwitchTransition>
 
 
-      {showFab && <Fab />}
       <BottomNav />
     </div>
+    </MenuProvider>
   )
 }
