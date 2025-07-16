@@ -121,3 +121,22 @@ test('opens lightbox from gallery', () => {
   ).toBeNull()
 
 })
+
+test('view all button opens the viewer from first image', () => {
+  const plant = plants[0]
+  render(
+    <PlantProvider>
+      <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </PlantProvider>
+  )
+
+  const viewAll = screen.getByRole('button', { name: /view all photos/i })
+  fireEvent.click(viewAll)
+
+  const viewerImg = screen.getByAltText(/gallery image/i)
+  expect(viewerImg).toHaveAttribute('src', plant.photos[0].src)
+})

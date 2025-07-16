@@ -7,7 +7,8 @@
     "photos": [
       { "src": "/demo-image-01.jpg", "caption": "Leaf close-up" },
       { "src": "/demo-image-02.jpg", "caption": "Full plant" },
-      { "src": "/demo-image-03.jpg" }
+      { "src": "/demo-image-03.jpg" },
+      { "src": "/demo-image-04.jpg", "caption": "New growth" }
     ],
     "lastWatered": "2025-07-01",
     "nextWater": "2025-07-08",
