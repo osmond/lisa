@@ -50,8 +50,8 @@ test('renders plant details without duplicates', () => {
   const fertLabel = screen.getByText('Last fertilized:')
   expect(within(fertLabel.parentElement).getByText(plant.lastFertilized)).toBeInTheDocument()
 
-  const subHeadings = screen.getAllByRole('heading', { level: 4 })
-  expect(subHeadings).toHaveLength(2)
+  const subHeadings = screen.queryAllByRole('heading', { level: 4 })
+  expect(subHeadings).toHaveLength(0)
 })
 
 
@@ -68,7 +68,7 @@ test('displays all sections', () => {
   )
 
   expect(screen.getByRole('heading', { name: /quick stats/i })).toBeInTheDocument()
-  expect(screen.getByRole('heading', { name: /care profile/i })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: /care tags/i })).toBeInTheDocument()
   expect(screen.getByRole('heading', { name: /activity & notes/i })).toBeInTheDocument()
   expect(screen.getByRole('heading', { name: /gallery/i })).toBeInTheDocument()
 })
