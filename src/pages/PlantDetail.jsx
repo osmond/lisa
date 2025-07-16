@@ -13,6 +13,7 @@ import {
 
 import { PlusIcon } from '@radix-ui/react-icons'
 import Lightbox from '../components/Lightbox.jsx'
+import GalleryModal from '../components/GalleryModal.jsx'
 
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
@@ -28,7 +29,7 @@ import { buildEvents, groupEventsByMonth } from '../utils/events.js'
 
 export default function PlantDetail() {
   const { id } = useParams()
-  const { plants, addPhoto, removePhoto, markWatered, markFertilized, logEvent } = usePlants()
+  const { plants, addPhoto, removePhoto, updatePhotoCaption, markWatered, markFertilized, logEvent } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
 
   const tabNames = ['activity', 'notes', 'care', 'timeline']
@@ -39,6 +40,7 @@ export default function PlantDetail() {
   const { Toast, showToast } = useToast()
   const [showNoteModal, setShowNoteModal] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(null)
+  const [showGalleryModal, setShowGalleryModal] = useState(false)
 
   const events = useMemo(() => buildEvents(plant), [plant])
 
@@ -356,7 +358,7 @@ export default function PlantDetail() {
       <div className="space-y-2">
         <h2 className="text-xl font-semibold font-headline">Gallery</h2>
         <div className="flex gap-2 overflow-x-auto pb-2">
-          <div className="relative flex-shrink-0 w-24 h-24">
+          <div className="relative flex-shrink-0 w-24 aspect-square">
             <button
               type="button"
               onClick={() => fileInputRef.current.click()}
@@ -366,26 +368,42 @@ export default function PlantDetail() {
               <span className="sr-only">Add Photo</span>
             </button>
           </div>
-          {(plant.photos || []).map((src, i) => (
-
-            <div key={i} className="relative">
-              <button type="button" onClick={() => setLightboxIndex(i)} className="block focus:outline-none">
+          {(plant.photos || []).map((photo, i) => (
+            <div key={i} className="relative flex-shrink-0 w-24 aspect-square group">
+              <button
+                type="button"
+                onClick={() => setLightboxIndex(i)}
+                className="block focus:outline-none w-full h-full"
+              >
                 <img
-                  src={src}
+                  src={photo.src}
                   alt={`${plant.name} ${i}`}
-                  className="object-cover w-full h-24 rounded"
+                  className="object-cover w-full h-full rounded"
                 />
               </button>
-
               <button
                 className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
                 onClick={() => removePhoto(plant.id, i)}
               >
                 ✕
               </button>
+              <input
+                type="text"
+                placeholder="Caption"
+                value={photo.caption}
+                onChange={e => updatePhotoCaption(plant.id, i, e.target.value)}
+                className="absolute bottom-1 left-1 right-1 text-xs bg-white bg-opacity-70 rounded px-1 opacity-0 focus:opacity-100 group-hover:opacity-100"
+              />
             </div>
           ))}
         </div>
+        <button
+          type="button"
+          onClick={() => setShowGalleryModal(true)}
+          className="text-sm text-blue-600 underline"
+        >
+          View All
+        </button>
         <input
           type="file"
           accept="image/*"
@@ -402,12 +420,23 @@ export default function PlantDetail() {
             className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-40"
           >
             <Lightbox
-              images={plant.photos}
+              images={plant.photos.map(p => p.src)}
               startIndex={lightboxIndex}
               onClose={() => setLightboxIndex(null)}
               label={`${plant.name} gallery`}
             />
           </div>
+        )}
+        {showGalleryModal && (
+          <GalleryModal
+            photos={plant.photos}
+            onSelect={i => {
+              setShowGalleryModal(false)
+              setLightboxIndex(i)
+            }}
+            onClose={() => setShowGalleryModal(false)}
+            label={`${plant.name} gallery`}
+          />
         )}
       </div>
       {showNoteModal && (
