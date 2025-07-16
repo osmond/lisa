@@ -126,40 +126,40 @@ export default function PlantDetail() {
   }
 
   return (
-    <div className="space-y-2 relative">
+    <div className="space-y-2 relative text-left">
       <Toast />
       <div className="space-y-4">
-        <div className="relative rounded-t-2xl overflow-hidden">
-          <img
-            src={plant.image}
-            alt={plant.name}
-            loading="lazy"
-            className="w-full h-64 object-cover"
-          />
-          <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 via-black/30 to-transparent text-white">
-            <h1 className="text-3xl font-bold font-headline">{plant.name}</h1>
-            {plant.nickname && <p className="text-gray-200">{plant.nickname}</p>}
+        <div className="rounded-xl shadow-md bg-green-50 overflow-hidden">
+          <div className="relative">
+            <img
+              src={plant.image}
+              alt={plant.name}
+              loading="lazy"
+              className="w-full h-64 object-cover"
+            />
+            <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 via-black/30 to-transparent text-white text-left">
+              <h1 className="text-3xl font-bold font-headline">{plant.name}</h1>
+              {plant.nickname && <p className="text-gray-200">{plant.nickname}</p>}
+            </div>
           </div>
-        </div>
+          <div className="p-3 flex flex-wrap gap-2 text-base">
+            <Badge Icon={Drop} colorClass="bg-blue-100 text-blue-800">
+              <Drop className="w-4 h-4" />
 
-
-        <div className="flex flex-wrap gap-2 text-base">
-          <Badge Icon={Drop} colorClass="bg-blue-100 text-blue-800">
-            <Drop className="w-4 h-4" />
-
-            <span className="font-semibold">Last watered:</span>
-            <span>{plant.lastWatered}</span>
-          </Badge>
-          <Badge Icon={CalendarCheck} colorClass="bg-green-100 text-green-800">
-            <span className="font-semibold">Next watering:</span>
-            <span>{plant.nextWater}</span>
-          </Badge>
-          {plant.lastFertilized && (
-            <Badge Icon={Flower} colorClass="bg-orange-100 text-orange-800">
-              <span className="font-semibold">Last fertilized:</span>
-              <span>{plant.lastFertilized}</span>
+              <span className="font-semibold">Last watered:</span>
+              <span>{plant.lastWatered}</span>
             </Badge>
-          )}
+            <Badge Icon={CalendarCheck} colorClass="bg-green-100 text-green-800">
+              <span className="font-semibold">Next watering:</span>
+              <span>{plant.nextWater}</span>
+            </Badge>
+            {plant.lastFertilized && (
+              <Badge Icon={Flower} colorClass="bg-orange-100 text-orange-800">
+                <span className="font-semibold">Last fertilized:</span>
+                <span>{plant.lastFertilized}</span>
+              </Badge>
+            )}
+          </div>
         </div>
         <div className="flex gap-2 mt-3 items-center">
           <button
