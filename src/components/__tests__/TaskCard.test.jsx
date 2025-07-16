@@ -184,13 +184,11 @@ test('mark as done does not navigate', () => {
     </MemoryRouter>
   )
   fireEvent.click(screen.getByRole('checkbox'))
-  const dialog = screen.getByRole('dialog', { name: /optional note/i })
-  fireEvent.change(dialog.querySelector('textarea'), { target: { value: '' } })
-  fireEvent.click(screen.getByText('Save'))
+  expect(markWatered).toHaveBeenCalledWith(1, '')
   expect(screen.queryByText('Plant Page')).not.toBeInTheDocument()
 })
 
-test('completing with note calls log function', () => {
+test('completing task logs watering', () => {
   render(
     <MemoryRouter>
       <BaseCard variant="task">
@@ -199,10 +197,7 @@ test('completing with note calls log function', () => {
     </MemoryRouter>
   )
   fireEvent.click(screen.getByRole('checkbox'))
-  const dialog = screen.getByRole('dialog', { name: /optional note/i })
-  fireEvent.change(dialog.querySelector('textarea'), { target: { value: 'hello' } })
-  fireEvent.click(screen.getByText('Save'))
-  expect(markWatered).toHaveBeenCalledWith(1, 'hello')
+  expect(markWatered).toHaveBeenCalledWith(1, '')
 })
 
 test('clicking card adds ripple effect', () => {
@@ -301,9 +296,6 @@ test('shows toast on completion', () => {
     </MemoryRouter>
   )
   fireEvent.click(screen.getByRole('checkbox'))
-  const dialog = screen.getByRole('dialog', { name: /optional note/i })
-  fireEvent.change(dialog.querySelector('textarea'), { target: { value: '' } })
-  fireEvent.click(screen.getByText('Save'))
   expect(screen.getByText('Watered Monstera 🌿')).toBeInTheDocument()
   act(() => {
     jest.runAllTimers()
