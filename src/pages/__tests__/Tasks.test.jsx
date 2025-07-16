@@ -148,3 +148,18 @@ test('completed tasks are styled', () => {
     true
   )
 })
+
+test('future watering date does not show Water Now button', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+  render(
+    <MemoryRouter>
+      <Tasks />
+    </MemoryRouter>
+  )
+
+  const tab = screen.getByRole('tab', { name: /By Plant/i })
+  fireEvent.click(tab)
+
+  expect(screen.queryByText('Water Now')).toBeNull()
+  jest.useRealTimers()
+})
