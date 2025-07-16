@@ -18,12 +18,6 @@ export default function Timeline() {
   )
 
 
-  const iconColors = {
-    water: 'text-blue-500',
-    fertilize: 'text-yellow-500',
-    note: 'text-gray-400',
-    log: 'text-green-500',
-  }
 
   const bulletColors = {
     water: 'bg-blue-500',
@@ -45,11 +39,12 @@ export default function Timeline() {
                 const Icon = actionIcons[e.type]
                 return (
                   <li key={`${e.date}-${e.label}-${i}`} className="relative text-sm">
-                    <div className={`absolute -left-5 top-1 w-3 h-3 rounded-full ${bulletColors[e.type]}`}></div>
-                    <div className={`flex items-start gap-2 ${e.note ? 'bg-gray-50 dark:bg-gray-700 rounded-xl p-3 shadow-sm' : 'ml-1'}`}>
-                      {Icon && (
-                        <Icon className={`w-4 h-4 ${iconColors[e.type]}`} aria-hidden="true" />
-                      )}
+                    {Icon && (
+                      <div className={`absolute -left-5 top-[0.25rem] w-4 h-4 flex items-center justify-center rounded-full ${bulletColors[e.type]}`}>
+                        <Icon className="w-3 h-3 text-white" aria-hidden="true" />
+                      </div>
+                    )}
+                    <div className={`flex items-start ${e.note ? 'bg-gray-50 dark:bg-gray-700 rounded-xl p-3 shadow-sm' : ''}`}> 
                       <div>
                         <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
                         {e.note && (
