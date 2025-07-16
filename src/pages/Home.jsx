@@ -21,6 +21,7 @@ import {
 import CareStats from '../components/CareStats.jsx'
 import FeaturedCard from '../components/FeaturedCard.jsx'
 import useHappyPlant from '../hooks/useHappyPlant.js'
+import Badge from '../components/Badge.jsx'
 
 
 
@@ -90,6 +91,17 @@ export default function Home() {
   const tasks = [...waterTasks, ...fertilizeTasks].sort(
     (a, b) => new Date(a.date) - new Date(b.date)
   )
+  const tasksByPlant = tasks.reduce((acc, t) => {
+    if (!acc[t.plantId]) acc[t.plantId] = []
+    acc[t.plantId].push(t)
+    return acc
+  }, {})
+  const groupedTasks = Object.entries(tasksByPlant)
+    .map(([plantId, list]) => ({
+      plant: plants.find(p => p.id === Number(plantId)),
+      list: list.sort((a, b) => new Date(a.date) - new Date(b.date)),
+    }))
+    .sort((a, b) => new Date(a.list[0].date) - new Date(b.list[0].date))
   const totalCount = tasks.length
   const waterCount = waterTasks.length
   const fertilizeCount = fertilizeTasks.length
@@ -172,16 +184,56 @@ export default function Home() {
           <h2 className="font-semibold font-headline">Today’s Tasks</h2>
         </div>
         <div className="space-y-4">
-          {tasks.length > 0 ? (
-            tasks.map(task => (
-              <BaseCard key={task.id} variant="task">
-                <TaskCard
-                  task={task}
-                  urgent={task.urgent}
-                  overdue={task.overdue}
-                  compact
-                />
-              </BaseCard>
+          {groupedTasks.length > 0 ? (
+            groupedTasks.map(({ plant, list }) => (
+              <div
+                key={plant?.id ?? list[0].id}
+                data-testid="plant-task-card"
+                className="bg-white dark:bg-gray-700 rounded-2xl shadow"
+              >
+                <details>
+                  <summary className="flex items-center justify-between gap-2 cursor-pointer list-none p-4">
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={plant?.image}
+                        alt={plant?.name}
+                        className="w-12 h-12 rounded-lg object-cover"
+                      />
+                      <span className="font-medium text-gray-900 dark:text-gray-100">
+                        {plant?.name || 'Unknown'}
+                      </span>
+                    </div>
+                    <div className="flex gap-2">
+                      {list.map(t => (
+                        <Badge
+                          key={t.id}
+                          colorClass={`text-sm font-medium ${
+                            t.type === 'Water'
+                              ? 'bg-water-100 text-water-800'
+                              : t.type === 'Fertilize'
+                              ? 'bg-fertilize-100 text-fertilize-800'
+                              : 'bg-healthy-100 text-healthy-800'
+                          }`}
+                        >
+                          {t.type}
+                        </Badge>
+                      ))}
+                    </div>
+                  </summary>
+                  <div className="mt-2 space-y-2 px-4 pb-4">
+                    {list.map(t => (
+                      <BaseCard key={t.id} variant="task">
+                        <TaskCard
+                          task={t}
+                          urgent={t.urgent}
+                          overdue={t.overdue}
+                          compact
+                        />
+                      </BaseCard>
+                    ))}
+                  </div>
+                </details>
+              </div>
             ))
           ) : (
             <div className="text-sm text-gray-500 space-y-1 text-center flex flex-col items-center">
