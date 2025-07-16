@@ -202,7 +202,7 @@ export default function Tasks() {
   const handleFertRingClick = () => setTypeFilter('fertilize')
 
   return (
-    <div className="overflow-y-auto max-h-full p-4">
+    <div className="overflow-y-auto max-h-full p-4 pb-24">
 
       <div className="flex justify-center mb-4">
         <CareRings
