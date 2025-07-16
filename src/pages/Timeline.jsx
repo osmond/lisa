@@ -18,50 +18,44 @@ export default function Timeline() {
   )
 
 
-  const colors = {
+  const iconColors = {
+    water: 'text-blue-500',
+    fertilize: 'text-yellow-500',
+    note: 'text-gray-400',
+    log: 'text-green-500',
+  }
+
+  const bulletColors = {
     water: 'bg-blue-500',
     fertilize: 'bg-yellow-500',
     note: 'bg-gray-400',
-    log: 'bg-green-400',
-    iconBlue: 'text-blue-500',
-    iconYellow: 'text-yellow-500',
-    iconGray: 'text-gray-400',
-    iconGreen: 'text-green-500',
-  }
-
-  const iconColors = {
-    water: colors.iconBlue,
-    fertilize: colors.iconYellow,
-    note: colors.iconGray,
-    log: colors.iconGreen,
+    log: 'bg-green-500',
   }
 
   return (
     <div className="overflow-y-auto max-h-full p-4 text-gray-700 dark:text-gray-200">
       <div className="rounded-xl bg-white shadow-sm p-4 border border-gray-100">
         {groupedEvents.map(([monthKey, list]) => (
-          <div key={monthKey}>
-            <h3 className="mt-6 text-base font-semibold text-gray-600">
+          <div key={monthKey} className="mt-6 first:mt-0">
+            <h3 className="text-xs uppercase tracking-wider text-gray-400 mb-2">
               {formatMonth(monthKey)}
             </h3>
-            <ul className="ml-2 space-y-8">
+            <ul className="ml-3 border-l-2 border-gray-200 space-y-6 pl-5">
               {list.map((e, i) => {
                 const Icon = actionIcons[e.type]
                 return (
-                  <li
-                    key={`${e.date}-${e.label}-${i}`}
-                    className="relative flex items-start space-x-2 pl-4 before:absolute before:top-0 before:bottom-0 before:left-6 before:w-px before:bg-gray-300"
-                  >
-                    <div className={`w-4 h-4 rounded-full mt-1 flex items-center justify-center ${colors[e.type]}`}>
-                      {Icon && <Icon className={`w-3 h-3 ${iconColors[e.type]}`} aria-hidden="true" />}
-                    </div>
-                    <div>
-                      <p className="font-medium">
-                        {formatDate(e.date)} — {e.label}
-                      </p>
-                      {e.note && (
-                        <p className="text-xs text-gray-500 italic">{e.note}</p>
+                  <li key={`${e.date}-${e.label}-${i}`} className="relative text-sm">
+                    <div className={`absolute -left-5 top-1 w-3 h-3 rounded-full ${bulletColors[e.type]}`}></div>
+                    <div className={`flex items-start gap-2 ${e.note ? 'bg-gray-50 dark:bg-gray-700 rounded-xl p-3 shadow-sm' : 'ml-1'}`}>
+                      {Icon && (
+                        <Icon className={`w-4 h-4 ${iconColors[e.type]}`} aria-hidden="true" />
                       )}
+                      <div>
+                        <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
+                        {e.note && (
+                          <div className="text-xs italic text-green-700 mt-1">{e.note}</div>
+                        )}
+                      </div>
                     </div>
                   </li>
                 )
