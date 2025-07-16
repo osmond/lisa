@@ -19,6 +19,7 @@ import Lightbox from '../components/Lightbox.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
+import Accordion from '../components/Accordion.jsx'
 
 import useToast from "../hooks/useToast.jsx"
 import Badge from '../components/Badge.jsx'
@@ -185,7 +186,7 @@ export default function PlantDetail() {
             )}
           </div>
         </div>
-        <div className="bg-gray-50 rounded-xl p-4 space-y-3 shadow-sm">
+        <Accordion title="Quick Stats" defaultOpen>
           <div className="flex justify-between items-center text-sm">
             <span className="flex items-center gap-1 text-blue-600">
               <Drop className="w-4 h-4" aria-hidden="true" />
@@ -209,7 +210,7 @@ export default function PlantDetail() {
               <span className="text-gray-700">{plant.lastFertilized}</span>
             </div>
           )}
-        </div>
+        </Accordion>
 
         {events.length > 0 && (
           <div className="mt-4 border-l-4 border-blue-500 pl-4">
@@ -222,7 +223,7 @@ export default function PlantDetail() {
           </div>
         )}
 
-        <div className="space-y-1 mt-4">
+        <Accordion title="Care Profile" defaultOpen>
           <h3 className="text-base font-semibold font-headline">Care Profile</h3>
           {plant.light && (
             <>
@@ -247,10 +248,10 @@ export default function PlantDetail() {
               </Badge>
             )}
           </div>
-        </div>
+        </Accordion>
 
 
-        <div className="space-y-2 mt-4">
+        <Accordion title="Activity & Notes" defaultOpen={false}>
           <div role="tablist" className="flex gap-2">
             <button
               ref={el => (tabRefs.current[0] = el)}
@@ -399,9 +400,9 @@ export default function PlantDetail() {
               </div>
             ))}
           </div>
-        </div>
+        </Accordion>
       </div>
-      <div className="space-y-2">
+      <Accordion title="Gallery" defaultOpen={false}>
         <h2 className="text-xl font-semibold font-headline">Gallery</h2>
         <div className="flex gap-3 overflow-x-auto pb-2">
           {(plant.photos || []).map((src, i) => (
@@ -455,7 +456,7 @@ export default function PlantDetail() {
             />
           </div>
         )}
-      </div>
+      </Accordion>
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
       )}

@@ -34,6 +34,8 @@ test('shows notes from care log in activity tab', () => {
     </MemoryRouter>
   )
 
+  fireEvent.click(screen.getByRole('button', { name: /Activity & Notes Expand/i }))
+
   const activityTab = screen.getByRole('tab', { name: /Activity/ })
   fireEvent.click(activityTab)
 
