@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { PlusIcon } from '@radix-ui/react-icons'
+import { PlusIcon, Pencil1Icon } from '@radix-ui/react-icons'
 import { Image, Note } from 'phosphor-react'
 
-export default function PlantDetailFab({ onAddNote, onAddPhoto }) {
+export default function PlantDetailFab({ onAddNote, onAddPhoto, onEdit }) {
   const [open, setOpen] = useState(false)
 
   const handleNote = () => {
@@ -13,6 +13,11 @@ export default function PlantDetailFab({ onAddNote, onAddPhoto }) {
   const handlePhoto = () => {
     setOpen(false)
     onAddPhoto?.()
+  }
+
+  const handleEdit = () => {
+    setOpen(false)
+    onEdit?.()
   }
 
   return (
@@ -37,6 +42,16 @@ export default function PlantDetailFab({ onAddNote, onAddPhoto }) {
             >
               <Image className="w-4 h-4" aria-hidden="true" />
               Add Photo
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              onClick={handleEdit}
+              className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 w-full text-left"
+            >
+              <Pencil1Icon className="w-4 h-4" aria-hidden="true" />
+              Edit Plant
             </button>
           </li>
         </ul>

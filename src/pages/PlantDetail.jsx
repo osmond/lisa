@@ -8,7 +8,6 @@ import {
   Gauge,
   CalendarCheck,
   Flower,
-  DotsThreeVertical,
   Image,
   Note,
   Info,
@@ -59,7 +58,6 @@ export default function PlantDetail() {
   const { Toast, showToast } = useToast()
   const [showNoteModal, setShowNoteModal] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(null)
-  const [showActionsMenu, setShowActionsMenu] = useState(false)
   const [showLegend, setShowLegend] = useState(false)
 
   const events = useMemo(() => buildEvents(plant), [plant])
@@ -146,14 +144,6 @@ export default function PlantDetail() {
             className="w-full h-64 object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" aria-hidden="true"></div>
-          <button
-            type="button"
-            onClick={() => setShowActionsMenu(v => !v)}
-            className="absolute top-2 right-2 p-1 bg-white rounded-full shadow"
-          >
-            <DotsThreeVertical className="w-5 h-5 text-gray-700" aria-hidden="true" />
-            <span className="sr-only">More options</span>
-          </button>
           <span className="absolute top-2 left-2 text-xs bg-black/50 text-white px-2 py-0.5 rounded-full flex items-center gap-1">
             <Drop className="w-3 h-3" aria-hidden="true" />
             {plant.lastWatered}
@@ -161,22 +151,6 @@ export default function PlantDetail() {
           <span className="absolute top-2 left-24 text-xs bg-green-600 text-white px-2 py-0.5 rounded-full animate-fade-in-up">
             🪴 Featured Plant
           </span>
-          {showActionsMenu && (
-            <ul className="absolute top-10 right-2 bg-white border rounded shadow z-10">
-              <li>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowActionsMenu(false)
-                    handleEdit()
-                  }}
-                  className="block px-3 py-1 text-sm text-left w-full hover:bg-gray-100"
-                >
-                  Edit Plant
-                </button>
-              </li>
-            </ul>
-          )}
           <div className="absolute bottom-3 left-4 text-white drop-shadow">
             <h2 className="text-2xl font-semibold font-headline">{plant.name}</h2>
             {plant.nickname && (
@@ -398,7 +372,11 @@ export default function PlantDetail() {
       {showLegend && (
         <LegendModal onClose={() => setShowLegend(false)} />
       )}
-      <PlantDetailFab onAddNote={handleLogEvent} onAddPhoto={openFileInput} />
+      <PlantDetailFab
+        onAddNote={handleLogEvent}
+        onAddPhoto={openFileInput}
+        onEdit={handleEdit}
+      />
     </div>
   )
 }
