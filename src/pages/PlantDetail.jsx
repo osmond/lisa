@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useRef, useMemo } from 'react'
 
 import {
@@ -32,6 +32,7 @@ export default function PlantDetail() {
   const { id } = useParams()
   const { plants, addPhoto, removePhoto, markWatered, markFertilized, logEvent } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
+  const navigate = useNavigate()
 
   const tabNames = ['activity', 'notes', 'care', 'timeline']
   const tabRefs = useRef([])
@@ -41,6 +42,7 @@ export default function PlantDetail() {
   const { Toast, showToast } = useToast()
   const [showNoteModal, setShowNoteModal] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(null)
+  const [showActionsMenu, setShowActionsMenu] = useState(false)
 
   const events = useMemo(() => buildEvents(plant), [plant])
 
@@ -101,6 +103,14 @@ export default function PlantDetail() {
     setShowNoteModal(true)
   }
 
+  const handleEdit = () => {
+    navigate(`/plant/${plant.id}/edit`)
+  }
+
+  const handleAddPhoto = () => {
+    fileInputRef.current?.click()
+  }
+
   const saveNote = note => {
     if (note) {
       logEvent(plant.id, 'Note', note)
@@ -153,11 +163,11 @@ export default function PlantDetail() {
             </Badge>
           )}
         </div>
-        <div className="flex gap-2 mt-3">
+        <div className="flex gap-2 mt-3 items-center">
           <button
             type="button"
             onClick={handleWatered}
-            className="px-4 py-1 bg-accent text-white rounded-full flex items-center gap-1"
+            className="px-3 py-1 rounded-full bg-accent text-white text-sm font-medium flex items-center gap-1"
           >
             <Drop className="w-4 h-4" aria-hidden="true" />
             Watered
@@ -165,7 +175,7 @@ export default function PlantDetail() {
           <button
             type="button"
             onClick={handleFertilized}
-            className="px-4 py-1 bg-accent text-white rounded-full flex items-center gap-1"
+            className="px-3 py-1 rounded-full bg-accent text-white text-sm font-medium flex items-center gap-1"
           >
             <Flower className="w-4 h-4" aria-hidden="true" />
             Fertilized
@@ -173,11 +183,48 @@ export default function PlantDetail() {
           <button
             type="button"
             onClick={handleLogEvent}
-            className="px-4 py-1 bg-accent text-white rounded-full flex items-center gap-1"
+            className="px-3 py-1 rounded-full bg-accent text-white text-sm font-medium flex items-center gap-1"
           >
             <Note className="w-4 h-4" aria-hidden="true" />
             Add Note
           </button>
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setShowActionsMenu(v => !v)}
+              className="px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm font-medium flex items-center gap-1"
+            >
+              More…
+            </button>
+            {showActionsMenu && (
+              <ul className="absolute right-0 mt-1 bg-white border rounded shadow z-10">
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowActionsMenu(false)
+                      handleEdit()
+                    }}
+                    className="block px-3 py-1 text-sm text-left w-full hover:bg-gray-100"
+                  >
+                    Edit Plant
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowActionsMenu(false)
+                      handleAddPhoto()
+                    }}
+                    className="block px-3 py-1 text-sm text-left w-full hover:bg-gray-100"
+                  >
+                    Add Photo
+                  </button>
+                </li>
+              </ul>
+            )}
+          </div>
         </div>
 
         <div className="space-y-1">
