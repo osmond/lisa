@@ -28,8 +28,10 @@ swipeable gallery carousel of your uploaded photos.
 
 Click or tap a photo to launch the Lightbox viewer. Navigate between
 images with the on-screen arrows or your keyboard’s Left/Right keys, and
-close the viewer with **Esc** or the “×” button. The collapsible **Timeline**
-section on this page lists your watering, fertilizing and note history.
+close the viewer with **Esc** or the “×” button. If your plant has many
+photos, use the **View All Photos** button to open the viewer starting at the
+first image. The collapsible **Timeline** section on this page lists your
+watering, fertilizing and note history.
 
 
 ## Weather Feature

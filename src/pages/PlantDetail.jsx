@@ -305,7 +305,7 @@ export default function PlantDetail() {
                   <img
                     src={src}
                     alt={`${plant.name} ${i}`}
-                    className="object-cover w-full h-24 rounded"
+                    className="object-cover w-full h-24 rounded-lg"
                   />
                 </button>
                 {caption && <p className="text-xs mt-1 w-24 text-center">{caption}</p>}
@@ -320,6 +320,15 @@ export default function PlantDetail() {
             )
           })}
         </div>
+        {(plant.photos || []).length > 3 && (
+          <button
+            type="button"
+            onClick={() => setLightboxIndex(0)}
+            className="mt-2 text-sm text-blue-600 underline"
+          >
+            View All Photos
+          </button>
+        )}
         <button
           type="button"
           onClick={() => fileInputRef.current.click()}
