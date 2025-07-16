@@ -11,6 +11,7 @@ import {
   Image,
   Note,
   Info,
+  ArrowLeft,
 } from 'phosphor-react'
 
 import Lightbox from '../components/Lightbox.jsx'
@@ -91,6 +92,10 @@ export default function PlantDetail() {
     navigate(`/plant/${plant.id}/edit`)
   }
 
+  const handleBack = () => {
+    navigate(-1)
+  }
+
   const { setMenu } = useMenu()
 
   useEffect(() => {
@@ -143,6 +148,14 @@ export default function PlantDetail() {
             className="w-full h-64 object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" aria-hidden="true"></div>
+          <button
+            type="button"
+            onClick={handleBack}
+            className="absolute top-2 left-2 bg-white bg-opacity-70 rounded px-2 py-1 text-sm flex items-center gap-1"
+          >
+            <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+            Back
+          </button>
           <div className="absolute bottom-3 left-4 text-white drop-shadow">
             <h2 className="text-2xl font-semibold font-headline">{plant.name}</h2>
             {plant.nickname && (
