@@ -9,6 +9,7 @@ export default function Fab() {
       aria-label="Add Plant"
     >
       <PlusIcon className="w-6 h-6" aria-hidden="true" />
+      <span className="sr-only">Add Plant</span>
     </Link>
   )
 }
