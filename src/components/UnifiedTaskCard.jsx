@@ -1,0 +1,59 @@
+import React from 'react'
+import { Drop, Sun } from 'phosphor-react'
+
+export default function UnifiedTaskCard({ plant, urgent = false, overdue = false }) {
+  if (!plant) return null
+  const { name, image, dueWater, dueFertilize, lastCared } = plant
+  const needs = []
+  if (dueWater) needs.push('water \uD83D\uDCA7')
+  if (dueFertilize) needs.push('fertilizer \u2600\uFE0F')
+  const summary = needs.length ? `Needs ${needs.join(' and ')}` : 'No care needed'
+
+  const bgClass = overdue
+    ? 'bg-red-50 dark:bg-red-900'
+    : urgent
+    ? 'bg-yellow-50 dark:bg-yellow-900'
+    : 'bg-gray-50 dark:bg-gray-800'
+
+  const last = lastCared ? (
+    <p className="text-xs text-gray-500">Last cared for {lastCared}</p>
+  ) : null
+
+  return (
+    <div
+      data-testid="unified-task-card"
+      className={`rounded-xl overflow-hidden ${bgClass}`}
+    >
+      <div className="flex items-center gap-3 p-4">
+        <img src={image} alt={name} className="w-12 h-12 rounded-lg object-cover" />
+        <div className="flex-1 min-w-0">
+          <p className="font-semibold font-headline text-gray-900 dark:text-gray-100 truncate">
+            {name}
+          </p>
+          <p className="text-sm text-gray-600 dark:text-gray-300">{summary}</p>
+          {last}
+        </div>
+        <div className="flex flex-col gap-1 items-end">
+          {dueWater && (
+            <button
+              type="button"
+              className="px-3 py-1 border border-blue-600 text-blue-600 rounded-full text-xs flex items-center gap-1"
+            >
+              <Drop className="w-3 h-3" aria-hidden="true" />
+              Water Now
+            </button>
+          )}
+          {dueFertilize && (
+            <button
+              type="button"
+              className="px-3 py-1 border border-yellow-600 text-yellow-600 rounded-full text-xs flex items-center gap-1"
+            >
+              <Sun className="w-3 h-3" aria-hidden="true" />
+              Fertilize Now
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
