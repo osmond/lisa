@@ -19,6 +19,7 @@ import Lightbox from '../components/Lightbox.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
+import PlantDetailFab from '../components/PlantDetailFab.jsx'
 
 import useToast from "../hooks/useToast.jsx"
 import Badge from '../components/Badge.jsx'
@@ -92,6 +93,10 @@ export default function PlantDetail() {
     setShowNoteModal(true)
   }
 
+  const openFileInput = () => {
+    fileInputRef.current?.click()
+  }
+
   const handleEdit = () => {
     navigate(`/plant/${plant.id}/edit`)
   }
@@ -110,11 +115,13 @@ export default function PlantDetail() {
   }
 
   if (!plant) {
-    return <div className="text-gray-700">Plant not found</div>
+    return <div className="text-gray-700 dark:text-gray-200">Plant not found</div>
   }
 
   return (
-    <div className="space-y-4 pt-4 pb-safe px-4 relative text-left">
+
+    <div className="space-y-8 pt-4 pb-safe px-4 relative text-left">
+
       <Toast />
       <div className="space-y-4">
         <div className="rounded-xl shadow-md overflow-hidden relative">
@@ -163,9 +170,9 @@ export default function PlantDetail() {
             )}
           </div>
         </div>
-        <section className="bg-white rounded-xl shadow-sm p-4 space-y-3">
+        <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-3">
           <h3 className="flex items-center gap-2 font-semibold font-headline">
-            <Clock className="w-5 h-5 text-gray-600" aria-hidden="true" />
+            <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Quick Stats
           </h3>
           <div className="flex justify-between items-center text-sm">
@@ -173,15 +180,17 @@ export default function PlantDetail() {
               <Drop className="w-4 h-4" aria-hidden="true" />
               Last watered:
             </span>
-            <span className="text-gray-700">{plant.lastWatered}</span>
+            <span className="text-gray-700 dark:text-gray-200">{plant.lastWatered}</span>
           </div>
           <div className="flex justify-between items-center text-sm">
             <span className="flex items-center gap-1 text-green-600">
               <CalendarCheck className="w-4 h-4" aria-hidden="true" />
               Next watering:
             </span>
+
             <div className="flex items-center gap-3">
               <span className="text-gray-700">{plant.nextWater}</span>
+
               <button
                 type="button"
                 onClick={handleWatered}
@@ -198,8 +207,10 @@ export default function PlantDetail() {
                 <Flower className="w-4 h-4" aria-hidden="true" />
                 Next fertilizing:
               </span>
+
               <div className="flex items-center gap-3">
                 <span className="text-gray-700">{plant.nextFertilize}</span>
+
                 <button
                   type="button"
                   onClick={handleFertilized}
@@ -217,17 +228,19 @@ export default function PlantDetail() {
                 <Flower className="w-4 h-4" aria-hidden="true" />
                 Last fertilized:
               </span>
-              <span className="text-gray-700">{plant.lastFertilized}</span>
+              <span className="text-gray-700 dark:text-gray-200">{plant.lastFertilized}</span>
             </div>
           )}
+
           <div className="border-t pt-3 space-y-3">
             <h3 className="flex items-center gap-2 font-semibold font-headline">
               <Sun className="w-5 h-5 text-yellow-600" aria-hidden="true" />
               Care Profile
             </h3>
+
           {plant.light && (
             <>
-              <h4 className="text-xs font-semibold text-gray-500 mb-1">Light Needs</h4>
+              <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Light Needs</h4>
               <div className="flex gap-2 mb-3">
                 <Badge Icon={Sun} colorClass="bg-yellow-50 text-yellow-800 text-xs">
                   {plant.light}
@@ -235,7 +248,7 @@ export default function PlantDetail() {
               </div>
             </>
           )}
-          <h4 className="text-xs font-semibold text-gray-500 mb-1 mt-1">Care Tags</h4>
+          <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1 mt-1">Care Tags</h4>
           <div className="flex flex-wrap gap-2">
             {plant.humidity && (
               <Badge Icon={Drop} colorClass="bg-blue-50 text-blue-800 text-xs">
@@ -251,21 +264,21 @@ export default function PlantDetail() {
           </div>
         </section>
 
-        <section className="bg-white rounded-xl shadow-sm p-4 space-y-4">
+        <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-4">
           <h3 className="flex items-center gap-2 font-semibold font-headline mb-1">
-            <Note className="w-5 h-5 text-gray-600" aria-hidden="true" />
+            <Note className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Activity & Notes
           </h3>
           {groupedEvents.map(([monthKey, list]) => (
             <div key={monthKey} className="mt-2 first:mt-0">
-              <div className="text-sm font-semibold text-gray-500">{formatMonth(monthKey)}</div>
+              <div className="text-sm font-semibold text-gray-500 dark:text-gray-400">{formatMonth(monthKey)}</div>
               <div className="ml-3 border-l-2 border-gray-200 space-y-4 mt-2 pl-5">
                 {list.map((e, i) => {
                   const Icon = actionIcons[e.type]
                   return (
                     <div key={`${e.date}-${i}`} className="relative text-sm">
                       <div className={`absolute -left-5 top-1 w-3 h-3 rounded-full ${bulletColors[e.type]}`}></div>
-                      <p className="flex items-start gap-2 text-gray-700 ml-1">
+                      <p className="flex items-start gap-2 text-gray-700 dark:text-gray-200 ml-1">
                         {Icon && <Icon className={`w-4 h-4 ${iconColors[e.type]}`} aria-hidden="true" />}
                         <span>
                           <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
@@ -283,16 +296,16 @@ export default function PlantDetail() {
           <button
             type="button"
             onClick={handleLogEvent}
-            className="mt-2 inline-flex items-center gap-1 px-2 py-1 bg-gray-100 rounded text-sm"
+            className="mt-2 inline-flex items-center gap-1 px-2 py-1 bg-gray-100 dark:bg-gray-600 rounded text-sm"
           >
             + Add Note
           </button>
         </section>
       </div>
 
-      <section className="bg-white rounded-xl shadow-sm p-4 space-y-2">
+      <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-2">
         <h3 className="flex items-center gap-2 font-semibold font-headline mb-1">
-          <Image className="w-5 h-5 text-gray-600" aria-hidden="true" />
+          <Image className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
           Gallery
         </h3>
         <div className="flex gap-3 overflow-x-auto pb-2">
@@ -330,7 +343,7 @@ export default function PlantDetail() {
         )}
         <button
           type="button"
-          onClick={() => fileInputRef.current.click()}
+          onClick={openFileInput}
           className="mt-2 inline-flex items-center gap-1 px-3 py-2 bg-gray-200 rounded shadow"
         >
           <PlusIcon className="w-4 h-4" aria-hidden="true" />
@@ -363,6 +376,7 @@ export default function PlantDetail() {
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
       )}
-  </div>
-)
+      <PlantDetailFab onAddNote={handleLogEvent} onAddPhoto={openFileInput} />
+    </div>
+  )
 }
