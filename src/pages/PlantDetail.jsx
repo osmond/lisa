@@ -50,22 +50,11 @@ export default function PlantDetail() {
     [events]
   )
 
-  const colors = {
-    water: 'bg-blue-500',
-    fertilize: 'bg-yellow-500',
-    note: 'bg-gray-400',
-    log: 'bg-green-400',
-    iconBlue: 'text-blue-500',
-    iconYellow: 'text-yellow-500',
-    iconGray: 'text-gray-400',
-    iconGreen: 'text-green-500',
-  }
-
   const iconColors = {
-    water: colors.iconBlue,
-    fertilize: colors.iconYellow,
-    note: colors.iconGray,
-    log: colors.iconGreen,
+    water: 'text-blue-500',
+    fertilize: 'text-yellow-500',
+    note: 'text-gray-400',
+    log: 'text-green-500',
   }
 
   const handleFiles = e => {
@@ -127,7 +116,7 @@ export default function PlantDetail() {
   }
 
   return (
-    <div className="space-y-2 relative text-left">
+    <div className="space-y-4 pt-4 pb-safe px-4 relative text-left">
       <Toast />
       <div className="space-y-4">
         <div className="rounded-xl shadow-md overflow-hidden relative">
@@ -137,6 +126,7 @@ export default function PlantDetail() {
             loading="lazy"
             className="w-full h-64 object-cover"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" aria-hidden="true"></div>
           <button
             type="button"
             onClick={() => setShowActionsMenu(v => !v)}
@@ -145,6 +135,10 @@ export default function PlantDetail() {
             <DotsThreeVertical className="w-5 h-5 text-gray-700" aria-hidden="true" />
             <span className="sr-only">More options</span>
           </button>
+          <span className="absolute top-2 left-2 text-xs bg-black/50 text-white px-2 py-0.5 rounded-full flex items-center gap-1">
+            <Drop className="w-3 h-3" aria-hidden="true" />
+            {plant.lastWatered}
+          </span>
           {showActionsMenu && (
             <ul className="absolute top-10 right-2 bg-white border rounded shadow z-10">
               <li>
@@ -173,45 +167,55 @@ export default function PlantDetail() {
               </li>
             </ul>
           )}
-          <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 via-black/30 to-transparent text-white text-left">
-            <h1 className="text-3xl font-bold font-headline">{plant.name}</h1>
-            {plant.nickname && <p className="text-gray-200">{plant.nickname}</p>}
+          <div className="absolute bottom-3 left-4 text-white drop-shadow">
+            <h2 className="text-2xl font-semibold">{plant.name}</h2>
+            {plant.nickname && (
+              <p className="text-sm opacity-90">{plant.nickname}</p>
+            )}
           </div>
         </div>
-        <div className="rounded-xl shadow-md bg-green-50 p-3 flex flex-wrap gap-2 text-base">
-          <Badge Icon={Drop} colorClass="bg-blue-100 text-blue-800">
-            <Drop className="w-4 h-4" />
-            <span className="font-semibold">Last watered:</span>
-            <span>{plant.lastWatered}</span>
-          </Badge>
-          <Badge Icon={CalendarCheck} colorClass="bg-green-100 text-green-800">
-            <span className="font-semibold">Next watering:</span>
-            <span>{plant.nextWater}</span>
-          </Badge>
+        <div className="bg-green-50 p-4 rounded-xl shadow-sm space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-blue-700 flex items-center gap-1">
+              <Drop className="w-3 h-3" aria-hidden="true" />
+              Last watered:
+            </span>
+            <span className="text-sm font-medium text-gray-900">{plant.lastWatered}</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-green-700 flex items-center gap-1">
+              <CalendarCheck className="w-3 h-3" aria-hidden="true" />
+              Next watering:
+            </span>
+            <span className="text-sm font-medium text-gray-900">{plant.nextWater}</span>
+          </div>
           {plant.lastFertilized && (
-            <Badge Icon={Flower} colorClass="bg-orange-100 text-orange-800">
-              <span className="font-semibold">Last fertilized:</span>
-              <span>{plant.lastFertilized}</span>
-            </Badge>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-yellow-700 flex items-center gap-1">
+                <Flower className="w-3 h-3" aria-hidden="true" />
+                Last fertilized:
+              </span>
+              <span className="text-sm font-medium text-gray-900">{plant.lastFertilized}</span>
+            </div>
           )}
         </div>
 
 
         <div className="space-y-1 mt-4">
           <h3 className="text-base font-semibold font-headline">Care Profile</h3>
-          <div className="flex flex-wrap gap-2 text-base">
+          <div className="flex flex-wrap gap-2">
             {plant.light && (
-              <Badge Icon={Sun} colorClass="bg-yellow-100 text-yellow-800">
+              <Badge Icon={Sun} colorClass="bg-yellow-50 text-yellow-800 text-xs">
                 {plant.light}
               </Badge>
             )}
             {plant.humidity && (
-              <Badge Icon={Drop} colorClass="bg-blue-100 text-blue-800">
+              <Badge Icon={Drop} colorClass="bg-blue-50 text-blue-800 text-xs">
                 {plant.humidity}
               </Badge>
             )}
             {plant.difficulty && (
-              <Badge Icon={Gauge} colorClass="bg-green-100 text-green-800">
+              <Badge Icon={Gauge} colorClass="bg-green-50 text-green-800 text-xs">
                 {plant.difficulty}
               </Badge>
             )}
@@ -341,33 +345,24 @@ export default function PlantDetail() {
             className="p-4 border border-gray-100 rounded-xl bg-white shadow-sm"
           >
             {groupedEvents.map(([monthKey, list]) => (
-              <div key={monthKey}>
-                <h3 className="mt-6 text-base font-semibold text-gray-600">
-                  {formatMonth(monthKey)}
-                </h3>
-                <ul className="ml-2 space-y-8">
+              <div key={monthKey} className="mt-6 first:mt-0">
+                <div className="text-sm text-gray-500">{formatMonth(monthKey)}</div>
+                <div className="ml-3 border-l border-gray-200 space-y-3 mt-2 pl-3">
                   {list.map((e, i) => {
                     const Icon = actionIcons[e.type]
                     return (
-                      <li
-                        key={`${e.date}-${i}`}
-                        className="relative flex items-start space-x-2 pl-4 before:absolute before:top-0 before:bottom-0 before:left-6 before:w-px before:bg-gray-300"
-                      >
-                        <div className={`w-4 h-4 rounded-full mt-1 flex items-center justify-center ${colors[e.type]}`}>
-                          {Icon && <Icon className={`w-3 h-3 ${iconColors[e.type]}`} aria-hidden="true" />}
-                        </div>
-                        <div>
-                          <p className="font-medium">
-                            {formatDate(e.date)} — {e.label}
-                          </p>
+                      <div key={`${e.date}-${i}`} className="flex items-start gap-3 text-sm">
+                        <div className={`mt-0.5 ${iconColors[e.type]}`}>{Icon && <Icon className="w-4 h-4" aria-hidden="true" />}</div>
+                        <p className="text-gray-700">
+                          <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
                           {e.note && (
-                            <p className="text-xs text-gray-500 italic">{e.note}</p>
+                            <>: <em>{e.note}</em></>
                           )}
-                        </div>
-                      </li>
+                        </p>
+                      </div>
                     )
                   })}
-                </ul>
+                </div>
               </div>
             ))}
           </div>
