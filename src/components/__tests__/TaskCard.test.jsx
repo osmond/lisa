@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter, useNavigate } from 'react-router-dom'
 import { usePlants } from '../../PlantContext.jsx'
@@ -181,6 +181,177 @@ test('card shows ripple on click', async () => {
   const user = userEvent.setup()
   await user.click(wrapper)
   expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
+})
+
+test('swiping right completes water task and animates', async () => {
+  const { container } = render(
+    <MemoryRouter>
+      <BaseCard variant="task">
+        <TaskCard task={task} />
+      </BaseCard>
+    </MemoryRouter>
+  )
+  const wrapper = container.querySelector('[data-testid="task-card"]')
+
+  fireEvent.pointerDown(wrapper, { clientX: 0, buttons: 1 })
+  fireEvent.pointerMove(wrapper, { clientX: 100, buttons: 1 })
+  fireEvent.pointerUp(wrapper, { clientX: 100 })
+
+  await act(async () => {
+    fireEvent.touchStart(wrapper, { touches: [{ clientX: 0 }] })
+    fireEvent.touchMove(wrapper, { touches: [{ clientX: 100 }] })
+    fireEvent.touchEnd(wrapper)
+  })
+
+  expect(markWatered).toHaveBeenCalledWith(1, '')
+  const checkbox = container.querySelector('input[type="checkbox"]')
+  expect(checkbox).toBeChecked()
+  expect(container.querySelector('.check-pop')).toBeInTheDocument()
+})
+
+test('swiping right fertilize task completes and animates', async () => {
+  const fertTask = { ...task, type: 'Fertilize' }
+  const { container } = render(
+    <MemoryRouter>
+      <BaseCard variant="task">
+        <TaskCard task={fertTask} />
+      </BaseCard>
+    </MemoryRouter>
+  )
+  const wrapper = container.querySelector('[data-testid="task-card"]')
+
+  fireEvent.pointerDown(wrapper, { clientX: 0, buttons: 1 })
+  fireEvent.pointerMove(wrapper, { clientX: 100, buttons: 1 })
+  fireEvent.pointerUp(wrapper, { clientX: 100 })
+
+  await act(async () => {
+    fireEvent.touchStart(wrapper, { touches: [{ clientX: 0 }] })
+    fireEvent.touchMove(wrapper, { touches: [{ clientX: 100 }] })
+    fireEvent.touchEnd(wrapper)
+  })
+
+  expect(markFertilized).toHaveBeenCalledWith(1, '')
+  const checkbox = container.querySelector('input[type="checkbox"]')
+  expect(checkbox).toBeChecked()
+  expect(container.querySelector('.check-pop')).toBeInTheDocument()
+})
+
+test('swiping left shows menu', async () => {
+  const { container } = render(
+    <MemoryRouter>
+      <BaseCard variant="task">
+        <TaskCard task={task} />
+      </BaseCard>
+    </MemoryRouter>
+  )
+  const wrapper = container.querySelector('[data-testid="task-card"]')
+
+  await act(async () => {
+    fireEvent.pointerDown(wrapper, { clientX: 100, buttons: 1 })
+    fireEvent.pointerMove(wrapper, { clientX: 20, buttons: 1 })
+    fireEvent.pointerUp(wrapper, { clientX: 20 })
+
+    fireEvent.touchStart(wrapper, { touches: [{ clientX: 100 }] })
+    fireEvent.touchMove(wrapper, { touches: [{ clientX: 20 }] })
+    fireEvent.touchEnd(wrapper)
+  })
+
+  expect(screen.getByText('Add Note')).toBeInTheDocument()
+})
+
+test('long press shows menu', () => {
+  jest.useFakeTimers()
+  const { container } = render(
+    <MemoryRouter>
+      <BaseCard variant="task">
+        <TaskCard task={task} />
+      </BaseCard>
+    </MemoryRouter>
+  )
+  const wrapper = container.querySelector('[data-testid="task-card"]')
+
+  fireEvent.pointerDown(wrapper, { clientX: 0, buttons: 1 })
+  act(() => {
+    jest.advanceTimersByTime(650)
+  })
+
+  expect(screen.getByText('Add Note')).toBeInTheDocument()
+  fireEvent.pointerUp(wrapper)
+  jest.useRealTimers()
+})
+
+test('Add Note saves note and hides menu', async () => {
+  const { container } = render(
+    <MemoryRouter>
+      <BaseCard variant="task">
+        <TaskCard task={task} />
+      </BaseCard>
+    </MemoryRouter>
+  )
+  const wrapper = container.querySelector('[data-testid="task-card"]')
+
+  await act(async () => {
+    fireEvent.pointerDown(wrapper, { clientX: 100, buttons: 1 })
+    fireEvent.pointerMove(wrapper, { clientX: 20, buttons: 1 })
+    fireEvent.pointerUp(wrapper, { clientX: 20 })
+  })
+
+  fireEvent.click(screen.getByText('Add Note'))
+  const dialog = screen.getByRole('dialog', { name: /add note/i })
+  fireEvent.change(dialog.querySelector('textarea'), { target: { value: 'note' } })
+  fireEvent.click(screen.getByText('Save'))
+
+  expect(logEvent).toHaveBeenCalledWith(1, 'Note', 'note')
+  expect(screen.queryByText('Add Note')).not.toBeInTheDocument()
+  expect(screen.queryByRole('dialog', { name: /add note/i })).not.toBeInTheDocument()
+})
+
+test('Snooze updates plant and hides menu', async () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+  const { container } = render(
+    <MemoryRouter>
+      <BaseCard variant="task">
+        <TaskCard task={task} />
+      </BaseCard>
+    </MemoryRouter>
+  )
+  const wrapper = container.querySelector('[data-testid="task-card"]')
+
+  await act(async () => {
+    fireEvent.pointerDown(wrapper, { clientX: 100, buttons: 1 })
+    fireEvent.pointerMove(wrapper, { clientX: 20, buttons: 1 })
+    fireEvent.pointerUp(wrapper, { clientX: 20 })
+  })
+
+  fireEvent.click(screen.getByText('Snooze'))
+  const tomorrow = new Date('2025-07-10')
+  tomorrow.setDate(tomorrow.getDate() + 1)
+  expect(updatePlant).toHaveBeenCalledWith(1, {
+    nextWater: tomorrow.toISOString().slice(0, 10),
+  })
+  expect(screen.queryByText('Add Note')).not.toBeInTheDocument()
+  jest.useRealTimers()
+})
+
+test('Edit Plant navigates and hides menu', async () => {
+  const { container } = render(
+    <MemoryRouter>
+      <BaseCard variant="task">
+        <TaskCard task={task} />
+      </BaseCard>
+    </MemoryRouter>
+  )
+  const wrapper = container.querySelector('[data-testid="task-card"]')
+
+  await act(async () => {
+    fireEvent.pointerDown(wrapper, { clientX: 100, buttons: 1 })
+    fireEvent.pointerMove(wrapper, { clientX: 20, buttons: 1 })
+    fireEvent.pointerUp(wrapper, { clientX: 20 })
+  })
+
+  fireEvent.click(screen.getByText('Edit Plant'))
+  expect(navigateMock).toHaveBeenCalledWith('/plant/1/edit')
+  expect(screen.queryByText('Add Note')).not.toBeInTheDocument()
 })
 
 
