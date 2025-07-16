@@ -91,7 +91,7 @@ export default function TaskCard({
       }}
 
 
-      className={`relative flex items-center gap-3 px-4 py-3 rounded-2xl overflow-hidden shadow-sm transition-transform duration-150 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500${completed ? ' bg-gray-100 dark:bg-gray-800 opacity-50 ring-1 ring-neutral-200' : ' bg-white dark:bg-gray-700 ring-1 ring-neutral-200 hover:bg-gray-50 dark:hover:bg-gray-600'}${urgent ? ' ring-green-300 dark:ring-green-400' : ''}${overdue ? ' ring-orange-300' : ''}`}
+      className={`relative flex items-center gap-3 px-4 py-3 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-transform duration-150 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500${completed ? ' bg-gray-100 dark:bg-gray-800 opacity-50 ring-1 ring-gray-100' : ' bg-white dark:bg-gray-700 ring-1 ring-gray-100'}${urgent ? ' ring-green-300 dark:ring-green-400' : ''}`}
 
 
       onTouchMove={move}
@@ -126,13 +126,11 @@ export default function TaskCard({
         <img
           src={task.image}
           alt={task.plantName}
-          className={`${compact ? 'w-12 h-12' : 'w-16 h-16'} object-cover rounded-md`}
+          className="w-12 h-12 rounded-lg object-cover"
         />
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
-            <p
-              className={`${compact ? '' : 'text-lg'} font-bold font-headline truncate`}
-            >
+            <p className="font-medium text-gray-900 dark:text-gray-100 truncate">
               {task.plantName}
             </p>
             {Icon && (
@@ -142,16 +140,14 @@ export default function TaskCard({
               />
             )}
           </div>
-          <p
-            className={`${compact ? 'text-sm' : 'text-base'} font-body flex flex-wrap items-center gap-1 text-gray-600 dark:text-gray-300`}
-          >
+          <p className="text-sm flex flex-wrap items-center gap-1 text-gray-500">
             <Badge
-              colorClass={`text-xs ${
+              colorClass={`text-sm font-medium ${
                 task.type === 'Water'
-                  ? 'bg-water-200 text-water-800'
+                  ? 'bg-water-100 text-water-800'
                   : task.type === 'Fertilize'
-                  ? 'bg-fertilize-200 text-fertilize-800'
-                  : 'bg-healthy-200 text-healthy-800'
+                  ? 'bg-fertilize-100 text-fertilize-800'
+                  : 'bg-healthy-100 text-healthy-800'
               }`}
             >
               {completed
@@ -167,7 +163,7 @@ export default function TaskCard({
                 : task.type}
             </Badge>
             {daysSince != null && (
-              <span className="text-xs text-gray-500">
+              <span className="text-sm text-gray-500">
                 · {daysSince} {daysSince === 1 ? 'day' : 'days'} since care
               </span>
             )}
