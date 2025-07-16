@@ -4,6 +4,7 @@ import { useState, useRef, useMemo } from 'react'
 import {
   Activity,
   Note,
+  Clock,
   Sun,
   Drop,
   Gauge,
@@ -146,6 +147,9 @@ export default function PlantDetail() {
             <Drop className="w-3 h-3" aria-hidden="true" />
             {plant.lastWatered}
           </span>
+          <span className="absolute top-2 left-24 text-xs bg-green-600 text-white px-2 py-0.5 rounded-full animate-fade-in-up">
+            🪴 Featured Plant
+          </span>
           {showActionsMenu && (
             <ul className="absolute top-10 right-2 bg-white border rounded shadow z-10">
               <li>
@@ -175,38 +179,48 @@ export default function PlantDetail() {
             </ul>
           )}
           <div className="absolute bottom-3 left-4 text-white drop-shadow">
-            <h2 className="text-xl font-semibold">{plant.name}</h2>
+            <h2 className="text-2xl font-semibold font-headline">{plant.name}</h2>
             {plant.nickname && (
               <p className="text-sm text-gray-200">{plant.nickname}</p>
             )}
           </div>
         </div>
-        <div className="bg-gray-50 rounded-xl p-4 space-y-2 shadow-sm">
-          <div className="flex items-center justify-between text-sm">
-            <span className="flex items-center gap-1 text-blue-700">
-              <Drop className="w-3 h-3" aria-hidden="true" />
+        <div className="bg-gray-50 rounded-xl p-4 space-y-3 shadow-sm">
+          <div className="flex justify-between items-center text-sm">
+            <span className="flex items-center gap-1 text-blue-600">
+              <Drop className="w-4 h-4" aria-hidden="true" />
               Last watered:
             </span>
-            <span className="font-medium text-gray-900">{plant.lastWatered}</span>
+            <span className="text-gray-700">{plant.lastWatered}</span>
           </div>
-          <div className="flex items-center justify-between text-sm">
-            <span className="flex items-center gap-1 text-green-700">
-              <CalendarCheck className="w-3 h-3" aria-hidden="true" />
+          <div className="flex justify-between items-center text-sm">
+            <span className="flex items-center gap-1 text-green-600">
+              <CalendarCheck className="w-4 h-4" aria-hidden="true" />
               Next watering:
             </span>
-            <span className="font-medium text-gray-900">{plant.nextWater}</span>
+            <span className="text-gray-700">{plant.nextWater}</span>
           </div>
           {plant.lastFertilized && (
-            <div className="flex items-center justify-between text-sm">
-              <span className="flex items-center gap-1 text-amber-700">
-                <Flower className="w-3 h-3" aria-hidden="true" />
+            <div className="flex justify-between items-center text-sm">
+              <span className="flex items-center gap-1 text-yellow-600">
+                <Flower className="w-4 h-4" aria-hidden="true" />
                 Last fertilized:
               </span>
-              <span className="font-medium text-gray-900">{plant.lastFertilized}</span>
+              <span className="text-gray-700">{plant.lastFertilized}</span>
             </div>
           )}
         </div>
 
+        {events.length > 0 && (
+          <div className="mt-4 border-l-4 border-blue-500 pl-4">
+            <p className="text-sm font-medium text-gray-800">
+              {events[events.length - 1].label} on {formatDate(events[events.length - 1].date)}
+            </p>
+            {events[events.length - 1].note && (
+              <p className="text-xs italic text-green-700 mt-1">“{events[events.length - 1].note}”</p>
+            )}
+          </div>
+        )}
 
         <div className="space-y-1 mt-4">
           <h3 className="text-base font-semibold font-headline">Care Profile</h3>
@@ -246,12 +260,13 @@ export default function PlantDetail() {
               aria-selected={activeTab === 'activity'}
               onClick={() => setActiveTab('activity')}
               onKeyDown={e => handleKeyDown(e, 0)}
-              className={`relative px-3 py-2 rounded-full text-sm font-medium focus:outline-none after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-white after:transition-transform after:duration-300 ${
+              className={`relative px-4 py-2 rounded-full text-sm font-medium focus:outline-none after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-white after:transition-transform after:duration-300 ${
                 activeTab === 'activity'
                   ? 'bg-green-600 text-white after:scale-x-100'
                   : 'bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200 after:scale-x-0'
               }`}
             >
+              <Activity className="w-4 h-4 mr-1 inline" aria-hidden="true" />
               Activity
             </button>
             <button
@@ -262,12 +277,13 @@ export default function PlantDetail() {
               aria-selected={activeTab === 'notes'}
               onClick={() => setActiveTab('notes')}
               onKeyDown={e => handleKeyDown(e, 1)}
-              className={`relative px-3 py-2 rounded-full text-sm font-medium focus:outline-none after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-white after:transition-transform after:duration-300 ${
+              className={`relative px-4 py-2 rounded-full text-sm font-medium focus:outline-none after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-white after:transition-transform after:duration-300 ${
                 activeTab === 'notes'
                   ? 'bg-green-600 text-white after:scale-x-100'
                   : 'bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200 after:scale-x-0'
               }`}
             >
+              <Note className="w-4 h-4 mr-1 inline" aria-hidden="true" />
               Notes
             </button>
             <button
@@ -278,7 +294,7 @@ export default function PlantDetail() {
               aria-selected={activeTab === 'care'}
               onClick={() => setActiveTab('care')}
               onKeyDown={e => handleKeyDown(e, 2)}
-              className={`relative px-3 py-2 rounded-full text-sm font-medium focus:outline-none after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-white after:transition-transform after:duration-300 ${
+              className={`relative px-4 py-2 rounded-full text-sm font-medium focus:outline-none after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-white after:transition-transform after:duration-300 ${
                 activeTab === 'care'
                   ? 'bg-green-600 text-white after:scale-x-100'
                   : 'bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200 after:scale-x-0'
@@ -294,12 +310,13 @@ export default function PlantDetail() {
               aria-selected={activeTab === 'timeline'}
               onClick={() => setActiveTab('timeline')}
               onKeyDown={e => handleKeyDown(e, 3)}
-              className={`relative px-3 py-2 rounded-full text-sm font-medium focus:outline-none after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-white after:transition-transform after:duration-300 ${
+              className={`relative px-4 py-2 rounded-full text-sm font-medium focus:outline-none after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-white after:transition-transform after:duration-300 ${
                 activeTab === 'timeline'
                   ? 'bg-green-600 text-white after:scale-x-100'
                   : 'bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200 after:scale-x-0'
               }`}
             >
+              <Clock className="w-4 h-4 mr-1 inline" aria-hidden="true" />
               Timeline
             </button>
           </div>
@@ -386,19 +403,9 @@ export default function PlantDetail() {
       </div>
       <div className="space-y-2">
         <h2 className="text-xl font-semibold font-headline">Gallery</h2>
-        <div className="flex gap-2 overflow-x-auto pb-2">
-          <div className="relative flex-shrink-0 w-24 h-24">
-            <button
-              type="button"
-              onClick={() => fileInputRef.current.click()}
-              className="w-full h-full flex items-center justify-center bg-gray-200 rounded"
-            >
-              <PlusIcon className="w-6 h-6 text-gray-600" aria-hidden="true" />
-              <span className="sr-only">Add Photo</span>
-            </button>
-          </div>
+        <div className="flex gap-3 overflow-x-auto pb-2">
           {(plant.photos || []).map((src, i) => (
-
+            
             <div key={i} className="relative">
               <button type="button" onClick={() => setLightboxIndex(i)} className="block focus:outline-none">
                 <img
@@ -417,6 +424,14 @@ export default function PlantDetail() {
             </div>
           ))}
         </div>
+        <button
+          type="button"
+          onClick={() => fileInputRef.current.click()}
+          className="mt-2 inline-flex items-center gap-1 px-3 py-2 bg-gray-200 rounded shadow"
+        >
+          <PlusIcon className="w-4 h-4" aria-hidden="true" />
+          Add Photo
+        </button>
         <input
           type="file"
           accept="image/*"
