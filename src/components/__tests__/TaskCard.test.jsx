@@ -209,6 +209,30 @@ test('swiping right completes water task and animates', async () => {
   expect(container.querySelector('.check-pop')).toBeInTheDocument()
 })
 
+test('ignores swipe gestures when swipeable is false', async () => {
+  const { container } = render(
+    <MemoryRouter>
+      <BaseCard variant="task">
+        <TaskCard task={task} swipeable={false} />
+      </BaseCard>
+    </MemoryRouter>
+  )
+  const wrapper = container.querySelector('[data-testid="task-card"]')
+
+  fireEvent.pointerDown(wrapper, { clientX: 0, buttons: 1 })
+  fireEvent.pointerMove(wrapper, { clientX: 100, buttons: 1 })
+  fireEvent.pointerUp(wrapper, { clientX: 100 })
+
+  await act(async () => {
+    fireEvent.touchStart(wrapper, { touches: [{ clientX: 0 }] })
+    fireEvent.touchMove(wrapper, { touches: [{ clientX: 100 }] })
+    fireEvent.touchEnd(wrapper)
+  })
+
+  expect(markWatered).not.toHaveBeenCalled()
+  expect(container.querySelector('.check-pop')).not.toBeInTheDocument()
+})
+
 test('swiping right fertilize task completes and animates', async () => {
   const fertTask = { ...task, type: 'Fertilize' }
   const { container } = render(
