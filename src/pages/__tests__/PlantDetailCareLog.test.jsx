@@ -34,10 +34,6 @@ test('shows notes from care log in timeline', () => {
     </MemoryRouter>
   )
 
-  fireEvent.click(
-    screen.getByRole('button', { name: /Activity & Notes Show Details/i })
-  )
-
   expect(
     screen.getAllByText((content, node) =>
       node.textContent === 'July 2, 2025 — Watered: deep soak'
