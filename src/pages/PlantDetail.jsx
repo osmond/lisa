@@ -24,6 +24,7 @@ import NoteModal from '../components/NoteModal.jsx'
 import { PlusIcon, Pencil1Icon } from '@radix-ui/react-icons'
 import { useMenu, defaultMenu } from '../MenuContext.jsx'
 import LegendModal from '../components/LegendModal.jsx'
+import CareRings from '../components/CareRings.jsx'
 
 import useToast from "../hooks/useToast.jsx"
 import Badge from '../components/Badge.jsx'
@@ -121,6 +122,26 @@ export default function PlantDetail() {
     setCollapsedMonths(defaults)
   }, [groupedEvents])
 
+  const calcPercent = (start, end) => {
+    if (!start || !end) return 0
+    const s = new Date(start)
+    const e = new Date(end)
+    if (isNaN(s) || isNaN(e)) return 0
+    const total = e - s
+    if (total <= 0) return 0
+    const now = new Date()
+    const elapsed = now - s
+    return Math.min(Math.max(elapsed / total, 0), 1)
+  }
+
+  const waterPct = plant
+    ? calcPercent(plant.lastWatered, plant.nextWater)
+    : 0
+  const fertPct = plant
+    ? calcPercent(plant.lastFertilized, plant.nextFertilize)
+    : 0
+
+
 
   const saveNote = note => {
     if (note) {
@@ -195,6 +216,15 @@ export default function PlantDetail() {
               </Badge>
             )}
           </div>
+        </div>
+        </div>
+        <div className="flex justify-center -mt-6">
+          <CareRings
+            waterCompleted={Math.round(waterPct * 100)}
+            waterTotal={plant.lastWatered && plant.nextWater ? 100 : 0}
+            fertCompleted={Math.round(fertPct * 100)}
+            fertTotal={plant.lastFertilized && plant.nextFertilize ? 100 : 0}
+          />
         </div>
         </div>
         <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-3">
@@ -326,7 +356,6 @@ export default function PlantDetail() {
             + Add Note
           </button>
         </section>
-      </div>
 
       <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-2">
         <h3 className="flex items-center gap-2 font-semibold font-headline mb-1">

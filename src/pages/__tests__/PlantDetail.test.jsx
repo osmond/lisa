@@ -168,3 +168,24 @@ test('back button navigates to previous page', () => {
 
   expect(screen.getByText(/my plants view/i)).toBeInTheDocument()
 })
+
+test('renders care rings with correct percentages', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-04'))
+  const plant = plants[0]
+  render(
+    <MenuProvider>
+      <PlantProvider>
+        <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+          <Routes>
+            <Route path="/plant/:id" element={<PlantDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </PlantProvider>
+    </MenuProvider>
+  )
+
+  expect(
+    screen.getByRole('img', { name: '43% watered, 100% fertilized' })
+  ).toBeInTheDocument()
+  jest.useRealTimers()
+})
