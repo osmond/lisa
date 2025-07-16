@@ -148,3 +148,23 @@ test('view all button opens the viewer from first image', () => {
   const viewerImg = screen.getByAltText(/gallery image/i)
   expect(viewerImg).toHaveAttribute('src', plant.photos[0].src)
 })
+
+test('back button navigates to previous page', () => {
+  const plant = plants[0]
+  render(
+    <MenuProvider>
+      <PlantProvider>
+        <MemoryRouter initialEntries={['/myplants', `/plant/${plant.id}`]} initialIndex={1}>
+          <Routes>
+            <Route path="/myplants" element={<div>My Plants View</div>} />
+            <Route path="/plant/:id" element={<PlantDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </PlantProvider>
+    </MenuProvider>
+  )
+
+  fireEvent.click(screen.getByRole('button', { name: /back/i }))
+
+  expect(screen.getByText(/my plants view/i)).toBeInTheDocument()
+})
