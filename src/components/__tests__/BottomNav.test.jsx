@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, fireEvent, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import BottomNav from '../BottomNav.jsx'
 
@@ -20,6 +20,8 @@ test('does not render gallery link', () => {
       <BottomNav />
     </MemoryRouter>
   )
+  // open the menu
+  fireEvent.click(screen.getByRole('button', { name: /open navigation menu/i }))
   const galleryLink = container.querySelector('a[href="/gallery"]')
   expect(galleryLink).toBeNull()
 })
@@ -30,6 +32,7 @@ test('renders timeline navigation link', () => {
       <BottomNav />
     </MemoryRouter>
   )
+  fireEvent.click(screen.getByRole('button', { name: /open navigation menu/i }))
   const timelineLink = container.querySelector('a[href="/timeline"]')
   expect(timelineLink).toBeInTheDocument()
 })
