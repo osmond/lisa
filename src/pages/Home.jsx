@@ -162,7 +162,7 @@ export default function Home() {
         </p>
       </header>
     {plants.length > 0 && (
-      <section>
+      <section className="mb-4">
         <h2 className="sr-only">Featured Plant</h2>
         <FeaturedCard plants={plants} startIndex={featuredIndex} />
       </section>
@@ -176,6 +176,7 @@ export default function Home() {
       {showSummary && (
         <CareSummaryModal tasks={tasks} onClose={() => setShowSummary(false)} />
       )}
+
       {tasks.length > 0 && (
         <hr className="my-4 border-t border-neutral-200 dark:border-gray-600" />
       )}
@@ -257,11 +258,56 @@ export default function Home() {
                 >
                   Set a reminder
                 </Link>
+
+      <div
+        data-testid="tasks-container"
+        className="mt-4 border-t border-neutral-200 dark:border-gray-600 bg-sage dark:bg-gray-700 rounded-xl p-4"
+      >
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="font-semibold font-headline">Today’s Tasks</h2>
+          </div>
+          <div className="space-y-4">
+            {tasks.length > 0 ? (
+              tasks.map(task => (
+                <BaseCard key={task.id} variant="task">
+                  <TaskCard
+                    task={task}
+                    urgent={task.urgent}
+                    overdue={task.overdue}
+                    compact
+                  />
+                </BaseCard>
+              ))
+            ) : (
+              <div className="text-sm text-gray-500 space-y-1 text-center flex flex-col items-center">
+                <img
+                  src={happyPlant}
+                  alt="Happy plant"
+                  className="w-24 h-24 mb-2"
+                />
+                <p>All plants are happy today!</p>
+                <p>Want to add a note or photo today?</p>
+                <div className="flex gap-2 mt-2">
+                  <Link
+                    to="/timeline"
+                    className="px-3 py-1 bg-green-100 text-green-700 rounded text-xs"
+                  >
+                    Add a journal entry
+                  </Link>
+                  <Link
+                    to="/profile"
+                    className="px-3 py-1 bg-green-100 text-green-700 rounded text-xs"
+                  >
+                    Set a reminder
+                  </Link>
+                </div>
+
               </div>
-            </div>
-          )}
-        </div>
-      </section>
+            )}
+          </div>
+        </section>
+      </div>
     </div>
   )
 }

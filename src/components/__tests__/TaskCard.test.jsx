@@ -105,6 +105,7 @@ test('applies overdue styling', () => {
   const badge = screen.getByTestId('overdue-badge')
   expect(badge).toBeInTheDocument()
   expect(badge).toHaveClass('bg-fertilize-500')
+  expect(badge).toHaveClass('overdue-ping')
 })
 
 test('shows completed state', () => {
