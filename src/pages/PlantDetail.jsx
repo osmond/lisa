@@ -145,13 +145,30 @@ export default function PlantDetail() {
             <Drop className="w-3 h-3" aria-hidden="true" />
             {plant.lastWatered}
           </span>
-          <span className="absolute top-2 left-24 text-xs bg-green-600 text-white px-2 py-0.5 rounded-full animate-fade-in-up">
-            🪴 Featured Plant
-          </span>
           <div className="absolute bottom-3 left-4 text-white drop-shadow">
             <h2 className="text-2xl font-semibold font-headline">{plant.name}</h2>
             {plant.nickname && (
               <p className="text-sm text-gray-200">{plant.nickname}</p>
+            )}
+          </div>
+          <div
+            className="absolute bottom-2 right-2 flex flex-wrap gap-2"
+            aria-label="Care tags"
+          >
+            {plant.light && (
+              <Badge Icon={Sun} colorClass="bg-yellow-50 text-yellow-800 text-xs">
+                {plant.light}
+              </Badge>
+            )}
+            {plant.humidity && (
+              <Badge Icon={Drop} colorClass="bg-blue-50 text-blue-800 text-xs">
+                {plant.humidity}
+              </Badge>
+            )}
+            {plant.difficulty && (
+              <Badge Icon={Gauge} colorClass="bg-green-50 text-green-800 text-xs">
+                {plant.difficulty}
+              </Badge>
             )}
           </div>
         </div>
@@ -209,24 +226,6 @@ export default function PlantDetail() {
               <Sun className="w-5 h-5 text-yellow-600" aria-hidden="true" />
               Care Tags
             </h3>
-
-            <div className="flex flex-wrap gap-2">
-              {plant.light && (
-                <Badge Icon={Sun} colorClass="bg-yellow-50 text-yellow-800 text-xs">
-                  {plant.light}
-                </Badge>
-              )}
-              {plant.humidity && (
-                <Badge Icon={Drop} colorClass="bg-blue-50 text-blue-800 text-xs">
-                  {plant.humidity}
-                </Badge>
-              )}
-              {plant.difficulty && (
-                <Badge Icon={Gauge} colorClass="bg-green-50 text-green-800 text-xs">
-                  {plant.difficulty}
-                </Badge>
-              )}
-            </div>
           </div>
         </section>
 
