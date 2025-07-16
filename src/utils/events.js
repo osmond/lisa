@@ -31,9 +31,14 @@ export function buildEvents(source, { includePlantName = false } = {}) {
         fertilizeDates.add(m[1])
       }
 
+      const baseLabel = a.replace(/\s*on\s*\d{4}-\d{2}-\d{2}.*/, '').trim()
+      const label = includePlantName
+        ? `${p.name}: ${baseLabel}`
+        : baseLabel
+
       addEvent({
         date: m[1],
-        label: includePlantName ? `${p.name}: ${a}` : a,
+        label,
         type,
       })
     })

@@ -130,13 +130,14 @@ export default function PlantDetail() {
     <div className="space-y-2 relative text-left">
       <Toast />
       <div className="space-y-4">
-        <div className="rounded-xl shadow-md overflow-hidden relative">
-          <img
-            src={plant.image}
-            alt={plant.name}
-            loading="lazy"
-            className="w-full h-64 object-cover"
-          />
+        <div className="rounded-xl shadow-md overflow-hidden">
+          <div className="relative">
+            <img
+              src={plant.image}
+              alt={plant.name}
+              loading="lazy"
+              className="w-full h-64 object-cover rounded-t-xl"
+            />
           <button
             type="button"
             onClick={() => setShowActionsMenu(v => !v)}
@@ -177,29 +178,30 @@ export default function PlantDetail() {
             <h1 className="text-3xl font-bold font-headline">{plant.name}</h1>
             {plant.nickname && <p className="text-gray-200">{plant.nickname}</p>}
           </div>
-        </div>
-        <div className="rounded-xl shadow-md bg-green-50 p-3 flex flex-wrap gap-2 text-base">
-          <Badge Icon={Drop} colorClass="bg-blue-100 text-blue-800">
-            <Drop className="w-4 h-4" />
-            <span className="font-semibold">Last watered:</span>
-            <span>{plant.lastWatered}</span>
-          </Badge>
-          <Badge Icon={CalendarCheck} colorClass="bg-green-100 text-green-800">
-            <span className="font-semibold">Next watering:</span>
-            <span>{plant.nextWater}</span>
-          </Badge>
-          {plant.lastFertilized && (
-            <Badge Icon={Flower} colorClass="bg-orange-100 text-orange-800">
-              <span className="font-semibold">Last fertilized:</span>
-              <span>{plant.lastFertilized}</span>
+          </div>
+          <div className="bg-green-50 p-3 flex flex-wrap gap-2 text-base rounded-b-xl">
+            <Badge Icon={Drop} colorClass="bg-blue-100 text-blue-800">
+              <Drop className="w-4 h-4" />
+              <span className="font-semibold">Last watered:</span>
+              <span>{plant.lastWatered}</span>
             </Badge>
-          )}
+            <Badge Icon={CalendarCheck} colorClass="bg-green-100 text-green-800">
+              <span className="font-semibold">Next watering:</span>
+              <span>{plant.nextWater}</span>
+            </Badge>
+            {plant.lastFertilized && (
+              <Badge Icon={Flower} colorClass="bg-orange-100 text-orange-800">
+                <span className="font-semibold">Last fertilized:</span>
+                <span>{plant.lastFertilized}</span>
+              </Badge>
+            )}
+          </div>
         </div>
-        <div className="flex gap-2 mt-3 items-center">
+        <div className="flex gap-3 mt-3 items-center">
           <button
             type="button"
             onClick={handleWatered}
-            className="px-3 py-1 rounded-full bg-accent text-white text-sm font-medium flex items-center gap-1"
+            className="px-3 py-0.5 rounded-full bg-accent text-white text-sm font-medium flex items-center gap-1"
           >
             <Drop className="w-4 h-4" aria-hidden="true" />
             Watered
@@ -207,7 +209,7 @@ export default function PlantDetail() {
           <button
             type="button"
             onClick={handleFertilized}
-            className="px-3 py-1 rounded-full bg-accent text-white text-sm font-medium flex items-center gap-1"
+            className="px-3 py-0.5 rounded-full bg-accent text-white text-sm font-medium flex items-center gap-1"
           >
             <Flower className="w-4 h-4" aria-hidden="true" />
             Fertilized
@@ -215,7 +217,7 @@ export default function PlantDetail() {
           <button
             type="button"
             onClick={handleLogEvent}
-            className="px-3 py-1 rounded-full bg-accent text-white text-sm font-medium flex items-center gap-1"
+            className="px-3 py-0.5 rounded-full bg-accent text-white text-sm font-medium flex items-center gap-1"
           >
             <Note className="w-4 h-4" aria-hidden="true" />
             Add Note
@@ -224,7 +226,7 @@ export default function PlantDetail() {
 
         <div className="space-y-1">
           <h3 className="text-base font-semibold font-headline">Care Profile</h3>
-          <div className="flex flex-wrap gap-2 text-base">
+          <div className="flex flex-wrap gap-2 text-sm">
             {plant.light && (
               <Badge Icon={Sun} colorClass="bg-yellow-100 text-yellow-800">
                 {plant.light}
