@@ -29,6 +29,20 @@ import { formatMonth, formatDate } from '../utils/date.js'
 import { buildEvents, groupEventsByMonth } from '../utils/events.js'
 
 
+const iconColors = {
+  water: 'text-blue-500',
+  fertilize: 'text-yellow-500',
+  note: 'text-gray-400',
+  log: 'text-green-500',
+}
+
+const bulletColors = {
+  water: 'bg-blue-500',
+  fertilize: 'bg-yellow-500',
+  note: 'bg-gray-400',
+  log: 'bg-green-500',
+}
+
 export default function PlantDetail() {
   const { id } = useParams()
   const { plants, addPhoto, removePhoto, markWatered, markFertilized, logEvent } = usePlants()
@@ -52,19 +66,6 @@ export default function PlantDetail() {
     [events]
   )
 
-  const iconColors = {
-    water: 'text-blue-500',
-    fertilize: 'text-yellow-500',
-    note: 'text-gray-400',
-    log: 'text-green-500',
-  }
-
-  const bulletColors = {
-    water: 'bg-blue-500',
-    fertilize: 'bg-yellow-500',
-    note: 'bg-gray-400',
-    log: 'bg-green-500',
-  }
 
   const handleFiles = e => {
     const files = Array.from(e.target.files || [])
