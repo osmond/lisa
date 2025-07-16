@@ -39,7 +39,7 @@ describe('Floating Action Button visibility', () => {
       </MemoryRouter>
     )
 
-    expect(screen.queryByLabelText(/add plant/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/add plant/i)).toBeInTheDocument()
   })
 
   test.each(routesWithoutFab)('hides FAB on %s', route => {
