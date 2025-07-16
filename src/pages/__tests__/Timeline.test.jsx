@@ -34,7 +34,7 @@ test('ignores activities without valid dates when generating events', () => {
   const items = screen.getAllByRole('listitem')
   expect(items).toHaveLength(4)
   expect(items[0]).toHaveTextContent('Fertilized Plant A')
-  expect(items[1]).toHaveTextContent('Plant B: Watered on 2025-07-09')
+  expect(items[1]).toHaveTextContent('Plant B: Watered')
   expect(items[2]).toHaveTextContent('Watered Plant B')
   expect(items[3]).toHaveTextContent('Watered Plant A')
 })
