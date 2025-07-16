@@ -29,16 +29,6 @@ import { formatMonth, formatDate } from '../utils/date.js'
 
 import { buildEvents, groupEventsByMonth } from '../utils/events.js'
 
-
-const iconColors = {
-  water: 'text-blue-500',
-  fertilize: 'text-yellow-500',
-  note: 'text-gray-400',
-  log: 'text-green-500',
-  advanced: 'text-purple-500',
-  noteText: 'text-gray-400',
-}
-
 const bulletColors = {
   water: 'bg-blue-500',
   fertilize: 'bg-yellow-500',
@@ -240,27 +230,32 @@ export default function PlantDetail() {
             </button>
           </h3>
           {groupedEvents.map(([monthKey, list]) => (
-            <div key={monthKey} className="mt-2 first:mt-0">
-              <div className="text-sm font-semibold text-gray-500 dark:text-gray-400">{formatMonth(monthKey)}</div>
-              <div className="ml-3 border-l-2 border-gray-200 space-y-4 mt-2 pl-5">
+            <div key={monthKey} className="mt-6 first:mt-0">
+              <h3 className="text-[0.7rem] uppercase tracking-wider text-gray-300 mb-2">
+                {formatMonth(monthKey)}
+              </h3>
+              <ul className="ml-3 border-l-2 border-gray-200 space-y-6 pl-5">
                 {list.map((e, i) => {
                   const Icon = actionIcons[e.type]
                   return (
-                    <div key={`${e.date}-${i}`} className="relative text-sm">
-                      <div className={`absolute -left-5 top-1 w-3 h-3 rounded-full ${bulletColors[e.type]}`}></div>
-                      <p className="flex items-start gap-2 text-gray-700 dark:text-gray-200 ml-1">
-                        {Icon && <Icon className={`w-4 h-4 ${iconColors[e.type]}`} aria-hidden="true" />}
-                        <span>
+                    <li key={`${e.date}-${i}`} className="relative text-sm">
+                      {Icon && (
+                        <div className={`absolute -left-5 top-[0.25rem] w-4 h-4 flex items-center justify-center rounded-full ${bulletColors[e.type]}`}> 
+                          <Icon className="w-3 h-3 text-white" aria-hidden="true" />
+                        </div>
+                      )}
+                      <div className={`flex items-start ${e.note ? 'bg-gray-50 dark:bg-gray-700 rounded-xl p-3 shadow-sm' : ''}`}>
+                        <div>
                           <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
                           {e.note && (
-                            <>: <em>{e.note}</em></>
+                            <div className="text-xs italic text-green-700 mt-1">{e.note}</div>
                           )}
-                        </span>
-                      </p>
-                    </div>
+                        </div>
+                      </div>
+                    </li>
                   )
                 })}
-              </div>
+              </ul>
             </div>
           ))}
           <button
