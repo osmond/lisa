@@ -152,7 +152,7 @@ export default function PlantDetail() {
             )}
           </div>
           <div
-            className="absolute bottom-2 right-2 flex flex-wrap gap-2"
+            className="absolute top-2 right-2 z-10 flex flex-wrap gap-2"
             aria-label="Care tags"
           >
             {plant.light && (
