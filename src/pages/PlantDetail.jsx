@@ -24,11 +24,13 @@ import NoteModal from '../components/NoteModal.jsx'
 import { PlusIcon, Pencil1Icon } from '@radix-ui/react-icons'
 import { useMenu, defaultMenu } from '../MenuContext.jsx'
 import LegendModal from '../components/LegendModal.jsx'
+import ProgressRing from '../components/ProgressRing.jsx'
 
 import useToast from "../hooks/useToast.jsx"
 import Badge from '../components/Badge.jsx'
 
 import { formatMonth, formatDate } from '../utils/date.js'
+import { getWateringProgress } from '../utils/watering.js'
 
 import { buildEvents, groupEventsByMonth } from '../utils/events.js'
 
@@ -41,7 +43,7 @@ const bulletColors = {
   noteText: 'bg-gray-400',
 }
 
-const urgencyColors = {
+const ringColors = {
   high: 'text-red-600',
   medium: 'text-yellow-600',
   low: 'text-green-600',
@@ -60,7 +62,8 @@ export default function PlantDetail() {
   const [showLegend, setShowLegend] = useState(false)
   const [collapsedMonths, setCollapsedMonths] = useState({})
 
-  const urgencyClass = urgencyColors[plant?.urgency] || ''
+  const ringClass = ringColors[plant?.urgency] || 'text-green-600'
+  const progressPct = getWateringProgress(plant?.lastWatered, plant?.nextWater)
 
   const events = useMemo(() => buildEvents(plant), [plant])
   const groupedEvents = useMemo(
@@ -203,10 +206,22 @@ export default function PlantDetail() {
               </Badge>
             )}
           </div>
+          <div
+            className="absolute bottom-2 right-2"
+            data-testid="watering-ring"
+            aria-label={`Watering progress ${Math.round(progressPct * 100)}%`}
+          >
+            <div className="relative" style={{ width: 48, height: 48 }}>
+              <ProgressRing percent={progressPct} size={48} colorClass={ringClass} />
+              <div className="absolute inset-1 rounded-full bg-white/80 flex items-center justify-center text-[10px] font-semibold">
+                {Math.round(progressPct * 100)}%
+              </div>
+            </div>
+          </div>
         </div>
         </div>
         <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-3">
-          <h3 className={`flex items-center gap-2 font-semibold font-headline ${urgencyClass}`}>
+          <h3 className="flex items-center gap-2 font-semibold font-headline">
             <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Quick Stats
           </h3>
