@@ -40,24 +40,21 @@ export default function Timeline() {
     <div className="overflow-y-auto max-h-full p-4 text-gray-700 dark:text-gray-200">
       {groupedEvents.map(([monthKey, list]) => (
         <div key={monthKey}>
-          <h3 className="mt-4 text-sm font-semibold text-gray-500">
+          <h3 className="mt-6 text-base font-semibold text-gray-600">
             {formatMonth(monthKey)}
           </h3>
-          <ul className="relative border-l border-gray-200 pl-4 space-y-6">
+          <ul className="relative border-l border-gray-300 pl-6 ml-2 space-y-8">
             {list.map((e, i) => {
               const Icon = actionIcons[e.type]
               return (
-                <li key={`${e.date}-${e.label}-${i}`} className="relative">
-                  <span
-                    className={`absolute left-[-6px] top-1 w-3 h-3 rounded-full ${colors[e.type]}`}
-                  ></span>
-
+                <li key={`${e.date}-${e.label}-${i}`} className="relative pl-4">
+                  <div
+                    className={`absolute -left-3 top-0 flex items-center justify-center w-6 h-6 rounded-full ${colors[e.type]}`}
+                  >
+                    {Icon && <Icon className={`w-4 h-4 ${iconColors[e.type]}`} />}
+                  </div>
                   <p className="text-xs text-gray-400">{e.date}</p>
-                  <p className="flex items-center gap-1 font-medium">
-                    {Icon && <Icon />}
-
-                    {e.label}
-                  </p>
+                  <p className="font-medium">{e.label}</p>
                   {e.note && (
                     <p className="text-xs text-gray-500 italic">{e.note}</p>
                   )}
