@@ -12,6 +12,8 @@ import {
   Note,
   Info,
   ArrowLeft,
+  CaretDown,
+  CaretRight,
 } from 'phosphor-react'
 
 import Lightbox from '../components/Lightbox.jsx'
@@ -50,6 +52,7 @@ export default function PlantDetail() {
   const [showNoteModal, setShowNoteModal] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(null)
   const [showLegend, setShowLegend] = useState(false)
+  const [collapsedMonths, setCollapsedMonths] = useState({})
 
   const events = useMemo(() => buildEvents(plant), [plant])
   const groupedEvents = useMemo(
@@ -108,6 +111,16 @@ export default function PlantDetail() {
     return () => setMenu(defaultMenu)
   }, [setMenu, plant?.id])
 
+  useEffect(() => {
+    const defaults = {}
+    if (groupedEvents.length > 0) {
+      groupedEvents.slice(0, -1).forEach(([key]) => {
+        defaults[key] = true
+      })
+    }
+    setCollapsedMonths(defaults)
+  }, [groupedEvents])
+
 
   const saveNote = note => {
     if (note) {
@@ -151,10 +164,10 @@ export default function PlantDetail() {
           <button
             type="button"
             onClick={handleBack}
-            className="absolute top-2 left-2 bg-white bg-opacity-70 rounded px-2 py-1 text-sm flex items-center gap-1"
+            aria-label="Back"
+            className="absolute top-2 left-2 bg-white bg-opacity-70 rounded p-2 text-sm"
           >
             <ArrowLeft className="w-4 h-4" aria-hidden="true" />
-            Back
           </button>
           <div className="absolute bottom-3 left-4 text-white drop-shadow">
             <h2 className="text-2xl font-semibold font-headline">{plant.name}</h2>
@@ -192,41 +205,43 @@ export default function PlantDetail() {
           <ul className="space-y-2 text-sm">
             <li className="flex items-center gap-2">
               <Drop className="w-4 h-4 text-blue-600" aria-hidden="true" />
-              <span className="flex-1">Last watered:</span>
+              <span className="flex-1 sr-only sm:not-sr-only">Last watered:</span>
               <span className="text-gray-700 dark:text-gray-200">{plant.lastWatered}</span>
             </li>
             <li className="flex items-center gap-2">
               <CalendarCheck className="w-4 h-4 text-green-600" aria-hidden="true" />
-              <span className="flex-1">Next watering:</span>
+              <span className="flex-1 sr-only sm:not-sr-only">Next watering:</span>
               <span className="text-gray-700 dark:text-gray-200">{plant.nextWater}</span>
               <button
                 type="button"
                 onClick={handleWatered}
                 aria-label={`Mark ${plant.name} as watered`}
-                className="ml-2 px-2 py-0.5 border border-blue-600 text-blue-600 rounded text-xs"
+                className="ml-2 px-2 py-0.5 border border-blue-600 text-blue-600 rounded text-xs flex items-center"
               >
-                Water Now
+                <Drop className="w-3 h-3 sm:hidden" aria-hidden="true" />
+                <span className="hidden sm:inline">Water Now</span>
               </button>
             </li>
             {plant.nextFertilize && (
               <li className="flex items-center gap-2">
                 <Flower className="w-4 h-4 text-yellow-600" aria-hidden="true" />
-                <span className="flex-1">Next fertilizing:</span>
+                <span className="flex-1 sr-only sm:not-sr-only">Next fertilizing:</span>
                 <span className="text-gray-700 dark:text-gray-200">{plant.nextFertilize}</span>
                 <button
                   type="button"
                   onClick={handleFertilized}
                   aria-label={`Mark ${plant.name} as fertilized`}
-                  className="ml-2 px-2 py-0.5 border border-yellow-600 text-yellow-600 rounded text-xs"
+                  className="ml-2 px-2 py-0.5 border border-yellow-600 text-yellow-600 rounded text-xs flex items-center"
                 >
-                  Fertilize Now
+                  <Flower className="w-3 h-3 sm:hidden" aria-hidden="true" />
+                  <span className="hidden sm:inline">Fertilize Now</span>
                 </button>
               </li>
             )}
             {plant.lastFertilized && (
               <li className="flex items-center gap-2">
                 <Flower className="w-4 h-4 text-yellow-600" aria-hidden="true" />
-                <span className="flex-1">Last fertilized:</span>
+                <span className="flex-1 sr-only sm:not-sr-only">Last fertilized:</span>
                 <span className="text-gray-700 dark:text-gray-200">{plant.lastFertilized}</span>
               </li>
             )}
@@ -244,35 +259,65 @@ export default function PlantDetail() {
               <span className="sr-only">Legend</span>
             </button>
           </h3>
-          {groupedEvents.map(([monthKey, list]) => (
-            <div key={monthKey} className="mt-6 first:mt-0">
-              <h3 className="text-[0.7rem] uppercase tracking-wider text-gray-300 mb-2">
-                {formatMonth(monthKey)}
-              </h3>
-              <ul className="ml-3 border-l-2 border-gray-200 space-y-6 pl-5">
-                {list.map((e, i) => {
-                  const Icon = actionIcons[e.type]
-                  return (
-                    <li key={`${e.date}-${i}`} className="relative text-sm">
-                      {Icon && (
-                        <div className={`absolute -left-5 top-[0.25rem] w-4 h-4 flex items-center justify-center rounded-full ${bulletColors[e.type]}`}> 
-                          <Icon className="w-3 h-3 text-white" aria-hidden="true" />
+          {groupedEvents.map(([monthKey, list], idx) => {
+            const isCollapsed = collapsedMonths[monthKey]
+            return (
+              <div key={monthKey} className="mt-6 first:mt-0">
+                <h3 className="text-[0.7rem] uppercase tracking-wider text-gray-300 mb-2 flex items-center">
+                  <button
+                    type="button"
+                    aria-expanded={!isCollapsed}
+                    onClick={() =>
+                      setCollapsedMonths(c => ({ ...c, [monthKey]: !isCollapsed }))
+                    }
+                    className="mr-1"
+                  >
+                    {isCollapsed ? (
+                      <CaretRight className="w-3 h-3" aria-hidden="true" />
+                    ) : (
+                      <CaretDown className="w-3 h-3" aria-hidden="true" />
+                    )}
+                    <span className="sr-only">
+                      {isCollapsed ? 'Expand month' : 'Collapse month'}
+                    </span>
+                  </button>
+                  {formatMonth(monthKey)}
+                </h3>
+                <ul
+                  className={`${
+                    isCollapsed ? 'hidden' : ''
+                  } ml-3 border-l-2 border-gray-200 space-y-6 pl-5`}
+                >
+                  {list.map((e, i) => {
+                    const Icon = actionIcons[e.type]
+                    return (
+                      <li key={`${e.date}-${i}`} className="relative text-xs sm:text-sm">
+                        {Icon && (
+                          <div
+                            className={`absolute -left-5 top-[0.25rem] w-4 h-4 flex items-center justify-center rounded-full ${bulletColors[e.type]}`}
+                          >
+                            <Icon className="w-3 h-3 text-white" aria-hidden="true" />
+                          </div>
+                        )}
+                        <div
+                          className={`flex items-start ${
+                            e.note ? 'bg-gray-50 dark:bg-gray-700 rounded-xl p-3 shadow-sm' : ''
+                          }`}
+                        >
+                          <div>
+                            <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
+                            {e.note && (
+                              <div className="text-xs italic text-green-700 mt-1">{e.note}</div>
+                            )}
+                          </div>
                         </div>
-                      )}
-                      <div className={`flex items-start ${e.note ? 'bg-gray-50 dark:bg-gray-700 rounded-xl p-3 shadow-sm' : ''}`}>
-                        <div>
-                          <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
-                          {e.note && (
-                            <div className="text-xs italic text-green-700 mt-1">{e.note}</div>
-                          )}
-                        </div>
-                      </div>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-          ))}
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+            )
+          })}
           <button
             type="button"
             onClick={handleLogEvent}
