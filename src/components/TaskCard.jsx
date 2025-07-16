@@ -22,6 +22,7 @@ export default function TaskCard({
   overdue = false,
   completed = false,
   compact = false,
+  swipeable = true,
 }) {
   const navigate = useNavigate()
   const { markWatered, markFertilized, removePlant } = usePlants()
@@ -107,33 +108,36 @@ export default function TaskCard({
       onKeyDown={handleKeyDown}
 
 
-      onPointerDown={e => { createRipple(e); start(e) }}
-      onPointerMove={move}
-      onPointerUp={end}
-      onPointerCancel={end}
-      onMouseMove={move}
-      onMouseUp={end}
+      onPointerDown={e => {
+        createRipple(e)
+        if (swipeable) start(e)
+      }}
+      onPointerMove={swipeable ? move : undefined}
+      onPointerUp={swipeable ? end : undefined}
+      onPointerCancel={swipeable ? end : undefined}
+      onMouseMove={swipeable ? move : undefined}
+      onMouseUp={swipeable ? end : undefined}
       onMouseDown={e => {
         createRipple(e)
-        start(e)
+        if (swipeable) start(e)
       }}
       onTouchStart={e => {
         createRipple(e)
-        start(e)
+        if (swipeable) start(e)
       }}
 
 
       className={`relative flex items-center gap-3 px-4 py-3 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow transition-transform duration-150 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500${completed ? ' bg-gray-100 dark:bg-gray-800 opacity-50' : ' bg-white dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
 
 
-      onTouchMove={move}
-      onTouchEnd={end}
+      onTouchMove={swipeable ? move : undefined}
+      onTouchEnd={swipeable ? end : undefined}
 
 
 
       style={{
-        transform: `translateX(${deltaX}px)`,
-        transition: deltaX === 0 ? 'transform 0.2s' : 'none',
+        transform: `translateX(${swipeable ? deltaX : 0}px)`,
+        transition: (swipeable ? deltaX : 0) === 0 ? 'transform 0.2s' : 'none',
       }}
     >
       {deltaX > 0 && !isChecked && (

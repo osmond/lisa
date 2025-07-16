@@ -270,6 +270,28 @@ test('swipe right marks task complete', async () => {
   expect(onComplete).toHaveBeenCalledWith(task)
 })
 
+test('swipe gestures disabled when swipeable is false', async () => {
+  const onComplete = jest.fn()
+  const { container } = render(
+    <MemoryRouter>
+      <BaseCard variant="task">
+        <TaskCard task={task} onComplete={onComplete} swipeable={false} />
+      </BaseCard>
+    </MemoryRouter>
+  )
+  const wrapper = screen.getByTestId('task-card')
+  fireEvent.pointerDown(wrapper, { clientX: 0, buttons: 1 })
+  fireEvent.pointerMove(wrapper, { clientX: 80, buttons: 1 })
+  fireEvent.pointerUp(wrapper, { clientX: 80 })
+  await act(async () => {
+    fireEvent.touchStart(wrapper, { touches: [{ clientX: 0 }] })
+    fireEvent.touchMove(wrapper, { touches: [{ clientX: 80 }] })
+    fireEvent.touchEnd(wrapper)
+  })
+  expect(onComplete).not.toHaveBeenCalled()
+  expect(container.querySelector('[data-testid="task-card"]').style.transform).toBe('translateX(0px)')
+})
+
 test('matches snapshot in dark mode', () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-16'))
   document.documentElement.classList.add('dark')
