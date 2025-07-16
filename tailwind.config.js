@@ -1,4 +1,5 @@
 import colors from 'tailwindcss/colors'
+import plugin from 'tailwindcss/plugin'
 
 export default {
   darkMode: 'class',
@@ -22,5 +23,13 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.pb-safe': {
+          paddingBottom: 'env(safe-area-inset-bottom)',
+        },
+      })
+    }),
+  ],
 };

@@ -123,6 +123,10 @@ Lisa includes a web app manifest and service worker so you can install it on mob
 
 Lisa ships with built‑in light and dark themes. The app now defaults to light mode regardless of system settings. A toggle on the **Settings** page lets you switch modes manually, and the choice is stored locally so it persists across visits.
 
+## Safe Area Padding
+
+The Tailwind config includes a small plugin that adds a `.pb-safe` utility. This applies `padding-bottom: env(safe-area-inset-bottom)` so content respects the safe area on devices with display cutouts.
+
 ## useSwipe Hook
 
 `useSwipe` provides basic swipe detection. It returns the current horizontal distance and functions you can attach to your element's pointer events.
