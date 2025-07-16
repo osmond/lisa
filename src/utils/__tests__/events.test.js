@@ -13,7 +13,7 @@ test('buildEvents returns sorted events for a single plant', () => {
   expect(events).toEqual([
     { date: '2025-07-01', label: 'Fertilized', type: 'fertilize' },
     { date: '2025-07-02', label: 'Watered', note: 'deep soak', type: 'log' },
-    { date: '2025-07-09', label: 'Watered on 2025-07-09', type: 'water' },
+    { date: '2025-07-09', label: 'Watered', type: 'water' },
     { date: '2025-07-11', label: 'Watered', type: 'water' },
   ])
 })
@@ -38,7 +38,7 @@ test('buildEvents includes plant names when requested', () => {
   const events = buildEvents(plants, { includePlantName: true })
   expect(events.map(e => e.label)).toEqual([
     'Fertilized Plant A',
-    'Plant B: Watered on 2025-07-09',
+    'Plant B: Watered',
     'Watered Plant B',
     'Watered Plant A',
   ])

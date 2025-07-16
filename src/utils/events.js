@@ -21,7 +21,8 @@ export function buildEvents(source, { includePlantName = false } = {}) {
       const m = a.match(/(\d{4}-\d{2}-\d{2})/)
       if (!m) return
 
-      const lower = a.toLowerCase()
+      const cleaned = a.replace(/\s*on\s+\d{4}-\d{2}-\d{2}$/, '')
+      const lower = cleaned.toLowerCase()
       let type = 'note'
       if (lower.includes('watered')) {
         type = 'water'
@@ -33,7 +34,7 @@ export function buildEvents(source, { includePlantName = false } = {}) {
 
       addEvent({
         date: m[1],
-        label: includePlantName ? `${p.name}: ${a}` : a,
+        label: includePlantName ? `${p.name}: ${cleaned}` : cleaned,
         type,
       })
     })
