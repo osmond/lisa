@@ -64,6 +64,8 @@ export default function TaskCard({
     }
   })
 
+  const swipeProgress = Math.max(0, Math.min(deltaX / 80, 1))
+
   return (
     <>
     <div
@@ -102,6 +104,21 @@ export default function TaskCard({
         transition: deltaX === 0 ? 'transform 0.2s' : 'none',
       }}
     >
+      {deltaX > 0 && !isChecked && (
+        <div
+          className="absolute inset-0 flex items-center rounded-2xl pointer-events-none"
+          style={{
+            backgroundColor: `rgba(74,222,128,${0.2 * swipeProgress})`,
+            opacity: swipeProgress,
+          }}
+        >
+          <CheckCircle
+            aria-hidden="true"
+            className="w-8 h-8 text-healthy-600 swipe-check"
+            style={{ marginLeft: `${8 + Math.min(deltaX, 80) / 2}px` }}
+          />
+        </div>
+      )}
       <Link
         to={`/plant/${task.plantId}`}
         className="flex items-center flex-1 gap-3"
@@ -111,9 +128,23 @@ export default function TaskCard({
           alt={task.plantName}
           className={`${compact ? 'w-12 h-12' : 'w-16 h-16'} object-cover rounded-md`}
         />
-        <div className="flex-1">
-          <p className={`${compact ? '' : 'text-lg'} font-bold font-headline`}>{task.plantName}</p>
-          <p className={`${compact ? 'text-sm' : 'text-base'} font-body`}>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between gap-2">
+            <p
+              className={`${compact ? '' : 'text-lg'} font-bold font-headline truncate`}
+            >
+              {task.plantName}
+            </p>
+            {Icon && (
+              <Icon
+                aria-hidden="true"
+                className="w-5 h-5 text-gray-500 dark:text-gray-400 shrink-0"
+              />
+            )}
+          </div>
+          <p
+            className={`${compact ? 'text-sm' : 'text-base'} font-body flex flex-wrap items-center gap-1 text-gray-600 dark:text-gray-300`}
+          >
             <Badge
               colorClass={`text-xs ${
                 task.type === 'Water'
@@ -135,12 +166,16 @@ export default function TaskCard({
                 ? 'To Fertilize'
                 : task.type}
             </Badge>
+            {daysSince != null && (
+              <span className="text-xs text-gray-500">
+                · {daysSince} {daysSince === 1 ? 'day' : 'days'} since care
+              </span>
+            )}
           </p>
           {!compact && task.reason && (
-            <p className="text-sm text-gray-500 font-body">{task.reason}</p>
+            <p className="text-xs text-gray-500 font-body">{task.reason}</p>
           )}
         </div>
-        {Icon && <Icon aria-hidden="true" />}
       </Link>
       <button
         type="button"
