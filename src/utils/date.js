@@ -17,6 +17,26 @@ export function formatMonth(key) {
   return `${months[Number(month) - 1]} ${year}`
 }
 
+export function formatDate(dateStr) {
+  const d = new Date(dateStr)
+  if (isNaN(d)) return dateStr
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]
+  return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`
+}
+
 export function daysAgo(dateStr, today = new Date()) {
   if (!dateStr) return null
   const d = new Date(dateStr)

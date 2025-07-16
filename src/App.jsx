@@ -16,8 +16,8 @@ import NotFound from './pages/NotFound'
 export default function App() {
   const location = useLocation()
   const nodeRef = useRef(null)
-  const hideFabRoutes = ['/tasks']
-  const showFab = !hideFabRoutes.includes(location.pathname)
+  const hideFabRoutes = ['/tasks', '/plant']
+  const showFab = !hideFabRoutes.some(r => location.pathname.startsWith(r))
   return (
     <div id="main-content" className="pb-24 px-4 pt-8 font-body overflow-hidden">{/* bottom padding for nav */}
 

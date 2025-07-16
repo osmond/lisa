@@ -13,5 +13,5 @@ test('navigating to /timeline renders the Timeline page', () => {
     </MemoryRouter>
   )
 
-  expect(screen.getByText('Watered Plant A')).toBeInTheDocument()
+  expect(screen.getByText(/Watered Plant A/)).toBeInTheDocument()
 })

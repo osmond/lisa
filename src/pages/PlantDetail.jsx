@@ -9,6 +9,7 @@ import {
   Gauge,
   CalendarCheck,
   Flower,
+  DotsThreeVertical,
 } from 'phosphor-react'
 
 import { PlusIcon } from '@radix-ui/react-icons'
@@ -21,7 +22,7 @@ import NoteModal from '../components/NoteModal.jsx'
 import useToast from "../hooks/useToast.jsx"
 import Badge from '../components/Badge.jsx'
 
-import { formatMonth } from '../utils/date.js'
+import { formatMonth, formatDate } from '../utils/date.js'
 
 import { buildEvents, groupEventsByMonth } from '../utils/events.js'
 
@@ -129,37 +130,70 @@ export default function PlantDetail() {
     <div className="space-y-2 relative text-left">
       <Toast />
       <div className="space-y-4">
-        <div className="rounded-xl shadow-md bg-green-50 overflow-hidden">
-          <div className="relative">
-            <img
-              src={plant.image}
-              alt={plant.name}
-              loading="lazy"
-              className="w-full h-64 object-cover"
-            />
-            <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 via-black/30 to-transparent text-white text-left">
-              <h1 className="text-3xl font-bold font-headline">{plant.name}</h1>
-              {plant.nickname && <p className="text-gray-200">{plant.nickname}</p>}
-            </div>
+        <div className="rounded-xl shadow-md overflow-hidden relative">
+          <img
+            src={plant.image}
+            alt={plant.name}
+            loading="lazy"
+            className="w-full h-64 object-cover"
+          />
+          <button
+            type="button"
+            onClick={() => setShowActionsMenu(v => !v)}
+            className="absolute top-2 right-2 p-1 bg-white rounded-full shadow"
+          >
+            <DotsThreeVertical className="w-5 h-5 text-gray-700" aria-hidden="true" />
+            <span className="sr-only">More options</span>
+          </button>
+          {showActionsMenu && (
+            <ul className="absolute top-10 right-2 bg-white border rounded shadow z-10">
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowActionsMenu(false)
+                    handleEdit()
+                  }}
+                  className="block px-3 py-1 text-sm text-left w-full hover:bg-gray-100"
+                >
+                  Edit Plant
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowActionsMenu(false)
+                    handleAddPhoto()
+                  }}
+                  className="block px-3 py-1 text-sm text-left w-full hover:bg-gray-100"
+                >
+                  Add Photo
+                </button>
+              </li>
+            </ul>
+          )}
+          <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 via-black/30 to-transparent text-white text-left">
+            <h1 className="text-3xl font-bold font-headline">{plant.name}</h1>
+            {plant.nickname && <p className="text-gray-200">{plant.nickname}</p>}
           </div>
-          <div className="p-3 flex flex-wrap gap-2 text-base">
-            <Badge Icon={Drop} colorClass="bg-blue-100 text-blue-800">
-              <Drop className="w-4 h-4" />
-
-              <span className="font-semibold">Last watered:</span>
-              <span>{plant.lastWatered}</span>
+        </div>
+        <div className="rounded-xl shadow-md bg-green-50 p-3 flex flex-wrap gap-2 text-base">
+          <Badge Icon={Drop} colorClass="bg-blue-100 text-blue-800">
+            <Drop className="w-4 h-4" />
+            <span className="font-semibold">Last watered:</span>
+            <span>{plant.lastWatered}</span>
+          </Badge>
+          <Badge Icon={CalendarCheck} colorClass="bg-green-100 text-green-800">
+            <span className="font-semibold">Next watering:</span>
+            <span>{plant.nextWater}</span>
+          </Badge>
+          {plant.lastFertilized && (
+            <Badge Icon={Flower} colorClass="bg-orange-100 text-orange-800">
+              <span className="font-semibold">Last fertilized:</span>
+              <span>{plant.lastFertilized}</span>
             </Badge>
-            <Badge Icon={CalendarCheck} colorClass="bg-green-100 text-green-800">
-              <span className="font-semibold">Next watering:</span>
-              <span>{plant.nextWater}</span>
-            </Badge>
-            {plant.lastFertilized && (
-              <Badge Icon={Flower} colorClass="bg-orange-100 text-orange-800">
-                <span className="font-semibold">Last fertilized:</span>
-                <span>{plant.lastFertilized}</span>
-              </Badge>
-            )}
-          </div>
+          )}
         </div>
         <div className="flex gap-2 mt-3 items-center">
           <button
@@ -186,43 +220,6 @@ export default function PlantDetail() {
             <Note className="w-4 h-4" aria-hidden="true" />
             Add Note
           </button>
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setShowActionsMenu(v => !v)}
-              className="px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-sm font-medium flex items-center gap-1"
-            >
-              More…
-            </button>
-            {showActionsMenu && (
-              <ul className="absolute right-0 mt-1 bg-white border rounded shadow z-10">
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setShowActionsMenu(false)
-                      handleEdit()
-                    }}
-                    className="block px-3 py-1 text-sm text-left w-full hover:bg-gray-100"
-                  >
-                    Edit Plant
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setShowActionsMenu(false)
-                      handleAddPhoto()
-                    }}
-                    className="block px-3 py-1 text-sm text-left w-full hover:bg-gray-100"
-                  >
-                    Add Photo
-                  </button>
-                </li>
-              </ul>
-            )}
-          </div>
         </div>
 
         <div className="space-y-1">
@@ -383,8 +380,9 @@ export default function PlantDetail() {
                         >
                           {Icon && <Icon className={`w-4 h-4 ${iconColors[e.type]}`} />}
                         </div>
-                        <p className="text-xs text-gray-400">{e.date}</p>
-                        <p className="font-medium">{e.label}</p>
+                        <p className="font-medium">
+                          {formatDate(e.date)} — {e.label}
+                        </p>
                         {e.note && (
                           <p className="text-xs text-gray-500 italic">{e.note}</p>
                         )}
