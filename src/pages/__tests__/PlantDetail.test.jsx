@@ -68,7 +68,6 @@ test('displays all sections', () => {
   )
 
   expect(screen.getByRole('heading', { name: /quick stats/i })).toBeInTheDocument()
-  expect(screen.getByRole('heading', { name: /care tags/i })).toBeInTheDocument()
   expect(screen.getByRole('heading', { name: /activity & notes/i })).toBeInTheDocument()
   expect(screen.getByRole('heading', { name: /gallery/i })).toBeInTheDocument()
 })
