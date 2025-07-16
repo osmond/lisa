@@ -141,10 +141,6 @@ export default function PlantDetail() {
             className="w-full h-64 object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" aria-hidden="true"></div>
-          <span className="absolute top-2 left-2 text-xs bg-black/50 text-white px-2 py-0.5 rounded-full flex items-center gap-1">
-            <Drop className="w-3 h-3" aria-hidden="true" />
-            {plant.lastWatered}
-          </span>
           <div className="absolute bottom-3 left-4 text-white drop-shadow">
             <h2 className="text-2xl font-semibold font-headline">{plant.name}</h2>
             {plant.nickname && (
