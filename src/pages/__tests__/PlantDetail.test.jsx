@@ -2,10 +2,12 @@ import { render, screen, fireEvent, within } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import PlantDetail from '../PlantDetail.jsx'
 import plants from '../../plants.json'
+
+const mapPlant = p => ({ ...p, photos: p.photos.map(src => ({ src })) })
 import { PlantProvider } from '../../PlantContext.jsx'
 
 test('renders plant details without duplicates', () => {
-  const plant = plants[0]
+  const plant = mapPlant(plants[0])
   render(
     <PlantProvider>
       <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
@@ -40,7 +42,7 @@ test('renders plant details without duplicates', () => {
 })
 
 test('tab keyboard navigation works', () => {
-  const plant = plants[0]
+  const plant = mapPlant(plants[0])
   render(
     <PlantProvider>
       <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
@@ -72,7 +74,7 @@ test('tab keyboard navigation works', () => {
 
 test('opens lightbox from gallery', () => {
 
-  const plant = plants[0]
+  const plant = mapPlant(plants[0])
   render(
     <PlantProvider>
       <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
@@ -102,14 +104,37 @@ test('opens lightbox from gallery', () => {
   expect(viewerDialog).toBeInTheDocument()
 
   const viewerImg = screen.getByAltText(/gallery image/i)
-  expect(viewerImg).toHaveAttribute('src', plant.photos[0])
+  expect(viewerImg).toHaveAttribute('src', plant.photos[0].src)
 
   fireEvent.keyDown(window, { key: 'ArrowRight' })
-  expect(viewerImg).toHaveAttribute('src', plant.photos[1])
+  expect(viewerImg).toHaveAttribute('src', plant.photos[1].src)
 
   fireEvent.keyDown(window, { key: 'Escape' })
   expect(
     screen.queryByRole('dialog', { name: `${plant.name} gallery` })
   ).toBeNull()
 
+})
+
+test('View All opens gallery modal', () => {
+  const plant = mapPlant(plants[0])
+  render(
+    <PlantProvider>
+      <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </PlantProvider>
+  )
+
+  fireEvent.click(screen.getByRole('button', { name: /view all/i }))
+  const modal = screen.getByRole('dialog', { name: `${plant.name} gallery` })
+  expect(modal).toBeInTheDocument()
+
+  const first = within(modal).getByAltText(`${plant.name} gallery 0`)
+  fireEvent.click(first)
+
+  const viewerImg = screen.getByAltText(/gallery image/i)
+  expect(viewerImg).toHaveAttribute('src', plant.photos[0].src)
 })

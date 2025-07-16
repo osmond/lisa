@@ -16,10 +16,15 @@ export const addBase = url => {
 export function PlantProvider({ children }) {
 
   const [plants, setPlants] = useState(() => {
+    const mapPhoto = photo =>
+      typeof photo === 'string'
+        ? { src: addBase(photo), caption: '' }
+        : { src: addBase(photo.src), caption: photo.caption || '' }
+
     const mapPlant = p => ({
       ...p,
       image: addBase(p.image),
-      photos: (p.photos || p.gallery || []).map(addBase),
+      photos: (p.photos || p.gallery || []).map(mapPhoto),
       careLog: p.careLog || [],
     })
 
@@ -123,7 +128,10 @@ export function PlantProvider({ children }) {
     setPlants(prev =>
       prev.map(p =>
         p.id === id
-          ? { ...p, photos: [...(p.photos || []), url] }
+          ? {
+              ...p,
+              photos: [...(p.photos || []), { src: url, caption: '' }],
+            }
           : p
       )
     )
@@ -134,6 +142,21 @@ export function PlantProvider({ children }) {
       prev.map(p => {
         if (p.id === id) {
           const updated = (p.photos || []).filter((_, i) => i !== index)
+          return { ...p, photos: updated }
+        }
+        return p
+      })
+    )
+  }
+
+  const updatePhotoCaption = (id, index, caption) => {
+    setPlants(prev =>
+      prev.map(p => {
+        if (p.id === id) {
+          const updated = (p.photos || []).slice()
+          if (updated[index]) {
+            updated[index] = { ...updated[index], caption }
+          }
           return { ...p, photos: updated }
         }
         return p
@@ -153,6 +176,7 @@ export function PlantProvider({ children }) {
         removePlant,
         addPhoto,
         removePhoto,
+        updatePhotoCaption,
       }}
     >
       {children}
