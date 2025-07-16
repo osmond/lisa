@@ -75,8 +75,8 @@ test('incomplete tasks show alert style', () => {
     </PlantProvider>
   )
   const wrapper = container.querySelector('[data-testid="task-card"]')
-  expect(wrapper).toHaveClass('bg-sage')
-  expect(wrapper).toHaveClass('ring-accent')
+  expect(wrapper).toHaveClass('bg-white')
+  expect(wrapper).toHaveClass('ring-neutral-200')
 })
 
 test('applies highlight when urgent', () => {
@@ -88,7 +88,6 @@ test('applies highlight when urgent', () => {
     </MemoryRouter>
   )
   const wrapper = container.querySelector('[data-testid="task-card"]')
-  expect(wrapper).toHaveClass('ring-2')
   expect(wrapper).toHaveClass('ring-green-300')
   expect(wrapper).toHaveClass('dark:ring-green-400')
 })
@@ -102,7 +101,6 @@ test('applies overdue styling', () => {
     </MemoryRouter>
   )
   const wrapper = container.querySelector('[data-testid="task-card"]')
-  expect(wrapper).toHaveClass('ring-2')
   expect(wrapper).toHaveClass('ring-orange-300')
   const badge = screen.getByTestId('overdue-badge')
   expect(badge).toBeInTheDocument()

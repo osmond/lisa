@@ -89,7 +89,7 @@ export default function TaskCard({
       }}
 
 
-      className={`relative flex items-center gap-3 p-4 rounded-2xl overflow-hidden transition-transform duration-150 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500${completed ? ' bg-gray-100 dark:bg-gray-800 opacity-50' : ' bg-sage dark:bg-gray-700 ring-2 ring-accent hover:bg-sage/80'}${urgent ? ' ring-green-300 dark:ring-green-400' : ''}${overdue ? ' ring-orange-300' : ''}`}
+      className={`relative flex items-center gap-3 px-4 py-3 rounded-2xl overflow-hidden shadow-sm transition-transform duration-150 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500${completed ? ' bg-gray-100 dark:bg-gray-800 opacity-50 ring-1 ring-neutral-200' : ' bg-white dark:bg-gray-700 ring-1 ring-neutral-200 hover:bg-gray-50 dark:hover:bg-gray-600'}${urgent ? ' ring-green-300 dark:ring-green-400' : ''}${overdue ? ' ring-orange-300' : ''}`}
 
 
       onTouchMove={move}
