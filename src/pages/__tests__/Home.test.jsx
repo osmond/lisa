@@ -104,14 +104,32 @@ test('earliest due task appears first', () => {
   expect(tasks[1]).toHaveTextContent('Plant B')
 })
 
+
 test('tasks container renders with background', () => {
+
+test('featured section provides extra spacing', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+  mockPlants.splice(0, mockPlants.length, {
+    id: 1,
+    name: 'Plant A',
+    image: 'a.jpg',
+    lastWatered: '2025-07-03',
+    nextFertilize: '2025-07-10',
+  })
+
   render(
     <MemoryRouter>
       <Home />
     </MemoryRouter>
   )
+
   const container = screen.getByTestId('tasks-container')
   expect(container).toBeInTheDocument()
   expect(container).toHaveClass('bg-sage')
+
+
+  const section = screen.getByTestId('featured-card').closest('section')
+  expect(section).toHaveClass('mb-4')
+>
 })
 
