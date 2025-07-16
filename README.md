@@ -18,7 +18,7 @@ Includes:
 
 ## Using the UI
 
-Task cards can be swiped **right** to mark them complete and **left** to edit or delete them. Plant cards respond to the same gestures.  As you drag a card, edit and delete hints slide in so the result is clear before you release.  A deeper swipe (about 200 px) reveals a "Delete?" prompt and opens a confirmation dialog.  Keyboard users can hit the **Left/Right** arrow keys or **Enter** to trigger these actions thanks to the underlying `PlantCard` and `TaskCard` components.
+Task cards can be swiped **right** to mark them complete, triggering a checkmark animation. Swiping **left** – or long‑pressing – opens a context menu with **Add Note**, **Snooze**, and **Edit Plant** options. Plant cards respond to the same gestures. Keyboard users can hit the **Left/Right** arrow keys or **Enter** to trigger these actions thanks to the underlying `PlantCard` and `TaskCard` components.
 
 ## Plant Detail View
 
