@@ -103,9 +103,6 @@ export default function PlantDetail() {
     navigate(`/plant/${plant.id}/edit`)
   }
 
-  const handleAddPhoto = () => {
-    fileInputRef.current?.click()
-  }
 
   const saveNote = note => {
     if (note) {
@@ -162,18 +159,6 @@ export default function PlantDetail() {
                   className="block px-3 py-1 text-sm text-left w-full hover:bg-gray-100"
                 >
                   Edit Plant
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowActionsMenu(false)
-                    handleAddPhoto()
-                  }}
-                  className="block px-3 py-1 text-sm text-left w-full hover:bg-gray-100"
-                >
-                  Add Photo
                 </button>
               </li>
             </ul>
