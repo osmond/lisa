@@ -11,7 +11,6 @@ import useSwipe from '../hooks/useSwipe.js'
 
 
 import { getWateringInfo } from '../utils/watering.js'
-import NoteModal from './NoteModal.jsx'
 import Badge from './Badge.jsx'
 
 export default function TaskCard({
@@ -27,7 +26,6 @@ export default function TaskCard({
   const { Toast, showToast } = useToast()
   const [checked, setChecked] = useState(false)
   const isChecked = checked || completed
-  const [showNote, setShowNote] = useState(false)
 
   const handleKeyDown = e => {
     if (e.key === 'ArrowRight') {
@@ -48,29 +46,16 @@ export default function TaskCard({
   const handleComplete = () => {
     if (onComplete) {
       onComplete(task)
-      showToast(toastMsg)
-      setChecked(true)
-      setTimeout(() => setChecked(false), 400)
     } else {
-      setShowNote(true)
+      if (task.type === 'Water') {
+        markWatered(task.plantId, '')
+      } else if (task.type === 'Fertilize') {
+        markFertilized(task.plantId, '')
+      }
     }
-  }
-
-  const handleSaveNote = note => {
-    if (task.type === 'Water') {
-      markWatered(task.plantId, note)
-      showToast(toastMsg)
-    } else if (task.type === 'Fertilize') {
-      markFertilized(task.plantId, note)
-      showToast(toastMsg)
-    }
+    showToast(toastMsg)
     setChecked(true)
     setTimeout(() => setChecked(false), 400)
-    setShowNote(false)
-  }
-
-  const handleCancelNote = () => {
-    handleSaveNote('')
   }
 
   const { dx: deltaX, start, move, end } = useSwipe(diff => {
@@ -218,9 +203,6 @@ export default function TaskCard({
         </div>
       )}
     </div>
-    {showNote && (
-      <NoteModal label="Optional note" onSave={handleSaveNote} onCancel={handleCancelNote} />
-    )}
     </>
   )
 }
