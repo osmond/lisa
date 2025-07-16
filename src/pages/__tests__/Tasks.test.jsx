@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, within } from '@testing-library/react'
 
 import { MemoryRouter } from 'react-router-dom'
 import userEvent from '@testing-library/user-event'
@@ -10,13 +10,13 @@ const samplePlants = [
   {
     id: 1,
     name: 'Plant A',
-    lastWatered: '2025-07-10',
+    lastWatered: '2025-07-08',
     activity: ['Repotted'],
   },
   {
     id: 2,
     name: 'Plant B',
-    lastWatered: '2025-07-08',
+    lastWatered: '2025-07-16',
     activity: ['Watered on 2025-07-10'],
   },
 ]
@@ -50,9 +50,9 @@ test('ignores activities without valid dates when generating events', () => {
 
   expect(cards).toHaveLength(2)
   expect(cards[0]).toHaveTextContent('To Water')
-  expect(cards[0]).toHaveTextContent('Plant B')
-  expect(cards[1]).toHaveTextContent('To Water')
-  expect(cards[1]).toHaveTextContent('Plant A')
+  expect(cards[0]).toHaveTextContent('Plant A')
+  expect(cards[1]).toHaveTextContent('Watered!')
+  expect(cards[1]).toHaveTextContent('Plant B')
   expect(cards.length).toBeGreaterThan(0)
 
 
@@ -86,9 +86,9 @@ test('filters by type', () => {
   const cards = screen.getAllByTestId('task-card')
   expect(cards).toHaveLength(2)
   expect(cards[0]).toHaveTextContent('To Water')
-  expect(cards[0]).toHaveTextContent('Plant B')
-  expect(cards[1]).toHaveTextContent('To Water')
-  expect(cards[1]).toHaveTextContent('Plant A')
+  expect(cards[0]).toHaveTextContent('Plant A')
+  expect(cards[1]).toHaveTextContent('Watered!')
+  expect(cards[1]).toHaveTextContent('Plant B')
 })
 
 test('sorts by plant name', () => {
@@ -149,8 +149,10 @@ test('completed tasks are styled', () => {
   )
 })
 
+
 test('future watering date does not show Water Now button', () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+
   render(
     <MemoryRouter>
       <Tasks />
@@ -162,4 +164,14 @@ test('future watering date does not show Water Now button', () => {
 
   expect(screen.queryByText('Water Now')).toBeNull()
   jest.useRealTimers()
+
+  const byPlantTab = screen.getByRole('tab', { name: /By Plant/i })
+  await userEvent.click(byPlantTab)
+
+  const cards = screen.getAllByTestId('unified-task-card')
+  expect(cards).toHaveLength(2)
+
+  expect(within(cards[0]).getByText('Water Now')).toBeInTheDocument()
+  expect(within(cards[1]).queryByText('Water Now')).toBeNull()
+
 })
