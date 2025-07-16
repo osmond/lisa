@@ -341,13 +341,6 @@ export default function PlantDetail() {
               </div>
             )
           })}
-          <button
-            type="button"
-            onClick={handleLogEvent}
-            className="mt-2 inline-flex items-center gap-1 px-2 py-1 bg-gray-100 dark:bg-gray-600 rounded text-sm"
-          >
-            + Add Note
-          </button>
         </section>
       </div>
 
@@ -389,14 +382,6 @@ export default function PlantDetail() {
             View All Photos
           </button>
         )}
-        <button
-          type="button"
-          onClick={openFileInput}
-          className="mt-2 inline-flex items-center gap-1 px-3 py-2 bg-gray-200 rounded shadow"
-        >
-          <PlusIcon className="w-4 h-4" aria-hidden="true" />
-          Add Photo
-        </button>
         <input
           type="file"
           accept="image/*"
