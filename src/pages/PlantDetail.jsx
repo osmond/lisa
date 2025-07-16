@@ -207,12 +207,6 @@ export default function PlantDetail() {
             )}
           </ul>
 
-          <div className="border-t pt-3 space-y-3">
-            <h3 className="flex items-center gap-2 font-semibold font-headline">
-              <Sun className="w-5 h-5 text-yellow-600" aria-hidden="true" />
-              Care Tags
-            </h3>
-          </div>
         </section>
 
 
