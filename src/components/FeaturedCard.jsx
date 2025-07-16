@@ -34,7 +34,8 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
   const name = plant.plantName || plant.name
   const id = plant.plantId || plant.id
   const preview = formatCareSummary(plant.lastWatered, plant.nextWater)
-  const imageSrc = (plant.photos && plant.photos[0]) || plant.image || '/demo-image-01.jpg'
+  const imageSrc =
+    (plant.photos && plant.photos[0]?.src) || plant.image || '/demo-image-01.jpg'
 
   return (
     <Link

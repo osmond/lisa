@@ -71,7 +71,8 @@ export default function PlantDetail() {
     const files = Array.from(e.target.files || [])
     files.forEach(file => {
       const reader = new FileReader()
-      reader.onload = ev => addPhoto(plant.id, ev.target.result)
+      reader.onload = ev =>
+        addPhoto(plant.id, { src: ev.target.result, caption: '' })
       reader.readAsDataURL(file)
     })
     e.target.value = ''
@@ -418,9 +419,10 @@ export default function PlantDetail() {
       </div>
       <Accordion title="Gallery" defaultOpen={false}>
         <div className="flex gap-3 overflow-x-auto pb-2">
-          {(plant.photos || []).map((src, i) => (
-            
-            <div key={i} className="relative">
+          {(plant.photos || []).map((photo, i) => {
+            const { src, caption } = photo
+            return (
+            <div key={i} className="relative flex flex-col items-center">
               <button type="button" onClick={() => setLightboxIndex(i)} className="block focus:outline-none">
                 <img
                   src={src}
@@ -428,6 +430,7 @@ export default function PlantDetail() {
                   className="object-cover w-full h-24 rounded"
                 />
               </button>
+              {caption && <p className="text-xs mt-1 w-24 text-center">{caption}</p>}
 
               <button
                 className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
@@ -436,7 +439,8 @@ export default function PlantDetail() {
                 ✕
               </button>
             </div>
-          ))}
+            )
+          })}
         </div>
         <button
           type="button"
