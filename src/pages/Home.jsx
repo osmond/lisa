@@ -181,6 +181,7 @@ export default function Home() {
                     urgent={task.urgent}
                     overdue={task.overdue}
                     compact
+                    swipeable={false}
                   />
                 </BaseCard>
               ))
