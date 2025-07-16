@@ -19,6 +19,7 @@ import Lightbox from '../components/Lightbox.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
+import PlantDetailFab from '../components/PlantDetailFab.jsx'
 
 import useToast from "../hooks/useToast.jsx"
 import Badge from '../components/Badge.jsx'
@@ -90,6 +91,10 @@ export default function PlantDetail() {
 
   const handleLogEvent = () => {
     setShowNoteModal(true)
+  }
+
+  const openFileInput = () => {
+    fileInputRef.current?.click()
   }
 
   const handleEdit = () => {
@@ -331,7 +336,7 @@ export default function PlantDetail() {
         )}
         <button
           type="button"
-          onClick={() => fileInputRef.current.click()}
+          onClick={openFileInput}
           className="mt-2 inline-flex items-center gap-1 px-3 py-2 bg-gray-200 rounded shadow"
         >
           <PlusIcon className="w-4 h-4" aria-hidden="true" />
@@ -364,6 +369,7 @@ export default function PlantDetail() {
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
       )}
-  </div>
-)
+      <PlantDetailFab onAddNote={handleLogEvent} onAddPhoto={openFileInput} />
+    </div>
+  )
 }
