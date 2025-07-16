@@ -30,7 +30,22 @@ test('renders plant details without duplicates', () => {
   expect(within(wateredLabel.parentElement).getByText(plant.lastWatered)).toBeInTheDocument()
 
   const nextLabel = screen.getByText('Next watering:')
-  expect(within(nextLabel.parentElement).getByText(plant.nextWater)).toBeInTheDocument()
+  const nextWrapper = nextLabel.parentElement
+  expect(within(nextWrapper).getByText(plant.nextWater)).toBeInTheDocument()
+  expect(
+    within(nextWrapper).getByRole('button', {
+      name: `Mark ${plant.name} as watered`,
+    })
+  ).toBeInTheDocument()
+
+  const nextFertLabel = screen.getByText('Next fertilizing:')
+  const nextFertWrapper = nextFertLabel.parentElement
+  expect(within(nextFertWrapper).getByText(plant.nextFertilize)).toBeInTheDocument()
+  expect(
+    within(nextFertWrapper).getByRole('button', {
+      name: `Mark ${plant.name} as fertilized`,
+    })
+  ).toBeInTheDocument()
 
   const fertLabel = screen.getByText('Last fertilized:')
   expect(within(fertLabel.parentElement).getByText(plant.lastFertilized)).toBeInTheDocument()

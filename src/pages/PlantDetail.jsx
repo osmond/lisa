@@ -186,8 +186,37 @@ export default function PlantDetail() {
               <CalendarCheck className="w-4 h-4" aria-hidden="true" />
               Next watering:
             </span>
-            <span className="text-gray-700">{plant.nextWater}</span>
+            <div className="flex items-center gap-2">
+              <span className="text-gray-700">{plant.nextWater}</span>
+              <button
+                type="button"
+                onClick={handleWatered}
+                aria-label={`Mark ${plant.name} as watered`}
+                className="px-2 py-0.5 bg-blue-600 text-white rounded text-xs"
+              >
+                Water Now
+              </button>
+            </div>
           </div>
+          {plant.nextFertilize && (
+            <div className="flex justify-between items-center text-sm">
+              <span className="flex items-center gap-1 text-yellow-600">
+                <Flower className="w-4 h-4" aria-hidden="true" />
+                Next fertilizing:
+              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-gray-700">{plant.nextFertilize}</span>
+                <button
+                  type="button"
+                  onClick={handleFertilized}
+                  aria-label={`Mark ${plant.name} as fertilized`}
+                  className="px-2 py-0.5 bg-yellow-600 text-white rounded text-xs"
+                >
+                  Fertilize Now
+                </button>
+              </div>
+            </div>
+          )}
           {plant.lastFertilized && (
             <div className="flex justify-between items-center text-sm">
               <span className="flex items-center gap-1 text-yellow-600">
