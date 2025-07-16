@@ -39,6 +39,10 @@ body {
   animation: bounce-once 0.3s ease;
 }
 
+.animate-bounce-once {
+  animation: bounce-once 0.3s ease;
+}
+
 .fade-enter {
   opacity: 0;
   transform: translateX(10px);

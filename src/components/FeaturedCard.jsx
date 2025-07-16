@@ -71,6 +71,13 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
         {preview && (
           <p className="text-sm opacity-90">{preview}</p>
         )}
+        <button
+          type="button"
+          aria-label={`Mark ${name} as watered`}
+          className="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-sm animate-bounce-once"
+        >
+          Water Now
+        </button>
 
       </div>
     </Link>
