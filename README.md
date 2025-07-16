@@ -18,7 +18,7 @@ Includes:
 
 ## Using the UI
 
-Task cards can be swiped **right** to mark them complete, triggering a checkmark animation. Swiping **left** – or long‑pressing – opens a context menu with **Add Note**, **Snooze**, and **Edit Plant** options. Plant cards respond to the same gestures. Keyboard users can hit the **Left/Right** arrow keys or **Enter** to trigger these actions thanks to the underlying `PlantCard` and `TaskCard` components.
+Task cards now render as static summaries with no swipe gestures. Plant cards remain interactive and support swiping or keyboard shortcuts through the underlying `PlantCard` component.
 
 ## Plant Detail View
 
