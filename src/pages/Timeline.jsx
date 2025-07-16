@@ -38,33 +38,38 @@ export default function Timeline() {
 
   return (
     <div className="overflow-y-auto max-h-full p-4 text-gray-700 dark:text-gray-200">
-      {groupedEvents.map(([monthKey, list]) => (
-        <div key={monthKey}>
-          <h3 className="mt-6 text-base font-semibold text-gray-600">
-            {formatMonth(monthKey)}
-          </h3>
-          <ul className="relative border-l border-gray-300 pl-6 ml-2 space-y-8">
-            {list.map((e, i) => {
-              const Icon = actionIcons[e.type]
-              return (
-                <li key={`${e.date}-${e.label}-${i}`} className="relative pl-4">
-                  <div
-                    className={`absolute -left-3 top-0 flex items-center justify-center w-6 h-6 rounded-full ${colors[e.type]}`}
+      <div className="rounded-xl bg-white shadow-sm p-4 border border-gray-100">
+        {groupedEvents.map(([monthKey, list]) => (
+          <div key={monthKey}>
+            <h3 className="mt-6 text-base font-semibold text-gray-600">
+              {formatMonth(monthKey)}
+            </h3>
+            <ul className="ml-2 space-y-8">
+              {list.map((e, i) => {
+                const Icon = actionIcons[e.type]
+                return (
+                  <li
+                    key={`${e.date}-${e.label}-${i}`}
+                    className="relative flex items-start space-x-2 pl-4 before:absolute before:top-0 before:bottom-0 before:left-6 before:w-px before:bg-gray-300"
                   >
-                    {Icon && <Icon className={`w-4 h-4 ${iconColors[e.type]}`} />}
-                  </div>
-                  <p className="font-medium">
-                    {formatDate(e.date)} — {e.label}
-                  </p>
-                  {e.note && (
-                    <p className="text-xs text-gray-500 italic">{e.note}</p>
-                  )}
-                </li>
-              )
-            })}
-          </ul>
-        </div>
-      ))}
+                    <div className={`w-4 h-4 rounded-full mt-1 flex items-center justify-center ${colors[e.type]}`}>
+                      {Icon && <Icon className={`w-3 h-3 ${iconColors[e.type]}`} aria-hidden="true" />}
+                    </div>
+                    <div>
+                      <p className="font-medium">
+                        {formatDate(e.date)} — {e.label}
+                      </p>
+                      {e.note && (
+                        <p className="text-xs text-gray-500 italic">{e.note}</p>
+                      )}
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
