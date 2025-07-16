@@ -1,13 +1,15 @@
 import { render, screen } from '@testing-library/react'
 import UnifiedTaskCard from '../UnifiedTaskCard.jsx'
 
+jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+
 const plant = {
   name: 'Fern',
   image: 'fern.jpg',
   lastWatered: '2025-07-10',
   dueWater: true,
   dueFertilize: false,
-  lastCared: '2025-07-10',
+  lastCared: '2025-07-07',
 }
 
 test('renders plant info and water button', () => {
@@ -16,6 +18,7 @@ test('renders plant info and water button', () => {
   expect(screen.getByText(/Needs water/)).toBeInTheDocument()
   expect(screen.getByText('Water Now')).toBeInTheDocument()
   expect(screen.queryByText('Fertilize Now')).toBeNull()
+  expect(screen.getByText('Last cared for 3 days ago')).toBeInTheDocument()
 })
 
 test('applies urgent style', () => {
@@ -35,4 +38,8 @@ test('matches snapshot in dark mode', () => {
   const { container } = render(<UnifiedTaskCard plant={plant} />)
   expect(container.firstChild).toMatchSnapshot()
   document.documentElement.classList.remove('dark')
+})
+
+afterAll(() => {
+  jest.useRealTimers()
 })

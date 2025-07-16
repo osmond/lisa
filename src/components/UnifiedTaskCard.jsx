@@ -1,5 +1,6 @@
 import React from 'react'
 import { Drop, Sun } from 'phosphor-react'
+import { formatDaysAgo } from '../utils/dateFormat.js'
 
 export default function UnifiedTaskCard({ plant, urgent = false, overdue = false }) {
   if (!plant) return null
@@ -15,8 +16,9 @@ export default function UnifiedTaskCard({ plant, urgent = false, overdue = false
     ? 'bg-yellow-50 dark:bg-yellow-900'
     : 'bg-gray-50 dark:bg-gray-800'
 
-  const last = lastCared ? (
-    <p className="text-xs text-gray-500">Last cared for {lastCared}</p>
+  const lastText = lastCared ? formatDaysAgo(lastCared) : null
+  const last = lastText ? (
+    <p className="text-xs text-gray-500">Last cared for {lastText}</p>
   ) : null
 
   return (
