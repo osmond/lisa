@@ -15,6 +15,7 @@ export default function TaskCard({
   overdue = false,
   completed = false,
   compact = false,
+  swipeable = true,
 }) {
   const Icon = actionIcons[task.type]
   const { daysSince, eto } = getWateringInfo(task.lastWatered, { eto: task.eto })
@@ -74,6 +75,7 @@ export default function TaskCard({
   }
 
   const { dx: deltaX, start, move, end } = useSwipe(diff => {
+    if (!swipeable) return
     if (diff > COMPLETE_THRESHOLD) {
       handleComplete()
     } else if (diff < -MENU_THRESHOLD) {
@@ -83,12 +85,14 @@ export default function TaskCard({
   })
 
   const handlePointerDown = e => {
+    if (!swipeable) return
     createRipple(e)
     start(e)
     longPressTimer.current = setTimeout(() => setShowMenu(true), LONG_PRESS_MS)
   }
 
   const handlePointerMove = e => {
+    if (!swipeable) return
     move(e)
     if (Math.abs(deltaX) > 5 && longPressTimer.current) {
       clearTimeout(longPressTimer.current)
@@ -97,6 +101,7 @@ export default function TaskCard({
   }
 
   const handlePointerUp = e => {
+    if (!swipeable) return
     clearTimeout(longPressTimer.current)
     longPressTimer.current = null
     end(e)
@@ -111,16 +116,16 @@ export default function TaskCard({
         data-testid="task-card"
         tabIndex="0"
         aria-label={`Task card for ${task.plantName}`}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerCancel={handlePointerUp}
-        onMouseDown={handlePointerDown}
-        onMouseMove={handlePointerMove}
-        onMouseUp={handlePointerUp}
-        onTouchStart={handlePointerDown}
-        onTouchMove={handlePointerMove}
-        onTouchEnd={handlePointerUp}
+        onPointerDown={swipeable ? handlePointerDown : undefined}
+        onPointerMove={swipeable ? handlePointerMove : undefined}
+        onPointerUp={swipeable ? handlePointerUp : undefined}
+        onPointerCancel={swipeable ? handlePointerUp : undefined}
+        onMouseDown={swipeable ? handlePointerDown : undefined}
+        onMouseMove={swipeable ? handlePointerMove : undefined}
+        onMouseUp={swipeable ? handlePointerUp : undefined}
+        onTouchStart={swipeable ? handlePointerDown : undefined}
+        onTouchMove={swipeable ? handlePointerMove : undefined}
+        onTouchEnd={swipeable ? handlePointerUp : undefined}
         className="relative overflow-hidden rounded-xl"
       >
         {showMenu && (
@@ -150,7 +155,10 @@ export default function TaskCard({
         )}
         <div
           className={`relative flex items-center gap-3 px-4 py-3 shadow-sm ${completed || animateComplete ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : 'bg-white dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
-          style={{ transform: `translateX(${showMenu ? -100 : deltaX}px)`, transition: deltaX === 0 ? 'transform 0.2s' : 'none' }}
+          style={{
+            transform: swipeable ? `translateX(${showMenu ? -100 : deltaX}px)` : undefined,
+            transition: swipeable && deltaX === 0 ? 'transform 0.2s' : undefined,
+          }}
         >
           <div className="flex items-center flex-1 gap-3">
             <img src={task.image} alt={task.plantName} className="w-12 h-12 rounded-lg object-cover" />
