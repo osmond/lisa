@@ -41,6 +41,12 @@ const bulletColors = {
   noteText: 'bg-gray-400',
 }
 
+const urgencyColors = {
+  high: 'text-red-600',
+  medium: 'text-yellow-600',
+  low: 'text-green-600',
+}
+
 export default function PlantDetail() {
   const { id } = useParams()
   const { plants, addPhoto, removePhoto, markWatered, markFertilized, logEvent } = usePlants()
@@ -53,6 +59,8 @@ export default function PlantDetail() {
   const [lightboxIndex, setLightboxIndex] = useState(null)
   const [showLegend, setShowLegend] = useState(false)
   const [collapsedMonths, setCollapsedMonths] = useState({})
+
+  const urgencyClass = urgencyColors[plant?.urgency] || ''
 
   const events = useMemo(() => buildEvents(plant), [plant])
   const groupedEvents = useMemo(
@@ -198,7 +206,7 @@ export default function PlantDetail() {
         </div>
         </div>
         <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-3">
-          <h3 className="flex items-center gap-2 font-semibold font-headline">
+          <h3 className={`flex items-center gap-2 font-semibold font-headline ${urgencyClass}`}>
             <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Quick Stats
           </h3>
