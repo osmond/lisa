@@ -34,10 +34,8 @@ test('shows notes from care log in timeline', () => {
     </MemoryRouter>
   )
 
-  expect(
-    screen.getAllByText((content, node) =>
-      node.textContent === 'July 2, 2025 — Watered: deep soak'
-    ).length
-  ).toBeGreaterThan(0)
+  expect(screen.getByText('July 2, 2025')).toBeInTheDocument()
+  expect(screen.getByText(/Watered/)).toBeInTheDocument()
+  expect(screen.getByText('deep soak')).toBeInTheDocument()
 
 })
