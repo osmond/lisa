@@ -6,6 +6,7 @@ import CareSummaryModal from '../components/CareSummaryModal.jsx'
 import { useState } from 'react'
 
 import { Link } from 'react-router-dom'
+import Fab from '../components/Fab.jsx'
 
 import { useWeather } from '../WeatherContext.jsx'
 import { useUser } from '../UserContext.jsx'
@@ -149,6 +150,14 @@ export default function Home() {
           )}
         </p>
       </header>
+      <div className="mt-2">
+        <Link
+          to="/myplants"
+          className="text-sm text-green-700 underline"
+        >
+          My Plants
+        </Link>
+      </div>
     {plants.length > 0 && (
       <section className="mb-4">
         <h2 className="sr-only">Featured Plant</h2>
@@ -213,6 +222,7 @@ export default function Home() {
           </div>
         </section>
       </div>
+      <Fab />
     </div>
   )
 }
