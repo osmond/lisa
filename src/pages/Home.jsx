@@ -153,12 +153,12 @@ export default function Home() {
     <div className="space-y-8">
       <header className="flex flex-col items-start text-left space-y-1">
         <p className="text-base font-medium text-gray-600">Hi {username}, let’s check on your plants.</p>
-        <p className="text-xs text-gray-400 font-body flex items-center gap-1">
+        <p className="text-xs text-gray-500 font-body flex items-center gap-1">
           {forecast && (() => {
             const Icon = weatherIcons[forecast.condition] || Sun
             return (
               <Icon
-                className="w-4 h-4 text-gray-400 align-middle"
+                className="w-4 h-4 text-gray-500 align-middle"
                 aria-label={forecast.condition}
               />
             )
