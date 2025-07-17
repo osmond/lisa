@@ -15,6 +15,7 @@ Includes:
 - Styled PlantCard components
 - Tasks generated dynamically from plant data
 - Quick Add floating button for new plants
+- Persistent bottom navigation for easy access
 
 ## Using the UI
 
