@@ -6,6 +6,25 @@ import ImageStep from './add/ImageStep.jsx'
 import ScheduleStep from './add/ScheduleStep.jsx'
 import OptionalInfoStep from './add/OptionalInfoStep.jsx'
 
+const totalSteps = 4
+
+function StepIndicator({ step }) {
+  const width = (step / totalSteps) * 100
+  return (
+    <div className="max-w-md mx-auto mb-4" data-testid="step-indicator">
+      <p className="text-sm font-medium text-center mb-2">
+        Step {step} of {totalSteps}
+      </p>
+      <div className="w-full bg-gray-200 rounded-full h-2">
+        <div
+          className="bg-green-600 h-2 rounded-full"
+          style={{ width: `${width}%` }}
+        />
+      </div>
+    </div>
+  )
+}
+
 const initialState = {
   name: '',
   image: '',
@@ -63,6 +82,7 @@ export default function Add() {
 
   return (
     <>
+      <StepIndicator step={step} />
       {step === 1 && (
         <NameStep name={state.name} dispatch={dispatch} onNext={next} />
       )}
