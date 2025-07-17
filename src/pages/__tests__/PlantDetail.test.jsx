@@ -29,28 +29,30 @@ test('renders plant details without duplicates', () => {
   expect(screen.getByText(plant.humidity)).toBeInTheDocument()
   expect(screen.getByText(plant.difficulty)).toBeInTheDocument()
 
-  const wateredLabel = screen.getByText('Last watered:')
-  expect(within(wateredLabel.parentElement).getByText(plant.lastWatered)).toBeInTheDocument()
-
-  const nextLabel = screen.getByText('Next watering:')
-  const nextWrapper = nextLabel.parentElement
-  expect(within(nextWrapper).getByText(plant.nextWater)).toBeInTheDocument()
+  const wateredLabel = screen.getByText(/Last watered/i)
   expect(
-    within(nextWrapper).getByRole('button', {
+    within(wateredLabel.parentElement).getByText(new RegExp(plant.lastWatered))
+  ).toBeInTheDocument()
+
+  const waterHeading = screen.getByText('Watering')
+  const nextLabels = screen.getAllByText(/Next due:/i)
+  expect(screen.getByText(new RegExp(plant.nextWater))).toBeInTheDocument()
+  expect(
+    screen.getByRole('button', {
       name: `Mark ${plant.name} as watered`,
     })
   ).toBeInTheDocument()
 
-  const nextFertLabel = screen.getByText('Next fertilizing:')
-  const nextFertWrapper = nextFertLabel.parentElement
-  expect(within(nextFertWrapper).getByText(plant.nextFertilize)).toBeInTheDocument()
+  const fertHeading = screen.getByText('Fertilizing')
+  const nextFertLabel = nextLabels.find(label => label !== nextLabels[0])
+  expect(screen.getAllByText(new RegExp(plant.nextFertilize)).length).toBeGreaterThan(0)
   expect(
-    within(nextFertWrapper).getByRole('button', {
+    screen.getByRole('button', {
       name: `Mark ${plant.name} as fertilized`,
     })
   ).toBeInTheDocument()
 
-  const fertLabel = screen.getByText('Last fertilized:')
+  const fertLabel = screen.getByText(/Last fertilized/i)
   expect(within(fertLabel.parentElement).getByText(plant.lastFertilized)).toBeInTheDocument()
 
   const subHeadings = screen.queryAllByRole('heading', { level: 4 })

@@ -6,7 +6,6 @@ import {
   Sun,
   Drop,
   Gauge,
-  CalendarCheck,
   Flower,
   Image,
   Note,
@@ -30,6 +29,7 @@ import useToast from "../hooks/useToast.jsx"
 import Badge from '../components/Badge.jsx'
 
 import { formatMonth, formatDate } from '../utils/date.js'
+import { formatDaysAgo } from '../utils/dateFormat.js'
 import { getWateringProgress } from '../utils/watering.js'
 
 import { buildEvents, groupEventsByMonth } from '../utils/events.js'
@@ -220,57 +220,57 @@ export default function PlantDetail() {
           </div>
         </div>
         </div>
-        <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-3">
-          <h3 className="flex items-center gap-2 font-semibold font-headline">
-            <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
-            Quick Stats
-          </h3>
-          <ul className="space-y-2 text-sm">
-            <li className="flex items-center gap-2">
-              <Drop className="w-4 h-4 text-blue-600" aria-hidden="true" />
-              <span className="flex-1 sr-only sm:not-sr-only">Last watered:</span>
-              <span className="text-gray-700 dark:text-gray-200">{plant.lastWatered}</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <CalendarCheck className="w-4 h-4 text-green-600" aria-hidden="true" />
-              <span className="flex-1 sr-only sm:not-sr-only">Next watering:</span>
-              <span className="text-gray-700 dark:text-gray-200">{plant.nextWater}</span>
-              <button
-                type="button"
-                onClick={handleWatered}
-                aria-label={`Mark ${plant.name} as watered`}
-                className="ml-2 px-2 py-0.5 border border-blue-600 text-blue-600 rounded text-xs flex items-center"
-              >
-                <Drop className="w-3 h-3 sm:hidden" aria-hidden="true" />
-                <span className="hidden sm:inline">Water Now</span>
-              </button>
-            </li>
-            {plant.nextFertilize && (
-              <li className="flex items-center gap-2">
-                <Flower className="w-4 h-4 text-yellow-600" aria-hidden="true" />
-                <span className="flex-1 sr-only sm:not-sr-only">Next fertilizing:</span>
-                <span className="text-gray-700 dark:text-gray-200">{plant.nextFertilize}</span>
-                <button
-                  type="button"
-                  onClick={handleFertilized}
-                  aria-label={`Mark ${plant.name} as fertilized`}
-                  className="ml-2 px-2 py-0.5 border border-yellow-600 text-yellow-600 rounded text-xs flex items-center"
-                >
-                  <Flower className="w-3 h-3 sm:hidden" aria-hidden="true" />
-                  <span className="hidden sm:inline">Fertilize Now</span>
-                </button>
-              </li>
-            )}
-            {plant.lastFertilized && (
-              <li className="flex items-center gap-2">
-                <Flower className="w-4 h-4 text-yellow-600" aria-hidden="true" />
-                <span className="flex-1 sr-only sm:not-sr-only">Last fertilized:</span>
-                <span className="text-gray-700 dark:text-gray-200">{plant.lastFertilized}</span>
-              </li>
-            )}
-          </ul>
 
-        </section>
+<section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-4">
+  <h3 className="flex items-center gap-2 font-semibold font-headline">
+    <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
+    Quick Stats
+  </h3>
+  <div className="space-y-4">
+    <div className="bg-water-50 dark:bg-water-900 rounded-lg p-3 flex items-start justify-between">
+      <div className="space-y-1 text-sm">
+        <p className="flex items-center gap-1 font-semibold font-headline text-water-800 dark:text-water-200">
+          <Drop className="w-4 h-4" aria-hidden="true" /> Watering
+        </p>
+        <p className="text-gray-700 dark:text-gray-200">
+          Last watered: {formatDaysAgo(plant.lastWatered)} ({plant.lastWatered})
+        </p>
+        <p className="text-gray-700 dark:text-gray-200">Next due: {plant.nextWater}</p>
+      </div>
+      <button
+        type="button"
+        onClick={handleWatered}
+        aria-label={`Mark ${plant.name} as watered`}
+        className="ml-3 px-2 py-1 border border-water-600 text-water-600 rounded text-xs flex items-center"
+      >
+        <Drop className="w-3 h-3 mr-1" aria-hidden="true" /> Mark Watered
+      </button>
+    </div>
+    {plant.nextFertilize && (
+      <div className="bg-fertilize-50 dark:bg-fertilize-900 rounded-lg p-3 flex items-start justify-between">
+        <div className="space-y-1 text-sm">
+          <p className="flex items-center gap-1 font-semibold font-headline text-fertilize-800 dark:text-fertilize-200">
+            <Flower className="w-4 h-4" aria-hidden="true" /> Fertilizing
+          </p>
+          {plant.lastFertilized && (
+            <p className="text-gray-700 dark:text-gray-200">
+              Last fertilized: {formatDaysAgo(plant.lastFertilized)} ({plant.lastFertilized})
+            </p>
+          )}
+          <p className="text-gray-700 dark:text-gray-200">Next due: {plant.nextFertilize}</p>
+        </div>
+        <button
+          type="button"
+          onClick={handleFertilized}
+          aria-label={`Mark ${plant.name} as fertilized`}
+          className="ml-3 px-2 py-1 border border-fertilize-600 text-fertilize-600 rounded text-xs flex items-center"
+        >
+          <Flower className="w-3 h-3 mr-1" aria-hidden="true" /> Mark Fertilized
+        </button>
+      </div>
+    )}
+  </div>
+</section>
 
 
         <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-4">
