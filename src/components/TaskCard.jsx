@@ -5,7 +5,6 @@ import Badge from './Badge.jsx'
 export default function TaskCard({
   task,
   urgent = false,
-  overdue = false,
   completed = false,
   compact = false,
   swipeable = true,
@@ -63,14 +62,6 @@ export default function TaskCard({
               )}
             </div>
           </div>
-          {overdue && (
-            <span
-              className="absolute -top-1 -right-1 bg-fertilize-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs overdue-ping"
-              data-testid="overdue-badge"
-            >
-              !
-            </span>
-          )}
           {completed && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none task-complete-fade">
               <svg

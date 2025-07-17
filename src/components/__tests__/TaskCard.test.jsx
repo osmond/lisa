@@ -55,21 +55,6 @@ test('applies highlight when urgent', () => {
   expect(wrapper).toHaveClass('dark:ring-green-400')
 })
 
-test('applies overdue styling', () => {
-  const { container } = render(
-    <MemoryRouter>
-      <BaseCard variant="task">
-        <TaskCard task={task} overdue />
-      </BaseCard>
-    </MemoryRouter>
-  )
-  const wrapper = container.querySelector('.shadow-sm')
-  expect(wrapper).not.toHaveClass('ring-orange-300')
-  const badge = screen.getByTestId('overdue-badge')
-  expect(badge).toBeInTheDocument()
-  expect(badge).toHaveClass('bg-fertilize-500')
-  expect(badge).toHaveClass('overdue-ping')
-})
 
 test('shows completed state', () => {
   const { container } = render(
