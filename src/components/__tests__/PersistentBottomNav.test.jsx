@@ -42,6 +42,7 @@ test('renders main navigation links', () => {
   expect(container.querySelector('a[href="/"]')).toBeInTheDocument()
   expect(container.querySelector('a[href="/myplants"]')).toBeInTheDocument()
   expect(container.querySelector('a[href="/timeline"]')).toBeInTheDocument()
+  expect(container.querySelector('a[href="/profile"]')).toBeInTheDocument()
 })
 
 test('shows overdue badge when tasks pending', () => {
@@ -72,7 +73,7 @@ test('more menu opens and closes with additional links', () => {
   expect(overlay).toHaveClass('backdrop-blur-sm')
   expect(screen.queryByRole('link', { name: /add plant/i })).toBeNull()
   expect(screen.queryByRole('link', { name: /add room/i })).toBeNull()
-  expect(container.querySelector('a[href="/profile"]')).toBeInTheDocument()
+  expect(overlay.querySelector('a[href="/profile"]')).toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: /close menu/i }))
   expect(screen.queryByRole('dialog', { name: /navigation menu/i })).toBeNull()
 

@@ -8,8 +8,9 @@ export default function PersistentBottomNav() {
   const overdueCount = useOverdueCount()
   const { menu } = useMenu()
   const { items, Icon } = menu
-  const mainLinks = items.slice(0, 3)
-  const moreItems = items.slice(3)
+  const mainCount = Math.min(4, items.length)
+  const mainLinks = items.slice(0, mainCount)
+  const moreItems = items.slice(mainCount)
 
   useEffect(() => {
     if (!open) return
