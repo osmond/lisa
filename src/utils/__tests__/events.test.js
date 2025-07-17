@@ -56,3 +56,17 @@ test('groupEventsByMonth groups by YYYY-MM', () => {
     ['2025-08', [events[2]]],
   ])
 })
+
+test('groupEventsByMonth sorts months chronologically', () => {
+  const events = [
+    { date: '2099-12-25', label: 'Future' },
+    { date: '2025-07-01', label: 'Past' },
+  ]
+
+  const grouped = groupEventsByMonth(events)
+
+  expect(grouped).toEqual([
+    ['2025-07', [events[1]]],
+    ['2099-12', [events[0]]],
+  ])
+})
