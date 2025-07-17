@@ -38,13 +38,14 @@ export default function MyPlants() {
     <div>
       <h1 className="text-2xl font-bold font-headline mb-4">My Plants</h1>
       <div className="grid grid-cols-2 gap-4">
-        {rooms.map(room => {
+        {rooms.map((room, i) => {
           const overdue = countOverdue(room)
           return (
             <Link
               key={room}
               to={`/room/${encodeURIComponent(room)}`}
-              className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1"
+              className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1 animate-fade-in-up"
+              style={{ animationDelay: `${i * 50}ms` }}
             >
               <FolderSimple
                 className="w-6 h-6 p-1 rounded bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-200"
@@ -63,7 +64,8 @@ export default function MyPlants() {
         <Link
           to="/room/add"
           aria-label="Add Room"
-          className="flex items-center justify-center w-full h-40 rounded-lg border-2 border-dashed text-gray-500"
+          className="flex items-center justify-center w-full h-40 rounded-lg border-2 border-dashed text-gray-500 animate-fade-in-up"
+          style={{ animationDelay: `${rooms.length * 50}ms` }}
         >
           <Plus className="w-10 h-10" aria-hidden="true" />
         </Link>

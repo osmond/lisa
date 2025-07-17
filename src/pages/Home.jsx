@@ -200,8 +200,13 @@ export default function Home() {
           </div>
           <div className="space-y-4">
             {visibleTasks.length > 0 ? (
-              visibleTasks.map(task => (
-                <BaseCard key={task.id} variant="task">
+              visibleTasks.map((task, i) => (
+                <BaseCard
+                  key={task.id}
+                  variant="task"
+                  className="animate-fade-in-up"
+                  style={{ animationDelay: `${i * 50}ms` }}
+                >
                   <TaskCard
                     task={task}
                     urgent={task.urgent}
