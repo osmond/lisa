@@ -2,6 +2,7 @@ import { Drop, Sun } from 'phosphor-react'
 import { useNavigate } from 'react-router-dom'
 import { getWateringInfo } from '../utils/watering.js'
 import { usePlants } from '../PlantContext.jsx'
+import useSnackbar from '../hooks/useSnackbar.jsx'
 import Badge from './Badge.jsx'
 import useSwipe from '../hooks/useSwipe.js'
 
@@ -14,13 +15,17 @@ export default function TaskCard({
 }) {
   const { daysSince, eto } = getWateringInfo(task.lastWatered, { eto: task.eto })
   const navigate = useNavigate()
-  const { markWatered, markFertilized } = usePlants()
+  const { plants, markWatered, markFertilized, updatePlant } = usePlants()
+  const { Snackbar, showSnackbar } = useSnackbar()
 
   const handleComplete = () => {
+    const prev = plants.find(p => p.id === task.plantId)
     if (task.type === 'Water') {
       markWatered(task.plantId, '')
+      showSnackbar('Watered', () => updatePlant(task.plantId, prev))
     } else if (task.type === 'Fertilize') {
       markFertilized(task.plantId, '')
+      showSnackbar('Fertilized', () => updatePlant(task.plantId, prev))
     }
   }
 
@@ -38,6 +43,7 @@ export default function TaskCard({
   )
 
   return (
+    <>
     <div
       data-testid="task-card"
       tabIndex="0"
@@ -122,6 +128,8 @@ export default function TaskCard({
           )}
         </div>
       </div>
+      <Snackbar />
+    </>
   )
 }
 
