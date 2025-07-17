@@ -25,6 +25,7 @@ import LegendModal from '../components/LegendModal.jsx'
 import ProgressRing from '../components/ProgressRing.jsx'
 
 import useToast from "../hooks/useToast.jsx"
+import confetti from 'canvas-confetti'
 import Badge from '../components/Badge.jsx'
 
 import { formatMonth, formatDate } from '../utils/date.js'
@@ -105,6 +106,14 @@ export default function PlantDetail() {
   const handleWatered = () => {
     markWatered(plant.id, '')
     showToast('Watered')
+    if (typeof HTMLCanvasElement !== 'undefined' &&
+        HTMLCanvasElement.prototype.getContext) {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+      })
+    }
   }
 
   const handleFertilized = () => {
