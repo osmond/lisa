@@ -27,6 +27,7 @@ import useHappyPlant from '../hooks/useHappyPlant.js'
 export default function Home() {
   const { plants } = usePlants()
   const [showSummary, setShowSummary] = useState(false)
+  const [typeFilter, setTypeFilter] = useState('all')
   const happyPlant = useHappyPlant()
 
 
@@ -90,6 +91,10 @@ export default function Home() {
   const tasks = [...waterTasks, ...fertilizeTasks].sort(
     (a, b) => new Date(a.date) - new Date(b.date)
   )
+  const visibleTasks =
+    typeFilter === 'all'
+      ? tasks
+      : tasks.filter(t => t.type.toLowerCase() === typeFilter)
   const totalCount = tasks.length
   const waterCount = waterTasks.length
   const fertilizeCount = fertilizeTasks.length
@@ -124,6 +129,24 @@ export default function Home() {
     month: 'long',
     day: 'numeric',
   })
+
+  const scrollToTasks = () =>
+    document.getElementById('tasks-container')?.scrollIntoView({ behavior: 'smooth' })
+
+  const handleTotalClick = () => {
+    setTypeFilter('all')
+    scrollToTasks()
+  }
+
+  const handleWaterClick = () => {
+    setTypeFilter('water')
+    scrollToTasks()
+  }
+
+  const handleFertClick = () => {
+    setTypeFilter('fertilize')
+    scrollToTasks()
+  }
 
 
   return (
@@ -160,6 +183,9 @@ export default function Home() {
       waterTotal={totalWaterToday}
       fertCompleted={fertilizedTodayCount}
       fertTotal={totalFertilizeToday}
+      onTotalClick={handleTotalClick}
+      onWaterClick={handleWaterClick}
+      onFertClick={handleFertClick}
     />
       {showSummary && (
         <CareSummaryModal tasks={tasks} onClose={() => setShowSummary(false)} />
@@ -173,8 +199,8 @@ export default function Home() {
             <h2 className="font-semibold font-headline">Today’s Tasks</h2>
           </div>
           <div className="space-y-4">
-            {tasks.length > 0 ? (
-              tasks.map(task => (
+            {visibleTasks.length > 0 ? (
+              visibleTasks.map(task => (
                 <BaseCard key={task.id} variant="task">
                   <TaskCard
                     task={task}

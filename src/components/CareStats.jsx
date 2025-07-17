@@ -2,20 +2,24 @@ import React from 'react'
 import { ListChecks, Drop, Sun } from 'phosphor-react'
 import ProgressRing from './ProgressRing.jsx'
 
-function StatBlock({ label, Icon, completed, total, ringClass }) {
+function StatBlock({ id, label, Icon, completed, total, ringClass, onClick }) {
   const pct = total > 0 ? Math.min(completed / total, 1) : 0
   const display = `${completed}/${total}`
 
   const size = 64
 
-  const ariaLabel = `${completed} of ${total} ${label.toLowerCase()} tasks done`
+  const ariaLabel =
+    label === 'All Tasks'
+      ? `${completed} of ${total} tasks done`
+      : `${completed} of ${total} ${label.toLowerCase()} tasks done`
 
   return (
     <div
-      className="flex flex-col items-center"
+      className={`flex flex-col items-center ${onClick ? 'cursor-pointer' : ''}`}
       style={{ width: size }}
-      data-testid={`stat-${label.toLowerCase()}`}
+      data-testid={`stat-${id}`}
       aria-label={ariaLabel}
+      onClick={onClick}
     >
       <div className="relative" style={{ width: size, height: size }}>
         <ProgressRing percent={pct} size={size} colorClass={ringClass} />
@@ -45,30 +49,39 @@ export default function CareStats({
   waterTotal = 0,
   fertCompleted = 0,
   fertTotal = 0,
+  onTotalClick,
+  onWaterClick,
+  onFertClick,
 }) {
   const totalCompleted = waterCompleted + fertCompleted
   const totalTasks = waterTotal + fertTotal
   const stats = [
     {
-      label: 'Total',
+      id: 'total',
+      label: 'All Tasks',
       Icon: ListChecks,
       completed: totalCompleted,
       total: totalTasks,
       ringClass: 'text-green-600',
+      onClick: onTotalClick,
     },
     {
+      id: 'water',
       label: 'Water',
       Icon: Drop,
       completed: waterCompleted,
       total: waterTotal,
       ringClass: 'text-blue-500',
+      onClick: onWaterClick,
     },
     {
+      id: 'fertilize',
       label: 'Fertilize',
       Icon: Sun,
       completed: fertCompleted,
       total: fertTotal,
       ringClass: 'text-yellow-700',
+      onClick: onFertClick,
     },
   ]
   return (
