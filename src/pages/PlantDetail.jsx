@@ -79,6 +79,11 @@ export default function PlantDetail() {
       ? Math.floor((now - nextFertDate) / 86400000)
       : 0
 
+  const waterBorderClass =
+    overdueWaterDays > 0 ? 'border-red-500' : 'border-green-500'
+  const fertBorderClass =
+    overdueFertDays > 0 ? 'border-red-500' : 'border-green-500'
+
   const events = useMemo(() => buildEvents(plant), [plant])
   const groupedEvents = useMemo(
     () => groupEventsByMonth(events),
@@ -231,7 +236,7 @@ export default function PlantDetail() {
     Quick Stats
   </h3>
   <div className="space-y-3">
-    <div className="rounded-lg p-3 border-l-4 border-water-500 bg-water-50 dark:bg-water-900/30">
+    <div className={`rounded-lg p-3 border-l-4 ${waterBorderClass} bg-water-50 dark:bg-water-900/30`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1 font-headline font-semibold text-water-700 dark:text-water-200">
           <Drop className="w-4 h-4" aria-hidden="true" />
@@ -267,7 +272,7 @@ export default function PlantDetail() {
       </p>
     </div>
     {plant.nextFertilize && (
-      <div className="rounded-lg p-3 border-l-4 border-fertilize-500 bg-fertilize-50 dark:bg-fertilize-900/30">
+      <div className={`rounded-lg p-3 border-l-4 ${fertBorderClass} bg-fertilize-50 dark:bg-fertilize-900/30`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1 font-headline font-semibold text-fertilize-700 dark:text-fertilize-200">
             <Flower className="w-4 h-4" aria-hidden="true" />
