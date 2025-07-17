@@ -6,6 +6,16 @@ import { Gear } from 'phosphor-react'
 import PersistentBottomNav from '../PersistentBottomNav.jsx'
 import { MenuProvider, defaultMenu, useMenu } from '../../MenuContext.jsx'
 
+let mockPlants = []
+
+jest.mock('../../PlantContext.jsx', () => ({
+  usePlants: () => ({ plants: mockPlants }),
+}))
+
+afterEach(() => {
+  mockPlants = []
+})
+
 const customMenu = {
   ...defaultMenu,
   items: [...defaultMenu.items, { to: '/profile', label: 'Profile', Icon: Gear }],
@@ -57,4 +67,27 @@ test('more menu opens and closes with additional links', () => {
   fireEvent.click(screen.getByRole('button', { name: /close menu/i }))
   expect(screen.queryByRole('dialog', { name: /navigation menu/i })).toBeNull()
 
+})
+
+test('shows overdue count on My Plants when tasks exist', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+  mockPlants = [
+    {
+      id: 1,
+      name: 'Plant A',
+      image: 'a.jpg',
+      lastWatered: '2025-07-01',
+      nextFertilize: '2025-07-05',
+    },
+  ]
+  render(
+    <MemoryRouter>
+      <MenuProvider>
+        <PersistentBottomNav />
+      </MenuProvider>
+    </MemoryRouter>
+  )
+  const badge = screen.getByLabelText(/overdue tasks/i)
+  expect(badge).toHaveTextContent('2')
+  jest.useRealTimers()
 })

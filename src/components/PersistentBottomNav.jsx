@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useMenu } from '../MenuContext.jsx'
+import { usePlants } from '../PlantContext.jsx'
+import { getNextWateringDate } from '../utils/watering.js'
 
 export default function PersistentBottomNav() {
   const [open, setOpen] = useState(false)
@@ -8,6 +10,14 @@ export default function PersistentBottomNav() {
   const { items, Icon } = menu
   const mainLinks = items.slice(0, 3)
   const moreItems = items.slice(3)
+  const { plants } = usePlants()
+  const todayIso = new Date().toISOString().slice(0, 10)
+  const overdueCount = plants.reduce((m, p) => {
+    const { date } = getNextWateringDate(p.lastWatered)
+    if (date < todayIso) m += 1
+    if (p.nextFertilize && p.nextFertilize < todayIso) m += 1
+    return m
+  }, 0)
 
   useEffect(() => {
     if (!open) return
@@ -22,7 +32,7 @@ export default function PersistentBottomNav() {
     <nav className="fixed bottom-0 inset-x-0 bg-white dark:bg-gray-700 border-t border-gray-200 dark:border-gray-600 pb-safe z-20">
       <ul className="flex justify-around items-center py-2 text-xs">
         {mainLinks.map(({ to, label, Icon: LinkIcon }) => (
-          <li key={label}>
+          <li key={label} className="relative">
             <NavLink
               to={to}
               title={label}
@@ -32,6 +42,14 @@ export default function PersistentBottomNav() {
             >
               <LinkIcon className="w-6 h-6" aria-hidden="true" />
               {label}
+              {label === 'My Plants' && overdueCount > 0 && (
+                <span
+                  className="absolute -top-1 -right-2 bg-red-600 text-white rounded-full text-[10px] px-1"
+                  aria-label={`${overdueCount} overdue tasks`}
+                >
+                  {overdueCount}
+                </span>
+              )}
             </NavLink>
           </li>
         ))}
