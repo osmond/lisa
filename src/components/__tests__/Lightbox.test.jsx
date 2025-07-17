@@ -15,7 +15,7 @@ test('keyboard navigation and close', () => {
   expect(dialog).toHaveAttribute('aria-modal', 'true')
   expect(dialog).toHaveAttribute('aria-label', label)
 
-  const img = screen.getByAltText(/gallery image/i)
+  const img = screen.getByAltText(images[0].caption)
   expect(img).toHaveAttribute('src', 'a.jpg')
   expect(screen.getByText('first')).toBeInTheDocument()
 

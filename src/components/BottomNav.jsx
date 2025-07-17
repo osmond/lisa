@@ -28,6 +28,7 @@ export default function BottomNav() {
                   <NavLink
                     to={to}
                     onClick={() => setOpen(false)}
+                    title={label}
                     className="flex items-center gap-3 hover:text-accent"
                   >
                     <Icon className="w-5 h-5" aria-hidden="true" />
@@ -40,6 +41,7 @@ export default function BottomNav() {
                       setOpen(false)
                       onClick?.()
                     }}
+                    title={label}
                     className="flex items-center gap-3 w-full text-left hover:text-accent"
                   >
                     <Icon className="w-5 h-5" aria-hidden="true" />
@@ -55,6 +57,7 @@ export default function BottomNav() {
         type="button"
         onClick={() => setOpen(v => !v)}
         aria-label="Open navigation menu"
+        title="Open navigation menu"
         className="bg-accent text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700"
       >
         <Icon className="w-6 h-6" aria-hidden="true" />
