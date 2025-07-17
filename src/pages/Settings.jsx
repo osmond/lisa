@@ -5,7 +5,7 @@ import { useUser } from '../UserContext.jsx'
 export default function Settings() {
   const { theme, toggleTheme } = useTheme()
   const { location, setLocation, units, setUnits } = useWeather()
-  const { username, setUsername } = useUser()
+  const { username, setUsername, timeZone, setTimeZone } = useUser()
 
   return (
     <div className="space-y-4 text-gray-700 dark:text-gray-200">
@@ -47,6 +47,16 @@ export default function Settings() {
           <option value="imperial">Fahrenheit</option>
           <option value="metric">Celsius</option>
         </select>
+      </div>
+      <div className="grid gap-1 max-w-xs">
+        <label htmlFor="timezone" className="font-medium">Time Zone</label>
+        <input
+          id="timezone"
+          type="text"
+          value={timeZone}
+          onChange={e => setTimeZone(e.target.value)}
+          className="border rounded p-2"
+        />
       </div>
     </div>
   )

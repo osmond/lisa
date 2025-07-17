@@ -11,7 +11,7 @@ jest.mock('../WeatherContext.jsx', () => ({
 }))
 
 jest.mock('../UserContext.jsx', () => ({
-  useUser: () => ({ username: 'Jon' }),
+  useUser: () => ({ username: 'Jon', timeZone: 'UTC' }),
 }))
 
 jest.mock('../ThemeContext.jsx', () => ({

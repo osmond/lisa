@@ -33,7 +33,7 @@ export default function Home() {
 
   const weatherCtx = useWeather()
   const forecast = weatherCtx?.forecast
-  const { username } = useUser()
+  const { username, timeZone } = useUser()
   const weatherData = { rainTomorrow: forecast?.rainfall || 0 }
 
   const weatherIcons = {
@@ -126,10 +126,12 @@ export default function Home() {
 
   const weekday = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
+    timeZone,
   })
   const monthDay = new Date().toLocaleDateString(undefined, {
     month: 'long',
     day: 'numeric',
+    timeZone,
   })
 
   const scrollToTasks = () =>
