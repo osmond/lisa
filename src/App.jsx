@@ -9,6 +9,7 @@ import Settings from './pages/Settings'
 import PlantDetail from './pages/PlantDetail'
 import EditPlant from './pages/EditPlant'
 import Timeline from './pages/Timeline'
+import Gallery from './pages/Gallery.jsx'
 import BottomNav from './components/BottomNav'
 import { MenuProvider } from './MenuContext.jsx'
 import NotFound from './pages/NotFound'
@@ -34,8 +35,9 @@ export default function App() {
             <Route path="/myplants" element={<MyPlants />} />
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/add" element={<Add />} />
-            <Route path="/profile" element={<Settings />} />
             <Route path="/timeline" element={<Timeline />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/profile" element={<Settings />} />
             <Route path="/plant/:id" element={<PlantDetail />} />
             <Route path="/plant/:id/edit" element={<EditPlant />} />
             <Route path="*" element={<NotFound />} />

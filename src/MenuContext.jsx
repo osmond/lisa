@@ -1,10 +1,9 @@
 import { createContext, useContext, useState } from 'react'
 import {
   House,
-  ListBullets,
   CalendarBlank,
-  UserCircle,
   Plus,
+  Image,
   Hamburger,
 } from 'phosphor-react'
 
@@ -13,10 +12,9 @@ const MenuContext = createContext()
 export const defaultMenu = {
   items: [
     { to: '/', label: 'Home', Icon: House },
-    { to: '/myplants', label: 'My Plants', Icon: ListBullets },
-    { to: '/add', label: 'Add Plant', Icon: Plus },
     { to: '/timeline', label: 'Timeline', Icon: CalendarBlank },
-    { to: '/profile', label: 'Profile', Icon: UserCircle },
+    { to: '/gallery', label: 'Gallery', Icon: Image },
+    { to: '/add', label: 'Add Plant', Icon: Plus },
   ],
   Icon: Hamburger,
 }

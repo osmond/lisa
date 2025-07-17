@@ -53,7 +53,9 @@ test('renders plant details without duplicates', () => {
   ).toBeInTheDocument()
 
   const fertLabel = screen.getByText(/Last fertilized/i)
-  expect(within(fertLabel.parentElement).getByText(plant.lastFertilized)).toBeInTheDocument()
+  expect(
+    within(fertLabel.parentElement).getByText(new RegExp(plant.lastFertilized))
+  ).toBeInTheDocument()
 
   const subHeadings = screen.queryAllByRole('heading', { level: 4 })
   expect(subHeadings).toHaveLength(0)
