@@ -197,7 +197,14 @@ export default function PlantCard({ plant }) {
         className="p-4 rounded-2xl shadow-md bg-white dark:bg-gray-700"
         style={{ transform: `translateX(${deltaX}px)`, transition: deltaX === 0 ? 'transform 0.2s' : 'none' }}
       >
-        <Link to={`/plant/${plant.id}`} className="block mb-2">
+        <Link
+          to={
+            plant.room
+              ? `/room/${encodeURIComponent(plant.room)}/plant/${plant.id}`
+              : `/plant/${plant.id}`
+          }
+          className="block mb-2"
+        >
           <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-48 object-cover rounded-xl" />
           <h2 className="font-bold text-[1.1rem] font-headline mt-2">{plant.name}</h2>
         </Link>

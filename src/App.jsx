@@ -43,6 +43,7 @@ export default function App() {
             <Route path="/add" element={<Add />} />
             <Route path="/room/add" element={<AddRoom />} />
             <Route path="/room/:roomName" element={<PageTransition><RoomList /></PageTransition>} />
+            <Route path="/room/:roomName/plant/:id" element={<PageTransition><PlantDetail /></PageTransition>} />
             <Route path="/timeline" element={<Timeline />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/profile" element={<Settings />} />

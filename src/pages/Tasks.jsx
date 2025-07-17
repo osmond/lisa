@@ -75,6 +75,7 @@ export default function Tasks() {
           taskType: 'water',
           plantId: p.id,
           plantName: p.name,
+          room: p.room,
 
           image: p.image,
 
@@ -94,6 +95,7 @@ export default function Tasks() {
           taskType: 'fertilize',
           plantId: p.id,
           plantName: p.name,
+          room: p.room,
 
           image: p.image,
           urgent: plantUrgent || p.nextFertilize === todayIso,
@@ -113,6 +115,7 @@ export default function Tasks() {
             taskType: 'note',
             plantId: p.id,
             plantName: p.name,
+            room: p.room,
 
             image: p.image,
             reason: `${p.name}: ${a}`,

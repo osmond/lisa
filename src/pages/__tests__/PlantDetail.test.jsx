@@ -175,7 +175,7 @@ test('view all button opens the viewer from first image', () => {
   expect(viewerImg).toHaveAttribute('src', plant.photos[0].src)
 })
 
-test('back button navigates to previous page', () => {
+test('back button navigates to room page', () => {
   const plant = plants[0]
   render(
     <MenuProvider>
@@ -183,6 +183,7 @@ test('back button navigates to previous page', () => {
         <MemoryRouter initialEntries={['/myplants', `/plant/${plant.id}`]} initialIndex={1}>
           <Routes>
             <Route path="/myplants" element={<div>My Plants View</div>} />
+            <Route path="/room/:roomName" element={<div>Room View</div>} />
             <Route path="/plant/:id" element={<PlantDetail />} />
           </Routes>
         </MemoryRouter>
@@ -192,5 +193,5 @@ test('back button navigates to previous page', () => {
 
   fireEvent.click(screen.getByRole('button', { name: /back/i }))
 
-  expect(screen.getByText(/my plants view/i)).toBeInTheDocument()
+  expect(screen.getByText(/room view/i)).toBeInTheDocument()
 })
