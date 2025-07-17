@@ -4,8 +4,8 @@ import {
   ListBullets,
   CalendarBlank,
   Plus,
+  List,
 } from 'phosphor-react'
-import { HamburgerMenuIcon } from '@radix-ui/react-icons'
 
 const MenuContext = createContext()
 
@@ -17,7 +17,7 @@ export const defaultMenu = {
     { to: '/add', label: 'Add Plant', Icon: Plus },
     { to: '/room/add', label: 'Add Room', Icon: Plus },
   ],
-  Icon: HamburgerMenuIcon,
+  Icon: List,
 }
 
 export function MenuProvider({ children }) {
