@@ -395,7 +395,11 @@ export default function PlantDetail() {
                     className="object-cover w-full h-24 rounded-lg"
                   />
                 </button>
-                {caption && <p className="text-xs mt-1 w-24 text-center">{caption}</p>}
+                {caption && (
+                  <p className="text-xs font-medium mt-0.5 px-2 w-24 text-center">
+                    {caption}
+                  </p>
+                )}
 
                 <button
                   className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
