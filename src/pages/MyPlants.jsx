@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
-import { PlusIcon } from '@radix-ui/react-icons'
-import { FolderSimple } from 'phosphor-react'
+import { FolderSimple, Plus } from 'phosphor-react'
 import { getNextWateringDate } from '../utils/watering.js'
 import { useRooms } from '../RoomContext.jsx'
 import { usePlants } from '../PlantContext.jsx'
@@ -66,7 +65,7 @@ export default function MyPlants() {
           aria-label="Add Room"
           className="flex items-center justify-center w-full h-40 rounded-lg border-2 border-dashed text-gray-500"
         >
-          <PlusIcon className="w-10 h-10" aria-hidden="true" />
+          <Plus className="w-10 h-10" aria-hidden="true" />
         </Link>
       </div>
     </div>

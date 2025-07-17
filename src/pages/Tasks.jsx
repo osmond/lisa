@@ -8,7 +8,7 @@ import UnifiedTaskCard from '../components/UnifiedTaskCard.jsx'
 import BaseCard from '../components/BaseCard.jsx'
 import TaskTabs from '../components/TaskTabs.jsx'
 import CareRings from '../components/CareRings.jsx'
-import { ListBulletIcon, ViewGridIcon } from '@radix-ui/react-icons'
+import { ListBullets, SquaresFour } from 'phosphor-react'
 import useTaskLayout from '../hooks/useTaskLayout.js'
 
 
@@ -254,9 +254,9 @@ export default function Tasks() {
           aria-label={`Switch to ${layout === 'list' ? 'grid' : 'list'} view`}
         >
           {layout === 'list' ? (
-            <ViewGridIcon className="w-4 h-4" aria-hidden="true" />
+            <SquaresFour className="w-4 h-4" aria-hidden="true" />
           ) : (
-            <ListBulletIcon className="w-4 h-4" aria-hidden="true" />
+            <ListBullets className="w-4 h-4" aria-hidden="true" />
           )}
         </button>
         <button

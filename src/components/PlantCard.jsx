@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, useRef } from 'react'
-import { Pencil1Icon, TrashIcon } from '@radix-ui/react-icons'
-import { Drop } from 'phosphor-react'
+import { Drop, PencilSimpleLine, Trash } from 'phosphor-react'
 
 import { createRipple } from '../utils/interactions.js'
 import useSwipe from '../hooks/useSwipe.js'
@@ -150,7 +149,7 @@ export default function PlantCard({ plant }) {
             onClick={() => navigate(`/plant/${plant.id}/edit`)}
             className="bg-blue-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden font-body text-sm flex items-center gap-1"
           >
-            <Pencil1Icon className="w-4 h-4" aria-hidden="true" />
+            <PencilSimpleLine className="w-4 h-4" aria-hidden="true" />
             Edit
           </button>
           <button
@@ -159,7 +158,7 @@ export default function PlantCard({ plant }) {
             onClick={handleDelete}
             className="bg-red-600 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden font-body text-sm flex items-center gap-1"
           >
-            <TrashIcon className="w-4 h-4" aria-hidden="true" />
+            <Trash className="w-4 h-4" aria-hidden="true" />
             Delete
           </button>
         </div>
@@ -181,13 +180,13 @@ export default function PlantCard({ plant }) {
               <div
                 className={`bg-blue-600 text-white px-2 py-1 rounded flex items-center gap-1 transition-opacity ${deltaX < -40 ? 'opacity-100' : 'opacity-0'}`}
               >
-                <Pencil1Icon className="w-4 h-4" aria-hidden="true" />
+                <PencilSimpleLine className="w-4 h-4" aria-hidden="true" />
                 <span className="text-sm font-body">Edit</span>
               </div>
               <div
                 className={`bg-red-600 text-white px-2 py-1 rounded flex items-center gap-1 transition-opacity ${deltaX < -120 ? 'opacity-100' : 'opacity-0'}`}
               >
-                <TrashIcon className="w-4 h-4" aria-hidden="true" />
+                <Trash className="w-4 h-4" aria-hidden="true" />
                 <span className="text-sm font-body">Delete</span>
               </div>
             </div>
