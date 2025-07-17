@@ -232,7 +232,7 @@ export default function PlantDetail() {
   </h3>
   <div className="space-y-3">
     <div className="rounded-lg p-3 border-l-4 border-water-500 bg-water-50 dark:bg-water-900/30">
-      <div className="flex items-start justify-between">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-1 font-headline font-semibold text-water-700 dark:text-water-200">
           <Drop className="w-4 h-4" aria-hidden="true" />
           Watering
@@ -255,9 +255,9 @@ export default function PlantDetail() {
           )
         </span>
       </p>
-      <p className="text-sm">
-        <span className="text-gray-500">Next due:</span>{' '}
-        <span className={overdueWaterDays > 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-gray-100'}>{plant.nextWater}</span>
+      <p className={"text-sm " + (overdueWaterDays > 0 ? 'text-red-600 dark:text-red-400' : '')}>
+        <span className={overdueWaterDays > 0 ? '' : 'text-gray-500'}>Next due:</span>{' '}
+        <span className={overdueWaterDays > 0 ? '' : 'text-gray-900 dark:text-gray-100'}>{plant.nextWater}</span>
         {overdueWaterDays > 0 && (
           <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-red-100 text-red-700 dark:bg-red-800 dark:text-red-100">
             Overdue by {overdueWaterDays} {overdueWaterDays === 1 ? 'day' : 'days'}
@@ -267,7 +267,7 @@ export default function PlantDetail() {
     </div>
     {plant.nextFertilize && (
       <div className="rounded-lg p-3 border-l-4 border-fertilize-500 bg-fertilize-50 dark:bg-fertilize-900/30">
-        <div className="flex items-start justify-between">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-1 font-headline font-semibold text-fertilize-700 dark:text-fertilize-200">
             <Flower className="w-4 h-4" aria-hidden="true" />
             Fertilizing
@@ -292,9 +292,9 @@ export default function PlantDetail() {
             </span>
           </p>
         )}
-        <p className="text-sm">
-          <span className="text-gray-500">Next due:</span>{' '}
-          <span className={overdueFertDays > 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-gray-100'}>{plant.nextFertilize}</span>
+        <p className={"text-sm " + (overdueFertDays > 0 ? 'text-red-600 dark:text-red-400' : '')}>
+          <span className={overdueFertDays > 0 ? '' : 'text-gray-500'}>Next due:</span>{' '}
+          <span className={overdueFertDays > 0 ? '' : 'text-gray-900 dark:text-gray-100'}>{plant.nextFertilize}</span>
           {overdueFertDays > 0 && (
             <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-red-100 text-red-700 dark:bg-red-800 dark:text-red-100">
               Overdue by {overdueFertDays} {overdueFertDays === 1 ? 'day' : 'days'}
