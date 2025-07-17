@@ -7,11 +7,12 @@ export default function PersistentBottomNav() {
   const [open, setOpen] = useState(false)
   const overdueCount = useOverdueCount()
   const { menu } = useMenu()
-  const { items } = menu
-  const mainLinks = items.slice(0, 3)
-  const profileLink = items[3]
-  const moreItems = items.slice(4)
-  const ProfileIcon = profileLink?.Icon
+
+  const { items, Icon } = menu
+  const mainCount = Math.min(4, items.length)
+  const mainLinks = items.slice(0, mainCount)
+  const moreItems = items.slice(mainCount)
+
 
   useEffect(() => {
     if (!open) return
