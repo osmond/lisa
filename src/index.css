@@ -178,6 +178,21 @@ body {
   animation: ring-complete 0.8s ease-in-out;
 }
 
+@keyframes drip-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+}
+
+.drip-pulse {
+  animation: drip-pulse 0.4s ease-out;
+}
+
 @keyframes task-complete-fade {
   from {
     background-color: rgba(74, 222, 128, 0.4);

@@ -241,9 +241,10 @@ export default function PlantDetail() {
           type="button"
           onClick={handleWatered}
           aria-label={`Mark ${plant.name} as watered`}
-          className="px-2 py-1 border border-water-600 text-water-600 rounded text-xs flex items-center gap-1"
+          className="px-2 py-1 border border-water-600 text-water-600 rounded text-xs flex items-center gap-1 group"
         >
-          <Drop className="w-3 h-3" aria-hidden="true" /> Mark Watered
+          <Drop className="w-3 h-3 group-active:drip-pulse" aria-hidden="true" />
+          Mark Watered
         </button>
       </div>
       <p className="text-sm mt-1">
