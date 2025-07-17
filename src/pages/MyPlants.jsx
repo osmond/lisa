@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { PlusIcon } from '@radix-ui/react-icons'
 import { FolderSimple } from 'phosphor-react'
+import { getNextWateringDate } from '../utils/watering.js'
 import { useRooms } from '../RoomContext.jsx'
 import { usePlants } from '../PlantContext.jsx'
 
@@ -9,6 +10,16 @@ export default function MyPlants() {
   const { plants } = usePlants()
 
   const countPlants = room => plants.filter(p => p.room === room).length
+  const todayIso = new Date().toISOString().slice(0, 10)
+  const countOverdue = room =>
+    plants
+      .filter(p => p.room === room)
+      .reduce((m, p) => {
+        const { date } = getNextWateringDate(p.lastWatered)
+        if (date < todayIso) m += 1
+        if (p.nextFertilize && p.nextFertilize < todayIso) m += 1
+        return m
+      }, 0)
 
   if (rooms.length === 0) {
     return (
@@ -28,17 +39,25 @@ export default function MyPlants() {
     <div>
       <h1 className="text-2xl font-bold font-headline mb-4">My Plants</h1>
       <div className="grid grid-cols-2 gap-4">
-        {rooms.map(room => (
-          <Link
-            key={room}
-            to={`/room/${encodeURIComponent(room)}`}
-            className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1"
-          >
-            <FolderSimple className="w-6 h-6 text-gray-500" aria-hidden="true" />
-            <p className="font-semibold font-headline">{room}</p>
-            <p className="text-xs text-gray-500">{countPlants(room)} plants</p>
-          </Link>
-        ))}
+        {rooms.map(room => {
+          const overdue = countOverdue(room)
+          return (
+            <Link
+              key={room}
+              to={`/room/${encodeURIComponent(room)}`}
+              className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1"
+            >
+              <FolderSimple className="w-6 h-6 text-gray-500" aria-hidden="true" />
+              <p className="font-semibold font-headline">{room}</p>
+              <p className="text-xs text-gray-500">{countPlants(room)} plants</p>
+              {overdue > 0 && (
+                <span className="text-[11px] px-2 py-0.5 rounded-full bg-red-100 text-red-700 dark:bg-red-800 dark:text-red-100">
+                  {overdue} overdue
+                </span>
+              )}
+            </Link>
+          )
+        })}
         <Link
           to="/room/add"
           aria-label="Add Room"
