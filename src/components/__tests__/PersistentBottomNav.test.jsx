@@ -5,6 +5,9 @@ import { useEffect } from 'react'
 import { Gear } from 'phosphor-react'
 import PersistentBottomNav from '../PersistentBottomNav.jsx'
 import { MenuProvider, defaultMenu, useMenu } from '../../MenuContext.jsx'
+import useOverdueCount from '../../hooks/useOverdueCount.js'
+
+jest.mock('../../hooks/useOverdueCount.js')
 
 const customMenu = {
   ...defaultMenu,
@@ -28,6 +31,7 @@ function MenuSetter({ children }) {
 }
 
 test('renders main navigation links', () => {
+  useOverdueCount.mockReturnValue(0)
   const { container } = render(
     <MemoryRouter>
       <CustomMenuProvider>
@@ -40,7 +44,20 @@ test('renders main navigation links', () => {
   expect(container.querySelector('a[href="/timeline"]')).toBeInTheDocument()
 })
 
+test('shows overdue badge when tasks pending', () => {
+  useOverdueCount.mockReturnValue(3)
+  render(
+    <MemoryRouter>
+      <CustomMenuProvider>
+        <PersistentBottomNav />
+      </CustomMenuProvider>
+    </MemoryRouter>
+  )
+  expect(screen.getByText('3')).toBeInTheDocument()
+})
+
 test('more menu opens and closes with additional links', () => {
+  useOverdueCount.mockReturnValue(0)
   const { container } = render(
     <MemoryRouter>
       <CustomMenuProvider>
