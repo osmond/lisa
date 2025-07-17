@@ -266,7 +266,7 @@ export default function PlantDetail() {
         <span className={overdueWaterDays > 0 ? '' : 'text-gray-900 dark:text-gray-100'}>{plant.nextWater}</span>
         {overdueWaterDays > 0 && (
           <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-red-100 text-red-700 dark:bg-red-800 dark:text-red-100">
-            Overdue by {overdueWaterDays} {overdueWaterDays === 1 ? 'day' : 'days'}
+            Needs love soon – overdue by {overdueWaterDays} {overdueWaterDays === 1 ? 'day' : 'days'}
           </span>
         )}
       </p>
@@ -303,7 +303,7 @@ export default function PlantDetail() {
           <span className={overdueFertDays > 0 ? '' : 'text-gray-900 dark:text-gray-100'}>{plant.nextFertilize}</span>
           {overdueFertDays > 0 && (
             <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-red-100 text-red-700 dark:bg-red-800 dark:text-red-100">
-              Overdue by {overdueFertDays} {overdueFertDays === 1 ? 'day' : 'days'}
+              Needs love soon – overdue by {overdueFertDays} {overdueFertDays === 1 ? 'day' : 'days'}
             </span>
           )}
         </p>
