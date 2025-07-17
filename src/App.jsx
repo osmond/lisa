@@ -1,6 +1,5 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { CSSTransition, SwitchTransition } from 'react-transition-group'
-import { useRef } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import Home from './pages/Home'
 import MyPlants from './pages/MyPlants'
 import Tasks from './pages/Tasks'
@@ -16,40 +15,44 @@ import BottomNav from './components/BottomNav'
 import { MenuProvider } from './MenuContext.jsx'
 import NotFound from './pages/NotFound'
 
+function PageTransition({ children }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 10 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -10 }}
+      transition={{ duration: 0.2 }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
 export default function App() {
   const location = useLocation()
-  const nodeRef = useRef(null)
   return (
     <MenuProvider>
     <div id="main-content" className="pb-24 px-4 pt-8 font-body overflow-hidden">{/* bottom padding for nav */}
 
-      <SwitchTransition>
-        <CSSTransition
-          key={location.pathname}
-          classNames="fade"
-          timeout={200}
-          unmountOnExit
-          nodeRef={nodeRef}
-        >
-          <div ref={nodeRef}>
-            <Routes location={location}>
+      <AnimatePresence mode="wait">
+        <motion.div key={location.pathname}>
+          <Routes location={location}>
             <Route path="/" element={<Home />} />
-            <Route path="/myplants" element={<MyPlants />} />
+            <Route path="/myplants" element={<PageTransition><MyPlants /></PageTransition>} />
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/add" element={<Add />} />
             <Route path="/room/add" element={<AddRoom />} />
-            <Route path="/room/:roomName" element={<RoomList />} />
+            <Route path="/room/:roomName" element={<PageTransition><RoomList /></PageTransition>} />
             <Route path="/timeline" element={<Timeline />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/profile" element={<Settings />} />
-            <Route path="/plant/:id" element={<PlantDetail />} />
+            <Route path="/plant/:id" element={<PageTransition><PlantDetail /></PageTransition>} />
             <Route path="/plant/:id/edit" element={<EditPlant />} />
             <Route path="*" element={<NotFound />} />
 
           </Routes>
-          </div>
-        </CSSTransition>
-      </SwitchTransition>
+        </motion.div>
+      </AnimatePresence>
 
 
       <BottomNav />
