@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from 'react'
 import {
   House,
-  ListBullets,
+  Flower,
   CalendarBlank,
   Plus,
   UserCircle,
@@ -13,7 +13,7 @@ const MenuContext = createContext()
 export const defaultMenu = {
   items: [
     { to: '/', label: 'Home', Icon: House },
-    { to: '/myplants', label: 'My Plants', Icon: ListBullets },
+    { to: '/myplants', label: 'My Plants', Icon: Flower },
     { to: '/timeline', label: 'Timeline', Icon: CalendarBlank },
     { to: '/add', label: 'Add Plant', Icon: Plus },
     { to: '/room/add', label: 'Add Room', Icon: Plus },
