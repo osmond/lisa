@@ -165,6 +165,9 @@ test('future watering date does not show Water Now button', async () => {
   expect(screen.queryByText('Water Now')).toBeNull()
   jest.useRealTimers()
 
+  const pastTab = screen.getByRole('tab', { name: /Past/i })
+  await userEvent.click(pastTab)
+
   cleanup()
 
   render(
@@ -172,6 +175,7 @@ test('future watering date does not show Water Now button', async () => {
       <Tasks />
     </MemoryRouter>
   )
+
 
   const byPlantTab = screen.getByRole('tab', { name: /By Plant/i })
   await userEvent.click(byPlantTab)
