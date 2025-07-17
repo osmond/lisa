@@ -56,7 +56,7 @@ export default function Lightbox({ images, startIndex = 0, onClose, label = 'Ima
           <>
             <img
               src={current.src}
-              alt="Gallery image"
+              alt={current.caption || 'Gallery image'}
               className="max-w-full max-h-full object-contain"
             />
             {current.caption && (

@@ -391,7 +391,7 @@ export default function PlantDetail() {
                 <button type="button" onClick={() => setLightboxIndex(i)} className="block focus:outline-none">
                   <img
                     src={src}
-                    alt={`${plant.name} ${i}`}
+                    alt={caption || `${plant.name} photo ${i + 1}`}
                     className="object-cover w-full h-24 rounded-lg"
                   />
                 </button>
