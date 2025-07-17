@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, within } from '@testing-library/react'
+import { render, screen, fireEvent, within, cleanup } from '@testing-library/react'
 
 import { MemoryRouter } from 'react-router-dom'
 import userEvent from '@testing-library/user-event'
@@ -150,7 +150,7 @@ test('completed tasks are styled', () => {
 })
 
 
-test('future watering date does not show Water Now button', () => {
+test('future watering date does not show Water Now button', async () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
 
   render(
@@ -165,6 +165,14 @@ test('future watering date does not show Water Now button', () => {
   expect(screen.queryByText('Water Now')).toBeNull()
   jest.useRealTimers()
 
+  cleanup()
+
+  render(
+    <MemoryRouter>
+      <Tasks />
+    </MemoryRouter>
+  )
+
   const byPlantTab = screen.getByRole('tab', { name: /By Plant/i })
   await userEvent.click(byPlantTab)
 
@@ -174,4 +182,48 @@ test('future watering date does not show Water Now button', () => {
   expect(within(cards[0]).getByText('Water Now')).toBeInTheDocument()
   expect(within(cards[1]).queryByText('Water Now')).toBeNull()
 
+})
+
+test('by plant view shows due and future tasks correctly', async () => {
+  mockPlants = [
+    {
+      id: 1,
+      name: 'Due Plant',
+      lastWatered: '2025-07-08',
+      nextFertilize: '2025-07-15',
+      image: '/img1.jpg',
+    },
+    {
+      id: 2,
+      name: 'Future Plant',
+      lastWatered: '2025-07-16',
+      nextFertilize: '2025-07-30',
+      image: '/img2.jpg',
+    },
+  ]
+
+  render(
+    <MemoryRouter>
+      <Tasks />
+    </MemoryRouter>
+  )
+
+  const byPlantTab = screen.getByRole('tab', { name: /By Plant/i })
+  await userEvent.click(byPlantTab)
+
+  const cards = screen.getAllByTestId('unified-task-card')
+  expect(cards).toHaveLength(2)
+
+  const dueCard = cards.find(card =>
+    within(card).queryByText('Due Plant')
+  )
+  const futureCard = cards.find(card =>
+    within(card).queryByText('Future Plant')
+  )
+
+  expect(within(dueCard).getByText('Water Now')).toBeInTheDocument()
+  expect(within(dueCard).getByText('Fertilize Now')).toBeInTheDocument()
+
+  expect(within(futureCard).queryByText('Water Now')).toBeNull()
+  expect(within(futureCard).queryByText('Fertilize Now')).toBeNull()
 })
