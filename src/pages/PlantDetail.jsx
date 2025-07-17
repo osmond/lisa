@@ -235,77 +235,79 @@ export default function PlantDetail() {
     Quick Stats
   </h3>
   <div className="space-y-3">
-    <div className={`rounded-lg p-3 border-l-4 ${waterBorderClass} bg-water-50 dark:bg-water-900/30`}>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1 font-headline font-semibold text-water-700 dark:text-water-200">
-          <Drop className="w-4 h-4" aria-hidden="true" />
-          Watering
+    <div className={`relative rounded-lg p-3 border-l-4 ${waterBorderClass} bg-water-50 dark:bg-water-900/30`}>
+      <div className="flex items-center gap-1 font-headline font-semibold text-water-700 dark:text-water-200">
+        <Drop className="w-4 h-4" aria-hidden="true" />
+        Watering
+      </div>
+      <div className="mt-2 space-y-1 text-sm">
+        <div>
+          <span className="text-gray-500">Last watered:</span>{' '}
+          <span className="text-gray-900 dark:text-gray-100">
+            {formatDaysAgo(plant.lastWatered)}
+            {formatTimeOfDay(plant.lastWatered) ? ` \u00B7 ${formatTimeOfDay(plant.lastWatered)}` : ''} (
+            <span>{plant.lastWatered}</span>
+            )
+          </span>
+        </div>
+        <div>
+          <span className="text-gray-500">Next due:</span>{' '}
+          <span className="text-gray-900 dark:text-gray-100">{plant.nextWater}</span>
+        </div>
+        {overdueWaterDays > 0 && (
+          <div className="flex items-center text-red-600 dark:text-red-400">
+            <span className="mr-1" role="img" aria-label="Overdue">❗</span>
+            {overdueWaterDays} {overdueWaterDays === 1 ? 'day' : 'days'} overdue
+          </div>
+        )}
+      </div>
+      <button
+        type="button"
+        onClick={handleWatered}
+        aria-label={`Mark ${plant.name} as watered`}
+        className="absolute bottom-3 right-3 px-2 py-1 border border-water-600 text-water-600 rounded text-xs flex items-center gap-1 group"
+      >
+        <Drop className="w-3 h-3 group-active:drip-pulse" aria-hidden="true" />
+        Mark Watered
+      </button>
+    </div>
+    {plant.nextFertilize && (
+      <div className={`relative rounded-lg p-3 border-l-4 ${fertBorderClass} bg-fertilize-50 dark:bg-fertilize-900/30`}>
+        <div className="flex items-center gap-1 font-headline font-semibold text-fertilize-700 dark:text-fertilize-200">
+          <Flower className="w-4 h-4" aria-hidden="true" />
+          Fertilizing
+        </div>
+        <div className="mt-2 space-y-1 text-sm">
+          {plant.lastFertilized && (
+            <div>
+              <span className="text-gray-500">Last fertilized:</span>{' '}
+              <span className="text-gray-900 dark:text-gray-100">
+                {formatDaysAgo(plant.lastFertilized)}
+                {formatTimeOfDay(plant.lastFertilized) ? ` \u00B7 ${formatTimeOfDay(plant.lastFertilized)}` : ''} (
+                <span>{plant.lastFertilized}</span>
+                )
+              </span>
+            </div>
+          )}
+          <div>
+            <span className="text-gray-500">Next due:</span>{' '}
+            <span className="text-gray-900 dark:text-gray-100">{plant.nextFertilize}</span>
+          </div>
+          {overdueFertDays > 0 && (
+            <div className="flex items-center text-red-600 dark:text-red-400">
+              <span className="mr-1" role="img" aria-label="Overdue">❗</span>
+              {overdueFertDays} {overdueFertDays === 1 ? 'day' : 'days'} overdue
+            </div>
+          )}
         </div>
         <button
           type="button"
-          onClick={handleWatered}
-          aria-label={`Mark ${plant.name} as watered`}
-          className="px-2 py-1 border border-water-600 text-water-600 rounded text-xs flex items-center gap-1 group"
+          onClick={handleFertilized}
+          aria-label={`Mark ${plant.name} as fertilized`}
+          className="absolute bottom-3 right-3 px-2 py-1 border border-fertilize-600 text-fertilize-600 rounded text-xs flex items-center gap-1"
         >
-          <Drop className="w-3 h-3 group-active:drip-pulse" aria-hidden="true" />
-          Mark Watered
+          <Flower className="w-3 h-3" aria-hidden="true" /> Mark Fertilized
         </button>
-      </div>
-      <p className="text-sm mt-1">
-        <span className="text-gray-500">Last watered:</span>{' '}
-        <span className="text-gray-900 dark:text-gray-100">
-          {formatDaysAgo(plant.lastWatered)}
-          {formatTimeOfDay(plant.lastWatered) ? ` \u00B7 ${formatTimeOfDay(plant.lastWatered)}` : ''} (
-          <span>{plant.lastWatered}</span>
-          )
-        </span>
-      </p>
-      <p className={"text-sm " + (overdueWaterDays > 0 ? 'text-red-600 dark:text-red-400' : '')}>
-        <span className={overdueWaterDays > 0 ? '' : 'text-gray-500'}>Next due:</span>{' '}
-        <span className={overdueWaterDays > 0 ? '' : 'text-gray-900 dark:text-gray-100'}>{plant.nextWater}</span>
-        {overdueWaterDays > 0 && (
-          <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-red-100 text-red-700 dark:bg-red-800 dark:text-red-100">
-            Needs love soon – overdue by {overdueWaterDays} {overdueWaterDays === 1 ? 'day' : 'days'}
-          </span>
-        )}
-      </p>
-    </div>
-    {plant.nextFertilize && (
-      <div className={`rounded-lg p-3 border-l-4 ${fertBorderClass} bg-fertilize-50 dark:bg-fertilize-900/30`}>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1 font-headline font-semibold text-fertilize-700 dark:text-fertilize-200">
-            <Flower className="w-4 h-4" aria-hidden="true" />
-            Fertilizing
-          </div>
-          <button
-            type="button"
-            onClick={handleFertilized}
-            aria-label={`Mark ${plant.name} as fertilized`}
-            className="px-2 py-1 border border-fertilize-600 text-fertilize-600 rounded text-xs flex items-center gap-1"
-          >
-            <Flower className="w-3 h-3" aria-hidden="true" /> Mark Fertilized
-          </button>
-        </div>
-        {plant.lastFertilized && (
-          <p className="text-sm mt-1">
-            <span className="text-gray-500">Last fertilized:</span>{' '}
-            <span className="text-gray-900 dark:text-gray-100">
-              {formatDaysAgo(plant.lastFertilized)}
-              {formatTimeOfDay(plant.lastFertilized) ? ` \u00B7 ${formatTimeOfDay(plant.lastFertilized)}` : ''} (
-              <span>{plant.lastFertilized}</span>
-              )
-            </span>
-          </p>
-        )}
-        <p className={"text-sm " + (overdueFertDays > 0 ? 'text-red-600 dark:text-red-400' : '')}>
-          <span className={overdueFertDays > 0 ? '' : 'text-gray-500'}>Next due:</span>{' '}
-          <span className={overdueFertDays > 0 ? '' : 'text-gray-900 dark:text-gray-100'}>{plant.nextFertilize}</span>
-          {overdueFertDays > 0 && (
-            <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-red-100 text-red-700 dark:bg-red-800 dark:text-red-100">
-              Needs love soon – overdue by {overdueFertDays} {overdueFertDays === 1 ? 'day' : 'days'}
-            </span>
-          )}
-        </p>
       </div>
     )}
   </div>
