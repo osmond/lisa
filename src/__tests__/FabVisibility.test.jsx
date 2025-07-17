@@ -42,7 +42,7 @@ describe('Menu contents based on route', () => {
       </MemoryRouter>
     )
 
-    const button = screen.getByRole('button', { name: /open navigation menu/i })
+    const button = screen.getByRole('button', { name: /open create menu/i })
     fireEvent.click(button)
     const links = screen.getAllByRole('link', { name: /add plant/i })
     expect(links.length).toBeGreaterThan(0)
@@ -57,7 +57,7 @@ describe('Menu contents based on route', () => {
       </MemoryRouter>
     )
 
-    const button = screen.getByRole('button', { name: /open navigation menu/i })
+    const button = screen.getByRole('button', { name: /open create menu/i })
     fireEvent.click(button)
     expect(screen.getByRole('link', { name: /add plant/i })).toBeInTheDocument()
     expect(screen.getAllByRole('link', { name: /add room/i }).length).toBeGreaterThan(0)

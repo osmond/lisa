@@ -43,7 +43,7 @@ test('renders timeline navigation link', () => {
   expect(timelineLink).toBeInTheDocument()
 })
 
-test('renders add plant navigation link', () => {
+test('does not render add links', () => {
   const { container } = render(
     <MemoryRouter>
       <MenuProvider>
@@ -52,21 +52,8 @@ test('renders add plant navigation link', () => {
     </MemoryRouter>
   )
   fireEvent.click(screen.getByRole('button', { name: /open navigation menu/i }))
-  const addLink = container.querySelector('a[href="/add"]')
-  expect(addLink).toBeInTheDocument()
-})
-
-test('renders add room navigation link', () => {
-  const { container } = render(
-    <MemoryRouter>
-      <MenuProvider>
-        <BottomNav />
-      </MenuProvider>
-    </MemoryRouter>
-  )
-  fireEvent.click(screen.getByRole('button', { name: /open navigation menu/i }))
-  const addRoomLink = container.querySelector('a[href="/room/add"]')
-  expect(addRoomLink).toBeInTheDocument()
+  expect(container.querySelector('a[href="/add"]')).toBeNull()
+  expect(container.querySelector('a[href="/room/add"]')).toBeNull()
 })
 
 test('overlay has blur effect', () => {
