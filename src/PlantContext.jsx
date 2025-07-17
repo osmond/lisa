@@ -127,6 +127,15 @@ export function PlantProvider({ children }) {
     setPlants(prev => prev.filter(p => p.id !== id))
   }
 
+  const restorePlant = (plant, index) => {
+    setPlants(prev => {
+      const arr = [...prev]
+      const pos = index != null ? index : arr.length
+      arr.splice(pos, 0, plant)
+      return arr
+    })
+  }
+
   const addPhoto = (id, photo) => {
     const newPhoto = mapPhoto(photo)
     setPlants(prev =>
@@ -160,6 +169,7 @@ export function PlantProvider({ children }) {
         addPlant,
         updatePlant,
         removePlant,
+        restorePlant,
         addPhoto,
         removePhoto,
       }}

@@ -7,12 +7,15 @@ import useSwipe from '../hooks/useSwipe.js'
 
 
 import { usePlants } from '../PlantContext.jsx'
+import useSnackbar from '../hooks/useSnackbar.jsx'
 import NoteModal from './NoteModal.jsx'
 import ConfirmModal from './ConfirmModal.jsx'
 
 export default function PlantCard({ plant }) {
   const navigate = useNavigate()
-  const { markWatered, removePlant } = usePlants()
+  const { plants, markWatered, removePlant, updatePlant, restorePlant } =
+    usePlants()
+  const { Snackbar, showSnackbar } = useSnackbar()
   const [showActions, setShowActions] = useState(false)
   const [showNote, setShowNote] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
@@ -47,7 +50,10 @@ export default function PlantCard({ plant }) {
   }
 
   const confirmDelete = () => {
+    const index = plants.findIndex(p => p.id === plant.id)
+    const snapshot = plants[index]
     removePlant(plant.id)
+    showSnackbar('Plant removed', () => restorePlant(snapshot, index))
     setShowConfirm(false)
   }
 
@@ -56,7 +62,9 @@ export default function PlantCard({ plant }) {
   }
 
   const handleSaveNote = note => {
+    const prev = plants.find(p => p.id === plant.id)
     markWatered(plant.id, note)
+    showSnackbar('Watered', () => updatePlant(plant.id, prev))
     setShowNote(false)
   }
 
@@ -230,6 +238,7 @@ export default function PlantCard({ plant }) {
         onCancel={cancelDelete}
       />
     )}
+    <Snackbar />
     </>
   )
 }
