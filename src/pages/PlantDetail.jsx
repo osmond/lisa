@@ -124,17 +124,7 @@ export default function PlantDetail() {
     navigate(-1)
   }
 
-  const { setMenu } = useMenu()
-
-  useEffect(() => {
-    const plantItems = [
-      { onClick: handleLogEvent, label: 'Add Note', Icon: Note },
-      { onClick: openFileInput, label: 'Add Photo', Icon: Image },
-      { onClick: handleEdit, label: 'Edit Plant', Icon: Pencil1Icon },
-    ]
-    setMenu({ items: plantItems, Icon: PlusIcon })
-    return () => setMenu(defaultMenu)
-  }, [setMenu, plant?.id])
+  // Menu is now consistent across pages so no override here
 
   useEffect(() => {
     const defaults = {}

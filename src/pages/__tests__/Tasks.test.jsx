@@ -37,6 +37,7 @@ beforeEach(() => {
 })
 
 test('ignores activities without valid dates when generating events', () => {
+  jest.useFakeTimers().setSystemTime(new Date("2025-07-16"))
   render(
     <MemoryRouter>
       <Tasks />
@@ -55,6 +56,7 @@ test('ignores activities without valid dates when generating events', () => {
   expect(cards[1]).toHaveTextContent('Plant B')
   expect(cards.length).toBeGreaterThan(0)
 
+  jest.useRealTimers()
 
 
 
@@ -74,6 +76,7 @@ test('shows friendly message when there are no tasks', () => {
 
 
 test('filters by type', () => {
+  jest.useFakeTimers().setSystemTime(new Date("2025-07-16"))
   render(
     <MemoryRouter>
       <Tasks />
@@ -89,6 +92,7 @@ test('filters by type', () => {
   expect(cards[0]).toHaveTextContent('Plant A')
   expect(cards[1]).toHaveTextContent('To Water')
   expect(cards[1]).toHaveTextContent('Plant B')
+  jest.useRealTimers()
 })
 
 test('sorts by plant name', () => {

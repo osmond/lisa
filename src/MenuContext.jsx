@@ -3,7 +3,6 @@ import {
   House,
   ListBullets,
   CalendarBlank,
-  UserCircle,
   Plus,
   Hamburger,
 } from 'phosphor-react'
@@ -14,9 +13,8 @@ export const defaultMenu = {
   items: [
     { to: '/', label: 'Home', Icon: House },
     { to: '/myplants', label: 'My Plants', Icon: ListBullets },
-    { to: '/add', label: 'Add Plant', Icon: Plus },
     { to: '/timeline', label: 'Timeline', Icon: CalendarBlank },
-    { to: '/profile', label: 'Profile', Icon: UserCircle },
+    { to: '/add', label: 'Add Plant', Icon: Plus },
   ],
   Icon: Hamburger,
 }

@@ -9,42 +9,47 @@ export default function BottomNav() {
   const { items, Icon } = menu
 
   return (
-    <div className="fixed bottom-4 right-4 flex flex-col items-end z-20">
+    <div className="fixed bottom-4 right-4 z-20">
       {open && (
-        <ul className="mb-2 bg-white dark:bg-gray-700 rounded-lg shadow-lg text-sm overflow-hidden py-2">
-          {items.map(({ to, onClick, label, Icon }) => (
-            <li key={label}>
-              {to ? (
-                <NavLink
-                  to={to}
-                  onClick={() => setOpen(false)}
-                  className={({ isActive }) =>
-                    `flex items-center gap-2 px-3 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 ${isActive ? 'text-accent' : ''}`
-                  }
-                >
-                  {({ isActive }) => (
-                    <>
-                      <Icon weight={isActive ? 'fill' : 'regular'} className="w-4 h-4" aria-hidden="true" />
-                      {label}
-                    </>
-                  )}
-                </NavLink>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setOpen(false)
-                    onClick?.()
-                  }}
-                  className="flex items-center gap-2 px-3 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 text-left"
-                >
-                  <Icon className="w-4 h-4" aria-hidden="true" />
-                  {label}
-                </button>
-              )}
-            </li>
-          ))}
-        </ul>
+        <div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-30"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
+          onClick={() => setOpen(false)}
+        >
+          <ul
+            className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 space-y-4 bloom-pop text-lg"
+            onClick={e => e.stopPropagation()}
+          >
+            {items.map(({ to, onClick, label, Icon }) => (
+              <li key={label}>
+                {to ? (
+                  <NavLink
+                    to={to}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center gap-3 hover:text-accent"
+                  >
+                    <Icon className="w-5 h-5" aria-hidden="true" />
+                    {label}
+                  </NavLink>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOpen(false)
+                      onClick?.()
+                    }}
+                    className="flex items-center gap-3 w-full text-left hover:text-accent"
+                  >
+                    <Icon className="w-5 h-5" aria-hidden="true" />
+                    {label}
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
       <button
         type="button"
