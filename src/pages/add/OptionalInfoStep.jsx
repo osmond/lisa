@@ -1,16 +1,16 @@
 import React from 'react'
 
-export default function OptionalInfoStep({ location, notes, careLevel, dispatch, onBack, onSubmit }) {
+export default function OptionalInfoStep({ room, notes, careLevel, dispatch, onBack, onSubmit }) {
   return (
     <form onSubmit={e => { e.preventDefault(); onSubmit(); }} className="space-y-4 max-w-md mx-auto">
       <h1 className="text-2xl font-bold font-headline">Add Plant</h1>
       <div className="grid gap-1">
-        <label htmlFor="location" className="font-medium">Location</label>
+        <label htmlFor="room" className="font-medium">Room</label>
         <input
-          id="location"
+          id="room"
           type="text"
-          value={location}
-          onChange={e => dispatch({ type: 'SET_LOCATION', payload: e.target.value })}
+          value={room}
+          onChange={e => dispatch({ type: 'SET_ROOM', payload: e.target.value })}
           className="border rounded p-2"
         />
       </div>
