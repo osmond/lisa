@@ -288,7 +288,7 @@ export default function Tasks() {
           </p>
         ) : (
           <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-4'}>
-          {eventsByPlant.map(({ plant, list }) => {
+          {eventsByPlant.map(({ plant, list }, i) => {
             const dueWater = list.some(
               e =>
                 e.taskType === 'water' &&
@@ -307,7 +307,12 @@ export default function Tasks() {
               .filter(Boolean)
               .sort((a, b) => new Date(b) - new Date(a))[0]
             return (
-              <BaseCard key={plant?.id ?? 'none'} variant="task">
+              <BaseCard
+                key={plant?.id ?? 'none'}
+                variant="task"
+                className="animate-fade-in-up"
+                style={{ animationDelay: `${i * 50}ms` }}
+              >
                 <UnifiedTaskCard
                   plant={{
                     ...plant,
@@ -361,7 +366,12 @@ export default function Tasks() {
                     completed: e.completed,
                   }
                   return (
-                    <BaseCard key={`${e.date}-${i}`} variant="task">
+                    <BaseCard
+                      key={`${e.date}-${i}`}
+                      variant="task"
+                      className="animate-fade-in-up"
+                      style={{ animationDelay: `${i * 50}ms` }}
+                    >
                       <TaskCard
                         task={task}
                         urgent={!!e.urgent}
