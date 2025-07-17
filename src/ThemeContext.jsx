@@ -8,6 +8,12 @@ export function ThemeProvider({ children }) {
       const stored = localStorage.getItem('theme')
       if (stored) return stored
     }
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
+      return 'dark'
+    }
     return 'light'
   })
 
@@ -23,7 +29,8 @@ export function ThemeProvider({ children }) {
     }
   }, [theme])
 
-  const toggleTheme = () => setTheme(prev => (prev === 'dark' ? 'light' : 'dark'))
+  const toggleTheme = () =>
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'))
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
