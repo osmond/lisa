@@ -11,7 +11,7 @@ import PlantDetail from './pages/PlantDetail'
 import EditPlant from './pages/EditPlant'
 import Timeline from './pages/Timeline'
 import Gallery from './pages/Gallery.jsx'
-import BottomNav from './components/BottomNav'
+import PersistentBottomNav from './components/PersistentBottomNav.jsx'
 import { MenuProvider } from './MenuContext.jsx'
 import NotFound from './pages/NotFound'
 
@@ -55,7 +55,7 @@ export default function App() {
       </AnimatePresence>
 
 
-      <BottomNav />
+      <PersistentBottomNav />
     </div>
     </MenuProvider>
   )
