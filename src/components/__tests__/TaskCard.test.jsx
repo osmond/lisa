@@ -85,7 +85,7 @@ test('shows completed state', () => {
   expect(container.querySelector('.check-pop')).toBeInTheDocument()
 })
 
-test('icon svg is aria-hidden', () => {
+test('does not render an icon svg', () => {
   const { container } = render(
     <MemoryRouter>
       <BaseCard variant="task">
@@ -94,7 +94,7 @@ test('icon svg is aria-hidden', () => {
     </MemoryRouter>
   )
   const svg = container.querySelector('svg')
-  expect(svg).toHaveAttribute('aria-hidden', 'true')
+  expect(svg).toBeNull()
 })
 
 test('shows info chip with accessibility label', () => {

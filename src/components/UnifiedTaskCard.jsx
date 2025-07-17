@@ -1,5 +1,5 @@
 import React from 'react'
-import { Drop, Sun } from 'phosphor-react'
+
 import { formatDaysAgo } from '../utils/dateFormat.js'
 
 export default function UnifiedTaskCard({ plant, urgent = false, overdue = false }) {
@@ -41,7 +41,6 @@ export default function UnifiedTaskCard({ plant, urgent = false, overdue = false
               type="button"
               className="px-3 py-1 border border-blue-600 text-blue-600 rounded-full text-xs flex items-center gap-1"
             >
-              <Drop className="w-3 h-3" aria-hidden="true" />
               Water Now
             </button>
           )}
@@ -50,7 +49,6 @@ export default function UnifiedTaskCard({ plant, urgent = false, overdue = false
               type="button"
               className="px-3 py-1 border border-yellow-600 text-yellow-600 rounded-full text-xs flex items-center gap-1"
             >
-              <Sun className="w-3 h-3" aria-hidden="true" />
               Fertilize Now
             </button>
           )}

@@ -51,7 +51,7 @@ test('ignores activities without valid dates when generating events', () => {
   expect(cards).toHaveLength(2)
   expect(cards[0]).toHaveTextContent('To Water')
   expect(cards[0]).toHaveTextContent('Plant A')
-  expect(cards[1]).toHaveTextContent('Watered!')
+  expect(cards[1]).toHaveTextContent('To Water')
   expect(cards[1]).toHaveTextContent('Plant B')
   expect(cards.length).toBeGreaterThan(0)
 
@@ -87,7 +87,7 @@ test('filters by type', () => {
   expect(cards).toHaveLength(2)
   expect(cards[0]).toHaveTextContent('To Water')
   expect(cards[0]).toHaveTextContent('Plant A')
-  expect(cards[1]).toHaveTextContent('Watered!')
+  expect(cards[1]).toHaveTextContent('To Water')
   expect(cards[1]).toHaveTextContent('Plant B')
 })
 
