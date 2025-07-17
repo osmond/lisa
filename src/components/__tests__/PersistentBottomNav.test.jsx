@@ -1,13 +1,13 @@
 import { render, fireEvent, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import BottomNav from '../BottomNav.jsx'
+import PersistentBottomNav from '../PersistentBottomNav.jsx'
 import { MenuProvider } from '../../MenuContext.jsx'
 
 test('all icons are aria-hidden', () => {
   const { container } = render(
     <MemoryRouter>
       <MenuProvider>
-        <BottomNav />
+        <PersistentBottomNav />
       </MenuProvider>
     </MemoryRouter>
   )
@@ -21,7 +21,7 @@ test('renders my plants link', () => {
   const { container } = render(
     <MemoryRouter>
       <MenuProvider>
-        <BottomNav />
+        <PersistentBottomNav />
       </MenuProvider>
     </MemoryRouter>
   )
@@ -34,7 +34,7 @@ test('renders timeline navigation link', () => {
   const { container } = render(
     <MemoryRouter>
       <MenuProvider>
-        <BottomNav />
+        <PersistentBottomNav />
       </MenuProvider>
     </MemoryRouter>
   )
@@ -47,7 +47,7 @@ test('does not render add links', () => {
   const { container } = render(
     <MemoryRouter>
       <MenuProvider>
-        <BottomNav />
+        <PersistentBottomNav />
       </MenuProvider>
     </MemoryRouter>
   )
@@ -60,7 +60,7 @@ test('overlay has blur effect', () => {
   const { container } = render(
     <MemoryRouter>
       <MenuProvider>
-        <BottomNav />
+        <PersistentBottomNav />
       </MenuProvider>
     </MemoryRouter>
   )
