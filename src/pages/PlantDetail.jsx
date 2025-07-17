@@ -23,6 +23,7 @@ import NoteModal from '../components/NoteModal.jsx'
 import { useMenu, defaultMenu } from '../MenuContext.jsx'
 import LegendModal from '../components/LegendModal.jsx'
 import ProgressRing from '../components/ProgressRing.jsx'
+import Breadcrumb from '../components/Breadcrumb.jsx'
 
 import useToast from "../hooks/useToast.jsx"
 import confetti from 'canvas-confetti'
@@ -170,7 +171,7 @@ export default function PlantDetail() {
   return (
 
     <div className="space-y-8 pt-4 pb-safe px-4 relative text-left">
-
+      <Breadcrumb room={plant.room} plant={plant.name} />
       <Toast />
       <div className="space-y-4">
         <div className="relative">
