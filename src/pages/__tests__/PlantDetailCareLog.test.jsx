@@ -38,7 +38,7 @@ test('shows notes from care log in timeline', () => {
   )
 
   expect(screen.getByText('July 2, 2025')).toBeInTheDocument()
-  expect(screen.getByText(/Watered/)).toBeInTheDocument()
+  expect(screen.getAllByText(/Watered/).length).toBeGreaterThan(0)
   expect(screen.getByText('deep soak')).toBeInTheDocument()
 
 })
