@@ -1,7 +1,35 @@
 import { render, screen } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter, useNavigate } from 'react-router-dom'
 import TaskCard from '../TaskCard.jsx'
 import BaseCard from '../BaseCard.jsx'
+import { usePlants } from '../../PlantContext.jsx'
+
+const navigateMock = jest.fn()
+const markWatered = jest.fn()
+const markFertilized = jest.fn()
+
+jest.mock('react-router-dom', () => {
+  const actual = jest.requireActual('react-router-dom')
+  return { ...actual, useNavigate: jest.fn() }
+})
+
+jest.mock('../../PlantContext.jsx', () => ({
+  usePlants: jest.fn(),
+}))
+
+const usePlantsMock = usePlants
+
+beforeEach(() => {
+  navigateMock.mockClear()
+  markWatered.mockClear()
+  markFertilized.mockClear()
+  useNavigate.mockReturnValue(navigateMock)
+  usePlantsMock.mockReturnValue({
+    plants: [],
+    markWatered,
+    markFertilized,
+  })
+})
 
 
 const task = {

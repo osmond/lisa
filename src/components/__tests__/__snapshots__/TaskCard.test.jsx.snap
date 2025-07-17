@@ -12,6 +12,7 @@ exports[`matches snapshot in dark mode 1`] = `
   >
     <div
       class="relative flex items-center gap-3 px-4 py-3 shadow-sm bg-white dark:bg-gray-700 ring-2 ring-green-300 dark:ring-green-400"
+      style="transform: translateX(0px); transition: transform 0.2s;"
     >
       <div
         class="flex items-center flex-1 gap-3"
@@ -20,6 +21,10 @@ exports[`matches snapshot in dark mode 1`] = `
           alt="Monstera"
           class="w-12 h-12 rounded-lg object-cover"
           src="https://images.pexels.com/photos/5699660/pexels-photo-5699660.jpeg"
+        />
+        <div
+          aria-hidden="true"
+          class="w-px self-stretch bg-gray-200 dark:bg-gray-600"
         />
         <div
           class="flex-1 min-w-0"
@@ -37,7 +42,7 @@ exports[`matches snapshot in dark mode 1`] = `
             class="text-sm flex flex-wrap items-center gap-1 text-gray-500 mt-0.5"
           >
             <span
-              class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-sm font-medium bg-water-100 text-water-800"
+              class="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-sm font-medium bg-water-100 text-water-800"
             >
               To Water
             </span>
@@ -57,7 +62,7 @@ exports[`matches snapshot in dark mode 1`] = `
       >
         <span
           aria-label="Evapotranspiration (ET₀): N/A mm | Last watered 9 days ago"
-          class="px-2 py-0.5 text-sm rounded-full bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 opacity-70"
+          class="px-2 py-0.5 text-sm rounded-xl bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 opacity-70"
           title="Evapotranspiration (ET₀) is water lost from soil and plants"
         >
           Evapotranspiration (ET₀): 
