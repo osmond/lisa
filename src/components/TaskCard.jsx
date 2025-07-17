@@ -1,6 +1,9 @@
 import { Drop, Sun } from 'phosphor-react'
+import { useNavigate } from 'react-router-dom'
 import { getWateringInfo } from '../utils/watering.js'
+import { usePlants } from '../PlantContext.jsx'
 import Badge from './Badge.jsx'
+import useSwipe from '../hooks/useSwipe.js'
 
 export default function TaskCard({
   task,
@@ -10,6 +13,29 @@ export default function TaskCard({
   swipeable = true,
 }) {
   const { daysSince, eto } = getWateringInfo(task.lastWatered, { eto: task.eto })
+  const navigate = useNavigate()
+  const { markWatered, markFertilized } = usePlants()
+
+  const handleComplete = () => {
+    if (task.type === 'Water') {
+      markWatered(task.plantId, '')
+    } else if (task.type === 'Fertilize') {
+      markFertilized(task.plantId, '')
+    }
+  }
+
+  const { dx, start, move, end } = useSwipe(
+    diff => {
+      if (!swipeable) return
+      if (diff > 60) {
+        handleComplete()
+        navigator.vibrate?.(10)
+      } else if (diff < -60) {
+        navigate(`/plant/${task.plantId}`)
+      }
+    },
+    { threshold: 30 }
+  )
 
   return (
     <div
@@ -17,12 +43,18 @@ export default function TaskCard({
       tabIndex="0"
       aria-label={`Task card for ${task.plantName}`}
       className="relative overflow-hidden rounded-xl"
+      onPointerDown={start}
+      onPointerMove={move}
+      onPointerUp={end}
+      onPointerCancel={end}
     >
         <div
           className={`relative flex items-center gap-3 px-4 py-3 shadow-sm ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : 'bg-white dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
+          style={{ transform: `translateX(${swipeable ? dx : 0}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
         >
           <div className="flex items-center flex-1 gap-3">
             <img src={task.image} alt={task.plantName} className="w-12 h-12 rounded-lg object-cover" />
+            <div className="w-px self-stretch bg-gray-200 dark:bg-gray-600" aria-hidden="true" />
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between gap-2">
                 <p className="font-semibold text-gray-900 dark:text-gray-100 truncate">
@@ -80,7 +112,7 @@ export default function TaskCard({
           {!compact && (
             <div className="mt-2">
               <span
-                className="px-2 py-0.5 text-sm rounded-full bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 opacity-70"
+                className="px-2 py-0.5 text-sm rounded-xl bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 opacity-70"
                 aria-label={`Evapotranspiration (ET₀): ${eto ?? 'N/A'} mm | Last watered ${daysSince ?? '?'} days ago`}
                 title="Evapotranspiration (ET₀) is water lost from soil and plants"
               >
