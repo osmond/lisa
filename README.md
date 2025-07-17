@@ -14,7 +14,7 @@ Includes:
 - Sample plant data
 - Styled PlantCard components
 - Tasks generated dynamically from plant data
-- Quick Add floating button for new plants
+- Add Plant and Add Room links from the navigation menu
 - Persistent bottom navigation for easy access
 
 ## Using the UI
