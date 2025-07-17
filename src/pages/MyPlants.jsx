@@ -47,12 +47,15 @@ export default function MyPlants() {
               to={`/room/${encodeURIComponent(room)}`}
               className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1"
             >
-              <FolderSimple className="w-6 h-6 text-gray-500" aria-hidden="true" />
-              <p className="font-semibold font-headline">{room}</p>
-              <p className="text-xs text-gray-500">{countPlants(room)} plants</p>
+              <FolderSimple
+                className="w-6 h-6 p-1 rounded bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-200"
+                aria-hidden="true"
+              />
+              <p className="font-semibold font-headline text-[1.1rem]">{room}</p>
+              <p className="text-[10px] text-gray-500">{countPlants(room)} plants</p>
               {overdue > 0 && (
-                <span className="text-[11px] px-2 py-0.5 rounded-full bg-red-100 text-red-700 dark:bg-red-800 dark:text-red-100">
-                  {overdue} overdue
+                <span className="slide-in inline-flex text-[11px] px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100">
+                  ⚠️ {overdue} overdue
                 </span>
               )}
             </Link>
