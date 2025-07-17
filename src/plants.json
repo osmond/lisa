@@ -5,10 +5,24 @@
     "nickname": "Swiss Cheese",
     "image": "/demo-image-01.jpg",
     "photos": [
-      { "src": "/demo-image-01.jpg", "caption": "Leaf close-up" },
-      { "src": "/demo-image-02.jpg", "caption": "Full plant" },
-      { "src": "/demo-image-03.jpg" },
-      { "src": "/demo-image-04.jpg", "caption": "New growth" }
+      {
+        "src": "/demo-image-01.jpg",
+        "caption": "Leaf close-up"
+      },
+      {
+        "src": "/demo-image-02.jpg",
+        "caption": "Full plant"
+      },
+      {
+        "src": "/demo-image-03.jpg"
+      },
+      {
+        "src": "/demo-image-04.jpg",
+        "caption": "New growth"
+      },
+      {
+        "src": "/demo-image-16.jpg"
+      }
     ],
     "lastWatered": "2025-07-01",
     "nextWater": "2025-07-08",
@@ -26,8 +40,16 @@
       "Watered heavily on 2025-06-30"
     ],
     "careLog": [
-      { "date": "2025-07-05", "type": "Watered", "note": "minor" },
-      { "date": "2025-06-20", "type": "Fertilized", "note": "50% strength" }
+      {
+        "date": "2025-07-05",
+        "type": "Watered",
+        "note": "minor"
+      },
+      {
+        "date": "2025-06-20",
+        "type": "Fertilized",
+        "note": "50% strength"
+      }
     ],
     "notes": "Doing well",
     "advancedCare": "Propagate in water"
@@ -38,9 +60,18 @@
     "nickname": "Mother-in-Law's Tongue",
     "image": "/demo-image-02.jpg",
     "photos": [
-      { "src": "/demo-image-02.jpg" },
-      { "src": "/demo-image-03.jpg" },
-      { "src": "/demo-image-04.jpg" }
+      {
+        "src": "/demo-image-02.jpg"
+      },
+      {
+        "src": "/demo-image-03.jpg"
+      },
+      {
+        "src": "/demo-image-04.jpg"
+      },
+      {
+        "src": "/demo-image-17.jpg"
+      }
     ],
     "lastWatered": "2025-07-02",
     "nextWater": "2025-07-09",
@@ -57,7 +88,11 @@
       "Fertilized on 2025-06-15"
     ],
     "careLog": [
-      { "date": "2025-06-20", "type": "Fertilized", "note": "cactus feed" }
+      {
+        "date": "2025-06-20",
+        "type": "Fertilized",
+        "note": "cactus feed"
+      }
     ],
     "notes": "Prefers dry soil",
     "advancedCare": "Allow soil to dry between waterings"
@@ -68,9 +103,18 @@
     "nickname": "Fiddle",
     "image": "/demo-image-03.jpg",
     "photos": [
-      { "src": "/demo-image-03.jpg" },
-      { "src": "/demo-image-04.jpg" },
-      { "src": "/demo-image-05.jpg" }
+      {
+        "src": "/demo-image-03.jpg"
+      },
+      {
+        "src": "/demo-image-04.jpg"
+      },
+      {
+        "src": "/demo-image-05.jpg"
+      },
+      {
+        "src": "/demo-image-18.jpg"
+      }
     ],
     "lastWatered": "2025-07-09",
     "nextWater": "2025-07-16",
@@ -95,9 +139,18 @@
     "nickname": "Lily",
     "image": "/demo-image-04.jpg",
     "photos": [
-      { "src": "/demo-image-04.jpg" },
-      { "src": "/demo-image-05.jpg" },
-      { "src": "/demo-image-06.jpg" }
+      {
+        "src": "/demo-image-04.jpg"
+      },
+      {
+        "src": "/demo-image-05.jpg"
+      },
+      {
+        "src": "/demo-image-06.jpg"
+      },
+      {
+        "src": "/demo-image-19.jpg"
+      }
     ],
     "lastWatered": "2025-07-11",
     "nextWater": "2025-07-15",
@@ -114,7 +167,11 @@
       "Fertilized on 2025-07-01"
     ],
     "careLog": [
-      { "date": "2025-06-30", "type": "Watered", "note": "extra" }
+      {
+        "date": "2025-06-30",
+        "type": "Watered",
+        "note": "extra"
+      }
     ],
     "notes": "Likes humidity",
     "advancedCare": "Clean blooms gently"
@@ -125,9 +182,18 @@
     "nickname": "Zenzi",
     "image": "/demo-image-08.jpg",
     "photos": [
-      { "src": "/demo-image-05.jpg" },
-      { "src": "/demo-image-06.jpg" },
-      { "src": "/demo-image-07.jpg" }
+      {
+        "src": "/demo-image-05.jpg"
+      },
+      {
+        "src": "/demo-image-06.jpg"
+      },
+      {
+        "src": "/demo-image-07.jpg"
+      },
+      {
+        "src": "/demo-image-20.jpg"
+      }
     ],
     "lastWatered": "2025-07-01",
     "nextWater": "2025-07-20",
@@ -143,7 +209,11 @@
       "Fertilized on 2025-05-30"
     ],
     "careLog": [
-      { "date": "2025-06-20", "type": "Watered", "note": "deep soak" }
+      {
+        "date": "2025-06-20",
+        "type": "Watered",
+        "note": "deep soak"
+      }
     ],
     "notes": "Tolerates neglect",
     "advancedCare": "Avoid overwatering"
@@ -154,9 +224,18 @@
     "nickname": "Medic",
     "image": "/demo-image-02.jpg",
     "photos": [
-      { "src": "/demo-image-06.jpg" },
-      { "src": "/demo-image-07.jpg" },
-      { "src": "/demo-image-08.jpg" }
+      {
+        "src": "/demo-image-06.jpg"
+      },
+      {
+        "src": "/demo-image-07.jpg"
+      },
+      {
+        "src": "/demo-image-08.jpg"
+      },
+      {
+        "src": "/demo-image-21.jpg"
+      }
     ],
     "lastWatered": "2025-07-04",
     "nextWater": "2025-07-11",
@@ -173,7 +252,11 @@
       "Watered on 2025-06-15"
     ],
     "careLog": [
-      { "date": "2025-06-01", "type": "Fertilized", "note": "slow release" }
+      {
+        "date": "2025-06-01",
+        "type": "Fertilized",
+        "note": "slow release"
+      }
     ],
     "notes": "Useful for burns",
     "advancedCare": "Use cactus soil"
@@ -184,9 +267,18 @@
     "nickname": "Devil's Ivy",
     "image": "/demo-image-07.jpg",
     "photos": [
-      { "src": "/demo-image-07.jpg" },
-      { "src": "/demo-image-08.jpg" },
-      { "src": "/demo-image-09.jpg" }
+      {
+        "src": "/demo-image-07.jpg"
+      },
+      {
+        "src": "/demo-image-08.jpg"
+      },
+      {
+        "src": "/demo-image-09.jpg"
+      },
+      {
+        "src": "/demo-image-22.jpg"
+      }
     ],
     "lastWatered": "2025-07-06",
     "nextWater": "2025-07-13",
@@ -211,9 +303,18 @@
     "nickname": "Prayer Plant",
     "image": "/demo-image-08.jpg",
     "photos": [
-      { "src": "/demo-image-08.jpg" },
-      { "src": "/demo-image-09.jpg" },
-      { "src": "/demo-image-10.jpg" }
+      {
+        "src": "/demo-image-08.jpg"
+      },
+      {
+        "src": "/demo-image-09.jpg"
+      },
+      {
+        "src": "/demo-image-10.jpg"
+      },
+      {
+        "src": "/demo-image-23.jpg"
+      }
     ],
     "lastWatered": "2025-07-08",
     "nextWater": "2025-07-12",
@@ -238,9 +339,18 @@
     "nickname": "Ficus Elastica",
     "image": "/demo-image-05.jpg",
     "photos": [
-      { "src": "/demo-image-09.jpg" },
-      { "src": "/demo-image-10.jpg" },
-      { "src": "/demo-image-01.jpg" }
+      {
+        "src": "/demo-image-09.jpg"
+      },
+      {
+        "src": "/demo-image-10.jpg"
+      },
+      {
+        "src": "/demo-image-01.jpg"
+      },
+      {
+        "src": "/demo-image-24.jpg"
+      }
     ],
     "lastWatered": "2025-07-05",
     "nextWater": "2025-07-12",
@@ -265,9 +375,15 @@
     "nickname": "Aglaonema",
     "image": "/demo-image-09.jpg",
     "photos": [
-      { "src": "/demo-image-10.jpg" },
-      { "src": "/demo-image-01.jpg" },
-      { "src": "/demo-image-02.jpg" }
+      {
+        "src": "/demo-image-10.jpg"
+      },
+      {
+        "src": "/demo-image-01.jpg"
+      },
+      {
+        "src": "/demo-image-02.jpg"
+      }
     ],
     "lastWatered": "2025-07-04",
     "nextWater": "2025-07-11",
@@ -284,7 +400,11 @@
       "Fertilized on 2025-06-15"
     ],
     "careLog": [
-      { "date": "2025-07-03", "type": "Note", "note": "new leaves" }
+      {
+        "date": "2025-07-03",
+        "type": "Note",
+        "note": "new leaves"
+      }
     ],
     "notes": "Tolerates low light well",
     "advancedCare": "Rotate monthly for even growth"
