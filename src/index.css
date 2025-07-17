@@ -4,6 +4,13 @@
 
 body {
   @apply bg-offwhite text-gray-900 font-body;
+  font-size: 17px;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 18px;
+  }
 }
 
 .dark body {
