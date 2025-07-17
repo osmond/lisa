@@ -5,6 +5,8 @@ import Home from './pages/Home'
 import MyPlants from './pages/MyPlants'
 import Tasks from './pages/Tasks'
 import Add from './pages/Add'
+import AddRoom from './pages/AddRoom.jsx'
+import RoomList from './pages/RoomList.jsx'
 import Settings from './pages/Settings'
 import PlantDetail from './pages/PlantDetail'
 import EditPlant from './pages/EditPlant'
@@ -35,6 +37,8 @@ export default function App() {
             <Route path="/myplants" element={<MyPlants />} />
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/add" element={<Add />} />
+            <Route path="/room/add" element={<AddRoom />} />
+            <Route path="/room/:roomName" element={<RoomList />} />
             <Route path="/timeline" element={<Timeline />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/profile" element={<Settings />} />

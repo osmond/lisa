@@ -1,89 +1,52 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Flower } from 'phosphor-react'
 import { PlusIcon } from '@radix-ui/react-icons'
+import { FolderSimple } from 'phosphor-react'
+import { useRooms } from '../RoomContext.jsx'
 import { usePlants } from '../PlantContext.jsx'
 
 export default function MyPlants() {
+  const { rooms } = useRooms()
   const { plants } = usePlants()
-  const [roomFilter, setRoomFilter] = useState('All')
-  const [lightFilter, setLightFilter] = useState('All')
-  const [urgencyFilter, setUrgencyFilter] = useState('All')
 
-  const rooms = [...new Set(plants.map(p => p.room).filter(Boolean))]
-  const lights = [...new Set(plants.map(p => p.light).filter(Boolean))]
-  const urgencies = [...new Set(plants.map(p => p.urgency).filter(Boolean))]
+  const countPlants = room => plants.filter(p => p.room === room).length
 
-  const filtered = plants.filter(p =>
-    (roomFilter === 'All' || p.room === roomFilter) &&
-    (lightFilter === 'All' || p.light === lightFilter) &&
-    (urgencyFilter === 'All' || p.urgency === urgencyFilter)
-  )
-  const noResults = filtered.length === 0
+  if (rooms.length === 0) {
+    return (
+      <div className="text-center space-y-4">
+        <h1 className="text-2xl font-bold font-headline">My Plants</h1>
+        <Link
+          to="/room/add"
+          className="inline-block px-4 py-2 bg-green-600 text-white rounded"
+        >
+          Add Room
+        </Link>
+      </div>
+    )
+  }
 
   return (
     <div>
       <h1 className="text-2xl font-bold font-headline mb-4">My Plants</h1>
-      <div className="flex flex-wrap gap-2 mb-4">
-        <select className="border rounded p-1" value={roomFilter} onChange={e => setRoomFilter(e.target.value)}>
-          <option value="All">All Rooms</option>
-          {rooms.map(room => (
-            <option key={room} value={room}>{room}</option>
-          ))}
-        </select>
-        <select className="border rounded p-1" value={lightFilter} onChange={e => setLightFilter(e.target.value)}>
-          <option value="All">All Light Levels</option>
-          {lights.map(light => (
-            <option key={light} value={light}>{light}</option>
-          ))}
-        </select>
-        <select className="border rounded p-1" value={urgencyFilter} onChange={e => setUrgencyFilter(e.target.value)}>
-          <option value="All">All Urgencies</option>
-          {urgencies.map(u => (
-            <option key={u} value={u}>{u}</option>
-          ))}
-        </select>
+      <div className="grid grid-cols-2 gap-4">
+        {rooms.map(room => (
+          <Link
+            key={room}
+            to={`/room/${encodeURIComponent(room)}`}
+            className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1"
+          >
+            <FolderSimple className="w-6 h-6 text-gray-500" aria-hidden="true" />
+            <p className="font-semibold font-headline">{room}</p>
+            <p className="text-xs text-gray-500">{countPlants(room)} plants</p>
+          </Link>
+        ))}
+        <Link
+          to="/room/add"
+          aria-label="Add Room"
+          className="flex items-center justify-center w-full h-40 rounded-lg border-2 border-dashed text-gray-500"
+        >
+          <PlusIcon className="w-10 h-10" aria-hidden="true" />
+        </Link>
       </div>
-      {noResults ? (
-        <div className="text-center text-gray-700 space-y-4">
-          <Flower className="w-20 h-20 mx-auto text-green-400" aria-hidden="true" />
-          <Link
-            to="/add"
-            className="inline-block px-4 py-2 bg-green-600 text-white rounded"
-          >
-            Add Plant
-          </Link>
-        </div>
-      ) : (
-        <div className="grid grid-cols-2 gap-4">
-          {filtered.map(plant => {
-            const imageSrc =
-              typeof plant.image === 'string' && plant.image.trim() !== ''
-                ? plant.image
-                : '/demo-image-01.jpg'
-            return (
-              <Link key={plant.id} to={`/plant/${plant.id}`} className="block">
-                <img
-                  src={imageSrc}
-                  alt={plant.name}
-                  loading="lazy"
-                  className="w-full h-40 object-cover rounded-lg"
-                />
-                <p className="mt-1 text-center text-sm font-semibold font-headline">
-                  {plant.name}
-                </p>
-              </Link>
-            )
-          })}
-          <Link
-            to="/add"
-            aria-label="Add Plant"
-            className="flex items-center justify-center w-full h-40 rounded-lg border-2 border-dashed text-gray-500"
-          >
-            <PlusIcon className="w-10 h-10" aria-hidden="true" />
-          </Link>
-        </div>
-      )}
     </div>
   )
 }

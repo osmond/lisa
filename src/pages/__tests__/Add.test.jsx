@@ -3,16 +3,19 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import Add from '../Add.jsx'
 import MyPlants from '../MyPlants.jsx'
 import { PlantProvider } from '../../PlantContext.jsx'
+import { RoomProvider } from '../../RoomContext.jsx'
 
 test('user can complete steps and add a plant', () => {
   render(
     <PlantProvider>
-      <MemoryRouter initialEntries={['/add']}>
-        <Routes>
-          <Route path="/add" element={<Add />} />
-          <Route path="/myplants" element={<MyPlants />} />
-        </Routes>
-      </MemoryRouter>
+      <RoomProvider>
+        <MemoryRouter initialEntries={['/add']}>
+          <Routes>
+            <Route path="/add" element={<Add />} />
+            <Route path="/myplants" element={<MyPlants />} />
+          </Routes>
+        </MemoryRouter>
+      </RoomProvider>
     </PlantProvider>
   )
 
@@ -31,12 +34,12 @@ test('user can complete steps and add a plant', () => {
   fireEvent.click(screen.getByRole('button', { name: /next/i }))
 
   // step 4
-  expect(screen.getByLabelText(/location/i)).toBeInTheDocument()
-  fireEvent.change(screen.getByLabelText(/location/i), { target: { value: 'Desk' } })
+  expect(screen.getByLabelText(/room/i)).toBeInTheDocument()
+  fireEvent.change(screen.getByLabelText(/room/i), { target: { value: 'Desk' } })
   fireEvent.change(screen.getByLabelText(/notes/i), { target: { value: 'Thrives' } })
   fireEvent.change(screen.getByLabelText(/care level/i), { target: { value: 'easy' } })
   fireEvent.click(screen.getByRole('button', { name: /add plant/i }))
 
   expect(screen.getByRole('heading', { name: /my plants/i })).toBeInTheDocument()
-  expect(screen.getByText('Test Plant')).toBeInTheDocument()
+  expect(screen.getByText('Desk')).toBeInTheDocument()
 })

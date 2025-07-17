@@ -18,6 +18,10 @@ jest.mock('../ThemeContext.jsx', () => ({
   useTheme: () => ({ theme: 'light', toggleTheme: () => {} }),
 }))
 
+jest.mock('../RoomContext.jsx', () => ({
+  useRooms: () => ({ rooms: [] }),
+}))
+
 const routesWithAddLink = [
   '/',
   '/myplants',

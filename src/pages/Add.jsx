@@ -11,7 +11,7 @@ const initialState = {
   image: '',
   lastWatered: '',
   nextWater: '',
-  location: '',
+  room: '',
   notes: '',
   careLevel: '',
 }
@@ -26,8 +26,8 @@ function reducer(state, action) {
       return { ...state, lastWatered: action.payload }
     case 'SET_NEXT':
       return { ...state, nextWater: action.payload }
-    case 'SET_LOCATION':
-      return { ...state, location: action.payload }
+    case 'SET_ROOM':
+      return { ...state, room: action.payload }
     case 'SET_NOTES':
       return { ...state, notes: action.payload }
     case 'SET_CARE':
@@ -54,7 +54,7 @@ export default function Add() {
       image: imagePath,
       lastWatered: state.lastWatered,
       nextWater: state.nextWater,
-      ...(state.location && { location: state.location }),
+      ...(state.room && { room: state.room }),
       ...(state.notes && { notes: state.notes }),
       ...(state.careLevel && { careLevel: state.careLevel }),
     })
@@ -85,7 +85,7 @@ export default function Add() {
       )}
       {step === 4 && (
         <OptionalInfoStep
-          location={state.location}
+          room={state.room}
           notes={state.notes}
           careLevel={state.careLevel}
           dispatch={dispatch}
