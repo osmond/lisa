@@ -217,36 +217,45 @@ export default function Tasks() {
       </div>
 
       <div className="flex flex-wrap gap-2 mb-4">
-        <select
-          className="border rounded p-1"
-          value={typeFilter}
-          onChange={e => setTypeFilter(e.target.value)}
-        >
-          <option value="All">All Types</option>
-          <option value="water">Water</option>
-          <option value="fertilize">Fertilize</option>
-          <option value="note">Note</option>
-        </select>
-        <select
-          className="border rounded p-1"
-          value={urgencyFilter}
-          onChange={e => setUrgencyFilter(e.target.value)}
-        >
-          <option value="All">All Urgencies</option>
-          {urgencies.map(u => (
-            <option key={u} value={u}>
-              {u}
-            </option>
-          ))}
-        </select>
-        <select
-          className="border rounded p-1"
-          value={sortBy}
-          onChange={e => setSortBy(e.target.value)}
-        >
-          <option value="date">By Date</option>
-          <option value="name">By Plant Name</option>
-        </select>
+        <label className="flex items-center gap-1">
+          <span>Filter by type</span>
+          <select
+            className="border rounded p-1"
+            value={typeFilter}
+            onChange={e => setTypeFilter(e.target.value)}
+          >
+            <option value="All">All Types</option>
+            <option value="water">Water</option>
+            <option value="fertilize">Fertilize</option>
+            <option value="note">Note</option>
+          </select>
+        </label>
+        <label className="flex items-center gap-1">
+          <span>Filter by urgency</span>
+          <select
+            className="border rounded p-1"
+            value={urgencyFilter}
+            onChange={e => setUrgencyFilter(e.target.value)}
+          >
+            <option value="All">All Urgencies</option>
+            {urgencies.map(u => (
+              <option key={u} value={u}>
+                {u}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="flex items-center gap-1">
+          <span>Sort by</span>
+          <select
+            className="border rounded p-1"
+            value={sortBy}
+            onChange={e => setSortBy(e.target.value)}
+          >
+            <option value="date">By Date</option>
+            <option value="name">By Plant Name</option>
+          </select>
+        </label>
         <button
           type="button"
           onClick={toggleLayout}
