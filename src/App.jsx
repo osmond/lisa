@@ -12,6 +12,7 @@ import EditPlant from './pages/EditPlant'
 import Timeline from './pages/Timeline'
 import Gallery from './pages/Gallery.jsx'
 import BottomNav from './components/BottomNav'
+import CreateFab from './components/CreateFab.jsx'
 import { MenuProvider } from './MenuContext.jsx'
 import NotFound from './pages/NotFound'
 
@@ -55,8 +56,9 @@ export default function App() {
       </AnimatePresence>
 
 
-      <BottomNav />
-    </div>
-    </MenuProvider>
+        <CreateFab />
+        <BottomNav />
+      </div>
+      </MenuProvider>
   )
 }
