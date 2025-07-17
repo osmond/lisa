@@ -150,7 +150,7 @@ test('completed tasks are styled', () => {
 })
 
 
-test('future watering date does not show Water Now button', () => {
+test('future watering date does not show Water Now button', async () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
 
   render(
@@ -164,6 +164,9 @@ test('future watering date does not show Water Now button', () => {
 
   expect(screen.queryByText('Water Now')).toBeNull()
   jest.useRealTimers()
+
+  const pastTab = screen.getByRole('tab', { name: /Past/i })
+  await userEvent.click(pastTab)
 
   const byPlantTab = screen.getByRole('tab', { name: /By Plant/i })
   await userEvent.click(byPlantTab)
