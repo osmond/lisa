@@ -1,5 +1,4 @@
 import { Drop, Sun } from 'phosphor-react'
-import actionIcons from './ActionIcons.jsx'
 import { getWateringInfo } from '../utils/watering.js'
 import Badge from './Badge.jsx'
 
@@ -11,7 +10,6 @@ export default function TaskCard({
   compact = false,
   swipeable = true,
 }) {
-  const Icon = actionIcons[task.type]
   const { daysSince, eto } = getWateringInfo(task.lastWatered, { eto: task.eto })
 
   return (
@@ -31,19 +29,15 @@ export default function TaskCard({
                 <p className="font-semibold text-gray-900 dark:text-gray-100 truncate">
                   {task.plantName}
                 </p>
-                {Icon && (
-                  <Icon aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400 shrink-0" />
-                )}
               </div>
               <div className="text-sm flex flex-wrap items-center gap-1 text-gray-500 mt-0.5">
                 <Badge
-                  Icon={task.type === 'Water' ? Drop : task.type === 'Fertilize' ? Sun : undefined}
                   colorClass={`text-sm font-medium ${
                     task.type === 'Water'
                       ? 'bg-water-100 text-water-800'
                       : task.type === 'Fertilize'
-                      ? 'bg-fertilize-100 text-fertilize-800'
-                      : 'bg-healthy-100 text-healthy-800'
+                        ? 'bg-fertilize-100 text-fertilize-800'
+                        : 'bg-healthy-100 text-healthy-800'
                   }`}
                 >
                   {completed
