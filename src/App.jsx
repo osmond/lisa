@@ -12,7 +12,7 @@ import EditPlant from './pages/EditPlant'
 import Timeline from './pages/Timeline'
 import Gallery from './pages/Gallery.jsx'
 
-import BottomNav from './components/BottomNav'
+import PersistentBottomNav from './components/PersistentBottomNav.jsx'
 import CreateFab from './components/CreateFab.jsx'
 
 import { MenuProvider } from './MenuContext.jsx'
@@ -61,7 +61,7 @@ export default function App() {
 
 
         <CreateFab />
-        <BottomNav />
+        <PersistentBottomNav />
       </div>
       </MenuProvider>
 
