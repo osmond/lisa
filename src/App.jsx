@@ -13,6 +13,7 @@ import Timeline from './pages/Timeline'
 import Gallery from './pages/Gallery.jsx'
 
 import PersistentBottomNav from './components/PersistentBottomNav.jsx'
+import CreateFab from './components/CreateFab.jsx'
 
 import { MenuProvider } from './MenuContext.jsx'
 import NotFound from './pages/NotFound'
@@ -57,8 +58,7 @@ export default function App() {
         </motion.div>
       </AnimatePresence>
 
-
-
+        <CreateFab />
         <PersistentBottomNav />
       </div>
       </MenuProvider>

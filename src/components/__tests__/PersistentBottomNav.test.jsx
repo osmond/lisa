@@ -70,6 +70,8 @@ test('more menu opens and closes with additional links', () => {
   const overlay = screen.getByRole('dialog', { name: /navigation menu/i })
   expect(overlay).toBeInTheDocument()
   expect(overlay).toHaveClass('backdrop-blur-sm')
+  expect(screen.queryByRole('link', { name: /add plant/i })).toBeNull()
+  expect(screen.queryByRole('link', { name: /add room/i })).toBeNull()
   expect(container.querySelector('a[href="/profile"]')).toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: /close menu/i }))
   expect(screen.queryByRole('dialog', { name: /navigation menu/i })).toBeNull()
