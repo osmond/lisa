@@ -2,7 +2,6 @@ import TaskCard from '../components/TaskCard.jsx'
 import BaseCard from '../components/BaseCard.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import CareSummaryModal from '../components/CareSummaryModal.jsx'
-import Fab from '../components/Fab.jsx'
 
 import { useState } from 'react'
 
@@ -222,7 +221,6 @@ export default function Home() {
           My Plants
         </Link>
       </div>
-      <Fab />
     </div>
   )
 }

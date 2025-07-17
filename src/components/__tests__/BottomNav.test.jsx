@@ -55,3 +55,16 @@ test('renders add plant navigation link', () => {
   const addLink = container.querySelector('a[href="/add"]')
   expect(addLink).toBeInTheDocument()
 })
+
+test('renders add room navigation link', () => {
+  const { container } = render(
+    <MemoryRouter>
+      <MenuProvider>
+        <BottomNav />
+      </MenuProvider>
+    </MemoryRouter>
+  )
+  fireEvent.click(screen.getByRole('button', { name: /open navigation menu/i }))
+  const addRoomLink = container.querySelector('a[href="/room/add"]')
+  expect(addRoomLink).toBeInTheDocument()
+})

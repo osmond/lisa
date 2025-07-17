@@ -35,7 +35,7 @@ const routesWithAddLink = [
 const plantRoutes = ['/plant/1']
 
 describe('Menu contents based on route', () => {
-  test.each(routesWithAddLink)('shows Add Plant link on %s', route => {
+  test.each(routesWithAddLink)('shows Add Plant and Add Room links on %s', route => {
     render(
       <MemoryRouter initialEntries={[route]}>
         <App />
@@ -46,9 +46,11 @@ describe('Menu contents based on route', () => {
     fireEvent.click(button)
     const links = screen.getAllByRole('link', { name: /add plant/i })
     expect(links.length).toBeGreaterThan(0)
+    const roomLinks = screen.getAllByRole('link', { name: /add room/i })
+    expect(roomLinks.length).toBeGreaterThan(0)
   })
 
-  test.each(plantRoutes)('shows Add Plant link on %s', route => {
+  test.each(plantRoutes)('shows Add Plant and Add Room links on %s', route => {
     render(
       <MemoryRouter initialEntries={[route]}>
         <App />
@@ -58,5 +60,6 @@ describe('Menu contents based on route', () => {
     const button = screen.getByRole('button', { name: /open navigation menu/i })
     fireEvent.click(button)
     expect(screen.getByRole('link', { name: /add plant/i })).toBeInTheDocument()
+    expect(screen.getAllByRole('link', { name: /add room/i }).length).toBeGreaterThan(0)
   })
 })

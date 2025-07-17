@@ -15,6 +15,7 @@ export const defaultMenu = {
     { to: '/myplants', label: 'My Plants', Icon: ListBullets },
     { to: '/timeline', label: 'Timeline', Icon: CalendarBlank },
     { to: '/add', label: 'Add Plant', Icon: Plus },
+    { to: '/room/add', label: 'Add Room', Icon: Plus },
   ],
   Icon: HamburgerMenuIcon,
 }
