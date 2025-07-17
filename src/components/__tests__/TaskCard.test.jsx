@@ -82,8 +82,6 @@ test('shows completed state', () => {
   const wrapper = container.querySelector('.shadow-sm')
   expect(wrapper).toHaveClass('opacity-50')
   expect(wrapper).toHaveClass('bg-gray-100')
-  const checkbox = container.querySelector('input[type="checkbox"]')
-  expect(checkbox).toBeChecked()
   expect(container.querySelector('.check-pop')).toBeInTheDocument()
 })
 

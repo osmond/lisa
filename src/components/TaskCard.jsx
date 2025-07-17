@@ -1,4 +1,4 @@
-import { CheckCircle, Drop, Sun } from 'phosphor-react'
+import { Drop, Sun } from 'phosphor-react'
 import actionIcons from './ActionIcons.jsx'
 import { getWateringInfo } from '../utils/watering.js'
 import Badge from './Badge.jsx'
@@ -69,23 +69,14 @@ export default function TaskCard({
               )}
             </div>
           </div>
-          <button
-            type="button"
-            disabled
-            className="ml-auto relative focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-healthy-500"
-            aria-label="Mark complete"
-          >
-            <input type="checkbox" checked={completed} readOnly className="sr-only task-checkbox" />
-            <CheckCircle aria-hidden="true" className={`w-6 h-6 ${completed ? 'text-healthy-500' : 'text-gray-400'}`} />
-            {overdue && (
-              <span
-                className="absolute -top-1 -right-1 bg-fertilize-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs overdue-ping"
-                data-testid="overdue-badge"
-              >
-                !
-              </span>
-            )}
-          </button>
+          {overdue && (
+            <span
+              className="absolute -top-1 -right-1 bg-fertilize-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs overdue-ping"
+              data-testid="overdue-badge"
+            >
+              !
+            </span>
+          )}
           {completed && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none task-complete-fade">
               <svg
