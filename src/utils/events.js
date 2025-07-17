@@ -96,5 +96,10 @@ export function groupEventsByMonth(events) {
     if (!map.has(key)) map.set(key, [])
     map.get(key).push(e)
   })
-  return Array.from(map.entries())
+  for (const [, list] of map) {
+    list.sort((a, b) => new Date(a.date) - new Date(b.date))
+  }
+  return Array.from(map.entries()).sort(
+    (a, b) => new Date(a[0] + '-01') - new Date(b[0] + '-01')
+  )
 }
