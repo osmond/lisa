@@ -19,9 +19,17 @@ export default function BottomNav() {
           onClick={() => setOpen(false)}
         >
           <ul
-            className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 space-y-4 bloom-pop text-lg"
+            className="relative bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 space-y-4 bloom-pop text-lg"
             onClick={e => e.stopPropagation()}
           >
+            <button
+              type="button"
+              aria-label="Close menu"
+              onClick={() => setOpen(false)}
+              className="absolute top-2 right-2 text-gray-500"
+            >
+              &times;
+            </button>
             {items.map(({ to, onClick, label, Icon }) => (
               <li key={label}>
                 {to ? (
