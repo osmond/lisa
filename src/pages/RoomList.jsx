@@ -62,7 +62,7 @@ export default function RoomList() {
             return (
               <Link
                 key={plant.id}
-                to={`/plant/${plant.id}`}
+                to={`/room/${encodeURIComponent(roomName)}/plant/${plant.id}`}
                 className="block relative overflow-hidden rounded-lg shadow transition-transform hover:-translate-y-1 hover:shadow-lg active:shadow"
                 onMouseDown={createRipple}
                 onTouchStart={createRipple}

@@ -134,7 +134,8 @@ export default function PlantDetail() {
   }
 
   const handleBack = () => {
-    navigate(-1)
+    const room = encodeURIComponent(plant.room || '')
+    navigate(`/room/${room}`)
   }
 
   // Menu is now consistent across pages so no override here

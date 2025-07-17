@@ -31,7 +31,10 @@ export default function TaskCard({
         handleComplete()
         navigator.vibrate?.(10)
       } else if (diff < -60) {
-        navigate(`/plant/${task.plantId}`)
+        const room = task.room ? encodeURIComponent(task.room) : null
+        navigate(
+          room ? `/room/${room}/plant/${task.plantId}` : `/plant/${task.plantId}`
+        )
       }
     },
     { threshold: 30 }
