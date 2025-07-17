@@ -14,10 +14,12 @@ Includes:
 - Sample plant data
 - Styled PlantCard components
 - Tasks generated dynamically from plant data
-- Add Plant and Add Room links from the navigation menu
-- Persistent bottom navigation for easy access
+- Floating action button for adding plants or rooms
+- Persistent bottom navigation tabs for easy access
 
 ## Using the UI
+
+Lisa keeps a tab bar pinned to the bottom of the screen so you can quickly switch between **Home**, **My Plants** and **Timeline**. A **More** button reveals extra links such as your profile. A circular **+** button floats above the bar; tap it to open shortcuts for adding a new plant or room.
 
 Task cards now render as static summaries with no swipe gestures. Plant cards remain interactive and support swiping or keyboard shortcuts through the underlying `PlantCard` component.
 The Tasks page groups care by plant using a `UnifiedTaskCard` that shows a thumbnail, upcoming needs and quick "Water Now" or "Fertilize Now" buttons when due.
