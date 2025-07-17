@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { useWeather } from '../WeatherContext.jsx'
 import { formatCareSummary } from '../utils/date.js'
 
 
@@ -13,6 +14,18 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
   if (!items.length) return null
 
   const [index, setIndex] = useState(startIndex)
+  const { forecast } = useWeather() || {}
+  const weatherEmojis = {
+    Clear: '☀️',
+    Clouds: '☁️',
+    Rain: '🌧️',
+    Drizzle: '🌦️',
+    Thunderstorm: '⛈️',
+    Snow: '❄️',
+    Mist: '🌫️',
+    Fog: '🌫️',
+  }
+  const suggestion = forecast ? weatherEmojis[forecast.condition] || '☀️' : null
 
   const { dx: deltaX, start, move, end } = useSwipe(diff => {
     if (diff > 50) setIndex(i => (i - 1 + items.length) % items.length)
@@ -70,15 +83,22 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
 
         <h2 className="font-display text-2xl font-semibold">{name}</h2>
         {preview && (
-          <p className="text-sm opacity-90">{preview}</p>
+          <div className="flex items-center justify-center gap-1">
+            <p className="text-sm opacity-90">{preview}</p>
+            {suggestion && (
+              <span aria-label={`Weather: ${forecast?.condition}`}>{suggestion}</span>
+            )}
+          </div>
         )}
-        <button
-          type="button"
-          aria-label={`Mark ${name} as watered`}
-          className="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-sm animate-bounce-once"
-        >
-          Water Now
-        </button>
+        <div className="flex justify-center">
+          <button
+            type="button"
+            aria-label={`Mark ${name} as watered`}
+            className="px-3 py-1 bg-blue-600 text-white rounded text-sm animate-bounce-once"
+          >
+            Water Now
+          </button>
+        </div>
 
       </div>
     </Link>
