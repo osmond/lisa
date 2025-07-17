@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { useMenu } from '../MenuContext.jsx'
@@ -7,6 +7,17 @@ export default function BottomNav() {
   const [open, setOpen] = useState(false)
   const { menu } = useMenu()
   const { items, Icon } = menu
+
+  useEffect(() => {
+    if (!open) return
+    const handleKey = e => {
+      if (e.key === 'Escape') {
+        setOpen(false)
+      }
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [open])
 
   return (
     <div className="fixed bottom-4 right-4 z-20">
