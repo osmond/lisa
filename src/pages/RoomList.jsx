@@ -8,6 +8,14 @@ export default function RoomList() {
 
   return (
     <div>
+      <div className="flex items-center gap-2 mb-2">
+        <Link
+          to="/myplants"
+          className="text-sm text-blue-600 hover:underline"
+        >
+          &larr; My Plants
+        </Link>
+      </div>
       <h1 className="text-2xl font-bold font-headline mb-4">{roomName}</h1>
       {list.length === 0 ? (
         <p>No plants in this room.</p>

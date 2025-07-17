@@ -41,3 +41,26 @@ test('renders add tile in grid when rooms exist', () => {
   expect(addTile).toBeInTheDocument()
   expect(addTile).toHaveAttribute('href', '/room/add')
 })
+
+test('shows overdue badge for rooms with tasks', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+  mockRooms = ['Living']
+  mockPlants = [
+    {
+      id: 1,
+      name: 'Plant A',
+      room: 'Living',
+      image: 'a.jpg',
+      lastWatered: '2025-07-01',
+      nextFertilize: '2025-07-05',
+    },
+  ]
+  render(
+    <MemoryRouter>
+      <MyPlants />
+    </MemoryRouter>
+  )
+  const badge = screen.getByText(/overdue/i)
+  expect(badge).toHaveTextContent('2 overdue')
+  jest.useRealTimers()
+})
