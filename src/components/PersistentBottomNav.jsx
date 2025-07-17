@@ -7,10 +7,12 @@ export default function PersistentBottomNav() {
   const [open, setOpen] = useState(false)
   const overdueCount = useOverdueCount()
   const { menu } = useMenu()
+
   const { items, Icon } = menu
   const mainCount = Math.min(4, items.length)
   const mainLinks = items.slice(0, mainCount)
   const moreItems = items.slice(mainCount)
+
 
   useEffect(() => {
     if (!open) return
@@ -46,22 +48,22 @@ export default function PersistentBottomNav() {
             </li>
           )
         })}
-        <li>
-          <button
-            type="button"
-            aria-label="Open navigation menu"
-            aria-haspopup="menu"
-            aria-expanded={open}
-            onClick={() => setOpen(true)}
-            className="flex flex-col items-center gap-1 text-gray-500"
-            title="More"
-          >
-            <Icon className="w-6 h-6" aria-hidden="true" />
-            More
-          </button>
-        </li>
+        {profileLink && (
+          <li className="relative">
+            <NavLink
+              to={profileLink.to}
+              title={profileLink.label}
+              className={({ isActive }) =>
+                `flex flex-col items-center gap-1 ${isActive ? 'text-accent' : 'text-gray-500'}`
+              }
+            >
+              {ProfileIcon && <ProfileIcon className="w-6 h-6" aria-hidden="true" />}
+              {profileLink.label}
+            </NavLink>
+          </li>
+        )}
       </ul>
-      {open && (
+      {open && moreItems.length > 0 && (
         <div
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-30 backdrop-blur-sm"
           role="dialog"

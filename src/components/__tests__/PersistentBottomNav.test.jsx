@@ -57,7 +57,7 @@ test('shows overdue badge when tasks pending', () => {
   expect(screen.getByText('3')).toBeInTheDocument()
 })
 
-test('more menu opens and closes with additional links', () => {
+test('profile link replaces more button when additional links exist', () => {
   useOverdueCount.mockReturnValue(0)
   const { container } = render(
     <MemoryRouter>
@@ -66,6 +66,7 @@ test('more menu opens and closes with additional links', () => {
       </CustomMenuProvider>
     </MemoryRouter>
   )
+
   const button = screen.getByRole('button', { name: /open navigation menu/i })
   fireEvent.click(button)
   const overlay = screen.getByRole('dialog', { name: /navigation menu/i })
@@ -75,6 +76,6 @@ test('more menu opens and closes with additional links', () => {
   expect(screen.queryByRole('link', { name: /add room/i })).toBeNull()
   expect(overlay.querySelector('a[href="/profile"]')).toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: /close menu/i }))
-  expect(screen.queryByRole('dialog', { name: /navigation menu/i })).toBeNull()
 
+  expect(screen.queryByRole('dialog', { name: /navigation menu/i })).toBeNull()
 })
