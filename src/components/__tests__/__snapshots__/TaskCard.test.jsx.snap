@@ -114,51 +114,6 @@ exports[`matches snapshot in dark mode 1`] = `
           </div>
         </div>
       </div>
-      <button
-        aria-label="Mark complete"
-        class="ml-auto relative focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-healthy-500"
-        disabled=""
-        type="button"
-      >
-        <input
-          class="sr-only task-checkbox"
-          readonly=""
-          type="checkbox"
-        />
-        <svg
-          aria-hidden="true"
-          class="w-6 h-6 text-gray-400"
-          fill="currentColor"
-          height="1em"
-          viewBox="0 0 256 256"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            fill="none"
-            height="256"
-            width="256"
-          />
-          <polyline
-            fill="none"
-            points="172 104 113.3 160 84 132"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="16"
-          />
-          <circle
-            cx="128"
-            cy="128"
-            fill="none"
-            r="96"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="16"
-          />
-        </svg>
-      </button>
       <div
         class="mt-2"
       >
