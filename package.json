@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "jest",
-    "lint": "eslint src"
+    "lint": "eslint -c .eslintrc.json src"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.2",
