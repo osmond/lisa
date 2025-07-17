@@ -12,7 +12,7 @@ export default function BottomNav() {
     <div className="fixed bottom-4 right-4 z-20">
       {open && (
         <div
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-30"
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-30 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
           aria-label="Navigation menu"

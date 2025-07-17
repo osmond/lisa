@@ -68,3 +68,16 @@ test('renders add room navigation link', () => {
   const addRoomLink = container.querySelector('a[href="/room/add"]')
   expect(addRoomLink).toBeInTheDocument()
 })
+
+test('overlay has blur effect', () => {
+  const { container } = render(
+    <MemoryRouter>
+      <MenuProvider>
+        <BottomNav />
+      </MenuProvider>
+    </MemoryRouter>
+  )
+  fireEvent.click(screen.getByRole('button', { name: /open navigation menu/i }))
+  const overlay = container.querySelector('div[role="dialog"]')
+  expect(overlay).toHaveClass('backdrop-blur-sm')
+})
