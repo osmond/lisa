@@ -17,7 +17,7 @@ test('all icons are aria-hidden', () => {
   })
 })
 
-test('renders gallery link', () => {
+test('renders my plants link', () => {
   const { container } = render(
     <MemoryRouter>
       <MenuProvider>
@@ -26,8 +26,8 @@ test('renders gallery link', () => {
     </MemoryRouter>
   )
   fireEvent.click(screen.getByRole('button', { name: /open navigation menu/i }))
-  const galleryLink = container.querySelector('a[href="/gallery"]')
-  expect(galleryLink).toBeInTheDocument()
+  const plantsLink = container.querySelector('a[href="/myplants"]')
+  expect(plantsLink).toBeInTheDocument()
 })
 
 test('renders timeline navigation link', () => {
