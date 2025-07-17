@@ -11,7 +11,9 @@ export default function PersistentBottomNav() {
   const { items, Icon } = menu
   const mainCount = Math.min(4, items.length)
   const mainLinks = items.slice(0, mainCount)
-  const moreItems = items.slice(mainCount)
+  const profileLink = items[3] // link shown when available
+  const moreItems = items.slice(4)
+  const ProfileIcon = profileLink?.Icon
 
 
   useEffect(() => {
@@ -48,6 +50,22 @@ export default function PersistentBottomNav() {
             </li>
           )
         })}
+        {moreItems.length > 0 && (
+          <li>
+            <button
+              type="button"
+              aria-label="Open navigation menu"
+              aria-haspopup="menu"
+              aria-expanded={open}
+              onClick={() => setOpen(true)}
+              className="flex flex-col items-center gap-1 text-gray-500"
+              title="More"
+            >
+              <Icon className="w-6 h-6" aria-hidden="true" />
+              More
+            </button>
+          </li>
+        )}
         {profileLink && (
           <li className="relative">
             <NavLink
