@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useMenu } from '../MenuContext.jsx'
+import useOverdueCount from '../hooks/useOverdueCount.js'
 
 export default function PersistentBottomNav() {
   const [open, setOpen] = useState(false)
+  const overdueCount = useOverdueCount()
   const { menu } = useMenu()
   const { items, Icon } = menu
   const mainLinks = items.slice(0, 3)
@@ -21,20 +23,28 @@ export default function PersistentBottomNav() {
   return (
     <nav className="fixed bottom-0 inset-x-0 bg-white dark:bg-gray-700 border-t border-gray-200 dark:border-gray-600 pb-safe z-20">
       <ul className="flex justify-around items-center py-2 text-xs">
-        {mainLinks.map(({ to, label, Icon: LinkIcon }) => (
-          <li key={label}>
-            <NavLink
-              to={to}
-              title={label}
-              className={({ isActive }) =>
-                `flex flex-col items-center gap-1 ${isActive ? 'text-accent' : 'text-gray-500'}`
-              }
-            >
-              <LinkIcon className="w-6 h-6" aria-hidden="true" />
-              {label}
-            </NavLink>
-          </li>
-        ))}
+        {mainLinks.map(({ to, label, Icon: LinkIcon }) => {
+          const showBadge = label === 'My Plants' && overdueCount > 0
+          return (
+            <li key={label} className="relative">
+              <NavLink
+                to={to}
+                title={label}
+                className={({ isActive }) =>
+                  `flex flex-col items-center gap-1 ${isActive ? 'text-accent' : 'text-gray-500'}`
+                }
+              >
+                <LinkIcon className="w-6 h-6" aria-hidden="true" />
+                {label}
+                {showBadge && (
+                  <span className="absolute -top-1 -right-2 bg-red-600 text-white text-[10px] rounded-full px-1">
+                    {overdueCount}
+                  </span>
+                )}
+              </NavLink>
+            </li>
+          )
+        })}
         <li>
           <button
             type="button"
