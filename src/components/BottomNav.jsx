@@ -58,6 +58,8 @@ export default function BottomNav() {
         onClick={() => setOpen(v => !v)}
         aria-label="Open navigation menu"
         title="Open navigation menu"
+        aria-expanded={open}
+        aria-haspopup="menu"
         className="bg-accent text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700"
       >
         <Icon className="w-6 h-6" aria-hidden="true" />
