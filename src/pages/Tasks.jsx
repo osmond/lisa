@@ -290,7 +290,7 @@ export default function Tasks() {
               : 'No tasks coming up.'}
           </p>
         ) : (
-          <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-5'}>
+          <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-2'}>
           {eventsByPlant.map(({ plant, list }, i) => {
             const dueWater = list.some(
               e =>
@@ -352,7 +352,7 @@ export default function Tasks() {
           return (
             <div key={dateKey}>
               <h3 className="mt-4 text-sm font-semibold text-gray-500">{heading}</h3>
-              <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-5'}>
+              <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-2'}>
                 {list.map((e, i) => {
                   const task = {
                     id: `${e.taskType}-${e.plantId}-${i}`,
