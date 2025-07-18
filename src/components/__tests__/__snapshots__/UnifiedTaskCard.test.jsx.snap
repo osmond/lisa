@@ -6,7 +6,7 @@ exports[`matches snapshot in dark mode 1`] = `
   data-testid="unified-task-card"
 >
   <div
-    class="flex items-center gap-4 p-5"
+    class="flex items-center gap-4 p-6"
   >
     <div
       class="w-16 h-16 rounded-full flex items-center justify-center shadow-sm bg-neutral-100 dark:bg-gray-700"

@@ -19,12 +19,24 @@ export default function UnifiedTaskCard({ plant, urgent = false, overdue = false
     <p className="text-timestamp text-gray-500">Last cared for {lastText}</p>
   ) : null
 
+  const waterColor = overdue
+    ? 'bg-red-100 text-red-600'
+    : urgent
+    ? 'bg-yellow-100 text-yellow-700'
+    : 'bg-water-100/90 text-water-800'
+
+  const fertColor = overdue
+    ? 'bg-red-100 text-red-600'
+    : urgent
+    ? 'bg-yellow-100 text-yellow-700'
+    : 'bg-fertilize-100/90 text-fertilize-800'
+
   return (
     <div
       data-testid="unified-task-card"
       className={`rounded-2xl border border-neutral-200 dark:border-gray-600 shadow-sm overflow-hidden ${bgClass}`}
     >
-      <div className="flex items-center gap-4 p-5">
+      <div className="flex items-center gap-4 p-6">
         <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-sm bg-neutral-100 dark:bg-gray-700">
           <img src={image} alt={name} className="w-12 h-12 rounded-full object-cover" />
         </div>
@@ -34,15 +46,12 @@ export default function UnifiedTaskCard({ plant, urgent = false, overdue = false
           </p>
           <div className="flex items-center gap-2 mt-1">
             {dueWater && (
-              <Badge Icon={Drop} colorClass="bg-water-100/90 text-water-800">
+              <Badge Icon={Drop} colorClass={waterColor}>
                 Water
               </Badge>
             )}
             {dueFertilize && (
-              <Badge
-                Icon={Sun}
-                colorClass="bg-fertilize-100/90 text-fertilize-800"
-              >
+              <Badge Icon={Sun} colorClass={fertColor}>
                 Fertilize
               </Badge>
             )}
