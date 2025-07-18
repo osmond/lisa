@@ -89,14 +89,14 @@ export default function TaskCard({
           </div>
           <div className="flex items-center gap-2 mt-1">
             <Badge
-              Icon={task.type === 'Water' ? Drop : task.type === 'Fertilize' ? Sun : undefined}
-              colorClass={
+              Icon={
                 task.type === 'Water'
-                  ? 'bg-water-100/90 text-water-800'
+                  ? Drop
                   : task.type === 'Fertilize'
-                  ? 'bg-fertilize-100/90 text-fertilize-800'
-                  : 'bg-healthy-100/90 text-healthy-800'
+                  ? Sun
+                  : undefined
               }
+              variant={completed ? 'complete' : 'info'}
             >
               {completed
                 ? task.type === 'Water'
