@@ -2,23 +2,23 @@
   {
     "id": 1,
     "name": "Pothos",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/24339002/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/24339002/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24339002/medium.jpeg",
         "caption": "Pothos photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24339002/medium.jpeg",
         "caption": "Pothos photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24339002/medium.jpeg",
         "caption": "Pothos photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24339002/medium.jpeg",
         "caption": "Pothos photo 4"
       }
     ],
@@ -36,23 +36,23 @@
   {
     "id": 2,
     "name": "Begonia",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/439386/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/439386/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/439386/medium.jpg",
         "caption": "Begonia photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/439386/medium.jpg",
         "caption": "Begonia photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/439386/medium.jpg",
         "caption": "Begonia photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/439386/medium.jpg",
         "caption": "Begonia photo 4"
       }
     ],
@@ -70,23 +70,23 @@
   {
     "id": 3,
     "name": "Azalea",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/20430629/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/20430629/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20430629/medium.jpg",
         "caption": "Azalea photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20430629/medium.jpg",
         "caption": "Azalea photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20430629/medium.jpg",
         "caption": "Azalea photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20430629/medium.jpg",
         "caption": "Azalea photo 4"
       }
     ],
@@ -104,23 +104,23 @@
   {
     "id": 4,
     "name": "Hydrangea",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/29279055/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/29279055/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29279055/medium.jpeg",
         "caption": "Hydrangea photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29279055/medium.jpeg",
         "caption": "Hydrangea photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29279055/medium.jpeg",
         "caption": "Hydrangea photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29279055/medium.jpeg",
         "caption": "Hydrangea photo 4"
       }
     ],
@@ -138,23 +138,23 @@
   {
     "id": 5,
     "name": "Clematis",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/138693139/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/138693139/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/138693139/medium.jpeg",
         "caption": "Clematis photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/138693139/medium.jpeg",
         "caption": "Clematis photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/138693139/medium.jpeg",
         "caption": "Clematis photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/138693139/medium.jpeg",
         "caption": "Clematis photo 4"
       }
     ],
@@ -172,23 +172,23 @@
   {
     "id": 6,
     "name": "Gaillardia",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/34232708/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/34232708/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/34232708/medium.jpg",
         "caption": "Gaillardia photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/34232708/medium.jpg",
         "caption": "Gaillardia photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/34232708/medium.jpg",
         "caption": "Gaillardia photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/34232708/medium.jpg",
         "caption": "Gaillardia photo 4"
       }
     ],
@@ -206,23 +206,23 @@
   {
     "id": 7,
     "name": "Black-eyed Susan",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/340224811/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/340224811/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/340224811/medium.jpg",
         "caption": "Black-eyed Susan photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/340224811/medium.jpg",
         "caption": "Black-eyed Susan photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/340224811/medium.jpg",
         "caption": "Black-eyed Susan photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/340224811/medium.jpg",
         "caption": "Black-eyed Susan photo 4"
       }
     ],
@@ -240,23 +240,23 @@
   {
     "id": 8,
     "name": "Sunkiss",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/82166001/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/82166001/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/82166001/medium.jpg",
         "caption": "Sunkiss photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/82166001/medium.jpg",
         "caption": "Sunkiss photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/82166001/medium.jpg",
         "caption": "Sunkiss photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/82166001/medium.jpg",
         "caption": "Sunkiss photo 4"
       }
     ],
@@ -274,23 +274,23 @@
   {
     "id": 9,
     "name": "African Marigold",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/1471161/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/1471161/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/1471161/medium.jpg",
         "caption": "African Marigold photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/1471161/medium.jpg",
         "caption": "African Marigold photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/1471161/medium.jpg",
         "caption": "African Marigold photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/1471161/medium.jpg",
         "caption": "African Marigold photo 4"
       }
     ],
@@ -308,23 +308,23 @@
   {
     "id": 10,
     "name": "Geraniums",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/229075348/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/229075348/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/229075348/medium.jpg",
         "caption": "Geraniums photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/229075348/medium.jpg",
         "caption": "Geraniums photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/229075348/medium.jpg",
         "caption": "Geraniums photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/229075348/medium.jpg",
         "caption": "Geraniums photo 4"
       }
     ],
@@ -342,23 +342,23 @@
   {
     "id": 11,
     "name": "Gladiolus",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/11/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/11/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/126892897/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/126892897/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/11/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/126892897/medium.jpeg",
         "caption": "Gladiolus photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/11/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/126892897/medium.jpeg",
         "caption": "Gladiolus photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/11/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/126892897/medium.jpeg",
         "caption": "Gladiolus photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/11/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/126892897/medium.jpeg",
         "caption": "Gladiolus photo 4"
       }
     ],
@@ -375,23 +375,23 @@
   {
     "id": 12,
     "name": "Snapdragons",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/12/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/12/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/20210365/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/20210365/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/12/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20210365/medium.jpg",
         "caption": "Snapdragons photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/12/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20210365/medium.jpg",
         "caption": "Snapdragons photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/12/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20210365/medium.jpg",
         "caption": "Snapdragons photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/12/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20210365/medium.jpg",
         "caption": "Snapdragons photo 4"
       }
     ],
@@ -408,23 +408,23 @@
   {
     "id": 13,
     "name": "Primrose",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/13/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/13/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/59736705/square.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/59736705/square.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/13/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/59736705/square.jpg",
         "caption": "Primrose photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/13/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/59736705/square.jpg",
         "caption": "Primrose photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/13/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/59736705/square.jpg",
         "caption": "Primrose photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/13/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/59736705/square.jpg",
         "caption": "Primrose photo 4"
       }
     ],
@@ -441,23 +441,23 @@
   {
     "id": 14,
     "name": "Tobacco",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/14/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/14/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/134247814/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/134247814/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/14/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/134247814/medium.jpg",
         "caption": "Tobacco photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/14/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/134247814/medium.jpg",
         "caption": "Tobacco photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/14/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/134247814/medium.jpg",
         "caption": "Tobacco photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/14/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/134247814/medium.jpg",
         "caption": "Tobacco photo 4"
       }
     ],
@@ -474,23 +474,23 @@
   {
     "id": 15,
     "name": "Zinnia",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/15/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/15/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/116385724/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/116385724/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/15/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/116385724/medium.jpeg",
         "caption": "Zinnia photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/15/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/116385724/medium.jpeg",
         "caption": "Zinnia photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/15/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/116385724/medium.jpeg",
         "caption": "Zinnia photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/15/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/116385724/medium.jpeg",
         "caption": "Zinnia photo 4"
       }
     ],
@@ -507,23 +507,23 @@
   {
     "id": 16,
     "name": "Sunflower",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/16/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/16/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/75790/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/75790/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/16/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/75790/medium.jpg",
         "caption": "Sunflower photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/16/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/75790/medium.jpg",
         "caption": "Sunflower photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/16/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/75790/medium.jpg",
         "caption": "Sunflower photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/16/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/75790/medium.jpg",
         "caption": "Sunflower photo 4"
       }
     ],
@@ -540,23 +540,23 @@
   {
     "id": 17,
     "name": "Christmas Cactus",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/17/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/17/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/105002993/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/105002993/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/17/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/105002993/medium.jpeg",
         "caption": "Christmas Cactus photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/17/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/105002993/medium.jpeg",
         "caption": "Christmas Cactus photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/17/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/105002993/medium.jpeg",
         "caption": "Christmas Cactus photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/17/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/105002993/medium.jpeg",
         "caption": "Christmas Cactus photo 4"
       }
     ],
@@ -573,23 +573,23 @@
   {
     "id": 18,
     "name": "Bunny Ear Cactus White",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/18/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/18/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/2526018/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/2526018/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/18/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/2526018/medium.jpg",
         "caption": "Bunny Ear Cactus White photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/18/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/2526018/medium.jpg",
         "caption": "Bunny Ear Cactus White photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/18/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/2526018/medium.jpg",
         "caption": "Bunny Ear Cactus White photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/18/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/2526018/medium.jpg",
         "caption": "Bunny Ear Cactus White photo 4"
       }
     ],
@@ -606,23 +606,23 @@
   {
     "id": 19,
     "name": "Aloe Vera",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/19/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/19/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/86566147/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/86566147/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/19/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/86566147/medium.jpg",
         "caption": "Aloe Vera photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/19/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/86566147/medium.jpg",
         "caption": "Aloe Vera photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/19/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/86566147/medium.jpg",
         "caption": "Aloe Vera photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/19/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/86566147/medium.jpg",
         "caption": "Aloe Vera photo 4"
       }
     ],
@@ -639,23 +639,23 @@
   {
     "id": 20,
     "name": "Lime Tree",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/20/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/20/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/22878295/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/22878295/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/22878295/medium.jpeg",
         "caption": "Lime Tree photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/22878295/medium.jpeg",
         "caption": "Lime Tree photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/22878295/medium.jpeg",
         "caption": "Lime Tree photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/22878295/medium.jpeg",
         "caption": "Lime Tree photo 4"
       }
     ],
@@ -672,23 +672,23 @@
   {
     "id": 21,
     "name": "Jade Plant",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/21/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/21/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/120845281/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/120845281/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/21/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/120845281/medium.jpeg",
         "caption": "Jade Plant photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/21/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/120845281/medium.jpeg",
         "caption": "Jade Plant photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/21/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/120845281/medium.jpeg",
         "caption": "Jade Plant photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/21/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/120845281/medium.jpeg",
         "caption": "Jade Plant photo 4"
       }
     ],
@@ -705,23 +705,23 @@
   {
     "id": 22,
     "name": "ZZ Plant",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/22/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/22/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/10802854/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/10802854/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/22/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10802854/medium.jpg",
         "caption": "ZZ Plant photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/22/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10802854/medium.jpg",
         "caption": "ZZ Plant photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/22/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10802854/medium.jpg",
         "caption": "ZZ Plant photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/22/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10802854/medium.jpg",
         "caption": "ZZ Plant photo 4"
       }
     ],
@@ -739,23 +739,23 @@
   {
     "id": 23,
     "name": "Fiddle Leaf Fig Tree",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/23/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/23/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/112410547/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/112410547/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/23/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/112410547/medium.jpeg",
         "caption": "Fiddle Leaf Fig Tree photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/23/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/112410547/medium.jpeg",
         "caption": "Fiddle Leaf Fig Tree photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/23/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/112410547/medium.jpeg",
         "caption": "Fiddle Leaf Fig Tree photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/23/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/112410547/medium.jpeg",
         "caption": "Fiddle Leaf Fig Tree photo 4"
       }
     ],
@@ -772,23 +772,23 @@
   {
     "id": 24,
     "name": "Coffee",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/24/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/24/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/62723485/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/62723485/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/62723485/medium.jpg",
         "caption": "Coffee photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/62723485/medium.jpg",
         "caption": "Coffee photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/62723485/medium.jpg",
         "caption": "Coffee photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/62723485/medium.jpg",
         "caption": "Coffee photo 4"
       }
     ],
@@ -805,23 +805,23 @@
   {
     "id": 25,
     "name": "Croton",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/25/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/25/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/487625794/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/487625794/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/25/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/487625794/medium.jpg",
         "caption": "Croton photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/25/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/487625794/medium.jpg",
         "caption": "Croton photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/25/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/487625794/medium.jpg",
         "caption": "Croton photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/25/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/487625794/medium.jpg",
         "caption": "Croton photo 4"
       }
     ],
@@ -838,23 +838,23 @@
   {
     "id": 26,
     "name": "Elephant Ears",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/26/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/26/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/254288383/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/254288383/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/26/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/254288383/medium.jpeg",
         "caption": "Elephant Ears photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/26/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/254288383/medium.jpeg",
         "caption": "Elephant Ears photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/26/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/254288383/medium.jpeg",
         "caption": "Elephant Ears photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/26/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/254288383/medium.jpeg",
         "caption": "Elephant Ears photo 4"
       }
     ],
@@ -871,23 +871,23 @@
   {
     "id": 27,
     "name": "Golden Pothos",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/27/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/27/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/463614054/square.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/463614054/square.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/27/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/463614054/square.jpg",
         "caption": "Golden Pothos photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/27/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/463614054/square.jpg",
         "caption": "Golden Pothos photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/27/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/463614054/square.jpg",
         "caption": "Golden Pothos photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/27/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/463614054/square.jpg",
         "caption": "Golden Pothos photo 4"
       }
     ],
@@ -904,23 +904,23 @@
   {
     "id": 28,
     "name": "Peace Lily",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/28/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/28/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/876072/medium.JPG",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/876072/medium.JPG",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/28/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/876072/medium.JPG",
         "caption": "Peace Lily photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/28/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/876072/medium.JPG",
         "caption": "Peace Lily photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/28/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/876072/medium.JPG",
         "caption": "Peace Lily photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/28/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/876072/medium.JPG",
         "caption": "Peace Lily photo 4"
       }
     ],
@@ -938,23 +938,23 @@
   {
     "id": 29,
     "name": "Snake Plant",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/29/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/29/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/50142932/square.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/50142932/square.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/50142932/square.jpeg",
         "caption": "Snake Plant photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/50142932/square.jpeg",
         "caption": "Snake Plant photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/50142932/square.jpeg",
         "caption": "Snake Plant photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/50142932/square.jpeg",
         "caption": "Snake Plant photo 4"
       }
     ],
@@ -972,23 +972,23 @@
   {
     "id": 30,
     "name": "Snake Plant Norma",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/30/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/30/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/55944984/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/55944984/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/30/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/55944984/medium.jpg",
         "caption": "Snake Plant Norma photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/30/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/55944984/medium.jpg",
         "caption": "Snake Plant Norma photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/30/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/55944984/medium.jpg",
         "caption": "Snake Plant Norma photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/30/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/55944984/medium.jpg",
         "caption": "Snake Plant Norma photo 4"
       }
     ],
@@ -1005,23 +1005,23 @@
   {
     "id": 31,
     "name": "Strawberries",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/31/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/31/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/148979348/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/148979348/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/31/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/148979348/medium.jpeg",
         "caption": "Strawberries photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/31/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/148979348/medium.jpeg",
         "caption": "Strawberries photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/31/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/148979348/medium.jpeg",
         "caption": "Strawberries photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/31/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/148979348/medium.jpeg",
         "caption": "Strawberries photo 4"
       }
     ],
@@ -1038,23 +1038,23 @@
   {
     "id": 32,
     "name": "Lettuce",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/32/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/32/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/82160203/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/82160203/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/32/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/82160203/medium.jpeg",
         "caption": "Lettuce photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/32/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/82160203/medium.jpeg",
         "caption": "Lettuce photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/32/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/82160203/medium.jpeg",
         "caption": "Lettuce photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/32/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/82160203/medium.jpeg",
         "caption": "Lettuce photo 4"
       }
     ],
@@ -1071,23 +1071,23 @@
   {
     "id": 33,
     "name": "Lotus",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/33/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/33/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/252085655/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/252085655/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/33/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/252085655/medium.jpeg",
         "caption": "Lotus photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/33/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/252085655/medium.jpeg",
         "caption": "Lotus photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/33/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/252085655/medium.jpeg",
         "caption": "Lotus photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/33/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/252085655/medium.jpeg",
         "caption": "Lotus photo 4"
       }
     ],
@@ -1104,23 +1104,23 @@
   {
     "id": 34,
     "name": "Venus Fly Trap",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/34/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/34/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/108567955/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/108567955/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/34/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/108567955/medium.jpg",
         "caption": "Venus Fly Trap photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/34/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/108567955/medium.jpg",
         "caption": "Venus Fly Trap photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/34/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/108567955/medium.jpg",
         "caption": "Venus Fly Trap photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/34/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/108567955/medium.jpg",
         "caption": "Venus Fly Trap photo 4"
       }
     ],
@@ -1138,23 +1138,23 @@
   {
     "id": 35,
     "name": "Bleeding Heart",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/35/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/35/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/24449418/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/24449418/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/35/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24449418/medium.jpg",
         "caption": "Bleeding Heart photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/35/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24449418/medium.jpg",
         "caption": "Bleeding Heart photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/35/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24449418/medium.jpg",
         "caption": "Bleeding Heart photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/35/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24449418/medium.jpg",
         "caption": "Bleeding Heart photo 4"
       }
     ],
@@ -1171,23 +1171,23 @@
   {
     "id": 36,
     "name": "Hibiscus",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/36/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/36/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/224058295/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/224058295/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/36/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/224058295/medium.jpeg",
         "caption": "Hibiscus photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/36/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/224058295/medium.jpeg",
         "caption": "Hibiscus photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/36/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/224058295/medium.jpeg",
         "caption": "Hibiscus photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/36/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/224058295/medium.jpeg",
         "caption": "Hibiscus photo 4"
       }
     ],
@@ -1204,23 +1204,23 @@
   {
     "id": 37,
     "name": "Shasta Daisy",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/37/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/37/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/35190474/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/35190474/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/37/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/35190474/medium.jpg",
         "caption": "Shasta Daisy photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/37/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/35190474/medium.jpg",
         "caption": "Shasta Daisy photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/37/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/35190474/medium.jpg",
         "caption": "Shasta Daisy photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/37/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/35190474/medium.jpg",
         "caption": "Shasta Daisy photo 4"
       }
     ],
@@ -1237,23 +1237,23 @@
   {
     "id": 38,
     "name": "Foxglove",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/38/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/38/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/10615/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/10615/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/38/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10615/medium.jpg",
         "caption": "Foxglove photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/38/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10615/medium.jpg",
         "caption": "Foxglove photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/38/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10615/medium.jpg",
         "caption": "Foxglove photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/38/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10615/medium.jpg",
         "caption": "Foxglove photo 4"
       }
     ],
@@ -1270,23 +1270,23 @@
   {
     "id": 39,
     "name": "Periwinkle",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/39/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/39/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/31355205/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/31355205/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/39/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/31355205/medium.jpg",
         "caption": "Periwinkle photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/39/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/31355205/medium.jpg",
         "caption": "Periwinkle photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/39/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/31355205/medium.jpg",
         "caption": "Periwinkle photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/39/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/31355205/medium.jpg",
         "caption": "Periwinkle photo 4"
       }
     ],
@@ -1303,23 +1303,23 @@
   {
     "id": 40,
     "name": "Wandering Jew",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/40/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/40/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/448953057/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/448953057/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/40/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/448953057/medium.jpg",
         "caption": "Wandering Jew photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/40/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/448953057/medium.jpg",
         "caption": "Wandering Jew photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/40/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/448953057/medium.jpg",
         "caption": "Wandering Jew photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/40/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/448953057/medium.jpg",
         "caption": "Wandering Jew photo 4"
       }
     ],
@@ -1337,23 +1337,23 @@
   {
     "id": 41,
     "name": "Bee Balm",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/41/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/41/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/29047197/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/29047197/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/41/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29047197/medium.jpeg",
         "caption": "Bee Balm photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/41/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29047197/medium.jpeg",
         "caption": "Bee Balm photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/41/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29047197/medium.jpeg",
         "caption": "Bee Balm photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/41/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29047197/medium.jpeg",
         "caption": "Bee Balm photo 4"
       }
     ],
@@ -1370,23 +1370,23 @@
   {
     "id": 42,
     "name": "Astilbe",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/42/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/42/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/24339002/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/24339002/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/42/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24339002/medium.jpeg",
         "caption": "Astilbe photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/42/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24339002/medium.jpeg",
         "caption": "Astilbe photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/42/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24339002/medium.jpeg",
         "caption": "Astilbe photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/42/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24339002/medium.jpeg",
         "caption": "Astilbe photo 4"
       }
     ],
@@ -1403,23 +1403,23 @@
   {
     "id": 43,
     "name": "Lupine",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/43/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/43/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/439386/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/439386/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/43/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/439386/medium.jpg",
         "caption": "Lupine photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/43/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/439386/medium.jpg",
         "caption": "Lupine photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/43/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/439386/medium.jpg",
         "caption": "Lupine photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/43/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/439386/medium.jpg",
         "caption": "Lupine photo 4"
       }
     ],
@@ -1436,23 +1436,23 @@
   {
     "id": 44,
     "name": "Monstera",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/44/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/44/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/20430629/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/20430629/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/44/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20430629/medium.jpg",
         "caption": "Monstera photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/44/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20430629/medium.jpg",
         "caption": "Monstera photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/44/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20430629/medium.jpg",
         "caption": "Monstera photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/44/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20430629/medium.jpg",
         "caption": "Monstera photo 4"
       }
     ],
@@ -1470,23 +1470,23 @@
   {
     "id": 45,
     "name": "Lil Fiddle",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/45/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/45/medium.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/29279055/medium.jpeg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/29279055/medium.jpeg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/45/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29279055/medium.jpeg",
         "caption": "Lil Fiddle photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/45/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29279055/medium.jpeg",
         "caption": "Lil Fiddle photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/45/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29279055/medium.jpeg",
         "caption": "Lil Fiddle photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/45/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29279055/medium.jpeg",
         "caption": "Lil Fiddle photo 4"
       }
     ],
