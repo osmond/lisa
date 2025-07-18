@@ -22,20 +22,11 @@ jest.mock('../RoomContext.jsx', () => ({
   useRooms: () => ({ rooms: [] }),
 }))
 
-const routesWithAddLink = [
-  '/',
-  '/myplants',
-  '/add',
-  '/profile',
-  '/timeline',
-  '/tasks',
-  '/nonexistent',
-]
-
-const plantRoutes = ['/plant/1']
+const showRoutes = ['/myplants', '/room/office', '/plant/1']
+const hideRoutes = ['/', '/add', '/profile', '/timeline', '/tasks']
 
 describe('Menu contents based on route', () => {
-  test.each(routesWithAddLink)('shows Add Plant and Add Room links on %s', route => {
+  test.each(showRoutes)('shows Add Plant and Add Room links on %s', route => {
     render(
       <MemoryRouter initialEntries={[route]}>
         <App />
@@ -50,16 +41,13 @@ describe('Menu contents based on route', () => {
     expect(roomLinks.length).toBeGreaterThan(0)
   })
 
-  test.each(plantRoutes)('shows Add Plant and Add Room links on %s', route => {
+  test.each(hideRoutes)('does not render FAB on %s', route => {
     render(
       <MemoryRouter initialEntries={[route]}>
         <App />
       </MemoryRouter>
     )
 
-    const button = screen.getByRole('button', { name: /open create menu/i })
-    fireEvent.click(button)
-    expect(screen.getByRole('link', { name: /add plant/i })).toBeInTheDocument()
-    expect(screen.getAllByRole('link', { name: /add room/i }).length).toBeGreaterThan(0)
+    expect(screen.queryByRole('button', { name: /open create menu/i })).toBeNull()
   })
 })

@@ -1,9 +1,20 @@
 import { useState, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { Plus } from 'phosphor-react'
 
 export default function CreateFab() {
   const [open, setOpen] = useState(false)
+  const { pathname } = useLocation()
+
+  const isAddOrEdit = pathname.includes('/add') || pathname.includes('/edit')
+  const show =
+    !isAddOrEdit &&
+    (pathname === '/myplants' ||
+      /^\/room\/[^/]+$/.test(pathname) ||
+      /^\/room\/[^/]+\/plant\//.test(pathname) ||
+      /^\/plant\//.test(pathname))
+
+  if (!show) return null
 
   useEffect(() => {
     if (!open) return
@@ -20,7 +31,7 @@ export default function CreateFab() {
   ]
 
   return (
-    <div className="fixed bottom-4 right-20 z-30">
+    <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-30">
       {open && (
         <div
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-30 backdrop-blur-sm"
