@@ -10,7 +10,6 @@ import {
   Image,
   Note,
   Info,
-  ArrowLeft,
   CaretDown,
   CaretRight,
 } from 'phosphor-react'
@@ -134,10 +133,6 @@ export default function PlantDetail() {
     navigate(`/plant/${plant.id}/edit`)
   }
 
-  const handleBack = () => {
-    const room = encodeURIComponent(plant.room || '')
-    navigate(`/room/${room}`)
-  }
 
   // Menu is now consistent across pages so no override here
 
@@ -191,14 +186,6 @@ export default function PlantDetail() {
             className="w-full h-64 object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" aria-hidden="true"></div>
-          <button
-            type="button"
-            onClick={handleBack}
-            aria-label="Back"
-            className="absolute top-2 left-2 bg-white bg-opacity-70 rounded p-2 text-sm"
-          >
-            <ArrowLeft className="w-4 h-4" aria-hidden="true" />
-          </button>
           <div className="absolute bottom-3 left-4 text-white drop-shadow">
             <h2 className="text-2xl font-semibold font-headline">{plant.name}</h2>
             {plant.nickname && (
