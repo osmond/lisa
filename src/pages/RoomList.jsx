@@ -83,7 +83,7 @@ export default function RoomList() {
                     src={src}
                     alt={plant.name}
                     loading="lazy"
-                    className="w-full h-40 object-cover rounded-lg"
+                    className="plant-thumb"
                   />
                   <span className="absolute top-1 left-1 bg-black/60 text-white text-xs px-1 rounded">
                     {plant.name}
