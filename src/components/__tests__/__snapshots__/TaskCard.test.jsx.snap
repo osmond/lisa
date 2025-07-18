@@ -6,7 +6,7 @@ exports[`matches snapshot in dark mode 1`] = `
 >
   <div
     aria-label="Task card for Monstera"
-    class="relative overflow-hidden min-h-[130px] rounded-xl"
+    class="relative overflow-hidden rounded-xl"
     data-testid="task-card"
     tabindex="0"
   >
