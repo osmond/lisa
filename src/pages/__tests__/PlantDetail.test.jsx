@@ -112,8 +112,8 @@ test('fertilizing ring is displayed', () => {
     </MenuProvider>
   )
 
-  const ring = screen.getByTestId('watering-ring')
-  expect(ring.querySelectorAll('svg')).toHaveLength(2)
+  const rings = screen.getByTestId('progress-rings')
+  expect(rings.querySelectorAll('svg')).toHaveLength(2)
 })
 
 test('percent text adopts urgency color', () => {
