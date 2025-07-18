@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Plus } from 'phosphor-react'
+import { Plus, Leaf, Door } from 'phosphor-react'
 
 export default function CreateFab() {
   const [open, setOpen] = useState(false)
@@ -15,8 +15,8 @@ export default function CreateFab() {
   }, [open])
 
   const items = [
-    { to: '/add', label: 'Add Plant' },
-    { to: '/room/add', label: 'Add Room' },
+    { to: '/add', label: 'Add Plant', Icon: Leaf },
+    { to: '/room/add', label: 'Add Room', Icon: Door },
   ]
 
   return (
@@ -30,7 +30,7 @@ export default function CreateFab() {
           onClick={() => setOpen(false)}
         >
           <ul
-            className="relative bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 space-y-4 bloom-pop text-lg"
+            className="relative bg-white dark:bg-gray-700 rounded-xl shadow-xl p-8 space-y-4 animate-fade-in-up"
             onClick={e => e.stopPropagation()}
           >
             <button
@@ -41,7 +41,7 @@ export default function CreateFab() {
             >
               &times;
             </button>
-            {items.map(({ to, label }) => (
+            {items.map(({ to, label, Icon }) => (
               <li key={label}>
                 <NavLink
                   to={to}
@@ -50,6 +50,7 @@ export default function CreateFab() {
                   className="flex items-center gap-3 hover:text-accent"
                 >
                   <Plus className="w-5 h-5" aria-hidden="true" />
+                  <Icon className="w-5 h-5" aria-hidden="true" />
                   {label}
                 </NavLink>
               </li>
@@ -64,9 +65,9 @@ export default function CreateFab() {
         title="Open create menu"
         aria-expanded={open}
         aria-haspopup="menu"
-        className="bg-accent text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700"
+        className={`bg-accent text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition-transform ${open ? 'ring-pulse' : ''}`}
       >
-        <Plus className="w-6 h-6" aria-hidden="true" />
+        <Plus className={`w-6 h-6 transition-transform ${open ? 'rotate-45' : ''}`} aria-hidden="true" />
       </button>
     </div>
   )
