@@ -1,459 +1,1421 @@
 [
   {
     "id": 1,
-    "name": "Monstera",
-    "nickname": "Swiss Cheese",
+    "name": "Pothos",
     "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
     "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
     "photos": [
       {
         "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
-        "caption": "Monstera photo 1"
+        "caption": "Pothos photo 1"
       },
       {
         "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
-        "caption": "Monstera photo 2"
+        "caption": "Pothos photo 2"
       },
       {
         "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
-        "caption": "Monstera photo 3"
+        "caption": "Pothos photo 3"
       },
       {
         "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
-        "caption": "Monstera photo 4"
+        "caption": "Pothos photo 4"
       }
     ],
-    "lastWatered": "2025-07-01",
-    "nextWater": "2025-07-08",
-    "lastFertilized": "2025-06-01",
-    "nextFertilize": "2025-07-01",
-    "room": "Living Room",
-    "urgency": "high",
-    "light": "Bright indirect",
-    "humidity": "High",
+    "lastWatered": "2025-07-18",
+    "nextWater": "2025-07-25",
+    "lastFertilized": "2025-07-18",
+    "nextFertilize": "2025-08-17",
+    "light": "Low to medium",
+    "humidity": "Average",
     "difficulty": "Easy",
-    "activity": [
-      "Watered on 2025-07-07",
-      "Rotated on 2025-07-05",
-      "Fertilized on 2025-07-01",
-      "Watered heavily on 2025-06-30"
-    ],
-    "careLog": [
-      {
-        "date": "2025-07-05",
-        "type": "Watered",
-        "note": "minor"
-      },
-      {
-        "date": "2025-06-20",
-        "type": "Fertilized",
-        "note": "50% strength"
-      }
-    ],
-    "notes": "Doing well",
-    "advancedCare": "Propagate in water"
+    "room": "Living Room",
+    "urgency": "high"
   },
   {
     "id": 2,
-    "name": "Snake Plant",
-    "nickname": "Mother-in-Law's Tongue",
+    "name": "Begonia",
     "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
     "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
     "photos": [
       {
         "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
-        "caption": "Snake Plant photo 1"
+        "caption": "Begonia photo 1"
       },
       {
         "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
-        "caption": "Snake Plant photo 2"
+        "caption": "Begonia photo 2"
       },
       {
         "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
-        "caption": "Snake Plant photo 3"
+        "caption": "Begonia photo 3"
       },
       {
         "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
-        "caption": "Snake Plant photo 4"
+        "caption": "Begonia photo 4"
       }
     ],
-    "lastWatered": "2025-07-02",
-    "nextWater": "2025-07-09",
-    "lastFertilized": "2025-06-15",
-    "nextFertilize": "2025-07-10",
-    "room": "Bedroom",
-    "urgency": "low",
-    "light": "Low to bright indirect",
+    "lastWatered": "2025-07-17",
+    "nextWater": "2025-07-24",
+    "lastFertilized": "0000-00-00",
+    "nextFertilize": "",
+    "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "activity": [
-      "Watered on 2025-07-10",
-      "Watered on 2025-06-25",
-      "Fertilized on 2025-06-15"
-    ],
-    "careLog": [
-      {
-        "date": "2025-06-20",
-        "type": "Fertilized",
-        "note": "cactus feed"
-      }
-    ],
-    "notes": "Prefers dry soil",
-    "advancedCare": "Allow soil to dry between waterings"
+    "room": "Living Room",
+    "urgency": "high"
   },
   {
     "id": 3,
-    "name": "Fiddle Leaf Fig",
-    "nickname": "Fiddle",
+    "name": "Azalea",
     "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
     "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
     "photos": [
       {
         "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
-        "caption": "Fiddle Leaf Fig photo 1"
+        "caption": "Azalea photo 1"
       },
       {
         "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
-        "caption": "Fiddle Leaf Fig photo 2"
+        "caption": "Azalea photo 2"
       },
       {
         "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
-        "caption": "Fiddle Leaf Fig photo 3"
+        "caption": "Azalea photo 3"
       },
       {
         "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
-        "caption": "Fiddle Leaf Fig photo 4"
+        "caption": "Azalea photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-16",
+    "nextWater": "2025-07-23",
+    "lastFertilized": "0000-00-00",
+    "nextFertilize": "",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 4,
+    "name": "Hydrangea",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
+        "caption": "Hydrangea photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
+        "caption": "Hydrangea photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
+        "caption": "Hydrangea photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
+        "caption": "Hydrangea photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-16",
+    "nextWater": "2025-07-23",
+    "lastFertilized": "0000-00-00",
+    "nextFertilize": "",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 5,
+    "name": "Clematis",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
+        "caption": "Clematis photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
+        "caption": "Clematis photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
+        "caption": "Clematis photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
+        "caption": "Clematis photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-14",
+    "nextWater": "2025-07-21",
+    "lastFertilized": "0000-00-00",
+    "nextFertilize": "",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 6,
+    "name": "Gaillardia",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+        "caption": "Gaillardia photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+        "caption": "Gaillardia photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+        "caption": "Gaillardia photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+        "caption": "Gaillardia photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-14",
+    "nextWater": "2025-07-21",
+    "lastFertilized": "0000-00-00",
+    "nextFertilize": "",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 7,
+    "name": "Black-eyed Susan",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
+        "caption": "Black-eyed Susan photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
+        "caption": "Black-eyed Susan photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
+        "caption": "Black-eyed Susan photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
+        "caption": "Black-eyed Susan photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-14",
+    "nextWater": "2025-07-21",
+    "lastFertilized": "0000-00-00",
+    "nextFertilize": "",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 8,
+    "name": "Sunkiss",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+        "caption": "Sunkiss photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+        "caption": "Sunkiss photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+        "caption": "Sunkiss photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+        "caption": "Sunkiss photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-14",
+    "nextWater": "2025-07-21",
+    "lastFertilized": "0000-00-00",
+    "nextFertilize": "",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 9,
+    "name": "African Marigold",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
+        "caption": "African Marigold photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
+        "caption": "African Marigold photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
+        "caption": "African Marigold photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
+        "caption": "African Marigold photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-18",
+    "nextWater": "2025-07-25",
+    "lastFertilized": "0000-00-00",
+    "nextFertilize": "",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 10,
+    "name": "Geraniums",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
+        "caption": "Geraniums photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
+        "caption": "Geraniums photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
+        "caption": "Geraniums photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
+        "caption": "Geraniums photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-16",
+    "nextWater": "2025-07-23",
+    "lastFertilized": "0000-00-00",
+    "nextFertilize": "",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 11,
+    "name": "Gladiolus",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/11/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/11/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/11/medium.jpg",
+        "caption": "Gladiolus photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/11/medium.jpg",
+        "caption": "Gladiolus photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/11/medium.jpg",
+        "caption": "Gladiolus photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/11/medium.jpg",
+        "caption": "Gladiolus photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-15",
+    "nextWater": "2025-07-22",
+    "lastFertilized": "0000-00-00",
+    "nextFertilize": "",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 12,
+    "name": "Snapdragons",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/12/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/12/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/12/medium.jpg",
+        "caption": "Snapdragons photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/12/medium.jpg",
+        "caption": "Snapdragons photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/12/medium.jpg",
+        "caption": "Snapdragons photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/12/medium.jpg",
+        "caption": "Snapdragons photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-15",
+    "nextWater": "2025-07-22",
+    "lastFertilized": "0000-00-00",
+    "nextFertilize": "",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 13,
+    "name": "Primrose",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/13/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/13/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/13/medium.jpg",
+        "caption": "Primrose photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/13/medium.jpg",
+        "caption": "Primrose photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/13/medium.jpg",
+        "caption": "Primrose photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/13/medium.jpg",
+        "caption": "Primrose photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-12",
+    "nextWater": "2025-07-19",
+    "lastFertilized": "0000-00-00",
+    "nextFertilize": "",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 14,
+    "name": "Tobacco",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/14/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/14/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/14/medium.jpg",
+        "caption": "Tobacco photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/14/medium.jpg",
+        "caption": "Tobacco photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/14/medium.jpg",
+        "caption": "Tobacco photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/14/medium.jpg",
+        "caption": "Tobacco photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-14",
+    "nextWater": "2025-07-21",
+    "lastFertilized": "0000-00-00",
+    "nextFertilize": "",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 15,
+    "name": "Zinnia",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/15/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/15/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/15/medium.jpg",
+        "caption": "Zinnia photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/15/medium.jpg",
+        "caption": "Zinnia photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/15/medium.jpg",
+        "caption": "Zinnia photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/15/medium.jpg",
+        "caption": "Zinnia photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-15",
+    "nextWater": "2025-07-22",
+    "lastFertilized": "0000-00-00",
+    "nextFertilize": "",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 16,
+    "name": "Sunflower",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/16/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/16/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/16/medium.jpg",
+        "caption": "Sunflower photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/16/medium.jpg",
+        "caption": "Sunflower photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/16/medium.jpg",
+        "caption": "Sunflower photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/16/medium.jpg",
+        "caption": "Sunflower photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-11",
+    "nextWater": "2025-07-18",
+    "lastFertilized": "0000-00-00",
+    "nextFertilize": "",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 17,
+    "name": "Christmas Cactus",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/17/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/17/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/17/medium.jpg",
+        "caption": "Christmas Cactus photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/17/medium.jpg",
+        "caption": "Christmas Cactus photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/17/medium.jpg",
+        "caption": "Christmas Cactus photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/17/medium.jpg",
+        "caption": "Christmas Cactus photo 4"
       }
     ],
     "lastWatered": "2025-07-09",
     "nextWater": "2025-07-16",
     "lastFertilized": "2025-06-25",
     "nextFertilize": "2025-07-25",
-    "room": "Office",
-    "urgency": "medium",
-    "light": "Bright direct",
-    "humidity": "Moderate",
-    "difficulty": "Medium",
-    "activity": [
-      "Wiped leaves on 2025-07-08",
-      "Watered on 2025-07-03",
-      "Fertilized on 2025-06-25"
-    ],
-    "notes": "Rotate regularly",
-    "advancedCare": "Sensitive to drafts"
-  },
-  {
-    "id": 4,
-    "name": "Peace Lily",
-    "nickname": "Lily",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
-    "photos": [
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
-        "caption": "Peace Lily photo 1"
-      },
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
-        "caption": "Peace Lily photo 2"
-      },
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
-        "caption": "Peace Lily photo 3"
-      },
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
-        "caption": "Peace Lily photo 4"
-      }
-    ],
-    "lastWatered": "2025-07-11",
-    "nextWater": "2025-07-15",
-    "lastFertilized": "2025-07-01",
-    "nextFertilize": "2025-08-01",
-    "room": "Bathroom",
-    "urgency": "high",
     "light": "Low to medium",
-    "humidity": "High",
-    "difficulty": "Easy",
-    "activity": [
-      "Watered on 2025-07-11",
-      "Removed dead leaves on 2025-07-09",
-      "Fertilized on 2025-07-01"
-    ],
-    "careLog": [
-      {
-        "date": "2025-06-30",
-        "type": "Watered",
-        "note": "extra"
-      }
-    ],
-    "notes": "Likes humidity",
-    "advancedCare": "Clean blooms gently"
-  },
-  {
-    "id": 5,
-    "name": "ZZ Plant",
-    "nickname": "Zenzi",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
-    "photos": [
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
-        "caption": "ZZ Plant photo 1"
-      },
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
-        "caption": "ZZ Plant photo 2"
-      },
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
-        "caption": "ZZ Plant photo 3"
-      },
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
-        "caption": "ZZ Plant photo 4"
-      }
-    ],
-    "lastWatered": "2025-07-01",
-    "nextWater": "2025-07-20",
-    "lastFertilized": "2025-05-30",
-    "room": "Hallway",
-    "urgency": "low",
-    "light": "Low light",
     "humidity": "Average",
-    "difficulty": "Very Easy",
-    "activity": [
-      "Dusting on 2025-06-29",
-      "Watered on 2025-06-20",
-      "Fertilized on 2025-05-30"
-    ],
-    "careLog": [
-      {
-        "date": "2025-06-20",
-        "type": "Watered",
-        "note": "deep soak"
-      }
-    ],
-    "notes": "Tolerates neglect",
-    "advancedCare": "Avoid overwatering"
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
   },
   {
-    "id": 6,
-    "name": "Aloe Vera",
-    "nickname": "Medic",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+    "id": 18,
+    "name": "Bunny Ear Cactus White",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/18/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/18/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/18/medium.jpg",
+        "caption": "Bunny Ear Cactus White photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/18/medium.jpg",
+        "caption": "Bunny Ear Cactus White photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/18/medium.jpg",
+        "caption": "Bunny Ear Cactus White photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/18/medium.jpg",
+        "caption": "Bunny Ear Cactus White photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-10",
+    "nextWater": "2025-07-17",
+    "lastFertilized": "2025-07-07",
+    "nextFertilize": "2025-08-06",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 19,
+    "name": "Aloe Vera",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/19/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/19/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/19/medium.jpg",
         "caption": "Aloe Vera photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/19/medium.jpg",
         "caption": "Aloe Vera photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/19/medium.jpg",
         "caption": "Aloe Vera photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/19/medium.jpg",
         "caption": "Aloe Vera photo 4"
       }
     ],
-    "lastWatered": "2025-07-04",
-    "nextWater": "2025-07-11",
-    "lastFertilized": "2025-06-01",
-    "nextFertilize": "2025-07-10",
-    "room": "Kitchen",
-    "urgency": "medium",
-    "light": "Full sun",
-    "humidity": "Low",
-    "difficulty": "Easy",
-    "activity": [
-      "Trimmed on 2025-07-01",
-      "Fertilized on 2025-06-01",
-      "Watered on 2025-06-15"
-    ],
-    "careLog": [
-      {
-        "date": "2025-06-01",
-        "type": "Fertilized",
-        "note": "slow release"
-      }
-    ],
-    "notes": "Useful for burns",
-    "advancedCare": "Use cactus soil"
-  },
-  {
-    "id": 7,
-    "name": "Pothos",
-    "nickname": "Devil's Ivy",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
-    "photos": [
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
-        "caption": "Pothos photo 1"
-      },
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
-        "caption": "Pothos photo 2"
-      },
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
-        "caption": "Pothos photo 3"
-      },
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
-        "caption": "Pothos photo 4"
-      }
-    ],
-    "lastWatered": "2025-07-06",
-    "nextWater": "2025-07-13",
-    "lastFertilized": "2025-06-20",
-    "nextFertilize": "2025-07-20",
-    "room": "Living Room",
-    "urgency": "medium",
-    "light": "Low to bright indirect",
+    "lastWatered": "2025-07-17",
+    "nextWater": "2025-07-24",
+    "lastFertilized": "2025-03-20",
+    "nextFertilize": "2025-04-19",
+    "light": "Low to medium",
     "humidity": "Average",
-    "difficulty": "Very Easy",
-    "activity": [
-      "Trained vine on 2025-07-04",
-      "Watered on 2025-07-01",
-      "Fertilized with organic feed"
-    ],
-    "notes": "Great for beginners",
-    "advancedCare": "Propagate in water"
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
   },
   {
-    "id": 8,
-    "name": "Calathea Orbifolia",
-    "nickname": "Prayer Plant",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+    "id": 20,
+    "name": "Lime Tree",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/20/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/20/medium.jpg",
     "photos": [
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
-        "caption": "Calathea Orbifolia photo 1"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20/medium.jpg",
+        "caption": "Lime Tree photo 1"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
-        "caption": "Calathea Orbifolia photo 2"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20/medium.jpg",
+        "caption": "Lime Tree photo 2"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
-        "caption": "Calathea Orbifolia photo 3"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20/medium.jpg",
+        "caption": "Lime Tree photo 3"
       },
       {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
-        "caption": "Calathea Orbifolia photo 4"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/20/medium.jpg",
+        "caption": "Lime Tree photo 4"
       }
     ],
-    "lastWatered": "2025-07-08",
-    "nextWater": "2025-07-12",
+    "lastWatered": "2025-07-13",
+    "nextWater": "2025-07-20",
+    "lastFertilized": "2025-06-04",
+    "nextFertilize": "2025-07-04",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 21,
+    "name": "Jade Plant",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/21/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/21/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/21/medium.jpg",
+        "caption": "Jade Plant photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/21/medium.jpg",
+        "caption": "Jade Plant photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/21/medium.jpg",
+        "caption": "Jade Plant photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/21/medium.jpg",
+        "caption": "Jade Plant photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-17",
+    "nextWater": "2025-07-24",
+    "lastFertilized": "2025-03-04",
+    "nextFertilize": "2025-04-03",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 22,
+    "name": "ZZ Plant",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/22/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/22/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/22/medium.jpg",
+        "caption": "ZZ Plant photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/22/medium.jpg",
+        "caption": "ZZ Plant photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/22/medium.jpg",
+        "caption": "ZZ Plant photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/22/medium.jpg",
+        "caption": "ZZ Plant photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-18",
+    "nextWater": "2025-07-25",
+    "lastFertilized": "2025-06-24",
+    "nextFertilize": "2025-07-24",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 23,
+    "name": "Fiddle Leaf Fig Tree",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/23/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/23/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/23/medium.jpg",
+        "caption": "Fiddle Leaf Fig Tree photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/23/medium.jpg",
+        "caption": "Fiddle Leaf Fig Tree photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/23/medium.jpg",
+        "caption": "Fiddle Leaf Fig Tree photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/23/medium.jpg",
+        "caption": "Fiddle Leaf Fig Tree photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-14",
+    "nextWater": "2025-07-21",
+    "lastFertilized": "2025-07-09",
+    "nextFertilize": "2025-08-08",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 24,
+    "name": "Coffee",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/24/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/24/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24/medium.jpg",
+        "caption": "Coffee photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24/medium.jpg",
+        "caption": "Coffee photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24/medium.jpg",
+        "caption": "Coffee photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/24/medium.jpg",
+        "caption": "Coffee photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-18",
+    "nextWater": "2025-07-25",
+    "lastFertilized": "2025-07-09",
+    "nextFertilize": "2025-08-08",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 25,
+    "name": "Croton",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/25/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/25/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/25/medium.jpg",
+        "caption": "Croton photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/25/medium.jpg",
+        "caption": "Croton photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/25/medium.jpg",
+        "caption": "Croton photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/25/medium.jpg",
+        "caption": "Croton photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-14",
+    "nextWater": "2025-07-21",
+    "lastFertilized": "2025-07-14",
+    "nextFertilize": "2025-08-13",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 26,
+    "name": "Elephant Ears",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/26/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/26/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/26/medium.jpg",
+        "caption": "Elephant Ears photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/26/medium.jpg",
+        "caption": "Elephant Ears photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/26/medium.jpg",
+        "caption": "Elephant Ears photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/26/medium.jpg",
+        "caption": "Elephant Ears photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-13",
+    "nextWater": "2025-07-20",
+    "lastFertilized": "2025-07-09",
+    "nextFertilize": "2025-08-08",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 27,
+    "name": "Golden Pothos",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/27/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/27/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/27/medium.jpg",
+        "caption": "Golden Pothos photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/27/medium.jpg",
+        "caption": "Golden Pothos photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/27/medium.jpg",
+        "caption": "Golden Pothos photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/27/medium.jpg",
+        "caption": "Golden Pothos photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-18",
+    "nextWater": "2025-07-25",
+    "lastFertilized": "2025-07-18",
+    "nextFertilize": "2025-08-17",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 28,
+    "name": "Peace Lily",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/28/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/28/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/28/medium.jpg",
+        "caption": "Peace Lily photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/28/medium.jpg",
+        "caption": "Peace Lily photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/28/medium.jpg",
+        "caption": "Peace Lily photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/28/medium.jpg",
+        "caption": "Peace Lily photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-18",
+    "nextWater": "2025-07-25",
+    "lastFertilized": "2025-06-30",
+    "nextFertilize": "2025-07-30",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 29,
+    "name": "Snake Plant",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/29/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/29/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29/medium.jpg",
+        "caption": "Snake Plant photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29/medium.jpg",
+        "caption": "Snake Plant photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29/medium.jpg",
+        "caption": "Snake Plant photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/29/medium.jpg",
+        "caption": "Snake Plant photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-11",
+    "nextWater": "2025-07-18",
+    "lastFertilized": "2025-07-06",
+    "nextFertilize": "2025-08-05",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 30,
+    "name": "Snake Plant Norma",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/30/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/30/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/30/medium.jpg",
+        "caption": "Snake Plant Norma photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/30/medium.jpg",
+        "caption": "Snake Plant Norma photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/30/medium.jpg",
+        "caption": "Snake Plant Norma photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/30/medium.jpg",
+        "caption": "Snake Plant Norma photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-15",
+    "nextWater": "2025-07-22",
     "lastFertilized": "2025-06-25",
     "nextFertilize": "2025-07-25",
-    "room": "Bedroom",
-    "urgency": "high",
-    "light": "Low to medium",
-    "humidity": "Very high",
-    "difficulty": "Medium",
-    "activity": [
-      "Misted on 2025-07-08",
-      "Watered on 2025-06-30",
-      "Fertilized on 2025-06-25"
-    ],
-    "notes": "Keep soil moist",
-    "advancedCare": "Loves filtered water"
-  },
-  {
-    "id": 9,
-    "name": "Rubber Plant",
-    "nickname": "Ficus Elastica",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
-    "photos": [
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
-        "caption": "Rubber Plant photo 1"
-      },
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
-        "caption": "Rubber Plant photo 2"
-      },
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
-        "caption": "Rubber Plant photo 3"
-      },
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
-        "caption": "Rubber Plant photo 4"
-      }
-    ],
-    "lastWatered": "2025-07-05",
-    "nextWater": "2025-07-12",
-    "lastFertilized": "2025-06-20",
-    "nextFertilize": "2025-07-20",
-    "room": "Office",
-    "urgency": "medium",
-    "light": "Bright indirect",
-    "humidity": "Moderate",
-    "difficulty": "Medium",
-    "activity": [
-      "Cleaned leaves on 2025-07-05",
-      "Watered on 2025-07-05",
-      "Fertilized on 2025-06-20"
-    ],
-    "notes": "Avoid sudden moves",
-    "advancedCare": "Top dress with compost"
-  },
-  {
-    "id": 10,
-    "name": "Chinese Evergreen",
-    "nickname": "Aglaonema",
-    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
-    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
-    "photos": [
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
-        "caption": "Chinese Evergreen photo 1"
-      },
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
-        "caption": "Chinese Evergreen photo 2"
-      },
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
-        "caption": "Chinese Evergreen photo 3"
-      },
-      {
-        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
-        "caption": "Chinese Evergreen photo 4"
-      }
-    ],
-    "lastWatered": "2025-07-04",
-    "nextWater": "2025-07-11",
-    "lastFertilized": "2025-06-15",
-    "nextFertilize": "2025-07-15",
-    "room": "Dining Room",
-    "urgency": "low",
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "activity": [
-      "Checked soil moisture on 2025-07-03",
-      "Watered on 2025-07-04",
-      "Fertilized on 2025-06-15"
-    ],
-    "careLog": [
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 31,
+    "name": "Strawberries",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/31/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/31/medium.jpg",
+    "photos": [
       {
-        "date": "2025-07-03",
-        "type": "Note",
-        "note": "new leaves"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/31/medium.jpg",
+        "caption": "Strawberries photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/31/medium.jpg",
+        "caption": "Strawberries photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/31/medium.jpg",
+        "caption": "Strawberries photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/31/medium.jpg",
+        "caption": "Strawberries photo 4"
       }
     ],
-    "notes": "Tolerates low light well",
-    "advancedCare": "Rotate monthly for even growth"
+    "lastWatered": "2025-07-17",
+    "nextWater": "2025-07-24",
+    "lastFertilized": "2025-06-27",
+    "nextFertilize": "2025-07-27",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 32,
+    "name": "Lettuce",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/32/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/32/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/32/medium.jpg",
+        "caption": "Lettuce photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/32/medium.jpg",
+        "caption": "Lettuce photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/32/medium.jpg",
+        "caption": "Lettuce photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/32/medium.jpg",
+        "caption": "Lettuce photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-18",
+    "nextWater": "2025-07-25",
+    "lastFertilized": "2025-06-27",
+    "nextFertilize": "2025-07-27",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 33,
+    "name": "Lotus",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/33/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/33/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/33/medium.jpg",
+        "caption": "Lotus photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/33/medium.jpg",
+        "caption": "Lotus photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/33/medium.jpg",
+        "caption": "Lotus photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/33/medium.jpg",
+        "caption": "Lotus photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-16",
+    "nextWater": "2025-07-23",
+    "lastFertilized": "2025-06-28",
+    "nextFertilize": "2025-07-28",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 34,
+    "name": "Venus Fly Trap",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/34/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/34/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/34/medium.jpg",
+        "caption": "Venus Fly Trap photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/34/medium.jpg",
+        "caption": "Venus Fly Trap photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/34/medium.jpg",
+        "caption": "Venus Fly Trap photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/34/medium.jpg",
+        "caption": "Venus Fly Trap photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-14",
+    "nextWater": "2025-07-21",
+    "lastFertilized": "2025-07-17",
+    "nextFertilize": "2025-08-16",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 35,
+    "name": "Bleeding Heart",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/35/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/35/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/35/medium.jpg",
+        "caption": "Bleeding Heart photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/35/medium.jpg",
+        "caption": "Bleeding Heart photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/35/medium.jpg",
+        "caption": "Bleeding Heart photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/35/medium.jpg",
+        "caption": "Bleeding Heart photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-14",
+    "nextWater": "2025-07-21",
+    "lastFertilized": "2025-06-07",
+    "nextFertilize": "2025-07-07",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 36,
+    "name": "Hibiscus",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/36/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/36/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/36/medium.jpg",
+        "caption": "Hibiscus photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/36/medium.jpg",
+        "caption": "Hibiscus photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/36/medium.jpg",
+        "caption": "Hibiscus photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/36/medium.jpg",
+        "caption": "Hibiscus photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-15",
+    "nextWater": "2025-07-22",
+    "lastFertilized": "2025-06-30",
+    "nextFertilize": "2025-07-30",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 37,
+    "name": "Shasta Daisy",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/37/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/37/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/37/medium.jpg",
+        "caption": "Shasta Daisy photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/37/medium.jpg",
+        "caption": "Shasta Daisy photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/37/medium.jpg",
+        "caption": "Shasta Daisy photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/37/medium.jpg",
+        "caption": "Shasta Daisy photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-15",
+    "nextWater": "2025-07-22",
+    "lastFertilized": "2025-06-25",
+    "nextFertilize": "2025-07-25",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 38,
+    "name": "Foxglove",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/38/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/38/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/38/medium.jpg",
+        "caption": "Foxglove photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/38/medium.jpg",
+        "caption": "Foxglove photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/38/medium.jpg",
+        "caption": "Foxglove photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/38/medium.jpg",
+        "caption": "Foxglove photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-14",
+    "nextWater": "2025-07-21",
+    "lastFertilized": "2025-07-04",
+    "nextFertilize": "2025-08-03",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 39,
+    "name": "Periwinkle",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/39/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/39/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/39/medium.jpg",
+        "caption": "Periwinkle photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/39/medium.jpg",
+        "caption": "Periwinkle photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/39/medium.jpg",
+        "caption": "Periwinkle photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/39/medium.jpg",
+        "caption": "Periwinkle photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-14",
+    "nextWater": "2025-07-21",
+    "lastFertilized": "2025-06-29",
+    "nextFertilize": "2025-07-29",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 40,
+    "name": "Wandering Jew",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/40/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/40/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/40/medium.jpg",
+        "caption": "Wandering Jew photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/40/medium.jpg",
+        "caption": "Wandering Jew photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/40/medium.jpg",
+        "caption": "Wandering Jew photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/40/medium.jpg",
+        "caption": "Wandering Jew photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-18",
+    "nextWater": "2025-07-25",
+    "lastFertilized": "2025-06-13",
+    "nextFertilize": "2025-07-13",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 41,
+    "name": "Bee Balm",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/41/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/41/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/41/medium.jpg",
+        "caption": "Bee Balm photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/41/medium.jpg",
+        "caption": "Bee Balm photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/41/medium.jpg",
+        "caption": "Bee Balm photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/41/medium.jpg",
+        "caption": "Bee Balm photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-17",
+    "nextWater": "2025-07-24",
+    "lastFertilized": "2025-07-01",
+    "nextFertilize": "2025-07-31",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 42,
+    "name": "Astilbe",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/42/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/42/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/42/medium.jpg",
+        "caption": "Astilbe photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/42/medium.jpg",
+        "caption": "Astilbe photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/42/medium.jpg",
+        "caption": "Astilbe photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/42/medium.jpg",
+        "caption": "Astilbe photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-15",
+    "nextWater": "2025-07-22",
+    "lastFertilized": "2025-07-03",
+    "nextFertilize": "2025-08-02",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
+  },
+  {
+    "id": 43,
+    "name": "Lupine",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/43/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/43/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/43/medium.jpg",
+        "caption": "Lupine photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/43/medium.jpg",
+        "caption": "Lupine photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/43/medium.jpg",
+        "caption": "Lupine photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/43/medium.jpg",
+        "caption": "Lupine photo 4"
+      }
+    ],
+    "lastWatered": "2025-07-15",
+    "nextWater": "2025-07-22",
+    "lastFertilized": "2025-07-03",
+    "nextFertilize": "2025-08-02",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "urgency": "high"
   }
 ]
