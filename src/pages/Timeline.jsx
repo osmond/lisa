@@ -56,13 +56,12 @@ export default function Timeline() {
       <div className="rounded-xl bg-white shadow-sm p-4 border border-gray-100">
 
         <div className="relative">
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gray-200" aria-hidden="true" />
           {groupedEvents.map(([monthKey, list]) => (
             <div key={monthKey} className="mt-6 first:mt-0">
               <h3 className="sticky top-0 z-10 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm px-1 text-[0.7rem] uppercase tracking-wider text-gray-500 mb-2">
                 {formatMonth(monthKey)}
               </h3>
-              <ul className="space-y-6">
+              <ul className="ml-3 border-l-2 border-gray-200 space-y-6 pl-5">
                 {list.map((e, i) => {
                   const Icon = actionIcons[e.type]
                   return (
@@ -70,11 +69,11 @@ export default function Timeline() {
                       key={`${e.date}-${e.label}-${i}`}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      className="relative text-sm pl-8"
+                      className="relative text-sm"
                     >
                       {Icon && (
                         <div
-                          className={`absolute left-1/2 -translate-x-1/2 top-[0.25rem] w-4 h-4 flex items-center justify-center rounded-full ${bulletColors[e.type]}`}
+                          className={`absolute -left-5 top-[0.25rem] w-4 h-4 flex items-center justify-center rounded-full ${bulletColors[e.type]}`}
                         >
                           <Icon className="w-3 h-3 text-white" aria-hidden="true" />
                         </div>
