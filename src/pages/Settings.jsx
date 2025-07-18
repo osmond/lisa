@@ -8,7 +8,7 @@ export default function Settings() {
   const { username, setUsername, timeZone, setTimeZone } = useUser()
 
   return (
-    <div className="space-y-4 text-gray-700 dark:text-gray-200">
+    <div className="space-y-4 text-gray-700 dark:text-gray-200 bg-[#FAFAF9] dark:bg-gray-900">
       <h1 className="text-2xl font-bold font-headline">Settings</h1>
       <button
         onClick={toggleTheme}
