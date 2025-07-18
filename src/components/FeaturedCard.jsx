@@ -96,7 +96,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
           <button
             type="button"
             aria-label={`Mark ${name} as watered`}
-            className="px-4 py-2 bg-blue-600 text-white rounded-full shadow text-sm animate-bounce-once"
+            className="px-4 py-2 bg-gradient-to-b from-blue-500 to-blue-600 text-white rounded-full shadow-md shadow-blue-600/30 text-sm animate-bounce-once"
           >
             Water Now
           </button>
