@@ -175,7 +175,7 @@ test('view all button opens the viewer from first image', () => {
   expect(viewerImg).toHaveAttribute('src', plant.photos[0].src)
 })
 
-test('back button navigates to room page', () => {
+test('breadcrumb link navigates to room page and no back button is shown', () => {
   const plant = plants[0]
   render(
     <MenuProvider>
@@ -191,7 +191,8 @@ test('back button navigates to room page', () => {
     </MenuProvider>
   )
 
-  fireEvent.click(screen.getByRole('button', { name: /back/i }))
+  expect(screen.queryByRole('button', { name: /back/i })).toBeNull()
+  fireEvent.click(screen.getByRole('link', { name: plant.room }))
 
   expect(screen.getByText(/room view/i)).toBeInTheDocument()
 })
