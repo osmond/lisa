@@ -482,7 +482,11 @@ export default function PlantDetail() {
           </div>
         )}
       </SectionCard>
-      <PlantDetailFab onAddPhoto={openFileInput} onAddNote={handleLogEvent} />
+      <PlantDetailFab
+        onAddPhoto={openFileInput}
+        onAddNote={handleLogEvent}
+        onEdit={handleEdit}
+      />
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
       )}

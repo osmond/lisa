@@ -97,3 +97,22 @@ test('fab triggers file input click', () => {
   expect(clickSpy).toHaveBeenCalled()
   clickSpy.mockRestore()
 })
+
+test('edit button navigates to edit page', () => {
+  render(
+    <MenuProvider>
+      <MemoryRouter initialEntries={['/plant/1']}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+          <Route path="/plant/:id/edit" element={<div>Edit Plant Page</div>} />
+        </Routes>
+      </MemoryRouter>
+    </MenuProvider>
+  )
+
+  fireEvent.click(screen.getByRole('button', { name: /open create menu/i }))
+  const editButton = screen.getByRole('button', { name: /edit plant/i })
+  expect(editButton).toBeInTheDocument()
+  fireEvent.click(editButton)
+  expect(screen.getByText(/edit plant page/i)).toBeInTheDocument()
+})

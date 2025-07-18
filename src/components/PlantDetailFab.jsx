@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Plus, Image as ImageIcon, Note } from 'phosphor-react'
+import { Pencil1Icon } from '@radix-ui/react-icons'
 
-export default function PlantDetailFab({ onAddPhoto, onAddNote }) {
+export default function PlantDetailFab({ onAddPhoto, onAddNote, onEdit }) {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -16,11 +17,13 @@ export default function PlantDetailFab({ onAddPhoto, onAddNote }) {
   const items = [
     { label: 'Add Photo', Icon: ImageIcon, action: onAddPhoto, color: 'green' },
     { label: 'Add Note', Icon: Note, action: onAddNote, color: 'violet' },
+    { label: 'Edit Plant', Icon: Pencil1Icon, action: onEdit, color: 'blue' },
   ]
 
   const colorClasses = {
     green: { bg: 'bg-green-100', text: 'text-green-600' },
     violet: { bg: 'bg-violet-100', text: 'text-violet-600' },
+    blue: { bg: 'bg-blue-100', text: 'text-blue-600' },
   }
 
   return (
