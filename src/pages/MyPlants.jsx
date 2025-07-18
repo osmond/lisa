@@ -8,6 +8,7 @@ import { formatDaysAgo } from '../utils/dateFormat.js'
 
 import { useRooms } from '../RoomContext.jsx'
 import { usePlants } from '../PlantContext.jsx'
+import { createRipple } from '../utils/interactions.js'
 import CreateFab from '../components/CreateFab.jsx'
 
 export default function MyPlants() {
@@ -75,8 +76,12 @@ export default function MyPlants() {
             <Link
               key={room}
               to={`/room/${encodeURIComponent(room)}`}
-              className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1 animate-fade-in-up border-t-4"
-              style={{ animationDelay: `${i * 50}ms`, borderTopColor: accent }}
+
+              className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1 animate-fade-in-up transition-transform hover:-translate-y-1 hover:shadow-lg active:shadow"
+              style={{ animationDelay: `${i * 50}ms` }}
+              onMouseDown={createRipple}
+              onTouchStart={createRipple}
+
             >
               <img src={thumbnail} className="w-full h-24 object-cover rounded-md shadow-sm" alt="" />
               <p className="font-semibold font-headline text-[1.1rem]">{room}</p>
