@@ -3,7 +3,6 @@ import BaseCard from '../components/BaseCard.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import CareSummaryModal from '../components/CareSummaryModal.jsx'
 import PageContainer from "../components/PageContainer.jsx"
-import PageHeader from "../components/PageHeader.jsx"
 
 import { useState } from 'react'
 
@@ -193,7 +192,6 @@ export default function Home() {
 
   return (
     <PageContainer>
-      <PageHeader title="Home" />
       {showHeader && (
       <header className="relative flex flex-col items-start text-left space-y-1">
         <button
