@@ -184,7 +184,7 @@ exports[`matches snapshot in dark mode 1`] = `
     >
       <img
         alt="Aloe Vera"
-        class="w-full h-48 object-cover rounded-xl"
+        class="plant-thumb"
         loading="lazy"
         src="test.jpg"
       />

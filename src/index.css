@@ -225,3 +225,8 @@ body {
      -moz-appearance: none;
           appearance: none;
 }
+
+/* Standardized plant image */
+.plant-thumb {
+  @apply w-full aspect-[3/4] object-cover rounded-xl;
+}

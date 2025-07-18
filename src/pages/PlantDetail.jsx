@@ -420,7 +420,7 @@ export default function PlantDetail() {
                   <img
                     src={src}
                     alt={caption || `${plant.name} photo ${i + 1}`}
-                    className="object-cover w-full h-24 rounded-lg"
+                    className="plant-thumb w-24"
                   />
                 </button>
                 {caption && (

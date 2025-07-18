@@ -213,7 +213,7 @@ export default function PlantCard({ plant }) {
           }
           className="block mb-2"
         >
-          <img src={plant.image} alt={plant.name} loading="lazy" className="w-full h-48 object-cover rounded-xl" />
+          <img src={plant.image} alt={plant.name} loading="lazy" className="plant-thumb" />
           <h2 className="font-bold text-[1.1rem] font-headline mt-2">{plant.name}</h2>
         </Link>
         <p className="text-sm text-green-700 font-medium font-body">Next: {plant.nextWater}</p>
