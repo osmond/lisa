@@ -12,8 +12,8 @@ const MenuContext = createContext()
 
 export const defaultMenu = {
   items: [
-    { to: '/', label: 'Home', Icon: House },
-    { to: '/myplants', label: 'My Plants', Icon: Flower },
+    { to: '/', label: 'Today', Icon: House },
+    { to: '/myplants', label: 'All Plants', Icon: Flower },
     { to: '/timeline', label: 'Timeline', Icon: CalendarBlank },
     { to: '/profile', label: 'Profile', Icon: UserCircle },
     { label: 'Add', Icon: PlusCircle },

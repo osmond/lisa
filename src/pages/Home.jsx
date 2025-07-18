@@ -253,7 +253,7 @@ export default function Home() {
           to="/myplants"
           className="block px-4 py-2 bg-white dark:bg-gray-700 rounded-lg shadow text-center font-semibold"
         >
-          My Plants
+          All Plants
         </Link>
       </div>
     </div>

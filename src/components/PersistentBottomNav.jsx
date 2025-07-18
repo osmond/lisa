@@ -29,7 +29,7 @@ export default function PersistentBottomNav() {
     <nav className="fixed bottom-0 inset-x-0 bg-white dark:bg-gray-700 border-t border-gray-200 dark:border-gray-600 pb-safe z-20">
       <ul className="flex justify-around items-center py-2 text-xs">
         {mainLinks.map(({ to, label, Icon: LinkIcon }) => {
-          const showBadge = label === 'My Plants' && overdueCount > 0
+          const showBadge = label === 'All Plants' && overdueCount > 0
           const isAdd = label === 'Add'
           return (
             <li key={label} className="relative">

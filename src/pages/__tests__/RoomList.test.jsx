@@ -18,9 +18,9 @@ function renderWithRoute(path) {
   )
 }
 
-test('shows back link to My Plants', () => {
+test('shows back link to All Plants', () => {
   mockPlants = []
   renderWithRoute('/room/Living')
-  const link = screen.getByRole('link', { name: /my plants/i })
+  const link = screen.getByRole('link', { name: /all plants/i })
   expect(link).toHaveAttribute('href', '/myplants')
 })

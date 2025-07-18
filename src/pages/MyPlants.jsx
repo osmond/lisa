@@ -23,7 +23,7 @@ export default function MyPlants() {
   if (rooms.length === 0) {
     return (
       <div className="text-center space-y-4">
-        <h1 className="text-2xl font-bold font-headline">My Plants</h1>
+        <h1 className="text-2xl font-bold font-headline">All Plants</h1>
         <Link
           to="/room/add"
           className="inline-block px-4 py-2 bg-green-600 text-white rounded"
@@ -36,7 +36,7 @@ export default function MyPlants() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold font-headline mb-4">My Plants</h1>
+      <h1 className="text-2xl font-bold font-headline mb-4">All Plants</h1>
       <div className="grid grid-cols-2 gap-4">
         {rooms.map((room, i) => {
           const overdue = countOverdue(room)
