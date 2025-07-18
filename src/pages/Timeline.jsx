@@ -50,6 +50,8 @@ export default function Timeline() {
     fertilize: 'bg-yellow-500',
     note: 'bg-gray-400',
     log: 'bg-green-500',
+    advanced: 'bg-purple-500',
+    noteText: 'bg-gray-400',
   }
 
   return (
