@@ -1,15 +1,34 @@
 import { usePlants } from '../PlantContext.jsx'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import actionIcons from '../components/ActionIcons.jsx'
 import { formatMonth, formatDate } from '../utils/date.js'
 import { buildEvents, groupEventsByMonth } from '../utils/events.js'
+import NoteModal from '../components/NoteModal.jsx'
+import NoteFab from '../components/NoteFab.jsx'
 
 export default function Timeline() {
-  const { plants } = usePlants()
+  const { plants, timelineNotes = [], addTimelineNote = () => {} } = usePlants()
+  const [showNoteModal, setShowNoteModal] = useState(false)
 
-  const events = useMemo(
+  const plantEvents = useMemo(
     () => buildEvents(plants, { includePlantName: true }),
     [plants]
+  )
+
+  const noteEvents = useMemo(
+    () =>
+      timelineNotes.map(n => ({
+        date: n.date,
+        label: 'Note',
+        note: n.text,
+        type: 'log',
+      })),
+    [timelineNotes]
+  )
+
+  const events = useMemo(
+    () => [...plantEvents, ...noteEvents].sort((a, b) => new Date(a.date) - new Date(b.date)),
+    [plantEvents, noteEvents]
   )
 
   const groupedEvents = useMemo(
@@ -58,7 +77,18 @@ export default function Timeline() {
             </ul>
           </div>
         ))}
+        {showNoteModal && (
+          <NoteModal
+            label="Note"
+            onSave={text => {
+              if (text) addTimelineNote(text)
+              setShowNoteModal(false)
+            }}
+            onCancel={() => setShowNoteModal(false)}
+          />
+        )}
       </div>
+      <NoteFab onAddNote={() => setShowNoteModal(true)} />
     </div>
   )
 }
