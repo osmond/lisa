@@ -102,7 +102,8 @@ export default function MyPlants() {
 
           const { wateredToday, lowLight, pestAlert, lastUpdated } = roomStats(room)
 
-          const thumbnail = plants.find(p => p.room === room)?.image ?? '/demo-image-01.jpg'
+          const first = plants.find(p => p.room === room)
+          const thumbnail = first?.image || first?.placeholderSrc
 
 
           return (
