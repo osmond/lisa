@@ -20,7 +20,7 @@ export default function CreateFab() {
   ]
 
   return (
-    <div className="fixed bottom-4 right-20 z-30">
+    <div className="fixed bottom-24 right-20 z-30">
       {open && (
         <div
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-30 backdrop-blur-sm"
