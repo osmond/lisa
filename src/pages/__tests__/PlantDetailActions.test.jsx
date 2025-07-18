@@ -60,3 +60,40 @@ test('quick stats action buttons trigger handlers', () => {
   )
   expect(markFertilized).toHaveBeenCalledWith(1, '')
 })
+
+test('fab opens note modal', () => {
+  render(
+    <MenuProvider>
+      <MemoryRouter initialEntries={['/plant/1']}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </MenuProvider>
+  )
+
+  fireEvent.click(screen.getByRole('button', { name: /open create menu/i }))
+  fireEvent.click(screen.getByRole('button', { name: /add note/i }))
+  expect(screen.getByRole('dialog', { name: /note/i })).toBeInTheDocument()
+})
+
+test('fab triggers file input click', () => {
+  const clickSpy = jest
+    .spyOn(HTMLInputElement.prototype, 'click')
+    .mockImplementation(() => {})
+
+  render(
+    <MenuProvider>
+      <MemoryRouter initialEntries={['/plant/1']}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </MenuProvider>
+  )
+
+  fireEvent.click(screen.getByRole('button', { name: /open create menu/i }))
+  fireEvent.click(screen.getByRole('button', { name: /add photo/i }))
+  expect(clickSpy).toHaveBeenCalled()
+  clickSpy.mockRestore()
+})
