@@ -28,6 +28,12 @@ export default function Home() {
   const { plants } = usePlants()
   const [showSummary, setShowSummary] = useState(false)
   const [typeFilter, setTypeFilter] = useState('all')
+  const [showHeader, setShowHeader] = useState(() => {
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem('hideHomeHeader') !== 'true'
+    }
+    return true
+  })
   const happyPlant = useHappyPlant()
 
 
@@ -155,7 +161,21 @@ export default function Home() {
 
   return (
     <div className="space-y-8">
-      <header className="flex flex-col items-start text-left space-y-1">
+      {showHeader && (
+      <header className="relative flex flex-col items-start text-left space-y-1">
+        <button
+          type="button"
+          aria-label="Dismiss header"
+          onClick={() => {
+            setShowHeader(false)
+            if (typeof localStorage !== 'undefined') {
+              localStorage.setItem('hideHomeHeader', 'true')
+            }
+          }}
+          className="absolute top-0 right-0 text-gray-500"
+        >
+          &times;
+        </button>
         <p className="text-base font-medium text-gray-600">Hi {username}, let’s check on your plants.</p>
         <p className="text-xs text-gray-500 font-body flex items-center gap-1">
           {forecast && (() => {
@@ -176,6 +196,7 @@ export default function Home() {
           )}
         </p>
       </header>
+      )}
     {plants.length > 0 && (
       <section className="mb-4">
         <h2 className="sr-only">Featured Plant</h2>
