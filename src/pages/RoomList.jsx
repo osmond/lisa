@@ -8,6 +8,7 @@ import { createRipple } from '../utils/interactions.js'
 import Breadcrumb from '../components/Breadcrumb.jsx'
 import Badge from '../components/Badge.jsx'
 import PageContainer from "../components/PageContainer.jsx"
+import Card from '../components/Card.jsx'
 
 export default function RoomList() {
   const { roomName } = useParams()
@@ -74,25 +75,27 @@ export default function RoomList() {
               <Link
                 key={plant.id}
                 to={`/room/${encodeURIComponent(roomName)}/plant/${plant.id}`}
-                className="block relative overflow-hidden rounded-lg shadow transition-transform hover:-translate-y-1 hover:shadow-lg active:shadow"
+                className="block transition-transform hover:-translate-y-1 active:shadow"
                 onMouseDown={createRipple}
                 onTouchStart={createRipple}
               >
-                <img
-                  src={src}
-                  alt={plant.name}
-                  loading="lazy"
-                  className="w-full h-40 object-cover rounded-lg"
-                />
-                <span className="absolute top-1 left-1 bg-black/60 text-white text-xs px-1 rounded">
-                  {plant.name}
-                </span>
-                <Badge
-                  Icon={Drop}
-                  colorClass={`absolute bottom-1 left-1 text-xs ${colorClass}`}
-                >
-                  {status}
-                </Badge>
+                <Card className="relative overflow-hidden hover:shadow-lg">
+                  <img
+                    src={src}
+                    alt={plant.name}
+                    loading="lazy"
+                    className="w-full h-40 object-cover rounded-lg"
+                  />
+                  <span className="absolute top-1 left-1 bg-black/60 text-white text-xs px-1 rounded">
+                    {plant.name}
+                  </span>
+                  <Badge
+                    Icon={Drop}
+                    colorClass={`absolute bottom-1 left-1 text-xs ${colorClass}`}
+                  >
+                    {status}
+                  </Badge>
+                </Card>
               </Link>
             )
           })}

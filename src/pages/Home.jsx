@@ -21,6 +21,7 @@ import {
 } from 'phosphor-react'
 import CareStats from '../components/CareStats.jsx'
 import FeaturedCard from '../components/FeaturedCard.jsx'
+import Card from '../components/Card.jsx'
 import useHappyPlant from '../hooks/useHappyPlant.js'
 
 
@@ -303,12 +304,11 @@ export default function Home() {
         </section>
       </div>
       <div className="mt-4">
-        <Link
-          to="/myplants"
-          className="block px-4 py-2 bg-white dark:bg-gray-700 rounded-lg shadow text-center font-semibold"
-        >
-          All Plants
-        </Link>
+        <Card className="p-0 text-center font-semibold">
+          <Link to="/myplants" className="block px-4 py-2">
+            All Plants
+          </Link>
+        </Card>
       </div>
     </PageContainer>
   )
