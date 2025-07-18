@@ -62,12 +62,6 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
       onPointerMove={move}
       onPointerUp={end}
       onPointerCancel={end}
-      onMouseDown={start}
-      onMouseMove={move}
-      onMouseUp={end}
-      onTouchStart={start}
-      onTouchMove={move}
-      onTouchEnd={end}
 
 
       className="relative block overflow-hidden rounded-3xl shadow bg-sage dark:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
