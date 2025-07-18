@@ -29,8 +29,9 @@
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "room": "Living Room",
-    "urgency": "high"
+    "room": "Office",
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 2,
@@ -57,13 +58,14 @@
     ],
     "lastWatered": "2025-07-17",
     "nextWater": "2025-07-24",
-    "lastFertilized": "0000-00-00",
+    "lastFertilized": "",
     "nextFertilize": "",
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "room": "Living Room",
-    "urgency": "high"
+    "room": "Outside",
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 3,
@@ -90,13 +92,14 @@
     ],
     "lastWatered": "2025-07-16",
     "nextWater": "2025-07-23",
-    "lastFertilized": "0000-00-00",
+    "lastFertilized": "",
     "nextFertilize": "",
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "room": "Living Room",
-    "urgency": "high"
+    "room": "Outside",
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 4,
@@ -123,13 +126,14 @@
     ],
     "lastWatered": "2025-07-16",
     "nextWater": "2025-07-23",
-    "lastFertilized": "0000-00-00",
+    "lastFertilized": "",
     "nextFertilize": "",
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "room": "Living Room",
-    "urgency": "high"
+    "room": "Outside",
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 5,
@@ -156,13 +160,14 @@
     ],
     "lastWatered": "2025-07-14",
     "nextWater": "2025-07-21",
-    "lastFertilized": "0000-00-00",
+    "lastFertilized": "",
     "nextFertilize": "",
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "room": "Living Room",
-    "urgency": "high"
+    "room": "Outside",
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 6,
@@ -189,13 +194,14 @@
     ],
     "lastWatered": "2025-07-14",
     "nextWater": "2025-07-21",
-    "lastFertilized": "0000-00-00",
+    "lastFertilized": "",
     "nextFertilize": "",
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "room": "Living Room",
-    "urgency": "high"
+    "room": "Outside",
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 7,
@@ -222,13 +228,14 @@
     ],
     "lastWatered": "2025-07-14",
     "nextWater": "2025-07-21",
-    "lastFertilized": "0000-00-00",
+    "lastFertilized": "",
     "nextFertilize": "",
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "room": "Living Room",
-    "urgency": "high"
+    "room": "",
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 8,
@@ -255,13 +262,14 @@
     ],
     "lastWatered": "2025-07-14",
     "nextWater": "2025-07-21",
-    "lastFertilized": "0000-00-00",
+    "lastFertilized": "",
     "nextFertilize": "",
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "room": "Living Room",
-    "urgency": "high"
+    "room": "Outside",
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 9,
@@ -288,13 +296,14 @@
     ],
     "lastWatered": "2025-07-18",
     "nextWater": "2025-07-25",
-    "lastFertilized": "0000-00-00",
+    "lastFertilized": "",
     "nextFertilize": "",
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "room": "Living Room",
-    "urgency": "high"
+    "room": "Outside",
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 10,
@@ -321,13 +330,14 @@
     ],
     "lastWatered": "2025-07-16",
     "nextWater": "2025-07-23",
-    "lastFertilized": "0000-00-00",
+    "lastFertilized": "",
     "nextFertilize": "",
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "room": "Living Room",
-    "urgency": "high"
+    "room": "Outside",
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 11,
@@ -722,8 +732,9 @@
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "room": "Living Room",
-    "urgency": "high"
+    "room": "Kitchen",
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 23,
@@ -921,7 +932,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Living Room",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 29,
@@ -954,7 +966,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Living Room",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 30,
@@ -1118,8 +1131,9 @@
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "room": "Living Room",
-    "urgency": "high"
+    "room": "Library",
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 35,
@@ -1316,8 +1330,9 @@
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "room": "Living Room",
-    "urgency": "high"
+    "room": "Office",
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 41,
@@ -1441,15 +1456,15 @@
         "caption": "Monstera photo 4"
       }
     ],
-    "lastWatered": "",
+    "lastWatered": "2025-07-18",
     "nextWater": "",
-    "lastFertilized": "",
+    "lastFertilized": "2025-07-08",
     "nextFertilize": "",
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "room": "Living Room",
-    "notes": "New plant added to collection.",
+    "room": "Office",
+    "notes": "Sample notes about this plant.",
     "urgency": "high"
   },
   {
@@ -1475,16 +1490,15 @@
         "caption": "Lil Fiddle photo 4"
       }
     ],
-    "lastWatered": "",
+    "lastWatered": "2025-07-15",
     "nextWater": "",
-    "lastFertilized": "",
+    "lastFertilized": "2025-07-09",
     "nextFertilize": "",
     "light": "Low to medium",
     "humidity": "Average",
     "difficulty": "Easy",
-    "room": "Living Room",
-    "notes": "New plant added to collection.",
+    "room": "Office",
+    "notes": "Sample notes about this plant.",
     "urgency": "high"
   }
-
 ]
