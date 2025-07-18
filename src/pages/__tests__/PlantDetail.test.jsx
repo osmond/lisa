@@ -98,6 +98,43 @@ test('shows watering progress ring', () => {
   expect(screen.getByTestId('watering-ring')).toBeInTheDocument()
 })
 
+test('fertilizing ring is displayed', () => {
+  const plant = plants[0]
+  render(
+    <MenuProvider>
+      <PlantProvider>
+        <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+          <Routes>
+            <Route path="/plant/:id" element={<PlantDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </PlantProvider>
+    </MenuProvider>
+  )
+
+  const ring = screen.getByTestId('watering-ring')
+  expect(ring.querySelectorAll('svg')).toHaveLength(2)
+})
+
+test('percent text adopts urgency color', () => {
+  const plant = plants[0]
+  render(
+    <MenuProvider>
+      <PlantProvider>
+        <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+          <Routes>
+            <Route path="/plant/:id" element={<PlantDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </PlantProvider>
+    </MenuProvider>
+  )
+
+  const ring = screen.getByTestId('watering-ring')
+  const pctText = within(ring).getByText(/%|Water Now/i)
+  expect(pctText.className).toMatch(/text-red-600/)
+})
+
 
 test('opens lightbox from gallery', () => {
 
