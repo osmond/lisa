@@ -60,7 +60,33 @@ test('shows overdue badge for rooms with tasks', () => {
       <MyPlants />
     </MemoryRouter>
   )
-  const badge = screen.getByText(/needs love/i)
-  expect(badge).toHaveTextContent('⚠️ 2 needs love')
+  const badge = screen.getByText(/need care/i)
+  expect(badge).toHaveTextContent('❤️ 2 need care')
+  jest.useRealTimers()
+})
+
+test('shows status icons when room plants have flags', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+  mockRooms = ['Living']
+  mockPlants = [
+    {
+      id: 1,
+      name: 'Plant A',
+      room: 'Living',
+      image: 'a.jpg',
+      lastWatered: '2025-07-10',
+      light: 'Low light',
+      pestAlert: true,
+    },
+  ]
+  render(
+    <MemoryRouter>
+      <MyPlants />
+    </MemoryRouter>
+  )
+  expect(screen.getByText('💧')).toBeInTheDocument()
+  expect(screen.getByText('☀️')).toBeInTheDocument()
+  expect(screen.getByText('🐛')).toBeInTheDocument()
+  expect(screen.getByText('0 days ago')).toBeInTheDocument()
   jest.useRealTimers()
 })
