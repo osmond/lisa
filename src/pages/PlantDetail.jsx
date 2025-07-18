@@ -171,7 +171,6 @@ export default function PlantDetail() {
   return (
 
     <div className="space-y-8 pt-4 pb-safe px-4 relative text-left">
-      <Breadcrumb room={plant.room} plant={plant.name} />
       <Toast />
       <div className="space-y-4">
         <div className="relative">
@@ -244,6 +243,7 @@ export default function PlantDetail() {
           </div>
         </div>
         </div>
+        <Breadcrumb room={plant.room} plant={plant.name} />
 
 <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-3">
   <h3 className="flex items-center gap-2 font-semibold font-headline">
