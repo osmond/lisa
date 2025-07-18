@@ -4,7 +4,7 @@ export default function Breadcrumb({ room, plant }) {
   return (
     <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-sm mb-2">
       <Link to="/myplants" className="text-blue-600 hover:underline">
-        My Plants
+        All Plants
       </Link>
       {room && (
         <>

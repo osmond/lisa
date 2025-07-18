@@ -44,6 +44,6 @@ test('user can complete steps and add a plant', () => {
   fireEvent.change(screen.getByLabelText(/care level/i), { target: { value: 'easy' } })
   fireEvent.click(screen.getByRole('button', { name: /add plant/i }))
 
-  expect(screen.getByRole('heading', { name: /my plants/i })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: /all plants/i })).toBeInTheDocument()
   expect(screen.getByText('Desk')).toBeInTheDocument()
 })

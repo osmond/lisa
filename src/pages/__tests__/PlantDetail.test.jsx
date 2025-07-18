@@ -182,7 +182,7 @@ test('back button navigates to room page', () => {
       <PlantProvider>
         <MemoryRouter initialEntries={['/myplants', `/plant/${plant.id}`]} initialIndex={1}>
           <Routes>
-            <Route path="/myplants" element={<div>My Plants View</div>} />
+            <Route path="/myplants" element={<div>All Plants View</div>} />
             <Route path="/room/:roomName" element={<div>Room View</div>} />
             <Route path="/plant/:id" element={<PlantDetail />} />
           </Routes>
