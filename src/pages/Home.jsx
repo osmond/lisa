@@ -1,4 +1,4 @@
-import TaskCard from '../components/TaskCard.jsx'
+import UnifiedTaskCard from '../components/UnifiedTaskCard.jsx'
 import BaseCard from '../components/BaseCard.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import CareSummaryModal from '../components/CareSummaryModal.jsx'
@@ -99,10 +99,39 @@ export default function Home() {
   const tasks = [...waterTasks, ...fertilizeTasks].sort(
     (a, b) => new Date(a.date) - new Date(b.date)
   )
+  const taskGroups = plants
+    .map(p => {
+      const { date: waterDate } = getNextWateringDate(p.lastWatered, weatherData)
+      const dueWater = waterDate <= todayIso
+      const dueFertilize = p.nextFertilize && p.nextFertilize <= todayIso
+      if (!dueWater && !dueFertilize) return null
+      const urgent =
+        p.urgency === 'high' ||
+        (dueWater && waterDate === todayIso) ||
+        (dueFertilize && p.nextFertilize === todayIso)
+      const overdue =
+        (dueWater && waterDate < todayIso) ||
+        (dueFertilize && p.nextFertilize < todayIso)
+      const lastCared = [p.lastWatered, p.lastFertilized]
+        .filter(Boolean)
+        .sort((a, b) => new Date(b) - new Date(a))[0]
+      return {
+        plant: p,
+        dueWater,
+        dueFertilize,
+        urgent,
+        overdue,
+        lastCared,
+      }
+    })
+    .filter(Boolean)
+
   const visibleTasks =
     typeFilter === 'all'
-      ? tasks
-      : tasks.filter(t => t.type.toLowerCase() === typeFilter)
+      ? taskGroups
+      : taskGroups.filter(g =>
+          typeFilter === 'water' ? g.dueWater : g.dueFertilize
+        )
   const totalCount = tasks.length
   const waterCount = waterTasks.length
   const fertilizeCount = fertilizeTasks.length
@@ -225,19 +254,22 @@ export default function Home() {
           </div>
           <div className="space-y-2">
             {visibleTasks.length > 0 ? (
-              visibleTasks.map((task, i) => (
+              visibleTasks.map((group, i) => (
                 <BaseCard
-                  key={task.id}
+                  key={group.plant.id}
                   variant="task"
                   className="animate-fade-in-up"
                   style={{ animationDelay: `${i * 50}ms` }}
                 >
-                  <TaskCard
-                    task={task}
-                    urgent={task.urgent}
-                    overdue={task.overdue}
-                    compact
-                    swipeable
+                  <UnifiedTaskCard
+                    plant={{
+                      ...group.plant,
+                      dueWater: group.dueWater,
+                      dueFertilize: group.dueFertilize,
+                      lastCared: group.lastCared,
+                    }}
+                    urgent={group.urgent}
+                    overdue={group.overdue}
                   />
                 </BaseCard>
               ))
