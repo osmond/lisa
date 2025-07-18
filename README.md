@@ -128,7 +128,7 @@ Lisa includes a web app manifest and service worker so you can install it on mob
 
 ## Dark Mode
 
-Lisa ships with built‑in light and dark themes. The app now defaults to light mode regardless of system settings. A toggle on the **Settings** page lets you switch modes manually, and the choice is stored locally so it persists across visits.
+Lisa ships with built‑in light and dark themes. A tiny inline script in `index.html` runs before React loads and adds the correct `dark` class to `<html>`, preventing flashes of the wrong theme. A toggle on the **Settings** page lets you switch modes manually, and your choice is stored in `localStorage` so the app remembers it on refresh.
 
 ## Safe Area Padding
 
