@@ -55,6 +55,7 @@ test('renders task text', () => {
   expect(badge).toHaveClass('inline-flex')
   expect(badge).toHaveClass('bg-water-100/90')
   expect(badge).toHaveClass('text-water-800')
+  expect(badge).toHaveClass('text-xs')
   expect(badge).toHaveClass('font-medium')
 })
 
@@ -66,7 +67,7 @@ test('incomplete tasks show alert style', () => {
       </BaseCard>
     </MemoryRouter>
   )
-  const wrapper = container.querySelector('.shadow-md')
+  const wrapper = container.querySelector('.shadow-sm')
   expect(wrapper).toHaveClass('bg-white')
 })
 
@@ -78,7 +79,7 @@ test('applies highlight when urgent', () => {
       </BaseCard>
     </MemoryRouter>
   )
-  const wrapper = container.querySelector('.shadow-md')
+  const wrapper = container.querySelector('.shadow-sm')
   expect(wrapper).toHaveClass('ring-green-300')
   expect(wrapper).toHaveClass('dark:ring-green-400')
 })
@@ -92,7 +93,7 @@ test('shows completed state', () => {
       </BaseCard>
     </MemoryRouter>
   )
-  const wrapper = container.querySelector('.shadow-md')
+  const wrapper = container.querySelector('.shadow-sm')
   expect(wrapper).toHaveClass('opacity-50')
   expect(wrapper).toHaveClass('bg-gray-100')
   expect(container.querySelector('.check-pop')).toBeInTheDocument()
