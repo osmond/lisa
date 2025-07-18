@@ -58,21 +58,25 @@ export default function TaskCard({
       onPointerCancel={end}
     >
         <div
-          className={`relative flex items-center gap-4 px-4 py-4 shadow-sm ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : 'bg-white dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
+          className={`relative flex items-center gap-4 p-4 shadow-md ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : 'bg-white dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
           style={{ transform: `translateX(${swipeable ? dx : 0}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
         >
           <div className="flex items-center flex-1 gap-4">
-            <img
-              src={task.image}
-              alt={task.plantName}
-              className={`w-[60px] h-[60px] rounded-full object-cover bg-gray-100 dark:bg-gray-800 ${
+            <div
+              className={`w-16 h-16 rounded-full flex items-center justify-center bg-green-50 dark:bg-gray-800 ${
                 task.type === 'Water'
                   ? 'ring-2 ring-water-300'
                   : task.type === 'Fertilize'
                   ? 'ring-2 ring-fertilize-300'
                   : 'ring-2 ring-healthy-300'
               }`}
-            />
+            >
+              <img
+                src={task.image}
+                alt={task.plantName}
+                className="w-12 h-12 rounded-full object-cover"
+              />
+            </div>
             <div className="w-px self-stretch bg-gray-200 dark:bg-gray-600" aria-hidden="true" />
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between gap-2">

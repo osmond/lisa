@@ -141,7 +141,7 @@ test('completed tasks are styled', () => {
     </MemoryRouter>
   )
   const cards = screen.getAllByTestId('task-card')
-  const inner = cards[0].querySelector('.shadow-sm')
+  const inner = cards[0].querySelector('.shadow-md')
   expect(inner).toHaveClass('opacity-50')
   expect(Array.from(cards).some(c => c.textContent.includes('Watered'))).toBe(
     true
