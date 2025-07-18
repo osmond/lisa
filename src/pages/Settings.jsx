@@ -71,6 +71,27 @@ export default function Settings() {
 
     <div className="space-y-4 text-gray-700 dark:text-gray-200 bg-[#FAFAF9] dark:bg-gray-900">
       <h1 className="text-2xl font-bold font-headline">Settings</h1>
+
+      <div className="flex items-center gap-2">
+        <span className="font-medium">Dark Mode</span>
+        <button
+          type="button"
+          onClick={toggleTheme}
+          role="switch"
+          aria-checked={theme === 'dark'}
+          className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-accent ${
+            theme === 'dark' ? 'bg-accent' : 'bg-gray-300'
+          }`}
+        >
+          <span
+            aria-hidden="true"
+            className={`inline-block h-5 w-5 transform rounded-full bg-white shadow transition ${
+              theme === 'dark' ? 'translate-x-5' : 'translate-x-1'
+            }`}
+          />
+        </button>
+      </div>
+
       <button
         onClick={() => {
           toggleTheme()
@@ -80,6 +101,7 @@ export default function Settings() {
       >
         Switch to {theme === 'dark' ? 'Light' : 'Dark'} Mode
       </button>
+
       <div className="grid gap-1 max-w-xs">
         <label htmlFor="username" className="font-medium">Name</label>
         <input
