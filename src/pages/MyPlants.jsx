@@ -71,9 +71,9 @@ export default function MyPlants() {
   }
 
   return (
-    <div>
+    <div className="max-w-md mx-auto space-y-8 py-4 px-4">
       <h1 className="text-2xl font-bold font-headline mb-4">All Plants</h1>
-      <div className="flex items-center gap-2 mb-2">
+      <div className="flex items-center gap-4 mb-2">
         <label className="text-sm">
           Sort
           <select
@@ -94,7 +94,7 @@ export default function MyPlants() {
           Needs Love
         </label>
       </div>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-4">
         {sortedRooms.map((room, i) => {
           const overdue = countOverdue(room)
 
