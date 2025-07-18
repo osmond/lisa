@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { FolderSimple, Plus } from 'phosphor-react'
+import { Plus } from 'phosphor-react'
 import { getNextWateringDate } from '../utils/watering.js'
 import { useRooms } from '../RoomContext.jsx'
 import { usePlants } from '../PlantContext.jsx'
@@ -42,6 +42,7 @@ export default function MyPlants() {
       <div className="grid grid-cols-2 gap-4">
         {rooms.map((room, i) => {
           const overdue = countOverdue(room)
+          const thumbnail = plants.find(p => p.room === room)?.image ?? '/demo-image-01.jpg'
           return (
             <Link
               key={room}
@@ -49,10 +50,7 @@ export default function MyPlants() {
               className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1 animate-fade-in-up"
               style={{ animationDelay: `${i * 50}ms` }}
             >
-              <FolderSimple
-                className="w-6 h-6 p-1 rounded bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-200"
-                aria-hidden="true"
-              />
+              <img src={thumbnail} className="w-full h-24 object-cover rounded-md shadow-sm" alt="" />
               <p className="font-semibold font-headline text-[1.1rem]">{room}</p>
               <p className="text-[10px] text-gray-500">{countPlants(room)} plants</p>
               {overdue > 0 && (
