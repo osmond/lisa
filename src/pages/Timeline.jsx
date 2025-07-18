@@ -102,49 +102,18 @@ export default function Timeline() {
       {selectedEvent && (
         <LogDetailsModal event={selectedEvent} onClose={() => setSelectedEvent(null)} />
       )}
-
-        {groupedEvents.map(([monthKey, list]) => (
-          <div key={monthKey} className="mt-6 first:mt-0">
-            <h3 className="text-[0.7rem] uppercase tracking-wider text-gray-300 mb-2">
-              {formatMonth(monthKey)}
-            </h3>
-            <ul className="ml-3 border-l-2 border-gray-200 space-y-6 pl-5">
-              {list.map((e, i) => {
-                const Icon = actionIcons[e.type]
-                return (
-                  <li key={`${e.date}-${e.label}-${i}`} className="relative text-sm">
-                    {Icon && (
-                      <div className={`absolute -left-5 top-[0.25rem] w-4 h-4 flex items-center justify-center rounded-full ${bulletColors[e.type]}`}>
-                        <Icon className="w-3 h-3 text-white" aria-hidden="true" />
-                      </div>
-                    )}
-                    <div className={`flex items-start ${e.note ? 'bg-gray-50 dark:bg-gray-700 rounded-xl p-3 shadow-sm' : ''}`}> 
-                      <div>
-                        <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
-                        {e.note && (
-                          <div className="text-xs italic text-green-700 mt-1">{e.note}</div>
-                        )}
-                      </div>
-                    </div>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-        ))}
-        {showNoteModal && (
-          <NoteModal
-            label="Note"
-            onSave={text => {
-              if (text) addTimelineNote(text)
-              setShowNoteModal(false)
-            }}
-            onCancel={() => setShowNoteModal(false)}
-          />
-        )}
-      </div>
       <NoteFab onAddNote={() => setShowNoteModal(true)} />
+      {showNoteModal && (
+        <NoteModal
+          label="Note"
+          onSave={text => {
+            if (text) addTimelineNote(text)
+            setShowNoteModal(false)
+          }}
+          onCancel={() => setShowNoteModal(false)}
+        />
+      )}
 
-    </div>
-  )
+  </div>
+)
 }
