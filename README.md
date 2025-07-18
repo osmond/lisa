@@ -16,6 +16,7 @@ Includes:
 - Tasks generated dynamically from plant data
 - Floating action button for adding plants or rooms
 - Persistent bottom navigation tabs for easy access
+- Placeholder photos fetched from iNaturalist when a plant has none
 
 ## Using the UI
 

@@ -5,6 +5,7 @@ import { formatCareSummary } from '../utils/date.js'
 
 
 import useSwipe from '../hooks/useSwipe.js'
+import useINatPhoto from '../hooks/useINatPhoto.js'
 import { createRipple } from '../utils/interactions.js'
 
 
@@ -46,9 +47,13 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
   const plant = items[index]
   const name = plant.plantName || plant.name
   const id = plant.plantId || plant.id
+  const placeholder = useINatPhoto(name)
   const preview = formatCareSummary(plant.lastWatered, plant.nextWater)
   const imageSrc =
-    (plant.photos && plant.photos[0]?.src) || plant.image || '/demo-image-01.jpg'
+    (plant.photos && plant.photos[0]?.src) ||
+    plant.image ||
+    placeholder?.src ||
+    '/demo-image-01.jpg'
 
   return (
     <Link
