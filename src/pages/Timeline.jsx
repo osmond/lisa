@@ -74,7 +74,7 @@ export default function Timeline() {
                     >
                       {Icon && (
                         <div
-                          className={`absolute -left-5 top-[0.25rem] w-4 h-4 flex items-center justify-center rounded-full ${bulletColors[e.type]} z-10`}
+                          className={`absolute -left-7 top-[0.25rem] w-4 h-4 flex items-center justify-center rounded-full ${bulletColors[e.type]} z-10`}
                         >
                           <Icon className="w-3 h-3 text-white" aria-hidden="true" />
                         </div>
