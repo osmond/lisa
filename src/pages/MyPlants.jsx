@@ -12,6 +12,7 @@ import { usePlants } from '../PlantContext.jsx'
 import { createRipple } from '../utils/interactions.js'
 import CreateFab from '../components/CreateFab.jsx'
 import PageContainer from "../components/PageContainer.jsx"
+import PageHeader from "../components/PageHeader.jsx"
 import Card from '../components/Card.jsx'
 
 export default function MyPlants() {
@@ -60,7 +61,7 @@ export default function MyPlants() {
   if (rooms.length === 0) {
     return (
       <div className="text-center space-y-4">
-        <h1 className="text-2xl font-bold font-headline">All Plants</h1>
+        <PageHeader title="All Plants" />
         <Link
           to="/room/add"
           className="inline-block px-4 py-2 bg-green-600 text-white rounded"
@@ -74,7 +75,7 @@ export default function MyPlants() {
 
   return (
     <PageContainer>
-      <h1 className="text-2xl font-bold font-headline mb-4">All Plants</h1>
+      <PageHeader title="All Plants" />
       <div className="flex items-center gap-4 mb-2">
         <label className="text-sm">
           Sort

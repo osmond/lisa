@@ -5,7 +5,7 @@ import { Drop } from 'phosphor-react'
 import { usePlants } from '../PlantContext.jsx'
 import { formatDaysAgo } from '../utils/dateFormat.js'
 import { createRipple } from '../utils/interactions.js'
-import Breadcrumb from '../components/Breadcrumb.jsx'
+import PageHeader from '../components/PageHeader.jsx'
 import Badge from '../components/Badge.jsx'
 import PageContainer from "../components/PageContainer.jsx"
 import Card from '../components/Card.jsx'
@@ -33,8 +33,7 @@ export default function RoomList() {
 
   return (
     <PageContainer>
-      <Breadcrumb room={roomName} />
-      <h1 className="text-2xl font-bold font-headline mb-4">{roomName}</h1>
+      <PageHeader title={roomName} breadcrumb={{ room: roomName }} />
       {list.length > 0 && (
         <div>
           <label htmlFor="sort" className="text-sm font-medium">

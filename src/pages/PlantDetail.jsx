@@ -23,7 +23,7 @@ import NoteModal from '../components/NoteModal.jsx'
 import { useMenu, defaultMenu } from '../MenuContext.jsx'
 import LegendModal from '../components/LegendModal.jsx'
 import ProgressRing from '../components/ProgressRing.jsx'
-import Breadcrumb from '../components/Breadcrumb.jsx'
+import PageHeader from '../components/PageHeader.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
 import SectionCard from '../components/SectionCard.jsx'
 
@@ -245,7 +245,10 @@ export default function PlantDetail() {
           </div>
         </div>
         </div>
-        <Breadcrumb room={plant.room} plant={plant.name} />
+        <PageHeader
+          title={plant.name}
+          breadcrumb={{ room: plant.room, plant: plant.name }}
+        />
 
 <SectionCard className="space-y-3">
   <h3 className="flex items-center gap-2 font-semibold font-headline">
