@@ -11,7 +11,7 @@ exports[`matches snapshot in dark mode 1`] = `
     tabindex="0"
   >
     <div
-      class="relative flex items-center gap-4 p-4 shadow-md bg-white dark:bg-gray-700 ring-2 ring-green-300 dark:ring-green-400"
+      class="relative flex items-center gap-4 p-4 shadow-md rounded-2xl bg-white dark:bg-gray-700 ring-2 ring-green-300 dark:ring-green-400"
       style="transform: translateX(0px); transition: transform 0.2s;"
     >
       <div
