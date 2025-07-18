@@ -56,8 +56,8 @@ export default function MyPlants() {
               <p className="font-semibold font-headline text-[1.1rem]">{room}</p>
               <p className="text-[10px] text-gray-500">{countPlants(room)} plants</p>
               {overdue > 0 && (
-                <span className="slide-in inline-flex text-[11px] px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100">
-                  ⚠️ {overdue} needs love
+                <span className="slide-in flex items-center text-[11px] px-2 py-0.5 rounded-full bg-red-100 text-red-600 animate-pulse">
+                  ❤️ {overdue} need care
                 </span>
               )}
             </Link>

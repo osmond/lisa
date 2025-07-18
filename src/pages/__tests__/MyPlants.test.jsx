@@ -60,7 +60,7 @@ test('shows overdue badge for rooms with tasks', () => {
       <MyPlants />
     </MemoryRouter>
   )
-  const badge = screen.getByText(/needs love/i)
-  expect(badge).toHaveTextContent('⚠️ 2 needs love')
+  const badge = screen.getByText(/need care/i)
+  expect(badge).toHaveTextContent('❤️ 2 need care')
   jest.useRealTimers()
 })
