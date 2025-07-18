@@ -19,28 +19,46 @@ export default function useINatPhoto(name) {
     if (typeof fetch !== 'function') return
 
     let aborted = false
+    const verifyImage = url =>
+      new Promise((resolve, reject) => {
+        if (typeof Image === 'undefined') {
+          resolve()
+          return
+        }
+        const img = new Image()
+        img.onload = () => resolve()
+        img.onerror = () => reject(new Error('image failed'))
+        img.src = url
+      })
+
     async function fetchPhoto() {
       try {
         const searchUrl =
           `https://api.inaturalist.org/v1/search?q=${encodeURIComponent(name)}&sources=taxa`
         const searchRes = await fetch(searchUrl)
         const searchData = await searchRes.json()
-        const id = searchData?.results?.[0]?.record?.id || searchData?.results?.[0]?.id
-        if (!id) return
-        const taxonRes = await fetch(`https://api.inaturalist.org/v1/taxa/${id}`)
-        const taxonData = await taxonRes.json()
-        const defaultPhoto = taxonData?.results?.[0]?.default_photo
-        if (defaultPhoto?.medium_url) {
-          const info = {
-            src: defaultPhoto.medium_url,
-            attribution: defaultPhoto.attribution,
+        const results = searchData?.results || []
+        for (const result of results) {
+          const id = result?.record?.id || result?.id
+          if (!id) continue
+          const taxonRes = await fetch(`https://api.inaturalist.org/v1/taxa/${id}`)
+          const taxonData = await taxonRes.json()
+          const defaultPhoto = taxonData?.results?.[0]?.default_photo
+          const url = defaultPhoto?.medium_url
+          if (!url) continue
+          try {
+            await verifyImage(url)
+          } catch {
+            continue
           }
+          const info = { src: url, attribution: defaultPhoto.attribution }
           if (!aborted) {
             setPhoto(info)
             if (typeof localStorage !== 'undefined') {
               localStorage.setItem(key, JSON.stringify(info))
             }
           }
+          break
         }
       } catch (err) {
         console.error('Failed to load iNaturalist photo', err)
