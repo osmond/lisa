@@ -65,6 +65,10 @@ export default function PlantDetail() {
 
   const ringClass = ringColors[plant?.urgency] || 'text-green-600'
   const progressPct = getWateringProgress(plant?.lastWatered, plant?.nextWater)
+  const fertProgressPct = getWateringProgress(
+    plant?.lastFertilized,
+    plant?.nextFertilize
+  )
 
   const now = new Date()
   const nextWaterDate = plant?.nextWater ? new Date(plant.nextWater) : null
@@ -219,9 +223,24 @@ export default function PlantDetail() {
             aria-label={`Watering progress ${Math.round(progressPct * 100)}%`}
           >
             <div className="relative" style={{ width: 48, height: 48 }}>
-              <ProgressRing percent={progressPct} size={48} colorClass={ringClass} />
-              <div className="absolute inset-1 rounded-full bg-white/80 flex items-center justify-center text-[10px] font-semibold">
-                {Math.round(progressPct * 100)}%
+              <ProgressRing
+                percent={progressPct}
+                size={48}
+                colorClass={ringClass}
+              />
+              {plant.nextFertilize && plant.lastFertilized && (
+                <ProgressRing
+                  percent={fertProgressPct}
+                  size={34}
+                  colorClass="text-yellow-600"
+                />
+              )}
+              <div
+                className={`absolute inset-1 rounded-full bg-white/80 flex items-center justify-center text-[10px] font-semibold ${ringClass}`}
+              >
+                {progressPct >= 1
+                  ? 'Water Now'
+                  : `${Math.round(progressPct * 100)}%`}
               </div>
             </div>
           </div>
