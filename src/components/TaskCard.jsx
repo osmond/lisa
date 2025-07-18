@@ -51,14 +51,14 @@ export default function TaskCard({
       data-testid="task-card"
       tabIndex="0"
       aria-label={`Task card for ${task.plantName}`}
-      className="relative overflow-hidden rounded-2xl min-h-[130px]"
+      className="relative overflow-hidden min-h-[130px]"
       onPointerDown={start}
       onPointerMove={move}
       onPointerUp={end}
       onPointerCancel={end}
     >
         <div
-          className={`relative flex items-center gap-4 p-4 shadow-md rounded-2xl ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : 'bg-white dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
+          className={`relative flex items-center gap-4 shadow-md ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : 'bg-white dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
           style={{ transform: `translateX(${swipeable ? dx : 0}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
         >
           <div className="flex items-center flex-1 gap-4">
