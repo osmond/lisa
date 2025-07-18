@@ -198,11 +198,11 @@ export default function Home() {
         data-testid="tasks-container"
         className="mt-4 border-t border-neutral-200 dark:border-gray-600 bg-sage dark:bg-gray-700 rounded-xl p-4"
       >
-        <section className="space-y-5">
+        <section className="space-y-2">
           <div className="flex items-center justify-between">
             <h2 className="font-semibold font-headline">Today’s Tasks</h2>
           </div>
-          <div className="space-y-5">
+          <div className="space-y-2">
             {visibleTasks.length > 0 ? (
               visibleTasks.map((task, i) => (
                 <BaseCard
