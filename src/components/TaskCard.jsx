@@ -51,7 +51,7 @@ export default function TaskCard({
       data-testid="task-card"
       tabIndex="0"
       aria-label={`Task card for ${task.plantName}`}
-      className="relative overflow-hidden min-h-[130px] rounded-xl"
+        className="relative overflow-hidden rounded-xl"
       onPointerDown={start}
       onPointerMove={move}
       onPointerUp={end}
