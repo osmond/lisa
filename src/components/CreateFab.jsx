@@ -28,14 +28,14 @@ export default function CreateFab() {
     <div className="fixed bottom-24 right-20 z-30">
       {open && (
         <div
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-30 backdrop-blur-sm"
+          className="fixed inset-0 bg-black/60 flex items-center justify-center z-30 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
           aria-label="Add menu"
           onClick={() => setOpen(false)}
         >
           <ul
-            className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 w-52 space-y-3 animate-fade-in-up"
+            className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 w-52 space-y-4 animate-fade-in-up"
             onClick={e => e.stopPropagation()}
           >
             <button
@@ -52,7 +52,7 @@ export default function CreateFab() {
                   to={to}
                   onClick={() => setOpen(false)}
                   title={label}
-                  className="flex items-center gap-3 w-full rounded-lg p-2 hover:bg-green-50 dark:hover:bg-gray-600 transition"
+                  className="flex items-center gap-3 w-full rounded-lg p-3 hover:bg-green-50 dark:hover:bg-gray-600 transition"
                 >
                   <span className={`p-2 rounded-full ${colorClasses[color].bg}`}>
                     <Icon className={`w-5 h-5 ${colorClasses[color].text}`} aria-hidden="true" />

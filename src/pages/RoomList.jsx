@@ -85,12 +85,12 @@ export default function RoomList() {
                     loading="lazy"
                     className="plant-thumb"
                   />
-                  <span className="absolute top-1 left-1 bg-black/60 text-white text-xs px-1 rounded">
+                  <span className="absolute top-1 left-1 bg-black/70 text-white text-xs px-1 rounded">
                     {plant.name}
                   </span>
                   <Badge
                     Icon={Drop}
-                    colorClass={`absolute bottom-1 left-1 text-xs ${colorClass}`}
+                    colorClass={`absolute bottom-1 left-1 text-xs whitespace-nowrap ${colorClass}`}
                   >
                     {status}
                   </Badge>

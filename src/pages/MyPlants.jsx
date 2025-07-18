@@ -76,7 +76,7 @@ export default function MyPlants() {
   return (
     <PageContainer>
       <PageHeader title="All Plants" />
-      <div className="flex items-center gap-4 mb-2">
+      <div className="flex items-center justify-between gap-4 mb-3">
         <label className="text-sm">
           Sort
           <select
@@ -124,7 +124,7 @@ export default function MyPlants() {
                     alt={`Photo of the ${room} room`}
                   />
                   <div
-                    className="absolute inset-0 rounded-md bg-gradient-to-t from-black/60 via-black/30 to-transparent"
+                    className="absolute inset-0 rounded-md bg-gradient-to-t from-black/70 via-black/40 to-transparent"
                     aria-hidden="true"
                   ></div>
                   <div className="absolute bottom-1 left-2 right-2 text-white drop-shadow space-y-0.5">
@@ -132,7 +132,7 @@ export default function MyPlants() {
                     <p className="text-sm text-gray-500 leading-none">{countPlants(room)} plants</p>
                   </div>
                 </div>
-                <div className="flex gap-1 text-badge">
+                <div className="flex gap-2 text-badge mt-1">
                   {wateredToday && (
                     <span role="img" aria-label="Watered today">💧</span>
                   )}
@@ -145,12 +145,14 @@ export default function MyPlants() {
                   {lastUpdated && <span>{formatDaysAgo(lastUpdated)}</span>}
                 </div>
                 {overdue > 0 && (
-                  <Badge
-                    variant="overdue"
-                    colorClass="slide-in animate-pulse rounded-full text-badge"
-                  >
-                    ⚠️ {overdue} needs love
-                  </Badge>
+                  <div className="mt-1">
+                    <Badge
+                      variant="overdue"
+                      colorClass="slide-in animate-pulse rounded-full text-badge"
+                    >
+                      ⚠️ {overdue} needs love
+                    </Badge>
+                  </div>
                 )}
               </Card>
             </Link>
