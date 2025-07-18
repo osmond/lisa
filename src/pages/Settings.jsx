@@ -1,7 +1,11 @@
 import { useTheme } from '../ThemeContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
 import { useUser } from '../UserContext.jsx'
+
+import { User, MapPin, Thermometer, Clock } from 'phosphor-react'
+
 import useSnackbar from '../hooks/useSnackbar.jsx'
+
 
 export default function Settings() {
   const { theme, toggleTheme } = useTheme()
