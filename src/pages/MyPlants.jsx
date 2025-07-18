@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Plus } from 'phosphor-react'
 import { getNextWateringDate } from '../utils/watering.js'
@@ -15,6 +16,9 @@ export default function MyPlants() {
   const { rooms } = useRooms()
   const { plants } = usePlants()
 
+  const [sortBy, setSortBy] = useState('name')
+  const [needsLoveOnly, setNeedsLoveOnly] = useState(false)
+
   const countPlants = room => plants.filter(p => p.room === room).length
   const todayIso = new Date().toISOString().slice(0, 10)
   const countOverdue = room =>
@@ -26,6 +30,14 @@ export default function MyPlants() {
         if (p.nextFertilize && p.nextFertilize < todayIso) m += 1
         return m
       }, 0)
+
+
+  const sortedRooms = [...rooms]
+    .filter(r => !needsLoveOnly || countOverdue(r) > 0)
+    .sort((a, b) => {
+      if (sortBy === 'name') return a.localeCompare(b)
+      return countPlants(b) - countPlants(a)
+    })
 
   const roomStats = room => {
     const list = plants.filter(p => p.room === room)
@@ -41,6 +53,7 @@ export default function MyPlants() {
     }, '')
     return { wateredToday, lowLight, pestAlert, lastUpdated }
   }
+
 
   if (rooms.length === 0) {
     return (
@@ -60,8 +73,29 @@ export default function MyPlants() {
   return (
     <div>
       <h1 className="text-2xl font-bold font-headline mb-4">All Plants</h1>
+      <div className="flex items-center gap-2 mb-2">
+        <label className="text-sm">
+          Sort
+          <select
+            className="ml-1 border rounded p-1"
+            value={sortBy}
+            onChange={e => setSortBy(e.target.value)}
+          >
+            <option value="name">Name</option>
+            <option value="count"># Plants</option>
+          </select>
+        </label>
+        <label className="flex items-center gap-1 text-sm">
+          <input
+            type="checkbox"
+            checked={needsLoveOnly}
+            onChange={e => setNeedsLoveOnly(e.target.checked)}
+          />
+          Needs Love
+        </label>
+      </div>
       <div className="grid grid-cols-2 gap-4">
-        {rooms.map((room, i) => {
+        {sortedRooms.map((room, i) => {
           const overdue = countOverdue(room)
 
           const accent = colorHash(room)
@@ -104,7 +138,7 @@ export default function MyPlants() {
           to="/room/add"
           aria-label="Add Room"
           className="flex items-center justify-center w-full h-40 rounded-lg border-2 border-dashed text-gray-500 animate-fade-in-up"
-          style={{ animationDelay: `${rooms.length * 50}ms` }}
+          style={{ animationDelay: `${sortedRooms.length * 50}ms` }}
         >
           <Plus className="w-10 h-10" aria-hidden="true" />
         </Link>
