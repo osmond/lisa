@@ -16,6 +16,10 @@ jest.mock('../../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: mockPlants }),
 }))
 
+afterEach(() => {
+  jest.useRealTimers()
+})
+
 test('shows upbeat message when there are no tasks', () => {
   render(
     <MemoryRouter>
