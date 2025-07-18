@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom'
 import { Plus } from 'phosphor-react'
 import { getNextWateringDate } from '../utils/watering.js'
+
+import { colorHash } from '../utils/colorHash.js'
+
 import { formatDaysAgo } from '../utils/dateFormat.js'
+
 import { useRooms } from '../RoomContext.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import CreateFab from '../components/CreateFab.jsx'
@@ -59,16 +63,20 @@ export default function MyPlants() {
         {rooms.map((room, i) => {
           const overdue = countOverdue(room)
 
+          const accent = colorHash(room)
+
+
           const { wateredToday, lowLight, pestAlert, lastUpdated } = roomStats(room)
 
           const thumbnail = plants.find(p => p.room === room)?.image ?? '/demo-image-01.jpg'
+
 
           return (
             <Link
               key={room}
               to={`/room/${encodeURIComponent(room)}`}
-              className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1 animate-fade-in-up"
-              style={{ animationDelay: `${i * 50}ms` }}
+              className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1 animate-fade-in-up border-t-4"
+              style={{ animationDelay: `${i * 50}ms`, borderTopColor: accent }}
             >
               <img src={thumbnail} className="w-full h-24 object-cover rounded-md shadow-sm" alt="" />
               <p className="font-semibold font-headline text-[1.1rem]">{room}</p>
