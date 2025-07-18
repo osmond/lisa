@@ -128,7 +128,7 @@ export default function MyPlants() {
               </div>
               {overdue > 0 && (
                 <span className="slide-in flex items-center text-[11px] px-2 py-0.5 rounded-full bg-red-100 text-red-600 animate-pulse">
-                  ❤️ {overdue} need care
+                  ⚠️ {overdue} needs love
                 </span>
               )}
             </Link>
