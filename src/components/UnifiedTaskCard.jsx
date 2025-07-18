@@ -24,10 +24,12 @@ export default function UnifiedTaskCard({ plant, urgent = false, overdue = false
   return (
     <div
       data-testid="unified-task-card"
-      className={`rounded-xl overflow-hidden ${bgClass}`}
+      className={`rounded-2xl border border-neutral-200 dark:border-gray-600 shadow-sm overflow-hidden ${bgClass}`}
     >
-      <div className="flex items-center gap-3 p-4">
-        <img src={image} alt={name} className="w-12 h-12 rounded-lg object-cover" />
+      <div className="flex items-center gap-4 p-5">
+        <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-sm bg-neutral-100 dark:bg-gray-700">
+          <img src={image} alt={name} className="w-12 h-12 rounded-full object-cover" />
+        </div>
         <div className="flex-1 min-w-0">
           <p className="font-semibold font-headline text-gray-900 dark:text-gray-100 truncate">
             {name}
