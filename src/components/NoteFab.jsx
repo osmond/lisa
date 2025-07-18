@@ -14,7 +14,7 @@ export default function NoteFab({ onAddNote }) {
   }, [open])
 
   return (
-    <div className="fixed bottom-24 right-20 z-30">
+    <div className="absolute bottom-4 right-4 z-30">
       {open && (
         <div
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-30 backdrop-blur-sm"
