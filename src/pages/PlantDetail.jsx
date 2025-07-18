@@ -358,7 +358,7 @@ export default function PlantDetail() {
             const isCollapsed = collapsedMonths[monthKey]
             return (
               <div key={monthKey} className="mt-6 first:mt-0">
-                <h3 className="text-timestamp uppercase tracking-wider text-gray-300 mb-2 flex items-center">
+                <h3 className="sticky top-0 z-10 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm px-1 text-timestamp uppercase tracking-wider text-gray-300 mb-2 flex items-center">
                   <button
                     type="button"
                     aria-expanded={!isCollapsed}
@@ -381,7 +381,7 @@ export default function PlantDetail() {
                 <ul
                   className={`${
                     isCollapsed ? 'hidden' : ''
-                  } ml-3 border-l-2 border-gray-200 space-y-6 pl-5`}
+                  } relative ml-3 space-y-6 pl-5 before:absolute before:inset-y-0 before:left-2 before:w-px before:bg-gray-200`}
                 >
                   {list.map((e, i) => {
                     const Icon = actionIcons[e.type]
