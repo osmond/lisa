@@ -12,6 +12,7 @@ import { usePlants } from '../PlantContext.jsx'
 import { createRipple } from '../utils/interactions.js'
 import CreateFab from '../components/CreateFab.jsx'
 import PageContainer from "../components/PageContainer.jsx"
+import Card from '../components/Card.jsx'
 
 export default function MyPlants() {
   const { rooms } = useRooms()
@@ -108,46 +109,48 @@ export default function MyPlants() {
             <Link
               key={room}
               to={`/room/${encodeURIComponent(room)}`}
-              className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md hover:shadow-lg space-y-2 animate-fade-in-up transition-transform hover:-translate-y-1 active:shadow"
+              className="animate-fade-in-up transition-transform hover:-translate-y-1 active:shadow"
               style={{ animationDelay: `${i * 50}ms` }}
               onMouseDown={createRipple}
               onTouchStart={createRipple}
             >
-              <div className="relative">
-                <img
-                  src={thumbnail}
-                  className="w-full h-24 object-cover rounded-md"
-                  alt={`Photo of the ${room} room`}
-                />
-                <div
-                  className="absolute inset-0 rounded-md bg-gradient-to-t from-black/60 via-black/30 to-transparent"
-                  aria-hidden="true"
-                ></div>
-                <div className="absolute bottom-1 left-2 right-2 text-white drop-shadow space-y-0.5">
-                  <p className="font-bold text-lg font-headline leading-none">{room}</p>
-                  <p className="text-sm text-gray-500 leading-none">{countPlants(room)} plants</p>
+              <Card className="space-y-2 hover:shadow-lg">
+                <div className="relative">
+                  <img
+                    src={thumbnail}
+                    className="w-full h-24 object-cover rounded-md"
+                    alt={`Photo of the ${room} room`}
+                  />
+                  <div
+                    className="absolute inset-0 rounded-md bg-gradient-to-t from-black/60 via-black/30 to-transparent"
+                    aria-hidden="true"
+                  ></div>
+                  <div className="absolute bottom-1 left-2 right-2 text-white drop-shadow space-y-0.5">
+                    <p className="font-bold text-lg font-headline leading-none">{room}</p>
+                    <p className="text-sm text-gray-500 leading-none">{countPlants(room)} plants</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex gap-1 text-[10px]">
-                {wateredToday && (
-                  <span role="img" aria-label="Watered today">💧</span>
+                <div className="flex gap-1 text-[10px]">
+                  {wateredToday && (
+                    <span role="img" aria-label="Watered today">💧</span>
+                  )}
+                  {lowLight && (
+                    <span role="img" aria-label="Low light">☀️</span>
+                  )}
+                  {pestAlert && (
+                    <span role="img" aria-label="Pest alert">🐛</span>
+                  )}
+                  {lastUpdated && <span>{formatDaysAgo(lastUpdated)}</span>}
+                </div>
+                {overdue > 0 && (
+                  <Badge
+                    variant="overdue"
+                    colorClass="slide-in animate-pulse rounded-full text-[11px]"
+                  >
+                    ⚠️ {overdue} needs love
+                  </Badge>
                 )}
-                {lowLight && (
-                  <span role="img" aria-label="Low light">☀️</span>
-                )}
-                {pestAlert && (
-                  <span role="img" aria-label="Pest alert">🐛</span>
-                )}
-                {lastUpdated && <span>{formatDaysAgo(lastUpdated)}</span>}
-              </div>
-              {overdue > 0 && (
-                <Badge
-                  variant="overdue"
-                  colorClass="slide-in animate-pulse rounded-full text-[11px]"
-                >
-                  ⚠️ {overdue} needs love
-                </Badge>
-              )}
+              </Card>
             </Link>
           )
         })}

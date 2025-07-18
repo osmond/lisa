@@ -10,6 +10,7 @@ import { usePlants } from '../PlantContext.jsx'
 import useSnackbar from '../hooks/useSnackbar.jsx'
 import NoteModal from './NoteModal.jsx'
 import ConfirmModal from './ConfirmModal.jsx'
+import Card from './Card.jsx'
 
 export default function PlantCard({ plant }) {
   const navigate = useNavigate()
@@ -201,8 +202,7 @@ export default function PlantCard({ plant }) {
           )}
         </div>
       )}
-      <div
-        className="p-4 rounded-2xl shadow-md bg-white dark:bg-gray-700"
+      <Card
         style={{ transform: `translateX(${deltaX}px)`, transition: deltaX === 0 ? 'transform 0.2s' : 'none' }}
       >
         <Link
@@ -226,7 +226,7 @@ export default function PlantCard({ plant }) {
           <Drop className="w-4 h-4" aria-hidden="true" />
           Watered
         </button>
-      </div>
+      </Card>
     </div>
     {showNote && (
       <NoteModal label="Optional note" onSave={handleSaveNote} onCancel={handleCancelNote} />

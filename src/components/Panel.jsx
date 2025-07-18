@@ -1,7 +1,9 @@
+import Card from './Card.jsx'
+
 export default function Panel({ className = '', children, ...props }) {
   return (
-    <div className={`rounded-xl bg-white dark:bg-gray-700 shadow-sm p-4 ${className}`} {...props}>
+    <Card className={className} {...props}>
       {children}
-    </div>
+    </Card>
   )
 }
