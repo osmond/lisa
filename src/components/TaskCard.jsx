@@ -18,6 +18,12 @@ export default function TaskCard({
   const { plants, markWatered, markFertilized, updatePlant } = usePlants()
   const { Snackbar, showSnackbar } = useSnackbar()
 
+  const goToDetail = e => {
+    e.stopPropagation()
+    const room = task.room ? encodeURIComponent(task.room) : null
+    navigate(room ? `/room/${room}/plant/${task.plantId}` : `/plant/${task.plantId}`)
+  }
+
   const handleComplete = () => {
     const prev = plants.find(p => p.id === task.plantId)
     if (task.type === 'Water') {
@@ -59,21 +65,23 @@ export default function TaskCard({
       onPointerCancel={end}
     >
       <div className="flex items-center flex-1 gap-4">
-        <div
-          className={`w-16 h-16 rounded-full flex items-center justify-center shadow-sm bg-neutral-100 dark:bg-gray-800 ${
+      <button
+        type="button"
+        onClick={goToDetail}
+        className={`w-16 h-16 rounded-full flex items-center justify-center shadow-sm bg-neutral-100 dark:bg-gray-800 ${
             task.type === 'Water'
               ? 'ring-2 ring-water-300'
               : task.type === 'Fertilize'
               ? 'ring-2 ring-fertilize-300'
               : 'ring-2 ring-healthy-300'
           }`}
-        >
-          <img
-            src={task.image}
-            alt={task.plantName}
-            className="w-12 h-12 rounded-full object-cover"
-          />
-        </div>
+      >
+        <img
+          src={task.image}
+          alt={task.plantName}
+          className="w-12 h-12 rounded-full object-cover"
+        />
+      </button>
         <div className="w-px self-stretch bg-gray-200 dark:bg-gray-600" aria-hidden="true" />
         <div className="flex-1 min-w-0">
           <div className="text-base font-semibold text-gray-900 dark:text-gray-100 truncate">
