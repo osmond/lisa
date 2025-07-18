@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom'
-import { FolderSimple, Plus } from 'phosphor-react'
+import { Plus } from 'phosphor-react'
 import { getNextWateringDate } from '../utils/watering.js'
+
 import { colorHash } from '../utils/colorHash.js'
+
+import { formatDaysAgo } from '../utils/dateFormat.js'
+
 import { useRooms } from '../RoomContext.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import CreateFab from '../components/CreateFab.jsx'
@@ -21,6 +25,21 @@ export default function MyPlants() {
         if (p.nextFertilize && p.nextFertilize < todayIso) m += 1
         return m
       }, 0)
+
+  const roomStats = room => {
+    const list = plants.filter(p => p.room === room)
+    const wateredToday = list.some(p => p.lastWatered === todayIso)
+    const lowLight = list.some(p => (p.light || '').toLowerCase().includes('low'))
+    const pestAlert = list.some(p => p.pestAlert)
+    const lastUpdated = list.reduce((latest, p) => {
+      const dates = [p.lastWatered, p.lastFertilized].filter(Boolean)
+      for (const d of dates) {
+        if (!latest || d > latest) latest = d
+      }
+      return latest
+    }, '')
+    return { wateredToday, lowLight, pestAlert, lastUpdated }
+  }
 
   if (rooms.length === 0) {
     return (
@@ -43,7 +62,15 @@ export default function MyPlants() {
       <div className="grid grid-cols-2 gap-4">
         {rooms.map((room, i) => {
           const overdue = countOverdue(room)
+
           const accent = colorHash(room)
+
+
+          const { wateredToday, lowLight, pestAlert, lastUpdated } = roomStats(room)
+
+          const thumbnail = plants.find(p => p.room === room)?.image ?? '/demo-image-01.jpg'
+
+
           return (
             <Link
               key={room}
@@ -51,15 +78,18 @@ export default function MyPlants() {
               className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1 animate-fade-in-up border-t-4"
               style={{ animationDelay: `${i * 50}ms`, borderTopColor: accent }}
             >
-              <FolderSimple
-                className="w-6 h-6 p-1 rounded bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-200"
-                aria-hidden="true"
-              />
+              <img src={thumbnail} className="w-full h-24 object-cover rounded-md shadow-sm" alt="" />
               <p className="font-semibold font-headline text-[1.1rem]">{room}</p>
               <p className="text-[10px] text-gray-500">{countPlants(room)} plants</p>
+              <div className="flex gap-1 text-[10px]">
+                {wateredToday && <span>💧</span>}
+                {lowLight && <span>☀️</span>}
+                {pestAlert && <span>🐛</span>}
+                {lastUpdated && <span>{formatDaysAgo(lastUpdated)}</span>}
+              </div>
               {overdue > 0 && (
-                <span className="slide-in inline-flex text-[11px] px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100">
-                  ⚠️ {overdue} needs love
+                <span className="slide-in flex items-center text-[11px] px-2 py-0.5 rounded-full bg-red-100 text-red-600 animate-pulse">
+                  ❤️ {overdue} need care
                 </span>
               )}
             </Link>
