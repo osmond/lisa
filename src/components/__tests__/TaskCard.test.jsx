@@ -68,7 +68,7 @@ test('incomplete tasks show alert style', () => {
     </MemoryRouter>
   )
   const wrapper = container.querySelector('.shadow-sm')
-  expect(wrapper).toHaveClass('bg-white')
+  expect(wrapper).toHaveClass('bg-neutral-50')
 })
 
 test('applies highlight when urgent', () => {

@@ -70,7 +70,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
       onTouchEnd={end}
 
 
-      className="relative block overflow-hidden rounded-2xl shadow bg-sage dark:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+      className="relative block overflow-hidden rounded-3xl shadow bg-sage dark:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
       style={{ transform: `translateX(${deltaX}px)`, transition: deltaX === 0 ? 'transform 0.2s' : 'none' }}
     >
       <img
@@ -79,7 +79,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
         className="w-full h-64 object-cover"
       />
       <div
-        className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.6),rgba(0,0,0,0.2),transparent)]"
         aria-hidden="true"
       ></div>
       <div className="absolute bottom-3 left-4 right-4 text-white space-y-1 drop-shadow">
@@ -98,7 +98,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
           <button
             type="button"
             aria-label={`Mark ${name} as watered`}
-            className="px-3 py-1 bg-blue-600 text-white rounded text-sm animate-bounce-once"
+            className="px-4 py-2 bg-blue-600 text-white rounded-full shadow text-sm animate-bounce-once"
           >
             Water Now
           </button>

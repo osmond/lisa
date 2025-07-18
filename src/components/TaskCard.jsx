@@ -51,7 +51,7 @@ export default function TaskCard({
       data-testid="task-card"
       tabIndex="0"
       aria-label={`Task card for ${task.plantName}`}
-      className={`relative flex items-center p-4 gap-4 rounded-2xl shadow-sm ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : 'bg-white dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
+      className={`relative flex items-center p-5 gap-4 rounded-2xl shadow-sm border border-neutral-200 dark:border-gray-600 ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : 'bg-neutral-50 dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
       style={{ transform: `translateX(${swipeable ? dx : 0}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
       onPointerDown={start}
       onPointerMove={move}
@@ -60,7 +60,7 @@ export default function TaskCard({
     >
       <div className="flex items-center flex-1 gap-4">
         <div
-          className={`w-16 h-16 rounded-full flex items-center justify-center bg-green-50 dark:bg-gray-800 ${
+          className={`w-16 h-16 rounded-full flex items-center justify-center shadow-sm bg-neutral-100 dark:bg-gray-800 ${
             task.type === 'Water'
               ? 'ring-2 ring-water-300'
               : task.type === 'Fertilize'

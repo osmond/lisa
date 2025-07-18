@@ -1,10 +1,10 @@
 import React from 'react'
 
 export default function BaseCard({ variant = 'task', className = '', children, ...props }) {
-  const base = variant === 'task' ? '' : 'rounded-2xl p-4'
+  const base = 'rounded-2xl'
   const variants = {
     task: '',
-    summary: 'border dark:border-gray-600 bg-white dark:bg-gray-700',
+    summary: 'p-4 border dark:border-gray-600 bg-white dark:bg-gray-700',
   }
   const variantClass = variants[variant] ?? ''
   return (
