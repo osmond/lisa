@@ -52,8 +52,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
   const imageSrc =
     (plant.photos && plant.photos[0]?.src) ||
     plant.image ||
-    placeholder?.src ||
-    '/demo-image-01.jpg'
+    placeholder?.src
 
   return (
     <Link

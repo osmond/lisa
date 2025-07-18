@@ -59,7 +59,7 @@ export default function RoomList() {
             const src =
               typeof plant.image === 'string' && plant.image.trim() !== ''
                 ? plant.image
-                : '/demo-image-01.jpg'
+                : plant.placeholderSrc
             const daysUntil = plant.nextWater
               ? Math.ceil((new Date(plant.nextWater) - today) / 86400000)
               : null

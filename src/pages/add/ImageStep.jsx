@@ -1,7 +1,7 @@
 import { addBase } from '../../PlantContext.jsx'
 import PageContainer from "../../components/PageContainer.jsx"
 
-export default function ImageStep({ image, dispatch, onNext, onBack }) {
+export default function ImageStep({ image, placeholder, dispatch, onNext, onBack }) {
   const handleFileChange = e => {
     const file = e.target.files && e.target.files[0]
     if (file) {
@@ -36,8 +36,12 @@ export default function ImageStep({ image, dispatch, onNext, onBack }) {
           className="border rounded p-2"
         />
       </div>
-      {image && (
-        <img src={addBase(image)} alt="Preview" className="object-cover w-24 h-24 rounded" />
+      {(image || placeholder) && (
+        <img
+          src={addBase(image || placeholder)}
+          alt="Preview"
+          className="object-cover w-24 h-24 rounded"
+        />
       )}
       <div className="flex gap-2">
         <button type="button" onClick={onBack} className="px-4 py-2 bg-gray-200 rounded">Back</button>

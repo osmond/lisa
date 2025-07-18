@@ -3,25 +3,24 @@
     "id": 1,
     "name": "Monstera",
     "nickname": "Swiss Cheese",
-    "image": "/demo-image-01.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
     "photos": [
       {
-        "src": "/demo-image-01.jpg",
-        "caption": "Leaf close-up"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
+        "caption": "Monstera photo 1"
       },
       {
-        "src": "/demo-image-02.jpg",
-        "caption": "Full plant"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
+        "caption": "Monstera photo 2"
       },
       {
-        "src": "/demo-image-03.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
+        "caption": "Monstera photo 3"
       },
       {
-        "src": "/demo-image-04.jpg",
-        "caption": "New growth"
-      },
-      {
-        "src": "/demo-image-16.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/1/medium.jpg",
+        "caption": "Monstera photo 4"
       }
     ],
     "lastWatered": "2025-07-01",
@@ -58,19 +57,24 @@
     "id": 2,
     "name": "Snake Plant",
     "nickname": "Mother-in-Law's Tongue",
-    "image": "/demo-image-02.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
     "photos": [
       {
-        "src": "/demo-image-02.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
+        "caption": "Snake Plant photo 1"
       },
       {
-        "src": "/demo-image-03.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
+        "caption": "Snake Plant photo 2"
       },
       {
-        "src": "/demo-image-04.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
+        "caption": "Snake Plant photo 3"
       },
       {
-        "src": "/demo-image-17.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/2/medium.jpg",
+        "caption": "Snake Plant photo 4"
       }
     ],
     "lastWatered": "2025-07-02",
@@ -101,19 +105,24 @@
     "id": 3,
     "name": "Fiddle Leaf Fig",
     "nickname": "Fiddle",
-    "image": "/demo-image-03.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
     "photos": [
       {
-        "src": "/demo-image-03.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
+        "caption": "Fiddle Leaf Fig photo 1"
       },
       {
-        "src": "/demo-image-04.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
+        "caption": "Fiddle Leaf Fig photo 2"
       },
       {
-        "src": "/demo-image-05.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
+        "caption": "Fiddle Leaf Fig photo 3"
       },
       {
-        "src": "/demo-image-18.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/3/medium.jpg",
+        "caption": "Fiddle Leaf Fig photo 4"
       }
     ],
     "lastWatered": "2025-07-09",
@@ -137,19 +146,24 @@
     "id": 4,
     "name": "Peace Lily",
     "nickname": "Lily",
-    "image": "/demo-image-04.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
     "photos": [
       {
-        "src": "/demo-image-04.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
+        "caption": "Peace Lily photo 1"
       },
       {
-        "src": "/demo-image-05.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
+        "caption": "Peace Lily photo 2"
       },
       {
-        "src": "/demo-image-06.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
+        "caption": "Peace Lily photo 3"
       },
       {
-        "src": "/demo-image-19.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/4/medium.jpg",
+        "caption": "Peace Lily photo 4"
       }
     ],
     "lastWatered": "2025-07-11",
@@ -180,19 +194,24 @@
     "id": 5,
     "name": "ZZ Plant",
     "nickname": "Zenzi",
-    "image": "/demo-image-08.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
     "photos": [
       {
-        "src": "/demo-image-05.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
+        "caption": "ZZ Plant photo 1"
       },
       {
-        "src": "/demo-image-06.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
+        "caption": "ZZ Plant photo 2"
       },
       {
-        "src": "/demo-image-07.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
+        "caption": "ZZ Plant photo 3"
       },
       {
-        "src": "/demo-image-20.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/5/medium.jpg",
+        "caption": "ZZ Plant photo 4"
       }
     ],
     "lastWatered": "2025-07-01",
@@ -222,19 +241,24 @@
     "id": 6,
     "name": "Aloe Vera",
     "nickname": "Medic",
-    "image": "/demo-image-02.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
     "photos": [
       {
-        "src": "/demo-image-06.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+        "caption": "Aloe Vera photo 1"
       },
       {
-        "src": "/demo-image-07.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+        "caption": "Aloe Vera photo 2"
       },
       {
-        "src": "/demo-image-08.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+        "caption": "Aloe Vera photo 3"
       },
       {
-        "src": "/demo-image-21.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/6/medium.jpg",
+        "caption": "Aloe Vera photo 4"
       }
     ],
     "lastWatered": "2025-07-04",
@@ -265,19 +289,24 @@
     "id": 7,
     "name": "Pothos",
     "nickname": "Devil's Ivy",
-    "image": "/demo-image-07.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
     "photos": [
       {
-        "src": "/demo-image-07.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
+        "caption": "Pothos photo 1"
       },
       {
-        "src": "/demo-image-08.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
+        "caption": "Pothos photo 2"
       },
       {
-        "src": "/demo-image-09.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
+        "caption": "Pothos photo 3"
       },
       {
-        "src": "/demo-image-22.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/7/medium.jpg",
+        "caption": "Pothos photo 4"
       }
     ],
     "lastWatered": "2025-07-06",
@@ -301,19 +330,24 @@
     "id": 8,
     "name": "Calathea Orbifolia",
     "nickname": "Prayer Plant",
-    "image": "/demo-image-08.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
     "photos": [
       {
-        "src": "/demo-image-08.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+        "caption": "Calathea Orbifolia photo 1"
       },
       {
-        "src": "/demo-image-09.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+        "caption": "Calathea Orbifolia photo 2"
       },
       {
-        "src": "/demo-image-10.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+        "caption": "Calathea Orbifolia photo 3"
       },
       {
-        "src": "/demo-image-23.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/8/medium.jpg",
+        "caption": "Calathea Orbifolia photo 4"
       }
     ],
     "lastWatered": "2025-07-08",
@@ -337,19 +371,24 @@
     "id": 9,
     "name": "Rubber Plant",
     "nickname": "Ficus Elastica",
-    "image": "/demo-image-05.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
     "photos": [
       {
-        "src": "/demo-image-09.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
+        "caption": "Rubber Plant photo 1"
       },
       {
-        "src": "/demo-image-10.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
+        "caption": "Rubber Plant photo 2"
       },
       {
-        "src": "/demo-image-01.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
+        "caption": "Rubber Plant photo 3"
       },
       {
-        "src": "/demo-image-24.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/9/medium.jpg",
+        "caption": "Rubber Plant photo 4"
       }
     ],
     "lastWatered": "2025-07-05",
@@ -373,16 +412,24 @@
     "id": 10,
     "name": "Chinese Evergreen",
     "nickname": "Aglaonema",
-    "image": "/demo-image-09.jpg",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
     "photos": [
       {
-        "src": "/demo-image-10.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
+        "caption": "Chinese Evergreen photo 1"
       },
       {
-        "src": "/demo-image-01.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
+        "caption": "Chinese Evergreen photo 2"
       },
       {
-        "src": "/demo-image-02.jpg"
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
+        "caption": "Chinese Evergreen photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/10/medium.jpg",
+        "caption": "Chinese Evergreen photo 4"
       }
     ],
     "lastWatered": "2025-07-04",

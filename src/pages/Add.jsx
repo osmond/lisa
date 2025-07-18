@@ -1,6 +1,7 @@
 import { useReducer, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePlants, addBase } from '../PlantContext.jsx'
+import useINatPhoto from '../hooks/useINatPhoto.js'
 import NameStep from './add/NameStep.jsx'
 import ImageStep from './add/ImageStep.jsx'
 import ScheduleStep from './add/ScheduleStep.jsx'
@@ -61,13 +62,14 @@ export default function Add() {
   const navigate = useNavigate()
   const [state, dispatch] = useReducer(reducer, initialState)
   const [step, setStep] = useState(1)
+  const placeholder = useINatPhoto(state.name)
 
   const next = () => setStep(s => s + 1)
   const back = () => setStep(s => s - 1)
 
   const handleSubmit = () => {
     if (!state.name) return
-    const imagePath = addBase(state.image || '/demo-image-01.jpg')
+    const imagePath = addBase(state.image || placeholder?.src || '')
     addPlant({
       name: state.name,
       image: imagePath,
@@ -89,6 +91,7 @@ export default function Add() {
       {step === 2 && (
         <ImageStep
           image={state.image}
+          placeholder={placeholder?.src}
           dispatch={dispatch}
           onNext={next}
           onBack={back}
