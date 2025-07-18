@@ -15,9 +15,14 @@ export default function CreateFab() {
   }, [open])
 
   const items = [
-    { to: '/add', label: 'Add Plant', Icon: Leaf },
-    { to: '/room/add', label: 'Add Room', Icon: Door },
+    { to: '/add', label: 'Add Plant', Icon: Leaf, color: 'green' },
+    { to: '/room/add', label: 'Add Room', Icon: Door, color: 'violet' },
   ]
+
+  const colorClasses = {
+    green: { bg: 'bg-green-100', text: 'text-green-600' },
+    violet: { bg: 'bg-violet-100', text: 'text-violet-600' },
+  }
 
   return (
     <div className="fixed bottom-24 right-20 z-30">
@@ -30,7 +35,7 @@ export default function CreateFab() {
           onClick={() => setOpen(false)}
         >
           <ul
-            className="relative bg-white dark:bg-gray-700 rounded-xl shadow-xl p-8 space-y-4 animate-fade-in-up"
+            className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 w-52 space-y-3 animate-fade-in-up"
             onClick={e => e.stopPropagation()}
           >
             <button
@@ -41,17 +46,18 @@ export default function CreateFab() {
             >
               &times;
             </button>
-            {items.map(({ to, label, Icon }) => (
+            {items.map(({ to, label, Icon, color }) => (
               <li key={label}>
                 <NavLink
                   to={to}
                   onClick={() => setOpen(false)}
                   title={label}
-                  className="flex items-center gap-3 hover:text-accent"
+                  className="flex items-center gap-3 w-full rounded-lg p-2 hover:bg-green-50 dark:hover:bg-gray-600 transition"
                 >
-                  <Plus className="w-5 h-5" aria-hidden="true" />
-                  <Icon className="w-5 h-5" aria-hidden="true" />
-                  {label}
+                  <span className={`p-2 rounded-full ${colorClasses[color].bg}`}>
+                    <Icon className={`w-5 h-5 ${colorClasses[color].text}`} aria-hidden="true" />
+                  </span>
+                  <span className="text-sm text-gray-800 dark:text-gray-200">{label}</span>
                 </NavLink>
               </li>
             ))}
