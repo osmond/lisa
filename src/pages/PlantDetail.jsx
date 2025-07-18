@@ -217,32 +217,30 @@ export default function PlantDetail() {
               </Badge>
             )}
           </div>
-          <div
-            className="absolute bottom-2 right-2"
-            data-testid="watering-ring"
-            aria-label={`Watering progress ${Math.round(progressPct * 100)}%`}
-          >
-            <div className="relative" style={{ width: 48, height: 48 }}>
-              <ProgressRing
-                percent={progressPct}
-                size={48}
-                colorClass={ringClass}
-              />
-              {plant.nextFertilize && plant.lastFertilized && (
-                <ProgressRing
-                  percent={fertProgressPct}
-                  size={34}
-                  colorClass="text-yellow-600"
-                />
-              )}
+          <div className="absolute bottom-2 right-2 flex gap-2" data-testid="progress-rings">
+            <div
+              className="relative"
+              style={{ width: 48, height: 48 }}
+              data-testid="watering-ring"
+              aria-label={`Watering progress ${Math.round(progressPct * 100)}%`}
+            >
+              <ProgressRing percent={progressPct} size={48} colorClass={ringClass} />
               <div
                 className={`absolute inset-1 rounded-full bg-white/80 flex items-center justify-center text-[10px] font-semibold ${ringClass}`}
               >
-                {progressPct >= 1
-                  ? 'Water Now'
-                  : `${Math.round(progressPct * 100)}%`}
+                {progressPct >= 1 ? 'Water Now' : `${Math.round(progressPct * 100)}%`}
               </div>
             </div>
+            {plant.nextFertilize && plant.lastFertilized && (
+              <div className="relative" style={{ width: 40, height: 40 }} data-testid="fertilizing-ring">
+                <ProgressRing
+                  percent={fertProgressPct}
+                  size={40}
+                  strokeWidth={4}
+                  colorClass="text-yellow-600"
+                />
+              </div>
+            )}
           </div>
         </div>
         </div>
