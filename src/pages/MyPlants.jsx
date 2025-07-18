@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Plus } from 'phosphor-react'
 import { getNextWateringDate } from '../utils/watering.js'
 
-import { colorHash } from '../utils/colorHash.js'
+import Badge from '../components/Badge.jsx'
 
 import { formatDaysAgo } from '../utils/dateFormat.js'
 
@@ -94,12 +94,9 @@ export default function MyPlants() {
           Needs Love
         </label>
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-2">
         {sortedRooms.map((room, i) => {
           const overdue = countOverdue(room)
-
-          const accent = colorHash(room)
-
 
           const { wateredToday, lowLight, pestAlert, lastUpdated } = roomStats(room)
 
@@ -110,26 +107,42 @@ export default function MyPlants() {
             <Link
               key={room}
               to={`/room/${encodeURIComponent(room)}`}
-
-              className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1 animate-fade-in-up transition-transform hover:-translate-y-1 hover:shadow-lg active:shadow"
+              className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md hover:shadow-lg space-y-2 animate-fade-in-up transition-transform hover:-translate-y-1 active:shadow"
               style={{ animationDelay: `${i * 50}ms` }}
               onMouseDown={createRipple}
               onTouchStart={createRipple}
-
             >
-              <img src={thumbnail} className="w-full h-24 object-cover rounded-md shadow-sm" alt="" />
-              <p className="font-semibold font-headline text-[1.1rem]">{room}</p>
-              <p className="text-[10px] text-gray-500">{countPlants(room)} plants</p>
+              <div className="relative">
+                <img
+                  src={thumbnail}
+                  className="w-full h-24 object-cover rounded-md"
+                  alt={`Photo of the ${room} room`}
+                />
+                <div
+                  className="absolute inset-0 rounded-md bg-gradient-to-t from-black/60 via-black/30 to-transparent"
+                  aria-hidden="true"
+                ></div>
+                <div className="absolute bottom-1 left-2 right-2 text-white drop-shadow space-y-0.5">
+                  <p className="font-bold text-lg font-headline leading-none">{room}</p>
+                  <p className="text-sm text-gray-500 leading-none">{countPlants(room)} plants</p>
+                </div>
+              </div>
               <div className="flex gap-1 text-[10px]">
-                {wateredToday && <span>💧</span>}
-                {lowLight && <span>☀️</span>}
-                {pestAlert && <span>🐛</span>}
+                {wateredToday && (
+                  <span role="img" aria-label="Watered today">💧</span>
+                )}
+                {lowLight && (
+                  <span role="img" aria-label="Low light">☀️</span>
+                )}
+                {pestAlert && (
+                  <span role="img" aria-label="Pest alert">🐛</span>
+                )}
                 {lastUpdated && <span>{formatDaysAgo(lastUpdated)}</span>}
               </div>
               {overdue > 0 && (
-                <span className="slide-in flex items-center text-[11px] px-2 py-0.5 rounded-full bg-red-100 text-red-600 animate-pulse">
+                <Badge colorClass="slide-in animate-pulse bg-red-100 text-red-600 rounded-full text-[11px]">
                   ⚠️ {overdue} needs love
-                </span>
+                </Badge>
               )}
             </Link>
           )
