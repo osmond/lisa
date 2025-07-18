@@ -1417,5 +1417,74 @@
     "difficulty": "Easy",
     "room": "Living Room",
     "urgency": "high"
+  },
+  {
+    "id": 44,
+    "name": "Monstera",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/44/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/44/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/44/medium.jpg",
+        "caption": "Monstera photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/44/medium.jpg",
+        "caption": "Monstera photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/44/medium.jpg",
+        "caption": "Monstera photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/44/medium.jpg",
+        "caption": "Monstera photo 4"
+      }
+    ],
+    "lastWatered": "",
+    "nextWater": "",
+    "lastFertilized": "",
+    "nextFertilize": "",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "notes": "New plant added to collection.",
+    "urgency": "high"
+  },
+  {
+    "id": 45,
+    "name": "Lil Fiddle",
+    "placeholderSrc": "https://inaturalist-open-data.s3.amazonaws.com/photos/45/medium.jpg",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/45/medium.jpg",
+    "photos": [
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/45/medium.jpg",
+        "caption": "Lil Fiddle photo 1"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/45/medium.jpg",
+        "caption": "Lil Fiddle photo 2"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/45/medium.jpg",
+        "caption": "Lil Fiddle photo 3"
+      },
+      {
+        "src": "https://inaturalist-open-data.s3.amazonaws.com/photos/45/medium.jpg",
+        "caption": "Lil Fiddle photo 4"
+      }
+    ],
+    "lastWatered": "",
+    "nextWater": "",
+    "lastFertilized": "",
+    "nextFertilize": "",
+    "light": "Low to medium",
+    "humidity": "Average",
+    "difficulty": "Easy",
+    "room": "Living Room",
+    "notes": "New plant added to collection.",
+    "urgency": "high"
   }
+
 ]
