@@ -39,6 +39,10 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return
   const url = new URL(event.request.url)
   if (url.origin !== self.location.origin) return
+  if (event.request.mode === 'navigate') {
+    event.respondWith(caches.match(`${BASE}/index.html`))
+    return
+  }
   event.respondWith(
     caches
       .match(event.request)
