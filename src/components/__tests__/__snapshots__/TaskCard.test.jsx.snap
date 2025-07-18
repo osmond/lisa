@@ -11,17 +11,21 @@ exports[`matches snapshot in dark mode 1`] = `
     tabindex="0"
   >
     <div
-      class="relative flex items-center gap-4 px-4 py-4 shadow-sm bg-white dark:bg-gray-700 ring-2 ring-green-300 dark:ring-green-400"
+      class="relative flex items-center gap-4 p-4 shadow-md bg-white dark:bg-gray-700 ring-2 ring-green-300 dark:ring-green-400"
       style="transform: translateX(0px); transition: transform 0.2s;"
     >
       <div
         class="flex items-center flex-1 gap-4"
       >
-        <img
-          alt="Monstera"
-          class="w-[60px] h-[60px] rounded-full object-cover bg-gray-100 dark:bg-gray-800 ring-2 ring-water-300"
-          src="https://images.pexels.com/photos/5699660/pexels-photo-5699660.jpeg"
-        />
+        <div
+          class="w-16 h-16 rounded-full flex items-center justify-center bg-green-50 dark:bg-gray-800 ring-2 ring-water-300"
+        >
+          <img
+            alt="Monstera"
+            class="w-12 h-12 rounded-full object-cover"
+            src="https://images.pexels.com/photos/5699660/pexels-photo-5699660.jpeg"
+          />
+        </div>
         <div
           aria-hidden="true"
           class="w-px self-stretch bg-gray-200 dark:bg-gray-600"
