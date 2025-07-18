@@ -53,7 +53,7 @@ test('renders task text', () => {
   const badge = screen.getByText('To Water')
   expect(badge).toBeInTheDocument()
   expect(badge).toHaveClass('inline-flex')
-  expect(badge).toHaveClass('bg-water-100')
+  expect(badge).toHaveClass('bg-water-100/90')
   expect(badge).toHaveClass('text-water-800')
   expect(badge).toHaveClass('font-medium')
 })
@@ -98,7 +98,7 @@ test('shows completed state', () => {
   expect(container.querySelector('.check-pop')).toBeInTheDocument()
 })
 
-test('does not render an icon svg', () => {
+test('renders badge icon', () => {
   const { container } = render(
     <MemoryRouter>
       <BaseCard variant="task">
@@ -107,7 +107,7 @@ test('does not render an icon svg', () => {
     </MemoryRouter>
   )
   const svg = container.querySelector('svg')
-  expect(svg).toBeNull()
+  expect(svg).toBeInTheDocument()
 })
 
 test('shows info chip with accessibility label', () => {

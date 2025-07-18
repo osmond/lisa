@@ -51,33 +51,44 @@ export default function TaskCard({
       data-testid="task-card"
       tabIndex="0"
       aria-label={`Task card for ${task.plantName}`}
-      className="relative overflow-hidden rounded-xl"
+      className="relative overflow-hidden rounded-2xl min-h-[130px]"
       onPointerDown={start}
       onPointerMove={move}
       onPointerUp={end}
       onPointerCancel={end}
     >
         <div
-          className={`relative flex items-center gap-3 px-4 py-3 shadow-sm ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : 'bg-white dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
+          className={`relative flex items-center gap-4 px-4 py-4 shadow-sm ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : 'bg-white dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
           style={{ transform: `translateX(${swipeable ? dx : 0}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
         >
-          <div className="flex items-center flex-1 gap-3">
-            <img src={task.image} alt={task.plantName} className="w-12 h-12 rounded-lg object-cover" />
+          <div className="flex items-center flex-1 gap-4">
+            <img
+              src={task.image}
+              alt={task.plantName}
+              className={`w-[60px] h-[60px] rounded-full object-cover bg-gray-100 dark:bg-gray-800 ${
+                task.type === 'Water'
+                  ? 'ring-2 ring-water-300'
+                  : task.type === 'Fertilize'
+                  ? 'ring-2 ring-fertilize-300'
+                  : 'ring-2 ring-healthy-300'
+              }`}
+            />
             <div className="w-px self-stretch bg-gray-200 dark:bg-gray-600" aria-hidden="true" />
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between gap-2">
-                <p className="font-semibold text-gray-900 dark:text-gray-100 truncate">
+                <p className="font-semibold text-lg text-gray-900 dark:text-gray-100 truncate">
                   {task.plantName}
                 </p>
               </div>
-              <div className="text-sm flex flex-wrap items-center gap-1 text-gray-500 mt-0.5">
+              <div className="text-sm flex flex-wrap items-center gap-1 text-gray-400 mt-0.5">
                 <Badge
+                  Icon={task.type === 'Water' ? Drop : task.type === 'Fertilize' ? Sun : undefined}
                   colorClass={`text-sm font-medium ${
                     task.type === 'Water'
-                      ? 'bg-water-100 text-water-800'
+                      ? 'bg-water-100/90 text-water-800'
                       : task.type === 'Fertilize'
-                        ? 'bg-fertilize-100 text-fertilize-800'
-                        : 'bg-healthy-100 text-healthy-800'
+                        ? 'bg-fertilize-100/90 text-fertilize-800'
+                        : 'bg-healthy-100/90 text-healthy-800'
                   }`}
                 >
                   {completed
@@ -93,7 +104,7 @@ export default function TaskCard({
                     : task.type}
                 </Badge>
                 {daysSince != null && (
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs text-gray-400">
                     {daysSince} {daysSince === 1 ? 'day' : 'days'} since care
                   </span>
                 )}
