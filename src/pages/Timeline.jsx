@@ -53,7 +53,7 @@ export default function Timeline() {
   }
 
   return (
-    <div className="overflow-y-auto max-h-full max-w-md mx-auto space-y-8 py-4 px-4 text-gray-700 dark:text-gray-200">
+    <div className="relative overflow-y-auto max-h-full max-w-md mx-auto space-y-8 py-4 px-4 text-gray-700 dark:text-gray-200">
       <SectionCard className="border border-gray-100">
 
         <div className="relative">
