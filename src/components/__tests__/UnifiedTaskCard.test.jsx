@@ -12,12 +12,13 @@ const plant = {
   lastCared: '2025-07-07',
 }
 
-test('renders plant info and water button', () => {
+test('renders plant info and badges', () => {
   render(<UnifiedTaskCard plant={plant} />)
   expect(screen.getByText('Fern')).toBeInTheDocument()
-  expect(screen.getByText(/Needs water/)).toBeInTheDocument()
-  expect(screen.getByText('Water Now')).toBeInTheDocument()
-  expect(screen.queryByText('Fertilize Now')).toBeNull()
+  const waterBadge = screen.getByText('Water')
+  expect(waterBadge).toBeInTheDocument()
+  expect(waterBadge).toHaveClass('bg-water-100/90')
+  expect(screen.queryByText('Fertilize')).toBeNull()
   expect(screen.getByText('Last cared for 3 days ago')).toBeInTheDocument()
 })
 
