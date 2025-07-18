@@ -9,6 +9,7 @@ import { formatMonth, formatDate } from '../utils/date.js'
 import { buildEvents, groupEventsByMonth } from '../utils/events.js'
 import NoteModal from '../components/NoteModal.jsx'
 import NoteFab from '../components/NoteFab.jsx'
+import SectionCard from '../components/SectionCard.jsx'
 
 export default function Timeline() {
   const { plants, timelineNotes = [], addTimelineNote = () => {} } = usePlants()
@@ -53,7 +54,7 @@ export default function Timeline() {
 
   return (
     <div className="overflow-y-auto max-h-full p-4 text-gray-700 dark:text-gray-200">
-      <div className="rounded-xl bg-white shadow-sm p-4 border border-gray-100">
+      <SectionCard className="border border-gray-100">
 
         <div className="relative">
           {groupedEvents.map(([monthKey, list]) => (
@@ -97,7 +98,7 @@ export default function Timeline() {
             </div>
           ))}
         </div>
-      </div>
+      </SectionCard>
       {selectedEvent && (
         <LogDetailsModal event={selectedEvent} onClose={() => setSelectedEvent(null)} />
       )}
