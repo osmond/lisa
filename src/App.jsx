@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Home from './pages/Home'
 import MyPlants from './pages/MyPlants'
@@ -41,6 +41,7 @@ export default function App() {
         <motion.div key={location.pathname}>
           <Routes location={location}>
             <Route path="/" element={<Home />} />
+            <Route path="/plants" element={<Navigate to="/myplants" replace />} />
             <Route path="/myplants" element={<PageTransition><MyPlants /></PageTransition>} />
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/add" element={<Add />} />
