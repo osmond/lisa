@@ -199,26 +199,36 @@ export default function PlantDetail() {
             )}
           </div>
           <div
-            className="absolute top-2 right-2 z-10 flex flex-wrap gap-4"
+            className="absolute top-2 right-2 z-10 flex flex-wrap gap-2"
             aria-label="Care tags"
           >
             {plant.light && (
-              <Badge Icon={Sun} variant="info">
+              <Badge Icon={Sun} variant="info" size="sm">
                 {plant.light}
               </Badge>
             )}
             {plant.humidity && (
-              <Badge Icon={Drop} variant="info">
+              <Badge Icon={Drop} variant="info" size="sm">
                 {plant.humidity}
               </Badge>
             )}
             {plant.difficulty && (
-              <Badge Icon={Gauge} variant="info">
+              <Badge Icon={Gauge} variant="info" size="sm">
                 {plant.difficulty}
               </Badge>
             )}
           </div>
-          <div className="absolute bottom-2 right-2 flex gap-4" data-testid="progress-rings">
+          <div className="absolute bottom-2 right-2 flex items-center gap-2" data-testid="progress-rings">
+            {progressPct >= 1 && (
+              <button
+                type="button"
+                onClick={handleWatered}
+                aria-label={`Mark ${plant.name} as watered`}
+                className="px-3 py-1 bg-blue-600 text-white rounded-full shadow text-sm"
+              >
+                Water Now
+              </button>
+            )}
             <div
               className="relative"
               style={{ width: 48, height: 48 }}

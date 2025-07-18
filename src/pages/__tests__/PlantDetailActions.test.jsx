@@ -51,7 +51,7 @@ test('quick stats action buttons trigger handlers', () => {
   )
 
   fireEvent.click(
-    screen.getByRole('button', { name: /mark plant a as watered/i })
+    screen.getAllByRole('button', { name: /mark plant a as watered/i })[0]
   )
   expect(markWatered).toHaveBeenCalledWith(1, '')
 
