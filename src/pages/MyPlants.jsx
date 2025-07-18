@@ -3,6 +3,7 @@ import { FolderSimple, Plus } from 'phosphor-react'
 import { getNextWateringDate } from '../utils/watering.js'
 import { useRooms } from '../RoomContext.jsx'
 import { usePlants } from '../PlantContext.jsx'
+import CreateFab from '../components/CreateFab.jsx'
 
 export default function MyPlants() {
   const { rooms } = useRooms()
@@ -30,6 +31,7 @@ export default function MyPlants() {
         >
           Add Room
         </Link>
+        <CreateFab />
       </div>
     )
   }
@@ -70,6 +72,7 @@ export default function MyPlants() {
           <Plus className="w-10 h-10" aria-hidden="true" />
         </Link>
       </div>
+      <CreateFab />
     </div>
   )
 }

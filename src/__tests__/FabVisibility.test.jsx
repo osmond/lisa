@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import App from '../App.jsx'
 
@@ -22,44 +22,29 @@ jest.mock('../RoomContext.jsx', () => ({
   useRooms: () => ({ rooms: [] }),
 }))
 
-const routesWithAddLink = [
-  '/',
-  '/myplants',
-  '/add',
-  '/profile',
-  '/timeline',
-  '/tasks',
-  '/nonexistent',
-]
-
-const plantRoutes = ['/plant/1']
-
-describe('Menu contents based on route', () => {
-  test.each(routesWithAddLink)('shows Add Plant and Add Room links on %s', route => {
+describe('floating action button visibility', () => {
+  test('shows fab on All Plants page', () => {
     render(
-      <MemoryRouter initialEntries={[route]}>
+      <MemoryRouter initialEntries={[ '/myplants' ]}>
         <App />
       </MemoryRouter>
     )
 
-    const button = screen.getByRole('button', { name: /open add menu/i })
+    const button = screen.getByRole('button', { name: /open create menu/i })
     fireEvent.click(button)
-    const links = screen.getAllByRole('link', { name: /add plant/i })
-    expect(links.length).toBeGreaterThan(0)
-    const roomLinks = screen.getAllByRole('link', { name: /add room/i })
-    expect(roomLinks.length).toBeGreaterThan(0)
+    const overlay = screen.getByRole('dialog', { name: /add menu/i })
+    expect(within(overlay).getByRole('link', { name: /add plant/i })).toBeInTheDocument()
+    expect(within(overlay).getByRole('link', { name: /add room/i })).toBeInTheDocument()
   })
 
-  test.each(plantRoutes)('shows Add Plant and Add Room links on %s', route => {
+  test('fab hidden on Profile page', () => {
     render(
-      <MemoryRouter initialEntries={[route]}>
+      <MemoryRouter initialEntries={[ '/profile' ]}>
         <App />
       </MemoryRouter>
     )
 
-    const button = screen.getByRole('button', { name: /open add menu/i })
-    fireEvent.click(button)
-    expect(screen.getByRole('link', { name: /add plant/i })).toBeInTheDocument()
-    expect(screen.getAllByRole('link', { name: /add room/i }).length).toBeGreaterThan(0)
+    expect(screen.queryByRole('button', { name: /open create menu/i })).toBeNull()
   })
 })
+

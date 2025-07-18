@@ -2,11 +2,9 @@ import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useMenu } from '../MenuContext.jsx'
 import useOverdueCount from '../hooks/useOverdueCount.js'
-import AddMenu from './AddMenu.jsx'
 
 export default function PersistentBottomNav() {
   const [open, setOpen] = useState(false)
-  const [addOpen, setAddOpen] = useState(false)
   const overdueCount = useOverdueCount()
   const { menu } = useMenu()
 
@@ -30,38 +28,23 @@ export default function PersistentBottomNav() {
       <ul className="flex justify-around items-center py-2 text-xs">
         {mainLinks.map(({ to, label, Icon: LinkIcon }) => {
           const showBadge = label === 'All Plants' && overdueCount > 0
-          const isAdd = label === 'Add'
           return (
             <li key={label} className="relative">
-              {to && !isAdd ? (
-                <NavLink
-                  to={to}
-                  title={label}
-                  className={({ isActive }) =>
-                    `flex flex-col items-center gap-1 ${isActive ? 'text-accent' : 'text-gray-500'}`
-                  }
-                >
-                  <LinkIcon className="w-6 h-6" aria-hidden="true" />
-                  {label}
-                  {showBadge && (
-                    <span className="absolute -top-1 -right-2 bg-red-600 text-white text-[10px] rounded-full px-1">
-                      {overdueCount}
-                    </span>
-                  )}
-                </NavLink>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => setAddOpen(true)}
-                  aria-label="Open add menu"
-                  aria-haspopup="menu"
-                  aria-expanded={addOpen}
-                  className="flex flex-col items-center gap-1 text-gray-500"
-                >
-                  <LinkIcon className="w-6 h-6" aria-hidden="true" />
-                  {label}
-                </button>
-              )}
+              <NavLink
+                to={to}
+                title={label}
+                className={({ isActive }) =>
+                  `flex flex-col items-center gap-1 ${isActive ? 'text-accent' : 'text-gray-500'}`
+                }
+              >
+                <LinkIcon className="w-6 h-6" aria-hidden="true" />
+                {label}
+                {showBadge && (
+                  <span className="absolute -top-1 -right-2 bg-red-600 text-white text-[10px] rounded-full px-1">
+                    {overdueCount}
+                  </span>
+                )}
+              </NavLink>
             </li>
           )
         })}
@@ -132,9 +115,6 @@ export default function PersistentBottomNav() {
             ))}
           </ul>
         </div>
-      )}
-      {addOpen && (
-        <AddMenu open={addOpen} onClose={() => setAddOpen(false)} />
       )}
     </nav>
   )
