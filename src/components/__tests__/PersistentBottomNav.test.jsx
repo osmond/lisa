@@ -11,7 +11,11 @@ jest.mock('../../hooks/useOverdueCount.js')
 
 const customMenu = {
   ...defaultMenu,
-  items: [...defaultMenu.items, { to: '/profile', label: 'Profile', Icon: Gear }],
+  items: [
+    ...defaultMenu.items,
+    { to: '/profile', label: 'Profile', Icon: Gear },
+    { to: '/extra', label: 'Extra', Icon: Gear },
+  ],
 }
 
 function CustomMenuProvider({ children }) {
@@ -43,9 +47,7 @@ test('renders main navigation links', () => {
   expect(container.querySelector('a[href="/myplants"]')).toBeInTheDocument()
   expect(container.querySelector('a[href="/timeline"]')).toBeInTheDocument()
   expect(container.querySelector('a[href="/profile"]')).toBeInTheDocument()
-  expect(
-    screen.getByRole('button', { name: /open add menu/i })
-  ).toBeInTheDocument()
+  expect(screen.queryByRole('button', { name: /open add menu/i })).toBeNull()
 })
 
 test('shows overdue badge when tasks pending', () => {
@@ -77,7 +79,7 @@ test('profile link replaces more button when additional links exist', () => {
   expect(overlay).toHaveClass('backdrop-blur-sm')
   expect(screen.queryByRole('link', { name: /add plant/i })).toBeNull()
   expect(screen.queryByRole('link', { name: /add room/i })).toBeNull()
-  expect(overlay.querySelector('a[href="/profile"]')).toBeInTheDocument()
+  expect(overlay.querySelector('a[href="/extra"]')).toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: /close menu/i }))
 
   expect(screen.queryByRole('dialog', { name: /navigation menu/i })).toBeNull()
