@@ -5,7 +5,7 @@ export default function OptionalInfoStep({ room, notes, careLevel, dispatch, onB
   return (
     <PageContainer>
     <form onSubmit={e => { e.preventDefault(); onSubmit(); }} className="space-y-4">
-      <h1 className="text-2xl font-bold font-headline">Add Plant</h1>
+      <h1 className="text-heading font-bold font-headline">Add Plant</h1>
       <div className="grid gap-1">
         <label htmlFor="room" className="font-medium">Room</label>
         <input

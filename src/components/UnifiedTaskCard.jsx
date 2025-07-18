@@ -16,7 +16,7 @@ export default function UnifiedTaskCard({ plant, urgent = false, overdue = false
 
   const lastText = lastCared ? formatDaysAgo(lastCared) : null
   const last = lastText ? (
-    <p className="text-xs text-gray-500">Last cared for {lastText}</p>
+    <p className="text-timestamp text-gray-500">Last cared for {lastText}</p>
   ) : null
 
   return (

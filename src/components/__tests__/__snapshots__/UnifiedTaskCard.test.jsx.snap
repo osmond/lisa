@@ -29,7 +29,7 @@ exports[`matches snapshot in dark mode 1`] = `
         class="flex items-center gap-2 mt-1"
       >
         <span
-          class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-water-100/90 text-water-800"
+          class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-badge font-medium bg-water-100/90 text-water-800"
         >
           <svg
             aria-hidden="true"
@@ -66,7 +66,7 @@ exports[`matches snapshot in dark mode 1`] = `
         </span>
       </div>
       <p
-        class="text-xs text-gray-500"
+        class="text-timestamp text-gray-500"
       >
         Last cared for 
         3 days ago

@@ -83,7 +83,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
       <div className="absolute bottom-3 left-4 right-4 text-white space-y-1 drop-shadow">
         <span className="text-xs uppercase tracking-wide opacity-90">🌿 Featured Plant of the Day</span>
 
-        <h2 className="font-display text-2xl font-semibold">{name}</h2>
+        <h2 className="font-display text-heading font-semibold">{name}</h2>
         {preview && (
           <div className="flex items-center gap-1">
             <p className="text-sm opacity-90">{preview}</p>

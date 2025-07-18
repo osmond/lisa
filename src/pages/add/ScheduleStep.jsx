@@ -3,7 +3,7 @@ export default function ScheduleStep({ lastWatered, nextWater, dispatch, onBack,
   return (
     <PageContainer>
     <form onSubmit={e => {e.preventDefault(); onSubmit();}} className="space-y-4">
-      <h1 className="text-2xl font-bold font-headline">Add Plant</h1>
+      <h1 className="text-heading font-bold font-headline">Add Plant</h1>
       <div className="grid gap-1">
         <label htmlFor="lastWatered" className="font-medium">Last Watered</label>
         <input

@@ -230,3 +230,18 @@ body {
 .plant-thumb {
   @apply w-full aspect-[3/4] object-cover rounded-xl;
 }
+
+@layer utilities {
+  .text-heading {
+    @apply text-2xl;
+  }
+  .text-body {
+    @apply text-base;
+  }
+  .text-badge {
+    @apply text-xs;
+  }
+  .text-timestamp {
+    @apply text-xs;
+  }
+}

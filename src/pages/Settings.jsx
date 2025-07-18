@@ -18,11 +18,11 @@ export default function Settings() {
 
   return (
     <PageContainer className="space-y-6 text-gray-700 dark:text-gray-200">
-      <h1 className="text-xl font-semibold font-headline">Settings</h1>
+      <h1 className="text-heading font-semibold font-headline">Settings</h1>
 
       <div className="space-y-4">
         <Panel>
-          <h2 className="flex items-center gap-2 mb-4 text-base font-medium font-headline">
+          <h2 className="flex items-center gap-2 mb-4 text-heading font-medium font-headline">
             <User className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Profile
           </h2>
@@ -51,7 +51,7 @@ export default function Settings() {
         </Panel>
 
         <Panel>
-          <h2 className="flex items-center gap-2 mb-4 text-base font-medium font-headline">
+          <h2 className="flex items-center gap-2 mb-4 text-heading font-medium font-headline">
             <MapPin className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Weather &amp; Location
           </h2>
@@ -82,7 +82,7 @@ export default function Settings() {
         </Panel>
 
         <Panel>
-          <h2 className="flex items-center gap-2 mb-4 text-base font-medium font-headline">
+          <h2 className="flex items-center gap-2 mb-4 text-heading font-medium font-headline">
             <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Preferences
           </h2>

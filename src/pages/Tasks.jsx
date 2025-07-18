@@ -351,7 +351,7 @@ export default function Tasks() {
             : dateKey
           return (
             <div key={dateKey}>
-              <h3 className="mt-4 text-sm font-semibold text-gray-500">{heading}</h3>
+              <h3 className="mt-4 text-heading font-semibold text-gray-500">{heading}</h3>
               <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-4'}>
                 {list.map((e, i) => {
                   const task = {

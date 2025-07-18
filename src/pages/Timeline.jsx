@@ -59,7 +59,7 @@ export default function Timeline() {
         <div className="relative">
           {groupedEvents.map(([monthKey, list]) => (
             <div key={monthKey} className="mt-6 first:mt-0">
-              <h3 className="sticky top-0 z-10 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm px-1 text-[0.7rem] uppercase tracking-wider text-gray-500 mb-2">
+              <h3 className="sticky top-0 z-10 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm px-1 text-timestamp uppercase tracking-wider text-gray-500 mb-2">
                 {formatMonth(monthKey)}
               </h3>
               <ul className="ml-3 border-l-2 border-gray-200 space-y-6 pl-5">

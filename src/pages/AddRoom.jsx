@@ -18,7 +18,7 @@ export default function AddRoom() {
   return (
     <PageContainer>
     <form onSubmit={handleSubmit} className="space-y-4">
-      <h1 className="text-2xl font-bold font-headline">Add Room</h1>
+      <h1 className="text-heading font-bold font-headline">Add Room</h1>
       <div className="grid gap-1">
         <label htmlFor="room-name" className="font-medium">Room Name</label>
         <input

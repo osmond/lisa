@@ -28,7 +28,7 @@ export default function CareSummaryModal({ tasks = [], onClose }) {
         >
           &times;
         </button>
-        <h2 className="text-lg font-semibold font-headline mb-2">Care Summary</h2>
+        <h2 className="text-heading font-semibold font-headline mb-2">Care Summary</h2>
         {tasks.length > 0 ? (
           <ul className="list-disc pl-4 mb-4 text-left">
             {tasks.map(t => (

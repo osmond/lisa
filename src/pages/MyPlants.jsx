@@ -132,7 +132,7 @@ export default function MyPlants() {
                     <p className="text-sm text-gray-500 leading-none">{countPlants(room)} plants</p>
                   </div>
                 </div>
-                <div className="flex gap-1 text-[10px]">
+                <div className="flex gap-1 text-badge">
                   {wateredToday && (
                     <span role="img" aria-label="Watered today">💧</span>
                   )}
@@ -147,7 +147,7 @@ export default function MyPlants() {
                 {overdue > 0 && (
                   <Badge
                     variant="overdue"
-                    colorClass="slide-in animate-pulse rounded-full text-[11px]"
+                    colorClass="slide-in animate-pulse rounded-full text-badge"
                   >
                     ⚠️ {overdue} needs love
                   </Badge>

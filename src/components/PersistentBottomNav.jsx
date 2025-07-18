@@ -40,7 +40,7 @@ export default function PersistentBottomNav() {
                 <LinkIcon className="w-6 h-6" aria-hidden="true" />
                 {label}
                 {showBadge && (
-                  <span className="absolute -top-1 -right-2 bg-red-600 text-white text-[10px] rounded-full px-1">
+                  <span className="absolute -top-1 -right-2 bg-red-600 text-white text-badge rounded-full px-1">
                     {overdueCount}
                   </span>
                 )}
