@@ -1,6 +1,7 @@
 import { useTheme } from '../ThemeContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
 import { useUser } from '../UserContext.jsx'
+import { User, MapPin, Thermometer, Clock } from 'phosphor-react'
 
 export default function Settings() {
   const { theme, toggleTheme } = useTheme()
@@ -17,7 +18,10 @@ export default function Settings() {
         Switch to {theme === 'dark' ? 'Light' : 'Dark'} Mode
       </button>
       <div className="grid gap-1 max-w-xs">
-        <label htmlFor="username" className="font-medium">Name</label>
+        <label htmlFor="username" className="font-medium flex items-center gap-1">
+          <User className="w-4 h-4" aria-hidden="true" />
+          <span>Name</span>
+        </label>
         <input
           id="username"
           type="text"
@@ -27,7 +31,10 @@ export default function Settings() {
         />
       </div>
       <div className="grid gap-1 max-w-xs">
-        <label htmlFor="location" className="font-medium">Weather Location</label>
+        <label htmlFor="location" className="font-medium flex items-center gap-1">
+          <MapPin className="w-4 h-4" aria-hidden="true" />
+          <span>Weather Location</span>
+        </label>
         <input
           id="location"
           type="text"
@@ -37,7 +44,10 @@ export default function Settings() {
         />
       </div>
       <div className="grid gap-1 max-w-xs">
-        <label htmlFor="units" className="font-medium">Temperature Units</label>
+        <label htmlFor="units" className="font-medium flex items-center gap-1">
+          <Thermometer className="w-4 h-4" aria-hidden="true" />
+          <span>Temperature Units</span>
+        </label>
         <select
           id="units"
           value={units}
@@ -49,7 +59,10 @@ export default function Settings() {
         </select>
       </div>
       <div className="grid gap-1 max-w-xs">
-        <label htmlFor="timezone" className="font-medium">Time Zone</label>
+        <label htmlFor="timezone" className="font-medium flex items-center gap-1">
+          <Clock className="w-4 h-4" aria-hidden="true" />
+          <span>Time Zone</span>
+        </label>
         <input
           id="timezone"
           type="text"
