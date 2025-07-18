@@ -2,6 +2,7 @@ export function buildEvents(source, { includePlantName = false } = {}) {
   const plants = Array.isArray(source) ? source : [source].filter(Boolean)
   const events = []
   const added = new Set()
+  const today = new Date().toISOString().slice(0, 10)
 
   const addEvent = (e) => {
     const key = `${e.type}-${e.date}`
@@ -69,7 +70,7 @@ export function buildEvents(source, { includePlantName = false } = {}) {
 
     if (p.notes) {
       addEvent({
-        date: '2100-01-01',
+        date: today,
         label: includePlantName ? `${p.name} note` : 'Note',
         note: p.notes,
         type: 'noteText',
@@ -78,7 +79,7 @@ export function buildEvents(source, { includePlantName = false } = {}) {
 
     if (p.advancedCare) {
       addEvent({
-        date: '2100-01-01',
+        date: today,
         label: includePlantName ? `${p.name} care tip` : 'Advanced care',
         note: p.advancedCare,
         type: 'advanced',
