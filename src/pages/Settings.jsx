@@ -2,7 +2,8 @@ import { useTheme } from '../ThemeContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
 import { useUser } from '../UserContext.jsx'
 
-import { User, MapPin, Thermometer, Clock } from 'phosphor-react'
+import { User, MapPin, Clock } from 'phosphor-react'
+import Panel from '../components/Panel.jsx'
 
 import useSnackbar from '../hooks/useSnackbar.jsx'
 
@@ -14,64 +15,82 @@ export default function Settings() {
   const { Snackbar, showSnackbar } = useSnackbar()
 
   return (
-
     <div className="space-y-6 text-gray-700 dark:text-gray-200">
       <h1 className="text-2xl font-bold font-headline">Settings</h1>
 
-      <h2 className="text-lg font-semibold">Profile</h2>
-      <div className="space-y-6">
-        <div className="grid gap-1 max-w-xs">
-          <label htmlFor="username" className="font-medium">Name</label>
-          <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            className="border rounded p-2"
-          />
-        </div>
-        <div className="grid gap-1 max-w-xs">
-          <label htmlFor="timezone" className="font-medium">Time Zone</label>
-          <input
-            id="timezone"
-            type="text"
-            value={timeZone}
-            onChange={e => setTimeZone(e.target.value)}
-            className="border rounded p-2"
-          />
-        </div>
-      </div>
+      <div className="space-y-4">
+        <Panel>
+          <h2 className="flex items-center gap-2 font-semibold font-headline mb-4">
+            <User className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
+            Profile
+          </h2>
+          <div className="space-y-6">
+            <div className="grid gap-1 max-w-xs">
+              <label htmlFor="username" className="font-medium">Name</label>
+              <input
+                id="username"
+                type="text"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+                className="border rounded p-2"
+              />
+            </div>
+            <div className="grid gap-1 max-w-xs">
+              <label htmlFor="timezone" className="font-medium">Time Zone</label>
+              <input
+                id="timezone"
+                type="text"
+                value={timeZone}
+                onChange={e => setTimeZone(e.target.value)}
+                className="border rounded p-2"
+              />
+            </div>
+          </div>
+        </Panel>
 
-      <h2 className="text-lg font-semibold mt-6">Preferences</h2>
-      <div className="space-y-6">
-        <div className="grid gap-1 max-w-xs">
-          <label htmlFor="location" className="font-medium">Weather Location</label>
-          <input
-            id="location"
-            type="text"
-            value={location}
-            onChange={e => setLocation(e.target.value)}
-            className="border rounded p-2"
-          />
-        </div>
-        <div className="grid gap-1 max-w-xs">
-          <label htmlFor="units" className="font-medium">Temperature Units</label>
-          <select
-            id="units"
-            value={units}
-            onChange={e => setUnits(e.target.value)}
-            className="dropdown-select"
+        <Panel>
+          <h2 className="flex items-center gap-2 font-semibold font-headline mb-4">
+            <MapPin className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
+            Weather &amp; Location
+          </h2>
+          <div className="space-y-6">
+            <div className="grid gap-1 max-w-xs">
+              <label htmlFor="location" className="font-medium">Weather Location</label>
+              <input
+                id="location"
+                type="text"
+                value={location}
+                onChange={e => setLocation(e.target.value)}
+                className="border rounded p-2"
+              />
+            </div>
+            <div className="grid gap-1 max-w-xs">
+              <label htmlFor="units" className="font-medium">Temperature Units</label>
+              <select
+                id="units"
+                value={units}
+                onChange={e => setUnits(e.target.value)}
+                className="dropdown-select"
+              >
+                <option value="imperial">Fahrenheit</option>
+                <option value="metric">Celsius</option>
+              </select>
+            </div>
+          </div>
+        </Panel>
+
+        <Panel>
+          <h2 className="flex items-center gap-2 font-semibold font-headline mb-4">
+            <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
+            Preferences
+          </h2>
+          <button
+            onClick={toggleTheme}
+            className="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700"
           >
-            <option value="imperial">Fahrenheit</option>
-            <option value="metric">Celsius</option>
-          </select>
-        </div>
-        <button
-          onClick={toggleTheme}
-          className="mt-6 px-4 py-2 rounded bg-gray-200 dark:bg-gray-700"
-        >
-          Switch to {theme === 'dark' ? 'Light' : 'Dark'} Mode
-        </button>
+            Switch to {theme === 'dark' ? 'Light' : 'Dark'} Mode
+          </button>
+        </Panel>
       </div>
 
       <Snackbar />
