@@ -148,7 +148,7 @@ test('completed tasks are styled', () => {
 })
 
 
-test('future watering date does not show Water Now button', async () => {
+test('future watering date does not show Water badge', async () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
 
   render(
@@ -160,7 +160,8 @@ test('future watering date does not show Water Now button', async () => {
   const tab = screen.getByRole('tab', { name: /By Plant/i })
   fireEvent.click(tab)
 
-  expect(screen.queryByText('Water Now')).toBeNull()
+  const firstCard = screen.getAllByTestId('unified-task-card')[0]
+  expect(within(firstCard).queryByText('Water', { exact: true })).toBeNull()
   jest.useRealTimers()
 
   const pastTab = screen.getByRole('tab', { name: /Past/i })
@@ -181,8 +182,8 @@ test('future watering date does not show Water Now button', async () => {
   const cards = screen.getAllByTestId('unified-task-card')
   expect(cards).toHaveLength(2)
 
-  expect(within(cards[0]).getByText('Water Now')).toBeInTheDocument()
-  expect(within(cards[1]).queryByText('Water Now')).toBeNull()
+  expect(within(cards[0]).getByText('Water', { exact: true })).toBeInTheDocument()
+  expect(within(cards[1]).queryByText('Water', { exact: true })).toBeNull()
 
 })
 
@@ -223,9 +224,9 @@ test('by plant view shows due and future tasks correctly', async () => {
     within(card).queryByText('Future Plant')
   )
 
-  expect(within(dueCard).getByText('Water Now')).toBeInTheDocument()
-  expect(within(dueCard).getByText('Fertilize Now')).toBeInTheDocument()
+  expect(within(dueCard).getByText('Water', { exact: true })).toBeInTheDocument()
+  expect(within(dueCard).getByText('Fertilize', { exact: true })).toBeInTheDocument()
 
-  expect(within(futureCard).queryByText('Water Now')).toBeNull()
-  expect(within(futureCard).queryByText('Fertilize Now')).toBeNull()
+  expect(within(futureCard).queryByText('Water', { exact: true })).toBeNull()
+  expect(within(futureCard).queryByText('Fertilize', { exact: true })).toBeNull()
 })
