@@ -62,7 +62,7 @@ export default function Timeline() {
               <h3 className="sticky top-0 z-10 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm px-1 text-timestamp uppercase tracking-wider text-gray-500 mb-2">
                 {formatMonth(monthKey)}
               </h3>
-              <ul className="ml-3 border-l-2 border-gray-200 space-y-6 pl-5">
+              <ul className="relative ml-3 space-y-6 pl-5 before:absolute before:inset-y-0 before:left-2 before:w-px before:bg-gray-200">
                 {list.map((e, i) => {
                   const Icon = actionIcons[e.type]
                   return (
