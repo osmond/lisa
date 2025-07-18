@@ -23,6 +23,7 @@ import { useMenu, defaultMenu } from '../MenuContext.jsx'
 import LegendModal from '../components/LegendModal.jsx'
 import ProgressRing from '../components/ProgressRing.jsx'
 import Breadcrumb from '../components/Breadcrumb.jsx'
+import PlantDetailFab from '../components/PlantDetailFab.jsx'
 
 import useToast from "../hooks/useToast.jsx"
 import confetti from 'canvas-confetti'
@@ -449,6 +450,7 @@ export default function PlantDetail() {
           </div>
         )}
       </section>
+      <PlantDetailFab onAddPhoto={openFileInput} onAddNote={handleLogEvent} />
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
       )}
