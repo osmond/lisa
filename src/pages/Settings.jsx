@@ -4,6 +4,7 @@ import { useUser } from '../UserContext.jsx'
 
 import { User, MapPin, Clock } from 'phosphor-react'
 import Panel from '../components/Panel.jsx'
+import ToggleSwitch from '../components/ToggleSwitch.jsx'
 
 import useSnackbar from '../hooks/useSnackbar.jsx'
 
@@ -16,11 +17,11 @@ export default function Settings() {
 
   return (
     <div className="space-y-6 text-gray-700 dark:text-gray-200">
-      <h1 className="text-2xl font-bold font-headline">Settings</h1>
+      <h1 className="text-xl font-semibold font-headline">Settings</h1>
 
       <div className="space-y-4">
         <Panel>
-          <h2 className="flex items-center gap-2 font-semibold font-headline mb-4">
+          <h2 className="flex items-center gap-2 mb-4 text-base font-medium font-headline">
             <User className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Profile
           </h2>
@@ -49,7 +50,7 @@ export default function Settings() {
         </Panel>
 
         <Panel>
-          <h2 className="flex items-center gap-2 font-semibold font-headline mb-4">
+          <h2 className="flex items-center gap-2 mb-4 text-base font-medium font-headline">
             <MapPin className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Weather &amp; Location
           </h2>
@@ -80,16 +81,16 @@ export default function Settings() {
         </Panel>
 
         <Panel>
-          <h2 className="flex items-center gap-2 font-semibold font-headline mb-4">
+          <h2 className="flex items-center gap-2 mb-4 text-base font-medium font-headline">
             <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Preferences
           </h2>
-          <button
-            onClick={toggleTheme}
-            className="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700"
-          >
-            Switch to {theme === 'dark' ? 'Light' : 'Dark'} Mode
-          </button>
+          <ToggleSwitch
+            checked={theme === 'dark'}
+            onChange={toggleTheme}
+            label="Dark Mode"
+            className="mt-2"
+          />
         </Panel>
       </div>
 

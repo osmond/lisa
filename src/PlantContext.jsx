@@ -53,6 +53,31 @@ export function PlantProvider({ children }) {
     }
   }, [plants])
 
+  const [timelineNotes, setTimelineNotes] = useState(() => {
+    if (typeof localStorage !== 'undefined') {
+      const stored = localStorage.getItem('timelineNotes')
+      if (stored) {
+        try {
+          return JSON.parse(stored)
+        } catch {
+          // ignore
+        }
+      }
+    }
+    return []
+  })
+
+  useEffect(() => {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('timelineNotes', JSON.stringify(timelineNotes))
+    }
+  }, [timelineNotes])
+
+  const addTimelineNote = text => {
+    const date = new Date().toISOString().slice(0, 10)
+    setTimelineNotes(prev => [...prev, { date, text }])
+  }
+
   const logEvent = (id, type, note = '') => {
     const date = new Date().toISOString().slice(0, 10)
     setPlants(prev =>
@@ -172,6 +197,8 @@ export function PlantProvider({ children }) {
         restorePlant,
         addPhoto,
         removePhoto,
+        timelineNotes,
+        addTimelineNote,
       }}
     >
       {children}

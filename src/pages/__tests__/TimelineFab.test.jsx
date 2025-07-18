@@ -1,0 +1,35 @@
+import { render, screen, fireEvent } from '@testing-library/react'
+import Timeline from '../Timeline.jsx'
+import { usePlants } from '../../PlantContext.jsx'
+
+const addTimelineNote = jest.fn()
+
+jest.mock('../../PlantContext.jsx', () => ({
+  usePlants: jest.fn(),
+}))
+
+const usePlantsMock = usePlants
+
+beforeEach(() => {
+  addTimelineNote.mockClear()
+  usePlantsMock.mockReturnValue({ plants: [], timelineNotes: [], addTimelineNote })
+})
+
+test('fab opens note modal', () => {
+  render(<Timeline />)
+  fireEvent.click(screen.getByRole('button', { name: /open create menu/i }))
+  fireEvent.click(screen.getByRole('button', { name: /add note/i }))
+  expect(screen.getByRole('dialog', { name: /note/i })).toBeInTheDocument()
+})
+
+test('saving note calls addTimelineNote', () => {
+  render(<Timeline />)
+  fireEvent.click(screen.getByRole('button', { name: /open create menu/i }))
+  fireEvent.click(screen.getByRole('button', { name: /add note/i }))
+  fireEvent.change(
+    screen.getByRole('textbox', { name: /note/i }),
+    { target: { value: 'hi' } }
+  )
+  fireEvent.click(screen.getByRole('button', { name: /save/i }))
+  expect(addTimelineNote).toHaveBeenCalledWith('hi')
+})
