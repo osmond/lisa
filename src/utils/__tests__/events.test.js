@@ -70,3 +70,24 @@ test('groupEventsByMonth sorts months chronologically', () => {
     ['2099-12', [events[0]]],
   ])
 })
+
+test('timeline events never have dates in the future', () => {
+  const plant = {
+    notes: 'keep soil moist',
+    advancedCare: 'requires misting',
+  }
+
+  const events = buildEvents(plant)
+  const today = new Date().toISOString().slice(0, 10)
+  const now = new Date()
+
+  const noteEvent = events.find(e => e.type === 'noteText')
+  const advEvent = events.find(e => e.type === 'advanced')
+
+  expect(noteEvent.date).toBe(today)
+  expect(advEvent.date).toBe(today)
+
+  events.forEach(e => {
+    expect(new Date(e.date).getTime()).toBeLessThanOrEqual(now.getTime())
+  })
+})
