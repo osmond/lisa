@@ -1,4 +1,5 @@
 import { addBase } from '../../PlantContext.jsx'
+import PageContainer from "../../components/PageContainer.jsx"
 
 export default function ImageStep({ image, dispatch, onNext, onBack }) {
   const handleFileChange = e => {
@@ -12,7 +13,8 @@ export default function ImageStep({ image, dispatch, onNext, onBack }) {
   }
 
   return (
-    <form onSubmit={e => {e.preventDefault(); onNext();}} className="space-y-4 max-w-md mx-auto">
+    <PageContainer>
+    <form onSubmit={e => {e.preventDefault(); onNext();}} className="space-y-4">
       <h1 className="text-2xl font-bold font-headline">Add Plant</h1>
       <div className="grid gap-1">
         <label htmlFor="image" className="font-medium">Image URL</label>
@@ -42,5 +44,6 @@ export default function ImageStep({ image, dispatch, onNext, onBack }) {
         <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">Next</button>
       </div>
     </form>
+    </PageContainer>
   )
 }

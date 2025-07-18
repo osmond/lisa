@@ -11,7 +11,9 @@ export default function useINatPhoto(name) {
       try {
         setPhoto(JSON.parse(cached))
         return
-      } catch {}
+      } catch {
+        // ignore corrupt cache
+      }
     }
 
     if (typeof fetch !== 'function') return

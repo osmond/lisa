@@ -15,6 +15,7 @@ import {
 } from 'phosphor-react'
 
 import Lightbox from '../components/Lightbox.jsx'
+import PageContainer from "../components/PageContainer.jsx"
 
 import { usePlants } from '../PlantContext.jsx'
 import actionIcons from '../components/ActionIcons.jsx'
@@ -171,7 +172,7 @@ export default function PlantDetail() {
 
   return (
 
-    <div className="max-w-md mx-auto space-y-8 py-4 px-4 relative text-left">
+    <PageContainer className="relative text-left">
       <Toast />
       <div className="space-y-4">
         <div className="relative">
@@ -475,6 +476,6 @@ export default function PlantDetail() {
       {showLegend && (
         <LegendModal onClose={() => setShowLegend(false)} />
       )}
-    </div>
+    </PageContainer>
   )
 }

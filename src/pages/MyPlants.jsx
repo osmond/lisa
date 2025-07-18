@@ -11,6 +11,7 @@ import { useRooms } from '../RoomContext.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import { createRipple } from '../utils/interactions.js'
 import CreateFab from '../components/CreateFab.jsx'
+import PageContainer from "../components/PageContainer.jsx"
 
 export default function MyPlants() {
   const { rooms } = useRooms()
@@ -71,7 +72,7 @@ export default function MyPlants() {
   }
 
   return (
-    <div className="max-w-md mx-auto space-y-8 py-4 px-4">
+    <PageContainer>
       <h1 className="text-2xl font-bold font-headline mb-4">All Plants</h1>
       <div className="flex items-center gap-4 mb-2">
         <label className="text-sm">
@@ -160,6 +161,6 @@ export default function MyPlants() {
         </Link>
       </div>
       <CreateFab />
-    </div>
+    </PageContainer>
   )
 }

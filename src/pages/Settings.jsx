@@ -5,6 +5,7 @@ import { useUser } from '../UserContext.jsx'
 import { User, MapPin, Clock } from 'phosphor-react'
 import Panel from '../components/Panel.jsx'
 import ToggleSwitch from '../components/ToggleSwitch.jsx'
+import PageContainer from "../components/PageContainer.jsx"
 
 import useSnackbar from '../hooks/useSnackbar.jsx'
 
@@ -16,7 +17,7 @@ export default function Settings() {
   const { Snackbar, showSnackbar } = useSnackbar()
 
   return (
-    <div className="space-y-6 text-gray-700 dark:text-gray-200">
+    <PageContainer className="space-y-6 text-gray-700 dark:text-gray-200">
       <h1 className="text-xl font-semibold font-headline">Settings</h1>
 
       <div className="space-y-4">
@@ -95,6 +96,6 @@ export default function Settings() {
       </div>
 
       <Snackbar />
-    </div>
+    </PageContainer>
   )
 }

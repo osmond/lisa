@@ -2,6 +2,7 @@ import UnifiedTaskCard from '../components/UnifiedTaskCard.jsx'
 import BaseCard from '../components/BaseCard.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import CareSummaryModal from '../components/CareSummaryModal.jsx'
+import PageContainer from "../components/PageContainer.jsx"
 
 import { useState } from 'react'
 
@@ -189,7 +190,7 @@ export default function Home() {
 
 
   return (
-    <div className="max-w-md mx-auto space-y-8 py-4 px-4">
+    <PageContainer>
       {showHeader && (
       <header className="relative flex flex-col items-start text-left space-y-1">
         <button
@@ -309,6 +310,6 @@ export default function Home() {
           All Plants
         </Link>
       </div>
-    </div>
+    </PageContainer>
   )
 }

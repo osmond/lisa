@@ -7,6 +7,7 @@ import { formatDaysAgo } from '../utils/dateFormat.js'
 import { createRipple } from '../utils/interactions.js'
 import Breadcrumb from '../components/Breadcrumb.jsx'
 import Badge from '../components/Badge.jsx'
+import PageContainer from "../components/PageContainer.jsx"
 
 export default function RoomList() {
   const { roomName } = useParams()
@@ -30,7 +31,7 @@ export default function RoomList() {
   })
 
   return (
-    <div className="p-4 space-y-4">
+    <PageContainer>
       <Breadcrumb room={roomName} />
       <h1 className="text-2xl font-bold font-headline mb-4">{roomName}</h1>
       {list.length > 0 && (
@@ -97,6 +98,6 @@ export default function RoomList() {
           })}
         </div>
       )}
-    </div>
+    </PageContainer>
   )
 }

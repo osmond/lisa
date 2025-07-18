@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import PageContainer from "../components/PageContainer.jsx"
 import { usePlants, addBase } from '../PlantContext.jsx'
 
 export default function EditPlant() {
@@ -48,7 +49,8 @@ export default function EditPlant() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
+    <PageContainer>
+    <form onSubmit={handleSubmit} className="space-y-4">
       <h1 className="text-2xl font-bold font-headline">Edit Plant</h1>
       <div className="grid gap-1">
         <label htmlFor="name" className="font-medium">Name</label>
@@ -116,5 +118,6 @@ export default function EditPlant() {
         Save Changes
       </button>
     </form>
+    </PageContainer>
   )
 }
