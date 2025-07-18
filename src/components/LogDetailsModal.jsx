@@ -14,7 +14,7 @@ export default function LogDetailsModal({ event, onClose }) {
       <div className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-4 w-72 max-w-full">
         <div className="flex items-center gap-2 mb-2">
           {Icon && <Icon className="w-5 h-5" aria-hidden="true" />}
-          <h3 className="font-headline text-lg">{event.label}</h3>
+          <h3 className="font-headline text-heading">{event.label}</h3>
         </div>
         <p className="text-sm mb-2">{formatDate(event.date)}</p>
         {event.note && (

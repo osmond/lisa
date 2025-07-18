@@ -111,7 +111,7 @@ export default function TaskCard({
                 : task.type}
             </Badge>
             {daysSince != null && (
-              <span className="text-xs text-gray-400">
+              <span className="text-timestamp text-gray-400">
                 {daysSince} {daysSince === 1 ? 'day' : 'days'} since care
               </span>
             )}

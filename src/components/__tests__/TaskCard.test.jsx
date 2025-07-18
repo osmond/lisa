@@ -55,7 +55,7 @@ test('renders task text', () => {
   expect(badge).toHaveClass('inline-flex')
   expect(badge).toHaveClass('bg-blue-100')
   expect(badge).toHaveClass('text-blue-800')
-  expect(badge).toHaveClass('text-xs')
+  expect(badge).toHaveClass('text-badge')
   expect(badge).toHaveClass('font-medium')
 })
 

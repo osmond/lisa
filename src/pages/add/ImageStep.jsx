@@ -15,7 +15,7 @@ export default function ImageStep({ image, dispatch, onNext, onBack }) {
   return (
     <PageContainer>
     <form onSubmit={e => {e.preventDefault(); onNext();}} className="space-y-4">
-      <h1 className="text-2xl font-bold font-headline">Add Plant</h1>
+      <h1 className="text-heading font-bold font-headline">Add Plant</h1>
       <div className="grid gap-1">
         <label htmlFor="image" className="font-medium">Image URL</label>
         <input

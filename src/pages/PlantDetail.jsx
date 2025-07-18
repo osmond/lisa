@@ -193,7 +193,7 @@ export default function PlantDetail() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" aria-hidden="true"></div>
           <div className="absolute bottom-3 left-4 text-white drop-shadow">
-            <h2 className="text-2xl font-semibold font-headline">{plant.name}</h2>
+            <h2 className="text-heading font-semibold font-headline">{plant.name}</h2>
             {plant.nickname && (
               <p className="text-sm text-gray-200">{plant.nickname}</p>
             )}
@@ -227,7 +227,7 @@ export default function PlantDetail() {
             >
               <ProgressRing percent={progressPct} size={48} colorClass={ringClass} />
               <div
-                className={`absolute inset-1 rounded-full bg-white/80 flex items-center justify-center text-[10px] font-semibold ${ringClass}`}
+                className={`absolute inset-1 rounded-full bg-white/80 flex items-center justify-center text-badge font-semibold ${ringClass}`}
               >
                 {progressPct >= 1 ? 'Water Now' : `${Math.round(progressPct * 100)}%`}
               </div>
@@ -348,7 +348,7 @@ export default function PlantDetail() {
             const isCollapsed = collapsedMonths[monthKey]
             return (
               <div key={monthKey} className="mt-6 first:mt-0">
-                <h3 className="text-[0.7rem] uppercase tracking-wider text-gray-300 mb-2 flex items-center">
+                <h3 className="text-timestamp uppercase tracking-wider text-gray-300 mb-2 flex items-center">
                   <button
                     type="button"
                     aria-expanded={!isCollapsed}

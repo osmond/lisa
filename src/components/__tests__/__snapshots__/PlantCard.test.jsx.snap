@@ -189,7 +189,7 @@ exports[`matches snapshot in dark mode 1`] = `
         src="test.jpg"
       />
       <h2
-        class="font-bold text-[1.1rem] font-headline mt-2"
+        class="font-bold text-heading font-headline mt-2"
       >
         Aloe Vera
       </h2>
