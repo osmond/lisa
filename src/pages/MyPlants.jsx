@@ -3,6 +3,7 @@ import { FolderSimple, Plus } from 'phosphor-react'
 import { getNextWateringDate } from '../utils/watering.js'
 import { useRooms } from '../RoomContext.jsx'
 import { usePlants } from '../PlantContext.jsx'
+import { createRipple } from '../utils/interactions.js'
 import CreateFab from '../components/CreateFab.jsx'
 
 export default function MyPlants() {
@@ -46,8 +47,10 @@ export default function MyPlants() {
             <Link
               key={room}
               to={`/room/${encodeURIComponent(room)}`}
-              className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1 animate-fade-in-up"
+              className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1 animate-fade-in-up transition-transform hover:-translate-y-1 hover:shadow-lg active:shadow"
               style={{ animationDelay: `${i * 50}ms` }}
+              onMouseDown={createRipple}
+              onTouchStart={createRipple}
             >
               <FolderSimple
                 className="w-6 h-6 p-1 rounded bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-200"
