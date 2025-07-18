@@ -99,7 +99,7 @@ test('earliest due task appears first', () => {
     </MemoryRouter>
   )
 
-  const tasks = screen.getAllByTestId('task-card')
+  const tasks = screen.getAllByTestId('unified-task-card')
   expect(tasks[0]).toHaveTextContent('Plant A')
   expect(tasks[1]).toHaveTextContent('Plant B')
 })
