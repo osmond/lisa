@@ -1,8 +1,10 @@
 import React from 'react'
+import PageContainer from "../../components/PageContainer.jsx"
 
 export default function OptionalInfoStep({ room, notes, careLevel, dispatch, onBack, onSubmit }) {
   return (
-    <form onSubmit={e => { e.preventDefault(); onSubmit(); }} className="space-y-4 max-w-md mx-auto">
+    <PageContainer>
+    <form onSubmit={e => { e.preventDefault(); onSubmit(); }} className="space-y-4">
       <h1 className="text-2xl font-bold font-headline">Add Plant</h1>
       <div className="grid gap-1">
         <label htmlFor="room" className="font-medium">Room</label>
@@ -43,5 +45,6 @@ export default function OptionalInfoStep({ room, notes, careLevel, dispatch, onB
         <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">Add Plant</button>
       </div>
     </form>
+    </PageContainer>
   )
 }

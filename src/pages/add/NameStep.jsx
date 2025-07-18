@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import PageContainer from "../../components/PageContainer.jsx"
 
 export default function NameStep({ name, dispatch, onNext }) {
   const inputRef = useRef(null)
@@ -7,7 +8,8 @@ export default function NameStep({ name, dispatch, onNext }) {
   }, [])
 
   return (
-    <form onSubmit={e => {e.preventDefault(); onNext();}} className="space-y-4 max-w-md mx-auto">
+    <PageContainer>
+    <form onSubmit={e => {e.preventDefault(); onNext();}} className="space-y-4">
       <h1 className="text-2xl font-bold font-headline">Add Plant</h1>
       <div className="grid gap-1">
         <label htmlFor="name" className="font-medium">Name</label>
@@ -23,5 +25,6 @@ export default function NameStep({ name, dispatch, onNext }) {
       </div>
       <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">Next</button>
     </form>
+    </PageContainer>
   )
 }
