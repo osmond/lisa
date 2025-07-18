@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { FolderSimple, Plus } from 'phosphor-react'
 import { getNextWateringDate } from '../utils/watering.js'
+import { colorHash } from '../utils/colorHash.js'
 import { useRooms } from '../RoomContext.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import CreateFab from '../components/CreateFab.jsx'
@@ -42,12 +43,13 @@ export default function MyPlants() {
       <div className="grid grid-cols-2 gap-4">
         {rooms.map((room, i) => {
           const overdue = countOverdue(room)
+          const accent = colorHash(room)
           return (
             <Link
               key={room}
               to={`/room/${encodeURIComponent(room)}`}
-              className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1 animate-fade-in-up"
-              style={{ animationDelay: `${i * 50}ms` }}
+              className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow space-y-1 animate-fade-in-up border-t-4"
+              style={{ animationDelay: `${i * 50}ms`, borderTopColor: accent }}
             >
               <FolderSimple
                 className="w-6 h-6 p-1 rounded bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-200"
