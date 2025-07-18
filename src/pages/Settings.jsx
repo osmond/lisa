@@ -4,6 +4,7 @@ import { useUser } from '../UserContext.jsx'
 
 import { User, MapPin, Clock } from 'phosphor-react'
 import Panel from '../components/Panel.jsx'
+import ToggleSwitch from '../components/ToggleSwitch.jsx'
 
 import useSnackbar from '../hooks/useSnackbar.jsx'
 
@@ -84,12 +85,12 @@ export default function Settings() {
             <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Preferences
           </h2>
-          <button
-            onClick={toggleTheme}
-            className="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700"
-          >
-            Switch to {theme === 'dark' ? 'Light' : 'Dark'} Mode
-          </button>
+          <ToggleSwitch
+            checked={theme === 'dark'}
+            onChange={toggleTheme}
+            label="Dark Mode"
+            className="mt-2"
+          />
         </Panel>
       </div>
 
