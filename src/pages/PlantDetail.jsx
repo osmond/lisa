@@ -171,7 +171,7 @@ export default function PlantDetail() {
 
   return (
 
-    <div className="space-y-8 pt-4 pb-safe px-4 relative text-left">
+    <div className="max-w-md mx-auto space-y-8 py-4 px-4 relative text-left">
       <Toast />
       <div className="space-y-4">
         <div className="relative">
@@ -198,7 +198,7 @@ export default function PlantDetail() {
             )}
           </div>
           <div
-            className="absolute top-2 right-2 z-10 flex flex-wrap gap-2"
+            className="absolute top-2 right-2 z-10 flex flex-wrap gap-4"
             aria-label="Care tags"
           >
             {plant.light && (
@@ -217,7 +217,7 @@ export default function PlantDetail() {
               </Badge>
             )}
           </div>
-          <div className="absolute bottom-2 right-2 flex gap-2" data-testid="progress-rings">
+          <div className="absolute bottom-2 right-2 flex gap-4" data-testid="progress-rings">
             <div
               className="relative"
               style={{ width: 48, height: 48 }}

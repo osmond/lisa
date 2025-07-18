@@ -189,7 +189,7 @@ export default function Home() {
 
 
   return (
-    <div className="space-y-8">
+    <div className="max-w-md mx-auto space-y-8 py-4 px-4">
       {showHeader && (
       <header className="relative flex flex-col items-start text-left space-y-1">
         <button
@@ -282,7 +282,7 @@ export default function Home() {
                 />
                 <p>All plants are happy today!</p>
                 <p>Want to add a note or photo today?</p>
-                <div className="flex gap-2 mt-2">
+                <div className="flex gap-4 mt-2">
                   <Link
                     to="/timeline"
                     className="px-3 py-1 bg-green-100 text-green-700 rounded text-xs"
