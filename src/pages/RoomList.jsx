@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useState } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 import { formatDaysAgo } from '../utils/dateFormat.js'
