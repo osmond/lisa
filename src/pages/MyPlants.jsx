@@ -140,7 +140,10 @@ export default function MyPlants() {
                 {lastUpdated && <span>{formatDaysAgo(lastUpdated)}</span>}
               </div>
               {overdue > 0 && (
-                <Badge colorClass="slide-in animate-pulse bg-red-100 text-red-600 rounded-full text-[11px]">
+                <Badge
+                  variant="overdue"
+                  colorClass="slide-in animate-pulse rounded-full text-[11px]"
+                >
                   ⚠️ {overdue} needs love
                 </Badge>
               )}

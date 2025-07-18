@@ -202,17 +202,17 @@ export default function PlantDetail() {
             aria-label="Care tags"
           >
             {plant.light && (
-              <Badge Icon={Sun} colorClass="bg-yellow-50 text-yellow-800 text-xs">
+              <Badge Icon={Sun} variant="info">
                 {plant.light}
               </Badge>
             )}
             {plant.humidity && (
-              <Badge Icon={Drop} colorClass="bg-blue-50 text-blue-800 text-xs">
+              <Badge Icon={Drop} variant="info">
                 {plant.humidity}
               </Badge>
             )}
             {plant.difficulty && (
-              <Badge Icon={Gauge} colorClass="bg-green-50 text-green-800 text-xs">
+              <Badge Icon={Gauge} variant="info">
                 {plant.difficulty}
               </Badge>
             )}
