@@ -22,7 +22,7 @@ export default function Settings() {
 
       <div className="space-y-4">
         <Panel>
-          <h2 className="flex items-center gap-2 mb-4 text-heading font-medium font-headline">
+          <h2 className="flex items-center gap-2 mb-6 text-heading font-semibold font-headline">
             <User className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Profile
           </h2>
@@ -51,7 +51,7 @@ export default function Settings() {
         </Panel>
 
         <Panel>
-          <h2 className="flex items-center gap-2 mb-4 text-heading font-medium font-headline">
+          <h2 className="flex items-center gap-2 mb-6 text-heading font-semibold font-headline">
             <MapPin className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Weather &amp; Location
           </h2>
@@ -82,16 +82,17 @@ export default function Settings() {
         </Panel>
 
         <Panel>
-          <h2 className="flex items-center gap-2 mb-4 text-heading font-medium font-headline">
+          <h2 className="flex items-center gap-2 mb-6 text-heading font-semibold font-headline">
             <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Preferences
           </h2>
-          <ToggleSwitch
-            checked={theme === 'dark'}
-            onChange={toggleTheme}
-            label="Dark Mode"
-            className="mt-2"
-          />
+          <div className="space-y-6">
+            <ToggleSwitch
+              checked={theme === 'dark'}
+              onChange={toggleTheme}
+              label="Dark Mode"
+            />
+          </div>
         </Panel>
       </div>
 
