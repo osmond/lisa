@@ -24,6 +24,7 @@ import LegendModal from '../components/LegendModal.jsx'
 import ProgressRing from '../components/ProgressRing.jsx'
 import Breadcrumb from '../components/Breadcrumb.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
+import SectionCard from '../components/SectionCard.jsx'
 
 import useToast from "../hooks/useToast.jsx"
 import confetti from 'canvas-confetti'
@@ -245,7 +246,7 @@ export default function PlantDetail() {
         </div>
         <Breadcrumb room={plant.room} plant={plant.name} />
 
-<section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-3">
+<SectionCard className="space-y-3">
   <h3 className="flex items-center gap-2 font-semibold font-headline">
     <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
     Quick Stats
@@ -327,10 +328,10 @@ export default function PlantDetail() {
       </div>
     )}
   </div>
-</section>
+</SectionCard>
 
 
-        <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-4">
+        <SectionCard className="space-y-4">
           <h3 className="flex items-center gap-2 font-semibold font-headline mb-1">
             <Note className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Activity & Notes
@@ -398,10 +399,10 @@ export default function PlantDetail() {
               </div>
             )
           })}
-        </section>
+        </SectionCard>
       </div>
 
-      <section className="bg-white dark:bg-gray-700 rounded-xl shadow-sm p-4 space-y-2">
+      <SectionCard className="space-y-2">
         <h3 className="flex items-center gap-2 font-semibold font-headline mb-1">
           <Image className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
           Gallery
@@ -466,7 +467,7 @@ export default function PlantDetail() {
             />
           </div>
         )}
-      </section>
+      </SectionCard>
       <PlantDetailFab onAddPhoto={openFileInput} onAddNote={handleLogEvent} />
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
