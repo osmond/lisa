@@ -26,4 +26,5 @@ test('navigating to /profile renders the Settings page', () => {
   )
 
   expect(screen.getByRole('heading', { name: /settings/i })).toBeInTheDocument()
+  expect(screen.getByRole('switch', { name: /dark mode/i })).toBeInTheDocument()
 })
