@@ -370,7 +370,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Office",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 12,
@@ -403,7 +404,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Living Room",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 13,
@@ -436,7 +438,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Kitchen",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 14,
@@ -469,7 +472,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Bedroom",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 15,
@@ -502,7 +506,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Bathroom",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 16,
@@ -535,7 +540,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Garden",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 17,
@@ -568,7 +574,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Patio",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 18,
@@ -601,7 +608,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Basement",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 19,
@@ -634,7 +642,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Greenhouse",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 20,
@@ -667,7 +676,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Balcony",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 21,
@@ -700,7 +710,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Office",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 22,
@@ -767,7 +778,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Kitchen",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 24,
@@ -800,7 +812,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Bedroom",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 25,
@@ -833,7 +846,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Bathroom",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 26,
@@ -866,7 +880,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Garden",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 27,
@@ -899,7 +914,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Patio",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 28,
@@ -1000,7 +1016,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Balcony",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 31,
@@ -1033,7 +1050,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Office",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 32,
@@ -1066,7 +1084,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Living Room",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 33,
@@ -1099,7 +1118,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Kitchen",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 34,
@@ -1166,7 +1186,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Bathroom",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 36,
@@ -1199,7 +1220,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Garden",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 37,
@@ -1232,7 +1254,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Patio",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 38,
@@ -1265,7 +1288,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Basement",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 39,
@@ -1298,7 +1322,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Greenhouse",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 40,
@@ -1365,7 +1390,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Office",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 42,
@@ -1398,7 +1424,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Living Room",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 43,
@@ -1431,7 +1458,8 @@
     "humidity": "Average",
     "difficulty": "Easy",
     "room": "Kitchen",
-    "urgency": "high"
+    "urgency": "high",
+    "notes": "Sample notes about this plant."
   },
   {
     "id": 44,
