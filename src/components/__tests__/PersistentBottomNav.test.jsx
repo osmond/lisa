@@ -43,6 +43,9 @@ test('renders main navigation links', () => {
   expect(container.querySelector('a[href="/myplants"]')).toBeInTheDocument()
   expect(container.querySelector('a[href="/timeline"]')).toBeInTheDocument()
   expect(container.querySelector('a[href="/profile"]')).toBeInTheDocument()
+  expect(
+    screen.getByRole('button', { name: /open add menu/i })
+  ).toBeInTheDocument()
 })
 
 test('shows overdue badge when tasks pending', () => {
