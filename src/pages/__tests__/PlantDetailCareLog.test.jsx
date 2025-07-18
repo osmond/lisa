@@ -42,3 +42,18 @@ test('shows notes from care log in timeline', () => {
   expect(screen.getByText('deep soak')).toBeInTheDocument()
 
 })
+
+test('timeline bullet markup matches snapshot', () => {
+  const { container } = render(
+    <MenuProvider>
+      <MemoryRouter initialEntries={['/plant/1']}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </MenuProvider>
+  )
+
+  const list = container.querySelector('ul')
+  expect(list).toMatchSnapshot()
+})
