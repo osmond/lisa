@@ -9,10 +9,10 @@ export default function PersistentBottomNav() {
   const { menu } = useMenu()
 
   const { items, Icon } = menu
-  const mainCount = Math.min(4, items.length)
-  const mainLinks = items.slice(0, mainCount)
-  const profileLink = items[3] // link shown when available
-  const moreItems = items.slice(4)
+  const hasProfileLink = items.length > 3
+  const mainLinks = items.slice(0, hasProfileLink ? 3 : items.length)
+  const profileLink = hasProfileLink ? items[3] : null
+  const moreItems = hasProfileLink ? items.slice(4) : []
   const ProfileIcon = profileLink?.Icon
 
 
