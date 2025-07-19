@@ -231,6 +231,11 @@ body {
   @apply w-full aspect-[3/4] object-cover rounded-xl;
 }
 
+/* Image gradient overlay */
+.img-gradient-overlay {
+  @apply absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent;
+}
+
 @layer utilities {
   .text-heading {
     @apply text-2xl;

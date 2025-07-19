@@ -13,10 +13,7 @@ export default function ImageCard({
     <Card as={Component} className={`p-0 overflow-hidden relative ${className}`} {...props}>
       <div className="relative">
         <img src={imgSrc} alt={typeof title === 'string' ? title : ''} loading="lazy" className="plant-thumb" />
-        <div
-          className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"
-          aria-hidden="true"
-        ></div>
+        <div className="img-gradient-overlay" aria-hidden="true"></div>
         {(title || badges) && (
           <div className="absolute bottom-1 left-2 right-2 drop-shadow text-white space-y-0.5">
             {title && (
