@@ -394,7 +394,7 @@ export default function PlantDetail() {
 
   return (
     <>
-      <div className="full-bleed relative mb-4">
+      <div className="full-bleed relative mb-4 -mt-8">
         <div className="hidden lg:block absolute inset-0 overflow-hidden -z-10">
           <img
             src={plant.image}
