@@ -33,7 +33,7 @@ export default function UnifiedTaskCard({
   const bgClass = overdue
     ? 'bg-red-50 dark:bg-red-800'
     : urgent
-    ? 'bg-yellow-50 dark:bg-yellow-900'
+    ? 'bg-sage dark:bg-gray-700'
     : 'bg-gray-50 dark:bg-gray-800'
 
   const lastText = lastCared ? formatDaysAgo(lastCared) : null
@@ -41,17 +41,27 @@ export default function UnifiedTaskCard({
     <p className="text-timestamp text-gray-500">Last cared for {lastText}</p>
   ) : null
 
-  const waterColor = overdue
-    ? 'bg-red-50 text-red-500'
-    : urgent
-    ? 'bg-yellow-100 text-yellow-700'
-    : 'bg-water-100/90 text-water-800'
+  let intervalDays = null
+  if (dueWater && plant.lastWatered && plant.nextWater) {
+    const last = new Date(plant.lastWatered)
+    const next = new Date(plant.nextWater)
+    if (!isNaN(last) && !isNaN(next)) {
+      intervalDays = Math.round((next - last) / 86400000)
+    }
+  } else if (dueFertilize && plant.lastFertilized && plant.nextFertilize) {
+    const last = new Date(plant.lastFertilized)
+    const next = new Date(plant.nextFertilize)
+    if (!isNaN(last) && !isNaN(next)) {
+      intervalDays = Math.round((next - last) / 86400000)
+    }
+  }
 
-  const fertColor = overdue
-    ? 'bg-red-50 text-red-500'
-    : urgent
-    ? 'bg-yellow-100 text-yellow-700'
-    : 'bg-fertilize-100/90 text-fertilize-800'
+  const needsText = intervalDays
+    ? `Needs ${dueWater ? 'water' : 'fertilizer'} every ${intervalDays} day${
+        intervalDays === 1 ? '' : 's'
+      }`
+    : null
+
 
   const goToDetail = () => {
     const room = plant.room ? encodeURIComponent(plant.room) : null
@@ -167,18 +177,38 @@ export default function UnifiedTaskCard({
                 Overdue
               </Badge>
             ) : urgent ? (
-              <Badge variant="urgent" size="sm">Today</Badge>
+              <Badge variant="urgent" size="sm" Icon={CheckCircle}>
+                Today
+              </Badge>
             ) : null}
           </div>
-          <div className="flex items-center gap-2 mt-1">
+          <div className="flex items-center gap-4 mt-1 font-semibold text-gray-700 dark:text-gray-200">
             {dueWater && (
-              <Badge Icon={Drop} colorClass={waterColor}>Water</Badge>
+              <span className="inline-flex items-center gap-1">
+                <Drop className="w-4 h-4 text-water-600" aria-hidden="true" />
+                Water
+              </span>
             )}
             {dueFertilize && (
-              <Badge Icon={Sun} colorClass={fertColor}>Fertilize</Badge>
+              <span className="inline-flex items-center gap-1">
+                <Sun className="w-4 h-4 text-fertilize-600" aria-hidden="true" />
+                Fertilize
+              </span>
             )}
           </div>
           {last}
+          {needsText && (
+            <p
+              className={`text-timestamp mt-0.5 flex items-center gap-1 ${
+                overdue ? 'text-red-600' : 'text-gray-500'
+              }`}
+            >
+              {overdue && (
+                <WarningCircle className="w-3 h-3" aria-hidden="true" />
+              )}
+              {needsText}
+            </p>
+          )}
         </div>
       </div>
       {completed && (

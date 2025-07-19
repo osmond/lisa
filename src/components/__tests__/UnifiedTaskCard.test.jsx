@@ -53,7 +53,7 @@ test('renders plant info and badges', () => {
   expect(screen.getByText('Fern')).toBeInTheDocument()
   const waterBadge = screen.getByText('Water')
   expect(waterBadge).toBeInTheDocument()
-  expect(waterBadge).toHaveClass('bg-water-100/90')
+  expect(waterBadge).toHaveClass('inline-flex')
   expect(screen.queryByText('Fertilize')).toBeNull()
   expect(screen.getByText('Last cared for 3 days ago')).toBeInTheDocument()
   expect(screen.queryByRole('button', { name: /mark as done/i })).toBeNull()
@@ -66,7 +66,7 @@ test('applies urgent style', () => {
     </MemoryRouter>
   )
   const wrapper = container.querySelector('[data-testid="unified-task-card"]')
-  expect(wrapper).toHaveClass('bg-yellow-50')
+  expect(wrapper).toHaveClass('bg-sage')
 })
 
 test('applies overdue style', () => {
