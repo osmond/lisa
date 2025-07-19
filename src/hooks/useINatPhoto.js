@@ -19,6 +19,8 @@ export default function useINatPhoto(name) {
     if (typeof fetch !== 'function') return
 
     let aborted = false
+    const controller = new AbortController()
+    const { signal } = controller
     const verifyImage = url =>
       new Promise((resolve, reject) => {
         if (typeof Image === 'undefined') {
@@ -35,13 +37,13 @@ export default function useINatPhoto(name) {
       try {
         const searchUrl =
           `https://api.inaturalist.org/v1/search?q=${encodeURIComponent(name)}&sources=taxa`
-        const searchRes = await fetch(searchUrl)
+        const searchRes = await fetch(searchUrl, { signal })
         const searchData = await searchRes.json()
         const results = searchData?.results || []
         for (const result of results) {
           const id = result?.record?.id || result?.id
           if (!id) continue
-          const taxonRes = await fetch(`https://api.inaturalist.org/v1/taxa/${id}`)
+          const taxonRes = await fetch(`https://api.inaturalist.org/v1/taxa/${id}`, { signal })
           const taxonData = await taxonRes.json()
           const defaultPhoto = taxonData?.results?.[0]?.default_photo
           const url = defaultPhoto?.medium_url
@@ -67,6 +69,7 @@ export default function useINatPhoto(name) {
     fetchPhoto()
     return () => {
       aborted = true
+      controller.abort()
     }
   }, [name])
 
