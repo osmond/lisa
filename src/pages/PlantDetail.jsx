@@ -394,7 +394,7 @@ export default function PlantDetail() {
 
   return (
     <>
-      <div className="full-bleed relative mb-4 -mt-8">
+      <div className="full-bleed relative -mt-8">
         <div className="hidden lg:block absolute inset-0 overflow-hidden -z-10">
           <img
             src={plant.image}
@@ -425,14 +425,16 @@ export default function PlantDetail() {
           </div>
         </div>
       </div>
-      <PageContainer className="relative text-left">
+      <PageContainer className="relative text-left pt-0">
         <Toast />
         <div className="space-y-4">
           <div className="flex items-start justify-between">
             <PageHeader breadcrumb={{ room: plant.room, plant: plant.name }} />
           </div>
 
-          <DetailTabs tabs={tabs} />
+          <div className="bg-white rounded-b-xl shadow-md">
+            <DetailTabs tabs={tabs} />
+          </div>
         </div>
         <PlantDetailFab
           onAddPhoto={openFileInput}
