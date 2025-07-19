@@ -29,7 +29,7 @@ export default function PersistentBottomNav() {
         {mainLinks.map(({ to, label, Icon: LinkIcon }) => {
           const showBadge = label === 'All Plants' && overdueCount > 0
           return (
-            <li key={label} className="relative">
+            <li key={to ?? label} className="relative">
               <NavLink
                 to={to}
                 title={label}
@@ -85,7 +85,7 @@ export default function PersistentBottomNav() {
               &times;
             </button>
             {moreItems.map(({ to, onClick, label, Icon: ItemIcon }) => (
-              <li key={label}>
+              <li key={to ?? label}>
                 {to ? (
                   <NavLink
                     to={to}

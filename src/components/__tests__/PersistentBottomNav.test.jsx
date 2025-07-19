@@ -13,7 +13,7 @@ const customMenu = {
   ...defaultMenu,
   items: [
     ...defaultMenu.items,
-    { to: '/profile', label: 'Profile', Icon: Gear },
+    { to: '/settings', label: 'Profile', Icon: Gear },
     { to: '/extra', label: 'Extra', Icon: Gear },
   ],
 }
