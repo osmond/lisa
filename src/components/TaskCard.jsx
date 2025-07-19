@@ -188,7 +188,7 @@ export default function TaskCard({
           {completed && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none task-complete-fade">
               <svg
-                className="w-8 h-8 text-healthy-600 check-pop"
+                className="w-8 h-8 text-healthy-600 check-pop swipe-check"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
