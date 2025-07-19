@@ -46,6 +46,23 @@ test('renders plant details without duplicates', () => {
   expect(subHeadings).toHaveLength(0)
 })
 
+test('shows watering progress indicator', () => {
+  const plant = plants[0]
+  render(
+    <MenuProvider>
+      <PlantProvider>
+        <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+          <Routes>
+            <Route path="/plant/:id" element={<PlantDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </PlantProvider>
+    </MenuProvider>
+  )
+
+  expect(screen.getByLabelText(/watering progress/i)).toBeInTheDocument()
+})
+
 
 test('displays all sections', () => {
   const plant = plants[0]
