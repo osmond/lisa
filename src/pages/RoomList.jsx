@@ -50,7 +50,7 @@ export default function RoomList() {
         <p>No plants in this room.</p>
       ) : (
         <div
-          className="grid gap-2"
+          className="grid gap-2 gap-y-6"
           style={{
             gridTemplateColumns: 'repeat(auto-fill, minmax(160px,1fr))',
             gridAutoRows: '1fr',

@@ -91,7 +91,7 @@ export default function MyPlants() {
         ]}
       />
       <div
-        className="grid gap-2"
+        className="grid gap-2 gap-y-6"
         style={{
           gridTemplateColumns: 'repeat(auto-fill, minmax(160px,1fr))',
           gridAutoRows: '1fr',
@@ -121,7 +121,7 @@ export default function MyPlants() {
                 title={
                   <>
                     <p className="font-bold text-lg font-headline leading-none">{room}</p>
-                    <p className="text-sm text-gray-500 leading-none">{countPlants(room)} plants</p>
+                    <p className="text-xs text-gray-500 leading-none">{countPlants(room)} plants</p>
                   </>
                 }
                 className="space-y-2 hover:shadow-lg h-full flex flex-col"
