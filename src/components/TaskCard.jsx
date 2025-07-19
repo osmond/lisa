@@ -1,4 +1,4 @@
-import { Drop, Sun } from 'phosphor-react'
+import { Drop, Sun, PencilSimpleLine, ClockCounterClockwise, Trash } from 'phosphor-react'
 import { useNavigate } from 'react-router-dom'
 import { getWateringInfo } from '../utils/watering.js'
 import { usePlants } from '../PlantContext.jsx'
@@ -35,6 +35,35 @@ export default function TaskCard({
     }
   }
 
+  const handleEdit = () => {
+    const room = task.room ? encodeURIComponent(task.room) : null
+    navigate(
+      room ? `/room/${room}/plant/${task.plantId}/edit` : `/plant/${task.plantId}/edit`
+    )
+  }
+
+  const handleReschedule = () => {
+    const prev = plants.find(p => p.id === task.plantId)
+    const next = new Date(task.date || new Date())
+    next.setDate(next.getDate() + 1)
+    const updates =
+      task.type === 'Water'
+        ? { nextWater: next.toISOString().slice(0, 10) }
+        : { nextFertilize: next.toISOString().slice(0, 10) }
+    updatePlant(task.plantId, updates)
+    showSnackbar('Rescheduled', () => updatePlant(task.plantId, prev))
+  }
+
+  const handleDelete = () => {
+    const prev = plants.find(p => p.id === task.plantId)
+    const updates =
+      task.type === 'Water'
+        ? { nextWater: null }
+        : { nextFertilize: null }
+    updatePlant(task.plantId, updates)
+    showSnackbar('Deleted', () => updatePlant(task.plantId, prev))
+  }
+
   const { dx, start, move, end } = useSwipe(
     diff => {
       if (!swipeable) return
@@ -51,6 +80,8 @@ export default function TaskCard({
     { threshold: 30 }
   )
 
+  const showActionBar = dx < 0 && dx > -60
+
   return (
     <>
     <div
@@ -64,6 +95,39 @@ export default function TaskCard({
       onPointerUp={end}
       onPointerCancel={end}
     >
+      <div
+        className={`task-action-bar ${showActionBar ? 'show' : ''}`}
+        role="group"
+        aria-label="Task actions"
+      >
+        <button
+          type="button"
+          aria-label="Edit task"
+          onClick={handleEdit}
+          className="task-action bg-blue-600 text-white"
+        >
+          <PencilSimpleLine className="w-4 h-4" aria-hidden="true" />
+          Edit
+        </button>
+        <button
+          type="button"
+          aria-label="Reschedule task"
+          onClick={handleReschedule}
+          className="task-action bg-yellow-600 text-white"
+        >
+          <ClockCounterClockwise className="w-4 h-4" aria-hidden="true" />
+          Reschedule
+        </button>
+        <button
+          type="button"
+          aria-label="Delete task"
+          onClick={handleDelete}
+          className="task-action bg-red-600 text-white"
+        >
+          <Trash className="w-4 h-4" aria-hidden="true" />
+          Delete
+        </button>
+      </div>
       <div className="flex items-center flex-1 gap-4">
       <button
         type="button"

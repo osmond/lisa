@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter, useNavigate } from 'react-router-dom'
 import UnifiedTaskCard from '../UnifiedTaskCard.jsx'
 import { usePlants } from '../../PlantContext.jsx'
@@ -6,6 +6,7 @@ import { usePlants } from '../../PlantContext.jsx'
 const navigateMock = jest.fn()
 const markWatered = jest.fn()
 const markFertilized = jest.fn()
+const updatePlant = jest.fn()
 
 jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
 
@@ -21,6 +22,7 @@ jest.mock('../../PlantContext.jsx', () => ({
 const usePlantsMock = usePlants
 
 const plant = {
+  id: 1,
   name: 'Fern',
   image: 'fern.jpg',
   lastWatered: '2025-07-10',
@@ -38,7 +40,7 @@ beforeEach(() => {
     plants: [plant],
     markWatered,
     markFertilized,
-    updatePlant: jest.fn(),
+    updatePlant,
   })
 })
 
@@ -95,6 +97,24 @@ test('does not render a completion button', () => {
     </MemoryRouter>
   )
   expect(screen.queryByRole('button', { name: /mark as done/i })).toBeNull()
+})
+
+test('partial left swipe reveals actions', () => {
+  render(
+    <MemoryRouter>
+      <UnifiedTaskCard plant={plant} />
+    </MemoryRouter>
+  )
+  const wrapper = screen.getByTestId('unified-task-card')
+  fireEvent.pointerDown(wrapper, { clientX: 100, buttons: 1 })
+  fireEvent.pointerMove(wrapper, { clientX: 70, buttons: 1 })
+  expect(screen.getByRole('button', { name: /edit task/i })).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: /edit task/i }))
+  expect(navigateMock).toHaveBeenCalledWith('/plant/1/edit')
+  fireEvent.click(screen.getByRole('button', { name: /reschedule task/i }))
+  expect(updatePlant).toHaveBeenCalled()
+  fireEvent.click(screen.getByRole('button', { name: /delete task/i }))
+  expect(updatePlant).toHaveBeenCalledTimes(2)
 })
 
 afterAll(() => {
