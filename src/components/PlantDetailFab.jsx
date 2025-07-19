@@ -19,16 +19,15 @@ export default function PlantDetailFab({
   }, [open])
 
   const items = [
-    { label: 'Mark Watered', Icon: Drop, action: onWater, color: 'blue', section: 'Care' },
+    { label: 'Mark Watered', Icon: Drop, action: onWater, color: 'blue' },
     {
       label: 'Mark Fertilized',
       Icon: Flower,
       action: onFertilize,
       color: 'yellow',
-      section: 'Care',
     },
-    { label: 'Add Photo', Icon: ImageIcon, action: onAddPhoto, color: 'green', section: 'Journal' },
-    { label: 'Add Note', Icon: Note, action: onAddNote, color: 'violet', section: 'Journal' },
+    { label: 'Add Photo', Icon: ImageIcon, action: onAddPhoto, color: 'green' },
+    { label: 'Add Note', Icon: Note, action: onAddNote, color: 'violet' },
   ]
 
   const colorClasses = {
@@ -48,11 +47,11 @@ export default function PlantDetailFab({
           aria-label="Log new care"
           onClick={() => setOpen(false)}
         >
-          <ul
-            className="modal-box relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl px-5 py-4 w-[90%] max-w-[360px] space-y-2 animate-fade-in-up"
+          <div
+            className="modal-box relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl px-5 py-4 w-[90%] max-w-[360px] animate-fade-in-up"
             onClick={e => e.stopPropagation()}
           >
-            <li className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-3">
               <span className="flex-1 text-center font-headline text-heading">
                 Log new care
               </span>
@@ -64,14 +63,10 @@ export default function PlantDetailFab({
               >
                 &times;
               </button>
-            </li>
-            <li className="list-none text-xs font-bold uppercase text-gray-600 dark:text-gray-400 mt-2">
-              Care
-            </li>
-            {items
-              .filter(i => i.section === 'Care')
-              .map(({ label, Icon, action, color }) => (
-                <li key={label}>
+            </div>
+            <ul className="grid grid-cols-2 gap-4">
+              {items.map(({ label, Icon, action, color }) => (
+                <li key={label} className="list-none">
                   <button
                     type="button"
                     onClick={() => {
@@ -79,44 +74,19 @@ export default function PlantDetailFab({
                       action?.()
                     }}
                     title={label}
-                    className="flex items-center gap-3 w-full rounded-md px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition"
+                    className="flex flex-col items-center gap-2 w-full rounded-md px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition"
                   >
-                    <span className={`p-2 rounded-full ${colorClasses[color].bg}`}> 
+                    <span className={`p-2 rounded-full ${colorClasses[color].bg}`}>
                       <Icon className={`w-5 h-5 ${colorClasses[color].text}`} aria-hidden="true" />
                     </span>
-                    <span className="text-sm text-gray-800 dark:text-gray-200">
+                    <span className="text-sm text-gray-800 dark:text-gray-200 text-center">
                       {label}
                     </span>
                   </button>
                 </li>
               ))}
-            <hr className="border-t border-gray-200 dark:border-gray-700" />
-            <li className="list-none text-xs font-bold uppercase text-gray-600 dark:text-gray-400 mt-2">
-              Journal
-            </li>
-            {items
-              .filter(i => i.section === 'Journal')
-              .map(({ label, Icon, action, color }) => (
-                <li key={label}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setOpen(false)
-                      action?.()
-                    }}
-                    title={label}
-                    className="flex items-center gap-3 w-full rounded-md px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition"
-                  >
-                    <span className={`p-2 rounded-full ${colorClasses[color].bg}`}> 
-                      <Icon className={`w-5 h-5 ${colorClasses[color].text}`} aria-hidden="true" />
-                    </span>
-                    <span className="text-sm text-gray-800 dark:text-gray-200">
-                      {label}
-                    </span>
-                  </button>
-                </li>
-              ))}
-          </ul>
+            </ul>
+          </div>
         </div>
       )}
       <button
