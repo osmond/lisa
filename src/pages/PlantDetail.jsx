@@ -22,6 +22,7 @@ import NoteModal from '../components/NoteModal.jsx'
 import { useMenu, defaultMenu } from '../MenuContext.jsx'
 import LegendModal from '../components/LegendModal.jsx'
 import WaterProgress from '../components/WaterProgress.jsx'
+import FertilizeProgress from '../components/FertilizeProgress.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
 import SectionCard from '../components/SectionCard.jsx'
@@ -63,6 +64,13 @@ export default function PlantDetail() {
   const progressPct = getWateringProgress(plant?.lastWatered, plant?.nextWater)
   const waterTotal = 3
   const waterCompleted = Math.round(progressPct * waterTotal)
+
+  const fertPct = getWateringProgress(
+    plant?.lastFertilized,
+    plant?.nextFertilize
+  )
+  const fertTotal = 3
+  const fertCompleted = Math.round(fertPct * fertTotal)
 
   const now = new Date()
   const nextWaterDate = plant?.nextWater ? new Date(plant.nextWater) : null
@@ -401,14 +409,19 @@ export default function PlantDetail() {
             className="w-full h-64 object-cover"
           />
           <div className="img-gradient-overlay" aria-hidden="true"></div>
+          <div className="absolute top-2 right-2 flex gap-2">
+            <div className="bg-black/50 rounded p-1" aria-label="Watering progress">
+              <WaterProgress completed={waterCompleted} total={waterTotal} />
+            </div>
+            {plant.nextFertilize && (
+              <div className="bg-black/50 rounded p-1" aria-label="Fertilizing progress">
+                <FertilizeProgress completed={fertCompleted} total={fertTotal} />
+              </div>
+            )}
+          </div>
           <div className="absolute bottom-2 left-3 right-3 flex flex-col sm:flex-row justify-between text-white drop-shadow space-y-1 sm:space-y-0">
             <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-heading font-semibold font-headline">{plant.name}</h2>
-                <div className="relative" style={{ width: 24, height: 24 }} aria-label="Watering progress">
-                  <WaterProgress completed={waterCompleted} total={waterTotal} />
-                </div>
-              </div>
+              <h2 className="text-heading font-semibold font-headline">{plant.name}</h2>
               {plant.nickname && <p className="text-sm text-gray-200">{plant.nickname}</p>}
             </div>
             {/* brief care stats moved to Care Summary tab */}
