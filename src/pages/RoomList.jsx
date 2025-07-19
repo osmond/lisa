@@ -9,6 +9,7 @@ import PageHeader from '../components/PageHeader.jsx'
 import Badge from '../components/Badge.jsx'
 import PageContainer from "../components/PageContainer.jsx"
 import ImageCard from '../components/ImageCard.jsx'
+import FilterPills from '../components/FilterPills.jsx'
 
 export default function RoomList() {
   const { roomName } = useParams()
@@ -35,21 +36,15 @@ export default function RoomList() {
     <PageContainer>
       <PageHeader title={roomName} breadcrumb={{ room: roomName }} />
       {list.length > 0 && (
-        <div>
-          <label htmlFor="sort" className="text-sm font-medium">
-            Sort
-          </label>
-          <select
-            id="sort"
-            className="dropdown-select w-full mt-1"
-            value={sortBy}
-            onChange={e => setSortBy(e.target.value)}
-          >
-            <option value="name">Name</option>
-            <option value="status">Watering Status</option>
-            <option value="recent">Recently Added</option>
-          </select>
-        </div>
+        <FilterPills
+          value={sortBy}
+          onChange={setSortBy}
+          options={[
+            { value: 'name', label: 'Name' },
+            { value: 'status', label: 'Watering Status' },
+            { value: 'recent', label: 'Recently Added' },
+          ]}
+        />
       )}
       {list.length === 0 ? (
         <p>No plants in this room.</p>
