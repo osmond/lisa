@@ -121,3 +121,27 @@ test('filters rooms needing love', () => {
   expect(links[0]).toHaveTextContent('Living')
   jest.useRealTimers()
 })
+
+test('searches plants by name', () => {
+  mockRooms = ['Kitchen', 'Living']
+  mockPlants = [
+    { id: 1, name: 'Fern', room: 'Living', lastWatered: '2025-07-01' },
+    { id: 2, name: 'Basil', room: 'Kitchen', lastWatered: '2025-07-01' },
+  ]
+  render(
+    <MemoryRouter>
+      <MyPlants />
+    </MemoryRouter>
+  )
+
+  const search = screen.getByRole('searchbox', { name: /search plants/i })
+  fireEvent.change(search, { target: { value: 'fer' } })
+
+  const links = screen
+    .getAllByRole('link')
+    .filter(l => l.getAttribute('href') !== '/room/add')
+
+  expect(screen.queryByText('Kitchen')).toBeNull()
+  expect(links).toHaveLength(1)
+  expect(links[0]).toHaveTextContent('Living')
+})
