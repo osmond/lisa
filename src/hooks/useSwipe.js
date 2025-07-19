@@ -7,6 +7,9 @@ export default function useSwipe(onEnd, options = {}) {
 
   const start = e => {
     startX.current = e?.clientX ?? e?.touches?.[0]?.clientX ?? 0
+    if (e?.currentTarget?.setPointerCapture && e.pointerId != null) {
+      e.currentTarget.setPointerCapture(e.pointerId)
+    }
   }
 
   const move = e => {
@@ -23,6 +26,9 @@ export default function useSwipe(onEnd, options = {}) {
     }
     setDx(0)
     startX.current = 0
+    if (e?.currentTarget?.releasePointerCapture && e.pointerId != null) {
+      e.currentTarget.releasePointerCapture(e.pointerId)
+    }
   }
 
   return { dx, start, move, end }

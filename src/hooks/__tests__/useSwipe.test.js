@@ -29,3 +29,16 @@ test('calls callback with swipe distance', () => {
   fireEvent.pointerUp(el, { clientX: 80 })
   expect(cb).toHaveBeenCalledWith(80)
 })
+
+test('sets pointer capture on pointer down', () => {
+  let startFn
+  function CaptureTest() {
+    const { start } = useSwipe(() => {})
+    startFn = start
+    return null
+  }
+  render(<CaptureTest />)
+  const mockTarget = { setPointerCapture: jest.fn() }
+  startFn({ clientX: 0, pointerId: 1, currentTarget: mockTarget })
+  expect(mockTarget.setPointerCapture).toHaveBeenCalledWith(1)
+})
