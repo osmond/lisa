@@ -25,7 +25,7 @@ test('renders plant details without duplicates', () => {
   const images = screen.getAllByAltText(plant.name)
   expect(images).toHaveLength(1)
 
-  // Care tab is active by default
+  // Care Summary tab is active by default
   const wateredLabels = screen.getAllByText(/Last watered/i)
   const wateredLabel = wateredLabels[wateredLabels.length - 1]
   expect(wateredLabel.textContent).toMatch(/Last watered:/i)
@@ -35,8 +35,6 @@ test('renders plant details without duplicates', () => {
   const fertLabel = screen.getAllByText(new RegExp(plant.nextFertilize))
   const fertText = fertLabel[fertLabel.length - 1]
   expect(fertText.textContent).toMatch(new RegExp(plant.nextFertilize))
-
-  fireEvent.click(screen.getByRole('tab', { name: /overview/i }))
 
   expect(screen.getByText(plant.light)).toBeInTheDocument()
   expect(screen.getByText(plant.humidity)).toBeInTheDocument()
@@ -61,10 +59,10 @@ test('displays all sections', () => {
     </MenuProvider>
   )
 
-  expect(screen.getByRole('tab', { name: /care/i })).toBeInTheDocument()
-  expect(screen.getByRole('tab', { name: /overview/i })).toBeInTheDocument()
+  expect(screen.getByRole('tab', { name: /care summary/i })).toBeInTheDocument()
   expect(screen.getByRole('tab', { name: /activity/i })).toBeInTheDocument()
   expect(screen.getByRole('tab', { name: /gallery/i })).toBeInTheDocument()
+  expect(screen.queryByRole('tab', { name: /overview/i })).toBeNull()
 })
 
 
