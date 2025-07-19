@@ -4,6 +4,13 @@ import PlantDetail from '../PlantDetail.jsx'
 import { usePlants } from '../../PlantContext.jsx'
 import { MenuProvider } from '../../MenuContext.jsx'
 
+// Confetti relies on the canvas API which JSDOM doesn't fully implement.
+// Mock it here to avoid noisy warnings during tests.
+jest.mock('canvas-confetti', () => ({
+  __esModule: true,
+  default: () => {},
+}))
+
 const markWatered = jest.fn()
 const markFertilized = jest.fn()
 let mockPlants = []
