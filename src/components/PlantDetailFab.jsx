@@ -19,16 +19,15 @@ export default function PlantDetailFab({
   }, [open])
 
   const items = [
-    { label: 'Mark Watered', Icon: Drop, action: onWater, color: 'blue', section: 'Care' },
+    { label: 'Mark Watered', Icon: Drop, action: onWater, color: 'blue' },
     {
       label: 'Mark Fertilized',
       Icon: Flower,
       action: onFertilize,
       color: 'yellow',
-      section: 'Care',
     },
-    { label: 'Add Photo', Icon: ImageIcon, action: onAddPhoto, color: 'green', section: 'Journal' },
-    { label: 'Add Note', Icon: Note, action: onAddNote, color: 'violet', section: 'Journal' },
+    { label: 'Add Photo', Icon: ImageIcon, action: onAddPhoto, color: 'green' },
+    { label: 'Add Note', Icon: Note, action: onAddNote, color: 'violet' },
   ]
 
   const colorClasses = {
@@ -49,7 +48,7 @@ export default function PlantDetailFab({
           onClick={() => setOpen(false)}
         >
           <ul
-            className="modal-box relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 w-52 space-y-3 animate-fade-in-up"
+            className="modal-box relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 w-52 grid grid-cols-2 gap-4 animate-fade-in-up"
             onClick={e => e.stopPropagation()}
           >
             <button
@@ -60,16 +59,11 @@ export default function PlantDetailFab({
             >
               &times;
             </button>
-            <li className="list-none text-center font-headline text-heading">
-              Log new care
-            </li>
-            <li className="list-none text-xs uppercase font-semibold text-gray-600 dark:text-gray-400">
-              Care
-            </li>
-            {items
-              .filter(i => i.section === 'Care')
-              .map(({ label, Icon, action, color }) => (
-                <li key={label}>
+              <li className="list-none col-span-2 text-center font-headline text-heading">
+                Log new care
+              </li>
+              {items.map(({ label, Icon, action, color }) => (
+                <li key={label} className="list-none">
                   <button
                     type="button"
                     onClick={() => {
@@ -77,37 +71,12 @@ export default function PlantDetailFab({
                       action?.()
                     }}
                     title={label}
-                    className="flex items-center gap-3 w-full rounded-lg p-2 hover:bg-green-50 dark:hover:bg-gray-600 transition"
+                    className="flex flex-col items-center gap-2 w-full rounded-lg p-2 hover:bg-green-50 dark:hover:bg-gray-600 transition"
                   >
                     <span className={`p-2 rounded-full ${colorClasses[color].bg}`}>
                       <Icon className={`w-5 h-5 ${colorClasses[color].text}`} aria-hidden="true" />
                     </span>
-                    <span className="text-sm text-gray-800 dark:text-gray-200">
-                      {label}
-                    </span>
-                  </button>
-                </li>
-              ))}
-            <li className="list-none text-xs uppercase font-semibold text-gray-600 dark:text-gray-400">
-              Journal
-            </li>
-            {items
-              .filter(i => i.section === 'Journal')
-              .map(({ label, Icon, action, color }) => (
-                <li key={label}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setOpen(false)
-                      action?.()
-                    }}
-                    title={label}
-                    className="flex items-center gap-3 w-full rounded-lg p-2 hover:bg-green-50 dark:hover:bg-gray-600 transition"
-                  >
-                    <span className={`p-2 rounded-full ${colorClasses[color].bg}`}>
-                      <Icon className={`w-5 h-5 ${colorClasses[color].text}`} aria-hidden="true" />
-                    </span>
-                    <span className="text-sm text-gray-800 dark:text-gray-200">
+                    <span className="text-sm text-gray-800 dark:text-gray-200 text-center">
                       {label}
                     </span>
                   </button>
