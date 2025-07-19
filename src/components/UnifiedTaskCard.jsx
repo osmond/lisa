@@ -70,15 +70,17 @@ export default function UnifiedTaskCard({
 
   const handleComplete = () => {
     const prev = plants.find(p => p.id === plant.id)
-    if (dueWater) {
-      markWatered(plant.id, '')
-    }
-    if (dueFertilize) {
-      markFertilized(plant.id, '')
-    }
     if (dueWater || dueFertilize) {
-      showSnackbar('Done', () => updatePlant(plant.id, prev))
       setCompleted(true)
+      setTimeout(() => {
+        if (dueWater) {
+          markWatered(plant.id, '')
+        }
+        if (dueFertilize) {
+          markFertilized(plant.id, '')
+        }
+        showSnackbar('Done', () => updatePlant(plant.id, prev))
+      }, 400)
     }
   }
 
