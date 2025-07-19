@@ -76,7 +76,7 @@ test('displays all sections', () => {
     </MenuProvider>
   )
 
-  expect(screen.getByRole('heading', { name: /quick stats/i })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: /care details/i })).toBeInTheDocument()
   expect(screen.getByRole('heading', { name: /activity & notes/i })).toBeInTheDocument()
   expect(screen.getByRole('heading', { name: /gallery/i })).toBeInTheDocument()
 })
