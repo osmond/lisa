@@ -120,11 +120,15 @@ export default function PlantDetail() {
     showToast('Watered')
     if (typeof HTMLCanvasElement !== 'undefined' &&
         HTMLCanvasElement.prototype.getContext) {
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-      })
+      try {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+        })
+      } catch {
+        // Canvas API may be missing in some environments (like jsdom)
+      }
     }
   }
 
