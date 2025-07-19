@@ -25,13 +25,11 @@ test('renders plant details without duplicates', () => {
   const images = screen.getAllByAltText(plant.name)
   expect(images).toHaveLength(1)
 
-  const infoButton = screen.getByRole('button', { name: /show plant info/i })
-  fireEvent.click(infoButton)
+  fireEvent.click(screen.getByRole('button', { name: /care overview/i }))
+
   expect(screen.getByText(plant.light)).toBeInTheDocument()
   expect(screen.getByText(plant.humidity)).toBeInTheDocument()
   expect(screen.getByText(plant.difficulty)).toBeInTheDocument()
-
-  fireEvent.click(screen.getByRole('button', { name: /care overview/i }))
 
   const wateredLabels = screen.getAllByText(/Last watered/i)
   const wateredLabel = wateredLabels[wateredLabels.length - 1]
