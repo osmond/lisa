@@ -22,11 +22,14 @@ export function WeatherProvider({ children }) {
   })
 
   useEffect(() => {
+    const controller = new AbortController()
+    const { signal } = controller
+
     const key = process.env.VITE_WEATHER_API_KEY
     if (!key) return
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&units=${units}&appid=${key}`
     setLoading(true)
-    fetch(url)
+    fetch(url, { signal })
       .then(res => {
         if (!res.ok) {
           throw new Error('Network response was not ok')
@@ -53,6 +56,9 @@ export function WeatherProvider({ children }) {
       .finally(() => {
         setLoading(false)
       })
+    return () => {
+      controller.abort()
+    }
   }, [location, units])
 
   useEffect(() => {
