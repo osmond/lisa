@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Plus, Drop, Sun, Bug, Heart } from 'phosphor-react'
+import { Plus, Drop, Bug, Heart } from 'phosphor-react'
 import { getNextWateringDate } from '../utils/watering.js'
 
 import Badge from '../components/Badge.jsx'
@@ -42,7 +42,6 @@ export default function MyPlants() {
   const roomStats = room => {
     const list = filteredPlants.filter(p => p.room === room)
     const wateredToday = list.some(p => p.lastWatered === todayIso)
-    const lowLight = list.some(p => (p.light || '').toLowerCase().includes('low'))
     const pestAlert = list.some(p => p.pestAlert)
     const lastUpdated = list.reduce((latest, p) => {
       const dates = [p.lastWatered, p.lastFertilized].filter(Boolean)
@@ -51,7 +50,7 @@ export default function MyPlants() {
       }
       return latest
     }, '')
-    return { wateredToday, lowLight, pestAlert, lastUpdated }
+    return { wateredToday, pestAlert, lastUpdated }
   }
 
   const sortedRooms = [...rooms]
@@ -129,7 +128,7 @@ export default function MyPlants() {
         {sortedRooms.map((room, i) => {
           const overdue = countOverdue(room)
 
-          const { wateredToday, lowLight, pestAlert, lastUpdated } = roomStats(room)
+          const { wateredToday, pestAlert, lastUpdated } = roomStats(room)
 
           const previews = filteredPlants
             .filter(p => p.room === room)
@@ -180,7 +179,6 @@ export default function MyPlants() {
                 )}
                 <div className="flex gap-1 text-sm text-white/80">
                   {wateredToday && <Drop className="w-4 h-4" aria-hidden="true" />}
-                  {lowLight && <Sun className="w-4 h-4" aria-hidden="true" />}
                   {pestAlert && <Bug className="w-4 h-4" aria-hidden="true" />}
                 </div>
                 <p className="font-semibold text-base font-headline">{room}</p>
