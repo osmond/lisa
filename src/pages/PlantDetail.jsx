@@ -25,7 +25,6 @@ import WaterProgress from '../components/WaterProgress.jsx'
 import FertilizeProgress from '../components/FertilizeProgress.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
-import SectionCard from '../components/SectionCard.jsx'
 import DetailTabs from '../components/DetailTabs.jsx'
 
 import useToast from "../hooks/useToast.jsx"
@@ -176,7 +175,7 @@ export default function PlantDetail() {
       id: 'summary',
       label: 'Care Summary',
       content: (
-        <SectionCard className="space-y-3">
+        <div className="space-y-3 p-4">
           <div className="space-y-3">
             <div className={`relative rounded-lg p-3 border-l-4 ${waterBorderClass} bg-water-50 dark:bg-water-900/30`}>
               <div className="flex items-center gap-1 font-headline font-semibold text-water-700 dark:text-water-200">
@@ -236,14 +235,14 @@ export default function PlantDetail() {
               )}
             </ul>
           )}
-        </SectionCard>
+        </div>
       ),
     },
     {
       id: 'activity',
       label: 'Activity',
       content: (
-        <SectionCard className="space-y-4">
+        <div className="space-y-4 p-4">
           <div className="flex justify-end gap-2">
             <button
               type="button"
@@ -313,14 +312,14 @@ export default function PlantDetail() {
               </div>
             )
           })}
-        </SectionCard>
+        </div>
       ),
     },
     {
       id: 'gallery',
       label: 'Gallery',
       content: (
-        <SectionCard className="space-y-2">
+        <div className="space-y-2 p-4">
           <div className="flex flex-nowrap gap-3 overflow-x-auto pb-1 sm:pb-2">
             {(plant.photos || [])
               .slice(0, 3)
@@ -381,7 +380,7 @@ export default function PlantDetail() {
               />
             </div>
           )}
-        </SectionCard>
+        </div>
       ),
     },
   ]
