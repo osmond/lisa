@@ -92,15 +92,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
             )}
           </div>
         )}
-        <div className="flex gap-2">
-          <button
-            type="button"
-            aria-label={`Mark ${name} as watered`}
-            className="px-4 py-2 bg-gradient-to-b from-blue-500 to-blue-600 text-white rounded-full shadow-md shadow-blue-600/30 text-sm animate-bounce-once"
-          >
-            Water Now
-          </button>
-        </div>
+        {/* Action buttons were removed to keep the card minimal */}
 
       </div>
     </Link>
