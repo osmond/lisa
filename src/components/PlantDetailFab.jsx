@@ -6,6 +6,7 @@ export default function PlantDetailFab({
   onAddNote,
   onWater,
   onFertilize,
+  icon: FabIcon = Plus,
 }) {
   const [open, setOpen] = useState(false)
 
@@ -39,7 +40,7 @@ export default function PlantDetailFab({
   }
 
   return (
-    <div className="absolute bottom-4 right-4 z-30">
+    <div className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 z-30">
       {open && (
         <div
           className="modal-overlay bg-black/50 z-30 backdrop-blur-sm"
@@ -123,9 +124,13 @@ export default function PlantDetailFab({
         title="Open create menu"
         aria-expanded={open}
         aria-haspopup="menu"
-        className={`bg-accent text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition-transform ${open ? 'ring-pulse' : ''}`}
+        className={`bg-accent text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition-transform ${open ? 'ring-pulse' : ''}`}
       >
-        <Plus className={`w-6 h-6 transition-transform ${open ? 'rotate-45' : ''}`} aria-hidden="true" />
+        {open ? (
+          <Plus className="w-6 h-6 rotate-45 transition-transform" aria-hidden="true" />
+        ) : (
+          <FabIcon className="w-6 h-6" aria-hidden="true" />
+        )}
       </button>
     </div>
   )
