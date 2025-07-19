@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, within } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import PlantDetail from '../PlantDetail.jsx'
 import plants from '../../plants.json'
@@ -181,6 +181,9 @@ test('breadcrumb link navigates to room page and no back button is shown', () =>
   )
 
   expect(screen.queryByRole('button', { name: /back/i })).toBeNull()
+  const nav = screen.getByRole('navigation', { name: /breadcrumb/i })
+  const items = within(nav).getAllByRole('listitem')
+  expect(items).toHaveLength(3)
   fireEvent.click(screen.getByRole('link', { name: plant.room }))
 
   expect(screen.getByText(/room view/i)).toBeInTheDocument()
