@@ -9,6 +9,7 @@ import {
   CaretRight,
   SortDescending,
   Trash,
+  ArrowLeft,
 } from 'phosphor-react'
 
 import Lightbox from '../components/Lightbox.jsx'
@@ -20,7 +21,6 @@ import NoteModal from '../components/NoteModal.jsx'
 import { useMenu, defaultMenu } from '../MenuContext.jsx'
 import LegendModal from '../components/LegendModal.jsx'
 import CareRings from '../components/CareRings.jsx'
-import Breadcrumb from '../components/Breadcrumb.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
 import DetailTabs from '../components/DetailTabs.jsx'
 
@@ -189,9 +189,9 @@ export default function PlantDetail() {
       content: (
         <div className="space-y-4 p-4">
           <div className="space-y-4">
-            <div className={`relative rounded-xl p-5 border-l-4 ${waterBorderClass} bg-blue-50 dark:bg-water-900/30 shadow-sm mb-6`}>
-              <h3 className="flex items-center gap-2 text-sm font-semibold text-blue-800 dark:text-water-200 mb-2">
-                <Drop className="w-3 h-3" aria-hidden="true" />
+            <div className={`relative rounded-xl p-5 border-l-4 ${waterBorderClass} bg-water-50 dark:bg-water-900/30 shadow-sm mb-6`}>
+              <h3 className="flex items-center gap-2 text-sm font-semibold text-water-800 dark:text-water-200 mb-2">
+                <Drop className="w-4 h-4" aria-hidden="true" />
                 Watering Schedule
               </h3>
               <p className="text-sm text-gray-700 mb-1">
@@ -204,9 +204,9 @@ export default function PlantDetail() {
               )}
             </div>
             {plant.nextFertilize && (
-              <div className={`relative rounded-lg p-4 border-l-4 ${fertBorderClass} bg-red-50 dark:bg-fertilize-900/30`}>
+              <div className={`relative rounded-xl p-5 border-l-4 ${fertBorderClass} bg-fertilize-50 dark:bg-fertilize-900/30`}>
                 <div className="flex justify-between items-start">
-                  <h3 className="flex items-center gap-2 font-headline font-medium text-red-700 dark:text-fertilize-200">
+                  <h3 className="flex items-center gap-2 font-headline font-medium text-fertilize-800 dark:text-fertilize-200">
                     <Flower className="w-4 h-4" aria-hidden="true" />
                     Fertilizing Needs
                   </h3>
@@ -440,23 +440,21 @@ export default function PlantDetail() {
             src={plant.image}
             alt={plant.name}
             loading="lazy"
-            className="w-full h-64 object-cover"
+            className="w-full h-[45vh] object-cover"
           />
           <div className="img-gradient-overlay" aria-hidden="true"></div>
-          <div
-            className="absolute top-2 right-2 bg-black/50 rounded-full p-1"
-            aria-label="Care progress"
-          >
-            <CareRings
-              waterCompleted={waterCompleted}
-              waterTotal={waterTotal}
-              fertCompleted={fertCompleted}
-              fertTotal={fertTotal}
-              size={36}
-            />
-          </div>
-          <div className="absolute top-2 left-2 bg-black/40 rounded px-2 py-1 text-white text-xs">
-            <Breadcrumb room={plant.room} plant={plant.name} />
+          <div className="absolute top-2 left-2 flex items-center gap-1 text-white">
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="p-1 rounded-full bg-black/40 hover:bg-black/50"
+            >
+              <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+              <span className="sr-only">Back</span>
+            </button>
+            {plant.room && (
+              <span className="text-sm font-medium">{plant.room}</span>
+            )}
           </div>
           <div className="absolute bottom-2 left-3 right-3 flex flex-col sm:flex-row justify-between text-white drop-shadow space-y-1 sm:space-y-0">
             <div>
@@ -473,6 +471,14 @@ export default function PlantDetail() {
       </div>
       <PageContainer className="relative text-left pt-0 space-y-3">
         <Toast />
+        <div className="flex justify-center mt-4" aria-label="Care progress">
+          <CareRings
+            waterCompleted={waterCompleted}
+            waterTotal={waterTotal}
+            fertCompleted={fertCompleted}
+            fertTotal={fertTotal}
+          />
+        </div>
         <div className="space-y-3">
           <DetailTabs tabs={tabs} />
         </div>
