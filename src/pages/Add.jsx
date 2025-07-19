@@ -2,6 +2,7 @@ import { useReducer, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePlants, addBase } from '../PlantContext.jsx'
 import useINatPhoto from '../hooks/useINatPhoto.js'
+import useToast from '../hooks/useToast.jsx'
 import NameStep from './add/NameStep.jsx'
 import ImageStep from './add/ImageStep.jsx'
 import ScheduleStep from './add/ScheduleStep.jsx'
@@ -69,6 +70,7 @@ export default function Add() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [step, setStep] = useState(1)
   const placeholder = useINatPhoto(state.name)
+  const { Toast, showToast } = useToast()
 
   const next = () => setStep(s => s + 1)
   const back = () => setStep(s => s - 1)
@@ -85,11 +87,13 @@ export default function Add() {
       ...(state.notes && { notes: state.notes }),
       ...(state.careLevel && { careLevel: state.careLevel }),
     })
-    navigate('/myplants')
+    showToast('Added')
+    setTimeout(() => navigate('/'), 800)
   }
 
   return (
     <>
+      <Toast />
       <StepIndicator step={step} />
       {step === 1 && (
         <NameStep name={state.name} dispatch={dispatch} onNext={next} />
