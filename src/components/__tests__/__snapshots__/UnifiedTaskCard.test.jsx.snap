@@ -78,48 +78,5 @@ exports[`matches snapshot in dark mode 1`] = `
       </p>
     </div>
   </div>
-  <div
-    class="border-t border-neutral-200 dark:border-gray-600 px-4 py-2"
-  >
-    <button
-      class="px-3 py-1 bg-green-600 text-white rounded-md text-sm font-medium flex items-center gap-1"
-      type="button"
-    >
-      <svg
-        aria-hidden="true"
-        class="w-4 h-4"
-        fill="currentColor"
-        height="1em"
-        viewBox="0 0 256 256"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          fill="none"
-          height="256"
-          width="256"
-        />
-        <polyline
-          fill="none"
-          points="172 104 113.3 160 84 132"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="16"
-        />
-        <circle
-          cx="128"
-          cy="128"
-          fill="none"
-          r="96"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="16"
-        />
-      </svg>
-      Mark as Done
-    </button>
-  </div>
 </div>
 `;
