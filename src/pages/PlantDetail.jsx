@@ -87,9 +87,9 @@ export default function PlantDetail() {
       : 0
 
   const waterBorderClass =
-    overdueWaterDays > 0 ? 'border-red-500' : 'border-green-500'
+    overdueWaterDays > 0 ? 'border-rose-500' : 'border-green-500'
   const fertBorderClass =
-    overdueFertDays > 0 ? 'border-red-500' : 'border-green-500'
+    overdueFertDays > 0 ? 'border-rose-500' : 'border-green-500'
 
   const events = useMemo(() => buildEvents(plant), [plant])
   const groupedEvents = useMemo(() => {
@@ -188,7 +188,7 @@ export default function PlantDetail() {
                   Last watered: {formatDaysAgo(plant.lastWatered)} · Next: {plant.nextWater}
                 </p>
                 {overdueWaterDays > 0 && (
-                  <div className="flex items-center text-red-600 dark:text-red-400">
+                  <div className="flex items-center text-rose-700 dark:text-rose-400">
                     <span className="mr-1" role="img" aria-label="Overdue">❗</span>
                     {overdueWaterDays} {overdueWaterDays === 1 ? 'day' : 'days'} overdue
                   </div>
@@ -207,7 +207,7 @@ export default function PlantDetail() {
                     {plant.lastFertilized ? formatDaysAgo(plant.lastFertilized) : 'Never'} · Next: {plant.nextFertilize}
                   </p>
                   {overdueFertDays > 0 && (
-                    <div className="flex items-center text-red-600 dark:text-red-400">
+                    <div className="flex items-center text-rose-700 dark:text-rose-400">
                       <span className="mr-1" role="img" aria-label="Overdue">❗</span>
                       {overdueFertDays} {overdueFertDays === 1 ? 'day' : 'days'} overdue
                     </div>
@@ -341,7 +341,7 @@ export default function PlantDetail() {
                     </button>
                     <button
                       aria-label="Remove photo"
-                      className="absolute top-1 right-1 bg-white/70 rounded p-1 text-gray-600 hover:text-red-600 opacity-70 hover:opacity-100"
+                      className="absolute top-1 right-1 bg-white/70 rounded p-1 text-gray-600 hover:text-rose-700 opacity-70 hover:opacity-100"
                       onClick={() => removePhoto(plant.id, i)}
                     >
                       <Trash className="w-3 h-3" aria-hidden="true" />
