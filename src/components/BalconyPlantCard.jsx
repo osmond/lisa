@@ -33,11 +33,11 @@ export default function BalconyPlantCard({ plant }) {
           Thirsty!
         </Badge>
       )}
-      <div className="absolute bottom-2 left-3 right-3 text-white drop-shadow space-y-0.5">
-        <h3 className="font-headline font-bold text-lg leading-none">
+      <div className="absolute bottom-2 left-3 right-3 text-white drop-shadow space-y-0.5 text-left">
+        <h3 className="font-headline font-bold text-lg leading-none text-left">
           {plant.name}
         </h3>
-        <p className="text-sm">Last watered {formatDaysAgo(plant.lastWatered)}</p>
+        <p className="text-sm text-left">Last watered {formatDaysAgo(plant.lastWatered)}</p>
         <div className="flex gap-1 flex-wrap">
           {plant.light && (
             <Badge
