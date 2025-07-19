@@ -87,7 +87,7 @@ export function buildEvents(source, { includePlantName = false } = {}) {
     }
   })
 
-  return events.sort((a, b) => new Date(a.date) - new Date(b.date))
+  return events.sort((a, b) => a.date.localeCompare(b.date))
 }
 
 export function groupEventsByMonth(events) {
@@ -98,9 +98,7 @@ export function groupEventsByMonth(events) {
     map.get(key).push(e)
   })
   for (const [, list] of map) {
-    list.sort((a, b) => new Date(a.date) - new Date(b.date))
+    list.sort((a, b) => a.date.localeCompare(b.date))
   }
-  return Array.from(map.entries()).sort(
-    (a, b) => new Date(a[0] + '-01') - new Date(b[0] + '-01')
-  )
+  return Array.from(map.entries()).sort((a, b) => a[0].localeCompare(b[0]))
 }
