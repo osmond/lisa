@@ -175,7 +175,7 @@ exports[`matches snapshot in dark mode 1`] = `
     </div>
   </div>
   <div
-    class="bg-white dark:bg-gray-700 rounded-2xl shadow-sm p-4 "
+    class="bg-white dark:bg-gray-700 rounded-2xl shadow p-4 "
     style="transform: translateX(0px); transition: transform 0.2s;"
   >
     <a

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Plus } from 'phosphor-react'
+import { Plus, Drop, Sun, Bug, WarningCircle } from 'phosphor-react'
 import { getNextWateringDate } from '../utils/watering.js'
 
 import Badge from '../components/Badge.jsx'
@@ -134,13 +134,13 @@ export default function MyPlants() {
                 </div>
                 <div className="flex gap-1 text-badge">
                   {wateredToday && (
-                    <span role="img" aria-label="Watered today">💧</span>
+                    <Drop className="w-4 h-4" aria-hidden="true" />
                   )}
                   {lowLight && (
-                    <span role="img" aria-label="Low light">☀️</span>
+                    <Sun className="w-4 h-4" aria-hidden="true" />
                   )}
                   {pestAlert && (
-                    <span role="img" aria-label="Pest alert">🐛</span>
+                    <Bug className="w-4 h-4" aria-hidden="true" />
                   )}
                   {lastUpdated && <span>{formatDaysAgo(lastUpdated)}</span>}
                 </div>
@@ -148,8 +148,9 @@ export default function MyPlants() {
                   <Badge
                     variant="overdue"
                     colorClass="slide-in animate-pulse rounded-full text-badge"
+                    Icon={WarningCircle}
                   >
-                    ⚠️ {overdue} needs love
+                    {overdue} needs love
                   </Badge>
                 )}
               </Card>
