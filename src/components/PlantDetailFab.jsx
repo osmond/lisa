@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Plus, Image as ImageIcon, Note } from 'phosphor-react'
+import { Plus, Image as ImageIcon, Note, Drop, Flower } from 'phosphor-react'
 
-export default function PlantDetailFab({ onAddPhoto, onAddNote }) {
+export default function PlantDetailFab({
+  onAddPhoto,
+  onAddNote,
+  onWater,
+  onFertilize,
+}) {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -14,11 +19,20 @@ export default function PlantDetailFab({ onAddPhoto, onAddNote }) {
   }, [open])
 
   const items = [
+    { label: 'Mark Watered', Icon: Drop, action: onWater, color: 'blue' },
+    {
+      label: 'Mark Fertilized',
+      Icon: Flower,
+      action: onFertilize,
+      color: 'yellow',
+    },
     { label: 'Add Photo', Icon: ImageIcon, action: onAddPhoto, color: 'green' },
     { label: 'Add Note', Icon: Note, action: onAddNote, color: 'violet' },
   ]
 
   const colorClasses = {
+    blue: { bg: 'bg-blue-100', text: 'text-blue-600' },
+    yellow: { bg: 'bg-yellow-100', text: 'text-yellow-600' },
     green: { bg: 'bg-green-100', text: 'text-green-600' },
     violet: { bg: 'bg-violet-100', text: 'text-violet-600' },
   }

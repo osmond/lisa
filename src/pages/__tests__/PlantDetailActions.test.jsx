@@ -50,16 +50,12 @@ test('quick stats action buttons trigger handlers', () => {
     </MenuProvider>
   )
 
-  fireEvent.click(screen.getByRole('button', { name: /care overview/i }))
-
-  fireEvent.click(
-    screen.getAllByRole('button', { name: /mark plant a as watered/i })[0]
-  )
+  fireEvent.click(screen.getByRole('button', { name: /open create menu/i }))
+  fireEvent.click(screen.getByRole('button', { name: /mark watered/i }))
   expect(markWatered).toHaveBeenCalledWith(1, '')
 
-  fireEvent.click(
-    screen.getByRole('button', { name: /mark plant a as fertilized/i })
-  )
+  fireEvent.click(screen.getByRole('button', { name: /open create menu/i }))
+  fireEvent.click(screen.getByRole('button', { name: /mark fertilized/i }))
   expect(markFertilized).toHaveBeenCalledWith(1, '')
 })
 

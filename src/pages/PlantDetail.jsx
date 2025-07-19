@@ -187,19 +187,9 @@ export default function PlantDetail() {
                 Watering
               </div>
               <div className="mt-2 space-y-1 text-sm">
-                <div>
-                  <span className="text-gray-500">Last watered:</span>{' '}
-                  <span className="text-gray-900 dark:text-gray-100">
-                    {formatDaysAgo(plant.lastWatered)}
-                    {formatTimeOfDay(plant.lastWatered) ? ` \u00B7 ${formatTimeOfDay(plant.lastWatered)}` : ''} (
-                    <span>{plant.lastWatered}</span>
-                    )
-                  </span>
-                </div>
-                <div>
-                  <span className="text-gray-500">Next due:</span>{' '}
-                  <span className="text-gray-900 dark:text-gray-100">{plant.nextWater}</span>
-                </div>
+                <p>
+                  Last watered: {formatDaysAgo(plant.lastWatered)} · Next: {plant.nextWater}
+                </p>
                 {overdueWaterDays > 0 && (
                   <div className="flex items-center text-red-600 dark:text-red-400">
                     <span className="mr-1" role="img" aria-label="Overdue">❗</span>
@@ -207,15 +197,6 @@ export default function PlantDetail() {
                   </div>
                 )}
               </div>
-              <button
-                type="button"
-                onClick={handleWatered}
-                aria-label={`Mark ${plant.name} as watered`}
-                className="absolute bottom-3 right-3 px-2 py-1 border border-water-600 text-water-600 rounded text-xs flex items-center gap-1 group"
-              >
-                <Drop className="w-3 h-3 group-active:drip-pulse" aria-hidden="true" />
-                Mark Watered
-              </button>
             </div>
             {plant.nextFertilize && (
               <div className={`relative rounded-lg p-3 border-l-4 ${fertBorderClass} bg-fertilize-50 dark:bg-fertilize-900/30`}>
@@ -224,21 +205,10 @@ export default function PlantDetail() {
                   Fertilizing
                 </div>
                 <div className="mt-2 space-y-1 text-sm">
-                  {plant.lastFertilized && (
-                    <div>
-                      <span className="text-gray-500">Last fertilized:</span>{' '}
-                      <span className="text-gray-900 dark:text-gray-100">
-                        {formatDaysAgo(plant.lastFertilized)}
-                        {formatTimeOfDay(plant.lastFertilized) ? ` \u00B7 ${formatTimeOfDay(plant.lastFertilized)}` : ''} (
-                        <span>{plant.lastFertilized}</span>
-                        )
-                      </span>
-                    </div>
-                  )}
-                  <div>
-                    <span className="text-gray-500">Next due:</span>{' '}
-                    <span className="text-gray-900 dark:text-gray-100">{plant.nextFertilize}</span>
-                  </div>
+                  <p>
+                    Last fertilized:{' '}
+                    {plant.lastFertilized ? formatDaysAgo(plant.lastFertilized) : 'Never'} · Next: {plant.nextFertilize}
+                  </p>
                   {overdueFertDays > 0 && (
                     <div className="flex items-center text-red-600 dark:text-red-400">
                       <span className="mr-1" role="img" aria-label="Overdue">❗</span>
@@ -246,14 +216,6 @@ export default function PlantDetail() {
                     </div>
                   )}
                 </div>
-                <button
-                  type="button"
-                  onClick={handleFertilized}
-                  aria-label={`Mark ${plant.name} as fertilized`}
-                  className="absolute bottom-3 right-3 px-2 py-1 border border-fertilize-600 text-fertilize-600 rounded text-xs flex items-center gap-1"
-                >
-                  <Flower className="w-3 h-3" aria-hidden="true" /> Mark Fertilized
-                </button>
               </div>
             )}
           </div>
@@ -435,39 +397,16 @@ export default function PlantDetail() {
               <p className="text-sm text-gray-200">{plant.nickname}</p>
             )}
           </div>
-          <div className="absolute bottom-2 right-2 flex items-center gap-2" data-testid="progress-rings">
-            {progressPct >= 1 && (
-              <button
-                type="button"
-                onClick={handleWatered}
-                aria-label={`Mark ${plant.name} as watered`}
-                className="px-3 py-1 bg-blue-600 text-white rounded-full shadow text-sm"
-              >
-                Water Now
-              </button>
-            )}
-            <div
-              className="relative"
-              style={{ width: 48, height: 48 }}
-              data-testid="watering-ring"
-              aria-label={`Watering progress ${Math.round(progressPct * 100)}%`}
-            >
-              <ProgressRing percent={progressPct} size={48} colorClass={ringClass} />
-              <div
-                className={`absolute inset-1 rounded-full bg-white/80 flex items-center justify-center text-badge font-semibold ${ringClass}`}
-              >
-                {progressPct >= 1 ? 'Water Now' : `${Math.round(progressPct * 100)}%`}
-              </div>
-            </div>
-            {plant.nextFertilize && plant.lastFertilized && (
-              <div className="relative" style={{ width: 40, height: 40 }} data-testid="fertilizing-ring">
-                <ProgressRing
-                  percent={fertProgressPct}
-                  size={40}
-                  strokeWidth={4}
-                  colorClass="text-yellow-600"
-                />
-              </div>
+          <div className="absolute bottom-2 right-2 text-xs text-white drop-shadow" data-testid="brief-care">
+            <p>
+              Last watered: {formatDaysAgo(plant.lastWatered)} · Next: {plant.nextWater}
+            </p>
+            {plant.nextFertilize && (
+              <p>
+                Last fertilized:{' '}
+                {plant.lastFertilized ? formatDaysAgo(plant.lastFertilized) : 'Never'} · Next:{' '}
+                {plant.nextFertilize}
+              </p>
             )}
           </div>
         </div>
@@ -489,7 +428,12 @@ export default function PlantDetail() {
 
         <AccordionGroup sections={sections} />
       </div>
-      <PlantDetailFab onAddPhoto={openFileInput} onAddNote={handleLogEvent} />
+      <PlantDetailFab
+        onAddPhoto={openFileInput}
+        onAddNote={handleLogEvent}
+        onWater={handleWatered}
+        onFertilize={handleFertilized}
+      />
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
       )}
