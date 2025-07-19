@@ -39,3 +39,17 @@ export function getWateringProgress(lastWatered, nextWater, today = new Date()) 
   const elapsed = Math.min(Math.max((today - last) / 86400000, 0), total);
   return elapsed / total;
 }
+
+export function getWaterStatus(nextWater, today = new Date()) {
+  if (!nextWater) return { thirsty: false, overdue: false };
+  const next = new Date(nextWater);
+  if (isNaN(next)) return { thirsty: false, overdue: false };
+  const todayDate = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate()
+  );
+  const thirsty = next <= todayDate;
+  const overdue = next < todayDate;
+  return { thirsty, overdue };
+}
