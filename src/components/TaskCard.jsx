@@ -9,6 +9,7 @@ import useSwipe from '../hooks/useSwipe.js'
 export default function TaskCard({
   task,
   urgent = false,
+  overdue = false,
   completed = false,
   compact = false,
   swipeable = true,
@@ -88,7 +89,7 @@ export default function TaskCard({
       data-testid="task-card"
       tabIndex="0"
       aria-label={`Task card for ${task.plantName}`}
-      className={`relative flex items-center p-5 gap-4 rounded-2xl shadow border border-neutral-200 dark:border-gray-600 touch-pan-y select-none ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : 'bg-neutral-50 dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
+      className={`relative flex items-center p-5 gap-4 rounded-2xl shadow border border-neutral-200 dark:border-gray-600 touch-pan-y select-none ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : overdue ? 'bg-red-50 dark:bg-red-800' : urgent ? 'bg-amber-50 dark:bg-gray-700' : 'bg-slate-50 dark:bg-gray-700'}${overdue ? ' ring-2 ring-red-300 dark:ring-red-400' : urgent ? ' ring-2 ring-amber-300 dark:ring-amber-400' : ''}`}
       style={{ transform: `translateX(${swipeable ? dx : 0}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
       onPointerDown={start}
       onPointerMove={move}
@@ -175,7 +176,7 @@ export default function TaskCard({
                 : task.type}
             </Badge>
             {daysSince != null && (
-              <span className="text-timestamp text-gray-400">
+              <span className="text-sm text-gray-500">
                 {daysSince} {daysSince === 1 ? 'day' : 'days'} since care
               </span>
             )}

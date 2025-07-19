@@ -29,6 +29,7 @@ export default function CareRings({
   const label = `${Math.round(waterPct * 100)}% watered, ${Math.round(
     fertPct * 100
   )}% fertilized`
+  const tooltip = `${totalCompleted}/${totalTasks} tasks complete\n- ${waterCompleted} water\n- ${fertCompleted} fertilize`
 
   const center = size / 2
   const rotate = `rotate(-90 ${center} ${center})`
@@ -53,7 +54,11 @@ export default function CareRings({
       style={{ width: displaySize, flexBasis: displaySize }}
       onClick={onClick}
     >
-      <div className="relative" style={{ width: displaySize, height: displaySize }}>
+      <div
+        className="relative"
+        style={{ width: displaySize, height: displaySize }}
+        title={tooltip}
+      >
         <svg
           width={displaySize}
           height={displaySize}
@@ -71,7 +76,7 @@ export default function CareRings({
             strokeWidth={strokeWidth}
             strokeDasharray={outerCirc}
             strokeDashoffset={waterOffset}
-            className={`text-blue-500 transition-[stroke-dashoffset] duration-300 ${onWaterClick ? 'cursor-pointer' : ''}`}
+            className={`text-sky-500 transition-[stroke-dashoffset] duration-300 ${onWaterClick ? 'cursor-pointer' : ''}`}
             transform={rotate}
             onClick={e => {
               e.stopPropagation()
@@ -87,7 +92,7 @@ export default function CareRings({
             strokeWidth={strokeWidth}
             strokeDasharray={innerCirc}
             strokeDashoffset={fertOffset}
-            className={`text-green-500 transition-[stroke-dashoffset] duration-300 ${onFertClick ? 'cursor-pointer' : ''}`}
+            className={`text-amber-500 transition-[stroke-dashoffset] duration-300 ${onFertClick ? 'cursor-pointer' : ''}`}
             transform={rotate}
             onClick={e => {
               e.stopPropagation()

@@ -34,15 +34,12 @@ export default function UnifiedTaskCard({
   const { showSnackbar } = useSnackbar()
 
   const bgClass = overdue
-    ? 'bg-pink-50 dark:bg-red-800'
+    ? 'bg-red-50 dark:bg-red-800'
     : urgent
-    ? 'bg-yellow-50 dark:bg-gray-700'
-    : 'bg-gray-50 dark:bg-gray-800'
+    ? 'bg-amber-50 dark:bg-gray-700'
+    : 'bg-slate-50 dark:bg-gray-800'
 
   const lastText = lastCared ? formatDaysAgo(lastCared) : null
-  const last = lastText ? (
-    <p className="text-timestamp text-gray-500">Last cared for {lastText}</p>
-  ) : null
 
   let intervalDays = null
   if (dueWater && plant.lastWatered && plant.nextWater) {
@@ -230,24 +227,26 @@ export default function UnifiedTaskCard({
               </button>
             </div>
           </div>
-          <div className="flex items-center gap-4 mt-1 font-semibold">
+          <div className="flex flex-col gap-1 mt-1 font-semibold">
             {dueWater && (
-              <span className="inline-flex items-center gap-1 text-amber-600">
+              <span className="inline-flex items-center gap-1 text-sky-600">
                 <Drop className="w-4 h-4" aria-hidden="true" />
                 Water
               </span>
             )}
             {dueFertilize && (
-              <span className="inline-flex items-center gap-1 text-red-600">
+              <span className="inline-flex items-center gap-1 text-amber-600">
                 <Sun className="w-4 h-4" aria-hidden="true" />
                 Fertilize
               </span>
             )}
           </div>
-          {last}
+          {lastText && (
+            <p className="text-sm text-gray-500">Last cared for {lastText}</p>
+          )}
           {needsText && (
             <p
-              className={`text-timestamp mt-0.5 flex items-center gap-1 ${
+              className={`text-timestamp italic mt-0.5 flex items-center gap-1 ${
                 overdue ? 'text-red-600' : 'text-gray-500'
               }`}
             >

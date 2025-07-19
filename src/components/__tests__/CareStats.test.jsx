@@ -37,9 +37,9 @@ test('rings use accessible color classes', () => {
   )
   const getCircle = id =>
     screen.getByTestId(id).querySelector('svg circle')
-  expect(getCircle('stat-total')).toHaveClass('text-green-600')
-  expect(getCircle('stat-water')).toHaveClass('text-blue-500')
-  expect(getCircle('stat-fertilize')).toHaveClass('text-yellow-700')
+  expect(getCircle('stat-total')).toHaveClass('text-emerald-600')
+  expect(getCircle('stat-water')).toHaveClass('text-sky-500')
+  expect(getCircle('stat-fertilize')).toHaveClass('text-amber-600')
 })
 
 test('ring colors remain in dark mode', () => {
@@ -49,9 +49,9 @@ test('ring colors remain in dark mode', () => {
   )
   const getCircle = id =>
     screen.getByTestId(id).querySelector('svg circle')
-  expect(getCircle('stat-total')).toHaveClass('text-green-600')
-  expect(getCircle('stat-water')).toHaveClass('text-blue-500')
-  expect(getCircle('stat-fertilize')).toHaveClass('text-yellow-700')
+  expect(getCircle('stat-total')).toHaveClass('text-emerald-600')
+  expect(getCircle('stat-water')).toHaveClass('text-sky-500')
+  expect(getCircle('stat-fertilize')).toHaveClass('text-amber-600')
   document.documentElement.classList.remove('dark')
 })
 
