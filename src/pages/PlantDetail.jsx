@@ -404,16 +404,7 @@ export default function PlantDetail() {
               <h2 className="text-heading font-semibold font-headline">{plant.name}</h2>
               {plant.nickname && <p className="text-sm text-gray-200">{plant.nickname}</p>}
             </div>
-            <div className="text-xs sm:text-right" data-testid="brief-care">
-              <p>
-                Last watered: {formatDaysAgo(plant.lastWatered)} · Next: {plant.nextWater}
-              </p>
-              {plant.nextFertilize && (
-                <p>
-                  Last fertilized: {plant.lastFertilized ? formatDaysAgo(plant.lastFertilized) : 'Never'} · Next: {plant.nextFertilize}
-                </p>
-              )}
-            </div>
+            {/* brief care stats moved to Care tab */}
           </div>
         </div>
         </div>
