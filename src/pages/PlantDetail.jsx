@@ -69,6 +69,10 @@ export default function PlantDetail() {
   const fertTotal = 3
   const fertCompleted = Math.round(fertPct * fertTotal)
 
+  const lightTag = plant?.light ? plant.light.replace(/Low to medium/i, 'Low') : ''
+  const humidityTag = plant?.humidity ? plant.humidity.replace(/Average/i, 'Avg') : ''
+  const difficultyTag = plant?.difficulty ? plant.difficulty.replace(/Easy/i, 'EZ') : ''
+
   const now = new Date()
   const nextWaterDate = plant?.nextWater ? new Date(plant.nextWater) : null
   const overdueWaterDays =
@@ -330,6 +334,7 @@ export default function PlantDetail() {
               .slice(0, 3)
               .map((photo, i) => {
                 const { src, caption } = photo
+                const extra = (plant.photos || []).length - 3
                 return (
                   <div
                     key={i}
@@ -343,8 +348,13 @@ export default function PlantDetail() {
                       <img
                         src={src}
                         alt={caption || `${plant.name} photo ${i + 1}`}
-                        className="w-24 aspect-[4/3] object-cover rounded-lg shadow-sm transition-all ease-in-out duration-200"
+                        className="w-24 aspect-[4/3] object-cover rounded-xl shadow-sm transition-transform duration-200 group-hover:scale-105"
                       />
+                      {i === 2 && extra > 0 && (
+                        <span className="absolute inset-0 rounded-xl bg-black/50 flex items-center justify-center text-white font-semibold text-sm">
+                          +{extra}
+                        </span>
+                      )}
                     </button>
                     <button
                       aria-label="Remove photo"
@@ -358,13 +368,18 @@ export default function PlantDetail() {
               })}
           </div>
           {(plant.photos || []).length > 3 && (
-            <button
-              type="button"
-              onClick={() => setLightboxIndex(0)}
-              className="mt-2 text-sm text-blue-600 underline"
-            >
-              View All Photos
-            </button>
+            <div className="flex items-center justify-between mt-2">
+              <span className="text-xs text-gray-500">
+                Showing 3 of {(plant.photos || []).length} photos
+              </span>
+              <button
+                type="button"
+                onClick={() => setLightboxIndex(0)}
+                className="text-sm text-green-600 hover:underline"
+              >
+                View All Photos
+              </button>
+            </div>
           )}
           <input
             type="file"
@@ -400,7 +415,7 @@ export default function PlantDetail() {
 
   return (
     <>
-      <div className="full-bleed relative mb-1 -mt-8">
+      <div className="full-bleed relative mb-1 -mt-8 lg:sticky top-0 z-10">
         <div className="hidden lg:block absolute inset-0 overflow-hidden -z-10">
           <img
             src={plant.image}
@@ -431,8 +446,29 @@ export default function PlantDetail() {
           </div>
           <div className="absolute bottom-2 left-3 right-3 flex flex-col sm:flex-row justify-between text-white drop-shadow space-y-1 sm:space-y-0">
             <div>
-              <h2 className="text-heading font-extrabold font-headline">{plant.name}</h2>
-              {plant.nickname && <p className="text-sm text-gray-200">{plant.nickname}</p>}
+              <h2 className="text-heading font-extrabold font-headline animate-fade-in-down">{plant.name}</h2>
+              {plant.nickname && (
+                <p className="text-sm text-gray-200 animate-fade-in-down" style={{ animationDelay: '100ms' }}>
+                  {plant.nickname}
+                </p>
+              )}
+              <div className="flex flex-wrap gap-1 mt-1 text-xs animate-fade-in-down" style={{ animationDelay: '200ms' }}>
+                {lightTag && (
+                  <span className="bg-black/50 backdrop-blur-sm px-2 py-0.5 rounded-full">
+                    🌤 {lightTag}
+                  </span>
+                )}
+                {humidityTag && (
+                  <span className="bg-black/50 backdrop-blur-sm px-2 py-0.5 rounded-full">
+                    💧 {humidityTag}
+                  </span>
+                )}
+                {difficultyTag && (
+                  <span className="bg-black/50 backdrop-blur-sm px-2 py-0.5 rounded-full">
+                    🪴 {difficultyTag}
+                  </span>
+                )}
+              </div>
             </div>
             {/* brief care stats moved to Care Summary tab */}
           </div>
