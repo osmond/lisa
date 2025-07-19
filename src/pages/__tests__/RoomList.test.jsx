@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import RoomList from '../RoomList.jsx'
 
@@ -23,4 +23,7 @@ test('shows back link to All Plants', () => {
   renderWithRoute('/room/Living')
   const link = screen.getByRole('link', { name: /all plants/i })
   expect(link).toHaveAttribute('href', '/myplants')
+  const nav = screen.getByRole('navigation', { name: /breadcrumb/i })
+  const items = within(nav).getAllByRole('listitem')
+  expect(items).toHaveLength(2)
 })
