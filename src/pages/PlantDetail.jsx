@@ -9,7 +9,6 @@ import {
   Flower,
   Image,
   Note,
-  DotsThree,
   Info,
   CaretDown,
   CaretRight,
@@ -23,7 +22,6 @@ import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
 import { useMenu, defaultMenu } from '../MenuContext.jsx'
 import LegendModal from '../components/LegendModal.jsx'
-import PlantInfoModal from '../components/PlantInfoModal.jsx'
 import ProgressRing from '../components/ProgressRing.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
@@ -65,7 +63,6 @@ export default function PlantDetail() {
   const [showNoteModal, setShowNoteModal] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(null)
   const [showLegend, setShowLegend] = useState(false)
-  const [showInfoModal, setShowInfoModal] = useState(false)
   const [collapsedMonths, setCollapsedMonths] = useState({})
 
   const ringClass = ringColors[plant?.urgency] || 'text-green-600'
@@ -217,6 +214,25 @@ export default function PlantDetail() {
                   )}
                 </div>
               </div>
+            )}
+            {(plant.light || plant.humidity || plant.difficulty) && (
+              <ul className="space-y-1 text-sm">
+                {plant.light && (
+                  <li className="flex items-center gap-2">
+                    <Sun className="w-4 h-4" aria-hidden="true" /> {plant.light}
+                  </li>
+                )}
+                {plant.humidity && (
+                  <li className="flex items-center gap-2">
+                    <Drop className="w-4 h-4" aria-hidden="true" /> {plant.humidity}
+                  </li>
+                )}
+                {plant.difficulty && (
+                  <li className="flex items-center gap-2">
+                    <Gauge className="w-4 h-4" aria-hidden="true" /> {plant.difficulty}
+                  </li>
+                )}
+              </ul>
             )}
           </div>
         </SectionCard>
@@ -414,14 +430,6 @@ export default function PlantDetail() {
             title={plant.name}
             breadcrumb={{ room: plant.room, plant: plant.name }}
           />
-          <button
-            type="button"
-            aria-label="Show plant info"
-            onClick={() => setShowInfoModal(true)}
-            className="ml-2 mt-1 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
-          >
-            <DotsThree className="w-6 h-6" aria-hidden="true" />
-          </button>
         </div>
 
         <AccordionGroup sections={sections} />
@@ -437,9 +445,6 @@ export default function PlantDetail() {
       )}
       {showLegend && (
         <LegendModal onClose={() => setShowLegend(false)} />
-      )}
-      {showInfoModal && (
-        <PlantInfoModal plant={plant} onClose={() => setShowInfoModal(false)} />
       )}
     </PageContainer>
   )
