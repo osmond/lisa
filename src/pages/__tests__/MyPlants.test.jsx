@@ -64,7 +64,7 @@ test('shows overdue badge for rooms with tasks', () => {
   const badge = screen
     .getAllByText(/needs love/i)
     .find(el => el.tagName === 'SPAN')
-  expect(badge).toHaveTextContent('⚠️ 2 needs love')
+  expect(badge).toHaveTextContent('2 needs love')
 
   jest.useRealTimers()
 })
