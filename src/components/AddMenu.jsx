@@ -24,7 +24,7 @@ export default function AddMenu({ open = false, onClose = () => {} }) {
           type="button"
           aria-label="Close menu"
           onClick={onClose}
-          className="absolute top-2 right-2 text-gray-500"
+          className="modal-close"
         >
           &times;
         </button>
