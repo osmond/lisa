@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function DetailTabs({ tabs = [], value, onChange }) {
+export default function DetailTabs({ tabs = [], value, onChange, className = '' }) {
   const [internal, setInternal] = useState(value ?? tabs[0]?.id)
   const active = value ?? internal
 
@@ -14,10 +14,12 @@ export default function DetailTabs({ tabs = [], value, onChange }) {
   const activeTab = tabs.find(t => t.id === active)
 
   return (
-    <div>
-      <div role="tablist" className="flex justify-center gap-2 py-1">
+    <div className={`bg-white dark:bg-gray-700 rounded-xl shadow ${className}`.trim()}>
+      <div
+        role="tablist"
+        className="flex justify-center gap-2 px-4 pt-2 border-b border-gray-200 dark:border-gray-600"
+      >
         {tabs.map(tab => {
-          const Icon = tab.icon
           const isActive = active === tab.id
           return (
             <button
@@ -31,13 +33,12 @@ export default function DetailTabs({ tabs = [], value, onChange }) {
                   : 'border-transparent text-gray-500'
               }`}
             >
-              {Icon && <Icon className="inline w-4 h-4 mr-1" aria-hidden="true" />}
               {tab.label}
             </button>
           )
         })}
       </div>
-      <div className="mt-4">{activeTab?.content}</div>
+      <div className="px-4 pb-4 pt-2">{activeTab?.content}</div>
     </div>
   )
 }

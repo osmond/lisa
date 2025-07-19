@@ -6,8 +6,6 @@ import {
   Drop,
   Gauge,
   Flower,
-  Image,
-  Note,
   Info,
   CaretDown,
   CaretRight,
@@ -177,7 +175,6 @@ export default function PlantDetail() {
     {
       id: 'summary',
       label: 'Care Summary',
-      icon: Info,
       content: (
         <SectionCard className="space-y-3">
           <div className="space-y-3">
@@ -245,7 +242,6 @@ export default function PlantDetail() {
     {
       id: 'activity',
       label: 'Activity',
-      icon: Note,
       content: (
         <SectionCard className="space-y-4">
           <div className="flex justify-end gap-2">
@@ -323,7 +319,6 @@ export default function PlantDetail() {
     {
       id: 'gallery',
       label: 'Gallery',
-      icon: Image,
       content: (
         <SectionCard className="space-y-2">
           <div className="flex flex-nowrap gap-3 overflow-x-auto pb-1 sm:pb-2">
@@ -397,7 +392,7 @@ export default function PlantDetail() {
 
   return (
     <>
-      <div className="full-bleed relative mb-2 -mt-8">
+      <div className="full-bleed relative mb-1 -mt-8">
         <div className="hidden lg:block absolute inset-0 overflow-hidden -z-10">
           <img
             src={plant.image}
@@ -428,19 +423,17 @@ export default function PlantDetail() {
           </div>
         </div>
       </div>
-      <PageContainer className="relative text-left pt-0 space-y-4">
+      <PageContainer className="relative text-left pt-0 space-y-3">
         <Toast />
-        <div className="space-y-4">
+        <div className="space-y-3">
           <div className="flex items-start justify-between">
             <PageHeader
               breadcrumb={{ room: plant.room, plant: plant.name }}
-              className="mb-2"
+              className="mb-1"
             />
           </div>
 
-          <div className="bg-white rounded-b-xl shadow-md">
-            <DetailTabs tabs={tabs} />
-          </div>
+          <DetailTabs tabs={tabs} />
         </div>
         <PlantDetailFab
           onAddPhoto={openFileInput}
