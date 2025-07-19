@@ -1,4 +1,5 @@
 import React from 'react'
+import { CheckCircle } from 'phosphor-react'
 
 export default function CareRings({
   waterCompleted = 0,
@@ -33,10 +34,15 @@ export default function CareRings({
   const rotate = `rotate(-90 ${center} ${center})`
 
   const allComplete = totalTasks > 0 && totalCompleted === totalTasks
-  const progressText = noTasks
+  const progressDisplay = noTasks
     ? 'Rest Day'
     : allComplete
-    ? '🎉 All done!'
+    ? (
+        <>
+          <CheckCircle className="inline w-3 h-3 mr-1" aria-hidden="true" />
+          All done!
+        </>
+      )
     : `${totalCompleted} / ${totalTasks} tasks done`
 
   const displaySize = size
@@ -90,7 +96,7 @@ export default function CareRings({
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center text-xs font-body font-semibold drop-shadow pointer-events-none">
-          {progressText}
+          {progressDisplay}
         </div>
       </div>
     </div>

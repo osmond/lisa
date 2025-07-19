@@ -39,7 +39,7 @@ test('shows progress text and swirl when complete', () => {
   const { container } = render(
     <CareRings waterCompleted={2} waterTotal={2} fertCompleted={1} fertTotal={1} />
   )
-  expect(screen.getByText('🎉 All done!')).toBeInTheDocument()
+  expect(screen.getByText('All done!')).toBeInTheDocument()
   const svg = container.querySelector('svg')
   expect(svg.getAttribute('class')).toMatch(/swirl-once/)
 })
