@@ -25,12 +25,7 @@ test('renders plant details without duplicates', () => {
   const images = screen.getAllByAltText(plant.name)
   expect(images).toHaveLength(1)
 
-  fireEvent.click(screen.getByRole('button', { name: /care overview/i }))
-
-  expect(screen.getByText(plant.light)).toBeInTheDocument()
-  expect(screen.getByText(plant.humidity)).toBeInTheDocument()
-  expect(screen.getByText(plant.difficulty)).toBeInTheDocument()
-
+  // Care tab is active by default
   const wateredLabels = screen.getAllByText(/Last watered/i)
   const wateredLabel = wateredLabels[wateredLabels.length - 1]
   expect(wateredLabel.textContent).toMatch(/Last watered:/i)
@@ -40,6 +35,12 @@ test('renders plant details without duplicates', () => {
   const fertLabel = screen.getAllByText(new RegExp(plant.nextFertilize))
   const fertText = fertLabel[fertLabel.length - 1]
   expect(fertText.textContent).toMatch(new RegExp(plant.nextFertilize))
+
+  fireEvent.click(screen.getByRole('tab', { name: /overview/i }))
+
+  expect(screen.getByText(plant.light)).toBeInTheDocument()
+  expect(screen.getByText(plant.humidity)).toBeInTheDocument()
+  expect(screen.getByText(plant.difficulty)).toBeInTheDocument()
 
   const subHeadings = screen.queryAllByRole('heading', { level: 4 })
   expect(subHeadings).toHaveLength(0)
@@ -60,9 +61,10 @@ test('displays all sections', () => {
     </MenuProvider>
   )
 
-  expect(screen.getByRole('button', { name: /care overview/i })).toBeInTheDocument()
-  expect(screen.getByRole('button', { name: /activity/i })).toBeInTheDocument()
-  expect(screen.getByRole('button', { name: /gallery/i })).toBeInTheDocument()
+  expect(screen.getByRole('tab', { name: /care/i })).toBeInTheDocument()
+  expect(screen.getByRole('tab', { name: /overview/i })).toBeInTheDocument()
+  expect(screen.getByRole('tab', { name: /activity/i })).toBeInTheDocument()
+  expect(screen.getByRole('tab', { name: /gallery/i })).toBeInTheDocument()
 })
 
 
@@ -83,7 +85,7 @@ test('opens lightbox from gallery', () => {
     </MenuProvider>
   )
 
-  fireEvent.click(screen.getByRole('button', { name: /gallery/i }))
+  fireEvent.click(screen.getByRole('tab', { name: /gallery/i }))
 
   // Captions are not displayed with thumbnails
   expect(screen.queryByText(plant.photos[0].caption)).toBeNull()
@@ -140,7 +142,7 @@ test('view all button opens the viewer from first image', () => {
     </MenuProvider>
   )
 
-  fireEvent.click(screen.getByRole('button', { name: /gallery/i }))
+  fireEvent.click(screen.getByRole('tab', { name: /gallery/i }))
 
   const viewAll = screen.getByRole('button', { name: /view all photos/i })
   fireEvent.click(viewAll)

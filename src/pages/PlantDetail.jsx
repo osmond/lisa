@@ -2,7 +2,6 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useRef, useMemo, useEffect } from 'react'
 
 import {
-  Clock,
   Sun,
   Drop,
   Gauge,
@@ -26,7 +25,7 @@ import ProgressRing from '../components/ProgressRing.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
 import SectionCard from '../components/SectionCard.jsx'
-import AccordionGroup from '../components/AccordionGroup.jsx'
+import DetailTabs from '../components/DetailTabs.jsx'
 
 import useToast from "../hooks/useToast.jsx"
 import confetti from 'canvas-confetti'
@@ -166,15 +165,10 @@ export default function PlantDetail() {
     setShowNoteModal(false)
   }
 
-  const sections = [
+  const tabs = [
     {
       id: 'care',
-      title: (
-        <span className="flex items-center gap-2">
-          <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
-          Care Overview
-        </span>
-      ),
+      label: 'Care',
       content: (
         <SectionCard className="space-y-3">
           <div className="space-y-3">
@@ -215,37 +209,40 @@ export default function PlantDetail() {
                 </div>
               </div>
             )}
-            {(plant.light || plant.humidity || plant.difficulty) && (
-              <ul className="space-y-1 text-sm">
-                {plant.light && (
-                  <li className="flex items-center gap-2">
-                    <Sun className="w-4 h-4" aria-hidden="true" /> {plant.light}
-                  </li>
-                )}
-                {plant.humidity && (
-                  <li className="flex items-center gap-2">
-                    <Drop className="w-4 h-4" aria-hidden="true" /> {plant.humidity}
-                  </li>
-                )}
-                {plant.difficulty && (
-                  <li className="flex items-center gap-2">
-                    <Gauge className="w-4 h-4" aria-hidden="true" /> {plant.difficulty}
-                  </li>
-                )}
-              </ul>
-            )}
           </div>
         </SectionCard>
       ),
     },
     {
-      id: 'activity',
-      title: (
-        <span className="flex items-center gap-2">
-          <Note className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
-          Activity
-        </span>
+      id: 'overview',
+      label: 'Overview',
+      content: (
+        <SectionCard>
+          {(plant.light || plant.humidity || plant.difficulty) && (
+            <ul className="space-y-1 text-sm">
+              {plant.light && (
+                <li className="flex items-center gap-2">
+                  <Sun className="w-4 h-4" aria-hidden="true" /> {plant.light}
+                </li>
+              )}
+              {plant.humidity && (
+                <li className="flex items-center gap-2">
+                  <Drop className="w-4 h-4" aria-hidden="true" /> {plant.humidity}
+                </li>
+              )}
+              {plant.difficulty && (
+                <li className="flex items-center gap-2">
+                  <Gauge className="w-4 h-4" aria-hidden="true" /> {plant.difficulty}
+                </li>
+              )}
+            </ul>
+          )}
+        </SectionCard>
       ),
+    },
+    {
+      id: 'activity',
+      label: 'Activity',
       content: (
         <SectionCard className="space-y-4">
           <div className="flex justify-end">
@@ -308,12 +305,7 @@ export default function PlantDetail() {
     },
     {
       id: 'gallery',
-      title: (
-        <span className="flex items-center gap-2">
-          <Image className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
-          Gallery
-        </span>
-      ),
+      label: 'Gallery',
       content: (
         <SectionCard className="space-y-2">
           <div className="flex flex-nowrap gap-3 overflow-x-auto pb-1 sm:pb-2">
@@ -432,7 +424,7 @@ export default function PlantDetail() {
           />
         </div>
 
-        <AccordionGroup sections={sections} />
+        <DetailTabs tabs={tabs} />
       </div>
       <PlantDetailFab
         onAddPhoto={openFileInput}
