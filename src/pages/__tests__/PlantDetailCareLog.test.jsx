@@ -37,7 +37,7 @@ test('shows notes from care log in timeline', () => {
     </MenuProvider>
   )
 
-  fireEvent.click(screen.getByRole('button', { name: /activity/i }))
+  fireEvent.click(screen.getByRole('tab', { name: /activity/i }))
 
   expect(screen.getByText('July 2, 2025')).toBeInTheDocument()
   expect(screen.getAllByText(/Watered/).length).toBeGreaterThan(0)
@@ -56,7 +56,7 @@ test('timeline bullet markup matches snapshot', () => {
     </MenuProvider>
   )
 
-  fireEvent.click(screen.getByRole('button', { name: /activity/i }))
+  fireEvent.click(screen.getByRole('tab', { name: /activity/i }))
 
   const list = container.querySelector('ul')
   expect(list).toMatchSnapshot()

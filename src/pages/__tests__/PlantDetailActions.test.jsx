@@ -90,7 +90,7 @@ test('fab triggers file input click', () => {
     </MenuProvider>
   )
 
-  fireEvent.click(screen.getByRole('button', { name: /gallery/i }))
+  fireEvent.click(screen.getByRole('tab', { name: /gallery/i }))
 
   fireEvent.click(screen.getByRole('button', { name: /open create menu/i }))
   fireEvent.click(screen.getByRole('button', { name: /add photo/i }))
