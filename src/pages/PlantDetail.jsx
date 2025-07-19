@@ -11,6 +11,8 @@ import {
   CaretRight,
   SortAscending,
   SortDescending,
+  Note,
+  Image as ImageIcon,
 } from 'phosphor-react'
 
 import Lightbox from '../components/Lightbox.jsx'
@@ -64,6 +66,7 @@ export default function PlantDetail() {
   const [showLegend, setShowLegend] = useState(false)
   const [collapsedMonths, setCollapsedMonths] = useState({})
   const [latestFirst, setLatestFirst] = useState(true)
+  const [activeTab, setActiveTab] = useState('summary')
 
   const ringClass = ringColors[plant?.urgency] || 'text-green-600'
   const progressPct = getWateringProgress(plant?.lastWatered, plant?.nextWater)
@@ -71,6 +74,12 @@ export default function PlantDetail() {
     plant?.lastFertilized,
     plant?.nextFertilize
   )
+
+  const fabIcons = {
+    summary: Drop,
+    activity: Note,
+    gallery: ImageIcon,
+  }
 
   const now = new Date()
   const nextWaterDate = plant?.nextWater ? new Date(plant.nextWater) : null
@@ -174,9 +183,18 @@ export default function PlantDetail() {
   const tabs = [
     {
       id: 'summary',
-      label: 'Care Summary',
+      label: (
+        <span>
+          <span role="img" aria-label="Care Summary" className="mr-1">🩺</span>
+          Care Summary
+        </span>
+      ),
       content: (
-        <SectionCard className="space-y-3">
+        <SectionCard className="space-y-3 bg-gray-50 dark:bg-gray-800/40">
+          <p className="font-semibold mb-2 flex items-center gap-1 text-lg">
+            <span role="img" aria-label="recent care">🌱</span>
+            Recent Care Summary
+          </p>
           <div className="space-y-3">
             <div className={`relative rounded-lg p-3 border-l-4 ${waterBorderClass} bg-water-50 dark:bg-water-900/30`}>
               <div className="flex items-center gap-1 font-headline font-semibold text-water-700 dark:text-water-200">
@@ -241,9 +259,18 @@ export default function PlantDetail() {
     },
     {
       id: 'activity',
-      label: 'Activity',
+      label: (
+        <span>
+          <span role="img" aria-label="Activity" className="mr-1">📅</span>
+          Activity
+        </span>
+      ),
       content: (
-        <SectionCard className="space-y-4">
+        <SectionCard className="space-y-4 bg-gray-50 dark:bg-gray-800/40">
+          <p className="font-semibold mb-2 flex items-center gap-1 text-lg">
+            <span role="img" aria-label="recent activity">📝</span>
+            Recent Activity
+          </p>
           <div className="flex justify-end gap-2">
             <button
               type="button"
@@ -318,9 +345,18 @@ export default function PlantDetail() {
     },
     {
       id: 'gallery',
-      label: 'Gallery',
+      label: (
+        <span>
+          <span role="img" aria-label="Gallery" className="mr-1">🖼</span>
+          Gallery
+        </span>
+      ),
       content: (
-        <SectionCard className="space-y-2">
+        <SectionCard className="space-y-2 bg-gray-50 dark:bg-gray-800/40">
+          <p className="font-semibold mb-2 flex items-center gap-1 text-lg">
+            <span role="img" aria-label="plant gallery">📷</span>
+            Your Plant Gallery
+          </p>
           <div className="flex flex-nowrap gap-3 overflow-x-auto pb-1 sm:pb-2">
             {(plant.photos || [])
               .slice(0, 3)
@@ -433,13 +469,14 @@ export default function PlantDetail() {
             />
           </div>
 
-          <DetailTabs tabs={tabs} />
+          <DetailTabs tabs={tabs} value={activeTab} onChange={setActiveTab} />
         </div>
         <PlantDetailFab
           onAddPhoto={openFileInput}
           onAddNote={handleLogEvent}
           onWater={handleWatered}
           onFertilize={handleFertilized}
+          icon={fabIcons[activeTab]}
         />
         {showNoteModal && (
           <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
