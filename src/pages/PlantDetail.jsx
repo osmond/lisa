@@ -301,32 +301,32 @@ export default function PlantDetail() {
       content: (
         <SectionCard className="space-y-2">
           <div className="flex flex-nowrap gap-3 overflow-x-auto pb-1 sm:pb-2">
-            {(plant.photos || []).map((photo, i) => {
-              const { src, caption } = photo
-              return (
-                <div key={i} className="relative flex flex-col items-center">
-                  <button type="button" onClick={() => setLightboxIndex(i)} className="block focus:outline-none">
-                    <img
-                      src={src}
-                      alt={caption || `${plant.name} photo ${i + 1}`}
-                      className="plant-thumb w-24"
-                    />
-                  </button>
-                  {caption && (
-                    <p className="text-xs font-medium mt-0.5 px-2 w-24 text-center">
-                      {caption}
-                    </p>
-                  )}
-
-                  <button
-                    className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
-                    onClick={() => removePhoto(plant.id, i)}
-                  >
-                    ✕
-                  </button>
-                </div>
-              )
-            })}
+            {(plant.photos || [])
+              .slice(0, 3)
+              .map((photo, i) => {
+                const { src, caption } = photo
+                return (
+                  <div key={i} className="relative flex flex-col items-center">
+                    <button
+                      type="button"
+                      onClick={() => setLightboxIndex(i)}
+                      className="block focus:outline-none"
+                    >
+                      <img
+                        src={src}
+                        alt={caption || `${plant.name} photo ${i + 1}`}
+                        className="plant-thumb w-24"
+                      />
+                    </button>
+                    <button
+                      className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
+                      onClick={() => removePhoto(plant.id, i)}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                )
+              })}
           </div>
           {(plant.photos || []).length > 3 && (
             <button
