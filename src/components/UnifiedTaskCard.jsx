@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { createPortal } from 'react-dom'
 
 import {
   Drop,
@@ -133,71 +134,73 @@ export default function UnifiedTaskCard({
       onPointerUp={end}
       onPointerCancel={end}
     >
-      {showMenu && (
-        <div
-          className="modal-overlay bg-black/50 z-30 backdrop-blur-sm"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Task actions menu"
-          onClick={() => setShowMenu(false)}
-        >
-          <ul
-            className="modal-box relative p-4 space-y-3"
-            onClick={e => e.stopPropagation()}
+      {showMenu &&
+        createPortal(
+          <div
+            className="modal-overlay bg-black/50 z-30 backdrop-blur-sm"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Task actions menu"
+            onClick={() => setShowMenu(false)}
           >
-            <button
-              type="button"
-              aria-label="Close menu"
-              onClick={() => setShowMenu(false)}
-              className="modal-close"
+            <ul
+              className="modal-box relative p-4 space-y-3"
+              onClick={e => e.stopPropagation()}
             >
-              &times;
-            </button>
-            <li>
               <button
                 type="button"
-                aria-label="Edit task"
-                onClick={() => {
-                  setShowMenu(false)
-                  handleEdit()
-                }}
-                className="task-action bg-blue-600 text-white w-full justify-start"
+                aria-label="Close menu"
+                onClick={() => setShowMenu(false)}
+                className="modal-close"
               >
-                <PencilSimpleLine className="w-4 h-4" aria-hidden="true" />
-                Edit
+                &times;
               </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                aria-label="Reschedule task"
-                onClick={() => {
-                  setShowMenu(false)
-                  handleReschedule()
-                }}
-                className="task-action bg-yellow-600 text-white w-full justify-start"
-              >
-                <ClockCounterClockwise className="w-4 h-4" aria-hidden="true" />
-                Reschedule
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                aria-label="Delete task"
-                onClick={() => {
-                  setShowMenu(false)
-                  handleDelete()
-                }}
-                className="task-action bg-red-600 text-white w-full justify-start"
-              >
-                <Trash className="w-4 h-4" aria-hidden="true" />
-                Delete
-              </button>
-            </li>
-          </ul>
-        </div>
-      )}
+              <li>
+                <button
+                  type="button"
+                  aria-label="Edit task"
+                  onClick={() => {
+                    setShowMenu(false)
+                    handleEdit()
+                  }}
+                  className="task-action bg-blue-600 text-white w-full justify-start"
+                >
+                  <PencilSimpleLine className="w-4 h-4" aria-hidden="true" />
+                  Edit
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  aria-label="Reschedule task"
+                  onClick={() => {
+                    setShowMenu(false)
+                    handleReschedule()
+                  }}
+                  className="task-action bg-yellow-600 text-white w-full justify-start"
+                >
+                  <ClockCounterClockwise className="w-4 h-4" aria-hidden="true" />
+                  Reschedule
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  aria-label="Delete task"
+                  onClick={() => {
+                    setShowMenu(false)
+                    handleDelete()
+                  }}
+                  className="task-action bg-red-600 text-white w-full justify-start"
+                >
+                  <Trash className="w-4 h-4" aria-hidden="true" />
+                  Delete
+                </button>
+              </li>
+            </ul>
+          </div>,
+          document.body
+        )}
       <div className="flex items-center gap-4 p-4">
         <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-sm bg-neutral-100 dark:bg-gray-700">
           <img src={image} alt={name} className="w-12 h-12 rounded-full object-cover" />
