@@ -26,20 +26,15 @@ test('shows featured label and care summary', () => {
   expect(screen.getByText('Last watered 3 days ago \u00B7 Needs water today')).toBeInTheDocument()
 })
 
-test('swipe changes plant', () => {
-  render(
+test('pointer down creates ripple', () => {
+  const { container } = render(
     <MemoryRouter>
       <FeaturedCard plants={plants} />
     </MemoryRouter>
   )
   const card = screen.getByTestId('featured-card')
-  fireEvent.pointerDown(card, { clientX: 80 })
-  expect(card.querySelector('.ripple-effect')).toBeInTheDocument()
-  card.querySelector('.ripple-effect')?.remove()
-  fireEvent.pointerDown(card, { clientX: 100 })
-  fireEvent.pointerMove(card, { clientX: 20 })
-  fireEvent.pointerUp(card, { clientX: 20 })
-  expect(screen.getByText('Pothos')).toBeInTheDocument()
+  fireEvent.pointerDown(card)
+  expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
 })
 
 test('arrow keys change plant', () => {

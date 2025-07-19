@@ -4,7 +4,6 @@ import { useWeather } from '../WeatherContext.jsx'
 import { formatCareSummary } from '../utils/date.js'
 
 
-import useSwipe from '../hooks/useSwipe.js'
 import useINatPhoto from '../hooks/useINatPhoto.js'
 import { createRipple } from '../utils/interactions.js'
 
@@ -28,10 +27,6 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
   }
   const suggestion = forecast ? weatherEmojis[forecast.condition] || '☀️' : null
 
-  const { dx: deltaX, start, move, end } = useSwipe(diff => {
-    if (diff > 50) setIndex(i => (i - 1 + items.length) % items.length)
-    else if (diff < -50) setIndex(i => (i + 1) % items.length)
-  })
 
   const handleKeyDown = e => {
     if (e.key === 'ArrowRight') {
@@ -62,14 +57,10 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
       onKeyDown={handleKeyDown}
 
 
-      onPointerDown={e => { createRipple(e); start(e) }}
-      onPointerMove={move}
-      onPointerUp={end}
-      onPointerCancel={end}
+      onPointerDown={createRipple}
 
 
       className="relative block overflow-hidden rounded-3xl shadow bg-sage dark:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-      style={{ transform: `translateX(${deltaX}px)`, transition: deltaX === 0 ? 'transform 0.2s' : 'none' }}
     >
       <img
         src={imageSrc}
