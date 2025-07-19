@@ -59,6 +59,7 @@ test('shows watering progress indicator', () => {
   )
 
   expect(screen.getByLabelText(/watering progress/i)).toBeInTheDocument()
+  expect(screen.getByLabelText(/fertilizing progress/i)).toBeInTheDocument()
 })
 
 
