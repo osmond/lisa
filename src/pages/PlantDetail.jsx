@@ -2,9 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useRef, useMemo, useEffect } from 'react'
 
 import {
-  Sun,
   Drop,
-  Gauge,
   Flower,
   Info,
   CaretDown,
@@ -22,8 +20,7 @@ import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
 import { useMenu, defaultMenu } from '../MenuContext.jsx'
 import LegendModal from '../components/LegendModal.jsx'
-import WaterProgress from '../components/WaterProgress.jsx'
-import FertilizeProgress from '../components/FertilizeProgress.jsx'
+import CareRings from '../components/CareRings.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
 import DetailTabs from '../components/DetailTabs.jsx'
@@ -420,15 +417,17 @@ export default function PlantDetail() {
             className="w-full h-64 object-cover"
           />
           <div className="img-gradient-overlay" aria-hidden="true"></div>
-          <div className="absolute top-2 right-2 flex gap-2">
-            <div className="bg-black/50 rounded p-1" aria-label="Watering progress">
-              <WaterProgress completed={waterCompleted} total={waterTotal} />
-            </div>
-            {plant.nextFertilize && (
-              <div className="bg-black/50 rounded p-1" aria-label="Fertilizing progress">
-                <FertilizeProgress completed={fertCompleted} total={fertTotal} />
-              </div>
-            )}
+          <div
+            className="absolute top-2 right-2 bg-black/50 rounded-full p-1"
+            aria-label="Care progress"
+          >
+            <CareRings
+              waterCompleted={waterCompleted}
+              waterTotal={waterTotal}
+              fertCompleted={fertCompleted}
+              fertTotal={fertTotal}
+              size={36}
+            />
           </div>
           <div className="absolute bottom-2 left-3 right-3 flex flex-col sm:flex-row justify-between text-white drop-shadow space-y-1 sm:space-y-0">
             <div>
