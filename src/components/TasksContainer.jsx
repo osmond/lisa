@@ -34,15 +34,26 @@ export default function TasksContainer({ visibleTasks = [], happyPlant }) {
               </BaseCard>
             ))
           ) : (
-            <div className="text-sm text-gray-500 space-y-1 text-center flex flex-col items-center">
-              <img src={happyPlant} alt="Happy plant" className="w-24 h-24 mb-2" />
-              <p>All plants are happy today!</p>
-              <p>Want to add a note or photo today?</p>
-              <div className="flex gap-4 mt-2">
-                <Link to="/timeline" className="px-3 py-1 bg-green-100 text-green-700 rounded text-xs">
+            <div className="p-6 border border-[#E5ECE6] shadow-sm rounded-2xl text-center space-y-4">
+              <div className="flex justify-center">
+                <div className="w-24 h-24 rounded-full bg-[#B9EBCB] flex items-center justify-center mx-auto motion-safe:animate-[wiggle_0.25s_ease-in-out]">
+                  <img src={happyPlant} alt="Happy plant" className="w-20 h-20" />
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold mb-1">All plants are happy</h3>
+              <p className="text-sm text-gray-600 mb-4">Want to add a note or photo today?</p>
+              <hr className="mx-auto w-1/2 border-t border-gray-200" />
+              <div className="flex justify-center gap-3">
+                <Link
+                  to="/timeline"
+                  className="px-4 py-2 bg-green-500 text-white rounded-md shadow active:scale-95"
+                >
                   Add a journal entry
                 </Link>
-                <Link to="/profile" className="px-3 py-1 bg-green-100 text-green-700 rounded text-xs">
+                <Link
+                  to="/profile"
+                  className="px-4 py-2 border border-green-500 text-green-500 rounded-md active:scale-95"
+                >
                   Set a reminder
                 </Link>
               </div>
