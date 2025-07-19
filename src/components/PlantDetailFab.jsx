@@ -19,15 +19,16 @@ export default function PlantDetailFab({
   }, [open])
 
   const items = [
-    { label: 'Mark Watered', Icon: Drop, action: onWater, color: 'blue' },
+    { label: 'Mark Watered', Icon: Drop, action: onWater, color: 'blue', section: 'Care' },
     {
       label: 'Mark Fertilized',
       Icon: Flower,
       action: onFertilize,
       color: 'yellow',
+      section: 'Care',
     },
-    { label: 'Add Photo', Icon: ImageIcon, action: onAddPhoto, color: 'green' },
-    { label: 'Add Note', Icon: Note, action: onAddNote, color: 'violet' },
+    { label: 'Add Photo', Icon: ImageIcon, action: onAddPhoto, color: 'green', section: 'Journal' },
+    { label: 'Add Note', Icon: Note, action: onAddNote, color: 'violet', section: 'Journal' },
   ]
 
   const colorClasses = {
@@ -44,7 +45,7 @@ export default function PlantDetailFab({
           className="modal-overlay bg-black/50 z-30 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
-          aria-label="Add menu"
+          aria-label="Log new care"
           onClick={() => setOpen(false)}
         >
           <ul
@@ -59,26 +60,59 @@ export default function PlantDetailFab({
             >
               &times;
             </button>
-            {items.map(({ label, Icon, action, color }) => (
-              <li key={label}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setOpen(false)
-                    action?.()
-                  }}
-                  title={label}
-                  className="flex items-center gap-3 w-full rounded-lg p-2 hover:bg-green-50 dark:hover:bg-gray-600 transition"
-                >
-                  <span className={`p-2 rounded-full ${colorClasses[color].bg}`}>
-                    <Icon className={`w-5 h-5 ${colorClasses[color].text}`} aria-hidden="true" />
-                  </span>
-                  <span className="text-sm text-gray-800 dark:text-gray-200">
-                    {label}
-                  </span>
-                </button>
-              </li>
-            ))}
+            <li className="list-none text-center font-headline text-heading">
+              Log new care
+            </li>
+            <li className="list-none text-xs uppercase font-semibold text-gray-600 dark:text-gray-400">
+              Care
+            </li>
+            {items
+              .filter(i => i.section === 'Care')
+              .map(({ label, Icon, action, color }) => (
+                <li key={label}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOpen(false)
+                      action?.()
+                    }}
+                    title={label}
+                    className="flex items-center gap-3 w-full rounded-lg p-2 hover:bg-green-50 dark:hover:bg-gray-600 transition"
+                  >
+                    <span className={`p-2 rounded-full ${colorClasses[color].bg}`}>
+                      <Icon className={`w-5 h-5 ${colorClasses[color].text}`} aria-hidden="true" />
+                    </span>
+                    <span className="text-sm text-gray-800 dark:text-gray-200">
+                      {label}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            <li className="list-none text-xs uppercase font-semibold text-gray-600 dark:text-gray-400">
+              Journal
+            </li>
+            {items
+              .filter(i => i.section === 'Journal')
+              .map(({ label, Icon, action, color }) => (
+                <li key={label}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOpen(false)
+                      action?.()
+                    }}
+                    title={label}
+                    className="flex items-center gap-3 w-full rounded-lg p-2 hover:bg-green-50 dark:hover:bg-gray-600 transition"
+                  >
+                    <span className={`p-2 rounded-full ${colorClasses[color].bg}`}>
+                      <Icon className={`w-5 h-5 ${colorClasses[color].text}`} aria-hidden="true" />
+                    </span>
+                    <span className="text-sm text-gray-800 dark:text-gray-200">
+                      {label}
+                    </span>
+                  </button>
+                </li>
+              ))}
           </ul>
         </div>
       )}
