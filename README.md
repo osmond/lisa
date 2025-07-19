@@ -17,6 +17,11 @@ Includes:
 - Floating action button for adding plants or rooms
 - Persistent bottom navigation tabs for easy access
 - Placeholder photos fetched from iNaturalist when a plant has none. Images are loaded directly from iNaturalist and retain their original attribution and license.
+- Multi-step Add Plant flow with optional notes and schedule
+- Organize plants by room and create custom rooms
+- Badge indicator on the All Plants tab for overdue tasks
+- Watering and fertilizing progress overlays on plant photos
+- Customizable weather location and units from the Settings page
 
 ## Using the UI
 
@@ -24,12 +29,15 @@ Lisa keeps a tab bar pinned to the bottom of the screen so you can quickly switc
 
 Task cards support swipe gestures for quick actions. A partial swipe reveals edit, reschedule and delete buttons so you can manage care directly from the list. Plant cards also remain interactive and support swiping or keyboard shortcuts through the underlying `PlantCard` component.
 Both the Today and Tasks pages group care by plant using a `UnifiedTaskCard` that shows a thumbnail, upcoming needs and quick "Water Now" or "Fertilize Now" buttons when due.
+When no tasks are due a "happy plant" illustration invites you to add notes or photos.
 
 ## Plant Detail View
 
 Each plant page opens with a full-width hero image and a set of badges
 summarizing light, humidity and care difficulty.  Below the details is a
 swipeable gallery carousel of your uploaded photos.
+Watering and fertilizing progress appear as small overlays on the hero image so
+you can glance at upcoming care.
 
 Click or tap a photo to launch the Lightbox viewer. Navigate between
 images with the on-screen arrows or your keyboard’s Left/Right keys, and
@@ -45,6 +53,7 @@ Lisa can display local weather data and suggest when to water
 your plants. The app retrieves current conditions from OpenWeather
 using an API key you provide.
 A `.env.example` file is included at the project root and lists the required environment variable.
+You can change the city and switch between Fahrenheit and Celsius from the **Settings** page.
 
 ### Get an API Key
 
