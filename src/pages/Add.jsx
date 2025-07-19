@@ -16,9 +16,15 @@ function StepIndicator({ step }) {
       <p className="text-sm font-medium text-center mb-2">
         Step {step} of {totalSteps}
       </p>
-      <div className="w-full bg-gray-200 rounded-full h-2">
+      <div
+        className="w-full bg-gray-200 rounded-full h-2"
+        role="progressbar"
+        aria-valuenow={step}
+        aria-valuemin="0"
+        aria-valuemax={totalSteps}
+      >
         <div
-          className="bg-green-600 h-2 rounded-full"
+          className="bg-green-600 h-2 rounded-full transition-[width] duration-300"
           style={{ width: `${width}%` }}
         />
       </div>
