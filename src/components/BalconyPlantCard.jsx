@@ -34,7 +34,7 @@ export default function BalconyPlantCard({ plant }) {
         </Badge>
       )}
       <div className="absolute bottom-2 left-3 right-3 text-white drop-shadow space-y-0.5 text-left">
-        <h3 className="font-headline font-bold text-xl leading-none text-left">
+        <h3 className="font-headline font-extrabold text-xl leading-none text-left">
           {plant.name}
         </h3>
         <p className="text-sm text-left">Last watered {formatDaysAgo(plant.lastWatered)}</p>

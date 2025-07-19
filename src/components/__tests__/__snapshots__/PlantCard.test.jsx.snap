@@ -204,7 +204,7 @@ exports[`matches snapshot in dark mode 1`] = `
         class="absolute bottom-1 left-2 right-2 drop-shadow text-white space-y-0.5"
       >
         <div
-          class="font-bold text-xl font-headline leading-none"
+          class="font-extrabold text-xl font-headline leading-none"
         >
           <a
             class="focus:outline-none"
