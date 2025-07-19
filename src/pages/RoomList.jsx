@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState } from 'react'
-import { Drop } from 'phosphor-react'
+import { Drop, Sun, Gauge } from 'phosphor-react'
 
 import { usePlants } from '../PlantContext.jsx'
 import { formatDaysAgo } from '../utils/dateFormat.js'
@@ -69,7 +69,7 @@ export default function RoomList() {
               : `Last watered ${formatDaysAgo(plant.lastWatered)}`
             const colorClass = needsWater
               ? 'bg-red-100 text-red-700'
-              : 'bg-black/50 text-white'
+              : 'bg-black/40 text-white backdrop-blur-sm'
             return (
               <Link
                 key={plant.id}
@@ -85,15 +85,40 @@ export default function RoomList() {
                     loading="lazy"
                     className="plant-thumb"
                   />
-                  <span className="absolute top-1 left-1 bg-black/60 text-white text-xs px-1 rounded">
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent"
+                    aria-hidden="true"
+                  ></div>
+                  <span className="absolute top-1 left-1 bg-black/40 text-white text-xs px-1 rounded">
                     {plant.name}
                   </span>
-                  <Badge
-                    Icon={Drop}
-                    colorClass={`absolute bottom-1 left-1 text-xs ${colorClass}`}
-                  >
-                    {status}
-                  </Badge>
+                  <div className="absolute bottom-1 left-1 flex flex-wrap gap-1">
+                    <Badge
+                      Icon={Drop}
+                      size="sm"
+                      colorClass={`${colorClass} text-xs rounded-full`}
+                    >
+                      {status}
+                    </Badge>
+                    {plant.light && (
+                      <Badge
+                        Icon={Sun}
+                        size="sm"
+                        colorClass="bg-black/40 text-white backdrop-blur-sm"
+                      >
+                        {plant.light}
+                      </Badge>
+                    )}
+                    {plant.difficulty && (
+                      <Badge
+                        Icon={Gauge}
+                        size="sm"
+                        colorClass="bg-black/40 text-white backdrop-blur-sm"
+                      >
+                        {plant.difficulty}
+                      </Badge>
+                    )}
+                  </div>
                 </Card>
               </Link>
             )
