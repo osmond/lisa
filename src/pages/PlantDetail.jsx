@@ -7,7 +7,6 @@ import {
   Info,
   CaretDown,
   CaretRight,
-  SortAscending,
   SortDescending,
   Trash,
 } from 'phosphor-react'
@@ -57,6 +56,7 @@ export default function PlantDetail() {
   const [showLegend, setShowLegend] = useState(false)
   const [collapsedMonths, setCollapsedMonths] = useState({})
   const [latestFirst, setLatestFirst] = useState(true)
+  const [offsetY, setOffsetY] = useState(0)
 
   const progressPct = getWateringProgress(plant?.lastWatered, plant?.nextWater)
   const waterTotal = 3
@@ -102,6 +102,12 @@ export default function PlantDetail() {
     }
     return grouped
   }, [events, latestFirst])
+
+  useEffect(() => {
+    const handleScroll = () => setOffsetY(window.scrollY * -0.2)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
 
   const handleFiles = e => {
@@ -183,7 +189,7 @@ export default function PlantDetail() {
       content: (
         <div className="space-y-4 p-4">
           <div className="space-y-4">
-            <div className={`relative rounded-xl p-5 border-l-4 ${waterBorderClass} bg-blue-50 dark:bg-water-900/30 shadow-sm`}>
+            <div className={`relative rounded-xl p-5 border-l-4 ${waterBorderClass} bg-blue-50 dark:bg-water-900/30 shadow-sm mb-6`}>
               <h3 className="flex items-center gap-2 text-sm font-semibold text-blue-800 dark:text-water-200 mb-2">
                 <Drop className="w-3 h-3" aria-hidden="true" />
                 Watering Schedule
@@ -199,17 +205,20 @@ export default function PlantDetail() {
             </div>
             {plant.nextFertilize && (
               <div className={`relative rounded-lg p-4 border-l-4 ${fertBorderClass} bg-red-50 dark:bg-fertilize-900/30`}>
-                <h3 className="flex items-center gap-2 font-headline font-medium text-red-700 dark:text-fertilize-200">
-                  <Flower className="w-4 h-4" aria-hidden="true" />
-                  Fertilizing Needs
+                <div className="flex justify-between items-start">
+                  <h3 className="flex items-center gap-2 font-headline font-medium text-red-700 dark:text-fertilize-200">
+                    <Flower className="w-4 h-4" aria-hidden="true" />
+                    Fertilizing Needs
+                  </h3>
                   {overdueFertDays > 0 && (
-                    <span className="ml-2 inline-block rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
+                    <span className="inline-block rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
                       Overdue {overdueFertDays} {overdueFertDays === 1 ? 'day' : 'days'}
                     </span>
                   )}
-                </h3>
+                </div>
                 <p className="mt-2 text-sm">
-                  Last fertilized: {plant.lastFertilized ? formatDaysAgo(plant.lastFertilized) : 'Never'} · Next: {plant.nextFertilize}
+                  Last fertilized: {plant.lastFertilized ? formatDaysAgo(plant.lastFertilized) : 'Never'}<br />
+                  Next: {plant.nextFertilize}
                 </p>
               </div>
             )}
@@ -218,17 +227,17 @@ export default function PlantDetail() {
           {(plant.light || plant.humidity || plant.difficulty) && (
             <div className="mt-4 flex flex-wrap gap-2 text-xs text-gray-600">
               {plant.light && (
-                <span className="rounded-full border border-gray-300 px-3 py-1">
-                  ☀️ {plant.light}
+                <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1">
+                  ☀ {plant.light}
                 </span>
               )}
               {plant.humidity && (
-                <span className="rounded-full border border-gray-300 px-3 py-1">
+                <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1">
                   💧 {plant.humidity}
                 </span>
               )}
               {plant.difficulty && (
-                <span className="rounded-full border border-gray-300 px-3 py-1">
+                <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1">
                   🪴 {plant.difficulty}
                 </span>
               )}
@@ -246,13 +255,12 @@ export default function PlantDetail() {
             <button
               type="button"
               onClick={() => setLatestFirst(l => !l)}
-              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition"
             >
-              {latestFirst ? (
-                <SortDescending className="w-4 h-4" aria-hidden="true" />
-              ) : (
-                <SortAscending className="w-4 h-4" aria-hidden="true" />
-              )}
+              <SortDescending
+                className={`w-4 h-4 transform transition-transform ${latestFirst ? '' : 'rotate-180'}`}
+                aria-hidden="true"
+              />
               <span className="sr-only">
                 {latestFirst ? 'Show oldest first' : 'Show newest first'}
               </span>
@@ -264,7 +272,7 @@ export default function PlantDetail() {
           </div>
           {events.length === 0 && (
             <p className="py-10 text-center text-sm text-gray-500 dark:text-gray-400">
-              No activity yet. Start caring for your plant!
+              No recent activity for {plant.name}. Start logging care to build a timeline.
             </p>
           )}
           {groupedEvents.map(([monthKey, list]) => {
@@ -368,14 +376,14 @@ export default function PlantDetail() {
               })}
           </div>
           {(plant.photos || []).length > 3 && (
-            <div className="flex items-center justify-between mt-2">
-              <span className="text-xs text-gray-500">
+            <div className="flex items-center justify-between mt-2 text-xs">
+              <span className="text-gray-500">
                 Showing 3 of {(plant.photos || []).length} photos
               </span>
               <button
                 type="button"
                 onClick={() => setLightboxIndex(0)}
-                className="text-sm text-green-600 hover:underline"
+                className="text-green-600 hover:underline"
               >
                 View All Photos
               </button>
@@ -424,7 +432,10 @@ export default function PlantDetail() {
             aria-hidden="true"
           />
         </div>
-        <div className="rounded-b-xl shadow-md overflow-hidden relative">
+        <div
+          className="rounded-b-xl shadow-md overflow-hidden relative"
+          style={{ transform: `translateY(${offsetY}px)` }}
+        >
           <img
             src={plant.image}
             alt={plant.name}

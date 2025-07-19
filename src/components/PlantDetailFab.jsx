@@ -92,8 +92,8 @@ export default function PlantDetailFab({
       <button
         type="button"
         onClick={() => setOpen(v => !v)}
-        aria-label="Open create menu"
-        title="Open create menu"
+        aria-label="Log new care"
+        title="Log New Care"
         aria-expanded={open}
         aria-haspopup="menu"
         className={`bg-accent text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition-transform ${open ? 'ring-pulse' : ''}`}

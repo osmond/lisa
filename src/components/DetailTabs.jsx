@@ -38,7 +38,7 @@ export default function DetailTabs({ tabs = [], value, onChange, className = '' 
           )
         })}
       </div>
-      <div className="px-4 pb-4 pt-2">{activeTab?.content}</div>
+      <div className="px-4 pb-4 pt-2 animate-fade-in-up">{activeTab?.content}</div>
     </div>
   )
 }
