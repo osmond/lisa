@@ -218,19 +218,19 @@ export default function PlantDetail() {
           </div>
 
           {(plant.light || plant.humidity || plant.difficulty) && (
-            <ul className="space-y-1 text-sm">
+            <ul className="flex flex-wrap gap-2 text-sm">
               {plant.light && (
-                <li className="flex items-center gap-2">
+                <li className="inline-flex items-center gap-1">
                   <Sun className="w-4 h-4" aria-hidden="true" /> {plant.light}
                 </li>
               )}
               {plant.humidity && (
-                <li className="flex items-center gap-2">
+                <li className="inline-flex items-center gap-1">
                   <Drop className="w-4 h-4" aria-hidden="true" /> {plant.humidity}
                 </li>
               )}
               {plant.difficulty && (
-                <li className="flex items-center gap-2">
+                <li className="inline-flex items-center gap-1">
                   <Gauge className="w-4 h-4" aria-hidden="true" /> {plant.difficulty}
                 </li>
               )}
