@@ -11,6 +11,8 @@ import {
   Info,
   CaretDown,
   CaretRight,
+  SortAscending,
+  SortDescending,
 } from 'phosphor-react'
 
 import Lightbox from '../components/Lightbox.jsx'
@@ -63,6 +65,7 @@ export default function PlantDetail() {
   const [lightboxIndex, setLightboxIndex] = useState(null)
   const [showLegend, setShowLegend] = useState(false)
   const [collapsedMonths, setCollapsedMonths] = useState({})
+  const [latestFirst, setLatestFirst] = useState(true)
 
   const ringClass = ringColors[plant?.urgency] || 'text-green-600'
   const progressPct = getWateringProgress(plant?.lastWatered, plant?.nextWater)
@@ -91,10 +94,15 @@ export default function PlantDetail() {
     overdueFertDays > 0 ? 'border-red-500' : 'border-green-500'
 
   const events = useMemo(() => buildEvents(plant), [plant])
-  const groupedEvents = useMemo(
-    () => groupEventsByMonth(events),
-    [events]
-  )
+  const groupedEvents = useMemo(() => {
+    const grouped = groupEventsByMonth(events)
+    if (latestFirst) {
+      return grouped
+        .map(([month, list]) => [month, [...list].reverse()])
+        .reverse()
+    }
+    return grouped
+  }, [events, latestFirst])
 
 
   const handleFiles = e => {
@@ -238,7 +246,21 @@ export default function PlantDetail() {
       label: 'Activity',
       content: (
         <SectionCard className="space-y-4">
-          <div className="flex justify-end">
+          <div className="flex justify-end gap-2">
+            <button
+              type="button"
+              onClick={() => setLatestFirst(l => !l)}
+              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+            >
+              {latestFirst ? (
+                <SortDescending className="w-4 h-4" aria-hidden="true" />
+              ) : (
+                <SortAscending className="w-4 h-4" aria-hidden="true" />
+              )}
+              <span className="sr-only">
+                {latestFirst ? 'Show oldest first' : 'Show newest first'}
+              </span>
+            </button>
             <button type="button" onClick={() => setShowLegend(true)} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
               <Info className="w-4 h-4" aria-hidden="true" />
               <span className="sr-only">Legend</span>

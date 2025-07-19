@@ -61,3 +61,38 @@ test('timeline bullet markup matches snapshot', () => {
   const list = container.querySelector('ul')
   expect(list).toMatchSnapshot()
 })
+
+test('toggle reverses month ordering', () => {
+  mockPlants = [
+    {
+      id: 1,
+      name: 'Plant A',
+      image: 'a.jpg',
+      careLog: [
+        { date: '2025-07-02', type: 'Watered' },
+        { date: '2025-06-01', type: 'Watered' },
+      ],
+      photos: [],
+    },
+  ]
+
+  render(
+    <MenuProvider>
+      <MemoryRouter initialEntries={['/plant/1']}>
+        <Routes>
+          <Route path="/plant/:id" element={<PlantDetail />} />
+        </Routes>
+      </MemoryRouter>
+    </MenuProvider>
+  )
+
+  fireEvent.click(screen.getByRole('tab', { name: /activity/i }))
+
+  let headings = screen.getAllByRole('heading', { level: 3 })
+  expect(headings[0]).toHaveTextContent('July 2025')
+
+  fireEvent.click(screen.getByRole('button', { name: /show oldest first/i }))
+
+  headings = screen.getAllByRole('heading', { level: 3 })
+  expect(headings[0]).toHaveTextContent('June 2025')
+})
