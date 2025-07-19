@@ -17,15 +17,13 @@ beforeEach(() => {
 
 test('fab opens note modal', () => {
   render(<Timeline />)
-  fireEvent.click(screen.getByRole('button', { name: /open create menu/i }))
-  fireEvent.click(screen.getByRole('button', { name: /add note/i }))
+  fireEvent.click(screen.getByRole('button', { name: /add first entry/i }))
   expect(screen.getByRole('dialog', { name: /note/i })).toBeInTheDocument()
 })
 
 test('saving note calls addTimelineNote', () => {
   render(<Timeline />)
-  fireEvent.click(screen.getByRole('button', { name: /open create menu/i }))
-  fireEvent.click(screen.getByRole('button', { name: /add note/i }))
+  fireEvent.click(screen.getByRole('button', { name: /add first entry/i }))
   fireEvent.change(
     screen.getByRole('textbox', { name: /note/i }),
     { target: { value: 'hi' } }
