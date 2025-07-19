@@ -232,10 +232,6 @@ export default function Home() {
       <section className="mb-4 space-y-2">
         <h2 className="sr-only">Featured Plant</h2>
         <FeaturedCard plants={plants} startIndex={featuredIndex} />
-        <hr
-          className="mx-auto w-16 border-t border-dashed border-neutral-300 dark:border-gray-600"
-          aria-hidden="true"
-        />
       </section>
     )}
     <CareStats
