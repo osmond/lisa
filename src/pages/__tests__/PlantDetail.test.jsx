@@ -31,7 +31,8 @@ test('renders plant details without duplicates', () => {
   expect(wateredLabel.textContent).toMatch(/Last watered:/i)
   expect(wateredLabel.textContent).toMatch(new RegExp(plant.nextWater))
 
-  const fertHeading = screen.getByText('Fertilizing')
+  const fertHeading = screen.getByText('Fertilizing Needs')
+  expect(fertHeading).toBeInTheDocument()
   const fertLabel = screen.getAllByText(new RegExp(plant.nextFertilize))
   const fertText = fertLabel[fertLabel.length - 1]
   expect(fertText.textContent).toMatch(new RegExp(plant.nextFertilize))

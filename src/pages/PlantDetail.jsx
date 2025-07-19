@@ -180,43 +180,36 @@ export default function PlantDetail() {
       id: 'summary',
       label: 'Care Summary',
       content: (
-        <div className="space-y-3 p-4">
-          <div className="space-y-3">
-            <div className={`relative rounded-lg p-3 border-l-4 ${waterBorderClass} bg-water-50 dark:bg-water-900/30`}>
-              <div className="flex items-center gap-1 font-headline font-semibold text-water-700 dark:text-water-200">
+        <div className="space-y-4 p-4">
+          <div className="space-y-4">
+            <div className={`relative rounded-lg p-4 border-l-4 ${waterBorderClass} bg-blue-50 dark:bg-water-900/30`}>
+              <h3 className="flex items-center gap-2 font-headline font-medium text-blue-700 dark:text-water-200">
                 <Drop className="w-4 h-4" aria-hidden="true" />
-                Watering
-              </div>
-              <div className="mt-2 space-y-1 text-sm">
-                <p>
-                  Last watered: {formatDaysAgo(plant.lastWatered)} · Next: {plant.nextWater}
-                </p>
-                {overdueWaterDays > 0 && (
-                  <div className="flex items-center text-rose-700 dark:text-rose-400">
-                    <span className="mr-1" role="img" aria-label="Overdue">❗</span>
-                    {overdueWaterDays} {overdueWaterDays === 1 ? 'day' : 'days'} overdue
-                  </div>
-                )}
-              </div>
+                Watering Schedule
+              </h3>
+              <p className="mt-2 text-sm">
+                Last watered: {formatDaysAgo(plant.lastWatered)} · Next: {plant.nextWater}
+              </p>
+              {overdueWaterDays > 0 && (
+                <span className="mt-1 inline-block rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
+                  Overdue {overdueWaterDays} {overdueWaterDays === 1 ? 'day' : 'days'}
+                </span>
+              )}
             </div>
             {plant.nextFertilize && (
-              <div className={`relative rounded-lg p-3 border-l-4 ${fertBorderClass} bg-fertilize-50 dark:bg-fertilize-900/30`}>
-                <div className="flex items-center gap-1 font-headline font-semibold text-fertilize-700 dark:text-fertilize-200">
+              <div className={`relative rounded-lg p-4 border-l-4 ${fertBorderClass} bg-red-50 dark:bg-fertilize-900/30`}>
+                <h3 className="flex items-center gap-2 font-headline font-medium text-red-700 dark:text-fertilize-200">
                   <Flower className="w-4 h-4" aria-hidden="true" />
-                  Fertilizing
-                </div>
-                <div className="mt-2 space-y-1 text-sm">
-                  <p>
-                    Last fertilized:{' '}
-                    {plant.lastFertilized ? formatDaysAgo(plant.lastFertilized) : 'Never'} · Next: {plant.nextFertilize}
-                  </p>
+                  Fertilizing Needs
                   {overdueFertDays > 0 && (
-                    <div className="flex items-center text-rose-700 dark:text-rose-400">
-                      <span className="mr-1" role="img" aria-label="Overdue">❗</span>
-                      {overdueFertDays} {overdueFertDays === 1 ? 'day' : 'days'} overdue
-                    </div>
+                    <span className="ml-2 inline-block rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
+                      Overdue {overdueFertDays} {overdueFertDays === 1 ? 'day' : 'days'}
+                    </span>
                   )}
-                </div>
+                </h3>
+                <p className="mt-2 text-sm">
+                  Last fertilized: {plant.lastFertilized ? formatDaysAgo(plant.lastFertilized) : 'Never'} · Next: {plant.nextFertilize}
+                </p>
               </div>
             )}
           </div>
@@ -268,6 +261,11 @@ export default function PlantDetail() {
               <span className="sr-only">Legend</span>
             </button>
           </div>
+          {events.length === 0 && (
+            <p className="py-10 text-center text-sm text-gray-500 dark:text-gray-400">
+              No activity yet. Start caring for your plant!
+            </p>
+          )}
           {groupedEvents.map(([monthKey, list]) => {
             const isCollapsed = collapsedMonths[monthKey]
             return (
@@ -324,14 +322,22 @@ export default function PlantDetail() {
       id: 'gallery',
       label: 'Gallery',
       content: (
-        <div className="space-y-2 p-4">
+        <div className="space-y-4 p-4">
+          {(plant.photos || []).length === 0 && (
+            <p className="py-10 text-center text-sm text-gray-500 dark:text-gray-400">
+              Add your first photo
+            </p>
+          )}
           <div className="flex flex-nowrap gap-4 overflow-x-auto pb-1 sm:pb-2">
             {(plant.photos || [])
               .slice(0, 3)
               .map((photo, i) => {
                 const { src, caption } = photo
                 return (
-                  <div key={i} className="relative flex flex-col items-center">
+                  <div
+                    key={i}
+                    className="relative flex flex-col items-center group transition-all ease-in-out duration-200"
+                  >
                     <button
                       type="button"
                       onClick={() => setLightboxIndex(i)}
@@ -340,12 +346,12 @@ export default function PlantDetail() {
                       <img
                         src={src}
                         alt={caption || `${plant.name} photo ${i + 1}`}
-                        className="plant-thumb w-24 rounded-lg shadow-sm"
+                        className="w-24 aspect-[4/3] object-cover rounded-lg shadow-sm transition-all ease-in-out duration-200"
                       />
                     </button>
                     <button
                       aria-label="Remove photo"
-                      className="absolute top-1 right-1 bg-white/70 rounded p-1 text-gray-600 hover:text-rose-700 opacity-70 hover:opacity-100"
+                      className="absolute top-1 right-1 bg-white/70 rounded p-1 text-gray-600 hover:text-rose-700 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all ease-in-out duration-200"
                       onClick={() => removePhoto(plant.id, i)}
                     >
                       <Trash className="w-3 h-3" aria-hidden="true" />
