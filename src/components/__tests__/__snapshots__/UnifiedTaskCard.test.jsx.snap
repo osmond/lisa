@@ -220,14 +220,14 @@ exports[`matches snapshot in dark mode 1`] = `
         </p>
       </div>
       <div
-        class="flex items-center gap-4 mt-1 font-semibold text-gray-700 dark:text-gray-200"
+        class="flex items-center gap-4 mt-1 font-semibold"
       >
         <span
-          class="inline-flex items-center gap-1"
+          class="inline-flex items-center gap-1 text-amber-600"
         >
           <svg
             aria-hidden="true"
-            class="w-4 h-4 text-water-600"
+            class="w-4 h-4"
             fill="currentColor"
             height="1em"
             viewBox="0 0 256 256"
