@@ -17,7 +17,7 @@ export default function ImageCard({
         {(title || badges) && (
           <div className="absolute bottom-1 left-2 right-2 drop-shadow text-white space-y-0.5">
             {title && (
-              <div className="font-bold text-lg font-headline leading-none">{title}</div>
+              <div className="font-bold text-xl font-headline leading-none">{title}</div>
             )}
             {badges && <div className="flex flex-wrap gap-1">{badges}</div>}
           </div>
