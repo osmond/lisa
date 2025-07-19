@@ -115,16 +115,6 @@ export default function UnifiedTaskCard({
           {last}
         </div>
       </div>
-      <div className="border-t border-neutral-200 dark:border-gray-600 px-4 py-2">
-        <button
-          type="button"
-          onClick={handleComplete}
-          className="px-3 py-1 bg-green-600 text-white rounded-md text-sm font-medium flex items-center gap-1"
-        >
-          <CheckCircle className="w-4 h-4" aria-hidden="true" />
-          Mark as Done
-        </button>
-      </div>
       {completed && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none task-complete-fade">
           <svg

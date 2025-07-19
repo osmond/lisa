@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { MemoryRouter, useNavigate } from 'react-router-dom'
 import UnifiedTaskCard from '../UnifiedTaskCard.jsx'
 import { usePlants } from '../../PlantContext.jsx'
@@ -54,7 +54,7 @@ test('renders plant info and badges', () => {
   expect(waterBadge).toHaveClass('bg-water-100/90')
   expect(screen.queryByText('Fertilize')).toBeNull()
   expect(screen.getByText('Last cared for 3 days ago')).toBeInTheDocument()
-  expect(screen.getByRole('button', { name: /mark as done/i })).toBeInTheDocument()
+  expect(screen.queryByRole('button', { name: /mark as done/i })).toBeNull()
 })
 
 test('applies urgent style', () => {
@@ -88,14 +88,13 @@ test('matches snapshot in dark mode', () => {
   document.documentElement.classList.remove('dark')
 })
 
-test('clicking mark as done completes task', () => {
+test('does not render a completion button', () => {
   render(
     <MemoryRouter>
       <UnifiedTaskCard plant={plant} />
     </MemoryRouter>
   )
-  fireEvent.click(screen.getByRole('button', { name: /mark as done/i }))
-  expect(markWatered).toHaveBeenCalledWith(plant.id, '')
+  expect(screen.queryByRole('button', { name: /mark as done/i })).toBeNull()
 })
 
 afterAll(() => {
