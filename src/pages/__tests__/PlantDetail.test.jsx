@@ -76,9 +76,9 @@ test('displays all sections', () => {
     </MenuProvider>
   )
 
-  expect(screen.getByRole('heading', { name: /care details/i })).toBeInTheDocument()
-  expect(screen.getByRole('heading', { name: /activity & notes/i })).toBeInTheDocument()
-  expect(screen.getByRole('heading', { name: /gallery/i })).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: /care details/i })).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: /activity & notes/i })).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: /gallery/i })).toBeInTheDocument()
 })
 
 test('shows watering progress ring', () => {
@@ -151,6 +151,8 @@ test('opens lightbox from gallery', () => {
     </MenuProvider>
   )
 
+  fireEvent.click(screen.getByRole('button', { name: /gallery/i }))
+
   const img = screen.getByAltText(
     plant.photos[0].caption || `${plant.name} photo 1`
   )
@@ -202,6 +204,8 @@ test('view all button opens the viewer from first image', () => {
       </PlantProvider>
     </MenuProvider>
   )
+
+  fireEvent.click(screen.getByRole('button', { name: /gallery/i }))
 
   const viewAll = screen.getByRole('button', { name: /view all photos/i })
   fireEvent.click(viewAll)

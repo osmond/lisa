@@ -26,6 +26,7 @@ import ProgressRing from '../components/ProgressRing.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
 import SectionCard from '../components/SectionCard.jsx'
+import Accordion from '../components/Accordion.jsx'
 
 import useToast from "../hooks/useToast.jsx"
 import confetti from 'canvas-confetti'
@@ -260,12 +261,17 @@ export default function PlantDetail() {
           breadcrumb={{ room: plant.room, plant: plant.name }}
         />
 
-<SectionCard className="space-y-3">
-  <h3 className="flex items-center gap-2 font-semibold font-headline text-lg border-b border-gray-200 dark:border-gray-600 pb-2">
-    <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
-    Care Details
-  </h3>
-  <div className="space-y-3">
+        <Accordion
+          title={
+            <span className="flex items-center gap-2">
+              <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
+              Care Details
+            </span>
+          }
+          defaultOpen
+        >
+          <SectionCard className="space-y-3">
+            <div className="space-y-3">
     <div className={`relative rounded-lg p-3 border-l-4 ${waterBorderClass} bg-water-50 dark:bg-water-900/30`}>
       <div className="flex items-center gap-1 font-headline font-semibold text-water-700 dark:text-water-200">
         <Drop className="w-4 h-4" aria-hidden="true" />
@@ -341,23 +347,30 @@ export default function PlantDetail() {
         </button>
       </div>
     )}
-  </div>
-</SectionCard>
+            </div>
+          </SectionCard>
+        </Accordion>
 
 
-        <SectionCard className="space-y-4">
-          <h3 className="flex items-center gap-2 font-semibold font-headline text-lg border-b border-gray-200 dark:border-gray-600 pb-2 mb-1">
-            <Note className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
-            Activity & Notes
-            <button type="button" onClick={() => setShowLegend(true)} className="ml-auto text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
-              <Info className="w-4 h-4" aria-hidden="true" />
-              <span className="sr-only">Legend</span>
-            </button>
-          </h3>
-          {groupedEvents.map(([monthKey, list], idx) => {
-            const isCollapsed = collapsedMonths[monthKey]
-            return (
-              <div key={monthKey} className="mt-6 first:mt-0">
+        <Accordion
+          title={
+            <span className="flex items-center gap-2">
+              <Note className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
+              Activity & Notes
+            </span>
+          }
+        >
+          <SectionCard className="space-y-4">
+            <div className="flex justify-end">
+              <button type="button" onClick={() => setShowLegend(true)} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                <Info className="w-4 h-4" aria-hidden="true" />
+                <span className="sr-only">Legend</span>
+              </button>
+            </div>
+            {groupedEvents.map(([monthKey, list], idx) => {
+              const isCollapsed = collapsedMonths[monthKey]
+              return (
+                <div key={monthKey} className="mt-6 first:mt-0">
                 <h3 className="sticky top-0 z-10 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm px-1 text-timestamp uppercase tracking-wider text-gray-300 mb-2 flex items-center">
                   <button
                     type="button"
@@ -413,15 +426,20 @@ export default function PlantDetail() {
               </div>
             )
           })}
-        </SectionCard>
+          </SectionCard>
+        </Accordion>
       </div>
 
-      <SectionCard className="space-y-2">
-        <h3 className="flex items-center gap-2 font-semibold font-headline mb-1">
-          <Image className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
-          Gallery
-        </h3>
-        <div className="flex flex-nowrap gap-3 overflow-x-auto pb-1 sm:pb-2">
+      <Accordion
+        title={
+          <span className="flex items-center gap-2">
+            <Image className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
+            Gallery
+          </span>
+        }
+      >
+        <SectionCard className="space-y-2">
+          <div className="flex flex-nowrap gap-3 overflow-x-auto pb-1 sm:pb-2">
           {(plant.photos || []).map((photo, i) => {
             const { src, caption } = photo
             return (
@@ -448,8 +466,8 @@ export default function PlantDetail() {
               </div>
             )
           })}
-        </div>
-        {(plant.photos || []).length > 3 && (
+          </div>
+          {(plant.photos || []).length > 3 && (
           <button
             type="button"
             onClick={() => setLightboxIndex(0)}
@@ -457,31 +475,32 @@ export default function PlantDetail() {
           >
             View All Photos
           </button>
-        )}
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          ref={fileInputRef}
-          onChange={handleFiles}
-          className="hidden"
-        />
-        {lightboxIndex !== null && (
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label={`${plant.name} gallery`}
-            className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-40"
-          >
-            <Lightbox
-              images={plant.photos}
-              startIndex={lightboxIndex}
-              onClose={() => setLightboxIndex(null)}
-              label={`${plant.name} gallery`}
-            />
-          </div>
-        )}
-      </SectionCard>
+          )}
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            ref={fileInputRef}
+            onChange={handleFiles}
+            className="hidden"
+          />
+          {lightboxIndex !== null && (
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label={`${plant.name} gallery`}
+              className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-40"
+            >
+              <Lightbox
+                images={plant.photos}
+                startIndex={lightboxIndex}
+                onClose={() => setLightboxIndex(null)}
+                label={`${plant.name} gallery`}
+              />
+            </div>
+          )}
+        </SectionCard>
+      </Accordion>
       <PlantDetailFab onAddPhoto={openFileInput} onAddNote={handleLogEvent} />
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
