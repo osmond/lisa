@@ -10,7 +10,7 @@ import { usePlants } from '../PlantContext.jsx'
 import useSnackbar from '../hooks/useSnackbar.jsx'
 import NoteModal from './NoteModal.jsx'
 import ConfirmModal from './ConfirmModal.jsx'
-import Card from './Card.jsx'
+import ImageCard from './ImageCard.jsx'
 
 export default function PlantCard({ plant }) {
   const navigate = useNavigate()
@@ -202,20 +202,22 @@ export default function PlantCard({ plant }) {
           )}
         </div>
       )}
-      <Card
+      <ImageCard
         style={{ transform: `translateX(${deltaX}px)`, transition: deltaX === 0 ? 'transform 0.2s' : 'none' }}
+        imgSrc={plant.image}
+        title={
+          <Link
+            to={
+              plant.room
+                ? `/room/${encodeURIComponent(plant.room)}/plant/${plant.id}`
+                : `/plant/${plant.id}`
+            }
+            className="focus:outline-none"
+          >
+            {plant.name}
+          </Link>
+        }
       >
-        <Link
-          to={
-            plant.room
-              ? `/room/${encodeURIComponent(plant.room)}/plant/${plant.id}`
-              : `/plant/${plant.id}`
-          }
-          className="block mb-2"
-        >
-          <img src={plant.image} alt={plant.name} loading="lazy" className="plant-thumb" />
-          <h2 className="font-bold text-heading font-headline mt-2">{plant.name}</h2>
-        </Link>
         <p className="text-sm text-green-700 font-medium font-body">Next: {plant.nextWater}</p>
         <button
           onMouseDown={createRipple}
@@ -226,7 +228,7 @@ export default function PlantCard({ plant }) {
           <Drop className="w-4 h-4" aria-hidden="true" />
           Watered
         </button>
-      </Card>
+      </ImageCard>
     </div>
     {showNote && (
       <NoteModal label="Optional note" onSave={handleSaveNote} onCancel={handleCancelNote} />

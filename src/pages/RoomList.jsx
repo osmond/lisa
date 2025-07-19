@@ -8,7 +8,7 @@ import { createRipple } from '../utils/interactions.js'
 import PageHeader from '../components/PageHeader.jsx'
 import Badge from '../components/Badge.jsx'
 import PageContainer from "../components/PageContainer.jsx"
-import Card from '../components/Card.jsx'
+import ImageCard from '../components/ImageCard.jsx'
 
 export default function RoomList() {
   const { roomName } = useParams()
@@ -78,48 +78,42 @@ export default function RoomList() {
                 onMouseDown={createRipple}
                 onTouchStart={createRipple}
               >
-                <Card className="relative overflow-hidden hover:shadow-lg">
-                  <img
-                    src={src}
-                    alt={plant.name}
-                    loading="lazy"
-                    className="plant-thumb"
-                  />
-                  <div
-                    className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent"
-                    aria-hidden="true"
-                  ></div>
-                  <span className="absolute top-1 left-1 bg-black/40 text-white text-xs px-1 rounded">
-                    {plant.name}
-                  </span>
-                  <div className="absolute bottom-1 left-1 flex flex-wrap gap-1">
+                <ImageCard
+                  as="div"
+                  imgSrc={src}
+                  title={plant.name}
+                  badges={[
                     <Badge
+                      key="status"
                       Icon={Drop}
                       size="sm"
                       colorClass={`${colorClass} text-xs rounded-full`}
                     >
                       {status}
-                    </Badge>
-                    {plant.light && (
+                    </Badge>,
+                    plant.light && (
                       <Badge
+                        key="light"
                         Icon={Sun}
                         size="sm"
                         colorClass="bg-black/40 text-white backdrop-blur-sm"
                       >
                         {plant.light}
                       </Badge>
-                    )}
-                    {plant.difficulty && (
+                    ),
+                    plant.difficulty && (
                       <Badge
+                        key="diff"
                         Icon={Gauge}
                         size="sm"
                         colorClass="bg-black/40 text-white backdrop-blur-sm"
                       >
                         {plant.difficulty}
                       </Badge>
-                    )}
-                  </div>
-                </Card>
+                    ),
+                  ]}
+                  className="hover:shadow-lg"
+                />
               </Link>
             )
           })}
