@@ -11,6 +11,7 @@ import {
   CaretRight,
   SortAscending,
   SortDescending,
+  Trash,
 } from 'phosphor-react'
 
 import Lightbox from '../components/Lightbox.jsx'
@@ -339,10 +340,11 @@ export default function PlantDetail() {
                       />
                     </button>
                     <button
-                      className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
+                      aria-label="Remove photo"
+                      className="absolute top-1 right-1 bg-white/70 rounded p-1 text-gray-600 hover:text-red-600 opacity-70 hover:opacity-100"
                       onClick={() => removePhoto(plant.id, i)}
                     >
-                      ✕
+                      <Trash className="w-3 h-3" aria-hidden="true" />
                     </button>
                   </div>
                 )
