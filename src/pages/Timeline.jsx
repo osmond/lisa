@@ -86,7 +86,7 @@ export default function Timeline() {
               <h3 className="sticky top-0 z-10 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm px-1 text-timestamp uppercase tracking-wider text-gray-500 mb-2">
                 {formatMonth(monthKey)}
               </h3>
-              <ul className="relative ml-3 space-y-6 pl-5 before:absolute before:inset-y-0 before:left-2 before:w-px before:bg-gray-200 divide-y divide-dotted divide-gray-200 dark:divide-gray-700/50">
+              <ul className="relative ml-3 space-y-6 pl-5 before:absolute before:inset-y-0 before:left-2 before:w-px before:bg-gray-200">
                 {list.map((e, i) => {
                   const Icon = actionIcons[e.type]
                   return (
@@ -109,8 +109,7 @@ export default function Timeline() {
                         className={`text-left w-full flex items-start ${e.note ? 'bg-gray-50 dark:bg-gray-700 rounded-xl p-3 shadow-sm' : ''}`}
                       >
                         <div>
-                          <span className="font-medium">{formatDate(e.date)}</span>
-                          {' '}<span className="font-semibold text-base">— {e.label}</span>
+                          <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
                           {e.note && (
                             <div className="text-xs italic text-green-700 mt-1">{e.note}</div>
                           )}
