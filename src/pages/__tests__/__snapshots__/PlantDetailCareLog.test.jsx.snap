@@ -2,7 +2,7 @@
 
 exports[`timeline bullet markup matches snapshot 1`] = `
 <ul
-  class=" relative ml-3 space-y-8 pl-5 before:absolute before:inset-y-0 before:left-2 before:w-px before:bg-gray-200"
+  class=" relative ml-3 space-y-8 pl-5 before:absolute before:inset-y-0 before:left-2 before:border-l before:border-dashed before:border-gray-300 dark:before:border-gray-600"
 >
   <li
     class="relative text-xs sm:text-sm"
