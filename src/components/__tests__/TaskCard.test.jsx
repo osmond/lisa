@@ -67,7 +67,7 @@ test('incomplete tasks show alert style', () => {
       </BaseCard>
     </MemoryRouter>
   )
-  const wrapper = container.querySelector('.shadow-sm')
+  const wrapper = container.querySelector('.shadow')
   expect(wrapper).toHaveClass('bg-neutral-50')
 })
 
@@ -79,7 +79,7 @@ test('applies highlight when urgent', () => {
       </BaseCard>
     </MemoryRouter>
   )
-  const wrapper = container.querySelector('.shadow-sm')
+  const wrapper = container.querySelector('.shadow')
   expect(wrapper).toHaveClass('ring-green-300')
   expect(wrapper).toHaveClass('dark:ring-green-400')
 })
@@ -93,7 +93,7 @@ test('shows completed state', () => {
       </BaseCard>
     </MemoryRouter>
   )
-  const wrapper = container.querySelector('.shadow-sm')
+  const wrapper = container.querySelector('.shadow')
   expect(wrapper).toHaveClass('opacity-50')
   expect(wrapper).toHaveClass('bg-gray-100')
   expect(container.querySelector('.check-pop')).toBeInTheDocument()

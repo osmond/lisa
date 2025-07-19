@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Drop, Sun, CheckCircle } from 'phosphor-react'
+import { Drop, Sun, CheckCircle, WarningCircle } from 'phosphor-react'
 import { formatDaysAgo } from '../utils/dateFormat.js'
 import { useNavigate } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
@@ -23,7 +23,7 @@ export default function UnifiedTaskCard({
   const { Snackbar, showSnackbar } = useSnackbar()
 
   const bgClass = overdue
-    ? 'bg-red-50 dark:bg-red-900'
+    ? 'bg-red-50 dark:bg-red-800'
     : urgent
     ? 'bg-yellow-50 dark:bg-yellow-900'
     : 'bg-gray-50 dark:bg-gray-800'
@@ -34,13 +34,13 @@ export default function UnifiedTaskCard({
   ) : null
 
   const waterColor = overdue
-    ? 'bg-red-100 text-red-600'
+    ? 'bg-red-50 text-red-500'
     : urgent
     ? 'bg-yellow-100 text-yellow-700'
     : 'bg-water-100/90 text-water-800'
 
   const fertColor = overdue
-    ? 'bg-red-100 text-red-600'
+    ? 'bg-red-50 text-red-500'
     : urgent
     ? 'bg-yellow-100 text-yellow-700'
     : 'bg-fertilize-100/90 text-fertilize-800'
@@ -80,7 +80,7 @@ export default function UnifiedTaskCard({
   return (
     <div
       data-testid="unified-task-card"
-      className={`relative rounded-2xl border border-neutral-200 dark:border-gray-600 shadow-sm overflow-hidden ${bgClass}`}
+      className={`relative rounded-2xl border border-neutral-200 dark:border-gray-600 shadow overflow-hidden ${bgClass}`}
       style={{ transform: `translateX(${swipeable ? dx : 0}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
       onPointerDown={start}
       onPointerMove={move}
@@ -97,7 +97,9 @@ export default function UnifiedTaskCard({
               {name}
             </p>
             {overdue ? (
-              <Badge variant="overdue" size="sm">Overdue</Badge>
+              <Badge variant="overdue" size="sm" Icon={WarningCircle}>
+                Overdue
+              </Badge>
             ) : urgent ? (
               <Badge variant="urgent" size="sm">Today</Badge>
             ) : null}
