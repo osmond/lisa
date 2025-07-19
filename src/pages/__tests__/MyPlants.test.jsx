@@ -82,8 +82,8 @@ test('sorts rooms by plant count', () => {
     </MemoryRouter>
   )
 
-  const select = screen.getByRole('combobox')
-  fireEvent.change(select, { target: { value: 'count' } })
+  const newestBtn = screen.getByRole('button', { name: /newest/i })
+  fireEvent.click(newestBtn)
 
   const links = screen
     .getAllByRole('link')
@@ -110,8 +110,8 @@ test('filters rooms needing love', () => {
     </MemoryRouter>
   )
 
-  const checkbox = screen.getByRole('checkbox')
-  fireEvent.click(checkbox)
+  const loveBtn = screen.getByRole('button', { name: /needs love/i })
+  fireEvent.click(loveBtn)
 
   const links = screen
     .getAllByRole('link')

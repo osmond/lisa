@@ -10,6 +10,7 @@ import { formatDaysAgo } from '../utils/dateFormat.js'
 import { useRooms } from '../RoomContext.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import { createRipple } from '../utils/interactions.js'
+import FilterPills from '../components/FilterPills.jsx'
 import CreateFab from '../components/CreateFab.jsx'
 import PageContainer from "../components/PageContainer.jsx"
 import PageHeader from "../components/PageHeader.jsx"
@@ -19,8 +20,7 @@ export default function MyPlants() {
   const { rooms } = useRooms()
   const { plants } = usePlants()
 
-  const [sortBy, setSortBy] = useState('name')
-  const [needsLoveOnly, setNeedsLoveOnly] = useState(false)
+  const [filter, setFilter] = useState('all')
 
   const countPlants = room => plants.filter(p => p.room === room).length
   const todayIso = new Date().toISOString().slice(0, 10)
@@ -33,14 +33,6 @@ export default function MyPlants() {
         if (p.nextFertilize && p.nextFertilize < todayIso) m += 1
         return m
       }, 0)
-
-
-  const sortedRooms = [...rooms]
-    .filter(r => !needsLoveOnly || countOverdue(r) > 0)
-    .sort((a, b) => {
-      if (sortBy === 'name') return a.localeCompare(b)
-      return countPlants(b) - countPlants(a)
-    })
 
   const roomStats = room => {
     const list = plants.filter(p => p.room === room)
@@ -56,6 +48,18 @@ export default function MyPlants() {
     }, '')
     return { wateredToday, lowLight, pestAlert, lastUpdated }
   }
+
+  const sortedRooms = [...rooms]
+    .filter(r => filter !== 'love' || countOverdue(r) > 0)
+    .sort((a, b) => {
+      if (filter === 'newest') return countPlants(b) - countPlants(a)
+      if (filter === 'recent') {
+        const aDate = roomStats(a).lastUpdated || ''
+        const bDate = roomStats(b).lastUpdated || ''
+        return bDate.localeCompare(aDate)
+      }
+      return a.localeCompare(b)
+    })
 
 
   if (rooms.length === 0) {
@@ -76,27 +80,16 @@ export default function MyPlants() {
   return (
     <PageContainer>
       <PageHeader title="All Plants" />
-      <div className="flex items-center gap-4 mb-2">
-        <label className="text-sm">
-          Sort
-          <select
-            className="ml-1 border rounded p-1"
-            value={sortBy}
-            onChange={e => setSortBy(e.target.value)}
-          >
-            <option value="name">Name</option>
-            <option value="count"># Plants</option>
-          </select>
-        </label>
-        <label className="flex items-center gap-1 text-sm">
-          <input
-            type="checkbox"
-            checked={needsLoveOnly}
-            onChange={e => setNeedsLoveOnly(e.target.checked)}
-          />
-          Needs Love
-        </label>
-      </div>
+      <FilterPills
+        value={filter}
+        onChange={setFilter}
+        options={[
+          { value: 'all', label: '🌿 All' },
+          { value: 'love', label: '⚠️ Needs Love' },
+          { value: 'recent', label: '💧 Recently Watered' },
+          { value: 'newest', label: '🪴 Newest' },
+        ]}
+      />
       <div
         className="grid gap-2"
         style={{
