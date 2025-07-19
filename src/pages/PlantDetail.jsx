@@ -261,9 +261,9 @@ export default function PlantDetail() {
         />
 
 <SectionCard className="space-y-3">
-  <h3 className="flex items-center gap-2 font-semibold font-headline">
+  <h3 className="flex items-center gap-2 font-semibold font-headline text-lg border-b border-gray-200 dark:border-gray-600 pb-2">
     <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
-    Quick Stats
+    Care Details
   </h3>
   <div className="space-y-3">
     <div className={`relative rounded-lg p-3 border-l-4 ${waterBorderClass} bg-water-50 dark:bg-water-900/30`}>
@@ -346,7 +346,7 @@ export default function PlantDetail() {
 
 
         <SectionCard className="space-y-4">
-          <h3 className="flex items-center gap-2 font-semibold font-headline mb-1">
+          <h3 className="flex items-center gap-2 font-semibold font-headline text-lg border-b border-gray-200 dark:border-gray-600 pb-2 mb-1">
             <Note className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
             Activity & Notes
             <button type="button" onClick={() => setShowLegend(true)} className="ml-auto text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
@@ -421,7 +421,7 @@ export default function PlantDetail() {
           <Image className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
           Gallery
         </h3>
-        <div className="flex gap-3 overflow-x-auto pb-2">
+        <div className="flex flex-nowrap gap-3 overflow-x-auto pb-1 sm:pb-2">
           {(plant.photos || []).map((photo, i) => {
             const { src, caption } = photo
             return (
