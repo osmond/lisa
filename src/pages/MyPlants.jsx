@@ -102,6 +102,11 @@ export default function MyPlants() {
 
           const { wateredToday, lowLight, pestAlert, lastUpdated } = roomStats(room)
 
+          const previews = plants
+            .filter(p => p.room === room)
+            .slice(0, 4)
+            .map(p => ({ src: p.image || p.placeholderSrc, name: p.name }))
+
           const first = plants.find(p => p.room === room)
           const thumbnail = first?.image || first?.placeholderSrc
 
@@ -126,6 +131,18 @@ export default function MyPlants() {
                 }
                 className="space-y-2 hover:shadow-lg h-full flex flex-col"
               >
+                {previews.length > 0 && (
+                  <div className="flex -space-x-2">
+                    {previews.map((p, idx) => (
+                      <img
+                        key={idx}
+                        src={p.src}
+                        alt={p.name}
+                        className="w-6 h-6 rounded-full object-cover border-2 border-white dark:border-gray-700"
+                      />
+                    ))}
+                  </div>
+                )}
                 <div className="flex gap-1 text-badge">
                   {wateredToday && <Drop className="w-4 h-4" aria-hidden="true" />}
                   {lowLight && <Sun className="w-4 h-4" aria-hidden="true" />}
