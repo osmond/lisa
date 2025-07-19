@@ -32,7 +32,7 @@ export default function Lightbox({ images, startIndex = 0, onClose, label = 'Ima
       role="dialog"
       aria-modal="true"
       aria-label={label}
-      className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+      className="modal-overlay bg-black bg-opacity-80 z-50"
     >
       <button
         ref={closeBtnRef}

@@ -27,14 +27,14 @@ export default function PlantDetailFab({ onAddPhoto, onAddNote }) {
     <div className="absolute bottom-4 right-4 z-30">
       {open && (
         <div
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-30 backdrop-blur-sm"
+          className="modal-overlay bg-black/50 z-30 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
           aria-label="Add menu"
           onClick={() => setOpen(false)}
         >
           <ul
-            className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 w-52 space-y-3 animate-fade-in-up"
+            className="modal-box relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 w-52 space-y-3 animate-fade-in-up"
             onClick={e => e.stopPropagation()}
           >
             <button
