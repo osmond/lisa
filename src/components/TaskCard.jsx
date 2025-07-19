@@ -57,7 +57,7 @@ export default function TaskCard({
       data-testid="task-card"
       tabIndex="0"
       aria-label={`Task card for ${task.plantName}`}
-      className={`relative flex items-center p-5 gap-4 rounded-2xl shadow-sm border border-neutral-200 dark:border-gray-600 ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : 'bg-neutral-50 dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
+      className={`relative flex items-center p-5 gap-4 rounded-2xl shadow border border-neutral-200 dark:border-gray-600 ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : 'bg-neutral-50 dark:bg-gray-700'}${urgent ? ' ring-2 ring-green-300 dark:ring-green-400' : ''}`}
       style={{ transform: `translateX(${swipeable ? dx : 0}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
       onPointerDown={start}
       onPointerMove={move}
