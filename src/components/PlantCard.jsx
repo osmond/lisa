@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, useRef } from 'react'
 import { Drop, PencilSimpleLine, Trash } from 'phosphor-react'
+import Badge from './Badge.jsx'
 
 import { createRipple } from '../utils/interactions.js'
 import useSwipe from '../hooks/useSwipe.js'
@@ -11,6 +12,7 @@ import useSnackbar from '../hooks/useSnackbar.jsx'
 import NoteModal from './NoteModal.jsx'
 import ConfirmModal from './ConfirmModal.jsx'
 import ImageCard from './ImageCard.jsx'
+import { getWaterStatus } from '../utils/watering.js'
 
 export default function PlantCard({ plant }) {
   const navigate = useNavigate()
@@ -21,6 +23,10 @@ export default function PlantCard({ plant }) {
   const [showNote, setShowNote] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [showDeletePrompt, setShowDeletePrompt] = useState(false)
+
+  const { thirsty, overdue } = getWaterStatus(plant.nextWater)
+  const statusVariant = thirsty ? 'overdue' : 'complete'
+  const statusLabel = thirsty ? 'Thirsty' : 'Healthy'
 
   const LONG_PRESS_MS = 600
   const EDIT_THRESHOLD = 100
@@ -202,8 +208,14 @@ export default function PlantCard({ plant }) {
           )}
         </div>
       )}
+      <div className="absolute top-2 right-2 pointer-events-none">
+        <Badge variant={statusVariant} size="sm">
+          {statusLabel}
+        </Badge>
+      </div>
       <ImageCard
         style={{ transform: `translateX(${deltaX}px)`, transition: deltaX === 0 ? 'transform 0.2s' : 'none' }}
+        className={overdue ? 'ring-2 ring-yellow-300' : ''}
         imgSrc={plant.image}
         title={
           <Link
