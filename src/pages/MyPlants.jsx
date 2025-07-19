@@ -120,7 +120,7 @@ export default function MyPlants() {
         ]}
       />
       <div
-        className="grid gap-2 gap-y-6"
+        className="grid gap-2 gap-y-6 pb-6"
         style={{
           gridTemplateColumns: 'repeat(auto-fill, minmax(160px,1fr))',
           gridAutoRows: '1fr',
@@ -193,7 +193,7 @@ export default function MyPlants() {
         <Link
           to="/room/add"
           aria-label="Add Room"
-          className="flex items-center justify-center h-full min-h-[160px] rounded-lg border-2 border-dashed text-gray-500 animate-fade-in-up"
+          className="flex items-center justify-center aspect-[3/4] h-full rounded-xl border-2 border-dashed text-gray-500 animate-fade-in-up"
           style={{ animationDelay: `${sortedRooms.length * 50}ms` }}
         >
           <Plus className="w-10 h-10" aria-hidden="true" />
