@@ -184,8 +184,8 @@ export default function MyPlants() {
                   {pestAlert && <Bug className="w-4 h-4" aria-hidden="true" />}
                   {lastUpdated && <span>{formatDaysAgo(lastUpdated)}</span>}
                 </div>
-                <p className="font-bold text-xl font-headline leading-none">{room}</p>
-                <p className="text-xs text-white/80 leading-none">{countPlants(room)} plants</p>
+                <p className="font-extrabold text-xl font-headline leading-none">{room}</p>
+                <p className="text-[0.65rem] text-white/60 leading-none">{countPlants(room)} plants</p>
               </div>
             </Link>
           )

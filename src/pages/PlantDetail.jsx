@@ -422,7 +422,7 @@ export default function PlantDetail() {
           </div>
           <div className="absolute bottom-2 left-3 right-3 flex flex-col sm:flex-row justify-between text-white drop-shadow space-y-1 sm:space-y-0">
             <div>
-              <h2 className="text-heading font-semibold font-headline">{plant.name}</h2>
+              <h2 className="text-heading font-extrabold font-headline">{plant.name}</h2>
               {plant.nickname && <p className="text-sm text-gray-200">{plant.nickname}</p>}
             </div>
             {/* brief care stats moved to Care Summary tab */}
