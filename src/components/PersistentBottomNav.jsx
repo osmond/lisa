@@ -33,12 +33,12 @@ export default function PersistentBottomNav() {
               <NavLink
                 to={to}
                 title={label}
+                aria-label={label}
                 className={({ isActive }) =>
-                  `flex flex-col items-center gap-1 ${isActive ? 'text-accent' : 'text-gray-500'}`
+                  `flex flex-col items-center ${isActive ? 'text-accent' : 'text-gray-500'}`
                 }
               >
                 <LinkIcon className="w-6 h-6" aria-hidden="true" />
-                {label}
                 {showBadge && (
                   <span className="absolute -top-1 -right-2 bg-red-600 text-white text-badge rounded-full px-1">
                     {overdueCount}
@@ -56,11 +56,10 @@ export default function PersistentBottomNav() {
               aria-haspopup="menu"
               aria-expanded={open}
               onClick={() => setOpen(true)}
-              className="flex flex-col items-center gap-1 text-gray-500"
+              className="flex flex-col items-center text-gray-500"
               title="More"
             >
               <Icon className="w-6 h-6" aria-hidden="true" />
-              More
             </button>
           </li>
         )}
