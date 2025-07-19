@@ -409,10 +409,7 @@ export default function PlantDetail() {
         </div>
         </div>
         <div className="flex items-start justify-between">
-          <PageHeader
-            title={plant.name}
-            breadcrumb={{ room: plant.room, plant: plant.name }}
-          />
+          <PageHeader breadcrumb={{ room: plant.room, plant: plant.name }} />
         </div>
 
         <DetailTabs tabs={tabs} />

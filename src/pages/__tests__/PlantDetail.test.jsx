@@ -20,7 +20,7 @@ test('renders plant details without duplicates', () => {
   )
 
   const headings = screen.getAllByRole('heading', { name: plant.name })
-  expect(headings).toHaveLength(2)
+  expect(headings).toHaveLength(1)
 
   const images = screen.getAllByAltText(plant.name)
   expect(images).toHaveLength(1)
