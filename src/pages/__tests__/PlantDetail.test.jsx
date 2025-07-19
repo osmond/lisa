@@ -37,9 +37,9 @@ test('renders plant details without duplicates', () => {
   const fertText = fertLabel[fertLabel.length - 1]
   expect(fertText.textContent).toMatch(new RegExp(plant.nextFertilize))
 
-  expect(screen.getByText(plant.light)).toBeInTheDocument()
-  expect(screen.getByText(plant.humidity)).toBeInTheDocument()
-  expect(screen.getByText(plant.difficulty)).toBeInTheDocument()
+  expect(screen.getByText(new RegExp(plant.light))).toBeInTheDocument()
+  expect(screen.getByText(new RegExp(plant.humidity))).toBeInTheDocument()
+  expect(screen.getByText(new RegExp(plant.difficulty))).toBeInTheDocument()
 
   const subHeadings = screen.queryAllByRole('heading', { level: 4 })
   expect(subHeadings).toHaveLength(0)
