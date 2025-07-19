@@ -30,6 +30,7 @@ export default function UnifiedTaskCard({
   const [completed, setCompleted] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
   const navigate = useNavigate()
+  const [navigating, setNavigating] = useState(false)
   const { plants, markWatered, markFertilized, updatePlant } = usePlants()
   const { showSnackbar } = useSnackbar()
 
@@ -65,7 +66,12 @@ export default function UnifiedTaskCard({
 
   const goToDetail = () => {
     const room = plant.room ? encodeURIComponent(plant.room) : null
-    navigate(room ? `/room/${room}/plant/${plant.id}` : `/plant/${plant.id}`)
+    setNavigating(true)
+    setTimeout(
+      () =>
+        navigate(room ? `/room/${room}/plant/${plant.id}` : `/plant/${plant.id}`),
+      200
+    )
   }
 
   const handleComplete = () => {
@@ -124,8 +130,8 @@ export default function UnifiedTaskCard({
   return (
     <div
       data-testid="unified-task-card"
-      className={`relative rounded-2xl border border-neutral-200 dark:border-gray-600 shadow overflow-hidden touch-pan-y select-none ${bgClass}`}
-      style={{ transform: `translateX(${swipeable ? (dx > 0 ? dx : 0) : 0}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
+      className={`relative rounded-2xl border border-neutral-200 dark:border-gray-600 shadow overflow-hidden touch-pan-y select-none ${bgClass} ${navigating ? 'swipe-left-out' : ''}`}
+      style={{ transform: navigating ? undefined : `translateX(${swipeable ? (dx > 0 ? dx : 0) : 0}px)`, transition: navigating ? undefined : dx === 0 ? 'transform 0.2s' : 'none' }}
       onPointerDown={start}
       onPointerMove={move}
       onPointerUp={end}

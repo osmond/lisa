@@ -1,5 +1,6 @@
 import { Drop, Sun, PencilSimpleLine, ClockCounterClockwise, Trash } from 'phosphor-react'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 import { getWateringInfo } from '../utils/watering.js'
 import { usePlants } from '../PlantContext.jsx'
 import useSnackbar from '../hooks/useSnackbar.jsx'
@@ -16,13 +17,21 @@ export default function TaskCard({
 }) {
   const { daysSince, eto } = getWateringInfo(task.lastWatered, { eto: task.eto })
   const navigate = useNavigate()
+  const [navigating, setNavigating] = useState(false)
   const { plants, markWatered, markFertilized, updatePlant } = usePlants()
   const { showSnackbar } = useSnackbar()
 
   const goToDetail = e => {
-    e.stopPropagation()
+    e?.stopPropagation()
     const room = task.room ? encodeURIComponent(task.room) : null
-    navigate(room ? `/room/${room}/plant/${task.plantId}` : `/plant/${task.plantId}`)
+    setNavigating(true)
+    setTimeout(
+      () =>
+        navigate(
+          room ? `/room/${room}/plant/${task.plantId}` : `/plant/${task.plantId}`
+        ),
+      200
+    )
   }
 
   const handleComplete = () => {
@@ -72,10 +81,7 @@ export default function TaskCard({
         handleComplete()
         navigator.vibrate?.(10)
       } else if (diff < -40) {
-        const room = task.room ? encodeURIComponent(task.room) : null
-        navigate(
-          room ? `/room/${room}/plant/${task.plantId}` : `/plant/${task.plantId}`
-        )
+        goToDetail()
       }
     },
     { threshold: 30 }
@@ -89,8 +95,8 @@ export default function TaskCard({
       data-testid="task-card"
       tabIndex="0"
       aria-label={`Task card for ${task.plantName}`}
-      className={`relative flex items-center p-5 gap-4 rounded-2xl shadow border border-neutral-200 dark:border-gray-600 touch-pan-y select-none ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : overdue ? 'bg-red-50 dark:bg-red-800' : urgent ? 'bg-amber-50 dark:bg-gray-700' : 'bg-slate-50 dark:bg-gray-700'}${overdue ? ' ring-2 ring-red-300 dark:ring-red-400' : urgent ? ' ring-2 ring-amber-300 dark:ring-amber-400' : ''}`}
-      style={{ transform: `translateX(${swipeable ? dx : 0}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
+      className={`relative flex items-center p-5 gap-4 rounded-2xl shadow border border-neutral-200 dark:border-gray-600 touch-pan-y select-none ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : overdue ? 'bg-red-50 dark:bg-red-800' : urgent ? 'bg-amber-50 dark:bg-gray-700' : 'bg-slate-50 dark:bg-gray-700'}${overdue ? ' ring-2 ring-red-300 dark:ring-red-400' : urgent ? ' ring-2 ring-amber-300 dark:ring-amber-400' : ''} ${navigating ? 'swipe-left-out' : ''}`}
+      style={{ transform: navigating ? undefined : `translateX(${swipeable ? dx : 0}px)`, transition: navigating ? undefined : dx === 0 ? 'transform 0.2s' : 'none' }}
       onPointerDown={start}
       onPointerMove={move}
       onPointerUp={end}

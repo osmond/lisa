@@ -150,6 +150,21 @@ body {
   animation: fly-in 0.6s ease-out;
 }
 
+@keyframes swipe-left-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+.swipe-left-out {
+  animation: swipe-left-out 0.2s ease-out forwards;
+}
+
 @keyframes bloom {
   from {
     transform: scale(0.5);
