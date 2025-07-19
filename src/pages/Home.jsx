@@ -3,7 +3,7 @@ import { usePlants } from '../PlantContext.jsx'
 import CareSummaryModal from '../components/CareSummaryModal.jsx'
 import PageContainer from "../components/PageContainer.jsx"
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 
 import { Link } from 'react-router-dom'
 
@@ -55,77 +55,109 @@ export default function Home() {
   }
 
 
-  const todayIso = new Date().toISOString().slice(0, 10)
-  const waterTasks = []
-  const fertilizeTasks = []
-  plants.forEach(p => {
-    const { date, reason } = getNextWateringDate(p.lastWatered, weatherData)
-    const plantUrgent = p.urgency === 'high'
-    if (date <= todayIso) {
-      waterTasks.push({
-        id: `w-${p.id}`,
-        plantId: p.id,
-        plantName: p.name,
-        image: p.image,
-        room: p.room,
-        type: 'Water',
-        reason,
-        lastWatered: p.lastWatered,
-        urgent: plantUrgent || date === todayIso,
+  const {
+    taskGroups,
+    waterTasks,
+    fertilizeTasks,
+    wateredTodayCount,
+    fertilizedTodayCount,
+    soonestPlant,
+  } = useMemo(() => {
+    const todayIso = new Date().toISOString().slice(0, 10)
 
-        date,
+    return plants.reduce(
+      (acc, p) => {
+        const { date: waterDate, reason } = getNextWateringDate(
+          p.lastWatered,
+          weatherData
+        )
+        const dueWater = waterDate <= todayIso
+        const dueFertilize = p.nextFertilize && p.nextFertilize <= todayIso
 
-        overdue: date < todayIso,
+        const urgent =
+          p.urgency === 'high' ||
+          (dueWater && waterDate === todayIso) ||
+          (dueFertilize && p.nextFertilize === todayIso)
+        const overdue =
+          (dueWater && waterDate < todayIso) ||
+          (dueFertilize && p.nextFertilize < todayIso)
 
-      })
-    }
-    if (p.nextFertilize && p.nextFertilize <= todayIso) {
-      fertilizeTasks.push({
-        id: `f-${p.id}`,
-        plantId: p.id,
-        plantName: p.name,
-        image: p.image,
-        room: p.room,
-        type: 'Fertilize',
-        lastWatered: p.lastWatered,
-        urgent: plantUrgent || p.nextFertilize === todayIso,
+        if (dueWater) {
+          acc.waterTasks.push({
+            id: `w-${p.id}`,
+            plantId: p.id,
+            plantName: p.name,
+            image: p.image,
+            room: p.room,
+            type: 'Water',
+            reason,
+            lastWatered: p.lastWatered,
+            urgent: urgent,
+            date: waterDate,
+            overdue: waterDate < todayIso,
+          })
+        }
 
-        date: p.nextFertilize,
+        if (dueFertilize) {
+          acc.fertilizeTasks.push({
+            id: `f-${p.id}`,
+            plantId: p.id,
+            plantName: p.name,
+            image: p.image,
+            room: p.room,
+            type: 'Fertilize',
+            lastWatered: p.lastWatered,
+            urgent: urgent,
+            date: p.nextFertilize,
+            overdue: p.nextFertilize < todayIso,
+          })
+        }
 
-        overdue: p.nextFertilize < todayIso,
+        if (dueWater || dueFertilize) {
+          const lastCared = [p.lastWatered, p.lastFertilized]
+            .filter(Boolean)
+            .sort((a, b) => new Date(b) - new Date(a))[0]
+          acc.taskGroups.push({
+            plant: p,
+            dueWater,
+            dueFertilize,
+            urgent,
+            overdue,
+            lastCared,
+          })
+        }
 
-      })
-    }
-  })
+        if (p.lastWatered === todayIso) acc.wateredTodayCount++
+        if (p.lastFertilized === todayIso) acc.fertilizedTodayCount++
+
+        const nextDates = [p.nextWater, p.nextFertilize]
+          .filter(Boolean)
+          .map(d => new Date(d))
+        if (nextDates.length) {
+          const candidate = new Date(Math.min(...nextDates))
+          if (!acc.soonestDate || candidate < acc.soonestDate) {
+            acc.soonestDate = candidate
+            acc.soonestPlant = p
+          }
+        }
+
+        return acc
+      },
+      {
+        taskGroups: [],
+        waterTasks: [],
+        fertilizeTasks: [],
+        wateredTodayCount: 0,
+        fertilizedTodayCount: 0,
+        soonestPlant: null,
+        soonestDate: null,
+      }
+    )
+  }, [plants, weatherData])
+
   const tasks = [...waterTasks, ...fertilizeTasks].sort(
     (a, b) => new Date(a.date) - new Date(b.date)
   )
-  const taskGroups = plants
-    .map(p => {
-      const { date: waterDate } = getNextWateringDate(p.lastWatered, weatherData)
-      const dueWater = waterDate <= todayIso
-      const dueFertilize = p.nextFertilize && p.nextFertilize <= todayIso
-      if (!dueWater && !dueFertilize) return null
-      const urgent =
-        p.urgency === 'high' ||
-        (dueWater && waterDate === todayIso) ||
-        (dueFertilize && p.nextFertilize === todayIso)
-      const overdue =
-        (dueWater && waterDate < todayIso) ||
-        (dueFertilize && p.nextFertilize < todayIso)
-      const lastCared = [p.lastWatered, p.lastFertilized]
-        .filter(Boolean)
-        .sort((a, b) => new Date(b) - new Date(a))[0]
-      return {
-        plant: p,
-        dueWater,
-        dueFertilize,
-        urgent,
-        overdue,
-        lastCared,
-      }
-    })
-    .filter(Boolean)
 
   const visibleTasks =
     typeFilter === 'all'
@@ -137,25 +169,8 @@ export default function Home() {
   const waterCount = waterTasks.length
   const fertilizeCount = fertilizeTasks.length
 
-  const wateredTodayCount = plants.filter(p => p.lastWatered === todayIso).length
-  const totalWaterToday = wateredTodayCount + waterTasks.length
-  const fertilizedTodayCount = plants.filter(
-    p => p.lastFertilized === todayIso
-  ).length
+  const totalWaterToday = waterTasks.length + wateredTodayCount
   const totalFertilizeToday = fertilizeTasks.length + fertilizedTodayCount
-
-  const soonestPlant = [...plants]
-    .sort((a, b) => {
-      const nextA = Math.min(
-        new Date(a.nextWater),
-        a.nextFertilize ? new Date(a.nextFertilize) : new Date('9999-12-31')
-      )
-      const nextB = Math.min(
-        new Date(b.nextWater),
-        b.nextFertilize ? new Date(b.nextFertilize) : new Date('9999-12-31')
-      )
-      return nextA - nextB
-    })[0]
   const featuredIndex = soonestPlant
     ? plants.findIndex(p => p.id === soonestPlant.id)
     : 0
