@@ -62,7 +62,7 @@ export default function CareStats({
       Icon: ListChecks,
       completed: totalCompleted,
       total: totalTasks,
-      ringClass: 'text-green-600',
+      ringClass: 'text-emerald-600',
       onClick: onTotalClick,
     },
     {
@@ -71,7 +71,7 @@ export default function CareStats({
       Icon: Drop,
       completed: waterCompleted,
       total: waterTotal,
-      ringClass: 'text-blue-500',
+      ringClass: 'text-sky-500',
       onClick: onWaterClick,
     },
     {
@@ -80,7 +80,7 @@ export default function CareStats({
       Icon: Sun,
       completed: fertCompleted,
       total: fertTotal,
-      ringClass: 'text-yellow-700',
+      ringClass: 'text-amber-600',
       onClick: onFertClick,
     },
   ]

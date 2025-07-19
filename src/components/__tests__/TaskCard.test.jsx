@@ -65,8 +65,8 @@ test('renders task text', () => {
   const badge = screen.getByText('To Water')
   expect(badge).toBeInTheDocument()
   expect(badge).toHaveClass('inline-flex')
-  expect(badge).toHaveClass('bg-blue-100')
-  expect(badge).toHaveClass('text-blue-800')
+  expect(badge).toHaveClass('bg-sky-100')
+  expect(badge).toHaveClass('text-sky-700')
   expect(badge).toHaveClass('text-badge')
   expect(badge).toHaveClass('font-medium')
 })
@@ -88,8 +88,8 @@ test('applies highlight when urgent', () => {
       </BaseCard>
   )
   const wrapper = container.querySelector('.shadow')
-  expect(wrapper).toHaveClass('ring-green-300')
-  expect(wrapper).toHaveClass('dark:ring-green-400')
+  expect(wrapper).toHaveClass('ring-amber-300')
+  expect(wrapper).toHaveClass('dark:ring-amber-400')
 })
 
 

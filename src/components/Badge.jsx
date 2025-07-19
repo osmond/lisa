@@ -9,10 +9,10 @@ export default function Badge({
   size = 'base',
 }) {
   const variants = {
-    info: 'bg-blue-100 text-blue-800',
-    urgent: 'bg-yellow-100 text-yellow-700',
+    info: 'bg-sky-100 text-sky-700',
+    urgent: 'bg-amber-100 text-amber-700',
     overdue: 'bg-red-50 text-red-500',
-    complete: 'bg-green-100 text-green-800',
+    complete: 'bg-emerald-100 text-emerald-800',
   }
 
   const cls = colorClass || variants[variant] || 'bg-gray-200 text-gray-800'

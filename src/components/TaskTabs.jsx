@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function TaskTabs({ value = 'Upcoming', onChange }) {
-  const tabs = ['Upcoming', 'Past', 'By Plant']
+  const tabs = ['Upcoming', 'Past', 'By Plant', 'By Room']
   return (
     <div role="tablist" className="flex justify-center gap-2 my-2">
       {tabs.map(tab => (

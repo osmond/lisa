@@ -168,6 +168,20 @@ export default function Tasks() {
     }))
   }, [events, plants])
 
+  const eventsByRoom = useMemo(() => {
+    const map = new Map()
+    events.forEach(e => {
+      if (e.type !== 'task') return
+      const room = e.room || 'Unassigned'
+      if (!map.has(room)) map.set(room, [])
+      map.get(room).push(e)
+    })
+    return Array.from(map.entries()).map(([room, list]) => ({
+      room,
+      list: list.sort((a, b) => new Date(a.date) - new Date(b.date)),
+    }))
+  }, [events])
+
   const groupedEvents = useMemo(() => {
     const source = viewMode === 'Past' ? pastEvents : upcomingEvents
     const map = new Map()
@@ -335,6 +349,40 @@ export default function Tasks() {
             )
           })}
           </div>
+        )
+      ) : viewMode === 'By Room' ? (
+        eventsByRoom.length === 0 ? (
+          <p className="text-center text-gray-500">
+            {noUpcomingTasks ? (
+              <>All caught up! Your plants are feeling great{' '}<Sun className="inline w-3 h-3" aria-hidden="true" /></>
+            ) : (
+              'No tasks coming up.'
+            )}
+          </p>
+        ) : (
+          eventsByRoom.map(({ room, list }) => (
+            <div key={room}>
+              <h3 className="mt-4 text-heading font-semibold text-gray-500">{room}</h3>
+              <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-4'}>
+                {list.map((e, i) => {
+                  const task = {
+                    id: `${e.taskType}-${e.plantId}-${i}`,
+                    plantId: e.plantId,
+                    plantName: e.plantName,
+                    image: e.image,
+                    type: e.taskType === 'water' ? 'Water' : e.taskType === 'fertilize' ? 'Fertilize' : 'Note',
+                    reason: e.reason,
+                    completed: e.completed,
+                  }
+                  return (
+                    <BaseCard key={`${room}-${i}`} variant="task" className="animate-fade-in-up" style={{ animationDelay: `${i * 50}ms` }}>
+                      <TaskCard task={task} urgent={!!e.urgent} overdue={!!e.overdue} completed={e.completed} compact={viewMode !== 'Past'} />
+                    </BaseCard>
+                  )
+                })}
+              </div>
+            </div>
+          ))
         )
       ) : groupedEvents.length === 0 ? (
         <p className="text-center text-gray-500">
