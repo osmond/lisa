@@ -316,7 +316,7 @@ export default function PlantDetail() {
                       <img
                         src={src}
                         alt={caption || `${plant.name} photo ${i + 1}`}
-                        className="plant-thumb w-24"
+                        className="plant-thumb w-24 rounded-lg shadow-sm"
                       />
                     </button>
                     <button
