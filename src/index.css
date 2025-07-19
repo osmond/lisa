@@ -287,3 +287,10 @@ body {
   @apply bg-white dark:bg-gray-700 rounded-lg shadow-lg;
 
 }
+
+/* Utility for elements that should stretch edge-to-edge */
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
