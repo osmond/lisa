@@ -140,8 +140,8 @@ export default function UnifiedTaskCard({
             aria-label="Task actions menu"
             onClick={() => setShowMenu(false)}
           >
-            <ul
-              className="modal-box relative p-4 space-y-3"
+            <div
+              className="modal-box relative p-3 w-48 space-y-2 rounded-lg shadow-xl shadow-gray-400/20 bloom-pop"
               onClick={e => e.stopPropagation()}
             >
               <button
@@ -152,49 +152,44 @@ export default function UnifiedTaskCard({
               >
                 &times;
               </button>
-              <li>
-                <button
-                  type="button"
-                  aria-label="Edit task"
-                  onClick={() => {
-                    setShowMenu(false)
-                    handleEdit()
-                  }}
-                  className="task-action bg-blue-600 text-white w-full justify-start"
-                >
-                  <PencilSimpleLine className="w-4 h-4" aria-hidden="true" />
-                  Edit
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  aria-label="Reschedule task"
-                  onClick={() => {
-                    setShowMenu(false)
-                    handleReschedule()
-                  }}
-                  className="task-action bg-yellow-600 text-white w-full justify-start"
-                >
-                  <ClockCounterClockwise className="w-4 h-4" aria-hidden="true" />
-                  Reschedule
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  aria-label="Delete task"
-                  onClick={() => {
-                    setShowMenu(false)
-                    handleDelete()
-                  }}
-                  className="task-action bg-red-600 text-white w-full justify-start"
-                >
-                  <Trash className="w-4 h-4" aria-hidden="true" />
-                  Delete
-                </button>
-              </li>
-            </ul>
+              <button
+                type="button"
+                aria-label="Edit task"
+                onClick={() => {
+                  setShowMenu(false)
+                  handleEdit()
+                }}
+                className="flex items-center gap-2 w-full rounded-md bg-blue-50 text-blue-700 px-3 py-2 text-sm font-medium hover:bg-blue-100 focus:ring-2 focus:ring-blue-300 focus:ring-offset-1"
+              >
+                <PencilSimpleLine className="h-4 w-4" aria-hidden="true" />
+                Edit
+              </button>
+              <button
+                type="button"
+                aria-label="Reschedule task"
+                onClick={() => {
+                  setShowMenu(false)
+                  handleReschedule()
+                }}
+                className="flex items-center gap-2 w-full rounded-md bg-yellow-50 text-yellow-700 px-3 py-2 text-sm font-medium hover:bg-yellow-100 focus:ring-2 focus:ring-yellow-300 focus:ring-offset-1"
+              >
+                <ClockCounterClockwise className="h-4 w-4" aria-hidden="true" />
+                Reschedule
+              </button>
+              <hr className="border-gray-200" />
+              <button
+                type="button"
+                aria-label="Delete task"
+                onClick={() => {
+                  setShowMenu(false)
+                  handleDelete()
+                }}
+                className="flex items-center gap-2 w-full rounded-md bg-red-50 text-red-700 px-3 py-2 text-sm font-medium hover:bg-red-100 focus:ring-2 focus:ring-red-300 focus:ring-offset-1"
+              >
+                <Trash className="h-4 w-4" aria-hidden="true" />
+                Delete
+              </button>
+            </div>
           </div>,
           document.body
         )}

@@ -74,7 +74,7 @@ test('applies urgent style', () => {
       <UnifiedTaskCard plant={plant} urgent />
   )
   const wrapper = container.querySelector('[data-testid="unified-task-card"]')
-  expect(wrapper).toHaveClass('bg-yellow-50')
+  expect(wrapper).toHaveClass('bg-amber-50')
 })
 
 test('applies overdue style', () => {
@@ -82,7 +82,7 @@ test('applies overdue style', () => {
       <UnifiedTaskCard plant={plant} overdue />
   )
   const wrapper = container.querySelector('[data-testid="unified-task-card"]')
-  expect(wrapper).toHaveClass('bg-pink-50')
+  expect(wrapper).toHaveClass('bg-red-50')
 })
 
 test('matches snapshot in dark mode', () => {

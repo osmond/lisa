@@ -2,7 +2,7 @@
 
 exports[`matches snapshot in dark mode 1`] = `
 <div
-  class="relative rounded-2xl border border-neutral-200 dark:border-gray-600 shadow overflow-hidden touch-pan-y select-none bg-gray-50 dark:bg-gray-800"
+  class="relative rounded-2xl border border-neutral-200 dark:border-gray-600 shadow overflow-hidden touch-pan-y select-none bg-slate-50 dark:bg-gray-800"
   data-testid="unified-task-card"
   style="transform: translateX(0px); transition: transform 0.2s;"
 >
@@ -71,10 +71,10 @@ exports[`matches snapshot in dark mode 1`] = `
         </div>
       </div>
       <div
-        class="flex items-center gap-4 mt-1 font-semibold"
+        class="flex flex-col gap-1 mt-1 font-semibold"
       >
         <span
-          class="inline-flex items-center gap-1 text-amber-600"
+          class="inline-flex items-center gap-1 text-sky-600"
         >
           <svg
             aria-hidden="true"
@@ -111,7 +111,7 @@ exports[`matches snapshot in dark mode 1`] = `
         </span>
       </div>
       <p
-        class="text-timestamp text-gray-500"
+        class="text-sm text-gray-500"
       >
         Last cared for 
         3 days ago

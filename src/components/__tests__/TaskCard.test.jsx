@@ -78,7 +78,7 @@ test('incomplete tasks show alert style', () => {
       </BaseCard>
   )
   const wrapper = container.querySelector('.shadow')
-  expect(wrapper).toHaveClass('bg-neutral-50')
+  expect(wrapper).toHaveClass('bg-slate-50')
 })
 
 test('applies highlight when urgent', () => {
