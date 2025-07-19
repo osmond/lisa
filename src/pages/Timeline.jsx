@@ -36,10 +36,11 @@ export default function Timeline() {
     [plantEvents, noteEvents]
   )
 
-  const groupedEvents = useMemo(
-    () => groupEventsByMonth(events),
-    [events]
-  )
+  const groupedEvents = useMemo(() => {
+    return groupEventsByMonth(events)
+      .map(([month, list]) => [month, [...list].reverse()])
+      .reverse()
+  }, [events])
 
   const [selectedEvent, setSelectedEvent] = useState(null)
 
