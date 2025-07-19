@@ -198,7 +198,7 @@ exports[`matches snapshot in dark mode 1`] = `
       />
       <div
         aria-hidden="true"
-        class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"
+        class="img-gradient-overlay"
       />
       <div
         class="absolute bottom-1 left-2 right-2 drop-shadow text-white space-y-0.5"

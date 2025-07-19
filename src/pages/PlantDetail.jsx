@@ -192,7 +192,7 @@ export default function PlantDetail() {
             loading="lazy"
             className="w-full h-64 object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" aria-hidden="true"></div>
+          <div className="img-gradient-overlay" aria-hidden="true"></div>
           <div className="absolute bottom-3 left-4 text-white drop-shadow">
             <h2 className="text-heading font-semibold font-headline">{plant.name}</h2>
             {plant.nickname && (
