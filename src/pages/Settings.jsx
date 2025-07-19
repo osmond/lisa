@@ -124,7 +124,7 @@ export default function Settings() {
             <ToggleSwitch
               checked={theme === 'dark'}
               onChange={handleThemeToggle}
-              label="🌙 Enable Dark Mode for a softer nighttime experience"
+              label="Enable Dark Mode for a softer nighttime experience"
             />
           </div>
           <button
