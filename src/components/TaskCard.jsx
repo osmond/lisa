@@ -16,7 +16,7 @@ export default function TaskCard({
   const { daysSince, eto } = getWateringInfo(task.lastWatered, { eto: task.eto })
   const navigate = useNavigate()
   const { plants, markWatered, markFertilized, updatePlant } = usePlants()
-  const { Snackbar, showSnackbar } = useSnackbar()
+  const { showSnackbar } = useSnackbar()
 
   const goToDetail = e => {
     e.stopPropagation()
@@ -212,7 +212,6 @@ export default function TaskCard({
             </div>
           )}
         </div>
-      <Snackbar />
     </>
   )
 }

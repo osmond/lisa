@@ -2,6 +2,7 @@ import { render, screen, fireEvent, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import PlantCard from '../PlantCard.jsx'
 import { MemoryRouter, useNavigate } from 'react-router-dom'
+import SnackbarProvider, { Snackbar } from '../../hooks/SnackbarProvider.jsx'
 import { usePlants } from '../../PlantContext.jsx'
 
 beforeAll(() => {
@@ -24,6 +25,17 @@ jest.mock('../../PlantContext.jsx', () => ({
 }))
 
 const usePlantsMock = usePlants
+
+function renderWithSnackbar(ui) {
+  return render(
+    <SnackbarProvider>
+      <MemoryRouter>
+        {ui}
+      </MemoryRouter>
+      <Snackbar />
+    </SnackbarProvider>
+  )
+}
 
 beforeEach(() => {
   navigateMock.mockClear()
@@ -50,19 +62,15 @@ const plant = {
 }
 
 test('renders plant name', () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <PlantCard plant={plant} />
-    </MemoryRouter>
   )
   expect(screen.getByText('Aloe Vera')).toBeInTheDocument()
 })
 
 test('water button triggers watering with note', () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <PlantCard plant={plant} />
-    </MemoryRouter>
   )
   fireEvent.click(screen.getByText('Water'))
   const dialog = screen.getByRole('dialog', { name: /optional note/i })
@@ -72,20 +80,16 @@ test('water button triggers watering with note', () => {
 })
 
 test('edit button navigates to edit page', () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <PlantCard plant={plant} />
-    </MemoryRouter>
   )
   fireEvent.click(screen.getByText('Edit'))
   expect(navigateMock).toHaveBeenCalledWith('/plant/1/edit')
 })
 
 test('delete button shows confirm modal before removing plant', () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <PlantCard plant={plant} />
-    </MemoryRouter>
   )
   fireEvent.click(screen.getByText('Delete'))
   const dialog = screen.getByRole('dialog', { name: /delete this plant/i })
@@ -95,10 +99,8 @@ test('delete button shows confirm modal before removing plant', () => {
 })
 
 test('delete cancelled does not remove plant', () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <PlantCard plant={plant} />
-    </MemoryRouter>
   )
   fireEvent.click(screen.getByText('Delete'))
   fireEvent.click(screen.getByText('Cancel'))
@@ -106,10 +108,8 @@ test('delete cancelled does not remove plant', () => {
 })
 
 test('clicking card adds ripple effect', () => {
-  const { container } = render(
-    <MemoryRouter>
+  const { container } = renderWithSnackbar(
       <PlantCard plant={plant} />
-    </MemoryRouter>
   )
   const wrapper = screen.getByTestId('card-wrapper')
   fireEvent.mouseDown(wrapper)
@@ -117,10 +117,8 @@ test('clicking card adds ripple effect', () => {
 })
 
 test('arrow right opens watering note modal', () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <PlantCard plant={plant} />
-    </MemoryRouter>
   )
   const wrapper = screen.getByTestId('card-wrapper')
   wrapper.focus()
@@ -129,10 +127,8 @@ test('arrow right opens watering note modal', () => {
 })
 
 test('arrow left navigates to edit page', () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <PlantCard plant={plant} />
-    </MemoryRouter>
   )
   const wrapper = screen.getByTestId('card-wrapper')
   wrapper.focus()
@@ -143,10 +139,8 @@ test('arrow left navigates to edit page', () => {
 
 test('delete key confirms before removing plant', () => {
 
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <PlantCard plant={plant} />
-    </MemoryRouter>
   )
   const wrapper = screen.getByTestId('card-wrapper')
   wrapper.focus()
@@ -158,10 +152,8 @@ test('delete key confirms before removing plant', () => {
 })
 
 test('backspace key confirms before removing plant', () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <PlantCard plant={plant} />
-    </MemoryRouter>
   )
   const wrapper = screen.getByTestId('card-wrapper')
   wrapper.focus()
@@ -173,10 +165,8 @@ test('backspace key confirms before removing plant', () => {
 })
 
 test('swipe right waters plant', async () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <PlantCard plant={plant} />
-    </MemoryRouter>
   )
   const wrapper = screen.getByTestId('card-wrapper')
 
@@ -195,10 +185,8 @@ test('swipe right waters plant', async () => {
 })
 
 test('swipe left navigates to edit page', async () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <PlantCard plant={plant} />
-    </MemoryRouter>
   )
   const wrapper = screen.getByTestId('card-wrapper')
   const user = userEvent.setup()
@@ -216,10 +204,8 @@ test('swipe left navigates to edit page', async () => {
 })
 
 test('swipe far left shows confirm modal and removes plant', async () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <PlantCard plant={plant} />
-    </MemoryRouter>
   )
   const wrapper = screen.getByTestId('card-wrapper')
   const user = userEvent.setup()
@@ -241,10 +227,8 @@ test('swipe far left shows confirm modal and removes plant', async () => {
 
 test('matches snapshot in dark mode', () => {
   document.documentElement.classList.add('dark')
-  const { container } = render(
-    <MemoryRouter>
+  const { container } = renderWithSnackbar(
       <PlantCard plant={plant} />
-    </MemoryRouter>
   )
   expect(container.firstChild).toMatchSnapshot()
   document.documentElement.classList.remove('dark')

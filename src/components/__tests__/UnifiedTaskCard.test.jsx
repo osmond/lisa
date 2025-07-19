@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter, useNavigate } from 'react-router-dom'
 import UnifiedTaskCard from '../UnifiedTaskCard.jsx'
 import { usePlants } from '../../PlantContext.jsx'
+import SnackbarProvider, { Snackbar } from '../../hooks/SnackbarProvider.jsx'
 
 const navigateMock = jest.fn()
 const markWatered = jest.fn()
@@ -20,6 +21,17 @@ jest.mock('../../PlantContext.jsx', () => ({
 }))
 
 const usePlantsMock = usePlants
+
+function renderWithSnackbar(ui) {
+  return render(
+    <SnackbarProvider>
+      <MemoryRouter>
+        {ui}
+      </MemoryRouter>
+      <Snackbar />
+    </SnackbarProvider>
+  )
+}
 
 const plant = {
   id: 1,
@@ -45,10 +57,8 @@ beforeEach(() => {
 })
 
 test('renders plant info and badges', () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <UnifiedTaskCard plant={plant} />
-    </MemoryRouter>
   )
   expect(screen.getByText('Fern')).toBeInTheDocument()
   const waterBadge = screen.getByText('Water')
@@ -60,20 +70,16 @@ test('renders plant info and badges', () => {
 })
 
 test('applies urgent style', () => {
-  const { container } = render(
-    <MemoryRouter>
+  const { container } = renderWithSnackbar(
       <UnifiedTaskCard plant={plant} urgent />
-    </MemoryRouter>
   )
   const wrapper = container.querySelector('[data-testid="unified-task-card"]')
   expect(wrapper).toHaveClass('bg-yellow-50')
 })
 
 test('applies overdue style', () => {
-  const { container } = render(
-    <MemoryRouter>
+  const { container } = renderWithSnackbar(
       <UnifiedTaskCard plant={plant} overdue />
-    </MemoryRouter>
   )
   const wrapper = container.querySelector('[data-testid="unified-task-card"]')
   expect(wrapper).toHaveClass('bg-pink-50')
@@ -81,29 +87,23 @@ test('applies overdue style', () => {
 
 test('matches snapshot in dark mode', () => {
   document.documentElement.classList.add('dark')
-  const { container } = render(
-    <MemoryRouter>
+  const { container } = renderWithSnackbar(
       <UnifiedTaskCard plant={plant} />
-    </MemoryRouter>
   )
   expect(container.firstChild).toMatchSnapshot()
   document.documentElement.classList.remove('dark')
 })
 
 test('does not render a completion button', () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <UnifiedTaskCard plant={plant} />
-    </MemoryRouter>
   )
   expect(screen.queryByRole('button', { name: /mark as done/i })).toBeNull()
 })
 
 test('partial left swipe reveals actions', () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <UnifiedTaskCard plant={plant} />
-    </MemoryRouter>
   )
   const wrapper = screen.getByTestId('unified-task-card')
   fireEvent.pointerDown(wrapper, { clientX: 100, buttons: 1 })

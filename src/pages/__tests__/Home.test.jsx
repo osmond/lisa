@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import Home from '../Home.jsx'
+import SnackbarProvider, { Snackbar } from '../../hooks/SnackbarProvider.jsx'
 
 jest.mock('../../WeatherContext.jsx', () => ({
   useWeather: () => ({ forecast: { rainfall: 0 } }),
@@ -16,15 +17,22 @@ jest.mock('../../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: mockPlants }),
 }))
 
+function renderWithSnackbar(ui) {
+  return render(
+    <SnackbarProvider>
+      <MemoryRouter>{ui}</MemoryRouter>
+      <Snackbar />
+    </SnackbarProvider>
+  )
+}
+
 afterEach(() => {
   jest.useRealTimers()
 })
 
 test('shows upbeat message when there are no tasks', () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <Home />
-    </MemoryRouter>
   )
   expect(screen.getByText(/all plants are happy/i)).toBeInTheDocument()
   expect(screen.getByTestId('care-stats')).toBeInTheDocument()
@@ -44,10 +52,8 @@ test('care stats render when tasks exist', () => {
     nextFertilize: '2025-07-10',
   })
 
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <Home />
-    </MemoryRouter>
   )
 
   const stats = screen.getByTestId('care-stats')
@@ -67,10 +73,8 @@ test('featured card appears before care stats', () => {
     nextFertilize: '2025-07-10',
   })
 
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <Home />
-    </MemoryRouter>
   )
 
   const featured = screen.getByTestId('featured-card')
@@ -97,10 +101,8 @@ test('earliest due task appears first', () => {
     }
   )
 
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <Home />
-    </MemoryRouter>
   )
 
   const tasks = screen.getAllByTestId('unified-task-card')
@@ -112,10 +114,8 @@ test('earliest due task appears first', () => {
 
 
 test('tasks container renders with background', () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <Home />
-    </MemoryRouter>
   )
 
   expect(screen.getByTestId('tasks-container')).not.toHaveClass('bg-sage')
@@ -132,10 +132,8 @@ test('featured section provides extra spacing', () => {
     nextFertilize: '2025-07-10',
   })
 
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <Home />
-    </MemoryRouter>
   )
 
   const container = screen.getByTestId('tasks-container')

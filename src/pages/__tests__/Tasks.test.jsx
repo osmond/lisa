@@ -2,6 +2,7 @@ import { render, screen, fireEvent, within, cleanup } from '@testing-library/rea
 
 import { MemoryRouter } from 'react-router-dom'
 import userEvent from '@testing-library/user-event'
+import SnackbarProvider, { Snackbar } from '../../hooks/SnackbarProvider.jsx'
 
 
 import Tasks from '../Tasks.jsx'
@@ -31,6 +32,15 @@ jest.mock('../../WeatherContext.jsx', () => ({
   useWeather: () => ({ forecast: { rainfall: 0 } }),
 }))
 
+function renderWithSnackbar(ui) {
+  return render(
+    <SnackbarProvider>
+      <MemoryRouter>{ui}</MemoryRouter>
+      <Snackbar />
+    </SnackbarProvider>
+  )
+}
+
 beforeEach(() => {
   mockPlants = samplePlants
   localStorage.clear()
@@ -38,10 +48,8 @@ beforeEach(() => {
 
 test('ignores activities without valid dates when generating events', () => {
   jest.useFakeTimers().setSystemTime(new Date("2025-07-16"))
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <Tasks />
-    </MemoryRouter>
   )
 
   expect(screen.queryByText(/Repotted/)).toBeNull()
@@ -61,10 +69,8 @@ test('ignores activities without valid dates when generating events', () => {
 
 test('shows friendly message when there are no tasks', () => {
   mockPlants = []
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <Tasks />
-    </MemoryRouter>
   )
 
   expect(screen.getByText(/All caught up/i)).toBeInTheDocument()
@@ -74,10 +80,8 @@ test('shows friendly message when there are no tasks', () => {
 
 test('filters by type', () => {
   jest.useFakeTimers().setSystemTime(new Date("2025-07-16"))
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <Tasks />
-    </MemoryRouter>
   )
 
   const selects = screen.getAllByRole('combobox')
@@ -91,10 +95,8 @@ test('filters by type', () => {
 })
 
 test('sorts by plant name', () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <Tasks />
-    </MemoryRouter>
   )
 
   const selects = screen.getAllByRole('combobox')
@@ -107,10 +109,8 @@ test('sorts by plant name', () => {
 
 
 test('switching to Past tab shows past events', async () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <Tasks />
-    </MemoryRouter>
   )
 
   const pastTab = screen.getByRole('tab', { name: /Past/i })
@@ -135,10 +135,8 @@ test('completed tasks are styled', () => {
       lastFertilized: today,
     },
   ]
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <Tasks />
-    </MemoryRouter>
   )
   const cards = screen.getAllByTestId('task-card')
   expect(cards[0]).toHaveClass('opacity-50')
@@ -151,10 +149,8 @@ test('completed tasks are styled', () => {
 test('future watering date does not show Water badge', async () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
 
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <Tasks />
-    </MemoryRouter>
   )
 
   const tab = screen.getByRole('tab', { name: /By Plant/i })
@@ -169,10 +165,8 @@ test('future watering date does not show Water badge', async () => {
 
   cleanup()
 
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <Tasks />
-    </MemoryRouter>
   )
 
 
@@ -205,10 +199,8 @@ test('by plant view shows due and future tasks correctly', async () => {
     },
   ]
 
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <Tasks />
-    </MemoryRouter>
   )
 
   const byPlantTab = screen.getByRole('tab', { name: /By Plant/i })

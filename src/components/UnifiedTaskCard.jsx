@@ -28,7 +28,7 @@ export default function UnifiedTaskCard({
   const [completed, setCompleted] = useState(false)
   const navigate = useNavigate()
   const { plants, markWatered, markFertilized, updatePlant } = usePlants()
-  const { Snackbar, showSnackbar } = useSnackbar()
+  const { showSnackbar } = useSnackbar()
 
   const bgClass = overdue
     ? 'bg-pink-50 dark:bg-red-800'
@@ -228,7 +228,6 @@ export default function UnifiedTaskCard({
           </svg>
         </div>
       )}
-      <Snackbar />
     </div>
   )
 }

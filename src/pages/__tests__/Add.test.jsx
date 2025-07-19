@@ -2,6 +2,7 @@ import { render, screen, fireEvent, act } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import Add from '../Add.jsx'
 import Home from '../Home.jsx'
+import SnackbarProvider, { Snackbar } from '../../hooks/SnackbarProvider.jsx'
 import { PlantProvider } from '../../PlantContext.jsx'
 import { RoomProvider } from '../../RoomContext.jsx'
 
@@ -13,9 +14,18 @@ jest.mock('../../UserContext.jsx', () => ({
   useUser: () => ({ username: 'Jon', timeZone: 'UTC' }),
 }))
 
+function renderWithSnackbar(ui) {
+  return render(
+    <SnackbarProvider>
+      {ui}
+      <Snackbar />
+    </SnackbarProvider>
+  )
+}
+
 test('user can complete steps and add a plant', () => {
   jest.useFakeTimers()
-  render(
+  renderWithSnackbar(
     <PlantProvider>
       <RoomProvider>
         <MemoryRouter initialEntries={['/add']}>
