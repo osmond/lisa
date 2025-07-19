@@ -1,30 +1,15 @@
-import { Drop, Flower } from 'phosphor-react'
-import useRipple from '../utils/useRipple.js'
+import { Drop } from 'phosphor-react'
+import IconProgress from './IconProgress.jsx'
 
-export default function WaterProgress({ completed = 0, total = 0 }) {
-  const [, createRipple] = useRipple()
-  const drops = Array.from({ length: total })
+export default function WaterProgress(props) {
   return (
-    <div className="flex gap-1" data-testid="water-progress-bar">
-      {drops.map((_, i) => (
-        <span
-          key={i}
-          data-testid="water-drop"
-          onMouseDown={createRipple}
-          onTouchStart={createRipple}
-          className="relative inline-flex overflow-hidden rounded-full"
-          aria-label={`Water drop ${i + 1} of ${total}`}
-          title={`Water drop ${i + 1} of ${total}`}
-        >
-          <Drop
-            aria-hidden="true"
-            className={`w-5 h-5 ${i < completed ? 'text-blue-500' : 'text-gray-400'}`}
-          />
-        </span>
-      ))}
-      {total > 0 && completed === total && (
-        <Flower role="img" aria-label="Bloom" className="w-5 h-5 text-green-600 bloom-pop" />
-      )}
-    </div>
+    <IconProgress
+      icon={Drop}
+      completedColor="text-blue-500"
+      testId="water-progress-bar"
+      itemTestId="water-drop"
+      itemLabelPrefix="Water drop"
+      {...props}
+    />
   )
 }
