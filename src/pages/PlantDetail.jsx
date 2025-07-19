@@ -217,18 +217,18 @@ export default function PlantDetail() {
           {(plant.light || plant.humidity || plant.difficulty) && (
             <div className="mt-4 flex flex-wrap gap-2 text-xs text-gray-600">
               {plant.light && (
-                <span className="rounded-full border border-gray-300 px-3 py-1">
-                  ☀️ {plant.light}
+                <span className="inline-flex items-center gap-1 rounded-full border border-gray-300 px-3 py-1">
+                  <Sun className="w-3 h-3" aria-hidden="true" /> {plant.light}
                 </span>
               )}
               {plant.humidity && (
-                <span className="rounded-full border border-gray-300 px-3 py-1">
-                  💧 {plant.humidity}
+                <span className="inline-flex items-center gap-1 rounded-full border border-gray-300 px-3 py-1">
+                  <Drop className="w-3 h-3" aria-hidden="true" /> {plant.humidity}
                 </span>
               )}
               {plant.difficulty && (
-                <span className="rounded-full border border-gray-300 px-3 py-1">
-                  🪴 {plant.difficulty}
+                <span className="inline-flex items-center gap-1 rounded-full border border-gray-300 px-3 py-1">
+                  <Gauge className="w-3 h-3" aria-hidden="true" /> {plant.difficulty}
                 </span>
               )}
             </div>
