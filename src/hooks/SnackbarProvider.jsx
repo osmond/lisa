@@ -35,9 +35,9 @@ export function Snackbar() {
   }
 
   return snack ? (
-    <div className="fixed inset-x-0 bottom-0 pb-safe flex justify-center pointer-events-none">
+    <div className="fixed inset-x-0 bottom-16 pb-safe flex justify-center pointer-events-none z-30">
       <div
-        className="m-4 bg-gray-800 text-white px-4 py-2 rounded shadow pointer-events-auto flex items-center gap-4"
+        className="m-4 bg-accent text-white px-4 py-2 rounded shadow pointer-events-auto flex items-center gap-4"
         role="status"
       >
         <span>{snack.message}</span>
