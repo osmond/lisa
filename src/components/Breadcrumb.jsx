@@ -1,17 +1,16 @@
 import { Link } from 'react-router-dom'
+import { CaretRight } from 'phosphor-react'
 
 export default function Breadcrumb({ room, plant }) {
   return (
     <nav aria-label="Breadcrumb" className="text-sm mb-2">
-      <ol className="flex items-center gap-1">
+      <ol className="flex items-center gap-2">
         <li className="flex items-center">
-          <Link to="/myplants" className="text-blue-600 hover:underline">
+          <Link to="/myplants" className="text-accent font-medium hover:underline">
             All Plants
           </Link>
           {(room || plant) && (
-            <span aria-hidden="true" className="mx-1">
-              &gt;
-            </span>
+            <CaretRight className="w-3 h-3 mx-2 text-gray-400" aria-hidden="true" />
           )}
         </li>
         {room && (
@@ -19,7 +18,7 @@ export default function Breadcrumb({ room, plant }) {
             {plant ? (
               <Link
                 to={`/room/${encodeURIComponent(room)}`}
-                className="text-blue-600 hover:underline"
+                className="text-accent font-medium hover:underline"
               >
                 {room}
               </Link>
@@ -27,9 +26,7 @@ export default function Breadcrumb({ room, plant }) {
               <span>{room}</span>
             )}
             {plant && (
-              <span aria-hidden="true" className="mx-1">
-                &gt;
-              </span>
+              <CaretRight className="w-3 h-3 mx-2 text-gray-400" aria-hidden="true" />
             )}
           </li>
         )}
