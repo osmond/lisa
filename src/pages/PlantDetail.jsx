@@ -391,23 +391,21 @@ export default function PlantDetail() {
             className="w-full h-64 object-cover"
           />
           <div className="img-gradient-overlay" aria-hidden="true"></div>
-          <div className="absolute bottom-3 left-4 text-white drop-shadow">
-            <h2 className="text-heading font-semibold font-headline">{plant.name}</h2>
-            {plant.nickname && (
-              <p className="text-sm text-gray-200">{plant.nickname}</p>
-            )}
-          </div>
-          <div className="absolute bottom-2 right-2 text-xs text-white drop-shadow" data-testid="brief-care">
-            <p>
-              Last watered: {formatDaysAgo(plant.lastWatered)} · Next: {plant.nextWater}
-            </p>
-            {plant.nextFertilize && (
+          <div className="absolute bottom-2 left-3 right-3 flex flex-col sm:flex-row justify-between text-white drop-shadow space-y-1 sm:space-y-0">
+            <div>
+              <h2 className="text-heading font-semibold font-headline">{plant.name}</h2>
+              {plant.nickname && <p className="text-sm text-gray-200">{plant.nickname}</p>}
+            </div>
+            <div className="text-xs sm:text-right" data-testid="brief-care">
               <p>
-                Last fertilized:{' '}
-                {plant.lastFertilized ? formatDaysAgo(plant.lastFertilized) : 'Never'} · Next:{' '}
-                {plant.nextFertilize}
+                Last watered: {formatDaysAgo(plant.lastWatered)} · Next: {plant.nextWater}
               </p>
-            )}
+              {plant.nextFertilize && (
+                <p>
+                  Last fertilized: {plant.lastFertilized ? formatDaysAgo(plant.lastFertilized) : 'Never'} · Next: {plant.nextFertilize}
+                </p>
+              )}
+            </div>
           </div>
         </div>
         </div>
