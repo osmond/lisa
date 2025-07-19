@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Plus, Drop, Sun, Bug, WarningCircle, Flower, Sparkle } from 'phosphor-react'
+import { Plus, Drop, Sun, Bug, WarningCircle } from 'phosphor-react'
 import { getNextWateringDate } from '../utils/watering.js'
 
 import Badge from '../components/Badge.jsx'
@@ -85,39 +85,19 @@ export default function MyPlants() {
         options={[
           {
             value: 'all',
-            label: (
-              <>
-                <Flower className="w-4 h-4 mr-1" aria-hidden="true" />
-                All
-              </>
-            ),
+            label: 'All',
           },
           {
             value: 'love',
-            label: (
-              <>
-                <WarningCircle className="w-4 h-4 mr-1" aria-hidden="true" />
-                Needs Love
-              </>
-            ),
+            label: 'Needs Love',
           },
           {
             value: 'recent',
-            label: (
-              <>
-                <Drop className="w-4 h-4 mr-1" aria-hidden="true" />
-                Recently Watered
-              </>
-            ),
+            label: 'Recently Watered',
           },
           {
             value: 'newest',
-            label: (
-              <>
-                <Sparkle className="w-4 h-4 mr-1" aria-hidden="true" />
-                Newest
-              </>
-            ),
+            label: 'Newest',
           },
         ]}
       />
