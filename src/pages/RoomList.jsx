@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState } from 'react'
 import { Drop, Sun, Gauge } from 'phosphor-react'
+import BalconyPlantCard from '../components/BalconyPlantCard.jsx'
 
 import { usePlants } from '../PlantContext.jsx'
 import { formatDaysAgo } from '../utils/dateFormat.js'
@@ -48,6 +49,20 @@ export default function RoomList() {
       )}
       {list.length === 0 ? (
         <p>No plants in this room.</p>
+      ) : roomName === 'Balcony' ? (
+        <div className="space-y-6">
+          {sorted.map(plant => (
+            <Link
+              key={plant.id}
+              to={`/room/${encodeURIComponent(roomName)}/plant/${plant.id}`}
+              className="block transition-transform active:shadow"
+              onMouseDown={createRipple}
+              onTouchStart={createRipple}
+            >
+              <BalconyPlantCard plant={plant} />
+            </Link>
+          ))}
+        </div>
       ) : (
         <div
           className="grid gap-2 gap-y-6"
