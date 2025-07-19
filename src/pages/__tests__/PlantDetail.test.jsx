@@ -31,6 +31,8 @@ test('renders plant details without duplicates', () => {
   expect(screen.getByText(plant.humidity)).toBeInTheDocument()
   expect(screen.getByText(plant.difficulty)).toBeInTheDocument()
 
+  fireEvent.click(screen.getByRole('button', { name: /care overview/i }))
+
   const wateredLabel = screen.getByText(/Last watered/i)
   expect(
     within(wateredLabel.parentElement).getByText(new RegExp(plant.lastWatered))
@@ -78,8 +80,8 @@ test('displays all sections', () => {
     </MenuProvider>
   )
 
-  expect(screen.getByRole('button', { name: /care details/i })).toBeInTheDocument()
-  expect(screen.getByRole('button', { name: /activity & notes/i })).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: /care overview/i })).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: /activity/i })).toBeInTheDocument()
   expect(screen.getByRole('button', { name: /gallery/i })).toBeInTheDocument()
 })
 

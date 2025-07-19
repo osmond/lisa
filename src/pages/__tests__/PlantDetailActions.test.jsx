@@ -50,6 +50,8 @@ test('quick stats action buttons trigger handlers', () => {
     </MenuProvider>
   )
 
+  fireEvent.click(screen.getByRole('button', { name: /care overview/i }))
+
   fireEvent.click(
     screen.getAllByRole('button', { name: /mark plant a as watered/i })[0]
   )
