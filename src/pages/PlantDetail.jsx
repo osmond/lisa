@@ -321,7 +321,7 @@ export default function PlantDetail() {
       label: 'Gallery',
       content: (
         <div className="space-y-2 p-4">
-          <div className="flex flex-nowrap gap-3 overflow-x-auto pb-1 sm:pb-2">
+          <div className="flex flex-nowrap gap-4 overflow-x-auto pb-1 sm:pb-2">
             {(plant.photos || [])
               .slice(0, 3)
               .map((photo, i) => {
