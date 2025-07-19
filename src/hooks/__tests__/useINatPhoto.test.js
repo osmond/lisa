@@ -49,3 +49,32 @@ test('skips photos that fail to load', async () => {
   global.fetch = origFetch
   global.Image = origImage
 })
+
+test('aborts fetch on unmount', async () => {
+  const abortMock = jest.fn()
+  const origAbortController = global.AbortController
+  global.AbortController = jest.fn(() => ({ signal: 'sig', abort: abortMock }))
+
+  const origFetch = global.fetch
+  global.fetch = jest.fn(() =>
+    Promise.resolve({ json: () => Promise.resolve({ results: [] }) })
+  )
+
+  localStorage.clear()
+
+  function Dummy() {
+    useINatPhoto('aloe')
+    return null
+  }
+
+  const { unmount } = render(<Dummy />)
+
+  await waitFor(() => expect(global.fetch).toHaveBeenCalled())
+  expect(global.fetch).toHaveBeenCalledWith(expect.any(String), { signal: 'sig' })
+
+  unmount()
+  expect(abortMock).toHaveBeenCalled()
+
+  global.fetch = origFetch
+  global.AbortController = origAbortController
+})
