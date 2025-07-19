@@ -8,7 +8,7 @@ import UnifiedTaskCard from '../components/UnifiedTaskCard.jsx'
 import BaseCard from '../components/BaseCard.jsx'
 import TaskTabs from '../components/TaskTabs.jsx'
 import CareRings from '../components/CareRings.jsx'
-import { ListBullets, SquaresFour } from 'phosphor-react'
+import { ListBullets, SquaresFour, Sun } from 'phosphor-react'
 import useTaskLayout from '../hooks/useTaskLayout.js'
 
 
@@ -285,9 +285,14 @@ export default function Tasks() {
       {viewMode === 'By Plant' ? (
         eventsByPlant.length === 0 ? (
           <p className="text-center text-gray-500">
-            {noUpcomingTasks
-              ? 'All caught up! Your plants are feeling great 🌞'
-              : 'No tasks coming up.'}
+            {noUpcomingTasks ? (
+              <>
+                All caught up! Your plants are feeling great{' '}
+                <Sun className="inline w-3 h-3" aria-hidden="true" />
+              </>
+            ) : (
+              'No tasks coming up.'
+            )}
           </p>
         ) : (
           <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-4'}>
@@ -333,9 +338,14 @@ export default function Tasks() {
         )
       ) : groupedEvents.length === 0 ? (
         <p className="text-center text-gray-500">
-          {noUpcomingTasks
-            ? 'All caught up! Your plants are feeling great 🌞'
-            : 'No tasks coming up.'}
+          {noUpcomingTasks ? (
+            <>
+              All caught up! Your plants are feeling great{' '}
+              <Sun className="inline w-3 h-3" aria-hidden="true" />
+            </>
+          ) : (
+            'No tasks coming up.'
+          )}
         </p>
       ) : (
         groupedEvents.map(([dateKey, list]) => {

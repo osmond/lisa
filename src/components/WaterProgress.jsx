@@ -1,4 +1,4 @@
-import { Drop } from 'phosphor-react'
+import { Drop, Flower } from 'phosphor-react'
 import useRipple from '../utils/useRipple.js'
 
 export default function WaterProgress({ completed = 0, total = 0 }) {
@@ -23,7 +23,7 @@ export default function WaterProgress({ completed = 0, total = 0 }) {
         </span>
       ))}
       {total > 0 && completed === total && (
-        <span role="img" aria-label="Bloom" className="bloom-pop">🌱</span>
+        <Flower role="img" aria-label="Bloom" className="w-5 h-5 text-green-600 bloom-pop" />
       )}
     </div>
   )
