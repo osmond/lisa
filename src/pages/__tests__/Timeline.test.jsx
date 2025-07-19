@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import Timeline from '../Timeline.jsx'
 
 const samplePlants = [
@@ -26,7 +26,7 @@ beforeEach(() => {
   mockPlants = samplePlants
 })
 
-test('ignores activities without valid dates when generating events', () => {
+test('ignores activities without valid dates and shows newest first', () => {
   render(<Timeline />)
 
   expect(screen.queryByText(/Repotted/)).toBeNull()
@@ -73,4 +73,18 @@ test('displays month headers when events span months', () => {
   expect(headings).toHaveLength(2)
   expect(headings[0]).toHaveTextContent('August 2025')
   expect(headings[1]).toHaveTextContent('July 2025')
+})
+
+test('toggle reverses the order of events', () => {
+  render(<Timeline />)
+
+  const items = screen.getAllByRole('listitem')
+  expect(items[0]).toHaveTextContent('Watered Plant A')
+
+  const toggle = screen.getByRole('button', { name: /show oldest first/i })
+  fireEvent.click(toggle)
+
+  const reversed = screen.getAllByRole('listitem')
+  expect(reversed[0]).toHaveTextContent('Fertilized Plant A')
+  expect(toggle).toHaveAccessibleName('Show newest first')
 })

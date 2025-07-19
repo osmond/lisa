@@ -1,5 +1,6 @@
 import { usePlants } from '../PlantContext.jsx'
 import { useMemo, useState } from 'react'
+import { SortAscending, SortDescending } from 'phosphor-react'
 
 import { motion } from 'framer-motion'
 
@@ -14,6 +15,7 @@ import SectionCard from '../components/SectionCard.jsx'
 export default function Timeline() {
   const { plants, timelineNotes = [], addTimelineNote = () => {} } = usePlants()
   const [showNoteModal, setShowNoteModal] = useState(false)
+  const [latestFirst, setLatestFirst] = useState(true)
 
   const plantEvents = useMemo(
     () => buildEvents(plants, { includePlantName: true }),
@@ -37,10 +39,14 @@ export default function Timeline() {
   )
 
   const groupedEvents = useMemo(() => {
-    return groupEventsByMonth(events)
-      .map(([month, list]) => [month, [...list].reverse()])
-      .reverse()
-  }, [events])
+    const grouped = groupEventsByMonth(events)
+    if (latestFirst) {
+      return grouped
+        .map(([month, list]) => [month, [...list].reverse()])
+        .reverse()
+    }
+    return grouped
+  }, [events, latestFirst])
 
   const [selectedEvent, setSelectedEvent] = useState(null)
 
@@ -58,7 +64,22 @@ export default function Timeline() {
   return (
     <div className="relative overflow-y-auto max-h-full max-w-md mx-auto space-y-8 py-4 px-4 text-gray-700 dark:text-gray-200">
       <SectionCard className="border border-gray-100">
-
+        <div className="flex justify-end px-1">
+          <button
+            type="button"
+            onClick={() => setLatestFirst(l => !l)}
+            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+          >
+            {latestFirst ? (
+              <SortDescending className="w-4 h-4" aria-hidden="true" />
+            ) : (
+              <SortAscending className="w-4 h-4" aria-hidden="true" />
+            )}
+            <span className="sr-only">
+              {latestFirst ? 'Show oldest first' : 'Show newest first'}
+            </span>
+          </button>
+        </div>
         <div className="relative">
           {groupedEvents.map(([monthKey, list]) => (
             <div key={monthKey} className="mt-6 first:mt-0">
