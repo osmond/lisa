@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Plus, Drop, Sun, Bug, WarningCircle } from 'phosphor-react'
+import { Plus, Drop, Sun, Bug, Heart } from 'phosphor-react'
 import { getNextWateringDate } from '../utils/watering.js'
 
 import Badge from '../components/Badge.jsx'
@@ -158,14 +158,14 @@ export default function MyPlants() {
               <div className="img-gradient-overlay" aria-hidden="true"></div>
               {overdue > 0 && (
                 <Badge
-                  variant="overdue"
+                  colorClass="bg-red-600/80 text-white backdrop-blur-sm"
                   className="absolute top-3 right-3 slide-in animate-pulse rounded-full text-badge"
-                  Icon={WarningCircle}
+                  Icon={Heart}
                 >
                   {overdue} needs love
                 </Badge>
               )}
-              <div className="absolute bottom-2 left-2 right-2 drop-shadow text-white space-y-1">
+              <div className="absolute bottom-2 left-2 right-2 drop-shadow text-white space-y-2 leading-snug">
                 {previews.length > 0 && (
                   <div className="flex -space-x-2">
                     {previews.map((p, idx) => (
@@ -178,15 +178,19 @@ export default function MyPlants() {
                     ))}
                   </div>
                 )}
-                <div className="flex gap-1 text-badge">
+                <div className="flex gap-1 text-sm text-white/80">
                   {wateredToday && <Drop className="w-4 h-4" aria-hidden="true" />}
                   {lowLight && <Sun className="w-4 h-4" aria-hidden="true" />}
                   {pestAlert && <Bug className="w-4 h-4" aria-hidden="true" />}
-                  {lastUpdated && <span>{formatDaysAgo(lastUpdated)}</span>}
                 </div>
-                <p className="font-extrabold text-xl font-headline leading-none">{room}</p>
-                <p className="text-[0.65rem] text-white/60 leading-none">{countPlants(room)} plants</p>
+                <p className="font-semibold text-base font-headline">{room}</p>
+                <p className="text-sm text-white/70">{countPlants(room)} plants</p>
               </div>
+              {lastUpdated && (
+                <span className="absolute bottom-2 right-2 text-xs text-white/70">
+                  {formatDaysAgo(lastUpdated)}
+                </span>
+              )}
             </Link>
           )
         })}
