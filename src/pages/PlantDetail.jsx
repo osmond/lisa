@@ -9,6 +9,7 @@ import {
   Flower,
   Image,
   Note,
+  DotsThree,
   Info,
   CaretDown,
   CaretRight,
@@ -22,6 +23,7 @@ import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
 import { useMenu, defaultMenu } from '../MenuContext.jsx'
 import LegendModal from '../components/LegendModal.jsx'
+import PlantInfoModal from '../components/PlantInfoModal.jsx'
 import ProgressRing from '../components/ProgressRing.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
@@ -30,7 +32,6 @@ import Accordion from '../components/Accordion.jsx'
 
 import useToast from "../hooks/useToast.jsx"
 import confetti from 'canvas-confetti'
-import Badge from '../components/Badge.jsx'
 
 import { formatMonth, formatDate } from '../utils/date.js'
 import { formatDaysAgo, formatTimeOfDay } from '../utils/dateFormat.js'
@@ -64,6 +65,7 @@ export default function PlantDetail() {
   const [showNoteModal, setShowNoteModal] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(null)
   const [showLegend, setShowLegend] = useState(false)
+  const [showInfoModal, setShowInfoModal] = useState(false)
   const [collapsedMonths, setCollapsedMonths] = useState({})
 
   const ringClass = ringColors[plant?.urgency] || 'text-green-600'
@@ -199,26 +201,6 @@ export default function PlantDetail() {
               <p className="text-sm text-gray-200">{plant.nickname}</p>
             )}
           </div>
-          <div
-            className="absolute top-2 right-2 z-10 flex flex-wrap gap-2"
-            aria-label="Care tags"
-          >
-            {plant.light && (
-              <Badge Icon={Sun} variant="info" size="sm">
-                {plant.light}
-              </Badge>
-            )}
-            {plant.humidity && (
-              <Badge Icon={Drop} variant="info" size="sm">
-                {plant.humidity}
-              </Badge>
-            )}
-            {plant.difficulty && (
-              <Badge Icon={Gauge} variant="info" size="sm">
-                {plant.difficulty}
-              </Badge>
-            )}
-          </div>
           <div className="absolute bottom-2 right-2 flex items-center gap-2" data-testid="progress-rings">
             {progressPct >= 1 && (
               <button
@@ -256,10 +238,20 @@ export default function PlantDetail() {
           </div>
         </div>
         </div>
-        <PageHeader
-          title={plant.name}
-          breadcrumb={{ room: plant.room, plant: plant.name }}
-        />
+        <div className="flex items-start justify-between">
+          <PageHeader
+            title={plant.name}
+            breadcrumb={{ room: plant.room, plant: plant.name }}
+          />
+          <button
+            type="button"
+            aria-label="Show plant info"
+            onClick={() => setShowInfoModal(true)}
+            className="ml-2 mt-1 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+          >
+            <DotsThree className="w-6 h-6" aria-hidden="true" />
+          </button>
+        </div>
 
         <Accordion
           title={
@@ -507,6 +499,9 @@ export default function PlantDetail() {
       )}
       {showLegend && (
         <LegendModal onClose={() => setShowLegend(false)} />
+      )}
+      {showInfoModal && (
+        <PlantInfoModal plant={plant} onClose={() => setShowInfoModal(false)} />
       )}
     </PageContainer>
   )
