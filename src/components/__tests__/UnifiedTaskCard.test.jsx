@@ -1,7 +1,24 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
+import { MemoryRouter, useNavigate } from 'react-router-dom'
 import UnifiedTaskCard from '../UnifiedTaskCard.jsx'
+import { usePlants } from '../../PlantContext.jsx'
+
+const navigateMock = jest.fn()
+const markWatered = jest.fn()
+const markFertilized = jest.fn()
 
 jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+
+jest.mock('react-router-dom', () => {
+  const actual = jest.requireActual('react-router-dom')
+  return { ...actual, useNavigate: jest.fn() }
+})
+
+jest.mock('../../PlantContext.jsx', () => ({
+  usePlants: jest.fn(),
+}))
+
+const usePlantsMock = usePlants
 
 const plant = {
   name: 'Fern',
@@ -12,33 +29,73 @@ const plant = {
   lastCared: '2025-07-07',
 }
 
+beforeEach(() => {
+  navigateMock.mockClear()
+  markWatered.mockClear()
+  markFertilized.mockClear()
+  useNavigate.mockReturnValue(navigateMock)
+  usePlantsMock.mockReturnValue({
+    plants: [plant],
+    markWatered,
+    markFertilized,
+    updatePlant: jest.fn(),
+  })
+})
+
 test('renders plant info and badges', () => {
-  render(<UnifiedTaskCard plant={plant} />)
+  render(
+    <MemoryRouter>
+      <UnifiedTaskCard plant={plant} />
+    </MemoryRouter>
+  )
   expect(screen.getByText('Fern')).toBeInTheDocument()
   const waterBadge = screen.getByText('Water')
   expect(waterBadge).toBeInTheDocument()
   expect(waterBadge).toHaveClass('bg-water-100/90')
   expect(screen.queryByText('Fertilize')).toBeNull()
   expect(screen.getByText('Last cared for 3 days ago')).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: /mark as done/i })).toBeInTheDocument()
 })
 
 test('applies urgent style', () => {
-  const { container } = render(<UnifiedTaskCard plant={plant} urgent />)
+  const { container } = render(
+    <MemoryRouter>
+      <UnifiedTaskCard plant={plant} urgent />
+    </MemoryRouter>
+  )
   const wrapper = container.querySelector('[data-testid="unified-task-card"]')
   expect(wrapper).toHaveClass('bg-yellow-50')
 })
 
 test('applies overdue style', () => {
-  const { container } = render(<UnifiedTaskCard plant={plant} overdue />)
+  const { container } = render(
+    <MemoryRouter>
+      <UnifiedTaskCard plant={plant} overdue />
+    </MemoryRouter>
+  )
   const wrapper = container.querySelector('[data-testid="unified-task-card"]')
   expect(wrapper).toHaveClass('bg-red-50')
 })
 
 test('matches snapshot in dark mode', () => {
   document.documentElement.classList.add('dark')
-  const { container } = render(<UnifiedTaskCard plant={plant} />)
+  const { container } = render(
+    <MemoryRouter>
+      <UnifiedTaskCard plant={plant} />
+    </MemoryRouter>
+  )
   expect(container.firstChild).toMatchSnapshot()
   document.documentElement.classList.remove('dark')
+})
+
+test('clicking mark as done completes task', () => {
+  render(
+    <MemoryRouter>
+      <UnifiedTaskCard plant={plant} />
+    </MemoryRouter>
+  )
+  fireEvent.click(screen.getByRole('button', { name: /mark as done/i }))
+  expect(markWatered).toHaveBeenCalledWith(plant.id, '')
 })
 
 afterAll(() => {
