@@ -3,7 +3,8 @@ import { usePlants } from '../PlantContext.jsx'
 import CareSummaryModal from '../components/CareSummaryModal.jsx'
 import PageContainer from "../components/PageContainer.jsx"
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 
 import { Link } from 'react-router-dom'
 
@@ -29,6 +30,8 @@ export default function Home() {
   const { plants } = usePlants()
   const [showSummary, setShowSummary] = useState(false)
   const [typeFilter, setTypeFilter] = useState('all')
+  const [showFeatured, setShowFeatured] = useState(true)
+  const firstGesture = useRef(false)
   const [showHeader, setShowHeader] = useState(() => {
     if (typeof localStorage !== 'undefined') {
       return localStorage.getItem('hideHomeHeader') !== 'true'
@@ -203,9 +206,17 @@ export default function Home() {
     scrollToTasks()
   }
 
+  const handleFirstGesture = e => {
+    if (firstGesture.current) return
+    firstGesture.current = true
+    if (!e.target.closest('[data-testid="featured-card"]')) {
+      setShowFeatured(false)
+    }
+  }
+
 
   return (
-    <PageContainer>
+    <PageContainer onPointerDown={handleFirstGesture}>
       {showHeader && (
       <header className="relative flex flex-col items-start text-left space-y-1">
         <button
@@ -243,10 +254,21 @@ export default function Home() {
       </header>
       )}
     {plants.length > 0 && (
-      <section className="mb-4 space-y-2">
-        <h2 className="sr-only">Featured Plant</h2>
-        <FeaturedCard plants={plants} startIndex={featuredIndex} />
-      </section>
+      <AnimatePresence initial={false}>
+        {showFeatured && (
+          <motion.section
+            className="mb-4 space-y-2"
+            initial={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{ overflow: 'hidden' }}
+          >
+            <h2 className="sr-only">Featured Plant</h2>
+            <FeaturedCard plants={plants} startIndex={featuredIndex} />
+          </motion.section>
+        )}
+      </AnimatePresence>
     )}
     <CareStats
       waterCompleted={wateredTodayCount}
