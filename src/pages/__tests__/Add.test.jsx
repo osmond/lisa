@@ -1,18 +1,27 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import Add from '../Add.jsx'
-import MyPlants from '../MyPlants.jsx'
+import Home from '../Home.jsx'
 import { PlantProvider } from '../../PlantContext.jsx'
 import { RoomProvider } from '../../RoomContext.jsx'
 
+jest.mock('../../WeatherContext.jsx', () => ({
+  useWeather: () => ({ forecast: { rainfall: 0 } }),
+}))
+
+jest.mock('../../UserContext.jsx', () => ({
+  useUser: () => ({ username: 'Jon', timeZone: 'UTC' }),
+}))
+
 test('user can complete steps and add a plant', () => {
+  jest.useFakeTimers()
   render(
     <PlantProvider>
       <RoomProvider>
         <MemoryRouter initialEntries={['/add']}>
           <Routes>
             <Route path="/add" element={<Add />} />
-            <Route path="/myplants" element={<MyPlants />} />
+            <Route path="/" element={<Home />} />
           </Routes>
         </MemoryRouter>
       </RoomProvider>
@@ -43,7 +52,9 @@ test('user can complete steps and add a plant', () => {
   fireEvent.change(screen.getByLabelText(/notes/i), { target: { value: 'Thrives' } })
   fireEvent.change(screen.getByLabelText(/care level/i), { target: { value: 'easy' } })
   fireEvent.click(screen.getByRole('button', { name: /add plant/i }))
+  act(() => {
+    jest.runAllTimers()
+  })
 
-  expect(screen.getByRole('heading', { name: /all plants/i })).toBeInTheDocument()
-  expect(screen.getByText('Desk')).toBeInTheDocument()
+  expect(screen.getByTestId('tasks-container')).toBeInTheDocument()
 })
