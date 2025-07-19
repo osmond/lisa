@@ -9,9 +9,9 @@ export default function LogDetailsModal({ event, onClose }) {
       role="dialog"
       aria-modal="true"
       aria-label="Log details"
-      className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+      className="modal-overlay bg-black/70 z-50"
     >
-      <div className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-4 w-72 max-w-full">
+      <div className="modal-box p-4 w-72 max-w-full">
         <div className="flex items-center gap-2 mb-2">
           {Icon && <Icon className="w-5 h-5" aria-hidden="true" />}
           <h3 className="font-headline text-heading">{event.label}</h3>

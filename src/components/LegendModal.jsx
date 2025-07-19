@@ -6,9 +6,9 @@ export default function LegendModal({ onClose }) {
       role="dialog"
       aria-modal="true"
       aria-label="Legend"
-      className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+      className="modal-overlay bg-black/70 z-50"
     >
-      <div className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-4 w-72 max-w-full">
+      <div className="modal-box p-4 w-72 max-w-full">
         <h3 className="font-headline mb-2">Legend</h3>
         <ul className="space-y-2 text-sm">
           <li className="flex items-center gap-2">

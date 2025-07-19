@@ -18,9 +18,9 @@ export default function CareSummaryModal({ tasks = [], onClose }) {
       role="dialog"
       aria-modal="true"
       aria-label="Care summary"
-      className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+      className="modal-overlay bg-black bg-opacity-70 z-50"
     >
-      <div className="relative bg-white dark:bg-gray-700 rounded-lg shadow-lg p-4 w-72 max-w-full">
+      <div className="modal-box relative p-4 w-72 max-w-full">
         <button
           aria-label="Close"
           onClick={onClose}
