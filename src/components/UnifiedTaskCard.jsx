@@ -125,7 +125,7 @@ export default function UnifiedTaskCard({
   return (
     <div
       data-testid="unified-task-card"
-      className={`relative rounded-2xl border border-neutral-200 dark:border-gray-600 shadow overflow-hidden ${bgClass}`}
+      className={`relative rounded-2xl border border-neutral-200 dark:border-gray-600 shadow overflow-hidden touch-pan-y select-none ${bgClass}`}
       style={{ transform: `translateX(${swipeable ? dx : 0}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
       onPointerDown={start}
       onPointerMove={move}
