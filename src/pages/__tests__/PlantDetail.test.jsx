@@ -87,6 +87,9 @@ test('opens lightbox from gallery', () => {
 
   fireEvent.click(screen.getByRole('button', { name: /gallery/i }))
 
+  // Captions are not displayed with thumbnails
+  expect(screen.queryByText(plant.photos[0].caption)).toBeNull()
+
   const img = screen.getByAltText(
     plant.photos[0].caption || `${plant.name} photo 1`
   )
