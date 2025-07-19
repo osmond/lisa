@@ -31,9 +31,9 @@ export default function UnifiedTaskCard({
   const { Snackbar, showSnackbar } = useSnackbar()
 
   const bgClass = overdue
-    ? 'bg-red-50 dark:bg-red-800'
+    ? 'bg-pink-50 dark:bg-red-800'
     : urgent
-    ? 'bg-sage dark:bg-gray-700'
+    ? 'bg-yellow-50 dark:bg-gray-700'
     : 'bg-gray-50 dark:bg-gray-800'
 
   const lastText = lastCared ? formatDaysAgo(lastCared) : null
@@ -182,16 +182,16 @@ export default function UnifiedTaskCard({
               </Badge>
             ) : null}
           </div>
-          <div className="flex items-center gap-4 mt-1 font-semibold text-gray-700 dark:text-gray-200">
+          <div className="flex items-center gap-4 mt-1 font-semibold">
             {dueWater && (
-              <span className="inline-flex items-center gap-1">
-                <Drop className="w-4 h-4 text-water-600" aria-hidden="true" />
+              <span className="inline-flex items-center gap-1 text-amber-600">
+                <Drop className="w-4 h-4" aria-hidden="true" />
                 Water
               </span>
             )}
             {dueFertilize && (
-              <span className="inline-flex items-center gap-1">
-                <Sun className="w-4 h-4 text-fertilize-600" aria-hidden="true" />
+              <span className="inline-flex items-center gap-1 text-red-600">
+                <Sun className="w-4 h-4" aria-hidden="true" />
                 Fertilize
               </span>
             )}

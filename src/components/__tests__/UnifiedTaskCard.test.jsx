@@ -66,7 +66,7 @@ test('applies urgent style', () => {
     </MemoryRouter>
   )
   const wrapper = container.querySelector('[data-testid="unified-task-card"]')
-  expect(wrapper).toHaveClass('bg-sage')
+  expect(wrapper).toHaveClass('bg-yellow-50')
 })
 
 test('applies overdue style', () => {
@@ -76,7 +76,7 @@ test('applies overdue style', () => {
     </MemoryRouter>
   )
   const wrapper = container.querySelector('[data-testid="unified-task-card"]')
-  expect(wrapper).toHaveClass('bg-red-50')
+  expect(wrapper).toHaveClass('bg-pink-50')
 })
 
 test('matches snapshot in dark mode', () => {

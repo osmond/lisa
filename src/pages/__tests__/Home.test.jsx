@@ -118,7 +118,7 @@ test('tasks container renders with background', () => {
     </MemoryRouter>
   )
 
-  expect(screen.getByTestId('tasks-container')).toHaveClass('bg-sage')
+  expect(screen.getByTestId('tasks-container')).not.toHaveClass('bg-sage')
 })
 
 
@@ -140,7 +140,7 @@ test('featured section provides extra spacing', () => {
 
   const container = screen.getByTestId('tasks-container')
   expect(container).toBeInTheDocument()
-  expect(container).toHaveClass('bg-sage')
+  expect(container).not.toHaveClass('bg-sage')
 
 
   const section = screen.getByTestId('featured-card').closest('section')

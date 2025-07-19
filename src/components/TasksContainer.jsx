@@ -6,7 +6,7 @@ export default function TasksContainer({ visibleTasks = [], happyPlant }) {
   return (
     <div
       data-testid="tasks-container"
-      className="mt-4 border-t border-neutral-200 dark:border-gray-600 bg-sage dark:bg-gray-700 rounded-xl p-4"
+      className="mt-4 border-t border-neutral-200 dark:border-gray-600 p-4"
     >
       <section className="space-y-2">
         <div className="flex items-center justify-between">
