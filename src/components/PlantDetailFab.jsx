@@ -49,21 +49,23 @@ export default function PlantDetailFab({
           onClick={() => setOpen(false)}
         >
           <ul
-            className="modal-box relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 w-52 space-y-3 animate-fade-in-up"
+            className="modal-box relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl px-5 py-4 w-[90%] max-w-[360px] space-y-2 animate-fade-in-up"
             onClick={e => e.stopPropagation()}
           >
-            <button
-              type="button"
-              aria-label="Close menu"
-              onClick={() => setOpen(false)}
-              className="absolute top-2 right-2 text-gray-500"
-            >
-              &times;
-            </button>
-            <li className="list-none text-center font-headline text-heading">
-              Log new care
+            <li className="flex items-center justify-between">
+              <span className="flex-1 text-center font-headline text-heading">
+                Log new care
+              </span>
+              <button
+                type="button"
+                aria-label="Close menu"
+                onClick={() => setOpen(false)}
+                className="text-gray-500"
+              >
+                &times;
+              </button>
             </li>
-            <li className="list-none text-xs uppercase font-semibold text-gray-600 dark:text-gray-400">
+            <li className="list-none text-xs font-bold uppercase text-gray-600 dark:text-gray-400 mt-2">
               Care
             </li>
             {items
@@ -77,9 +79,9 @@ export default function PlantDetailFab({
                       action?.()
                     }}
                     title={label}
-                    className="flex items-center gap-3 w-full rounded-lg p-2 hover:bg-green-50 dark:hover:bg-gray-600 transition"
+                    className="flex items-center gap-3 w-full rounded-md px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition"
                   >
-                    <span className={`p-2 rounded-full ${colorClasses[color].bg}`}>
+                    <span className={`p-2 rounded-full ${colorClasses[color].bg}`}> 
                       <Icon className={`w-5 h-5 ${colorClasses[color].text}`} aria-hidden="true" />
                     </span>
                     <span className="text-sm text-gray-800 dark:text-gray-200">
@@ -88,7 +90,8 @@ export default function PlantDetailFab({
                   </button>
                 </li>
               ))}
-            <li className="list-none text-xs uppercase font-semibold text-gray-600 dark:text-gray-400">
+            <hr className="border-t border-gray-200 dark:border-gray-700" />
+            <li className="list-none text-xs font-bold uppercase text-gray-600 dark:text-gray-400 mt-2">
               Journal
             </li>
             {items
@@ -102,9 +105,9 @@ export default function PlantDetailFab({
                       action?.()
                     }}
                     title={label}
-                    className="flex items-center gap-3 w-full rounded-lg p-2 hover:bg-green-50 dark:hover:bg-gray-600 transition"
+                    className="flex items-center gap-3 w-full rounded-md px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition"
                   >
-                    <span className={`p-2 rounded-full ${colorClasses[color].bg}`}>
+                    <span className={`p-2 rounded-full ${colorClasses[color].bg}`}> 
                       <Icon className={`w-5 h-5 ${colorClasses[color].text}`} aria-hidden="true" />
                     </span>
                     <span className="text-sm text-gray-800 dark:text-gray-200">
