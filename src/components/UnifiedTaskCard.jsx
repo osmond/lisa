@@ -1,6 +1,14 @@
 import React, { useState } from 'react'
 
-import { Drop, Sun, CheckCircle, WarningCircle } from 'phosphor-react'
+import {
+  Drop,
+  Sun,
+  CheckCircle,
+  WarningCircle,
+  PencilSimpleLine,
+  ClockCounterClockwise,
+  Trash,
+} from 'phosphor-react'
 import { formatDaysAgo } from '../utils/dateFormat.js'
 import { useNavigate } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
@@ -64,6 +72,29 @@ export default function UnifiedTaskCard({
     }
   }
 
+  const handleEdit = () => {
+    const room = plant.room ? encodeURIComponent(plant.room) : null
+    navigate(room ? `/room/${room}/plant/${plant.id}/edit` : `/plant/${plant.id}/edit`)
+  }
+
+  const handleReschedule = () => {
+    const prev = plants.find(p => p.id === plant.id)
+    const next = new Date(plant.nextWater || plant.nextFertilize || new Date())
+    next.setDate(next.getDate() + 1)
+    const updates = dueWater
+      ? { nextWater: next.toISOString().slice(0, 10) }
+      : { nextFertilize: next.toISOString().slice(0, 10) }
+    updatePlant(plant.id, updates)
+    showSnackbar('Rescheduled', () => updatePlant(plant.id, prev))
+  }
+
+  const handleDelete = () => {
+    const prev = plants.find(p => p.id === plant.id)
+    const updates = dueWater ? { nextWater: null } : { nextFertilize: null }
+    updatePlant(plant.id, updates)
+    showSnackbar('Deleted', () => updatePlant(plant.id, prev))
+  }
+
   const { dx, start, move, end } = useSwipe(
     diff => {
       if (!swipeable) return
@@ -77,6 +108,8 @@ export default function UnifiedTaskCard({
     { threshold: 30 }
   )
 
+  const showActionBar = dx < 0 && dx > -60
+
   return (
     <div
       data-testid="unified-task-card"
@@ -87,6 +120,39 @@ export default function UnifiedTaskCard({
       onPointerUp={end}
       onPointerCancel={end}
     >
+      <div
+        className={`task-action-bar ${showActionBar ? 'show' : ''}`}
+        role="group"
+        aria-label="Task actions"
+      >
+        <button
+          type="button"
+          aria-label="Edit task"
+          onClick={handleEdit}
+          className="task-action bg-blue-600 text-white"
+        >
+          <PencilSimpleLine className="w-4 h-4" aria-hidden="true" />
+          Edit
+        </button>
+        <button
+          type="button"
+          aria-label="Reschedule task"
+          onClick={handleReschedule}
+          className="task-action bg-yellow-600 text-white"
+        >
+          <ClockCounterClockwise className="w-4 h-4" aria-hidden="true" />
+          Reschedule
+        </button>
+        <button
+          type="button"
+          aria-label="Delete task"
+          onClick={handleDelete}
+          className="task-action bg-red-600 text-white"
+        >
+          <Trash className="w-4 h-4" aria-hidden="true" />
+          Delete
+        </button>
+      </div>
       <div className="flex items-center gap-4 p-4">
         <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-sm bg-neutral-100 dark:bg-gray-700">
           <img src={image} alt={name} className="w-12 h-12 rounded-full object-cover" />

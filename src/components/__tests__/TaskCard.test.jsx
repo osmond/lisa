@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter, useNavigate } from 'react-router-dom'
 import TaskCard from '../TaskCard.jsx'
 import BaseCard from '../BaseCard.jsx'
@@ -7,6 +7,7 @@ import { usePlants } from '../../PlantContext.jsx'
 const navigateMock = jest.fn()
 const markWatered = jest.fn()
 const markFertilized = jest.fn()
+const updatePlant = jest.fn()
 
 jest.mock('react-router-dom', () => {
   const actual = jest.requireActual('react-router-dom')
@@ -28,6 +29,7 @@ beforeEach(() => {
     plants: [],
     markWatered,
     markFertilized,
+    updatePlant,
   })
 })
 
@@ -139,6 +141,26 @@ test('compact mode hides reason and evapotranspiration info', () => {
   )
   expect(screen.queryByText('Needs water')).not.toBeInTheDocument()
   expect(screen.queryByText(/Evapotranspiration/)).not.toBeInTheDocument()
+})
+
+test('partial left swipe reveals actions', () => {
+  render(
+    <MemoryRouter>
+      <BaseCard variant="task">
+        <TaskCard task={task} />
+      </BaseCard>
+    </MemoryRouter>
+  )
+  const wrapper = screen.getByTestId('task-card')
+  fireEvent.pointerDown(wrapper, { clientX: 100, buttons: 1 })
+  fireEvent.pointerMove(wrapper, { clientX: 70, buttons: 1 })
+  expect(screen.getByRole('button', { name: /edit task/i })).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: /edit task/i }))
+  expect(navigateMock).toHaveBeenCalledWith('/plant/1/edit')
+  fireEvent.click(screen.getByRole('button', { name: /reschedule task/i }))
+  expect(updatePlant).toHaveBeenCalled()
+  fireEvent.click(screen.getByRole('button', { name: /delete task/i }))
+  expect(updatePlant).toHaveBeenCalledTimes(2)
 })
 
 
