@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter, useNavigate } from 'react-router-dom'
+import SnackbarProvider, { Snackbar } from '../../hooks/SnackbarProvider.jsx'
 import TaskCard from '../TaskCard.jsx'
 import BaseCard from '../BaseCard.jsx'
 import { usePlants } from '../../PlantContext.jsx'
@@ -19,6 +20,17 @@ jest.mock('../../PlantContext.jsx', () => ({
 }))
 
 const usePlantsMock = usePlants
+
+function renderWithSnackbar(ui) {
+  return render(
+    <SnackbarProvider>
+      <MemoryRouter>
+        {ui}
+      </MemoryRouter>
+      <Snackbar />
+    </SnackbarProvider>
+  )
+}
 
 beforeEach(() => {
   navigateMock.mockClear()
@@ -44,12 +56,10 @@ const task = {
 }
 
 test('renders task text', () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <BaseCard variant="task">
         <TaskCard task={task} />
       </BaseCard>
-    </MemoryRouter>
   )
   expect(screen.getByText('Monstera')).toBeInTheDocument()
   const badge = screen.getByText('To Water')
@@ -62,24 +72,20 @@ test('renders task text', () => {
 })
 
 test('incomplete tasks show alert style', () => {
-  const { container } = render(
-    <MemoryRouter>
+  const { container } = renderWithSnackbar(
       <BaseCard variant="task">
         <TaskCard task={task} />
       </BaseCard>
-    </MemoryRouter>
   )
   const wrapper = container.querySelector('.shadow')
   expect(wrapper).toHaveClass('bg-neutral-50')
 })
 
 test('applies highlight when urgent', () => {
-  const { container } = render(
-    <MemoryRouter>
+  const { container } = renderWithSnackbar(
       <BaseCard variant="task">
         <TaskCard task={task} urgent />
       </BaseCard>
-    </MemoryRouter>
   )
   const wrapper = container.querySelector('.shadow')
   expect(wrapper).toHaveClass('ring-green-300')
@@ -88,12 +94,10 @@ test('applies highlight when urgent', () => {
 
 
 test('shows completed state', () => {
-  const { container } = render(
-    <MemoryRouter>
+  const { container } = renderWithSnackbar(
       <BaseCard variant="task">
         <TaskCard task={task} completed />
       </BaseCard>
-    </MemoryRouter>
   )
   const wrapper = container.querySelector('.shadow')
   expect(wrapper).toHaveClass('opacity-50')
@@ -102,12 +106,10 @@ test('shows completed state', () => {
 })
 
 test('renders badge icon', () => {
-  const { container } = render(
-    <MemoryRouter>
+  const { container } = renderWithSnackbar(
       <BaseCard variant="task">
         <TaskCard task={task} />
       </BaseCard>
-    </MemoryRouter>
   )
   const svg = container.querySelector('svg')
   expect(svg).toBeInTheDocument()
@@ -115,12 +117,10 @@ test('renders badge icon', () => {
 
 test('shows info chip with accessibility label', () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <BaseCard variant="task">
         <TaskCard task={task} />
       </BaseCard>
-    </MemoryRouter>
   )
   const chip = screen.getByText(/Evapotranspiration/i)
   expect(chip).toHaveAttribute(
@@ -132,24 +132,20 @@ test('shows info chip with accessibility label', () => {
 
 test('compact mode hides reason and evapotranspiration info', () => {
   const compactTask = { ...task, reason: 'Needs water' }
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <BaseCard variant="task">
         <TaskCard task={compactTask} compact />
       </BaseCard>
-    </MemoryRouter>
   )
   expect(screen.queryByText('Needs water')).not.toBeInTheDocument()
   expect(screen.queryByText(/Evapotranspiration/)).not.toBeInTheDocument()
 })
 
 test('partial left swipe reveals actions', () => {
-  render(
-    <MemoryRouter>
+  renderWithSnackbar(
       <BaseCard variant="task">
         <TaskCard task={task} />
       </BaseCard>
-    </MemoryRouter>
   )
   const wrapper = screen.getByTestId('task-card')
   fireEvent.pointerDown(wrapper, { clientX: 100, buttons: 1 })
@@ -168,12 +164,10 @@ test('partial left swipe reveals actions', () => {
 test('matches snapshot in dark mode', () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-16'))
   document.documentElement.classList.add('dark')
-  const { container } = render(
-    <MemoryRouter>
+  const { container } = renderWithSnackbar(
       <BaseCard variant="task">
         <TaskCard task={task} urgent />
       </BaseCard>
-    </MemoryRouter>
   )
   expect(container.firstChild).toMatchSnapshot()
   document.documentElement.classList.remove('dark')

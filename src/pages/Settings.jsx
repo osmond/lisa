@@ -7,14 +7,12 @@ import Panel from '../components/Panel.jsx'
 import ToggleSwitch from '../components/ToggleSwitch.jsx'
 import PageContainer from "../components/PageContainer.jsx"
 
-import useSnackbar from '../hooks/useSnackbar.jsx'
 
 
 export default function Settings() {
   const { theme, toggleTheme } = useTheme()
   const { location, setLocation, units, setUnits } = useWeather()
   const { username, setUsername, timeZone, setTimeZone } = useUser()
-  const { Snackbar, showSnackbar } = useSnackbar()
 
   return (
     <PageContainer className="space-y-6 text-gray-700 dark:text-gray-200">
@@ -96,7 +94,6 @@ export default function Settings() {
         </Panel>
       </div>
 
-      <Snackbar />
     </PageContainer>
   )
 }

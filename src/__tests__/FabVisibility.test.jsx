@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import App from '../App.jsx'
+import SnackbarProvider, { Snackbar } from '../hooks/SnackbarProvider.jsx'
 
 jest.mock('../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: [] }),
@@ -25,9 +26,12 @@ jest.mock('../RoomContext.jsx', () => ({
 describe('floating action button visibility', () => {
   test('shows fab on All Plants page', () => {
     render(
-      <MemoryRouter initialEntries={[ '/myplants' ]}>
-        <App />
-      </MemoryRouter>
+      <SnackbarProvider>
+        <MemoryRouter initialEntries={[ '/myplants' ]}>
+          <App />
+        </MemoryRouter>
+        <Snackbar />
+      </SnackbarProvider>
     )
 
     const button = screen.getByRole('button', { name: /open create menu/i })
@@ -39,9 +43,12 @@ describe('floating action button visibility', () => {
 
   test('fab hidden on Profile page', () => {
     render(
-      <MemoryRouter initialEntries={[ '/profile' ]}>
-        <App />
-      </MemoryRouter>
+      <SnackbarProvider>
+        <MemoryRouter initialEntries={[ '/profile' ]}>
+          <App />
+        </MemoryRouter>
+        <Snackbar />
+      </SnackbarProvider>
     )
 
     expect(screen.queryByRole('button', { name: /open create menu/i })).toBeNull()

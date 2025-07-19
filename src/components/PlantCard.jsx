@@ -18,7 +18,7 @@ export default function PlantCard({ plant }) {
   const navigate = useNavigate()
   const { plants, markWatered, removePlant, updatePlant, restorePlant } =
     usePlants()
-  const { Snackbar, showSnackbar } = useSnackbar()
+  const { showSnackbar } = useSnackbar()
   const [showActions, setShowActions] = useState(false)
   const [showNote, setShowNote] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
@@ -252,7 +252,6 @@ export default function PlantCard({ plant }) {
         onCancel={cancelDelete}
       />
     )}
-    <Snackbar />
     </>
   )
 }
