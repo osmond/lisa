@@ -17,7 +17,7 @@ export default function DetailTabs({ tabs = [], value, onChange, className = '' 
     <div className={`bg-white dark:bg-gray-700 rounded-xl shadow ${className}`.trim()}>
       <div
         role="tablist"
-        className="flex justify-around px-4 pt-2 border-b border-gray-200 dark:border-gray-600"
+        className="flex justify-center gap-2 px-4 pt-2 border-b border-gray-200 dark:border-gray-600"
       >
         {tabs.map(tab => {
           const isActive = active === tab.id
@@ -27,10 +27,10 @@ export default function DetailTabs({ tabs = [], value, onChange, className = '' 
               role="tab"
               aria-selected={isActive}
               onClick={() => handleClick(tab.id)}
-              className={`relative flex-1 px-3 py-1 text-sm focus:outline-none ${
+              className={`px-3 py-1 text-sm border-b-2 focus:outline-none ${
                 isActive
-                  ? 'font-semibold text-gray-900 dark:text-gray-100 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-green-600'
-                  : 'text-gray-500'
+                  ? 'border-green-600 font-semibold'
+                  : 'border-transparent text-gray-500'
               }`}
             >
               {tab.label}
