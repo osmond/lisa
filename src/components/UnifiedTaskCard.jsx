@@ -8,6 +8,7 @@ import {
   PencilSimpleLine,
   ClockCounterClockwise,
   Trash,
+  DotsThreeVertical,
 } from 'phosphor-react'
 import { formatDaysAgo } from '../utils/dateFormat.js'
 import { useNavigate } from 'react-router-dom'
@@ -26,6 +27,7 @@ export default function UnifiedTaskCard({
   const { name, image, dueWater, dueFertilize, lastCared } = plant
 
   const [completed, setCompleted] = useState(false)
+  const [showMenu, setShowMenu] = useState(false)
   const navigate = useNavigate()
   const { plants, markWatered, markFertilized, updatePlant } = usePlants()
   const { showSnackbar } = useSnackbar()
@@ -120,51 +122,82 @@ export default function UnifiedTaskCard({
     { threshold: 30 }
   )
 
-  const showActionBar = dx < 0 && dx > -40
 
   return (
     <div
       data-testid="unified-task-card"
       className={`relative rounded-2xl border border-neutral-200 dark:border-gray-600 shadow overflow-hidden touch-pan-y select-none ${bgClass}`}
-      style={{ transform: `translateX(${swipeable ? dx : 0}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
+      style={{ transform: `translateX(${swipeable ? (dx > 0 ? dx : 0) : 0}px)`, transition: dx === 0 ? 'transform 0.2s' : 'none' }}
       onPointerDown={start}
       onPointerMove={move}
       onPointerUp={end}
       onPointerCancel={end}
     >
-      <div
-        className={`task-action-bar ${showActionBar ? 'show' : ''}`}
-        role="group"
-        aria-label="Task actions"
-      >
-        <button
-          type="button"
-          aria-label="Edit task"
-          onClick={handleEdit}
-          className="task-action bg-blue-600 text-white"
+      {showMenu && (
+        <div
+          className="modal-overlay bg-black/50 z-30 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Task actions menu"
+          onClick={() => setShowMenu(false)}
         >
-          <PencilSimpleLine className="w-4 h-4" aria-hidden="true" />
-          Edit
-        </button>
-        <button
-          type="button"
-          aria-label="Reschedule task"
-          onClick={handleReschedule}
-          className="task-action bg-yellow-600 text-white"
-        >
-          <ClockCounterClockwise className="w-4 h-4" aria-hidden="true" />
-          Reschedule
-        </button>
-        <button
-          type="button"
-          aria-label="Delete task"
-          onClick={handleDelete}
-          className="task-action bg-red-600 text-white"
-        >
-          <Trash className="w-4 h-4" aria-hidden="true" />
-          Delete
-        </button>
-      </div>
+          <ul
+            className="modal-box relative p-4 space-y-3"
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              aria-label="Close menu"
+              onClick={() => setShowMenu(false)}
+              className="modal-close"
+            >
+              &times;
+            </button>
+            <li>
+              <button
+                type="button"
+                aria-label="Edit task"
+                onClick={() => {
+                  setShowMenu(false)
+                  handleEdit()
+                }}
+                className="task-action bg-blue-600 text-white w-full justify-start"
+              >
+                <PencilSimpleLine className="w-4 h-4" aria-hidden="true" />
+                Edit
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                aria-label="Reschedule task"
+                onClick={() => {
+                  setShowMenu(false)
+                  handleReschedule()
+                }}
+                className="task-action bg-yellow-600 text-white w-full justify-start"
+              >
+                <ClockCounterClockwise className="w-4 h-4" aria-hidden="true" />
+                Reschedule
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                aria-label="Delete task"
+                onClick={() => {
+                  setShowMenu(false)
+                  handleDelete()
+                }}
+                className="task-action bg-red-600 text-white w-full justify-start"
+              >
+                <Trash className="w-4 h-4" aria-hidden="true" />
+                Delete
+              </button>
+            </li>
+          </ul>
+        </div>
+      )}
       <div className="flex items-center gap-4 p-4">
         <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-sm bg-neutral-100 dark:bg-gray-700">
           <img src={image} alt={name} className="w-12 h-12 rounded-full object-cover" />
@@ -174,15 +207,25 @@ export default function UnifiedTaskCard({
             <p className="font-semibold font-headline text-gray-900 dark:text-gray-100 truncate">
               {name}
             </p>
-            {overdue ? (
-              <Badge variant="overdue" size="sm" Icon={WarningCircle}>
-                Overdue
-              </Badge>
-            ) : urgent ? (
-              <Badge variant="urgent" size="sm" Icon={CheckCircle}>
-                Today
-              </Badge>
-            ) : null}
+            <div className="flex items-center gap-2">
+              {overdue ? (
+                <Badge variant="overdue" size="sm" Icon={WarningCircle}>
+                  Overdue
+                </Badge>
+              ) : urgent ? (
+                <Badge variant="urgent" size="sm" Icon={CheckCircle}>
+                  Today
+                </Badge>
+              ) : null}
+              <button
+                type="button"
+                aria-label="Open task menu"
+                onClick={() => setShowMenu(true)}
+                className="p-1 text-gray-500 hover:text-gray-700"
+              >
+                <DotsThreeVertical className="w-5 h-5" aria-hidden="true" />
+              </button>
+            </div>
           </div>
           <div className="flex items-center gap-4 mt-1 font-semibold">
             {dueWater && (

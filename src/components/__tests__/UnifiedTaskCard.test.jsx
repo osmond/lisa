@@ -101,18 +101,17 @@ test('does not render a completion button', () => {
   expect(screen.queryByRole('button', { name: /mark as done/i })).toBeNull()
 })
 
-test('partial left swipe reveals actions', () => {
+test('kebab menu exposes actions', () => {
   renderWithSnackbar(
       <UnifiedTaskCard plant={plant} />
   )
-  const wrapper = screen.getByTestId('unified-task-card')
-  fireEvent.pointerDown(wrapper, { clientX: 100, buttons: 1 })
-  fireEvent.pointerMove(wrapper, { clientX: 70, buttons: 1 })
-  expect(screen.getByRole('button', { name: /edit task/i })).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: /open task menu/i }))
   fireEvent.click(screen.getByRole('button', { name: /edit task/i }))
   expect(navigateMock).toHaveBeenCalledWith('/plant/1/edit')
+  fireEvent.click(screen.getByRole('button', { name: /open task menu/i }))
   fireEvent.click(screen.getByRole('button', { name: /reschedule task/i }))
   expect(updatePlant).toHaveBeenCalled()
+  fireEvent.click(screen.getByRole('button', { name: /open task menu/i }))
   fireEvent.click(screen.getByRole('button', { name: /delete task/i }))
   expect(updatePlant).toHaveBeenCalledTimes(2)
 })
