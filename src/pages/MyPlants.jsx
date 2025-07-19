@@ -14,7 +14,6 @@ import FilterPills from '../components/FilterPills.jsx'
 import CreateFab from '../components/CreateFab.jsx'
 import PageContainer from "../components/PageContainer.jsx"
 import PageHeader from "../components/PageHeader.jsx"
-import ImageCard from '../components/ImageCard.jsx'
 
 export default function MyPlants() {
   const { rooms } = useRooms()
@@ -147,22 +146,31 @@ export default function MyPlants() {
             <Link
               key={room}
               to={`/room/${encodeURIComponent(room)}`}
-              className="animate-fade-in-up h-full transition-transform hover:-translate-y-1 active:shadow"
+              className="relative animate-fade-in-up aspect-[3/4] rounded-xl overflow-hidden h-full transition-transform hover:-translate-y-1 active:shadow"
               style={{ animationDelay: `${i * 50}ms` }}
               onMouseDown={createRipple}
               onTouchStart={createRipple}
             >
-              <ImageCard
-                as="div"
-                imgSrc={thumbnail}
-                title={
-                  <>
-                    <p className="font-bold text-lg font-headline leading-none">{room}</p>
-                    <p className="text-xs text-gray-500 leading-none">{countPlants(room)} plants</p>
-                  </>
-                }
-                className="space-y-2 hover:shadow-lg h-full flex flex-col"
-              >
+              <img
+                src={thumbnail}
+                alt={room}
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"
+                aria-hidden="true"
+              ></div>
+              {overdue > 0 && (
+                <Badge
+                  variant="overdue"
+                  colorClass="absolute top-2 right-2 slide-in animate-pulse rounded-full text-badge"
+                  Icon={WarningCircle}
+                >
+                  {overdue} needs love
+                </Badge>
+              )}
+              <div className="absolute bottom-2 left-2 right-2 drop-shadow text-white space-y-1">
                 {previews.length > 0 && (
                   <div className="flex -space-x-2">
                     {previews.map((p, idx) => (
@@ -181,16 +189,9 @@ export default function MyPlants() {
                   {pestAlert && <Bug className="w-4 h-4" aria-hidden="true" />}
                   {lastUpdated && <span>{formatDaysAgo(lastUpdated)}</span>}
                 </div>
-                {overdue > 0 && (
-                  <Badge
-                    variant="overdue"
-                    colorClass="slide-in animate-pulse rounded-full text-badge"
-                    Icon={WarningCircle}
-                  >
-                    {overdue} needs love
-                  </Badge>
-                )}
-              </ImageCard>
+                <p className="font-bold text-lg font-headline leading-none">{room}</p>
+                <p className="text-xs leading-none">{countPlants(room)} plants</p>
+              </div>
             </Link>
           )
         })}
