@@ -371,20 +371,17 @@ export default function PlantDetail() {
   }
 
   return (
-
-    <PageContainer className="relative text-left">
-      <Toast />
-      <div className="space-y-4">
-        <div className="relative">
-          <div className="hidden lg:block absolute inset-0 rounded-xl overflow-hidden -z-10">
-            <img
-              src={plant.image}
-              alt=""
-              className="w-full h-full object-cover blur-2xl scale-110"
-              aria-hidden="true"
-            />
-          </div>
-          <div className="rounded-xl shadow-md overflow-hidden relative">
+    <>
+      <div className="full-bleed relative mb-4">
+        <div className="hidden lg:block absolute inset-0 overflow-hidden -z-10">
+          <img
+            src={plant.image}
+            alt=""
+            className="w-full h-full object-cover blur-2xl scale-110"
+            aria-hidden="true"
+          />
+        </div>
+        <div className="rounded-b-xl shadow-md overflow-hidden relative">
           <img
             src={plant.image}
             alt={plant.name}
@@ -405,25 +402,29 @@ export default function PlantDetail() {
             {/* brief care stats moved to Care Summary tab */}
           </div>
         </div>
-        </div>
-        <div className="flex items-start justify-between">
-          <PageHeader breadcrumb={{ room: plant.room, plant: plant.name }} />
-        </div>
-
-        <DetailTabs tabs={tabs} />
       </div>
-      <PlantDetailFab
-        onAddPhoto={openFileInput}
-        onAddNote={handleLogEvent}
-        onWater={handleWatered}
-        onFertilize={handleFertilized}
-      />
-      {showNoteModal && (
-        <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
-      )}
-      {showLegend && (
-        <LegendModal onClose={() => setShowLegend(false)} />
-      )}
-    </PageContainer>
+      <PageContainer className="relative text-left">
+        <Toast />
+        <div className="space-y-4">
+          <div className="flex items-start justify-between">
+            <PageHeader breadcrumb={{ room: plant.room, plant: plant.name }} />
+          </div>
+
+          <DetailTabs tabs={tabs} />
+        </div>
+        <PlantDetailFab
+          onAddPhoto={openFileInput}
+          onAddNote={handleLogEvent}
+          onWater={handleWatered}
+          onFertilize={handleFertilized}
+        />
+        {showNoteModal && (
+          <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
+        )}
+        {showLegend && (
+          <LegendModal onClose={() => setShowLegend(false)} />
+        )}
+      </PageContainer>
+    </>
   )
 }
