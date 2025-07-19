@@ -167,8 +167,8 @@ export default function PlantDetail() {
 
   const tabs = [
     {
-      id: 'care',
-      label: 'Care',
+      id: 'summary',
+      label: 'Care Summary',
       content: (
         <SectionCard className="space-y-3">
           <div className="space-y-3">
@@ -210,14 +210,7 @@ export default function PlantDetail() {
               </div>
             )}
           </div>
-        </SectionCard>
-      ),
-    },
-    {
-      id: 'overview',
-      label: 'Overview',
-      content: (
-        <SectionCard>
+
           {(plant.light || plant.humidity || plant.difficulty) && (
             <ul className="space-y-1 text-sm">
               {plant.light && (
@@ -409,7 +402,7 @@ export default function PlantDetail() {
               </div>
               {plant.nickname && <p className="text-sm text-gray-200">{plant.nickname}</p>}
             </div>
-            {/* brief care stats moved to Care tab */}
+            {/* brief care stats moved to Care Summary tab */}
           </div>
         </div>
         </div>
