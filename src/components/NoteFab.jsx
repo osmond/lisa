@@ -24,7 +24,7 @@ export default function NoteFab({ onAddNote }) {
           onClick={() => setOpen(false)}
         >
           <ul
-            className="modal-box relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 w-52 space-y-3 animate-fade-in-up"
+            className="modal-box relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 w-52 space-y-4 animate-fade-in-up"
             onClick={e => e.stopPropagation()}
           >
             <button
@@ -43,7 +43,7 @@ export default function NoteFab({ onAddNote }) {
                   onAddNote?.()
                 }}
                 title="Add Note"
-                className="flex items-center gap-3 w-full rounded-lg p-2 hover:bg-green-50 dark:hover:bg-gray-600 transition"
+                className="flex items-center gap-4 w-full rounded-lg p-2 hover:bg-green-50 dark:hover:bg-gray-600 transition"
               >
                 <span className="p-2 rounded-full bg-violet-100">
                   <Note className="w-5 h-5 text-violet-600" aria-hidden="true" />
