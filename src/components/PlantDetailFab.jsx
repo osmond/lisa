@@ -38,7 +38,7 @@ export default function PlantDetailFab({
   }
 
   return (
-    <div className="absolute bottom-4 right-4 z-30">
+    <div className="absolute bottom-2 right-4 z-30 drop-shadow-md">
       {open && (
         <div
           className="modal-overlay bg-black/50 z-30 backdrop-blur-sm"
