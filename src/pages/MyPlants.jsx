@@ -20,11 +20,17 @@ export default function MyPlants() {
   const { plants } = usePlants()
 
   const [filter, setFilter] = useState('all')
+  const [query, setQuery] = useState('')
 
-  const countPlants = room => plants.filter(p => p.room === room).length
+  const search = query.trim().toLowerCase()
+  const filteredPlants = search
+    ? plants.filter(p => p.name.toLowerCase().includes(search))
+    : plants
+
+  const countPlants = room => filteredPlants.filter(p => p.room === room).length
   const todayIso = new Date().toISOString().slice(0, 10)
   const countOverdue = room =>
-    plants
+    filteredPlants
       .filter(p => p.room === room)
       .reduce((m, p) => {
         const { date } = getNextWateringDate(p.lastWatered)
@@ -34,7 +40,7 @@ export default function MyPlants() {
       }, 0)
 
   const roomStats = room => {
-    const list = plants.filter(p => p.room === room)
+    const list = filteredPlants.filter(p => p.room === room)
     const wateredToday = list.some(p => p.lastWatered === todayIso)
     const lowLight = list.some(p => (p.light || '').toLowerCase().includes('low'))
     const pestAlert = list.some(p => p.pestAlert)
@@ -49,6 +55,7 @@ export default function MyPlants() {
   }
 
   const sortedRooms = [...rooms]
+    .filter(r => countPlants(r) > 0)
     .filter(r => filter !== 'love' || countOverdue(r) > 0)
     .sort((a, b) => {
       if (filter === 'newest') return countPlants(b) - countPlants(a)
@@ -79,6 +86,17 @@ export default function MyPlants() {
   return (
     <PageContainer>
       <PageHeader title="All Plants" />
+      <div className="my-4">
+        <label htmlFor="plant-search" className="sr-only">Search Plants</label>
+        <input
+          id="plant-search"
+          type="search"
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          placeholder="Search plants"
+          className="w-full border rounded p-2"
+        />
+      </div>
       <FilterPills
         value={filter}
         onChange={setFilter}
@@ -113,12 +131,12 @@ export default function MyPlants() {
 
           const { wateredToday, lowLight, pestAlert, lastUpdated } = roomStats(room)
 
-          const previews = plants
+          const previews = filteredPlants
             .filter(p => p.room === room)
             .slice(0, 4)
             .map(p => ({ src: p.image || p.placeholderSrc, name: p.name }))
 
-          const first = plants.find(p => p.room === room)
+          const first = filteredPlants.find(p => p.room === room)
           const thumbnail = first?.image || first?.placeholderSrc
 
 
