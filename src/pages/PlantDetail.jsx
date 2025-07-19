@@ -21,7 +21,7 @@ import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
 import { useMenu, defaultMenu } from '../MenuContext.jsx'
 import LegendModal from '../components/LegendModal.jsx'
-import ProgressRing from '../components/ProgressRing.jsx'
+import WaterProgress from '../components/WaterProgress.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
 import SectionCard from '../components/SectionCard.jsx'
@@ -45,11 +45,6 @@ const bulletColors = {
   noteText: 'bg-gray-400',
 }
 
-const ringColors = {
-  high: 'text-red-600',
-  medium: 'text-yellow-600',
-  low: 'text-green-600',
-}
 
 export default function PlantDetail() {
   const { id } = useParams()
@@ -65,12 +60,9 @@ export default function PlantDetail() {
   const [collapsedMonths, setCollapsedMonths] = useState({})
   const [latestFirst, setLatestFirst] = useState(true)
 
-  const ringClass = ringColors[plant?.urgency] || 'text-green-600'
   const progressPct = getWateringProgress(plant?.lastWatered, plant?.nextWater)
-  const fertProgressPct = getWateringProgress(
-    plant?.lastFertilized,
-    plant?.nextFertilize
-  )
+  const waterTotal = 3
+  const waterCompleted = Math.round(progressPct * waterTotal)
 
   const now = new Date()
   const nextWaterDate = plant?.nextWater ? new Date(plant.nextWater) : null
@@ -414,7 +406,7 @@ export default function PlantDetail() {
               <div className="flex items-center gap-2">
                 <h2 className="text-heading font-semibold font-headline">{plant.name}</h2>
                 <div className="relative" style={{ width: 24, height: 24 }} aria-label="Watering progress">
-                  <ProgressRing percent={progressPct} size={24} colorClass={ringClass} />
+                  <WaterProgress completed={waterCompleted} total={waterTotal} />
                 </div>
               </div>
               {plant.nickname && <p className="text-sm text-gray-200">{plant.nickname}</p>}
