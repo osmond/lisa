@@ -274,7 +274,7 @@ export default function PlantDetail() {
                   {formatMonth(monthKey)}
                 </h3>
                 <ul
-                  className={`${isCollapsed ? 'hidden' : ''} relative ml-3 space-y-6 pl-5 before:absolute before:inset-y-0 before:left-2 before:w-px before:bg-gray-200`}
+                  className={`${isCollapsed ? 'hidden' : ''} relative ml-3 space-y-8 pl-5 before:absolute before:inset-y-0 before:left-2 before:w-px before:bg-gray-200`}
                 >
                   {list.map((e, i) => {
                     const Icon = actionIcons[e.type]
