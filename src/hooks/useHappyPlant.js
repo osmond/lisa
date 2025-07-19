@@ -14,7 +14,14 @@ export default function useHappyPlant() {
 
     if (typeof localStorage !== 'undefined') {
       const storedRaw = localStorage.getItem('happyPlant')
-      const stored = storedRaw ? JSON.parse(storedRaw) : {}
+      let stored = {}
+      if (storedRaw) {
+        try {
+          stored = JSON.parse(storedRaw)
+        } catch {
+          // ignore
+        }
+      }
       if (stored.date === today && images[stored.index]) {
         return images[stored.index]
       }
