@@ -120,7 +120,7 @@ export default function MyPlants() {
         ]}
       />
       <div
-        className="grid gap-2 gap-y-6 pb-6"
+        className="grid gap-4 pb-24"
         style={{
           gridTemplateColumns: 'repeat(auto-fill, minmax(160px,1fr))',
           gridAutoRows: '1fr',
