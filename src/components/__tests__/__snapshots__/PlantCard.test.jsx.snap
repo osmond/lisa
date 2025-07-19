@@ -175,67 +175,83 @@ exports[`matches snapshot in dark mode 1`] = `
     </div>
   </div>
   <div
-    class="bg-white dark:bg-gray-700 rounded-2xl shadow p-4 "
+    class="bg-white dark:bg-gray-700 rounded-2xl shadow p-4 p-0 overflow-hidden relative "
     style="transform: translateX(0px); transition: transform 0.2s;"
   >
-    <a
-      class="block mb-2"
-      href="/plant/1"
+    <div
+      class="relative"
     >
       <img
-        alt="Aloe Vera"
+        alt=""
         class="plant-thumb"
         loading="lazy"
         src="test.jpg"
       />
-      <h2
-        class="font-bold text-heading font-headline mt-2"
-      >
-        Aloe Vera
-      </h2>
-    </a>
-    <p
-      class="text-sm text-green-700 font-medium font-body"
-    >
-      Next: 
-      2024-05-07
-    </p>
-    <button
-      class="mt-2 px-3 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200 transition relative overflow-hidden font-body text-sm flex items-center gap-1"
-    >
-      <svg
+      <div
         aria-hidden="true"
-        class="w-4 h-4"
-        fill="currentColor"
-        height="1em"
-        viewBox="0 0 256 256"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
+        class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"
+      />
+      <div
+        class="absolute bottom-1 left-2 right-2 drop-shadow text-white space-y-0.5"
       >
-        <rect
-          fill="none"
-          height="256"
-          width="256"
-        />
-        <path
-          d="M208,144c0-72-80-128-80-128S48,72,48,144a80,80,0,0,0,160,0Z"
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="16"
-        />
-        <path
-          d="M136.1,191.2a47.9,47.9,0,0,0,39.2-39.1"
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="16"
-        />
-      </svg>
-      Watered
-    </button>
+        <div
+          class="font-bold text-lg font-headline leading-none"
+        >
+          <a
+            class="focus:outline-none"
+            href="/plant/1"
+          >
+            Aloe Vera
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="p-4"
+    >
+      <p
+        class="text-sm text-green-700 font-medium font-body"
+      >
+        Next: 
+        2024-05-07
+      </p>
+      <button
+        class="mt-2 px-3 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200 transition relative overflow-hidden font-body text-sm flex items-center gap-1"
+      >
+        <svg
+          aria-hidden="true"
+          class="w-4 h-4"
+          fill="currentColor"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            fill="none"
+            height="256"
+            width="256"
+          />
+          <path
+            d="M208,144c0-72-80-128-80-128S48,72,48,144a80,80,0,0,0,160,0Z"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+          <path
+            d="M136.1,191.2a47.9,47.9,0,0,0,39.2-39.1"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          />
+        </svg>
+        Watered
+      </button>
+    </div>
   </div>
 </div>
 `;

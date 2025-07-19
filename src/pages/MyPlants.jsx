@@ -13,7 +13,7 @@ import { createRipple } from '../utils/interactions.js'
 import CreateFab from '../components/CreateFab.jsx'
 import PageContainer from "../components/PageContainer.jsx"
 import PageHeader from "../components/PageHeader.jsx"
-import Card from '../components/Card.jsx'
+import ImageCard from '../components/ImageCard.jsx'
 
 export default function MyPlants() {
   const { rooms } = useRooms()
@@ -116,32 +116,21 @@ export default function MyPlants() {
               onMouseDown={createRipple}
               onTouchStart={createRipple}
             >
-              <Card className="space-y-2 hover:shadow-lg">
-                <div className="relative">
-                  <img
-                    src={thumbnail}
-                    className="w-full h-24 object-cover rounded-md"
-                    alt={`Photo of the ${room} room`}
-                  />
-                  <div
-                    className="absolute inset-0 rounded-md bg-gradient-to-t from-black/60 via-black/30 to-transparent"
-                    aria-hidden="true"
-                  ></div>
-                  <div className="absolute bottom-1 left-2 right-2 text-white drop-shadow space-y-0.5">
+              <ImageCard
+                as="div"
+                imgSrc={thumbnail}
+                title={
+                  <>
                     <p className="font-bold text-lg font-headline leading-none">{room}</p>
                     <p className="text-sm text-gray-500 leading-none">{countPlants(room)} plants</p>
-                  </div>
-                </div>
+                  </>
+                }
+                className="space-y-2 hover:shadow-lg"
+              >
                 <div className="flex gap-1 text-badge">
-                  {wateredToday && (
-                    <Drop className="w-4 h-4" aria-hidden="true" />
-                  )}
-                  {lowLight && (
-                    <Sun className="w-4 h-4" aria-hidden="true" />
-                  )}
-                  {pestAlert && (
-                    <Bug className="w-4 h-4" aria-hidden="true" />
-                  )}
+                  {wateredToday && <Drop className="w-4 h-4" aria-hidden="true" />}
+                  {lowLight && <Sun className="w-4 h-4" aria-hidden="true" />}
+                  {pestAlert && <Bug className="w-4 h-4" aria-hidden="true" />}
                   {lastUpdated && <span>{formatDaysAgo(lastUpdated)}</span>}
                 </div>
                 {overdue > 0 && (
@@ -153,7 +142,7 @@ export default function MyPlants() {
                     {overdue} needs love
                   </Badge>
                 )}
-              </Card>
+              </ImageCard>
             </Link>
           )
         })}
