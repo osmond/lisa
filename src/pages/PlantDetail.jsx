@@ -20,7 +20,7 @@ import NoteModal from '../components/NoteModal.jsx'
 import { useMenu, defaultMenu } from '../MenuContext.jsx'
 import LegendModal from '../components/LegendModal.jsx'
 import CareRings from '../components/CareRings.jsx'
-import PageHeader from '../components/PageHeader.jsx'
+import Breadcrumb from '../components/Breadcrumb.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
 import DetailTabs from '../components/DetailTabs.jsx'
 
@@ -455,6 +455,9 @@ export default function PlantDetail() {
               size={36}
             />
           </div>
+          <div className="absolute top-2 left-2 bg-black/40 rounded px-2 py-1 text-white text-xs">
+            <Breadcrumb room={plant.room} plant={plant.name} />
+          </div>
           <div className="absolute bottom-2 left-3 right-3 flex flex-col sm:flex-row justify-between text-white drop-shadow space-y-1 sm:space-y-0">
             <div>
               <h2 className="text-heading font-extrabold font-headline animate-fade-in-down">{plant.name}</h2>
@@ -463,23 +466,6 @@ export default function PlantDetail() {
                   {plant.nickname}
                 </p>
               )}
-              <div className="flex flex-wrap gap-1 mt-1 text-xs animate-fade-in-down" style={{ animationDelay: '200ms' }}>
-                {lightTag && (
-                  <span className="bg-black/50 backdrop-blur-sm px-2 py-0.5 rounded-full">
-                    🌤 {lightTag}
-                  </span>
-                )}
-                {humidityTag && (
-                  <span className="bg-black/50 backdrop-blur-sm px-2 py-0.5 rounded-full">
-                    💧 {humidityTag}
-                  </span>
-                )}
-                {difficultyTag && (
-                  <span className="bg-black/50 backdrop-blur-sm px-2 py-0.5 rounded-full">
-                    🪴 {difficultyTag}
-                  </span>
-                )}
-              </div>
             </div>
             {/* brief care stats moved to Care Summary tab */}
           </div>
@@ -488,13 +474,6 @@ export default function PlantDetail() {
       <PageContainer className="relative text-left pt-0 space-y-3">
         <Toast />
         <div className="space-y-3">
-          <div className="flex items-start justify-between">
-            <PageHeader
-              breadcrumb={{ room: plant.room, plant: plant.name }}
-              className="mb-1"
-            />
-          </div>
-
           <DetailTabs tabs={tabs} />
         </div>
         <PlantDetailFab
