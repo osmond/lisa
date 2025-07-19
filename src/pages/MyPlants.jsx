@@ -159,7 +159,7 @@ export default function MyPlants() {
               {overdue > 0 && (
                 <Badge
                   variant="overdue"
-                  className="absolute top-2 right-2 slide-in animate-pulse rounded-full text-badge"
+                  className="absolute top-3 right-3 slide-in animate-pulse rounded-full text-badge"
                   Icon={WarningCircle}
                 >
                   {overdue} needs love
