@@ -26,7 +26,8 @@ export default function BalconyPlantCard({ plant }) {
       ></div>
       {overdue && (
         <Badge
-          colorClass="absolute top-2 left-2 bg-yellow-200 text-yellow-900"
+          className="absolute top-2 left-2"
+          colorClass="bg-yellow-200 text-yellow-900"
           size="sm"
         >
           Thirsty!

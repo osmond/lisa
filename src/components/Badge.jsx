@@ -4,7 +4,8 @@ export default function Badge({
   children,
   Icon,
   variant,
-  colorClass,
+  colorClass = '',
+  className = '',
   size = 'base',
 }) {
   const variants = {
@@ -23,9 +24,11 @@ export default function Badge({
 
   const sizeClass = sizeClasses[size] || sizeClasses.base
 
+  const classes = `inline-flex items-center gap-1 rounded-full font-medium ${sizeClass} ${cls} ${className}`.trim()
+
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full font-medium ${sizeClass} ${cls}`}
+      className={classes}
     >
       {Icon && <Icon className="w-3 h-3" aria-hidden="true" />}
       {children}
