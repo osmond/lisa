@@ -64,7 +64,7 @@ export default function PlantDetailFab({
                 &times;
               </button>
             </div>
-            <ul className="grid grid-cols-2 gap-4">
+            <ul className="grid grid-cols-2 gap-2">
               {items.map(({ label, Icon, action, color }) => (
                 <li key={label} className="list-none">
                   <button
