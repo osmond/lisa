@@ -35,7 +35,7 @@ export default function CreateFab() {
           onClick={() => setOpen(false)}
         >
           <ul
-            className="modal-box relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 w-52 space-y-4 animate-fade-in-up"
+            className="modal-box relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 w-52 grid grid-cols-2 gap-2 animate-fade-in-up"
             onClick={e => e.stopPropagation()}
           >
             <button
