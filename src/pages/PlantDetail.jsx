@@ -28,7 +28,7 @@ import ProgressRing from '../components/ProgressRing.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
 import SectionCard from '../components/SectionCard.jsx'
-import Accordion from '../components/Accordion.jsx'
+import AccordionGroup from '../components/AccordionGroup.jsx'
 
 import useToast from "../hooks/useToast.jsx"
 import confetti from 'canvas-confetti'
@@ -169,6 +169,240 @@ export default function PlantDetail() {
     setShowNoteModal(false)
   }
 
+  const sections = [
+    {
+      id: 'care',
+      title: (
+        <span className="flex items-center gap-2">
+          <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
+          Care Overview
+        </span>
+      ),
+      content: (
+        <SectionCard className="space-y-3">
+          <div className="space-y-3">
+            <div className={`relative rounded-lg p-3 border-l-4 ${waterBorderClass} bg-water-50 dark:bg-water-900/30`}>
+              <div className="flex items-center gap-1 font-headline font-semibold text-water-700 dark:text-water-200">
+                <Drop className="w-4 h-4" aria-hidden="true" />
+                Watering
+              </div>
+              <div className="mt-2 space-y-1 text-sm">
+                <div>
+                  <span className="text-gray-500">Last watered:</span>{' '}
+                  <span className="text-gray-900 dark:text-gray-100">
+                    {formatDaysAgo(plant.lastWatered)}
+                    {formatTimeOfDay(plant.lastWatered) ? ` \u00B7 ${formatTimeOfDay(plant.lastWatered)}` : ''} (
+                    <span>{plant.lastWatered}</span>
+                    )
+                  </span>
+                </div>
+                <div>
+                  <span className="text-gray-500">Next due:</span>{' '}
+                  <span className="text-gray-900 dark:text-gray-100">{plant.nextWater}</span>
+                </div>
+                {overdueWaterDays > 0 && (
+                  <div className="flex items-center text-red-600 dark:text-red-400">
+                    <span className="mr-1" role="img" aria-label="Overdue">❗</span>
+                    {overdueWaterDays} {overdueWaterDays === 1 ? 'day' : 'days'} overdue
+                  </div>
+                )}
+              </div>
+              <button
+                type="button"
+                onClick={handleWatered}
+                aria-label={`Mark ${plant.name} as watered`}
+                className="absolute bottom-3 right-3 px-2 py-1 border border-water-600 text-water-600 rounded text-xs flex items-center gap-1 group"
+              >
+                <Drop className="w-3 h-3 group-active:drip-pulse" aria-hidden="true" />
+                Mark Watered
+              </button>
+            </div>
+            {plant.nextFertilize && (
+              <div className={`relative rounded-lg p-3 border-l-4 ${fertBorderClass} bg-fertilize-50 dark:bg-fertilize-900/30`}>
+                <div className="flex items-center gap-1 font-headline font-semibold text-fertilize-700 dark:text-fertilize-200">
+                  <Flower className="w-4 h-4" aria-hidden="true" />
+                  Fertilizing
+                </div>
+                <div className="mt-2 space-y-1 text-sm">
+                  {plant.lastFertilized && (
+                    <div>
+                      <span className="text-gray-500">Last fertilized:</span>{' '}
+                      <span className="text-gray-900 dark:text-gray-100">
+                        {formatDaysAgo(plant.lastFertilized)}
+                        {formatTimeOfDay(plant.lastFertilized) ? ` \u00B7 ${formatTimeOfDay(plant.lastFertilized)}` : ''} (
+                        <span>{plant.lastFertilized}</span>
+                        )
+                      </span>
+                    </div>
+                  )}
+                  <div>
+                    <span className="text-gray-500">Next due:</span>{' '}
+                    <span className="text-gray-900 dark:text-gray-100">{plant.nextFertilize}</span>
+                  </div>
+                  {overdueFertDays > 0 && (
+                    <div className="flex items-center text-red-600 dark:text-red-400">
+                      <span className="mr-1" role="img" aria-label="Overdue">❗</span>
+                      {overdueFertDays} {overdueFertDays === 1 ? 'day' : 'days'} overdue
+                    </div>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={handleFertilized}
+                  aria-label={`Mark ${plant.name} as fertilized`}
+                  className="absolute bottom-3 right-3 px-2 py-1 border border-fertilize-600 text-fertilize-600 rounded text-xs flex items-center gap-1"
+                >
+                  <Flower className="w-3 h-3" aria-hidden="true" /> Mark Fertilized
+                </button>
+              </div>
+            )}
+          </div>
+        </SectionCard>
+      ),
+    },
+    {
+      id: 'activity',
+      title: (
+        <span className="flex items-center gap-2">
+          <Note className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
+          Activity
+        </span>
+      ),
+      content: (
+        <SectionCard className="space-y-4">
+          <div className="flex justify-end">
+            <button type="button" onClick={() => setShowLegend(true)} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+              <Info className="w-4 h-4" aria-hidden="true" />
+              <span className="sr-only">Legend</span>
+            </button>
+          </div>
+          {groupedEvents.map(([monthKey, list]) => {
+            const isCollapsed = collapsedMonths[monthKey]
+            return (
+              <div key={monthKey} className="mt-6 first:mt-0">
+                <h3 className="sticky top-0 z-10 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm px-1 text-timestamp uppercase tracking-wider text-gray-300 mb-2 flex items-center">
+                  <button
+                    type="button"
+                    aria-expanded={!isCollapsed}
+                    onClick={() => setCollapsedMonths(c => ({ ...c, [monthKey]: !isCollapsed }))}
+                    className="mr-1"
+                  >
+                    {isCollapsed ? (
+                      <CaretRight className="w-3 h-3" aria-hidden="true" />
+                    ) : (
+                      <CaretDown className="w-3 h-3" aria-hidden="true" />
+                    )}
+                    <span className="sr-only">
+                      {isCollapsed ? 'Expand month' : 'Collapse month'}
+                    </span>
+                  </button>
+                  {formatMonth(monthKey)}
+                </h3>
+                <ul
+                  className={`${isCollapsed ? 'hidden' : ''} relative ml-3 space-y-6 pl-5 before:absolute before:inset-y-0 before:left-2 before:w-px before:bg-gray-200`}
+                >
+                  {list.map((e, i) => {
+                    const Icon = actionIcons[e.type]
+                    return (
+                      <li key={`${e.date}-${i}`} className="relative text-xs sm:text-sm">
+                        {Icon && (
+                          <div className={`absolute -left-5 top-[0.25rem] w-4 h-4 flex items-center justify-center rounded-full ${bulletColors[e.type]} z-10`}>
+                            <Icon className="w-3 h-3 text-white" aria-hidden="true" />
+                          </div>
+                        )}
+                        <div className={`flex items-start ${e.note ? 'bg-gray-50 dark:bg-gray-700 rounded-xl p-3 shadow-sm' : ''}`}>
+                          <div>
+                            <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
+                            {e.note && (
+                              <div className="text-xs italic text-green-700 mt-1">{e.note}</div>
+                            )}
+                          </div>
+                        </div>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+            )
+          })}
+        </SectionCard>
+      ),
+    },
+    {
+      id: 'gallery',
+      title: (
+        <span className="flex items-center gap-2">
+          <Image className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
+          Gallery
+        </span>
+      ),
+      content: (
+        <SectionCard className="space-y-2">
+          <div className="flex flex-nowrap gap-3 overflow-x-auto pb-1 sm:pb-2">
+            {(plant.photos || []).map((photo, i) => {
+              const { src, caption } = photo
+              return (
+                <div key={i} className="relative flex flex-col items-center">
+                  <button type="button" onClick={() => setLightboxIndex(i)} className="block focus:outline-none">
+                    <img
+                      src={src}
+                      alt={caption || `${plant.name} photo ${i + 1}`}
+                      className="plant-thumb w-24"
+                    />
+                  </button>
+                  {caption && (
+                    <p className="text-xs font-medium mt-0.5 px-2 w-24 text-center">
+                      {caption}
+                    </p>
+                  )}
+
+                  <button
+                    className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
+                    onClick={() => removePhoto(plant.id, i)}
+                  >
+                    ✕
+                  </button>
+                </div>
+              )
+            })}
+          </div>
+          {(plant.photos || []).length > 3 && (
+            <button
+              type="button"
+              onClick={() => setLightboxIndex(0)}
+              className="mt-2 text-sm text-blue-600 underline"
+            >
+              View All Photos
+            </button>
+          )}
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            ref={fileInputRef}
+            onChange={handleFiles}
+            className="hidden"
+          />
+          {lightboxIndex !== null && (
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label={`${plant.name} gallery`}
+              className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-40"
+            >
+              <Lightbox
+                images={plant.photos}
+                startIndex={lightboxIndex}
+                onClose={() => setLightboxIndex(null)}
+                label={`${plant.name} gallery`}
+              />
+            </div>
+          )}
+        </SectionCard>
+      ),
+    },
+  ]
+
   if (!plant) {
     return <div className="text-gray-700 dark:text-gray-200">Plant not found</div>
   }
@@ -253,246 +487,8 @@ export default function PlantDetail() {
           </button>
         </div>
 
-        <Accordion
-          title={
-            <span className="flex items-center gap-2">
-              <Clock className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
-              Care Details
-            </span>
-          }
-          defaultOpen
-        >
-          <SectionCard className="space-y-3">
-            <div className="space-y-3">
-    <div className={`relative rounded-lg p-3 border-l-4 ${waterBorderClass} bg-water-50 dark:bg-water-900/30`}>
-      <div className="flex items-center gap-1 font-headline font-semibold text-water-700 dark:text-water-200">
-        <Drop className="w-4 h-4" aria-hidden="true" />
-        Watering
+        <AccordionGroup sections={sections} />
       </div>
-      <div className="mt-2 space-y-1 text-sm">
-        <div>
-          <span className="text-gray-500">Last watered:</span>{' '}
-          <span className="text-gray-900 dark:text-gray-100">
-            {formatDaysAgo(plant.lastWatered)}
-            {formatTimeOfDay(plant.lastWatered) ? ` \u00B7 ${formatTimeOfDay(plant.lastWatered)}` : ''} (
-            <span>{plant.lastWatered}</span>
-            )
-          </span>
-        </div>
-        <div>
-          <span className="text-gray-500">Next due:</span>{' '}
-          <span className="text-gray-900 dark:text-gray-100">{plant.nextWater}</span>
-        </div>
-        {overdueWaterDays > 0 && (
-          <div className="flex items-center text-red-600 dark:text-red-400">
-            <span className="mr-1" role="img" aria-label="Overdue">❗</span>
-            {overdueWaterDays} {overdueWaterDays === 1 ? 'day' : 'days'} overdue
-          </div>
-        )}
-      </div>
-      <button
-        type="button"
-        onClick={handleWatered}
-        aria-label={`Mark ${plant.name} as watered`}
-        className="absolute bottom-3 right-3 px-2 py-1 border border-water-600 text-water-600 rounded text-xs flex items-center gap-1 group"
-      >
-        <Drop className="w-3 h-3 group-active:drip-pulse" aria-hidden="true" />
-        Mark Watered
-      </button>
-    </div>
-    {plant.nextFertilize && (
-      <div className={`relative rounded-lg p-3 border-l-4 ${fertBorderClass} bg-fertilize-50 dark:bg-fertilize-900/30`}>
-        <div className="flex items-center gap-1 font-headline font-semibold text-fertilize-700 dark:text-fertilize-200">
-          <Flower className="w-4 h-4" aria-hidden="true" />
-          Fertilizing
-        </div>
-        <div className="mt-2 space-y-1 text-sm">
-          {plant.lastFertilized && (
-            <div>
-              <span className="text-gray-500">Last fertilized:</span>{' '}
-              <span className="text-gray-900 dark:text-gray-100">
-                {formatDaysAgo(plant.lastFertilized)}
-                {formatTimeOfDay(plant.lastFertilized) ? ` \u00B7 ${formatTimeOfDay(plant.lastFertilized)}` : ''} (
-                <span>{plant.lastFertilized}</span>
-                )
-              </span>
-            </div>
-          )}
-          <div>
-            <span className="text-gray-500">Next due:</span>{' '}
-            <span className="text-gray-900 dark:text-gray-100">{plant.nextFertilize}</span>
-          </div>
-          {overdueFertDays > 0 && (
-            <div className="flex items-center text-red-600 dark:text-red-400">
-              <span className="mr-1" role="img" aria-label="Overdue">❗</span>
-              {overdueFertDays} {overdueFertDays === 1 ? 'day' : 'days'} overdue
-            </div>
-          )}
-        </div>
-        <button
-          type="button"
-          onClick={handleFertilized}
-          aria-label={`Mark ${plant.name} as fertilized`}
-          className="absolute bottom-3 right-3 px-2 py-1 border border-fertilize-600 text-fertilize-600 rounded text-xs flex items-center gap-1"
-        >
-          <Flower className="w-3 h-3" aria-hidden="true" /> Mark Fertilized
-        </button>
-      </div>
-    )}
-            </div>
-          </SectionCard>
-        </Accordion>
-
-
-        <Accordion
-          title={
-            <span className="flex items-center gap-2">
-              <Note className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
-              Activity & Notes
-            </span>
-          }
-        >
-          <SectionCard className="space-y-4">
-            <div className="flex justify-end">
-              <button type="button" onClick={() => setShowLegend(true)} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
-                <Info className="w-4 h-4" aria-hidden="true" />
-                <span className="sr-only">Legend</span>
-              </button>
-            </div>
-            {groupedEvents.map(([monthKey, list], idx) => {
-              const isCollapsed = collapsedMonths[monthKey]
-              return (
-                <div key={monthKey} className="mt-6 first:mt-0">
-                <h3 className="sticky top-0 z-10 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm px-1 text-timestamp uppercase tracking-wider text-gray-300 mb-2 flex items-center">
-                  <button
-                    type="button"
-                    aria-expanded={!isCollapsed}
-                    onClick={() =>
-                      setCollapsedMonths(c => ({ ...c, [monthKey]: !isCollapsed }))
-                    }
-                    className="mr-1"
-                  >
-                    {isCollapsed ? (
-                      <CaretRight className="w-3 h-3" aria-hidden="true" />
-                    ) : (
-                      <CaretDown className="w-3 h-3" aria-hidden="true" />
-                    )}
-                    <span className="sr-only">
-                      {isCollapsed ? 'Expand month' : 'Collapse month'}
-                    </span>
-                  </button>
-                  {formatMonth(monthKey)}
-                </h3>
-                <ul
-                  className={`${
-                    isCollapsed ? 'hidden' : ''
-                  } relative ml-3 space-y-6 pl-5 before:absolute before:inset-y-0 before:left-2 before:w-px before:bg-gray-200`}
-                >
-                  {list.map((e, i) => {
-                    const Icon = actionIcons[e.type]
-                    return (
-                      <li key={`${e.date}-${i}`} className="relative text-xs sm:text-sm">
-                        {Icon && (
-                          <div
-                            className={`absolute -left-5 top-[0.25rem] w-4 h-4 flex items-center justify-center rounded-full ${bulletColors[e.type]} z-10`}
-                          >
-                            <Icon className="w-3 h-3 text-white" aria-hidden="true" />
-                          </div>
-                        )}
-                        <div
-                          className={`flex items-start ${
-                            e.note ? 'bg-gray-50 dark:bg-gray-700 rounded-xl p-3 shadow-sm' : ''
-                          }`}
-                        >
-                          <div>
-                            <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
-                            {e.note && (
-                              <div className="text-xs italic text-green-700 mt-1">{e.note}</div>
-                            )}
-                          </div>
-                        </div>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-            )
-          })}
-          </SectionCard>
-        </Accordion>
-      </div>
-
-      <Accordion
-        title={
-          <span className="flex items-center gap-2">
-            <Image className="w-5 h-5 text-gray-600 dark:text-gray-200" aria-hidden="true" />
-            Gallery
-          </span>
-        }
-      >
-        <SectionCard className="space-y-2">
-          <div className="flex flex-nowrap gap-3 overflow-x-auto pb-1 sm:pb-2">
-          {(plant.photos || []).map((photo, i) => {
-            const { src, caption } = photo
-            return (
-              <div key={i} className="relative flex flex-col items-center">
-                <button type="button" onClick={() => setLightboxIndex(i)} className="block focus:outline-none">
-                  <img
-                    src={src}
-                    alt={caption || `${plant.name} photo ${i + 1}`}
-                    className="plant-thumb w-24"
-                  />
-                </button>
-                {caption && (
-                  <p className="text-xs font-medium mt-0.5 px-2 w-24 text-center">
-                    {caption}
-                  </p>
-                )}
-
-                <button
-                  className="absolute top-1 right-1 bg-white bg-opacity-70 rounded px-1 text-xs"
-                  onClick={() => removePhoto(plant.id, i)}
-                >
-                  ✕
-                </button>
-              </div>
-            )
-          })}
-          </div>
-          {(plant.photos || []).length > 3 && (
-          <button
-            type="button"
-            onClick={() => setLightboxIndex(0)}
-            className="mt-2 text-sm text-blue-600 underline"
-          >
-            View All Photos
-          </button>
-          )}
-          <input
-            type="file"
-            accept="image/*"
-            multiple
-            ref={fileInputRef}
-            onChange={handleFiles}
-            className="hidden"
-          />
-          {lightboxIndex !== null && (
-            <div
-              role="dialog"
-              aria-modal="true"
-              aria-label={`${plant.name} gallery`}
-              className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-40"
-            >
-              <Lightbox
-                images={plant.photos}
-                startIndex={lightboxIndex}
-                onClose={() => setLightboxIndex(null)}
-                label={`${plant.name} gallery`}
-              />
-            </div>
-          )}
-        </SectionCard>
-      </Accordion>
       <PlantDetailFab onAddPhoto={openFileInput} onAddNote={handleLogEvent} />
       {showNoteModal && (
         <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
