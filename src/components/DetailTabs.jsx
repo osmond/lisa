@@ -17,7 +17,7 @@ export default function DetailTabs({ tabs = [], value, onChange, className = '' 
     <div className={`bg-white dark:bg-gray-700 rounded-xl shadow ${className}`.trim()}>
       <div
         role="tablist"
-        className="flex justify-center gap-2 px-4 pt-2 border-b border-gray-200 dark:border-gray-600"
+        className="flex justify-center gap-2 px-4 pt-2"
       >
         {tabs.map(tab => {
           const isActive = active === tab.id
