@@ -46,7 +46,7 @@ export default function RoomList() {
       {list.length === 0 ? (
         <p>No plants in this room.</p>
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-8">
           {sorted.map(plant => (
             <Link
               key={plant.id}
