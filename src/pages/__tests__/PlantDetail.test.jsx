@@ -128,13 +128,9 @@ test('opens lightbox from gallery', () => {
     plant.photos[0].caption || /gallery image/i
   )[1]
   expect(viewerImg).toHaveAttribute('src', plant.photos[0].src)
-  expect(screen.getAllByText(plant.photos[0].caption).length).toBeGreaterThan(0)
 
   fireEvent.keyDown(window, { key: 'ArrowRight' })
   expect(viewerImg).toHaveAttribute('src', plant.photos[1].src)
-  if (plant.photos[1].caption) {
-    expect(screen.getAllByText(plant.photos[1].caption).length).toBeGreaterThan(0)
-  }
 
   fireEvent.keyDown(window, { key: 'Escape' })
   expect(

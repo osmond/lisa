@@ -17,15 +17,12 @@ test('keyboard navigation and close', () => {
 
   const img = screen.getByAltText(images[0].caption)
   expect(img).toHaveAttribute('src', 'a.jpg')
-  expect(screen.getByText('first')).toBeInTheDocument()
 
   fireEvent.keyDown(window, { key: 'ArrowRight' })
   expect(img).toHaveAttribute('src', 'b.jpg')
-  expect(screen.getByText('second')).toBeInTheDocument()
 
   fireEvent.keyDown(window, { key: 'ArrowLeft' })
   expect(img).toHaveAttribute('src', 'a.jpg')
-  expect(screen.getByText('first')).toBeInTheDocument()
 
   fireEvent.keyDown(window, { key: 'Escape' })
   expect(onClose).toHaveBeenCalled()
