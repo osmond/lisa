@@ -177,6 +177,7 @@ export default function PlantDetail() {
     {
       id: 'summary',
       label: 'Care Summary',
+      icon: Info,
       content: (
         <SectionCard className="space-y-3">
           <div className="space-y-3">
@@ -244,6 +245,7 @@ export default function PlantDetail() {
     {
       id: 'activity',
       label: 'Activity',
+      icon: Note,
       content: (
         <SectionCard className="space-y-4">
           <div className="flex justify-end gap-2">
@@ -321,6 +323,7 @@ export default function PlantDetail() {
     {
       id: 'gallery',
       label: 'Gallery',
+      icon: Image,
       content: (
         <SectionCard className="space-y-2">
           <div className="flex flex-nowrap gap-3 overflow-x-auto pb-1 sm:pb-2">

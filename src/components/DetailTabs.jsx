@@ -15,22 +15,27 @@ export default function DetailTabs({ tabs = [], value, onChange }) {
 
   return (
     <div>
-      <div role="tablist" className="flex justify-center gap-2 my-2">
-        {tabs.map(tab => (
-          <button
-            key={tab.id}
-            role="tab"
-            aria-selected={active === tab.id}
-            onClick={() => handleClick(tab.id)}
-            className={`px-3 py-1 rounded-full text-sm font-medium focus:outline-none ${
-              active === tab.id
-                ? 'bg-green-600 text-white'
-                : 'bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200'
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
+      <div role="tablist" className="flex justify-center gap-2 py-1">
+        {tabs.map(tab => {
+          const Icon = tab.icon
+          const isActive = active === tab.id
+          return (
+            <button
+              key={tab.id}
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => handleClick(tab.id)}
+              className={`px-3 py-1 text-sm border-b-2 focus:outline-none ${
+                isActive
+                  ? 'border-green-600 font-semibold'
+                  : 'border-transparent text-gray-500'
+              }`}
+            >
+              {Icon && <Icon className="inline w-4 h-4 mr-1" aria-hidden="true" />}
+              {tab.label}
+            </button>
+          )
+        })}
       </div>
       <div className="mt-4">{activeTab?.content}</div>
     </div>
