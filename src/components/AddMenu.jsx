@@ -34,7 +34,7 @@ export default function AddMenu({ open = false, onClose = () => {} }) {
               to={to}
               onClick={onClose}
               title={label}
-              className="flex items-center gap-3 hover:text-accent"
+              className="flex items-center gap-4 hover:text-accent"
             >
               <Icon className="w-5 h-5" aria-hidden="true" />
               {label}

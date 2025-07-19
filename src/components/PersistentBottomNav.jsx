@@ -91,7 +91,7 @@ export default function PersistentBottomNav() {
                     to={to}
                     onClick={() => setOpen(false)}
                     title={label}
-                    className="flex items-center gap-3 hover:text-accent"
+                    className="flex items-center gap-4 hover:text-accent"
                   >
                     <ItemIcon className="w-5 h-5" aria-hidden="true" />
                     {label}
@@ -104,7 +104,7 @@ export default function PersistentBottomNav() {
                       onClick?.()
                     }}
                     title={label}
-                    className="flex items-center gap-3 w-full text-left hover:text-accent"
+                    className="flex items-center gap-4 w-full text-left hover:text-accent"
                   >
                     <ItemIcon className="w-5 h-5" aria-hidden="true" />
                     {label}
