@@ -10,14 +10,14 @@ export default function AddMenu({ open = false, onClose = () => {} }) {
   ]
   return (
     <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-30 backdrop-blur-sm"
+      className="modal-overlay bg-black/50 z-30 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-label="Add menu"
       onClick={onClose}
     >
       <ul
-        className="relative bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 space-y-4 bloom-pop text-lg"
+        className="modal-box relative p-6 space-y-4 bloom-pop text-lg"
         onClick={e => e.stopPropagation()}
       >
         <button
