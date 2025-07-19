@@ -22,7 +22,7 @@ Includes:
 
 Lisa keeps a tab bar pinned to the bottom of the screen so you can quickly switch between **Today**, **All Plants** and **Timeline**. A **More** button reveals extra links such as your profile. A circular **+** button floats above the bar; tap it to open shortcuts for adding a new plant or room.
 
-Task cards now render as static summaries with no swipe gestures. Plant cards remain interactive and support swiping or keyboard shortcuts through the underlying `PlantCard` component.
+Task cards support swipe gestures for quick actions. A partial swipe reveals edit, reschedule and delete buttons so you can manage care directly from the list. Plant cards also remain interactive and support swiping or keyboard shortcuts through the underlying `PlantCard` component.
 Both the Today and Tasks pages group care by plant using a `UnifiedTaskCard` that shows a thumbnail, upcoming needs and quick "Water Now" or "Fertilize Now" buttons when due.
 
 ## Plant Detail View
