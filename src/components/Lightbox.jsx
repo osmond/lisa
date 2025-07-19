@@ -60,9 +60,10 @@ export default function Lightbox({ images, startIndex = 0, onClose, label = 'Ima
               className="max-w-full max-h-full object-contain"
             />
             {current.caption && (
-              <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/60 px-2 py-1 rounded text-sm">
-                {current.caption}
-              </p>
+              // <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/60 px-2 py-1 rounded text-sm">
+              //   {current.caption}
+              // </p>
+              null
             )}
           </>
         )
