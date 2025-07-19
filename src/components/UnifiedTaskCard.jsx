@@ -110,17 +110,17 @@ export default function UnifiedTaskCard({
   const { dx, start, move, end } = useSwipe(
     diff => {
       if (!swipeable) return
-      if (diff > 60) {
+      if (diff > 40) {
         handleComplete()
         navigator.vibrate?.(10)
-      } else if (diff < -60) {
+      } else if (diff < -40) {
         goToDetail()
       }
     },
     { threshold: 30 }
   )
 
-  const showActionBar = dx < 0 && dx > -60
+  const showActionBar = dx < 0 && dx > -40
 
   return (
     <div
@@ -216,7 +216,7 @@ export default function UnifiedTaskCard({
       {completed && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none task-complete-fade">
           <svg
-            className="w-8 h-8 text-healthy-600 check-pop swipe-check"
+            className="w-8 h-8 text-healthy-600 check-pop swipe-check fade-in"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"

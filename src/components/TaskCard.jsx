@@ -67,10 +67,10 @@ export default function TaskCard({
   const { dx, start, move, end } = useSwipe(
     diff => {
       if (!swipeable) return
-      if (diff > 60) {
+      if (diff > 40) {
         handleComplete()
         navigator.vibrate?.(10)
-      } else if (diff < -60) {
+      } else if (diff < -40) {
         const room = task.room ? encodeURIComponent(task.room) : null
         navigate(
           room ? `/room/${room}/plant/${task.plantId}` : `/plant/${task.plantId}`
@@ -80,7 +80,7 @@ export default function TaskCard({
     { threshold: 30 }
   )
 
-  const showActionBar = dx < 0 && dx > -60
+  const showActionBar = dx < 0 && dx > -40
 
   return (
     <>
@@ -188,7 +188,7 @@ export default function TaskCard({
           {completed && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none task-complete-fade">
               <svg
-                className="w-8 h-8 text-healthy-600 check-pop swipe-check"
+                className="w-8 h-8 text-healthy-600 check-pop swipe-check fade-in"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
