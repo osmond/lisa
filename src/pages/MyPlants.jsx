@@ -97,7 +97,13 @@ export default function MyPlants() {
           Needs Love
         </label>
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div
+        className="grid gap-2"
+        style={{
+          gridTemplateColumns: 'repeat(auto-fill, minmax(160px,1fr))',
+          gridAutoRows: '1fr',
+        }}
+      >
         {sortedRooms.map((room, i) => {
           const overdue = countOverdue(room)
 
@@ -111,7 +117,7 @@ export default function MyPlants() {
             <Link
               key={room}
               to={`/room/${encodeURIComponent(room)}`}
-              className="animate-fade-in-up transition-transform hover:-translate-y-1 active:shadow"
+              className="animate-fade-in-up h-full transition-transform hover:-translate-y-1 active:shadow"
               style={{ animationDelay: `${i * 50}ms` }}
               onMouseDown={createRipple}
               onTouchStart={createRipple}
@@ -125,7 +131,7 @@ export default function MyPlants() {
                     <p className="text-sm text-gray-500 leading-none">{countPlants(room)} plants</p>
                   </>
                 }
-                className="space-y-2 hover:shadow-lg"
+                className="space-y-2 hover:shadow-lg h-full flex flex-col"
               >
                 <div className="flex gap-1 text-badge">
                   {wateredToday && <Drop className="w-4 h-4" aria-hidden="true" />}
@@ -149,7 +155,7 @@ export default function MyPlants() {
         <Link
           to="/room/add"
           aria-label="Add Room"
-          className="flex items-center justify-center w-full h-40 rounded-lg border-2 border-dashed text-gray-500 animate-fade-in-up"
+          className="flex items-center justify-center h-full min-h-[160px] rounded-lg border-2 border-dashed text-gray-500 animate-fade-in-up"
           style={{ animationDelay: `${sortedRooms.length * 50}ms` }}
         >
           <Plus className="w-10 h-10" aria-hidden="true" />

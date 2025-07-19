@@ -54,7 +54,13 @@ export default function RoomList() {
       {list.length === 0 ? (
         <p>No plants in this room.</p>
       ) : (
-        <div className="grid grid-cols-2 gap-6">
+        <div
+          className="grid gap-2"
+          style={{
+            gridTemplateColumns: 'repeat(auto-fill, minmax(160px,1fr))',
+            gridAutoRows: '1fr',
+          }}
+        >
           {sorted.map(plant => {
             const src =
               typeof plant.image === 'string' && plant.image.trim() !== ''
@@ -74,7 +80,7 @@ export default function RoomList() {
               <Link
                 key={plant.id}
                 to={`/room/${encodeURIComponent(roomName)}/plant/${plant.id}`}
-                className="block transition-transform hover:-translate-y-1 active:shadow"
+                className="block h-full transition-transform hover:-translate-y-1 active:shadow"
                 onMouseDown={createRipple}
                 onTouchStart={createRipple}
               >
@@ -112,7 +118,7 @@ export default function RoomList() {
                       </Badge>
                     ),
                   ]}
-                  className="hover:shadow-lg"
+                  className="hover:shadow-lg h-full flex flex-col"
                 />
               </Link>
             )
