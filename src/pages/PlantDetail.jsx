@@ -87,7 +87,7 @@ export default function PlantDetail() {
       : 0
 
   const waterBorderClass =
-    overdueWaterDays > 0 ? 'border-rose-500' : 'border-green-500'
+    overdueWaterDays > 0 ? 'border-rose-500' : 'border-green-400'
   const fertBorderClass =
     overdueFertDays > 0 ? 'border-rose-500' : 'border-green-500'
 
@@ -182,16 +182,16 @@ export default function PlantDetail() {
       content: (
         <div className="space-y-4 p-4">
           <div className="space-y-4">
-            <div className={`relative rounded-lg p-4 border-l-4 ${waterBorderClass} bg-blue-50 dark:bg-water-900/30`}>
-              <h3 className="flex items-center gap-2 font-headline font-medium text-blue-700 dark:text-water-200">
-                <Drop className="w-4 h-4" aria-hidden="true" />
+            <div className={`relative rounded-xl p-5 border-l-4 ${waterBorderClass} bg-blue-50 dark:bg-water-900/30 shadow-sm`}>
+              <h3 className="flex items-center gap-2 text-sm font-semibold text-blue-800 dark:text-water-200 mb-2">
+                <Drop className="w-3 h-3" aria-hidden="true" />
                 Watering Schedule
               </h3>
-              <p className="mt-2 text-sm">
+              <p className="text-sm text-gray-700 mb-1">
                 Last watered: {formatDaysAgo(plant.lastWatered)} · Next: {plant.nextWater}
               </p>
               {overdueWaterDays > 0 && (
-                <span className="mt-1 inline-block rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
+                <span className="inline-block rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
                   Overdue {overdueWaterDays} {overdueWaterDays === 1 ? 'day' : 'days'}
                 </span>
               )}
@@ -215,23 +215,23 @@ export default function PlantDetail() {
           </div>
 
           {(plant.light || plant.humidity || plant.difficulty) && (
-            <ul className="flex flex-wrap gap-2 text-sm">
+            <div className="mt-4 flex flex-wrap gap-2 text-xs text-gray-600">
               {plant.light && (
-                <li className="inline-flex items-center gap-1">
-                  <Sun className="w-4 h-4" aria-hidden="true" /> {plant.light}
-                </li>
+                <span className="rounded-full border border-gray-300 px-3 py-1">
+                  ☀️ {plant.light}
+                </span>
               )}
               {plant.humidity && (
-                <li className="inline-flex items-center gap-1">
-                  <Drop className="w-4 h-4" aria-hidden="true" /> {plant.humidity}
-                </li>
+                <span className="rounded-full border border-gray-300 px-3 py-1">
+                  💧 {plant.humidity}
+                </span>
               )}
               {plant.difficulty && (
-                <li className="inline-flex items-center gap-1">
-                  <Gauge className="w-4 h-4" aria-hidden="true" /> {plant.difficulty}
-                </li>
+                <span className="rounded-full border border-gray-300 px-3 py-1">
+                  🪴 {plant.difficulty}
+                </span>
               )}
-            </ul>
+            </div>
           )}
         </div>
       ),
