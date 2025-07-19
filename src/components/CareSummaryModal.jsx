@@ -24,7 +24,7 @@ export default function CareSummaryModal({ tasks = [], onClose }) {
         <button
           aria-label="Close"
           onClick={onClose}
-          className="absolute top-2 right-2 text-gray-500"
+          className="modal-close"
         >
           &times;
         </button>
