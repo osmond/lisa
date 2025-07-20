@@ -498,7 +498,7 @@ export default function PlantDetail() {
           </div>
         </div>
       </div>
-      <PageContainer className="relative text-left pt-0 space-y-3">
+      <PageContainer size="xl" className="relative text-left pt-0 space-y-3">
         <Toast />
 
         <div className="space-y-3">
