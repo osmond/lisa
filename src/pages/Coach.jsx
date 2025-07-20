@@ -27,6 +27,11 @@ export default function Coach() {
           setSubmitted(false)
         }}
         placeholder="Type your plant question" />
+      <ul className="text-sm italic text-gray-600 mb-2 space-y-1">
+        <li>“How often should I water my plant?”</li>
+        <li>“What fertilizer should I use for succulents?”</li>
+        <li>“Why are my orchid’s leaves turning yellow?”</li>
+      </ul>
       <button
         className="px-4 py-1 bg-green-600 text-white rounded"
         onClick={ask}
