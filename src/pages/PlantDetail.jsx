@@ -10,6 +10,8 @@ import {
   SortDescending,
   Trash,
   ArrowLeft,
+  PencilSimpleLine,
+  ClockCounterClockwise,
 } from 'phosphor-react'
 
 import Lightbox from '../components/Lightbox.jsx'
@@ -45,7 +47,15 @@ const bulletColors = {
 
 export default function PlantDetail() {
   const { id } = useParams()
-  const { plants, addPhoto, removePhoto, markWatered, markFertilized, logEvent } = usePlants()
+  const {
+    plants,
+    addPhoto,
+    removePhoto,
+    markWatered,
+    markFertilized,
+    logEvent,
+    updatePlant,
+  } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
   const navigate = useNavigate()
 
@@ -156,6 +166,30 @@ export default function PlantDetail() {
     navigate(`/plant/${plant.id}/edit`)
   }
 
+  const handleRescheduleWater = () => {
+    const next = new Date(plant.nextWater || new Date())
+    next.setDate(next.getDate() + 1)
+    updatePlant(plant.id, { nextWater: next.toISOString().slice(0, 10) })
+    showToast('Rescheduled')
+  }
+
+  const handleDeleteWater = () => {
+    updatePlant(plant.id, { nextWater: null })
+    showToast('Deleted')
+  }
+
+  const handleRescheduleFertilize = () => {
+    const next = new Date(plant.nextFertilize || new Date())
+    next.setDate(next.getDate() + 1)
+    updatePlant(plant.id, { nextFertilize: next.toISOString().slice(0, 10) })
+    showToast('Rescheduled')
+  }
+
+  const handleDeleteFertilize = () => {
+    updatePlant(plant.id, { nextFertilize: null })
+    showToast('Deleted')
+  }
+
 
   // Menu is now consistent across pages so no override here
 
@@ -202,6 +236,35 @@ export default function PlantDetail() {
                   Overdue {overdueWaterDays} {overdueWaterDays === 1 ? 'day' : 'days'}
                 </span>
               )}
+              <div className="mt-2 flex justify-end gap-2">
+                <button
+                  type="button"
+                  aria-label="Edit task"
+                  onClick={handleEdit}
+                  className="task-action bg-blue-600 text-white"
+                >
+                  <PencilSimpleLine className="w-4 h-4" aria-hidden="true" />
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  aria-label="Reschedule task"
+                  onClick={handleRescheduleWater}
+                  className="task-action bg-yellow-600 text-white"
+                >
+                  <ClockCounterClockwise className="w-4 h-4" aria-hidden="true" />
+                  Reschedule
+                </button>
+                <button
+                  type="button"
+                  aria-label="Delete task"
+                  onClick={handleDeleteWater}
+                  className="task-action bg-red-600 text-white"
+                >
+                  <Trash className="w-4 h-4" aria-hidden="true" />
+                  Delete
+                </button>
+              </div>
             </div>
             {plant.nextFertilize && (
               <div className={`relative rounded-xl p-5 border-l-4 ${fertBorderClass} bg-fertilize-50 dark:bg-fertilize-900/30`}>
@@ -220,6 +283,35 @@ export default function PlantDetail() {
                   Last fertilized: {plant.lastFertilized ? formatDaysAgo(plant.lastFertilized) : 'Never'}<br />
                   Next: {plant.nextFertilize}
                 </p>
+                <div className="mt-2 flex justify-end gap-2">
+                  <button
+                    type="button"
+                    aria-label="Edit task"
+                    onClick={handleEdit}
+                    className="task-action bg-blue-600 text-white"
+                  >
+                    <PencilSimpleLine className="w-4 h-4" aria-hidden="true" />
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Reschedule task"
+                    onClick={handleRescheduleFertilize}
+                    className="task-action bg-yellow-600 text-white"
+                  >
+                    <ClockCounterClockwise className="w-4 h-4" aria-hidden="true" />
+                    Reschedule
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Delete task"
+                    onClick={handleDeleteFertilize}
+                    className="task-action bg-red-600 text-white"
+                  >
+                    <Trash className="w-4 h-4" aria-hidden="true" />
+                    Delete
+                  </button>
+                </div>
               </div>
             )}
           </div>
