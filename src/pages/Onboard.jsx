@@ -40,7 +40,7 @@ export default function Onboard() {
   }
 
   return (
-    <PageContainer maxWidth="md">
+    <PageContainer size="md">
       <h1 className="text-heading font-bold font-headline mb-4">Guided Onboarding</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid gap-1">

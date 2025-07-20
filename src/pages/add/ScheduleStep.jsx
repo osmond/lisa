@@ -1,7 +1,7 @@
 import PageContainer from "../../components/PageContainer.jsx"
 export default function ScheduleStep({ lastWatered, nextWater, dispatch, onBack, onSubmit }) {
   return (
-    <PageContainer maxWidth="md">
+    <PageContainer size="md">
     <form onSubmit={e => {e.preventDefault(); onSubmit();}} className="space-y-4">
       <h1 className="text-heading font-bold font-headline">Add Plant</h1>
       <div className="grid gap-1">
