@@ -1,5 +1,5 @@
 import { Drop, Sun, PencilSimpleLine, ClockCounterClockwise, Trash } from 'phosphor-react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import { getWateringInfo } from '../utils/watering.js'
 import { usePlants } from '../PlantContext.jsx'
@@ -17,6 +17,7 @@ export default function TaskCard({
 }) {
   const { daysSince, eto } = getWateringInfo(task.lastWatered, { eto: task.eto })
   const navigate = useNavigate()
+  const location = useLocation()
   const [navigating, setNavigating] = useState(false)
   const { plants, markWatered, markFertilized, updatePlant } = usePlants()
   const { showSnackbar } = useSnackbar()
@@ -28,7 +29,8 @@ export default function TaskCard({
     setTimeout(
       () =>
         navigate(
-          room ? `/room/${room}/plant/${task.plantId}` : `/plant/${task.plantId}`
+          room ? `/room/${room}/plant/${task.plantId}` : `/plant/${task.plantId}`,
+          { state: { from: location.pathname } }
         ),
       200
     )
@@ -48,7 +50,8 @@ export default function TaskCard({
   const handleEdit = () => {
     const room = task.room ? encodeURIComponent(task.room) : null
     navigate(
-      room ? `/room/${room}/plant/${task.plantId}/edit` : `/plant/${task.plantId}/edit`
+      room ? `/room/${room}/plant/${task.plantId}/edit` : `/plant/${task.plantId}/edit`,
+      { state: { from: location.pathname } }
     )
   }
 

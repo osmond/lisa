@@ -152,7 +152,9 @@ test('partial left swipe reveals actions', () => {
   fireEvent.pointerMove(wrapper, { clientX: 70, buttons: 1 })
   expect(screen.getByRole('button', { name: /edit task/i })).toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: /edit task/i }))
-  expect(navigateMock).toHaveBeenCalledWith('/plant/1/edit')
+  expect(navigateMock).toHaveBeenCalledWith('/plant/1/edit', {
+    state: { from: '/' },
+  })
   fireEvent.click(screen.getByRole('button', { name: /reschedule task/i }))
   expect(updatePlant).toHaveBeenCalled()
   fireEvent.click(screen.getByRole('button', { name: /delete task/i }))

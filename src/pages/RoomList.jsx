@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import BalconyPlantCard from '../components/BalconyPlantCard.jsx'
 
@@ -10,6 +10,7 @@ import FilterPills from '../components/FilterPills.jsx'
 
 export default function RoomList() {
   const { roomName } = useParams()
+  const location = useLocation()
   const { plants } = usePlants()
   const [sortBy, setSortBy] = useState('name')
   const list = plants.filter(p => p.room === roomName)
@@ -51,6 +52,7 @@ export default function RoomList() {
             <Link
               key={plant.id}
               to={`/room/${encodeURIComponent(roomName)}/plant/${plant.id}`}
+              state={{ from: location.pathname }}
               className="block transition-transform active:shadow"
               onMouseDown={createRipple}
               onTouchStart={createRipple}

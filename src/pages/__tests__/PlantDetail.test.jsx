@@ -157,7 +157,13 @@ test('back button navigates to previous page', () => {
   render(
     <MenuProvider>
       <PlantProvider>
-        <MemoryRouter initialEntries={['/myplants', `/plant/${plant.id}`]} initialIndex={1}>
+        <MemoryRouter
+          initialEntries={[
+            '/myplants',
+            { pathname: `/plant/${plant.id}`, state: { from: '/myplants' } },
+          ]}
+          initialIndex={1}
+        >
           <Routes>
             <Route path="/myplants" element={<div>All Plants View</div>} />
             <Route path="/room/:roomName" element={<div>Room View</div>} />

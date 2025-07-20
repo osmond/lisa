@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { useState, useRef, useMemo, useEffect } from 'react'
 
 import {
@@ -65,6 +65,17 @@ export default function PlantDetail() {
   } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
   const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state?.from
+  let backLabel = 'Back'
+  if (from === '/') backLabel = 'Back to Today'
+  else if (from === '/myplants') backLabel = 'Back to All Plants'
+  else if (from === '/tasks') backLabel = 'Back to Tasks'
+  else if (from === '/timeline') backLabel = 'Back to Timeline'
+  else if (from && from.startsWith('/room/')) {
+    const name = decodeURIComponent(from.split('/')[2] || '')
+    backLabel = `Back to ${name}`
+  }
 
   const fileInputRef = useRef()
   const { Toast, showToast } = useToast()
@@ -437,18 +448,15 @@ export default function PlantDetail() {
             className="w-full h-[45vh] object-cover"
           />
           <div className="img-gradient-overlay" aria-hidden="true"></div>
-          <div className="absolute top-2 left-2 flex items-center gap-1 text-white">
+          <div className="fixed top-2 left-2 z-20 flex items-center gap-1 text-white">
             <button
               type="button"
               onClick={() => navigate(-1)}
-              className="p-1 rounded-full bg-black/40 hover:bg-black/50"
+              className="p-1 rounded-full bg-black/40 hover:bg-black/50 flex items-center gap-1"
             >
               <ArrowLeft className="w-4 h-4" aria-hidden="true" />
-              <span className="sr-only">Back</span>
+              <span className="ml-1">{backLabel}</span>
             </button>
-            {plant.room && (
-              <span className="text-sm font-medium">{plant.room}</span>
-            )}
           </div>
           <div className="absolute bottom-2 left-3 right-3 flex flex-col sm:flex-row justify-between text-white drop-shadow space-y-1 sm:space-y-0">
             <div>

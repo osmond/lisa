@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useState, useRef } from 'react'
 import { Drop, PencilSimpleLine, Trash } from 'phosphor-react'
 import Badge from './Badge.jsx'
@@ -16,6 +16,7 @@ import { getWaterStatus } from '../utils/watering.js'
 
 export default function PlantCard({ plant }) {
   const navigate = useNavigate()
+  const location = useLocation()
   const { plants, markWatered, removePlant, updatePlant, restorePlant } =
     usePlants()
   const { showSnackbar } = useSnackbar()
@@ -224,6 +225,7 @@ export default function PlantCard({ plant }) {
                 ? `/room/${encodeURIComponent(plant.room)}/plant/${plant.id}`
                 : `/plant/${plant.id}`
             }
+            state={{ from: location.pathname }}
             className="focus:outline-none"
           >
             {plant.name}
