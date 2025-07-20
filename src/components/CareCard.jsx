@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function CareCard({ label, Icon, progress = 0, status, onDone }) {
+  const [completed, setCompleted] = useState(false)
   const pct = Math.min(Math.max(progress, 0), 1)
   const width = `${pct * 100}%`
+  const handleDone = () => {
+    if (!onDone) return
+    setCompleted(true)
+    setTimeout(() => {
+      onDone()
+      setCompleted(false)
+    }, 200)
+  }
   return (
-    <div className="bg-white dark:bg-gray-700 rounded-2xl shadow p-4 space-y-2" data-testid="care-card">
+    <div className={`bg-white dark:bg-gray-700 rounded-2xl shadow p-4 space-y-2 ${completed ? 'swipe-left-out' : ''}`} data-testid="care-card">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           {Icon && <Icon className="w-5 h-5" aria-hidden="true" />}
@@ -13,8 +22,8 @@ export default function CareCard({ label, Icon, progress = 0, status, onDone }) 
         {onDone && (
           <button
             type="button"
-            onClick={onDone}
-            className="text-sm font-medium text-green-700 bg-green-100 hover:bg-green-200 rounded px-2 py-1"
+            onClick={handleDone}
+            className="text-sm font-semibold text-white bg-green-600 hover:bg-green-700 rounded shadow px-3 py-1 transition"
           >
             Mark as Done
           </button>

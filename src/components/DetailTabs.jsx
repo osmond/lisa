@@ -27,10 +27,10 @@ export default function DetailTabs({ tabs = [], value, onChange, className = '' 
               role="tab"
               aria-selected={isActive}
               onClick={() => handleClick(tab.id)}
-              className={`px-3 py-1 text-sm border-b-2 focus:outline-none ${
+              className={`px-3 py-1 border-b-2 focus:outline-none ${
                 isActive
-                  ? 'border-green-600 font-semibold'
-                  : 'border-transparent text-gray-500'
+                  ? 'border-green-600 font-semibold text-base'
+                  : 'border-transparent text-gray-500 text-sm'
               }`}
             >
               {tab.label}

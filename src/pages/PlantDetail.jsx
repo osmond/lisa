@@ -32,6 +32,7 @@ import PlantDetailFab from '../components/PlantDetailFab.jsx'
 import DetailTabs from '../components/DetailTabs.jsx'
 import BaseCard from '../components/BaseCard.jsx'
 import UnifiedTaskCard from '../components/UnifiedTaskCard.jsx'
+import usePlantFact from '../hooks/usePlantFact.js'
 
 import useToast from "../hooks/useToast.jsx"
 import confetti from 'canvas-confetti'
@@ -64,6 +65,7 @@ export default function PlantDetail() {
     updatePlant,
   } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
+  const { fact } = usePlantFact(plant?.name)
   const navigate = useNavigate()
   const location = useLocation()
   const from = location.state?.from
@@ -363,7 +365,7 @@ export default function PlantDetail() {
       content: (
         <div className="space-y-4 p-4">
           {(plant.photos || []).length > 0 && (
-            <h3 className="text-heading font-semibold">Recent Photos</h3>
+            <h3 className="text-heading font-semibold mb-2">Recent Photos</h3>
           )}
           {(plant.photos || []).length === 0 && (
             <p className="py-10 text-center text-sm text-gray-500 dark:text-gray-400">
@@ -480,11 +482,16 @@ export default function PlantDetail() {
             </button>
           </div>
           <div className="absolute bottom-2 left-3 right-3 flex flex-col sm:flex-row justify-between text-white drop-shadow space-y-1 sm:space-y-0">
-            <div>
-              <h2 className="text-heading font-extrabold font-headline animate-fade-in-down">{plant.name}</h2>
+            <div className="hero-name-bg">
+              <h2 className="text-3xl font-extrabold font-headline animate-fade-in-down">{plant.name}</h2>
               {plant.nickname && (
                 <p className="text-sm text-gray-200 animate-fade-in-down" style={{ animationDelay: '100ms' }}>
                   {plant.nickname}
+                </p>
+              )}
+              {fact && (
+                <p className="text-sm italic text-gray-100 animate-fade-in-down" style={{ animationDelay: '200ms' }}>
+                  {fact}
                 </p>
               )}
             </div>
