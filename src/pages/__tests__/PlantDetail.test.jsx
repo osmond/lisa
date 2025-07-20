@@ -98,23 +98,14 @@ test('opens lightbox from gallery', () => {
   )
   fireEvent.click(img.closest('button'))
 
-  const dialogsAfterOpen = screen.getAllByRole('dialog', {
+  const viewerDialog = screen.getByRole('dialog', {
     name: `${plant.name} gallery`,
   })
-  // First dialog is the gallery overlay
-  expect(dialogsAfterOpen[0]).toBeInTheDocument()
-  fireEvent.click(img)
-
-  const dialogs = screen.getAllByRole('dialog', {
-    name: `${plant.name} gallery`,
-  })
-  // The first dialog is the gallery overlay; the second is the Lightbox viewer
-  const viewerDialog = dialogs[1]
   expect(viewerDialog).toBeInTheDocument()
 
-  const viewerImg = screen.getAllByAltText(
+  const viewerImg = within(viewerDialog).getByAltText(
     plant.photos[0].caption || /gallery image/i
-  )[1]
+  )
   expect(viewerImg).toHaveAttribute('src', plant.photos[0].src)
 
   fireEvent.keyDown(window, { key: 'ArrowRight' })
@@ -146,9 +137,12 @@ test('view all button opens the viewer from first image', () => {
   const viewAll = screen.getByRole('button', { name: /view all photos/i })
   fireEvent.click(viewAll)
 
-  const viewerImg = screen.getAllByAltText(
+  const viewerDialog = screen.getByRole('dialog', {
+    name: `${plant.name} gallery`,
+  })
+  const viewerImg = within(viewerDialog).getByAltText(
     plant.photos[0].caption || /gallery image/i
-  )[1]
+  )
   expect(viewerImg).toHaveAttribute('src', plant.photos[0].src)
 })
 
