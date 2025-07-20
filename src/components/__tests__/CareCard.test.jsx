@@ -17,7 +17,9 @@ test('calls handler when done', () => {
     <CareCard label="Water" Icon={Drop} progress={0} status="Today" onDone={onDone} />
   )
   fireEvent.click(screen.getByRole('button', { name: /mark as done/i }))
+
   jest.runAllTimers()
+
   expect(onDone).toHaveBeenCalled()
   jest.useRealTimers()
 })

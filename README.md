@@ -97,11 +97,17 @@ npm install
 ```
 
 ## Running the Dev Server
+Start the Express API in one terminal:
+```bash
+npm run server
+```
+Then run Vite in another terminal:
 ```bash
 npm run dev
 ```
-This command prints a local development URL (usually `http://localhost:5173/`).
-Open that URL in your browser to view the app.
+The dev server prints a local URL (usually `http://localhost:5173/`). Requests to
+`/api/plant-fact` are automatically forwarded to the Express server running on
+`http://localhost:3000`.
 
 ## Building for Production
 
