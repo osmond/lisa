@@ -211,7 +211,7 @@ export default function UnifiedTaskCard({
         <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-sm bg-neutral-100 dark:bg-gray-700">
           <img src={image} alt={name} className="w-12 h-12 rounded-full object-cover" />
         </div>
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 leading-relaxed">
           <div className="flex items-center justify-between">
             <p className="font-semibold font-headline text-gray-900 dark:text-gray-100 truncate">
               {name}
@@ -253,7 +253,7 @@ export default function UnifiedTaskCard({
             )}
           </div>
           {lastText && (
-            <p className="text-sm text-gray-500">Last cared for {lastText}</p>
+            <p className="text-xs text-gray-500">Last cared for {lastText}</p>
           )}
           {needsText && (
             <p

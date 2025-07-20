@@ -319,7 +319,7 @@ export default function PlantDetail() {
                           <div>
                             <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
                             {e.note && (
-                              <div className="text-xs italic text-green-700 mt-1">{e.note}</div>
+                              <div className="text-xs text-green-800 dark:text-green-400 mt-1">{e.note}</div>
                             )}
                           </div>
                         </div>
@@ -466,7 +466,7 @@ export default function PlantDetail() {
       </div>
       <PageContainer className="relative text-left pt-0 space-y-3">
         <Toast />
-        <div className="flex flex-col items-center mt-4" aria-label="Care progress">
+        <div className="flex flex-col items-center mt-4 mb-4" aria-label="Care progress">
           <CareStats
             waterCompleted={waterCompleted}
             waterTotal={waterTotal}
