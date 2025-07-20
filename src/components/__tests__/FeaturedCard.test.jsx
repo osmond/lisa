@@ -54,3 +54,17 @@ test('arrow keys change plant', () => {
   fireEvent.keyDown(card, { key: 'ArrowLeft' })
   expect(screen.getByText('Aloe')).toBeInTheDocument()
 })
+
+test('displays plant fact when loaded', async () => {
+  global.fetch = jest.fn(() =>
+    Promise.resolve({ ok: true, json: () => Promise.resolve({ fact: 'fun fact' }) })
+  )
+  render(
+    <MemoryRouter>
+      <FeaturedCard plants={plants} />
+    </MemoryRouter>
+  )
+  await screen.findByText('fun fact')
+  expect(global.fetch).toHaveBeenCalledWith('/api/plant-fact?name=Aloe')
+  global.fetch = undefined
+})

@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "jest",
-    "lint": "eslint -c .eslintrc.json src"
+    "lint": "eslint -c .eslintrc.json src",
+    "server": "node server.js"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.3",

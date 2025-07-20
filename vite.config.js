@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
     base: basePath,
     define: {
       'process.env.VITE_WEATHER_API_KEY': JSON.stringify(env.VITE_WEATHER_API_KEY),
+      'process.env.VITE_OPENAI_API_KEY': JSON.stringify(env.VITE_OPENAI_API_KEY),
       'process.env.VITE_BASE_PATH': JSON.stringify(basePath),
       'import.meta.env.VITE_BASE_PATH': JSON.stringify(basePath),
     },
