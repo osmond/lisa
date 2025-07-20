@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Note, Camera } from 'phosphor-react'
 import BaseCard from './BaseCard.jsx'
-import UnifiedTaskCard from './UnifiedTaskCard.jsx'
+import SimpleTaskCard from './SimpleTaskCard.jsx'
 
 export default function TasksContainer({ visibleTasks = [], happyPlant }) {
   return (
@@ -15,26 +15,23 @@ export default function TasksContainer({ visibleTasks = [], happyPlant }) {
         </div>
         <div className="space-y-2">
           {visibleTasks.length > 0 ? (
-            visibleTasks.map((group, i) => (
-              <BaseCard
-                key={group.plant.id}
-                variant="task"
-                className="animate-fade-in-up"
-                style={{ animationDelay: `${i * 50}ms` }}
-              >
-                <UnifiedTaskCard
-                  plant={{
-                    ...group.plant,
-                    dueWater: group.dueWater,
-                    dueFertilize: group.dueFertilize,
-                    lastCared: group.lastCared,
-                  }}
-                  urgent={group.urgent}
-                  overdue={group.overdue}
-                  showMenuButton={false}
-                />
-              </BaseCard>
-            ))
+            visibleTasks.map((group, i) => {
+              const label = group.overdue
+                ? 'Care overdue'
+                : group.urgent
+                ? 'Needs care today'
+                : 'Care due this week'
+              return (
+                <BaseCard
+                  key={group.plant.id}
+                  variant="task"
+                  className="animate-fade-in-up"
+                  style={{ animationDelay: `${i * 50}ms` }}
+                >
+                  <SimpleTaskCard plant={group.plant} label={label} />
+                </BaseCard>
+              )
+            })
           ) : (
             <div className="p-6 border border-[#E5ECE6] shadow-sm rounded-2xl text-center space-y-4">
               <div className="flex justify-center">
