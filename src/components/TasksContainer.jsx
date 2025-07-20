@@ -28,7 +28,12 @@ export default function TasksContainer({ visibleTasks = [], happyPlant }) {
                   className="animate-fade-in-up"
                   style={{ animationDelay: `${i * 50}ms` }}
                 >
-                  <SimpleTaskCard plant={group.plant} label={label} />
+                  <SimpleTaskCard
+                    plant={group.plant}
+                    label={label}
+                    dueWater={group.dueWater}
+                    dueFertilize={group.dueFertilize}
+                  />
                 </BaseCard>
               )
             })
