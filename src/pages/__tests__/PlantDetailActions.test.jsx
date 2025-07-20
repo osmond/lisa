@@ -3,6 +3,7 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import PlantDetail from '../PlantDetail.jsx'
 import { usePlants } from '../../PlantContext.jsx'
 import { MenuProvider } from '../../MenuContext.jsx'
+import SnackbarProvider, { Snackbar } from '../../hooks/SnackbarProvider.jsx'
 
 // Confetti relies on the canvas API which JSDOM doesn't fully implement.
 // Mock it here to avoid noisy warnings during tests.
@@ -48,13 +49,16 @@ beforeEach(() => {
 
 test('quick stats action buttons trigger handlers', () => {
   render(
-    <MenuProvider>
-      <MemoryRouter initialEntries={['/plant/1']}>
-        <Routes>
-          <Route path="/plant/:id" element={<PlantDetail />} />
-        </Routes>
-      </MemoryRouter>
-    </MenuProvider>
+    <SnackbarProvider>
+      <MenuProvider>
+        <MemoryRouter initialEntries={['/plant/1']}>
+          <Routes>
+            <Route path="/plant/:id" element={<PlantDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </MenuProvider>
+      <Snackbar />
+    </SnackbarProvider>
   )
 
   fireEvent.click(screen.getByRole('button', { name: /log new care/i }))
@@ -68,13 +72,16 @@ test('quick stats action buttons trigger handlers', () => {
 
 test('fab opens note modal', () => {
   render(
-    <MenuProvider>
-      <MemoryRouter initialEntries={['/plant/1']}>
-        <Routes>
-          <Route path="/plant/:id" element={<PlantDetail />} />
-        </Routes>
-      </MemoryRouter>
-    </MenuProvider>
+    <SnackbarProvider>
+      <MenuProvider>
+        <MemoryRouter initialEntries={['/plant/1']}>
+          <Routes>
+            <Route path="/plant/:id" element={<PlantDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </MenuProvider>
+      <Snackbar />
+    </SnackbarProvider>
   )
 
   fireEvent.click(screen.getByRole('button', { name: /log new care/i }))
@@ -88,13 +95,16 @@ test('fab triggers file input click', () => {
     .mockImplementation(() => {})
 
   render(
-    <MenuProvider>
-      <MemoryRouter initialEntries={['/plant/1']}>
-        <Routes>
-          <Route path="/plant/:id" element={<PlantDetail />} />
-        </Routes>
-      </MemoryRouter>
-    </MenuProvider>
+    <SnackbarProvider>
+      <MenuProvider>
+        <MemoryRouter initialEntries={['/plant/1']}>
+          <Routes>
+            <Route path="/plant/:id" element={<PlantDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </MenuProvider>
+      <Snackbar />
+    </SnackbarProvider>
   )
 
   fireEvent.click(screen.getByRole('tab', { name: /gallery/i }))

@@ -25,21 +25,8 @@ test('renders plant details without duplicates', () => {
   const images = screen.getAllByAltText(plant.name)
   expect(images).toHaveLength(1)
 
-  // Care Summary tab is active by default
-  const wateredLabels = screen.getAllByText(/Last watered/i)
-  const wateredLabel = wateredLabels[wateredLabels.length - 1]
-  expect(wateredLabel.textContent).toMatch(/Last watered:/i)
-  expect(wateredLabel.textContent).toMatch(new RegExp(plant.nextWater))
-
-  const fertHeading = screen.getByText('Fertilizing Needs')
-  expect(fertHeading).toBeInTheDocument()
-  const fertLabel = screen.getAllByText(new RegExp(plant.nextFertilize))
-  const fertText = fertLabel[fertLabel.length - 1]
-  expect(fertText.textContent).toMatch(new RegExp(plant.nextFertilize))
-
-  expect(screen.getByText(new RegExp(plant.light))).toBeInTheDocument()
-  expect(screen.getByText(new RegExp(plant.humidity))).toBeInTheDocument()
-  expect(screen.getByText(new RegExp(plant.difficulty))).toBeInTheDocument()
+  // Care tab is active by default
+  expect(screen.getByText(/no tasks due/i)).toBeInTheDocument()
 
   const subHeadings = screen.queryAllByRole('heading', { level: 4 })
   expect(subHeadings).toHaveLength(0)
@@ -77,7 +64,7 @@ test('displays all sections', () => {
     </MenuProvider>
   )
 
-  expect(screen.getByRole('tab', { name: /care summary/i })).toBeInTheDocument()
+  expect(screen.getByRole('tab', { name: /care/i })).toBeInTheDocument()
   expect(screen.getByRole('tab', { name: /activity/i })).toBeInTheDocument()
   expect(screen.getByRole('tab', { name: /gallery/i })).toBeInTheDocument()
   expect(screen.queryByRole('tab', { name: /overview/i })).toBeNull()

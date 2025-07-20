@@ -100,28 +100,6 @@ export default function PlantDetail() {
     .filter(Boolean)
     .sort((a, b) => new Date(b) - new Date(a))[0]
 
-  const lightTag = plant?.light ? plant.light.replace(/Low to medium/i, 'Low') : ''
-  const humidityTag = plant?.humidity ? plant.humidity.replace(/Average/i, 'Avg') : ''
-  const difficultyTag = plant?.difficulty ? plant.difficulty.replace(/Easy/i, 'EZ') : ''
-
-  const now = new Date()
-  const nextWaterDate = plant?.nextWater ? new Date(plant.nextWater) : null
-  const overdueWaterDays =
-    nextWaterDate && now > nextWaterDate
-      ? Math.floor((now - nextWaterDate) / 86400000)
-      : 0
-  const nextFertDate = plant?.nextFertilize
-    ? new Date(plant.nextFertilize)
-    : null
-  const overdueFertDays =
-    nextFertDate && now > nextFertDate
-      ? Math.floor((now - nextFertDate) / 86400000)
-      : 0
-
-  const waterBorderClass =
-    overdueWaterDays > 0 ? 'border-rose-500' : 'border-green-400'
-  const fertBorderClass =
-    overdueFertDays > 0 ? 'border-rose-500' : 'border-green-500'
 
   const events = useMemo(() => buildEvents(plant), [plant])
   const groupedEvents = useMemo(() => {
@@ -239,129 +217,8 @@ export default function PlantDetail() {
 
   const tabs = [
     {
-      id: 'summary',
-      label: 'Care Summary',
-      content: (
-        <div className="space-y-4 p-4">
-          <div className="space-y-4">
-            <div className={`relative rounded-xl p-5 border-l-4 ${waterBorderClass} bg-water-50 dark:bg-water-900/30 shadow-sm mb-6`}>
-              <h3 className="flex items-center gap-2 text-sm font-semibold text-water-800 dark:text-water-200 mb-2">
-                <Drop className="w-4 h-4" aria-hidden="true" />
-                Watering Schedule
-              </h3>
-              <p className="text-sm text-gray-700 mb-1">
-                Last watered: {formatDaysAgo(plant.lastWatered)} · Next: {plant.nextWater}
-              </p>
-              {overdueWaterDays > 0 && (
-                <span className="inline-block rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
-                  Overdue {overdueWaterDays} {overdueWaterDays === 1 ? 'day' : 'days'}
-                </span>
-              )}
-              <div className="mt-2 flex justify-end gap-2">
-                <button
-                  type="button"
-                  aria-label="Edit task"
-                  onClick={handleEdit}
-                  className="task-action bg-blue-600 text-white"
-                >
-                  <PencilSimpleLine className="w-4 h-4" aria-hidden="true" />
-                  Edit
-                </button>
-                <button
-                  type="button"
-                  aria-label="Reschedule task"
-                  onClick={handleRescheduleWater}
-                  className="task-action bg-yellow-600 text-white"
-                >
-                  <ClockCounterClockwise className="w-4 h-4" aria-hidden="true" />
-                  Reschedule
-                </button>
-                <button
-                  type="button"
-                  aria-label="Delete task"
-                  onClick={handleDeleteWater}
-                  className="task-action bg-red-600 text-white"
-                >
-                  <Trash className="w-4 h-4" aria-hidden="true" />
-                  Delete
-                </button>
-              </div>
-            </div>
-            {plant.nextFertilize && (
-              <div className={`relative rounded-xl p-5 border-l-4 ${fertBorderClass} bg-fertilize-50 dark:bg-fertilize-900/30`}>
-                <div className="flex justify-between items-start">
-                  <h3 className="flex items-center gap-2 font-headline font-medium text-fertilize-800 dark:text-fertilize-200">
-                    <Flower className="w-4 h-4" aria-hidden="true" />
-                    Fertilizing Needs
-                  </h3>
-                  {overdueFertDays > 0 && (
-                    <span className="inline-block rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
-                      Overdue {overdueFertDays} {overdueFertDays === 1 ? 'day' : 'days'}
-                    </span>
-                  )}
-                </div>
-                <p className="mt-2 text-sm">
-                  Last fertilized: {plant.lastFertilized ? formatDaysAgo(plant.lastFertilized) : 'Never'}<br />
-                  Next: {plant.nextFertilize}
-                </p>
-                <div className="mt-2 flex justify-end gap-2">
-                  <button
-                    type="button"
-                    aria-label="Edit task"
-                    onClick={handleEdit}
-                    className="task-action bg-blue-600 text-white"
-                  >
-                    <PencilSimpleLine className="w-4 h-4" aria-hidden="true" />
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    aria-label="Reschedule task"
-                    onClick={handleRescheduleFertilize}
-                    className="task-action bg-yellow-600 text-white"
-                  >
-                    <ClockCounterClockwise className="w-4 h-4" aria-hidden="true" />
-                    Reschedule
-                  </button>
-                  <button
-                    type="button"
-                    aria-label="Delete task"
-                    onClick={handleDeleteFertilize}
-                    className="task-action bg-red-600 text-white"
-                  >
-                    <Trash className="w-4 h-4" aria-hidden="true" />
-                    Delete
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {(plant.light || plant.humidity || plant.difficulty) && (
-            <div className="mt-4 flex flex-wrap gap-2 text-xs text-gray-600">
-              {plant.light && (
-                <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1">
-                  <Sun className="w-3 h-3" aria-hidden="true" /> {plant.light}
-                </span>
-              )}
-              {plant.humidity && (
-                <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1">
-                  <Drop className="w-3 h-3" aria-hidden="true" /> {plant.humidity}
-                </span>
-              )}
-              {plant.difficulty && (
-                <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1">
-                  <Leaf className="w-3 h-3" aria-hidden="true" /> {plant.difficulty}
-                </span>
-              )}
-            </div>
-          )}
-        </div>
-      ),
-    },
-    {
       id: 'tasks',
-      label: 'Tasks',
+      label: 'Care',
       content: (
         <div className="p-4 space-y-2">
           {dueWater || dueFertilize ? (
@@ -602,7 +459,6 @@ export default function PlantDetail() {
                 </p>
               )}
             </div>
-            {/* brief care stats moved to Care Summary tab */}
           </div>
         </div>
       </div>
