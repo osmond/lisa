@@ -61,11 +61,11 @@ test('quick stats action buttons trigger handlers', () => {
     </SnackbarProvider>
   )
 
-  fireEvent.click(screen.getByRole('button', { name: /log new care/i }))
+  fireEvent.click(screen.getByRole('button', { name: /add to journal/i }))
   fireEvent.click(screen.getByRole('button', { name: /mark watered/i }))
   expect(markWatered).toHaveBeenCalledWith(1, '')
 
-  fireEvent.click(screen.getByRole('button', { name: /log new care/i }))
+  fireEvent.click(screen.getByRole('button', { name: /add to journal/i }))
   fireEvent.click(screen.getByRole('button', { name: /mark fertilized/i }))
   expect(markFertilized).toHaveBeenCalledWith(1, '')
 })
@@ -84,7 +84,7 @@ test('fab opens note modal', () => {
     </SnackbarProvider>
   )
 
-  fireEvent.click(screen.getByRole('button', { name: /log new care/i }))
+  fireEvent.click(screen.getByRole('button', { name: /add to journal/i }))
   fireEvent.click(screen.getByRole('button', { name: /add note/i }))
   expect(screen.getByRole('dialog', { name: /note/i })).toBeInTheDocument()
 })
@@ -109,7 +109,7 @@ test('fab triggers file input click', () => {
 
   fireEvent.click(screen.getByRole('tab', { name: /gallery/i }))
 
-  fireEvent.click(screen.getByRole('button', { name: /log new care/i }))
+  fireEvent.click(screen.getByRole('button', { name: /add to journal/i }))
   fireEvent.click(screen.getByRole('button', { name: /add photo/i }))
   expect(clickSpy).toHaveBeenCalled()
   clickSpy.mockRestore()

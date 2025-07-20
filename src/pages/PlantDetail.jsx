@@ -488,6 +488,7 @@ export default function PlantDetail() {
           onAddNote={handleLogEvent}
           onWater={handleWatered}
           onFertilize={handleFertilized}
+          plantName={plant.name}
         />
         {showNoteModal && (
           <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />

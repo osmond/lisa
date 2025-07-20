@@ -6,6 +6,7 @@ export default function PlantDetailFab({
   onAddNote,
   onWater,
   onFertilize,
+  plantName,
 }) {
   const [open, setOpen] = useState(false)
 
@@ -37,23 +38,25 @@ export default function PlantDetailFab({
     violet: { bg: 'bg-violet-100', text: 'text-violet-600' },
   }
 
+  const labelText = plantName ? `Add to ${plantName}'s Journal` : 'Add to Journal'
+
   return (
     <div className="absolute bottom-2 right-4 z-30 drop-shadow-md">
       {open && (
         <div
-          className="modal-overlay bg-black/50 z-30 backdrop-blur-sm"
+          className="modal-overlay bg-black/50 z-30"
           role="dialog"
           aria-modal="true"
-          aria-label="Log new care"
+          aria-label={labelText}
           onClick={() => setOpen(false)}
         >
           <div
-            className="modal-box relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl px-5 py-4 min-w-[320px] max-w-[360px] animate-fade-in-up"
+            className="modal-box relative p-4 w-80 max-w-full"
             onClick={e => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-3">
               <span className="flex-1 text-center font-headline text-heading">
-                Log new care
+                {labelText}
               </span>
               <button
                 type="button"
@@ -92,8 +95,8 @@ export default function PlantDetailFab({
       <button
         type="button"
         onClick={() => setOpen(v => !v)}
-        aria-label="Log new care"
-        title="Log New Care"
+        aria-label="Add to journal"
+        title="Add to Journal"
         aria-expanded={open}
         aria-haspopup="menu"
         className={`bg-accent text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition-transform ${open ? 'ring-pulse' : ''}`}
