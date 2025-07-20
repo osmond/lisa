@@ -393,19 +393,12 @@ export default function PlantDetail() {
             className="hidden"
           />
           {lightboxIndex !== null && (
-            <div
-              role="dialog"
-              aria-modal="true"
-              aria-label={`${plant.name} gallery`}
-              className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-40"
-            >
-              <Lightbox
-                images={plant.photos}
-                startIndex={lightboxIndex}
-                onClose={() => setLightboxIndex(null)}
-                label={`${plant.name} gallery`}
-              />
-            </div>
+            <Lightbox
+              images={plant.photos}
+              startIndex={lightboxIndex}
+              onClose={() => setLightboxIndex(null)}
+              label={`${plant.name} gallery`}
+            />
           )}
         </div>
       ),

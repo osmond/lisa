@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 export default function Lightbox({ images, startIndex = 0, onClose, label = 'Image viewer' }) {
   const [index, setIndex] = useState(startIndex)
@@ -27,7 +28,7 @@ export default function Lightbox({ images, startIndex = 0, onClose, label = 'Ima
     }
   }, [images.length, onClose])
 
-  return (
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -75,6 +76,7 @@ export default function Lightbox({ images, startIndex = 0, onClose, label = 'Ima
       >
         ›
       </button>
-    </div>
+    </div>,
+    document.body
   )
 }

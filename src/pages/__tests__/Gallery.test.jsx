@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import Gallery from '../Gallery.jsx'
 import { usePlants } from '../../PlantContext.jsx'
@@ -43,15 +43,14 @@ test('clicking a photo opens the lightbox viewer', () => {
   const img = screen.getByAltText('first')
   fireEvent.click(img)
 
-  const dialogs = screen.getAllByRole('dialog', { name: /gallery viewer/i })
-  const viewer = dialogs[0]
+  const viewer = screen.getByRole('dialog', { name: /gallery viewer/i })
   expect(viewer).toBeInTheDocument()
 
-  const viewerImg = screen.getAllByAltText('first')[1]
+  const viewerImg = within(viewer).getByAltText('first')
   expect(viewerImg).toHaveAttribute('src', 'a.jpg')
 
   fireEvent.keyDown(window, { key: 'ArrowRight' })
-  expect(screen.getAllByAltText('second')[1]).toHaveAttribute('src', 'b.jpg')
+  expect(within(viewer).getByAltText('second')).toHaveAttribute('src', 'b.jpg')
 
   fireEvent.keyDown(window, { key: 'Escape' })
   expect(screen.queryByRole('dialog', { name: /gallery viewer/i })).toBeNull()
