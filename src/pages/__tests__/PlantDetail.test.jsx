@@ -4,6 +4,7 @@ import PlantDetail from '../PlantDetail.jsx'
 import plants from '../../plants.json'
 import { PlantProvider } from '../../PlantContext.jsx'
 import { MenuProvider } from '../../MenuContext.jsx'
+import SnackbarProvider, { Snackbar } from '../../hooks/SnackbarProvider.jsx'
 
 test('renders plant details without duplicates', () => {
   const plant = plants[0]
@@ -173,4 +174,27 @@ test('back button navigates to previous page', () => {
   fireEvent.click(backBtn)
 
   expect(screen.getByText(/all plants view/i)).toBeInTheDocument()
+})
+
+test('care tab hides kebab menu for due tasks', () => {
+  const plant = plants[0]
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-25'))
+  render(
+    <SnackbarProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+      <Snackbar />
+    </SnackbarProvider>
+  )
+
+  expect(screen.queryByText(/no tasks due/i)).toBeNull()
+  expect(screen.queryByRole('button', { name: /open task menu/i })).toBeNull()
+  jest.useRealTimers()
 })
