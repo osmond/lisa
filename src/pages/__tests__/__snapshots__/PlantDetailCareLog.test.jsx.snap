@@ -8,7 +8,7 @@ exports[`timeline bullet markup matches snapshot 1`] = `
     class="relative text-xs sm:text-sm"
   >
     <div
-      class="absolute -left-5 top-[0.25rem] w-4 h-4 flex items-center justify-center rounded-full bg-green-500 z-10"
+      class="absolute -left-5 top-[0.25rem] w-4 h-4 flex items-center justify-center rounded-full bg-blue-500 z-10"
     >
       <svg
         aria-hidden="true"
@@ -24,50 +24,21 @@ exports[`timeline bullet markup matches snapshot 1`] = `
           height="256"
           width="256"
         />
-        <line
+        <path
+          d="M208,144c0-72-80-128-80-128S48,72,48,144a80,80,0,0,0,160,0Z"
           fill="none"
           stroke="currentColor"
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-width="16"
-          x1="112"
-          x2="176"
-          y1="112"
-          y2="112"
         />
-        <line
+        <path
+          d="M136.1,191.2a47.9,47.9,0,0,0,39.2-39.1"
           fill="none"
           stroke="currentColor"
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-width="16"
-          x1="112"
-          x2="176"
-          y1="144"
-          y2="144"
-        />
-        <rect
-          fill="none"
-          height="176"
-          rx="8"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="16"
-          width="176"
-          x="40"
-          y="40"
-        />
-        <line
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="16"
-          x1="80"
-          x2="80"
-          y1="40"
-          y2="216"
         />
       </svg>
     </div>
