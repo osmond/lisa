@@ -34,7 +34,11 @@ export default function App() {
   const location = useLocation()
   return (
     <MenuProvider>
-    <div id="main-content" className="pb-24 px-4 pt-8 font-body overflow-hidden">{/* bottom padding for nav */}
+    <div
+      id="main-content"
+      className="pb-24 px-4 pt-8 font-body overflow-x-hidden min-h-screen"
+    >
+      {/* bottom padding for nav */}
 
       <AnimatePresence mode="wait">
         <motion.div key={location.pathname}>
