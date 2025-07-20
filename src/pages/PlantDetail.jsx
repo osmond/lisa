@@ -27,7 +27,7 @@ import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
 import { useMenu, defaultMenu } from '../MenuContext.jsx'
 import LegendModal from '../components/LegendModal.jsx'
-import CareStats from '../components/CareStats.jsx'
+import CareCard from '../components/CareCard.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
 import DetailTabs from '../components/DetailTabs.jsx'
 import BaseCard from '../components/BaseCard.jsx'
@@ -87,32 +87,25 @@ export default function PlantDetail() {
   const [offsetY, setOffsetY] = useState(0)
   const [expandedNotes, setExpandedNotes] = useState({})
 
-  const progressPct = getWateringProgress(plant?.lastWatered, plant?.nextWater)
-  const waterTotal = 3
-  const waterCompleted = Math.round(progressPct * waterTotal)
-
-  const waterDays = daysUntil(plant?.nextWater)
-  let waterDisplay = null
-  if (waterDays != null) {
-    if (waterDays <= 0) waterDisplay = 'Today'
-    else if (waterDays === 1) waterDisplay = '1 day left'
-    else waterDisplay = `${waterDays} days left`
-  }
-
-  const fertPct = getWateringProgress(
+  const waterProgress = getWateringProgress(plant?.lastWatered, plant?.nextWater)
+  const fertProgress = getWateringProgress(
     plant?.lastFertilized,
     plant?.nextFertilize
   )
-  const fertTotal = 3
-  const fertCompleted = Math.round(fertPct * fertTotal)
 
+  const waterDays = daysUntil(plant?.nextWater)
   const fertDays = daysUntil(plant?.nextFertilize)
-  let fertDisplay = null
-  if (fertDays != null) {
-    if (fertDays <= 0) fertDisplay = 'Today'
-    else if (fertDays === 1) fertDisplay = '1 day left'
-    else fertDisplay = `${fertDays} days left`
+
+  const getStatus = days => {
+    if (days == null) return 'Not scheduled'
+    if (days < 0) return 'Overdue'
+    if (days === 0) return 'Due Today'
+    if (days === 1) return 'Due Tomorrow'
+    return `Due in ${days} days`
   }
+
+  const waterStatus = getStatus(waterDays)
+  const fertStatus = getStatus(fertDays)
 
   const todayIso = new Date().toISOString().slice(0, 10)
   const dueWater = plant?.nextWater && plant.nextWater <= todayIso
@@ -498,15 +491,22 @@ export default function PlantDetail() {
         <Toast />
 
         <div className="flex flex-col items-center mt-4" aria-label="Care progress">
-
-          <CareStats
-            waterCompleted={waterCompleted}
-            waterTotal={waterTotal}
-            fertCompleted={fertCompleted}
-            fertTotal={fertTotal}
-            waterDisplay={waterDisplay}
-            fertDisplay={fertDisplay}
-          />
+          <div className="w-full max-w-xs space-y-3">
+            <CareCard
+              label="Water"
+              Icon={Drop}
+              progress={waterProgress}
+              status={waterStatus}
+              onDone={handleWatered}
+            />
+            <CareCard
+              label="Fertilize"
+              Icon={Sun}
+              progress={fertProgress}
+              status={fertStatus}
+              onDone={handleFertilized}
+            />
+          </div>
           <p className="text-xs text-gray-500 dark:text-gray-400" data-testid="progress-hint">
             Progress toward next scheduled care
           </p>
