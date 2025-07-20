@@ -1,5 +1,6 @@
 import { usePlants } from '../PlantContext.jsx'
 import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { SortAscending, SortDescending } from 'phosphor-react'
 
 import { motion } from 'framer-motion'
@@ -20,7 +21,7 @@ export default function Timeline() {
   const [filter, setFilter] = useState('all')
 
   const plantEvents = useMemo(
-    () => buildEvents(plants, { includePlantName: true }),
+    () => buildEvents(plants, { includePlantName: true, includePlantId: true }),
     [plants]
   )
 
@@ -181,14 +182,42 @@ export default function Timeline() {
                           <Icon className="w-3 h-3 text-white" aria-hidden="true" />
                         </div>
                       )}
-                      <button
-                        type="button"
+                      <div
+                        role="button"
+                        tabIndex={0}
                         onClick={() => setSelectedEvent(e)}
-                        className={`text-left w-full flex items-start ${e.note ? 'bg-gray-50 dark:bg-gray-700 rounded-xl p-3 shadow-sm' : ''}`}
+                        onKeyDown={ev => {
+                          if (ev.key === 'Enter' || ev.key === ' ') setSelectedEvent(e)
+                        }}
+                        className={`cursor-pointer text-left w-full flex items-start ${e.note ? 'bg-gray-50 dark:bg-gray-700 rounded-xl p-3 shadow-sm' : ''}`}
                       >
                         <div>
-                          <span className="text-gray-500">{formatDate(e.date)}</span> 
-                          <span className="font-medium">— {e.label}</span>
+                          <span className="text-gray-500">{formatDate(e.date)}</span>
+                          <span className="font-medium">
+                            — {e.plantId && e.plantName && e.label.includes(e.plantName) ? (
+                              (() => {
+                                const idx = e.label.indexOf(e.plantName)
+                                const before = e.label.slice(0, idx)
+                                const after = e.label.slice(idx + e.plantName.length)
+                                return (
+                                  <>
+                                    {before}
+                                    <Link
+                                      to={`/plant/${e.plantId}`}
+                                      state={{ from: '/timeline' }}
+                                      className="underline text-green-700 dark:text-green-300"
+                                      onClick={ev => ev.stopPropagation()}
+                                    >
+                                      {e.plantName}
+                                    </Link>
+                                    {after}
+                                  </>
+                                )
+                              })()
+                            ) : (
+                              e.label
+                            )}
+                          </span>
                           {e.note && (
                             <div className="text-xs italic text-green-700 mt-1">{e.note}</div>
                           )}
@@ -202,7 +231,7 @@ export default function Timeline() {
                             </div>
                           )}
                         </div>
-                      </button>
+                      </div>
                     </motion.li>
                   )
                 })}
