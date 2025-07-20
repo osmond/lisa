@@ -19,7 +19,7 @@ exports[`matches snapshot in dark mode 1`] = `
       />
     </div>
     <div
-      class="flex-1 min-w-0"
+      class="flex-1 min-w-0 leading-relaxed"
     >
       <div
         class="flex items-center justify-between"
@@ -111,7 +111,7 @@ exports[`matches snapshot in dark mode 1`] = `
         </span>
       </div>
       <p
-        class="text-sm text-gray-500"
+        class="text-xs text-gray-500"
       >
         Last cared for 
         3 days ago
