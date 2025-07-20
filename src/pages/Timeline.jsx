@@ -11,6 +11,7 @@ import { buildEvents, groupEventsByMonth } from '../utils/events.js'
 import NoteModal from '../components/NoteModal.jsx'
 import NoteFab from '../components/NoteFab.jsx'
 import SectionCard from '../components/SectionCard.jsx'
+import useTimelineSummary from '../hooks/useTimelineSummary.js'
 
 export default function Timeline() {
   const { plants, timelineNotes = [], addTimelineNote = () => {} } = usePlants()
@@ -38,6 +39,8 @@ export default function Timeline() {
     () => [...plantEvents, ...noteEvents].sort((a, b) => new Date(a.date) - new Date(b.date)),
     [plantEvents, noteEvents]
   )
+
+  const { summary, loading: summaryLoading, error: summaryError } = useTimelineSummary(events)
 
   const filteredEvents = useMemo(
     () =>
@@ -113,6 +116,15 @@ export default function Timeline() {
 
   return (
     <div className="relative overflow-y-auto max-h-full max-w-md mx-auto space-y-8 py-4 px-4 text-gray-700 dark:text-gray-200">
+      {(summaryLoading || summary || summaryError) && (
+        <SectionCard className="border border-gray-100 text-sm">
+          {summaryLoading && <p>Loading summary…</p>}
+          {summary && <p>{summary}</p>}
+          {summaryError && (
+            <p role="alert" className="text-red-600">{summaryError}</p>
+          )}
+        </SectionCard>
+      )}
       <SectionCard className="border border-gray-100">
         <div className="flex items-center justify-between px-1 gap-2">
           <label htmlFor="timeline-filter" className="flex items-center gap-1 text-sm">
