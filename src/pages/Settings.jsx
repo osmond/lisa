@@ -1,6 +1,7 @@
 import { useTheme } from '../ThemeContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
 import { useUser } from '../UserContext.jsx'
+import { useOpenAI } from '../OpenAIContext.jsx'
 
 import { User, MapPin, Clock } from 'phosphor-react'
 import Panel from '../components/Panel.jsx'
@@ -15,11 +16,17 @@ export default function Settings() {
   const { theme, toggleTheme } = useTheme()
   const { location, setLocation, units, setUnits, forecast } = useWeather()
   const { username, setUsername, timeZone, setTimeZone } = useUser()
+  const { enabled, setEnabled } = useOpenAI()
   const { Toast, showToast } = useToast()
 
   const handleThemeToggle = checked => {
     toggleTheme()
     showToast(checked ? 'Dark mode enabled' : 'Light mode enabled')
+  }
+
+  const handleOpenAIToggle = checked => {
+    setEnabled(checked)
+    showToast(checked ? 'AI features enabled' : 'AI features disabled')
   }
 
   const handleReset = () => {
@@ -125,6 +132,11 @@ export default function Settings() {
               checked={theme === 'dark'}
               onChange={handleThemeToggle}
               label="🌙 Enable Dark Mode for a softer nighttime experience"
+            />
+            <ToggleSwitch
+              checked={enabled}
+              onChange={handleOpenAIToggle}
+              label="🤖 Enable AI-powered features"
             />
           </div>
           <button

@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useOpenAI } from '../OpenAIContext.jsx'
 
 export default function useTimelineSummary(events) {
   const [summary, setSummary] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const { enabled } = useOpenAI()
 
   useEffect(() => {
     if (!events || events.length === 0) return
@@ -13,7 +15,7 @@ export default function useTimelineSummary(events) {
     async function fetchSummary() {
       setLoading(true)
       setError('')
-      const openaiKey = process.env.VITE_OPENAI_API_KEY
+      const openaiKey = enabled ? process.env.VITE_OPENAI_API_KEY : null
       if (!openaiKey) {
         setLoading(false)
         setError('Missing API key')
@@ -58,7 +60,7 @@ export default function useTimelineSummary(events) {
     return () => {
       aborted = true
     }
-  }, [events])
+  }, [events, enabled])
 
   return { summary, error, loading }
 }

@@ -1,5 +1,8 @@
+import { getOpenAIEnabled } from '../OpenAIContext.jsx'
+
 export default async function autoTag(text = '') {
-  const apiKey = process.env.VITE_OPENAI_API_KEY
+  const enabled = getOpenAIEnabled()
+  const apiKey = enabled ? process.env.VITE_OPENAI_API_KEY : null
   if (!apiKey || !text) return []
   try {
     const res = await fetch('https://api.openai.com/v1/chat/completions', {

@@ -79,6 +79,8 @@ home screen.
 Provide an OpenAI API key in `.env` as `VITE_OPENAI_API_KEY` (or `OPENAI_API_KEY`) to display a short
 fact about the featured plant. The same key is required for the Coach and Care Plan endpoints. If the key is missing or the request fails,
 Lisa falls back to a brief summary from Wikipedia.
+You can enable or disable these features from the **Settings → Preferences** page.
+Requests to the OpenAI API may incur charges.
 
 ## Running Tests
 

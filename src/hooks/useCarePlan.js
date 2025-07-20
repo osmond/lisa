@@ -1,11 +1,17 @@
 import { useState } from 'react'
+import { useOpenAI } from '../OpenAIContext.jsx'
 
 export default function useCarePlan() {
   const [plan, setPlan] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const { enabled } = useOpenAI()
 
   const generate = async details => {
+    if (!enabled) {
+      setError('Missing API key')
+      return
+    }
     setLoading(true)
     setError('')
     try {
