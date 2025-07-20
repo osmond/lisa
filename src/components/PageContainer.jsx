@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 const SIZE_CLASSES = {
   md: 'max-w-md',
   lg: 'max-w-lg',
@@ -11,6 +12,7 @@ export default function PageContainer({ children, className = '', size = 'md', .
   const maxWidth = SIZE_CLASSES[size] || SIZE_CLASSES.md
   return (
     <div className={`${maxWidth} mx-auto px-4 py-4 space-y-8 ${className}`.trim()} {...rest}>
+
       {children}
     </div>
   )

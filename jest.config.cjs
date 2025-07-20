@@ -5,4 +5,8 @@ module.exports = {
   moduleNameMapper: {
     '\\.(svg)$': '<rootDir>/__mocks__/fileMock.js',
   },
+  transform: {
+    '^.+\\.jsx?$': 'babel-jest',
+  },
+  transformIgnorePatterns: ['/node_modules/'],
 };
