@@ -12,7 +12,23 @@ export default function Coach() {
   const [question, setQuestion] = useState('')
   const [submitted, setSubmitted] = useState(false)
 
-  const { answer, loading, error } = usePlantCoach(submitted ? question : '', plant)
+  const { answer, loading, error } = usePlantCoach(
+    submitted ? question : '',
+    plant
+  )
+
+  const defaultSamples = [
+    'How often should I water my plant?',
+    'What fertilizer should I use for succulents?',
+    "Why are my orchid’s leaves turning yellow?",
+  ]
+  const sampleQuestions = plant
+    ? [
+        `How often should I water my ${plant.name}?`,
+        `What fertilizer should I use for ${plant.name}?`,
+        `Why are my ${plant.name}'s leaves turning yellow?`,
+      ]
+    : defaultSamples
 
   const ask = () => setSubmitted(true)
 
@@ -28,9 +44,9 @@ export default function Coach() {
         }}
         placeholder="Type your plant question" />
       <ul className="text-sm italic text-gray-600 mb-2 space-y-1">
-        <li>“How often should I water my plant?”</li>
-        <li>“What fertilizer should I use for succulents?”</li>
-        <li>“Why are my orchid’s leaves turning yellow?”</li>
+        {sampleQuestions.map(q => (
+          <li key={q}>“{q}”</li>
+        ))}
       </ul>
       <button
         className="px-4 py-1 bg-green-600 text-white rounded"
