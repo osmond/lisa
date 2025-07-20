@@ -12,6 +12,7 @@ import EditPlant from './pages/EditPlant'
 import Timeline from './pages/Timeline'
 import Gallery from './pages/Gallery.jsx'
 import Coach from './pages/Coach.jsx'
+import Onboard from './pages/Onboard.jsx'
 
 import PersistentBottomNav from './components/PersistentBottomNav.jsx'
 
@@ -48,6 +49,7 @@ export default function App() {
             <Route path="/myplants" element={<PageTransition><MyPlants /></PageTransition>} />
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/add" element={<Add />} />
+            <Route path="/onboard" element={<Onboard />} />
             <Route path="/room/add" element={<AddRoom />} />
             <Route path="/room/:roomName" element={<PageTransition><RoomList /></PageTransition>} />
             <Route path="/room/:roomName/plant/:id" element={<PageTransition><PlantDetail /></PageTransition>} />

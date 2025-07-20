@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Plus, Leaf, Door } from 'phosphor-react'
+import { Plus, Leaf, Door, MagicWand } from 'phosphor-react'
 
 export default function CreateFab() {
   const [open, setOpen] = useState(false)
@@ -16,12 +16,14 @@ export default function CreateFab() {
 
   const items = [
     { to: '/add', label: 'Add Plant', Icon: Leaf, color: 'green' },
+    { to: '/onboard', label: 'Guided Add', Icon: MagicWand, color: 'pink' },
     { to: '/room/add', label: 'Add Room', Icon: Door, color: 'violet' },
   ]
 
   const colorClasses = {
     green: { bg: 'bg-green-100', text: 'text-green-600' },
     violet: { bg: 'bg-violet-100', text: 'text-violet-600' },
+    pink: { bg: 'bg-pink-100', text: 'text-pink-600' },
   }
 
   return (
