@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { Plus, Image as ImageIcon, Note, Drop, Flower } from 'phosphor-react'
 
 export default function PlantDetailFab({
@@ -41,57 +42,59 @@ export default function PlantDetailFab({
   const labelText = plantName ? `Add to ${plantName}'s Journal` : 'Add to Journal'
 
   return (
-    <div className="absolute bottom-2 right-4 z-30 drop-shadow-md">
-      {open && (
-        <div
-          className="modal-overlay bg-black/50 z-30"
-          role="dialog"
-          aria-modal="true"
-          aria-label={labelText}
-          onClick={() => setOpen(false)}
-        >
+    <>
+      {open &&
+        createPortal(
           <div
-            className="modal-box relative p-4 w-80 max-w-full"
-            onClick={e => e.stopPropagation()}
+            className="modal-overlay bg-black/50 z-30"
+            role="dialog"
+            aria-modal="true"
+            aria-label={labelText}
+            onClick={() => setOpen(false)}
           >
-            <div className="flex items-center justify-between mb-3">
-              <span className="flex-1 text-center font-headline text-heading">
-                {labelText}
-              </span>
-              <button
-                type="button"
-                aria-label="Close menu"
-                onClick={() => setOpen(false)}
-                className="text-gray-500"
-              >
-                &times;
-              </button>
+            <div
+              className="modal-box relative p-4 w-80 max-w-full"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between mb-3">
+                <span className="flex-1 text-center font-headline text-heading">
+                  {labelText}
+                </span>
+                <button
+                  type="button"
+                  aria-label="Close menu"
+                  onClick={() => setOpen(false)}
+                  className="text-gray-500"
+                >
+                  &times;
+                </button>
+              </div>
+              <ul className="grid grid-cols-2 gap-2">
+                {items.map(({ label, Icon, action, color }) => (
+                  <li key={label} className="list-none">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setOpen(false)
+                        action?.()
+                      }}
+                      title={label}
+                      className="flex flex-col items-center gap-2 w-full rounded-md px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition"
+                    >
+                      <span className={`p-2 rounded-full ${colorClasses[color].bg}`}>
+                        <Icon className={`w-5 h-5 ${colorClasses[color].text}`} aria-hidden="true" />
+                      </span>
+                      <span className="text-sm text-gray-800 dark:text-gray-200 text-center">
+                        {label}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className="grid grid-cols-2 gap-2">
-              {items.map(({ label, Icon, action, color }) => (
-                <li key={label} className="list-none">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setOpen(false)
-                      action?.()
-                    }}
-                    title={label}
-                    className="flex flex-col items-center gap-2 w-full rounded-md px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition"
-                  >
-                    <span className={`p-2 rounded-full ${colorClasses[color].bg}`}>
-                      <Icon className={`w-5 h-5 ${colorClasses[color].text}`} aria-hidden="true" />
-                    </span>
-                    <span className="text-sm text-gray-800 dark:text-gray-200 text-center">
-                      {label}
-                    </span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
       <button
         type="button"
         onClick={() => setOpen(v => !v)}
@@ -99,10 +102,10 @@ export default function PlantDetailFab({
         title="Add to Journal"
         aria-expanded={open}
         aria-haspopup="menu"
-        className={`bg-accent text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition-transform ${open ? 'ring-pulse' : ''}`}
+        className={`absolute bottom-2 right-4 z-30 drop-shadow-md bg-accent text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition-transform ${open ? 'ring-pulse' : ''}`}
       >
         <Plus className={`w-6 h-6 transition-transform ${open ? 'rotate-45' : ''}`} aria-hidden="true" />
       </button>
-    </div>
+    </>
   )
 }

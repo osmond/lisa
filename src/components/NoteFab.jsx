@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { Plus, Note } from 'phosphor-react'
 
 export default function NoteFab({ onAddNote }) {
@@ -14,46 +15,48 @@ export default function NoteFab({ onAddNote }) {
   }, [open])
 
   return (
-    <div className="absolute bottom-4 right-4 z-30">
-      {open && (
-        <div
-          className="modal-overlay bg-black/50 z-30 backdrop-blur-sm"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Add menu"
-          onClick={() => setOpen(false)}
-        >
-          <ul
-            className="modal-box relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 w-52 space-y-4 animate-fade-in-up"
-            onClick={e => e.stopPropagation()}
+    <>
+      {open &&
+        createPortal(
+          <div
+            className="modal-overlay bg-black/50 z-30 backdrop-blur-sm"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Add menu"
+            onClick={() => setOpen(false)}
           >
-            <button
-              type="button"
-              aria-label="Close menu"
-              onClick={() => setOpen(false)}
-              className="absolute top-2 right-2 text-gray-500"
+            <ul
+              className="modal-box relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 w-52 space-y-4 animate-fade-in-up"
+              onClick={e => e.stopPropagation()}
             >
-              &times;
-            </button>
-            <li>
               <button
                 type="button"
-                onClick={() => {
-                  setOpen(false)
-                  onAddNote?.()
-                }}
-                title="Add Note"
-                className="flex items-center gap-4 w-full rounded-lg p-2 hover:bg-green-50 dark:hover:bg-gray-600 transition"
+                aria-label="Close menu"
+                onClick={() => setOpen(false)}
+                className="absolute top-2 right-2 text-gray-500"
               >
-                <span className="p-2 rounded-full bg-violet-100">
-                  <Note className="w-5 h-5 text-violet-600" aria-hidden="true" />
-                </span>
-                <span className="text-sm text-gray-800 dark:text-gray-200">Add Note</span>
+                &times;
               </button>
-            </li>
-          </ul>
-        </div>
-      )}
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false)
+                    onAddNote?.()
+                  }}
+                  title="Add Note"
+                  className="flex items-center gap-4 w-full rounded-lg p-2 hover:bg-green-50 dark:hover:bg-gray-600 transition"
+                >
+                  <span className="p-2 rounded-full bg-violet-100">
+                    <Note className="w-5 h-5 text-violet-600" aria-hidden="true" />
+                  </span>
+                  <span className="text-sm text-gray-800 dark:text-gray-200">Add Note</span>
+                </button>
+              </li>
+            </ul>
+          </div>,
+          document.body
+        )}
       <button
         type="button"
         onClick={() => setOpen(v => !v)}
@@ -61,10 +64,10 @@ export default function NoteFab({ onAddNote }) {
         title="Open create menu"
         aria-expanded={open}
         aria-haspopup="menu"
-        className={`bg-accent text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition-transform ${open ? 'ring-pulse' : ''}`}
+        className={`absolute bottom-4 right-4 z-30 bg-accent text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition-transform ${open ? 'ring-pulse' : ''}`}
       >
         <Plus className={`w-6 h-6 transition-transform ${open ? 'rotate-45' : ''}`} aria-hidden="true" />
       </button>
-    </div>
+    </>
   )
 }
