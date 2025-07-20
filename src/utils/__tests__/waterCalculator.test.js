@@ -34,6 +34,22 @@ test('extends interval during rain spell', () => {
   expect(plan.interval).toBe(9)
 })
 
+test('reduces interval for hot, dry weather', () => {
+  const plant = { name: 'Pothos', diameter: 4 }
+  const plan = getSmartWaterPlan(plant, {
+    temp: 95,
+    humidity: 25,
+    date: '2025-06-01'
+  })
+  expect(plan.interval).toBe(3)
+})
+
+test('extends interval for winter season', () => {
+  const plant = { name: 'Pothos', diameter: 4 }
+  const plan = getSmartWaterPlan(plant, { date: '2025-12-15' })
+  expect(plan.interval).toBe(8)
+})
+
 test('adjusts interval based on early watering logs', () => {
   const plant = { name: 'Pothos', diameter: 4 }
   const logs = [

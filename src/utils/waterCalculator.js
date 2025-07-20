@@ -1,3 +1,5 @@
+export const MS_PER_DAY = 86400000
+
 export function getWaterPlan(plantName = '', diameter = 0) {
   const d = Number(diameter) || 0
   const depth = d * 0.75
@@ -20,13 +22,22 @@ export function getSmartWaterPlan(
   let interval = base.interval
 
   // adjust for weather conditions
-  if (weather.temp && weather.temp > 90) interval -= 2
+  const heat = weather.temp ?? weather.tempHigh
+  if (heat && heat > 90) interval -= 2
+  if (weather.humidity && weather.humidity < 30) interval -= 1
+  if (weather.humidity && weather.humidity > 80) interval += 1
   if (weather.rainfall && weather.rainfall > 60) interval += 2
 
   // seasonal adjustment by month
-  const month = (weather.date ? new Date(weather.date) : new Date()).getMonth()
-  if ([5, 6, 7].includes(month)) interval -= 1
-  else if ([11, 0, 1].includes(month)) interval += 1
+  const daylight = weather.daylightHours ?? weather.daylight
+  if (typeof daylight === 'number') {
+    if (daylight > 13) interval -= 1
+    else if (daylight < 10) interval += 1
+  } else {
+    const month = (weather.date ? new Date(weather.date) : new Date()).getMonth()
+    if ([5, 6, 7].includes(month)) interval -= 1
+    else if ([11, 0, 1].includes(month)) interval += 1
+  }
 
   // incorporate user logs
   const dates = logs
@@ -34,13 +45,13 @@ export function getSmartWaterPlan(
     .filter(d => !isNaN(d))
     .sort((a, b) => a - b)
   if (dates.length > 1) {
-    let total = 0
-    for (let i = 1; i < dates.length; i++) {
-      total += (dates[i] - dates[i - 1]) / 86400000
-    }
+    const total = dates.slice(1).reduce(
+      (sum, d, i) => sum + (d - dates[i]) / MS_PER_DAY,
+      0
+    )
     const avg = total / (dates.length - 1)
-    if (avg < base.interval - 1) interval = Math.round(avg)
-    else if (avg > base.interval + 1) interval = Math.round(avg)
+    if (avg < base.interval - 1 || avg > base.interval + 1)
+      interval = Math.round(avg)
   }
 
   interval = Math.max(1, Math.round(interval))
