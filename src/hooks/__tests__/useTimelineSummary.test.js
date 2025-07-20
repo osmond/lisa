@@ -1,5 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import useTimelineSummary from '../useTimelineSummary.js'
+jest.mock('../../OpenAIContext.jsx', () => ({
+  useOpenAI: () => ({ enabled: true }),
+}))
 
 function Test({ events }) {
   const { summary, error, loading } = useTimelineSummary(events)

@@ -5,19 +5,22 @@ import plants from '../../plants.json'
 import { PlantProvider } from '../../PlantContext.jsx'
 import { MenuProvider } from '../../MenuContext.jsx'
 import SnackbarProvider, { Snackbar } from '../../hooks/SnackbarProvider.jsx'
+import { OpenAIProvider } from '../../OpenAIContext.jsx'
 
 test('renders plant details without duplicates', () => {
   const plant = plants[0]
   render(
-    <MenuProvider>
-      <PlantProvider>
-        <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
-          <Routes>
-            <Route path="/plant/:id" element={<PlantDetail />} />
-          </Routes>
-        </MemoryRouter>
-      </PlantProvider>
-    </MenuProvider>
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
   )
 
   const headings = screen.getAllByRole('heading', { name: plant.name })
@@ -38,15 +41,17 @@ test('renders plant details without duplicates', () => {
 test('shows watering progress indicator', () => {
   const plant = plants[0]
   render(
-    <MenuProvider>
-      <PlantProvider>
-        <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
-          <Routes>
-            <Route path="/plant/:id" element={<PlantDetail />} />
-          </Routes>
-        </MemoryRouter>
-      </PlantProvider>
-    </MenuProvider>
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
   )
 
   expect(screen.getByLabelText(/care progress/i)).toBeInTheDocument()
@@ -56,15 +61,17 @@ test('shows countdown text inside care cards', () => {
   const plant = plants[0]
   jest.useFakeTimers().setSystemTime(new Date('2025-07-20'))
   render(
-    <MenuProvider>
-      <PlantProvider>
-        <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
-          <Routes>
-            <Route path="/plant/:id" element={<PlantDetail />} />
-          </Routes>
-        </MemoryRouter>
-      </PlantProvider>
-    </MenuProvider>
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
   )
 
   expect(screen.getByText(/due in 5 days/i)).toBeInTheDocument()
@@ -76,15 +83,17 @@ test('shows countdown text inside care cards', () => {
 test('displays all sections', () => {
   const plant = plants[0]
   render(
-    <MenuProvider>
-      <PlantProvider>
-        <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
-          <Routes>
-            <Route path="/plant/:id" element={<PlantDetail />} />
-          </Routes>
-        </MemoryRouter>
-      </PlantProvider>
-    </MenuProvider>
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
   )
 
   expect(screen.getByRole('tab', { name: /care/i })).toBeInTheDocument()
@@ -100,15 +109,17 @@ test('opens lightbox from gallery', () => {
 
   const plant = plants[0]
   render(
-    <MenuProvider>
-      <PlantProvider>
-        <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
-          <Routes>
-            <Route path="/plant/:id" element={<PlantDetail />} />
-          </Routes>
-        </MemoryRouter>
-      </PlantProvider>
-    </MenuProvider>
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
   )
 
   fireEvent.click(screen.getByRole('tab', { name: /gallery/i }))
@@ -144,15 +155,17 @@ test('opens lightbox from gallery', () => {
 test('view all button opens the viewer from first image', () => {
   const plant = plants[0]
   render(
-    <MenuProvider>
-      <PlantProvider>
-        <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
-          <Routes>
-            <Route path="/plant/:id" element={<PlantDetail />} />
-          </Routes>
-        </MemoryRouter>
-      </PlantProvider>
-    </MenuProvider>
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
   )
 
   fireEvent.click(screen.getByRole('tab', { name: /gallery/i }))
@@ -172,23 +185,25 @@ test('view all button opens the viewer from first image', () => {
 test('back button navigates to previous page', () => {
   const plant = plants[0]
   render(
-    <MenuProvider>
-      <PlantProvider>
-        <MemoryRouter
-          initialEntries={[
-            '/myplants',
-            { pathname: `/plant/${plant.id}`, state: { from: '/myplants' } },
-          ]}
-          initialIndex={1}
-        >
-          <Routes>
-            <Route path="/myplants" element={<div>All Plants View</div>} />
-            <Route path="/room/:roomName" element={<div>Room View</div>} />
-            <Route path="/plant/:id" element={<PlantDetail />} />
-          </Routes>
-        </MemoryRouter>
-      </PlantProvider>
-    </MenuProvider>
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter
+            initialEntries={[
+              '/myplants',
+              { pathname: `/plant/${plant.id}`, state: { from: '/myplants' } },
+            ]}
+            initialIndex={1}
+          >
+            <Routes>
+              <Route path="/myplants" element={<div>All Plants View</div>} />
+              <Route path="/room/:roomName" element={<div>Room View</div>} />
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
   )
 
   const backBtn = screen.getByRole('button', { name: /back/i })
@@ -202,18 +217,20 @@ test('care tab hides kebab menu for due tasks', () => {
   const plant = plants[0]
   jest.useFakeTimers().setSystemTime(new Date('2025-07-25'))
   render(
-    <SnackbarProvider>
-      <MenuProvider>
-        <PlantProvider>
-          <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
-            <Routes>
-              <Route path="/plant/:id" element={<PlantDetail />} />
-            </Routes>
-          </MemoryRouter>
-        </PlantProvider>
-      </MenuProvider>
-      <Snackbar />
-    </SnackbarProvider>
+    <OpenAIProvider>
+      <SnackbarProvider>
+        <MenuProvider>
+          <PlantProvider>
+            <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+              <Routes>
+                <Route path="/plant/:id" element={<PlantDetail />} />
+              </Routes>
+            </MemoryRouter>
+          </PlantProvider>
+        </MenuProvider>
+        <Snackbar />
+      </SnackbarProvider>
+    </OpenAIProvider>
   )
 
   expect(screen.queryByRole('button', { name: /open task menu/i })).toBeNull()

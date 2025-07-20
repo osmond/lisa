@@ -1,5 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+jest.mock('../../OpenAIContext.jsx', () => ({
+  useOpenAI: () => ({ enabled: true })
+}))
 import FeaturedCard from '../FeaturedCard.jsx'
 
 beforeAll(() => {

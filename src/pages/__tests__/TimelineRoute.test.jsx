@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+import { OpenAIProvider } from '../../OpenAIContext.jsx'
 import App from '../../App.jsx'
 
 jest.mock('../../PlantContext.jsx', () => ({
@@ -8,9 +9,11 @@ jest.mock('../../PlantContext.jsx', () => ({
 
 test('navigating to /timeline renders the Timeline page', () => {
   render(
-    <MemoryRouter initialEntries={['/timeline']}>
-      <App />
-    </MemoryRouter>
+    <OpenAIProvider>
+      <MemoryRouter initialEntries={['/timeline']}>
+        <App />
+      </MemoryRouter>
+    </OpenAIProvider>
   )
 
   expect(screen.getByRole('link', { name: 'Plant A' })).toBeInTheDocument()

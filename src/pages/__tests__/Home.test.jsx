@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import Home from '../Home.jsx'
 import SnackbarProvider, { Snackbar } from '../../hooks/SnackbarProvider.jsx'
+import { OpenAIProvider } from '../../OpenAIContext.jsx'
 
 jest.mock('../../WeatherContext.jsx', () => ({
   useWeather: () => ({ forecast: { rainfall: 0 } }),
@@ -19,10 +20,12 @@ jest.mock('../../PlantContext.jsx', () => ({
 
 function renderWithSnackbar(ui) {
   return render(
-    <SnackbarProvider>
-      <MemoryRouter>{ui}</MemoryRouter>
-      <Snackbar />
-    </SnackbarProvider>
+    <OpenAIProvider>
+      <SnackbarProvider>
+        <MemoryRouter>{ui}</MemoryRouter>
+        <Snackbar />
+      </SnackbarProvider>
+    </OpenAIProvider>
   )
 }
 

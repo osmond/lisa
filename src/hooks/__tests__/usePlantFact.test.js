@@ -1,5 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import usePlantFact from '../usePlantFact.js'
+jest.mock('../../OpenAIContext.jsx', () => ({
+  useOpenAI: () => ({ enabled: true }),
+}))
 
 function Test({ name }) {
   const { fact } = usePlantFact(name)

@@ -2,6 +2,7 @@ import { render, screen, fireEvent, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import App from '../App.jsx'
 import SnackbarProvider, { Snackbar } from '../hooks/SnackbarProvider.jsx'
+import { OpenAIProvider } from '../OpenAIContext.jsx'
 
 jest.mock('../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: [] }),
@@ -26,12 +27,14 @@ jest.mock('../RoomContext.jsx', () => ({
 describe('floating action button visibility', () => {
   test('shows fab on All Plants page', () => {
     render(
-      <SnackbarProvider>
-        <MemoryRouter initialEntries={[ '/myplants' ]}>
-          <App />
-        </MemoryRouter>
-        <Snackbar />
-      </SnackbarProvider>
+      <OpenAIProvider>
+        <SnackbarProvider>
+          <MemoryRouter initialEntries={[ '/myplants' ]}>
+            <App />
+          </MemoryRouter>
+          <Snackbar />
+        </SnackbarProvider>
+      </OpenAIProvider>
     )
 
     const button = screen.getByRole('button', { name: /open create menu/i })
@@ -43,12 +46,14 @@ describe('floating action button visibility', () => {
 
   test('fab hidden on Profile page', () => {
     render(
-      <SnackbarProvider>
-        <MemoryRouter initialEntries={[ '/profile' ]}>
-          <App />
-        </MemoryRouter>
-        <Snackbar />
-      </SnackbarProvider>
+      <OpenAIProvider>
+        <SnackbarProvider>
+          <MemoryRouter initialEntries={[ '/profile' ]}>
+            <App />
+          </MemoryRouter>
+          <Snackbar />
+        </SnackbarProvider>
+      </OpenAIProvider>
     )
 
     expect(screen.queryByRole('button', { name: /open create menu/i })).toBeNull()

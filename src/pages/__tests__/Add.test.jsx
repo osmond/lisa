@@ -5,6 +5,7 @@ import Home from '../Home.jsx'
 import SnackbarProvider, { Snackbar } from '../../hooks/SnackbarProvider.jsx'
 import { PlantProvider } from '../../PlantContext.jsx'
 import { RoomProvider } from '../../RoomContext.jsx'
+import { OpenAIProvider } from '../../OpenAIContext.jsx'
 
 jest.mock('../../WeatherContext.jsx', () => ({
   useWeather: () => ({ forecast: { rainfall: 0 } }),
@@ -16,10 +17,12 @@ jest.mock('../../UserContext.jsx', () => ({
 
 function renderWithSnackbar(ui) {
   return render(
-    <SnackbarProvider>
-      {ui}
-      <Snackbar />
-    </SnackbarProvider>
+    <OpenAIProvider>
+      <SnackbarProvider>
+        {ui}
+        <Snackbar />
+      </SnackbarProvider>
+    </OpenAIProvider>
   )
 }
 
