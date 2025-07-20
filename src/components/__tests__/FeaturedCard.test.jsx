@@ -2,6 +2,8 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import FeaturedCard from '../FeaturedCard.jsx'
 
+const originalFetch = global.fetch
+
 beforeAll(() => {
   if (typeof PointerEvent === 'undefined') {
     window.PointerEvent = window.MouseEvent
@@ -14,6 +16,10 @@ const plants = [
   { id: 1, name: 'Aloe', image: 'test.jpg', lastWatered: '2025-07-07', nextWater: '2025-07-10' },
   { id: 2, name: 'Pothos', image: 'test2.jpg', lastWatered: '2025-07-08', nextWater: '2025-07-11' },
 ]
+
+afterEach(() => {
+  global.fetch = originalFetch
+})
 
 test('shows featured label and care summary', () => {
   render(
@@ -72,6 +78,5 @@ test('displays plant fact when loaded', async () => {
     </MemoryRouter>
   )
   await screen.findByText('fun fact')
-  global.fetch = undefined
   delete process.env.VITE_OPENAI_API_KEY
 })

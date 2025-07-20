@@ -1,10 +1,16 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import useINatPhoto from '../useINatPhoto.js'
 
+const originalFetch = global.fetch
+
 function Test() {
   const photo = useINatPhoto('aloe')
   return <div>{photo ? photo.src : 'loading'}</div>
 }
+
+afterEach(() => {
+  global.fetch = originalFetch
+})
 
 test('skips photos that fail to load', async () => {
   const searchData = {
@@ -24,7 +30,6 @@ test('skips photos that fail to load', async () => {
     ],
   }
   let call = 0
-  const origFetch = global.fetch
   global.fetch = jest.fn(() =>
     Promise.resolve({
       json: () =>
@@ -46,7 +51,6 @@ test('skips photos that fail to load', async () => {
   render(<Test />)
   await waitFor(() => screen.getByText('good.jpg'))
 
-  global.fetch = origFetch
   global.Image = origImage
 })
 
@@ -55,7 +59,6 @@ test('aborts fetch on unmount', async () => {
   const origAbortController = global.AbortController
   global.AbortController = jest.fn(() => ({ signal: 'sig', abort: abortMock }))
 
-  const origFetch = global.fetch
   global.fetch = jest.fn(() =>
     Promise.resolve({ json: () => Promise.resolve({ results: [] }) })
   )
@@ -75,6 +78,5 @@ test('aborts fetch on unmount', async () => {
   unmount()
   expect(abortMock).toHaveBeenCalled()
 
-  global.fetch = origFetch
   global.AbortController = origAbortController
 })

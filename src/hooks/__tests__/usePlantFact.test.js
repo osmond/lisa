@@ -1,13 +1,15 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import usePlantFact from '../usePlantFact.js'
 
+const originalFetch = global.fetch
+
 function Test({ name }) {
   const { fact } = usePlantFact(name)
   return <div>{fact || 'loading'}</div>
 }
 
 afterEach(() => {
-  global.fetch && (global.fetch = undefined)
+  global.fetch = originalFetch
   delete process.env.VITE_OPENAI_API_KEY
   localStorage.clear()
 })
