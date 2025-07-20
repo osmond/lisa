@@ -1,4 +1,4 @@
-import { useParams, useNavigate, useLocation } from 'react-router-dom'
+import { Link, useParams, useNavigate, useLocation } from 'react-router-dom'
 import { useState, useRef, useMemo, useEffect } from 'react'
 
 import {
@@ -494,6 +494,12 @@ export default function PlantDetail() {
                   {fact}
                 </p>
               )}
+              <Link
+                to={`/plant/${plant.id}/coach`}
+                className="inline-block mt-2 px-3 py-1 bg-green-600 text-white text-sm rounded"
+              >
+                Coach
+              </Link>
             </div>
           </div>
         </div>
