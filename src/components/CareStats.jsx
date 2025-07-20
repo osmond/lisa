@@ -2,9 +2,18 @@ import React from 'react'
 import { ListChecks, Drop, Sun } from 'phosphor-react'
 import ProgressRing from './ProgressRing.jsx'
 
-function StatBlock({ id, label, Icon, completed, total, ringClass, onClick }) {
+function StatBlock({
+  id,
+  label,
+  Icon,
+  completed,
+  total,
+  ringClass,
+  onClick,
+  display,
+}) {
   const pct = total > 0 ? Math.min(completed / total, 1) : 0
-  const display = `${completed}/${total}`
+  const displayText = display ?? `${completed}/${total}`
 
   const size = 64
 
@@ -30,7 +39,7 @@ function StatBlock({ id, label, Icon, completed, total, ringClass, onClick }) {
               className="text-sm font-semibold font-body"
               data-testid="stat-text"
             >
-              {display}
+              {displayText}
             </span>
           </div>
         </div>
@@ -52,6 +61,9 @@ export default function CareStats({
   onTotalClick,
   onWaterClick,
   onFertClick,
+  waterDisplay,
+  fertDisplay,
+  totalDisplay,
 }) {
   const totalCompleted = waterCompleted + fertCompleted
   const totalTasks = waterTotal + fertTotal
@@ -64,6 +76,7 @@ export default function CareStats({
       total: totalTasks,
       ringClass: 'text-emerald-600',
       onClick: onTotalClick,
+      display: totalDisplay,
     },
     {
       id: 'water',
@@ -73,6 +86,7 @@ export default function CareStats({
       total: waterTotal,
       ringClass: 'text-sky-500',
       onClick: onWaterClick,
+      display: waterDisplay,
     },
     {
       id: 'fertilize',
@@ -82,6 +96,7 @@ export default function CareStats({
       total: fertTotal,
       ringClass: 'text-amber-600',
       onClick: onFertClick,
+      display: fertDisplay,
     },
   ]
   return (

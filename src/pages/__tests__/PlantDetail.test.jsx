@@ -50,6 +50,26 @@ test('shows watering progress indicator', () => {
   expect(screen.getByLabelText(/care progress/i)).toBeInTheDocument()
 })
 
+test('shows countdown text inside care rings', () => {
+  const plant = plants[0]
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-20'))
+  render(
+    <MenuProvider>
+      <PlantProvider>
+        <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+          <Routes>
+            <Route path="/plant/:id" element={<PlantDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </PlantProvider>
+    </MenuProvider>
+  )
+
+  expect(screen.getByTestId('stat-water')).toHaveTextContent(/5 days left/i)
+  expect(screen.getByTestId('stat-fertilize')).toHaveTextContent(/28 days left/i)
+  jest.useRealTimers()
+})
+
 
 test('displays all sections', () => {
   const plant = plants[0]

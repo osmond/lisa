@@ -1,8 +1,14 @@
-import { daysAgo, formatCareSummary } from '../date.js'
+import { daysAgo, daysUntil, formatCareSummary } from '../date.js'
 
 test('daysAgo calculates difference in days', () => {
   jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
   expect(daysAgo('2025-07-07')).toBe(3)
+  jest.useRealTimers()
+})
+
+test('daysUntil returns positive countdown', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+  expect(daysUntil('2025-07-13')).toBe(3)
   jest.useRealTimers()
 })
 

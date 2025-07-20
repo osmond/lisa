@@ -36,7 +36,7 @@ import UnifiedTaskCard from '../components/UnifiedTaskCard.jsx'
 import useToast from "../hooks/useToast.jsx"
 import confetti from 'canvas-confetti'
 
-import { formatMonth, formatDate } from '../utils/date.js'
+import { formatMonth, formatDate, daysUntil } from '../utils/date.js'
 import { formatDaysAgo, formatTimeOfDay } from '../utils/dateFormat.js'
 import { getWateringProgress } from '../utils/watering.js'
 
@@ -91,12 +91,28 @@ export default function PlantDetail() {
   const waterTotal = 3
   const waterCompleted = Math.round(progressPct * waterTotal)
 
+  const waterDays = daysUntil(plant?.nextWater)
+  let waterDisplay = null
+  if (waterDays != null) {
+    if (waterDays <= 0) waterDisplay = 'Today'
+    else if (waterDays === 1) waterDisplay = '1 day left'
+    else waterDisplay = `${waterDays} days left`
+  }
+
   const fertPct = getWateringProgress(
     plant?.lastFertilized,
     plant?.nextFertilize
   )
   const fertTotal = 3
   const fertCompleted = Math.round(fertPct * fertTotal)
+
+  const fertDays = daysUntil(plant?.nextFertilize)
+  let fertDisplay = null
+  if (fertDays != null) {
+    if (fertDays <= 0) fertDisplay = 'Today'
+    else if (fertDays === 1) fertDisplay = '1 day left'
+    else fertDisplay = `${fertDays} days left`
+  }
 
   const todayIso = new Date().toISOString().slice(0, 10)
   const dueWater = plant?.nextWater && plant.nextWater <= todayIso
@@ -480,12 +496,16 @@ export default function PlantDetail() {
       </div>
       <PageContainer className="relative text-left pt-0 space-y-3">
         <Toast />
-        <div className="flex flex-col items-center mt-4 mb-4" aria-label="Care progress">
+
+        <div className="flex flex-col items-center mt-4" aria-label="Care progress">
+
           <CareStats
             waterCompleted={waterCompleted}
             waterTotal={waterTotal}
             fertCompleted={fertCompleted}
             fertTotal={fertTotal}
+            waterDisplay={waterDisplay}
+            fertDisplay={fertDisplay}
           />
           <p className="text-xs text-gray-500 dark:text-gray-400" data-testid="progress-hint">
             Progress toward next scheduled care

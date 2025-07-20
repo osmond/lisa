@@ -59,3 +59,18 @@ test('container has vertical margins for spacing', () => {
   render(<CareStats />)
   expect(screen.getByTestId('care-stats')).toHaveClass('my-4')
 })
+
+test('allows custom display text', () => {
+  render(
+    <CareStats
+      waterCompleted={1}
+      waterTotal={2}
+      fertCompleted={2}
+      fertTotal={2}
+      waterDisplay="3 days left"
+      fertDisplay="1 day left"
+    />
+  )
+  const texts = screen.getAllByTestId('stat-text').map(el => el.textContent)
+  expect(texts).toEqual(['3/4', '3 days left', '1 day left'])
+})

@@ -44,6 +44,13 @@ export function daysAgo(dateStr, today = new Date()) {
   return Math.floor((today - d) / 86400000)
 }
 
+export function daysUntil(dateStr, today = new Date()) {
+  if (!dateStr) return null
+  const d = new Date(dateStr)
+  if (isNaN(d)) return null
+  return Math.ceil((d - today) / 86400000)
+}
+
 export function formatCareSummary(lastWatered, nextWater, today = new Date()) {
   const ago = daysAgo(lastWatered, today)
   const nextDate = nextWater ? new Date(nextWater) : null
