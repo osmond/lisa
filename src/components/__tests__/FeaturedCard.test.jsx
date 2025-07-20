@@ -54,3 +54,24 @@ test('arrow keys change plant', () => {
   fireEvent.keyDown(card, { key: 'ArrowLeft' })
   expect(screen.getByText('Aloe')).toBeInTheDocument()
 })
+
+test('displays plant fact when loaded', async () => {
+  process.env.VITE_OPENAI_API_KEY = 'key'
+  global.fetch = jest.fn(url => {
+    if (url.includes('openai')) {
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ choices: [{ message: { content: 'fun fact' } }] }),
+      })
+    }
+    return Promise.resolve({ json: () => Promise.resolve({ results: [] }) })
+  })
+  render(
+    <MemoryRouter>
+      <FeaturedCard plants={plants} />
+    </MemoryRouter>
+  )
+  await screen.findByText('fun fact')
+  global.fetch = undefined
+  delete process.env.VITE_OPENAI_API_KEY
+})

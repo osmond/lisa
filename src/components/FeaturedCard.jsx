@@ -14,6 +14,7 @@ import {
 
 
 import useINatPhoto from '../hooks/useINatPhoto.js'
+import usePlantFact from '../hooks/usePlantFact.js'
 import { createRipple } from '../utils/interactions.js'
 
 
@@ -69,6 +70,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
     (plant.photos && plant.photos[0]?.src) ||
     plant.image ||
     placeholder?.src
+  const { fact } = usePlantFact(name)
 
   return (
     <Link
@@ -110,6 +112,9 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
               />
             )}
           </div>
+        )}
+        {fact && (
+          <p className="text-sm italic text-white/90 max-w-prose">{fact}</p>
         )}
         {/* Action buttons were removed to keep the card minimal */}
 
