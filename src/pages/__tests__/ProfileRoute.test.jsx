@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+import { OpenAIProvider } from '../../OpenAIContext.jsx'
 import App from '../../App.jsx'
 
 jest.mock('../../PlantContext.jsx', () => ({
@@ -20,9 +21,11 @@ jest.mock('../../ThemeContext.jsx', () => ({
 
 test('navigating to /profile renders the Settings page', () => {
   render(
-    <MemoryRouter initialEntries={['/profile']}>
-      <App />
-    </MemoryRouter>
+    <OpenAIProvider>
+      <MemoryRouter initialEntries={['/profile']}>
+        <App />
+      </MemoryRouter>
+    </OpenAIProvider>
   )
 
   expect(screen.getByRole('heading', { name: /settings/i })).toBeInTheDocument()

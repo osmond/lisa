@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+import { OpenAIProvider } from '../../OpenAIContext.jsx'
 import Timeline from '../Timeline.jsx'
 
 const samplePlants = [
@@ -24,7 +25,11 @@ jest.mock('../../PlantContext.jsx', () => ({
 }))
 
 function renderWithRouter(ui) {
-  return render(<MemoryRouter>{ui}</MemoryRouter>)
+  return render(
+    <OpenAIProvider>
+      <MemoryRouter>{ui}</MemoryRouter>
+    </OpenAIProvider>
+  )
 }
 
 beforeEach(() => {

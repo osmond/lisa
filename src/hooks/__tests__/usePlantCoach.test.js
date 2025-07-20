@@ -1,5 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import usePlantCoach from '../usePlantCoach.js'
+jest.mock('../../OpenAIContext.jsx', () => ({
+  useOpenAI: () => ({ enabled: true }),
+}))
 
 const mockPlant = { id: 1, name: 'Aloe', lastWatered: '2024-01-01' }
 let forecast = { temp: '70°F', condition: 'Sunny' }

@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import PlantDetail from '../PlantDetail.jsx'
 import { MenuProvider } from '../../MenuContext.jsx'
+import { OpenAIProvider } from '../../OpenAIContext.jsx'
 
 let mockPlants = []
 jest.mock('../../PlantContext.jsx', () => ({
@@ -28,13 +29,15 @@ beforeEach(() => {
 
 test('shows notes from care log in timeline', () => {
   render(
-    <MenuProvider>
-      <MemoryRouter initialEntries={['/plant/1']}>
-        <Routes>
-          <Route path="/plant/:id" element={<PlantDetail />} />
-        </Routes>
-      </MemoryRouter>
-    </MenuProvider>
+    <OpenAIProvider>
+      <MenuProvider>
+        <MemoryRouter initialEntries={['/plant/1']}>
+          <Routes>
+            <Route path="/plant/:id" element={<PlantDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </MenuProvider>
+    </OpenAIProvider>
   )
 
   fireEvent.click(screen.getByRole('tab', { name: /activity/i }))
@@ -47,13 +50,15 @@ test('shows notes from care log in timeline', () => {
 
 test('timeline bullet markup matches snapshot', () => {
   const { container } = render(
-    <MenuProvider>
-      <MemoryRouter initialEntries={['/plant/1']}>
-        <Routes>
-          <Route path="/plant/:id" element={<PlantDetail />} />
-        </Routes>
-      </MemoryRouter>
-    </MenuProvider>
+    <OpenAIProvider>
+      <MenuProvider>
+        <MemoryRouter initialEntries={['/plant/1']}>
+          <Routes>
+            <Route path="/plant/:id" element={<PlantDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </MenuProvider>
+    </OpenAIProvider>
   )
 
   fireEvent.click(screen.getByRole('tab', { name: /activity/i }))
@@ -77,13 +82,15 @@ test('toggle reverses month ordering', () => {
   ]
 
   render(
-    <MenuProvider>
-      <MemoryRouter initialEntries={['/plant/1']}>
-        <Routes>
-          <Route path="/plant/:id" element={<PlantDetail />} />
-        </Routes>
-      </MemoryRouter>
-    </MenuProvider>
+    <OpenAIProvider>
+      <MenuProvider>
+        <MemoryRouter initialEntries={['/plant/1']}>
+          <Routes>
+            <Route path="/plant/:id" element={<PlantDetail />} />
+          </Routes>
+        </MemoryRouter>
+      </MenuProvider>
+    </OpenAIProvider>
   )
 
   fireEvent.click(screen.getByRole('tab', { name: /activity/i }))

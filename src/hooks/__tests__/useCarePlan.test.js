@@ -1,5 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import useCarePlan from '../useCarePlan.js'
+jest.mock('../../OpenAIContext.jsx', () => ({
+  useOpenAI: () => ({ enabled: true }),
+}))
 
 function Test({ details }) {
   const { plan, generate } = useCarePlan()
