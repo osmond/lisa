@@ -48,7 +48,7 @@ export default function PlantDetailFab({
           onClick={() => setOpen(false)}
         >
           <div
-            className="modal-box relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl px-5 py-4 w-[90%] max-w-[360px] animate-fade-in-up"
+            className="modal-box relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl px-5 py-4 min-w-[320px] max-w-[360px] animate-fade-in-up"
             onClick={e => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-3">
