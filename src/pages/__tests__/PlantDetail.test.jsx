@@ -27,7 +27,9 @@ test('renders plant details without duplicates', () => {
   expect(images).toHaveLength(1)
 
   // Care tab is active by default
-  expect(screen.getByText(/no tasks due/i)).toBeInTheDocument()
+  expect(
+    screen.getByText(/progress toward next scheduled care/i)
+  ).toBeInTheDocument()
 
   const subHeadings = screen.queryAllByRole('heading', { level: 4 })
   expect(subHeadings).toHaveLength(0)
@@ -214,7 +216,6 @@ test('care tab hides kebab menu for due tasks', () => {
     </SnackbarProvider>
   )
 
-  expect(screen.queryByText(/no tasks due/i)).toBeNull()
   expect(screen.queryByRole('button', { name: /open task menu/i })).toBeNull()
   jest.useRealTimers()
 })

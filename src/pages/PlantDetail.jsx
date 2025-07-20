@@ -242,23 +242,27 @@ export default function PlantDetail() {
       label: 'Care',
       content: (
         <div className="p-4 space-y-2">
-          {dueWater || dueFertilize ? (
-            <BaseCard variant="task">
-              <UnifiedTaskCard
-                plant={{
-                  ...plant,
-                  dueWater,
-                  dueFertilize,
-                  lastCared,
-                }}
-                urgent={urgent}
-                overdue={overdue}
-                showMenuButton={false}
+          <div className="flex flex-col items-center" aria-label="Care progress">
+            <div className="w-full max-w-xs space-y-3">
+              <CareCard
+                label="Water"
+                Icon={Drop}
+                progress={waterProgress}
+                status={waterStatus}
+                onDone={handleWatered}
               />
-            </BaseCard>
-          ) : (
-            <p className="text-center text-gray-500">No tasks due.</p>
-          )}
+              <CareCard
+                label="Fertilize"
+                Icon={Sun}
+                progress={fertProgress}
+                status={fertStatus}
+                onDone={handleFertilized}
+              />
+            </div>
+            <p className="text-xs text-gray-500 dark:text-gray-400" data-testid="progress-hint">
+              Progress toward next scheduled care
+            </p>
+          </div>
         </div>
       ),
     },
@@ -490,27 +494,6 @@ export default function PlantDetail() {
       <PageContainer className="relative text-left pt-0 space-y-3">
         <Toast />
 
-        <div className="flex flex-col items-center mt-4" aria-label="Care progress">
-          <div className="w-full max-w-xs space-y-3">
-            <CareCard
-              label="Water"
-              Icon={Drop}
-              progress={waterProgress}
-              status={waterStatus}
-              onDone={handleWatered}
-            />
-            <CareCard
-              label="Fertilize"
-              Icon={Sun}
-              progress={fertProgress}
-              status={fertStatus}
-              onDone={handleFertilized}
-            />
-          </div>
-          <p className="text-xs text-gray-500 dark:text-gray-400" data-testid="progress-hint">
-            Progress toward next scheduled care
-          </p>
-        </div>
         <div className="space-y-3">
           <DetailTabs tabs={tabs} />
         </div>
