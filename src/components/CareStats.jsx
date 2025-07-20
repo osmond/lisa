@@ -11,11 +11,11 @@ function StatBlock({
   ringClass,
   onClick,
   display,
+  size = 64,
+  subLabel,
 }) {
   const pct = total > 0 ? Math.min(completed / total, 1) : 0
   const displayText = display ?? `${completed}/${total}`
-
-  const size = 64
 
   const ariaLabel =
     label === 'All Tasks'
@@ -48,6 +48,11 @@ function StatBlock({
         <span className="text-[11px] font-semibold text-gray-700 font-body">
           {label}
         </span>
+        {subLabel && (
+          <span className="text-[11px] text-gray-500" data-testid="stat-sublabel">
+            {subLabel}
+          </span>
+        )}
       </div>
     </div>
   )
@@ -64,9 +69,30 @@ export default function CareStats({
   waterDisplay,
   fertDisplay,
   totalDisplay,
+  size = 64,
+  summary = false,
 }) {
   const totalCompleted = waterCompleted + fertCompleted
   const totalTasks = waterTotal + fertTotal
+
+  if (summary && totalTasks > 0 && totalCompleted === totalTasks) {
+    return (
+      <div className="flex justify-center my-4" data-testid="care-stats">
+        <span className="px-3 py-2 rounded-full bg-green-500 text-white text-sm font-semibold flex items-center gap-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 256 256"
+            fill="currentColor"
+            className="w-4 h-4"
+            aria-hidden="true"
+          >
+            <path d="M229.66 77.66a8 8 0 0 1 0 11.31l-112 112a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.31L112 185.37l106.34-106.35a8 8 0 0 1 11.32 0Z" />
+          </svg>
+          {`All ${totalTasks} tasks complete today`}
+        </span>
+      </div>
+    )
+  }
   const stats = [
     {
       id: 'total',
@@ -77,6 +103,8 @@ export default function CareStats({
       ringClass: 'text-emerald-600',
       onClick: onTotalClick,
       display: totalDisplay,
+      size,
+      subLabel: undefined,
     },
     {
       id: 'water',
@@ -87,6 +115,8 @@ export default function CareStats({
       ringClass: 'text-sky-500',
       onClick: onWaterClick,
       display: waterDisplay,
+      size,
+      subLabel: 'Watered',
     },
     {
       id: 'fertilize',
@@ -97,6 +127,8 @@ export default function CareStats({
       ringClass: 'text-amber-600',
       onClick: onFertClick,
       display: fertDisplay,
+      size,
+      subLabel: 'Fertilized',
     },
   ]
   return (
