@@ -101,7 +101,7 @@ test('shows completed state', () => {
   )
   const wrapper = container.querySelector('.shadow')
   expect(wrapper).toHaveClass('opacity-50')
-  expect(wrapper).toHaveClass('bg-gray-100')
+  expect(wrapper).toHaveClass('bg-green-50')
   expect(container.querySelector('.check-pop')).toBeInTheDocument()
 })
 
@@ -160,6 +160,7 @@ test('partial left swipe reveals actions', () => {
   fireEvent.click(screen.getByRole('button', { name: /delete task/i }))
   expect(updatePlant).toHaveBeenCalledTimes(2)
 })
+
 
 
 
