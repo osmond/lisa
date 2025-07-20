@@ -39,6 +39,7 @@ export default function Onboard() {
       name: form.name,
       room: form.room,
       notes: plan?.text || '',
+      diameter: form.diameter,
     })
     navigate('/')
   }
