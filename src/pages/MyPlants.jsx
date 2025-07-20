@@ -19,7 +19,7 @@ export default function MyPlants() {
   const { rooms } = useRooms()
   const { plants } = usePlants()
 
-  const [filter, setFilter] = useState('all')
+  const [filter, setFilter] = useState('love')
   const [query, setQuery] = useState('')
 
   const search = query.trim().toLowerCase()

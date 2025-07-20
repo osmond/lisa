@@ -14,7 +14,7 @@ afterEach(() => {
 
 test('fetches fact from OpenAI when key provided', async () => {
   process.env.VITE_OPENAI_API_KEY = 'key'
-  global.fetch = jest.fn(url =>
+  global.fetch = jest.fn(() =>
     Promise.resolve({
       ok: true,
       json: () =>
@@ -31,8 +31,8 @@ test('fetches fact from OpenAI when key provided', async () => {
 
 test('falls back to wikipedia summary', async () => {
   process.env.VITE_OPENAI_API_KEY = 'key'
-  global.fetch = jest.fn(url => {
-    if (url.includes('openai')) {
+  global.fetch = jest.fn(requestUrl => {
+    if (requestUrl.includes('openai')) {
       return Promise.resolve({ ok: false })
     }
     return Promise.resolve({

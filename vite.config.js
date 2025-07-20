@@ -14,5 +14,10 @@ export default defineConfig(({ mode }) => {
       'import.meta.env.VITE_BASE_PATH': JSON.stringify(basePath),
     },
     plugins: [react()],
+    server: {
+      proxy: {
+        '/api': 'http://localhost:3000',
+      },
+    },
   }
 })

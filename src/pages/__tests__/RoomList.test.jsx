@@ -27,3 +27,22 @@ test('shows back link to All Plants', () => {
   const items = within(nav).getAllByRole('listitem')
   expect(items).toHaveLength(2)
 })
+
+test('displays last fertilized info for plants', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+  mockPlants = [
+    {
+      id: 1,
+      name: 'Rose',
+      room: 'Balcony',
+      image: 'rose.jpg',
+      placeholderSrc: 'rose.jpg',
+      lastWatered: '2025-07-08',
+      nextWater: '2025-07-15',
+      lastFertilized: '2025-07-05'
+    }
+  ]
+  renderWithRoute('/room/Balcony')
+  expect(screen.getByText(/last fertilized 5 days ago/i)).toBeInTheDocument()
+  jest.useRealTimers()
+})
