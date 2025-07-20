@@ -23,6 +23,7 @@ export default function UnifiedTaskCard({
   urgent = false,
   overdue = false,
   swipeable = true,
+  showMenuButton = true,
 }) {
   if (!plant) return null
   const { name, image, dueWater, dueFertilize, lastCared } = plant
@@ -137,7 +138,7 @@ export default function UnifiedTaskCard({
       onPointerUp={end}
       onPointerCancel={end}
     >
-      {showMenu &&
+      {showMenuButton && showMenu &&
         createPortal(
           <div
             className="modal-overlay bg-black/50 z-30 backdrop-blur-sm"
@@ -218,14 +219,16 @@ export default function UnifiedTaskCard({
                   Today
                 </Badge>
               ) : null}
-              <button
-                type="button"
-                aria-label="Open task menu"
-                onClick={() => setShowMenu(true)}
-                className="p-1 text-gray-500 hover:text-gray-700"
-              >
-                <DotsThreeVertical className="w-5 h-5" aria-hidden="true" />
-              </button>
+              {showMenuButton && (
+                <button
+                  type="button"
+                  aria-label="Open task menu"
+                  onClick={() => setShowMenu(true)}
+                  className="p-1 text-gray-500 hover:text-gray-700"
+                >
+                  <DotsThreeVertical className="w-5 h-5" aria-hidden="true" />
+                </button>
+              )}
             </div>
           </div>
           <div className="flex flex-col gap-1 mt-1 font-semibold">
