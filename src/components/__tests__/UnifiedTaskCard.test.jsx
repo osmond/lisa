@@ -82,7 +82,7 @@ test('applies overdue style', () => {
       <UnifiedTaskCard plant={plant} overdue />
   )
   const wrapper = container.querySelector('[data-testid="unified-task-card"]')
-  expect(wrapper).toHaveClass('bg-red-50')
+  expect(wrapper).toHaveClass('bg-amber-100')
 })
 
 test('matches snapshot in dark mode', () => {

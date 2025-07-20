@@ -178,7 +178,7 @@ exports[`matches snapshot in dark mode 1`] = `
     class="absolute top-2 right-2 pointer-events-none"
   >
     <span
-      class="inline-flex items-center gap-1 rounded-full font-medium shadow-sm px-2 py-0.5 text-[10px] bg-red-50 text-red-500"
+      class="inline-flex items-center gap-1 rounded-full font-medium shadow-sm px-2 py-0.5 text-[10px] bg-amber-100 text-amber-700"
     >
       Thirsty
     </span>
