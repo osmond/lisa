@@ -106,7 +106,7 @@ Then run Vite in another terminal:
 npm run dev
 ```
 The dev server prints a local URL (usually `http://localhost:5173/`). Requests to
-`/api/plant-fact` are automatically forwarded to the Express server running on
+`/api/coach` are automatically forwarded to the Express server running on
 `http://localhost:3000`.
 
 ## Building for Production
