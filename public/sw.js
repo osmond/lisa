@@ -37,7 +37,11 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return
+  const url = new URL(event.request.url)
+  if (url.origin !== self.location.origin) return // skip external requests
   event.respondWith(
-    caches.match(event.request).then((resp) => resp || fetch(event.request))
+    caches.match(event.request)
+      .then((resp) => resp || fetch(event.request))
+      .catch(() => caches.match('/index.html'))
   )
 })
