@@ -44,6 +44,16 @@ test('buildEvents includes plant names when requested', () => {
   ])
 })
 
+test('buildEvents can include plant id with names', () => {
+  const plants = [
+    { id: 1, name: 'Plant A', lastWatered: '2025-07-11' },
+  ]
+
+  const events = buildEvents(plants, { includePlantName: true, includePlantId: true })
+  expect(events[0].plantId).toBe(1)
+  expect(events[0].plantName).toBe('Plant A')
+})
+
 test('groupEventsByMonth groups by YYYY-MM', () => {
   const events = [
     { date: '2025-07-01', label: 'A' },

@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import Timeline from '../Timeline.jsx'
 
 const samplePlants = [
@@ -22,12 +23,16 @@ jest.mock('../../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: mockPlants }),
 }))
 
+function renderWithRouter(ui) {
+  return render(<MemoryRouter>{ui}</MemoryRouter>)
+}
+
 beforeEach(() => {
   mockPlants = samplePlants
 })
 
 test('ignores activities without valid dates and shows newest first', () => {
-  render(<Timeline />)
+  renderWithRouter(<Timeline />)
 
   expect(screen.queryByText(/Repotted/)).toBeNull()
 
@@ -50,13 +55,13 @@ test('renders care log notes', () => {
     },
   ]
 
-  render(<Timeline />)
-  expect(screen.getByText(/Watered Plant A/)).toBeInTheDocument()
+  renderWithRouter(<Timeline />)
+  expect(screen.getByRole('link', { name: 'Plant A' })).toBeInTheDocument()
   expect(screen.getByText('deep soak')).toBeInTheDocument()
 })
 
 test('renders an icon for events', () => {
-  const { container } = render(<Timeline />)
+  const { container } = renderWithRouter(<Timeline />)
   const svg = container.querySelector('svg[aria-hidden="true"]')
   expect(svg).toBeInTheDocument()
 })
@@ -67,7 +72,7 @@ test('displays month headers when events span months', () => {
     { id: 2, name: 'B', lastWatered: '2025-08-02' },
   ]
 
-  render(<Timeline />)
+  renderWithRouter(<Timeline />)
 
   const headings = screen.getAllByRole('heading', { level: 3 })
   expect(headings).toHaveLength(2)
@@ -76,7 +81,7 @@ test('displays month headers when events span months', () => {
 })
 
 test('toggle reverses the order of events', () => {
-  render(<Timeline />)
+  renderWithRouter(<Timeline />)
 
   const items = screen.getAllByRole('listitem')
   expect(items[0]).toHaveTextContent('Watered Plant A')
@@ -87,4 +92,10 @@ test('toggle reverses the order of events', () => {
   const reversed = screen.getAllByRole('listitem')
   expect(reversed[0]).toHaveTextContent('Fertilized Plant A')
   expect(toggle).toHaveAccessibleName('Show newest first')
+})
+
+test('plant name links to detail page', () => {
+  renderWithRouter(<Timeline />)
+  const links = screen.getAllByRole('link', { name: 'Plant A' })
+  expect(links[0]).toHaveAttribute('href', '/plant/1')
 })

@@ -1,8 +1,14 @@
-export function buildEvents(source, { includePlantName = false } = {}) {
+export function buildEvents(source, { includePlantName = false, includePlantId = false } = {}) {
   const plants = Array.isArray(source) ? source : [source].filter(Boolean)
   const events = []
   const added = new Set()
   const today = new Date().toISOString().slice(0, 10)
+
+  const withPlantInfo = (plant, event) => {
+    if (includePlantName) event.plantName = plant.name
+    if (includePlantId) event.plantId = plant.id
+    return event
+  }
 
   const addEvent = (e) => {
     const key = `${e.type}-${e.date}`
@@ -33,11 +39,11 @@ export function buildEvents(source, { includePlantName = false } = {}) {
         fertilizeDates.add(m[1])
       }
 
-      addEvent({
+      addEvent(withPlantInfo(p, {
         date: m[1],
         label: includePlantName ? `${p.name}: ${cleaned}` : cleaned,
         type,
-      })
+      }))
     })
 
     ;(p.careLog || []).forEach(ev => {
@@ -47,46 +53,46 @@ export function buildEvents(source, { includePlantName = false } = {}) {
       let type = 'log'
       if (lowerType.includes('water')) type = 'water'
       else if (lowerType.includes('fertilize')) type = 'fertilize'
-      addEvent({
+      addEvent(withPlantInfo(p, {
         date: ev.date,
         label: includePlantName ? `${ev.type} ${p.name}` : ev.type,
         note: ev.note,
         type,
-      })
+      }))
     })
 
     if (p.lastWatered && !waterDates.has(p.lastWatered)) {
-      addEvent({
+      addEvent(withPlantInfo(p, {
         date: p.lastWatered,
         label: includePlantName ? `Watered ${p.name}` : 'Watered',
         type: 'water',
-      })
+      }))
     }
 
     if (p.lastFertilized && !fertilizeDates.has(p.lastFertilized)) {
-      addEvent({
+      addEvent(withPlantInfo(p, {
         date: p.lastFertilized,
         label: includePlantName ? `Fertilized ${p.name}` : 'Fertilized',
         type: 'fertilize',
-      })
+      }))
     }
 
     if (p.notes) {
-      addEvent({
+      addEvent(withPlantInfo(p, {
         date: today,
         label: includePlantName ? `${p.name} note` : 'Note',
         note: p.notes,
         type: 'noteText',
-      })
+      }))
     }
 
     if (p.advancedCare) {
-      addEvent({
+      addEvent(withPlantInfo(p, {
         date: today,
         label: includePlantName ? `${p.name} care tip` : 'Advanced care',
         note: p.advancedCare,
         type: 'advanced',
-      })
+      }))
     }
   })
 
