@@ -37,7 +37,7 @@ export default function useTimelineSummary(events) {
               {
                 role: 'system',
                 content:
-                  'Summarize the recent plant care events in a scientific tone as if written by a plant expert, for example: "The specimen Sansevieria trifasciata exhibits robust growth..."',
+                  'Summarize the recent plant care events in a friendly, conversational tone that encourages the user. For example: "Looks like your spider plant is thriving after that watering!"',
               },
               { role: 'user', content: JSON.stringify(recent) },
             ],
