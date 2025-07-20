@@ -4,6 +4,7 @@ import { usePlants } from '../PlantContext.jsx'
 import { useRooms } from '../RoomContext.jsx'
 import PageContainer from "../components/PageContainer.jsx"
 import useCarePlan from '../hooks/useCarePlan.js'
+import { getWaterPlan } from '../utils/waterCalculator.js'
 
 export default function Onboard() {
   const { addPlant } = usePlants()
@@ -12,12 +13,14 @@ export default function Onboard() {
   const [form, setForm] = useState({
     name: '',
     pot: 'M',
+    diameter: '',
     soil: 'potting mix',
     light: 'Medium',
     room: '',
     humidity: '',
     experience: 'Beginner',
   })
+  const [water, setWater] = useState(null)
   const { plan, loading, error, generate } = useCarePlan()
 
   const handleChange = e => {
@@ -27,6 +30,7 @@ export default function Onboard() {
 
   const handleSubmit = e => {
     e.preventDefault()
+    setWater(getWaterPlan(form.name, form.diameter))
     generate(form)
   }
 
@@ -56,6 +60,10 @@ export default function Onboard() {
             <option value="L">L</option>
             <option value="XL">XL</option>
           </select>
+        </div>
+        <div className="grid gap-1">
+          <label htmlFor="diameter" className="font-medium">Pot diameter (inches)</label>
+          <input id="diameter" name="diameter" type="number" value={form.diameter} onChange={handleChange} className="border rounded p-2" />
         </div>
         <div className="grid gap-1">
           <label htmlFor="soil" className="font-medium">Soil type</label>
@@ -101,6 +109,11 @@ export default function Onboard() {
       {plan && (
         <div className="mt-6 space-y-4" data-testid="care-plan">
           <pre className="whitespace-pre-wrap p-4 bg-green-50 rounded">{plan.text}</pre>
+          {water && (
+            <p className="font-medium" data-testid="water-plan">
+              Suggested water: {water.volume} in³ every {water.interval} days
+            </p>
+          )}
           <button className="px-4 py-2 bg-green-600 text-white rounded" onClick={handleAdd}>Add Plant</button>
         </div>
       )}

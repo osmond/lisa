@@ -22,6 +22,7 @@ Includes:
 - Badge indicator on the All Plants tab for overdue tasks
 - Watering and fertilizing progress overlays on plant photos
 - Customizable weather location and units from the Settings page
+- Guided onboarding asks for pot diameter and auto-calculates watering volume and interval
 
 ## Using the UI
 
