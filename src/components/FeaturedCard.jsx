@@ -55,7 +55,16 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
   const name = plant.plantName || plant.name
   const id = plant.plantId || plant.id
   const placeholder = useINatPhoto(name)
-  const preview = formatCareSummary(plant.lastWatered, plant.nextWater)
+  const todayIso = new Date().toISOString().slice(0, 10)
+  const caredToday =
+    plant.lastWatered === todayIso || plant.lastFertilized === todayIso
+  const needsCareToday =
+    (plant.nextWater && plant.nextWater <= todayIso) ||
+    (plant.nextFertilize && plant.nextFertilize <= todayIso)
+  const preview =
+    caredToday && !needsCareToday
+      ? `${name} is all set today!`
+      : formatCareSummary(plant.lastWatered, plant.nextWater)
   const imageSrc =
     (plant.photos && plant.photos[0]?.src) ||
     plant.image ||
