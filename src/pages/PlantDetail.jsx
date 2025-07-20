@@ -466,13 +466,16 @@ export default function PlantDetail() {
       </div>
       <PageContainer className="relative text-left pt-0 space-y-3">
         <Toast />
-        <div className="flex justify-center mt-4" aria-label="Care progress">
+        <div className="flex flex-col items-center mt-4" aria-label="Care progress">
           <CareStats
             waterCompleted={waterCompleted}
             waterTotal={waterTotal}
             fertCompleted={fertCompleted}
             fertTotal={fertTotal}
           />
+          <p className="text-xs text-gray-500 dark:text-gray-400" data-testid="progress-hint">
+            Progress toward next scheduled care
+          </p>
         </div>
         <div className="space-y-3">
           <DetailTabs tabs={tabs} />
