@@ -52,7 +52,7 @@ Visit `/gallery` to see all of your photos in one place. This page currently onl
 Lisa can display local weather data and suggest when to water
 your plants. The app retrieves current conditions from OpenWeather
 using an API key you provide.
-A `.env.example` file is included at the project root and lists the required environment variable.
+A `.env.example` file is included at the project root and lists the environment variables.
 You can change the city and switch between Fahrenheit and Celsius from the **Settings** page.
 
 ### Get an API Key
@@ -60,6 +60,7 @@ You can change the city and switch between Fahrenheit and Celsius from the **Set
 1. Sign up at [OpenWeather](https://openweathermap.org/api) and create a key.
 2. Copy `.env.example` to `.env` in the project root and replace `your_key_here`
    with your actual API key.
+3. (Optional) Add `VITE_OPENAI_API_KEY` to enable featured plant facts.
 
 ### How It Works
 
@@ -72,6 +73,12 @@ temperature and conditions.
 Run the dev server with `npm run dev` after adding your key. Open the
 app in your browser to see weather info and watering suggestions on the
 home screen.
+
+## Plant Facts (Optional)
+
+Provide an OpenAI API key in `.env` as `VITE_OPENAI_API_KEY` to display a short
+fact about the featured plant. If the key is missing or the request fails,
+Lisa falls back to a brief summary from Wikipedia.
 
 ## Running Tests
 
