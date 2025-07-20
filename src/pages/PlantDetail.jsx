@@ -32,6 +32,7 @@ import PlantDetailFab from '../components/PlantDetailFab.jsx'
 import DetailTabs from '../components/DetailTabs.jsx'
 import BaseCard from '../components/BaseCard.jsx'
 import UnifiedTaskCard from '../components/UnifiedTaskCard.jsx'
+import InputModal from '../components/InputModal.jsx'
 import usePlantFact from '../hooks/usePlantFact.js'
 
 import useToast from "../hooks/useToast.jsx"
@@ -88,6 +89,7 @@ export default function PlantDetail() {
   const [latestFirst, setLatestFirst] = useState(true)
   const [offsetY, setOffsetY] = useState(0)
   const [expandedNotes, setExpandedNotes] = useState({})
+  const [showDiameterModal, setShowDiameterModal] = useState(false)
 
   const waterProgress = getWateringProgress(plant?.lastWatered, plant?.nextWater)
   const fertProgress = getWateringProgress(
@@ -182,6 +184,14 @@ export default function PlantDetail() {
 
   const openFileInput = () => {
     fileInputRef.current?.click()
+  }
+
+  const handleSaveDiameter = value => {
+    const num = Number(value)
+    if (num > 0) {
+      updatePlant(plant.id, { diameter: num })
+    }
+    setShowDiameterModal(false)
   }
 
   const handleEdit = () => {
@@ -506,6 +516,10 @@ export default function PlantDetail() {
       </div>
       <PageContainer size="xl" className="relative text-left pt-0 space-y-3">
         <Toast />
+        <div className="flex justify-between items-center px-2">
+          <p className="text-sm">Pot diameter: {plant.diameter ? `${plant.diameter} in` : 'N/A'}</p>
+          <button type="button" onClick={() => setShowDiameterModal(true)} className="text-green-600 text-sm">Edit</button>
+        </div>
 
         <div className="space-y-3">
           <DetailTabs tabs={tabs} />
@@ -522,6 +536,14 @@ export default function PlantDetail() {
         )}
         {showLegend && (
           <LegendModal onClose={() => setShowLegend(false)} />
+        )}
+        {showDiameterModal && (
+          <InputModal
+            label="Pot diameter (inches)"
+            initialValue={plant.diameter || ''}
+            onSave={handleSaveDiameter}
+            onCancel={() => setShowDiameterModal(false)}
+          />
         )}
       </PageContainer>
     </>

@@ -102,3 +102,25 @@ test('logEvent stores tags', async () => {
   fireEvent.click(screen.getByText('add'))
   await screen.findByText('t')
 })
+
+function DiameterTest() {
+  const { plants, updatePlant } = usePlants()
+  const plant = plants[0]
+  return (
+    <div>
+      <span>{plant.waterPlan ? plant.waterPlan.volume : 'none'}</span>
+      <button onClick={() => updatePlant(plant.id, { diameter: 5 })}>set</button>
+    </div>
+  )
+}
+
+test('updating diameter recalculates water plan', async () => {
+  render(
+    <PlantProvider>
+      <DiameterTest />
+    </PlantProvider>
+  )
+  expect(screen.getByText('none')).toBeInTheDocument()
+  fireEvent.click(screen.getByText('set'))
+  await screen.findByText('74')
+})
