@@ -38,6 +38,11 @@ export default function BalconyPlantCard({ plant }) {
           {plant.name}
         </h3>
         <p className="text-sm text-left">Last watered {formatDaysAgo(plant.lastWatered)}</p>
+        {plant.lastFertilized && (
+          <p className="text-sm text-left">
+            Last fertilized {formatDaysAgo(plant.lastFertilized)}
+          </p>
+        )}
         <div className="flex gap-1 flex-wrap">
           {plant.light && (
             <Badge
