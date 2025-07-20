@@ -36,6 +36,7 @@ export default function Gallery() {
   return (
     <PageContainer className="space-y-4">
       <h2 className="text-heading font-headline text-center">Gallery</h2>
+      <h3 className="text-heading font-semibold">Recent Photos</h3>
       <div
         className="grid gap-2"
         style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(120px,1fr))' }}
@@ -50,7 +51,7 @@ export default function Gallery() {
             <img
               src={photo.src}
               alt={photo.caption || `${photo.plant} photo ${i + 1}`}
-              className="w-full aspect-[4/3] object-cover rounded-lg"
+              className="w-full aspect-[4/3] object-cover rounded-2xl"
             />
           </button>
         ))}
