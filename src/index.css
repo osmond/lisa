@@ -324,6 +324,23 @@ body {
   @apply px-2 py-1 rounded text-xs flex items-center gap-1 font-body transition;
 }
 
+/* Swipe feedback backgrounds */
+.swipe-feedback {
+  @apply absolute inset-0 rounded-2xl flex items-center pointer-events-none font-semibold text-sm opacity-0 transition-opacity;
+}
+
+.swipe-feedback.show {
+  opacity: 1;
+}
+
+.swipe-right-bg {
+  @apply justify-start pl-5 bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100;
+}
+
+.swipe-left-bg {
+  @apply justify-end pr-5 bg-slate-200 text-white dark:bg-slate-700;
+}
+
 
 /* Standard close button for modals and menus */
 .modal-close {

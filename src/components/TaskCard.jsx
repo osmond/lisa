@@ -1,4 +1,4 @@
-import { Drop, Sun, PencilSimpleLine, ClockCounterClockwise, Trash } from 'phosphor-react'
+import { Drop, Sun, PencilSimpleLine, ClockCounterClockwise, Trash, CheckCircle } from 'phosphor-react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import { getWateringInfo } from '../utils/watering.js'
@@ -98,13 +98,27 @@ export default function TaskCard({
       data-testid="task-card"
       tabIndex="0"
       aria-label={`Task card for ${task.plantName}`}
-      className={`relative flex items-center p-5 gap-4 rounded-2xl shadow border border-neutral-200 dark:border-gray-600 touch-pan-y select-none ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : overdue ? 'bg-amber-100 dark:bg-amber-800' : urgent ? 'bg-amber-50 dark:bg-gray-700' : 'bg-slate-50 dark:bg-gray-700'}${overdue ? ' ring-2 ring-amber-300 dark:ring-amber-400' : urgent ? ' ring-2 ring-amber-300 dark:ring-amber-400' : ''} ${navigating ? 'swipe-left-out' : ''}`}
-      style={{ transform: navigating ? undefined : `translateX(${swipeable ? dx : 0}px)`, transition: navigating ? undefined : dx === 0 ? 'transform 0.2s' : 'none' }}
+      className={`relative flex items-center p-5 gap-4 rounded-2xl shadow border border-neutral-200 dark:border-gray-600 touch-pan-y select-none ${completed ? 'bg-green-50 dark:bg-green-900 opacity-50' : overdue ? 'bg-amber-100 dark:bg-amber-800' : urgent ? 'bg-amber-50 dark:bg-gray-700' : 'bg-slate-50 dark:bg-gray-700'}${overdue ? ' ring-2 ring-amber-300 dark:ring-amber-400' : urgent ? ' ring-2 ring-amber-300 dark:ring-amber-400' : ''} ${navigating ? 'swipe-left-out' : ''}`}
+      style={{ transform: navigating ? undefined : `translateX(${swipeable ? dx : 0}px) rotate(${dx / 50}deg)`, transition: navigating ? undefined : dx === 0 ? 'transform 0.2s' : 'none' }}
       onPointerDown={start}
       onPointerMove={move}
       onPointerUp={end}
       onPointerCancel={end}
     >
+      <div
+        className={`swipe-feedback swipe-right-bg ${dx > 0 ? 'show' : ''}`}
+        style={{ opacity: dx > 0 ? Math.min(dx / 40, 1) : 0 }}
+      >
+        <CheckCircle className="w-5 h-5 mr-2" aria-hidden="true" />
+        {task.type === 'Water' ? 'Watered' : 'Fertilized'}
+      </div>
+      <div
+        className={`swipe-feedback swipe-left-bg ${dx < 0 ? 'show' : ''}`}
+        style={{ opacity: dx < 0 ? Math.min(-dx / 40, 1) : 0 }}
+      >
+        <PencilSimpleLine className="w-5 h-5 mr-2" aria-hidden="true" />
+        Edit
+      </div>
       <div
         className={`task-action-bar ${showActionBar ? 'show' : ''}`}
         role="group"
