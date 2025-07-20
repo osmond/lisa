@@ -43,6 +43,8 @@ import { formatDaysAgo, formatTimeOfDay } from '../utils/dateFormat.js'
 import { getWateringProgress } from '../utils/watering.js'
 
 import { buildEvents, groupEventsByMonth } from '../utils/events.js'
+import { getSmartWaterPlan } from '../utils/waterCalculator.js'
+import { useWeather } from '../WeatherContext.jsx'
 
 const bulletColors = {
   water: 'bg-blue-500',
@@ -66,6 +68,7 @@ export default function PlantDetail() {
     updatePlant,
   } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
+  const { forecast } = useWeather() || {}
   const { fact } = usePlantFact(plant?.name)
   const navigate = useNavigate()
   const location = useLocation()
@@ -90,6 +93,19 @@ export default function PlantDetail() {
   const [offsetY, setOffsetY] = useState(0)
   const [expandedNotes, setExpandedNotes] = useState({})
   const [showDiameterModal, setShowDiameterModal] = useState(false)
+
+  useEffect(() => {
+    if (!plant || !plant.diameter) return
+    const plan = getSmartWaterPlan(plant.name, plant.diameter, forecast)
+    const current = plant.smartWaterPlan || {}
+    if (
+      plan.volume !== current.volume ||
+      plan.interval !== current.interval ||
+      plan.reason !== current.reason
+    ) {
+      updatePlant(plant.id, { smartWaterPlan: plan })
+    }
+  }, [forecast, plant?.diameter])
 
   const waterProgress = getWateringProgress(plant?.lastWatered, plant?.nextWater)
   const fertProgress = getWateringProgress(
@@ -275,6 +291,11 @@ export default function PlantDetail() {
               Progress toward next scheduled care
             </p>
           </div>
+          {plant.smartWaterPlan && (
+            <p className="text-xs text-gray-500 dark:text-gray-400" data-testid="smart-water-plan">
+              {plant.smartWaterPlan.volume} in³ every {plant.smartWaterPlan.interval} days — {plant.smartWaterPlan.reason}
+            </p>
+          )}
         </div>
       ),
     },

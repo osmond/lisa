@@ -31,6 +31,8 @@ export function PlantProvider({ children }) {
       image: addBase(p.image),
       photos: (p.photos || p.gallery || []).map(mapPhoto),
       careLog: (p.careLog || []).map(ev => ({ ...ev, tags: ev.tags || [] })),
+      diameter: p.diameter || 0,
+      smartWaterPlan: p.smartWaterPlan || null,
     })
 
     if (typeof localStorage !== 'undefined') {
