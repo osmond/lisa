@@ -36,8 +36,10 @@ test('shows upbeat message when there are no tasks', () => {
   )
   expect(screen.getByText(/all plants are happy/i)).toBeInTheDocument()
   expect(screen.getByTestId('care-stats')).toBeInTheDocument()
-  expect(screen.getByRole('link', { name: /add note/i })).toBeInTheDocument()
-  expect(screen.getByRole('link', { name: /take photo/i })).toBeInTheDocument()
+  expect(
+    screen.getByRole('link', { name: /add a journal entry/i })
+  ).toBeInTheDocument()
+  expect(screen.getByRole('link', { name: /set a reminder/i })).toBeInTheDocument()
 })
 
 test('care stats render when tasks exist', () => {
@@ -56,9 +58,9 @@ test('care stats render when tasks exist', () => {
 
   const stats = screen.getByTestId('care-stats')
   expect(stats).toBeInTheDocument()
-  expect(screen.getByTestId('stat-total')).toBeInTheDocument()
-  expect(screen.getByTestId('stat-water')).toBeInTheDocument()
-  expect(screen.getByTestId('stat-fertilize')).toBeInTheDocument()
+  expect(screen.getByTestId('stat-total')).toHaveTextContent('2')
+  expect(screen.getByTestId('stat-water')).toHaveTextContent('1')
+  expect(screen.getByTestId('stat-fertilize')).toHaveTextContent('1')
 })
 
 test('featured card appears before care stats', () => {
