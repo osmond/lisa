@@ -50,8 +50,10 @@ export function WeatherProvider({ children }) {
         }
       })
       .catch(err => {
-        console.error(err)
-        setError('Failed to load weather data')
+        if (err.name !== 'AbortError') {
+          console.error(err)
+          setError('Failed to load weather data')
+        }
       })
       .finally(() => {
         setLoading(false)
