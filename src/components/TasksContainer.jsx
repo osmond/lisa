@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Note, Camera } from 'phosphor-react'
 import BaseCard from './BaseCard.jsx'
 import UnifiedTaskCard from './UnifiedTaskCard.jsx'
 
@@ -44,18 +45,20 @@ export default function TasksContainer({ visibleTasks = [], happyPlant }) {
               <h3 className="text-lg font-semibold mb-1">All plants are happy</h3>
               <p className="text-sm text-gray-600 mb-4">Want to add a note or photo today?</p>
               <hr className="mx-auto w-1/2 border-t border-gray-200" />
-              <div className="flex justify-center gap-3">
+              <div className="flex flex-wrap justify-center gap-3">
                 <Link
                   to="/timeline"
-                  className="px-4 py-2 bg-green-500 text-white rounded-md shadow active:scale-95"
+                  className="px-4 py-2 bg-green-500 text-white rounded-md shadow active:scale-95 flex items-center gap-2"
                 >
-                  Add a journal entry
+                  <Note className="w-4 h-4" aria-hidden="true" />
+                  Add Note
                 </Link>
                 <Link
-                  to="/profile"
-                  className="px-4 py-2 border border-green-500 text-green-500 rounded-md active:scale-95"
+                  to="/gallery"
+                  className="px-4 py-2 border border-green-500 text-green-500 rounded-md active:scale-95 flex items-center gap-2"
                 >
-                  Set a reminder
+                  <Camera className="w-4 h-4" aria-hidden="true" />
+                  Take Photo
                 </Link>
               </div>
             </div>
