@@ -338,6 +338,9 @@ export default function PlantDetail() {
       label: 'Gallery',
       content: (
         <div className="space-y-4 p-4">
+          {(plant.photos || []).length > 0 && (
+            <h3 className="text-heading font-semibold">Recent Photos</h3>
+          )}
           {(plant.photos || []).length === 0 && (
             <p className="py-10 text-center text-sm text-gray-500 dark:text-gray-400">
               Add your first photo
@@ -362,7 +365,7 @@ export default function PlantDetail() {
                       <img
                         src={src}
                         alt={caption || `${plant.name} photo ${i + 1}`}
-                        className="w-24 aspect-[4/3] object-cover rounded-xl shadow-sm transition-transform duration-200 group-hover:scale-105"
+                        className="w-24 aspect-[4/3] object-cover rounded-2xl shadow-sm transition-transform duration-200 group-hover:scale-105"
                       />
                       {i === 2 && extra > 0 && (
                         <span className="absolute inset-0 rounded-xl bg-black/50 flex items-center justify-center text-white font-semibold text-sm">

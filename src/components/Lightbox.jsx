@@ -45,7 +45,7 @@ export default function Lightbox({ images, startIndex = 0, onClose, label = 'Ima
       </button>
       <button
         aria-label="Previous image"
-        className="absolute left-4 text-white text-3xl"
+        className="absolute top-1/2 -translate-y-1/2 left-4 text-white text-3xl p-2 rounded-full bg-black/40 opacity-70 hover:opacity-100"
         onClick={() => setIndex((index - 1 + images.length) % images.length)}
       >
         ‹
@@ -54,24 +54,24 @@ export default function Lightbox({ images, startIndex = 0, onClose, label = 'Ima
         const current =
           typeof images[index] === 'string' ? { src: images[index] } : images[index]
         return (
-          <>
+          <div className="relative">
             <img
               src={current.src}
               alt={current.caption || 'Gallery image'}
               className="max-w-full max-h-full object-contain"
             />
-            {current.caption && (
-              // <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/60 px-2 py-1 rounded text-sm">
-              //   {current.caption}
-              // </p>
-              null
+            {(current.caption || current.date) && (
+              <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/60 px-2 py-1 rounded text-sm">
+                {current.caption}
+                {current.date && ` \u2014 ${current.date}`}
+              </p>
             )}
-          </>
+          </div>
         )
       })()}
       <button
         aria-label="Next image"
-        className="absolute right-4 text-white text-3xl"
+        className="absolute top-1/2 -translate-y-1/2 right-4 text-white text-3xl p-2 rounded-full bg-black/40 opacity-70 hover:opacity-100"
         onClick={() => setIndex((index + 1) % images.length)}
       >
         ›
