@@ -30,9 +30,9 @@ function StatBlock({
       aria-label={ariaLabel}
       onClick={onClick}
     >
-      <div className="relative" style={{ width: size, height: size }}>
+      <div className="relative drop-shadow-sm" style={{ width: size, height: size }}>
         <ProgressRing percent={pct} size={size} colorClass={ringClass} />
-        <div className="bg-white absolute inset-2 rounded-full flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-2 rounded-full flex items-center justify-center overflow-hidden bg-white dark:bg-gray-700 shadow-sm">
           <div className="flex flex-col items-center">
             <Icon className="w-3 h-3" aria-hidden="true" />
             <span

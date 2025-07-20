@@ -82,11 +82,12 @@ exports[`timeline bullet markup matches snapshot 1`] = `
         </span>
          — 
         Watered
-        <div
-          class="text-xs italic text-green-700 mt-1"
+        <button
+          class="block text-left text-xs font-normal text-green-800 mt-1"
+          type="button"
         >
           deep soak
-        </div>
+        </button>
       </div>
     </div>
   </li>

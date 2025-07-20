@@ -85,6 +85,7 @@ export default function PlantDetail() {
   const [collapsedMonths, setCollapsedMonths] = useState({})
   const [latestFirst, setLatestFirst] = useState(true)
   const [offsetY, setOffsetY] = useState(0)
+  const [expandedNotes, setExpandedNotes] = useState({})
 
   const progressPct = getWateringProgress(plant?.lastWatered, plant?.nextWater)
   const waterTotal = 3
@@ -324,6 +325,8 @@ export default function PlantDetail() {
                 >
                   {list.map((e, i) => {
                     const Icon = actionIcons[e.type]
+                    const noteKey = `${e.date}-${i}`
+                    const expanded = expandedNotes[noteKey]
                     return (
                       <li key={`${e.date}-${i}`} className="relative text-xs sm:text-sm">
                         {Icon && (
@@ -335,7 +338,15 @@ export default function PlantDetail() {
                           <div>
                             <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
                             {e.note && (
-                              <div className="text-xs italic text-green-700 mt-1">{e.note}</div>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setExpandedNotes(n => ({ ...n, [noteKey]: !expanded }))
+                                }
+                                className="block text-left text-xs font-normal text-green-800 mt-1"
+                              >
+                                {expanded ? e.note : `${e.note.slice(0, 60)}${e.note.length > 60 ? '\u2026' : ''}`}
+                              </button>
                             )}
                           </div>
                         </div>
@@ -354,6 +365,9 @@ export default function PlantDetail() {
       label: 'Gallery',
       content: (
         <div className="space-y-4 p-4">
+          {(plant.photos || []).length > 0 && (
+            <h3 className="text-heading font-semibold">Recent Photos</h3>
+          )}
           {(plant.photos || []).length === 0 && (
             <p className="py-10 text-center text-sm text-gray-500 dark:text-gray-400">
               Add your first photo
@@ -378,7 +392,7 @@ export default function PlantDetail() {
                       <img
                         src={src}
                         alt={caption || `${plant.name} photo ${i + 1}`}
-                        className="w-24 aspect-[4/3] object-cover rounded-xl shadow-sm transition-transform duration-200 group-hover:scale-105"
+                        className="w-24 aspect-[4/3] object-cover rounded-2xl shadow-sm transition-transform duration-200 group-hover:scale-105"
                       />
                       {i === 2 && extra > 0 && (
                         <span className="absolute inset-0 rounded-xl bg-black/50 flex items-center justify-center text-white font-semibold text-sm">
@@ -482,7 +496,9 @@ export default function PlantDetail() {
       </div>
       <PageContainer className="relative text-left pt-0 space-y-3">
         <Toast />
+
         <div className="flex flex-col items-center mt-4" aria-label="Care progress">
+
           <CareStats
             waterCompleted={waterCompleted}
             waterTotal={waterTotal}
@@ -503,6 +519,7 @@ export default function PlantDetail() {
           onAddNote={handleLogEvent}
           onWater={handleWatered}
           onFertilize={handleFertilized}
+          plantName={plant.name}
         />
         {showNoteModal && (
           <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />

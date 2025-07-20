@@ -37,7 +37,7 @@ export default function UnifiedTaskCard({
   const { showSnackbar } = useSnackbar()
 
   const bgClass = overdue
-    ? 'bg-red-50 dark:bg-red-800'
+    ? 'bg-amber-100 dark:bg-amber-800'
     : urgent
     ? 'bg-amber-50 dark:bg-gray-700'
     : 'bg-slate-50 dark:bg-gray-800'
@@ -208,10 +208,10 @@ export default function UnifiedTaskCard({
           document.body
         )}
       <div className="flex items-center gap-4 p-4">
-        <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-sm bg-neutral-100 dark:bg-gray-700">
-          <img src={image} alt={name} className="w-12 h-12 rounded-full object-cover" />
+        <div className="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center shadow-sm bg-neutral-100 dark:bg-gray-700">
+          <img src={image} alt={name} className="w-16 h-16 object-cover scale-110" />
         </div>
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 leading-relaxed">
           <div className="flex items-center justify-between">
             <p className="font-semibold font-headline text-gray-900 dark:text-gray-100 truncate">
               {name}
@@ -238,22 +238,20 @@ export default function UnifiedTaskCard({
               )}
             </div>
           </div>
-          <div className="flex flex-col gap-1 mt-1 font-semibold">
+          <div className="flex flex-col gap-1 mt-1">
             {dueWater && (
-              <span className="inline-flex items-center gap-1 text-sky-600">
-                <Drop className="w-4 h-4" aria-hidden="true" />
+              <Badge colorClass="bg-sky-100 text-sky-700" size="sm" Icon={Drop}>
                 Water
-              </span>
+              </Badge>
             )}
             {dueFertilize && (
-              <span className="inline-flex items-center gap-1 text-amber-600">
-                <Sun className="w-4 h-4" aria-hidden="true" />
+              <Badge colorClass="bg-amber-100 text-amber-700" size="sm" Icon={Sun}>
                 Fertilize
-              </span>
+              </Badge>
             )}
           </div>
           {lastText && (
-            <p className="text-sm text-gray-500">Last cared for {lastText}</p>
+            <p className="text-xs text-gray-500">Last cared for {lastText}</p>
           )}
           {needsText && (
             <p

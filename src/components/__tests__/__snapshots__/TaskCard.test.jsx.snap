@@ -204,12 +204,12 @@ exports[`matches snapshot in dark mode 1`] = `
       class="flex items-center flex-1 gap-4"
     >
       <button
-        class="w-16 h-16 rounded-full flex items-center justify-center shadow-sm bg-neutral-100 dark:bg-gray-800 ring-2 ring-water-300"
+        class="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center shadow-sm bg-neutral-100 dark:bg-gray-800 ring-2 ring-water-300"
         type="button"
       >
         <img
           alt="Monstera"
-          class="w-12 h-12 rounded-full object-cover"
+          class="w-16 h-16 object-cover scale-110"
           src="https://images.pexels.com/photos/5699660/pexels-photo-5699660.jpeg"
         />
       </button>
