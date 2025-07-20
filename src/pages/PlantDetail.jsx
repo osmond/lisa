@@ -27,7 +27,7 @@ import actionIcons from '../components/ActionIcons.jsx'
 import NoteModal from '../components/NoteModal.jsx'
 import { useMenu, defaultMenu } from '../MenuContext.jsx'
 import LegendModal from '../components/LegendModal.jsx'
-import CareRings from '../components/CareRings.jsx'
+import CareStats from '../components/CareStats.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
 import DetailTabs from '../components/DetailTabs.jsx'
 import BaseCard from '../components/BaseCard.jsx'
@@ -609,7 +609,7 @@ export default function PlantDetail() {
       <PageContainer className="relative text-left pt-0 space-y-3">
         <Toast />
         <div className="flex justify-center mt-4" aria-label="Care progress">
-          <CareRings
+          <CareStats
             waterCompleted={waterCompleted}
             waterTotal={waterTotal}
             fertCompleted={fertCompleted}
