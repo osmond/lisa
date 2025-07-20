@@ -147,10 +147,10 @@ export default function Timeline() {
         <div className="relative">
           {groupedEvents.map(([monthKey, list]) => (
             <div key={monthKey} className="mt-6 first:mt-0 space-y-3">
-              <h3 className="sticky top-0 z-10 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm px-1 text-timestamp uppercase tracking-wider text-gray-500 mb-2">
+              <h3 className="sticky top-0 z-10 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm px-1 text-timestamp uppercase tracking-wider text-gray-300 mb-2">
                 {formatMonth(monthKey)}
               </h3>
-              <ul className="relative ml-3 flex flex-col space-y-3 divide-y divide-gray-100 pl-5 before:absolute before:inset-y-0 before:left-2 before:w-px before:bg-gray-200">
+              <ul className="relative ml-3 space-y-8 pl-5 before:absolute before:inset-y-0 before:left-2 before:border-l before:border-dashed before:border-gray-300 dark:before:border-gray-600">
                 {(expandedMonths.has(monthKey) ? list : list.slice(0,7)).map((e, i) => {
                   const Icon = actionIcons[e.type]
                   return (
@@ -159,7 +159,7 @@ export default function Timeline() {
                       key={`${e.date}-${e.label}-${i}`}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      className={`relative text-sm ${i % 2 === 1 ? 'bg-gray-50 dark:bg-gray-800 rounded-md px-2 py-1' : ''}`}
+                      className="relative text-sm"
                     >
                       {Icon && (
                         <div
