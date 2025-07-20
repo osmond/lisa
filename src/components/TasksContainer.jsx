@@ -30,6 +30,7 @@ export default function TasksContainer({ visibleTasks = [], happyPlant }) {
                   }}
                   urgent={group.urgent}
                   overdue={group.overdue}
+                  showMenuButton={false}
                 />
               </BaseCard>
             ))
