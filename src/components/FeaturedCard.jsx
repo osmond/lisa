@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { useWeather } from '../WeatherContext.jsx'
 import { formatCareSummary } from '../utils/date.js'
 import {
@@ -23,6 +23,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
   if (!items.length) return null
 
   const [index, setIndex] = useState(startIndex)
+  const location = useLocation()
   const { forecast } = useWeather() || {}
   const weatherIcons = {
     Clear: Sun,
@@ -63,6 +64,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
   return (
     <Link
       to={`/plant/${id}`}
+      state={{ from: location.pathname }}
       data-testid="featured-card"
       aria-label={`Featured plant card for ${name}`}
       onKeyDown={handleKeyDown}

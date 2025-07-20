@@ -107,7 +107,9 @@ test('kebab menu exposes actions', () => {
   )
   fireEvent.click(screen.getByRole('button', { name: /open task menu/i }))
   fireEvent.click(screen.getByRole('button', { name: /edit task/i }))
-  expect(navigateMock).toHaveBeenCalledWith('/plant/1/edit')
+  expect(navigateMock).toHaveBeenCalledWith('/plant/1/edit', {
+    state: { from: '/' },
+  })
   fireEvent.click(screen.getByRole('button', { name: /open task menu/i }))
   fireEvent.click(screen.getByRole('button', { name: /reschedule task/i }))
   expect(updatePlant).toHaveBeenCalled()

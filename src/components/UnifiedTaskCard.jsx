@@ -12,7 +12,7 @@ import {
   DotsThreeVertical,
 } from 'phosphor-react'
 import { formatDaysAgo } from '../utils/dateFormat.js'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import useSnackbar from '../hooks/useSnackbar.jsx'
 import useSwipe from '../hooks/useSwipe.js'
@@ -31,6 +31,7 @@ export default function UnifiedTaskCard({
   const [completed, setCompleted] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
   const [navigating, setNavigating] = useState(false)
   const { plants, markWatered, markFertilized, updatePlant } = usePlants()
   const { showSnackbar } = useSnackbar()
@@ -70,7 +71,10 @@ export default function UnifiedTaskCard({
     setNavigating(true)
     setTimeout(
       () =>
-        navigate(room ? `/room/${room}/plant/${plant.id}` : `/plant/${plant.id}`),
+        navigate(
+          room ? `/room/${room}/plant/${plant.id}` : `/plant/${plant.id}`,
+          { state: { from: location.pathname } }
+        ),
       200
     )
   }
@@ -93,7 +97,10 @@ export default function UnifiedTaskCard({
 
   const handleEdit = () => {
     const room = plant.room ? encodeURIComponent(plant.room) : null
-    navigate(room ? `/room/${room}/plant/${plant.id}/edit` : `/plant/${plant.id}/edit`)
+    navigate(
+      room ? `/room/${room}/plant/${plant.id}/edit` : `/plant/${plant.id}/edit`,
+      { state: { from: location.pathname } }
+    )
   }
 
   const handleReschedule = () => {
