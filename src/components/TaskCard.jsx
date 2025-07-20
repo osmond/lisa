@@ -98,7 +98,7 @@ export default function TaskCard({
       data-testid="task-card"
       tabIndex="0"
       aria-label={`Task card for ${task.plantName}`}
-      className={`relative flex items-center p-5 gap-4 rounded-2xl shadow border border-neutral-200 dark:border-gray-600 touch-pan-y select-none ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : overdue ? 'bg-red-50 dark:bg-red-800' : urgent ? 'bg-amber-50 dark:bg-gray-700' : 'bg-slate-50 dark:bg-gray-700'}${overdue ? ' ring-2 ring-red-300 dark:ring-red-400' : urgent ? ' ring-2 ring-amber-300 dark:ring-amber-400' : ''} ${navigating ? 'swipe-left-out' : ''}`}
+      className={`relative flex items-center p-5 gap-4 rounded-2xl shadow border border-neutral-200 dark:border-gray-600 touch-pan-y select-none ${completed ? 'bg-gray-100 dark:bg-gray-800 opacity-50' : overdue ? 'bg-amber-100 dark:bg-amber-800' : urgent ? 'bg-amber-50 dark:bg-gray-700' : 'bg-slate-50 dark:bg-gray-700'}${overdue ? ' ring-2 ring-amber-300 dark:ring-amber-400' : urgent ? ' ring-2 ring-amber-300 dark:ring-amber-400' : ''} ${navigating ? 'swipe-left-out' : ''}`}
       style={{ transform: navigating ? undefined : `translateX(${swipeable ? dx : 0}px)`, transition: navigating ? undefined : dx === 0 ? 'transform 0.2s' : 'none' }}
       onPointerDown={start}
       onPointerMove={move}
@@ -142,7 +142,7 @@ export default function TaskCard({
       <button
         type="button"
         onClick={goToDetail}
-        className={`w-16 h-16 rounded-full flex items-center justify-center shadow-sm bg-neutral-100 dark:bg-gray-800 ${
+        className={`w-16 h-16 rounded-full overflow-hidden flex items-center justify-center shadow-sm bg-neutral-100 dark:bg-gray-800 ${
             task.type === 'Water'
               ? 'ring-2 ring-water-300'
               : task.type === 'Fertilize'
@@ -153,7 +153,7 @@ export default function TaskCard({
         <img
           src={task.image}
           alt={task.plantName}
-          className="w-12 h-12 rounded-full object-cover"
+          className="w-16 h-16 object-cover scale-110"
         />
       </button>
         <div className="w-px self-stretch bg-gray-200 dark:bg-gray-600" aria-hidden="true" />

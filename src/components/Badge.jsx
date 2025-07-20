@@ -11,7 +11,7 @@ export default function Badge({
   const variants = {
     info: 'bg-sky-100 text-sky-700',
     urgent: 'bg-amber-100 text-amber-700',
-    overdue: 'bg-red-50 text-red-500',
+    overdue: 'bg-amber-100 text-amber-700',
     complete: 'bg-emerald-100 text-emerald-800',
   }
 
