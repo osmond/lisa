@@ -16,7 +16,7 @@ export default function AddRoom() {
   }
 
   return (
-    <PageContainer>
+    <PageContainer maxWidth="md">
     <form onSubmit={handleSubmit} className="space-y-4">
       <h1 className="text-heading font-bold font-headline">Add Room</h1>
       <div className="grid gap-1">
