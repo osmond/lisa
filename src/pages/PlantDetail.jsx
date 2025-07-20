@@ -23,6 +23,8 @@ import LegendModal from '../components/LegendModal.jsx'
 import CareRings from '../components/CareRings.jsx'
 import PlantDetailFab from '../components/PlantDetailFab.jsx'
 import DetailTabs from '../components/DetailTabs.jsx'
+import BaseCard from '../components/BaseCard.jsx'
+import UnifiedTaskCard from '../components/UnifiedTaskCard.jsx'
 
 import useToast from "../hooks/useToast.jsx"
 import confetti from 'canvas-confetti'
@@ -68,6 +70,20 @@ export default function PlantDetail() {
   )
   const fertTotal = 3
   const fertCompleted = Math.round(fertPct * fertTotal)
+
+  const todayIso = new Date().toISOString().slice(0, 10)
+  const dueWater = plant?.nextWater && plant.nextWater <= todayIso
+  const dueFertilize = plant?.nextFertilize && plant.nextFertilize <= todayIso
+  const urgent =
+    plant?.urgency === 'high' ||
+    (dueWater && plant.nextWater === todayIso) ||
+    (dueFertilize && plant.nextFertilize === todayIso)
+  const overdue =
+    (dueWater && plant.nextWater < todayIso) ||
+    (dueFertilize && plant.nextFertilize < todayIso)
+  const lastCared = [plant?.lastWatered, plant?.lastFertilized]
+    .filter(Boolean)
+    .sort((a, b) => new Date(b) - new Date(a))[0]
 
   const lightTag = plant?.light ? plant.light.replace(/Low to medium/i, 'Low') : ''
   const humidityTag = plant?.humidity ? plant.humidity.replace(/Average/i, 'Avg') : ''
@@ -242,6 +258,30 @@ export default function PlantDetail() {
                 </span>
               )}
             </div>
+          )}
+        </div>
+      ),
+    },
+    {
+      id: 'tasks',
+      label: 'Tasks',
+      content: (
+        <div className="p-4 space-y-2">
+          {dueWater || dueFertilize ? (
+            <BaseCard variant="task">
+              <UnifiedTaskCard
+                plant={{
+                  ...plant,
+                  dueWater,
+                  dueFertilize,
+                  lastCared,
+                }}
+                urgent={urgent}
+                overdue={overdue}
+              />
+            </BaseCard>
+          ) : (
+            <p className="text-center text-gray-500">No tasks due.</p>
           )}
         </div>
       ),
