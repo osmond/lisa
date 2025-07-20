@@ -232,6 +232,7 @@ export default function PlantDetail() {
                 }}
                 urgent={urgent}
                 overdue={overdue}
+                showMenuButton={false}
               />
             </BaseCard>
           ) : (
