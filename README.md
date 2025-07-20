@@ -39,13 +39,13 @@ swipeable gallery carousel of your uploaded photos.
 Watering and fertilizing progress appear as small overlays on the hero image so
 you can glance at upcoming care.
 
-Click or tap a photo to launch the Lightbox viewer. Navigate between
+Click or tap a photo on the plant’s detail page to open the Lightbox viewer. Navigate between
 images with the on-screen arrows or your keyboard’s Left/Right keys, and
 close the viewer with **Esc** or the “×” button. If your plant has many
 photos, use the **View All Photos** button to open the viewer starting at the
 first image. The collapsible **Timeline** section on this page lists your
 watering, fertilizing and note history.
-
+Visit `/gallery` to see all of your photos in one place. This page currently only displays a placeholder unless you enhance it.
 
 ## Weather Feature
 
