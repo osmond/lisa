@@ -31,7 +31,12 @@
     "difficulty": "Easy",
     "room": "Office",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 2,
@@ -65,7 +70,12 @@
     "difficulty": "Easy",
     "room": "Living Room",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 3,
@@ -99,7 +109,12 @@
     "difficulty": "Easy",
     "room": "Kitchen",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 4,
@@ -133,7 +148,12 @@
     "difficulty": "Easy",
     "room": "Bedroom",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 5,
@@ -167,7 +187,12 @@
     "difficulty": "Easy",
     "room": "Bathroom",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 6,
@@ -201,7 +226,12 @@
     "difficulty": "Easy",
     "room": "Garden",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 7,
@@ -235,7 +265,12 @@
     "difficulty": "Easy",
     "room": "Patio",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 8,
@@ -269,7 +304,12 @@
     "difficulty": "Easy",
     "room": "Basement",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 9,
@@ -303,7 +343,12 @@
     "difficulty": "Easy",
     "room": "Greenhouse",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 10,
@@ -337,7 +382,12 @@
     "difficulty": "Easy",
     "room": "Balcony",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 11,
@@ -371,7 +421,12 @@
     "difficulty": "Easy",
     "room": "Office",
     "urgency": "high",
-    "notes": "Sample notes about this plant. Happy birthday! on the day 2025-07-19"
+    "notes": "Sample notes about this plant. Happy birthday! on the day 2025-07-19",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 12,
@@ -405,7 +460,12 @@
     "difficulty": "Easy",
     "room": "Living Room",
     "urgency": "high",
-    "notes": "Sample notes about this plant. Happy birthday! on the day 2025-07-19"
+    "notes": "Sample notes about this plant. Happy birthday! on the day 2025-07-19",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 13,
@@ -439,7 +499,12 @@
     "difficulty": "Easy",
     "room": "Kitchen",
     "urgency": "high",
-    "notes": "Sample notes about this plant. Happy birthday! on the day 2025-07-19"
+    "notes": "Sample notes about this plant. Happy birthday! on the day 2025-07-19",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 14,
@@ -473,7 +538,12 @@
     "difficulty": "Easy",
     "room": "Bedroom",
     "urgency": "high",
-    "notes": "Sample notes about this plant. Happy birthday! on the day 2025-07-19"
+    "notes": "Sample notes about this plant. Happy birthday! on the day 2025-07-19",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 15,
@@ -507,7 +577,12 @@
     "difficulty": "Easy",
     "room": "Bathroom",
     "urgency": "high",
-    "notes": "Sample notes about this plant. Happy birthday! on the day 2025-07-19"
+    "notes": "Sample notes about this plant. Happy birthday! on the day 2025-07-19",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 16,
@@ -541,7 +616,12 @@
     "difficulty": "Easy",
     "room": "Garden",
     "urgency": "high",
-    "notes": "Sample notes about this plant. Happy birthday! on the day 2025-07-19"
+    "notes": "Sample notes about this plant. Happy birthday! on the day 2025-07-19",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 17,
@@ -575,7 +655,12 @@
     "difficulty": "Easy",
     "room": "Patio",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 18,
@@ -609,7 +694,12 @@
     "difficulty": "Easy",
     "room": "Basement",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 19,
@@ -643,7 +733,12 @@
     "difficulty": "Easy",
     "room": "Greenhouse",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 20,
@@ -677,7 +772,12 @@
     "difficulty": "Easy",
     "room": "Balcony",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 21,
@@ -711,7 +811,12 @@
     "difficulty": "Easy",
     "room": "Office",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 22,
@@ -745,7 +850,12 @@
     "difficulty": "Easy",
     "room": "Living Room",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 23,
@@ -779,7 +889,12 @@
     "difficulty": "Easy",
     "room": "Kitchen",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 24,
@@ -813,7 +928,12 @@
     "difficulty": "Easy",
     "room": "Bedroom",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 25,
@@ -847,7 +967,12 @@
     "difficulty": "Easy",
     "room": "Bathroom",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 26,
@@ -881,7 +1006,12 @@
     "difficulty": "Easy",
     "room": "Garden",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 27,
@@ -915,7 +1045,12 @@
     "difficulty": "Easy",
     "room": "Patio",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 28,
@@ -949,7 +1084,12 @@
     "difficulty": "Easy",
     "room": "Basement",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 29,
@@ -983,7 +1123,12 @@
     "difficulty": "Easy",
     "room": "Greenhouse",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 30,
@@ -1017,7 +1162,12 @@
     "difficulty": "Easy",
     "room": "Balcony",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 31,
@@ -1051,7 +1201,12 @@
     "difficulty": "Easy",
     "room": "Office",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 32,
@@ -1085,7 +1240,12 @@
     "difficulty": "Easy",
     "room": "Living Room",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 33,
@@ -1119,7 +1279,12 @@
     "difficulty": "Easy",
     "room": "Kitchen",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 34,
@@ -1153,7 +1318,12 @@
     "difficulty": "Easy",
     "room": "Bedroom",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 35,
@@ -1187,7 +1357,12 @@
     "difficulty": "Easy",
     "room": "Bathroom",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 36,
@@ -1221,7 +1396,12 @@
     "difficulty": "Easy",
     "room": "Garden",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 37,
@@ -1255,7 +1435,12 @@
     "difficulty": "Easy",
     "room": "Patio",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 38,
@@ -1289,7 +1474,12 @@
     "difficulty": "Easy",
     "room": "Basement",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 39,
@@ -1323,7 +1513,12 @@
     "difficulty": "Easy",
     "room": "Greenhouse",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 40,
@@ -1357,7 +1552,12 @@
     "difficulty": "Easy",
     "room": "Balcony",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 41,
@@ -1391,7 +1591,12 @@
     "difficulty": "Easy",
     "room": "Office",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 42,
@@ -1425,7 +1630,12 @@
     "difficulty": "Easy",
     "room": "Living Room",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 43,
@@ -1459,7 +1669,12 @@
     "difficulty": "Easy",
     "room": "Kitchen",
     "urgency": "high",
-    "notes": "Sample notes about this plant."
+    "notes": "Sample notes about this plant.",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 44,
@@ -1493,7 +1708,12 @@
     "difficulty": "Easy",
     "room": "Bedroom",
     "notes": "Sample notes about this plant.",
-    "urgency": "high"
+    "urgency": "high",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   },
   {
     "id": 45,
@@ -1527,6 +1747,11 @@
     "difficulty": "Easy",
     "room": "Bathroom",
     "notes": "Sample notes about this plant.",
-    "urgency": "high"
+    "urgency": "high",
+    "diameter": 0,
+    "waterPlan": {
+      "volume": 0,
+      "interval": 0
+    }
   }
 ]
