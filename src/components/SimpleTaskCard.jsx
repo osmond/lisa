@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom'
-
-export default function SimpleTaskCard({ plant, label }) {
+import { Drop, Sun } from 'phosphor-react'
+import Badge from './Badge.jsx'
+export default function SimpleTaskCard({
+  plant,
+  label,
+  dueWater = false,
+  dueFertilize = false,
+}) {
   if (!plant) return null
   return (
     <Link
@@ -18,6 +24,20 @@ export default function SimpleTaskCard({ plant, label }) {
           {plant.name}
         </h3>
         {label && <p className="text-xs text-gray-500">{label}</p>}
+        {(dueWater || dueFertilize) && (
+          <div className="flex flex-col gap-1 mt-1">
+            {dueWater && (
+              <Badge colorClass="bg-sky-100 text-sky-700" size="sm" Icon={Drop}>
+                Water
+              </Badge>
+            )}
+            {dueFertilize && (
+              <Badge colorClass="bg-amber-100 text-amber-700" size="sm" Icon={Sun}>
+                Fertilize
+              </Badge>
+            )}
+          </div>
+        )}
       </div>
     </Link>
   )
