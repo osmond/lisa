@@ -42,7 +42,7 @@ export default function Settings() {
     : ''
 
   return (
-    <PageContainer maxWidth="md" className="space-y-6 text-gray-700 dark:text-gray-200">
+    <PageContainer size="md" className="space-y-6 text-gray-700 dark:text-gray-200">
       <Toast />
       <h1 className="text-heading font-semibold font-headline">Settings</h1>
 

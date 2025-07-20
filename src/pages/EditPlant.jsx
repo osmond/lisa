@@ -49,7 +49,7 @@ export default function EditPlant() {
   }
 
   return (
-    <PageContainer maxWidth="md">
+    <PageContainer size="md">
     <form onSubmit={handleSubmit} className="space-y-4">
       <h1 className="text-heading font-bold font-headline">Edit Plant</h1>
       <div className="grid gap-1">

@@ -13,7 +13,7 @@ export default function ImageStep({ image, placeholder, dispatch, onNext, onBack
   }
 
   return (
-    <PageContainer maxWidth="md">
+    <PageContainer size="md">
     <form onSubmit={e => {e.preventDefault(); onNext();}} className="space-y-4">
       <h1 className="text-heading font-bold font-headline">Add Plant</h1>
       <div className="grid gap-1">
