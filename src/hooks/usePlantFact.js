@@ -18,6 +18,11 @@ export default function usePlantFact(name) {
     let aborted = false
     async function fetchFact() {
       setLoading(true)
+      if (typeof fetch !== 'function') {
+        setLoading(false)
+        setError('Failed to load fact')
+        return
+      }
       const openaiKey = process.env.VITE_OPENAI_API_KEY
       try {
         if (openaiKey) {
