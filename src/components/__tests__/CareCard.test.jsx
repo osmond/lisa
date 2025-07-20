@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
 import { Drop } from 'phosphor-react'
 import CareCard from '../CareCard.jsx'
 
@@ -12,7 +12,13 @@ test('renders label, status and progress width', () => {
 
 test('calls handler when done', () => {
   const onDone = jest.fn()
-  render(<CareCard label="Water" Icon={Drop} progress={0} status="Today" onDone={onDone} />)
+  jest.useFakeTimers()
+  render(
+    <CareCard label="Water" Icon={Drop} progress={0} status="Today" onDone={onDone} />
+  )
   fireEvent.click(screen.getByRole('button', { name: /mark as done/i }))
+  act(() => {
+    jest.runAllTimers()
+  })
   expect(onDone).toHaveBeenCalled()
 })
