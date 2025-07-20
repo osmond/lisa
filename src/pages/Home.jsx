@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom'
 
 import { useWeather } from '../WeatherContext.jsx'
 import { useUser } from '../UserContext.jsx'
-import GreetingSection from '../components/GreetingSection.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
 import {
   Sun,
@@ -33,6 +32,12 @@ export default function Home() {
   const [typeFilter, setTypeFilter] = useState('all')
   const [showFeatured, setShowFeatured] = useState(true)
   const firstGesture = useRef(false)
+  const [showHeader, setShowHeader] = useState(() => {
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem('hideHomeHeader') !== 'true'
+    }
+    return true
+  })
   const happyPlant = useHappyPlant()
 
 
@@ -212,7 +217,42 @@ export default function Home() {
 
   return (
     <PageContainer onPointerDown={handleFirstGesture}>
-      <GreetingSection allHappy={tasks.length === 0} />
+      {showHeader && (
+      <header className="relative flex flex-col items-start text-left space-y-1">
+        <button
+          type="button"
+          aria-label="Dismiss header"
+          onClick={() => {
+            setShowHeader(false)
+            if (typeof localStorage !== 'undefined') {
+              localStorage.setItem('hideHomeHeader', 'true')
+            }
+          }}
+          className="absolute top-0 right-0 text-gray-500"
+        >
+          &times;
+        </button>
+        <p className="text-base font-medium text-gray-600">Hi {username}, let’s check on your plants.</p>
+        <p className="text-xs text-gray-500 font-body flex items-center gap-1">
+          {forecast && (() => {
+            const Icon = weatherIcons[forecast.condition] || Sun
+            return (
+              <Icon
+                className="w-4 h-4 text-gray-500 align-middle"
+                aria-label={forecast.condition}
+              />
+            )
+          })()}
+          {weekday}, {monthDay}
+          {forecast && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span className="font-semibold text-gray-600">{forecast.temp}</span>
+            </>
+          )}
+        </p>
+      </header>
+      )}
     {plants.length > 0 && (
       <AnimatePresence initial={false}>
         {showFeatured && (
@@ -238,10 +278,6 @@ export default function Home() {
       onTotalClick={handleTotalClick}
       onWaterClick={handleWaterClick}
       onFertClick={handleFertClick}
-      size={56}
-      summary={tasks.length === 0}
-      waterDisplay="💧"
-      fertDisplay="🌾"
     />
       {showSummary && (
         <CareSummaryModal tasks={tasks} onClose={() => setShowSummary(false)} />
@@ -250,7 +286,7 @@ export default function Home() {
       <div className="mt-4">
         <Card className="p-0 text-center font-semibold">
           <Link to="/myplants" className="block px-4 py-2">
-            🪴 Browse All Plants
+            All Plants
           </Link>
         </Card>
       </div>
