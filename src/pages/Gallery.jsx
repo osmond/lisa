@@ -53,6 +53,15 @@ export default function Gallery() {
               alt={photo.caption || `${photo.plant} photo ${i + 1}`}
               className="w-full aspect-[4/3] object-cover rounded-2xl"
             />
+            {photo.tags && photo.tags.length > 0 && (
+              <div className="flex flex-wrap gap-1 mt-1">
+                {photo.tags.map((t, idx) => (
+                  <span key={idx} className="inline-flex bg-gray-200 text-gray-800 rounded px-2 py-0.5 text-[10px]">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            )}
           </button>
         ))}
       </div>

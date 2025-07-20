@@ -30,6 +30,7 @@ export default function Timeline() {
         label: 'Note',
         note: n.text,
         type: 'log',
+        tags: n.tags || [],
       })),
     [timelineNotes]
   )
@@ -178,6 +179,15 @@ export default function Timeline() {
                           <span className="font-medium">— {e.label}</span>
                           {e.note && (
                             <div className="text-xs italic text-green-700 mt-1">{e.note}</div>
+                          )}
+                          {e.tags && e.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {e.tags.map((t, idx) => (
+                                <span key={idx} className="inline-flex bg-gray-200 text-gray-800 rounded px-2 py-0.5 text-[10px]">
+                                  {t}
+                                </span>
+                              ))}
+                            </div>
                           )}
                         </div>
                       </button>

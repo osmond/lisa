@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import initialPlants from './plants.json'
 import { useWeather } from './WeatherContext.jsx'
 import { getNextWateringDate } from './utils/watering.js'
+import autoTag from './utils/autoTag.js'
 
 const PlantContext = createContext()
 
@@ -16,9 +17,9 @@ export const addBase = url => {
 const mapPhoto = photo => {
   if (!photo) return photo
   if (typeof photo === 'string') {
-    return { src: addBase(photo) }
+    return { src: addBase(photo), caption: '', tags: [] }
   }
-  return { ...photo, src: addBase(photo.src) }
+  return { ...photo, src: addBase(photo.src), tags: photo.tags || [] }
 }
 
 export function PlantProvider({ children }) {
@@ -28,7 +29,7 @@ export function PlantProvider({ children }) {
       ...p,
       image: addBase(p.image),
       photos: (p.photos || p.gallery || []).map(mapPhoto),
-      careLog: p.careLog || [],
+      careLog: (p.careLog || []).map(ev => ({ ...ev, tags: ev.tags || [] })),
     })
 
     if (typeof localStorage !== 'undefined') {
@@ -58,7 +59,7 @@ export function PlantProvider({ children }) {
       const stored = localStorage.getItem('timelineNotes')
       if (stored) {
         try {
-          return JSON.parse(stored)
+          return JSON.parse(stored).map(n => ({ ...n, tags: n.tags || [] }))
         } catch {
           // ignore
         }
@@ -73,17 +74,22 @@ export function PlantProvider({ children }) {
     }
   }, [timelineNotes])
 
-  const addTimelineNote = text => {
+  const addTimelineNote = async text => {
     const date = new Date().toISOString().slice(0, 10)
-    setTimelineNotes(prev => [...prev, { date, text }])
+    const tags = await autoTag(text)
+    setTimelineNotes(prev => [...prev, { date, text, tags }])
   }
 
-  const logEvent = (id, type, note = '') => {
+  const logEvent = async (id, type, note = '') => {
     const date = new Date().toISOString().slice(0, 10)
+    const tags = await autoTag(note)
     setPlants(prev =>
       prev.map(p =>
         p.id === id
-          ? { ...p, careLog: [...(p.careLog || []), { date, type, note }] }
+          ? {
+              ...p,
+              careLog: [...(p.careLog || []), { date, type, note, tags }],
+            }
           : p
       )
     )
@@ -161,8 +167,10 @@ export function PlantProvider({ children }) {
     })
   }
 
-  const addPhoto = (id, photo) => {
+  const addPhoto = async (id, photo) => {
     const newPhoto = mapPhoto(photo)
+    const tags = await autoTag(newPhoto.caption || '')
+    newPhoto.tags = tags
     setPlants(prev =>
       prev.map(p =>
         p.id === id
