@@ -13,9 +13,13 @@ test('renders label, status and progress width', () => {
 test('calls handler when done', () => {
   jest.useFakeTimers()
   const onDone = jest.fn()
-  render(<CareCard label="Water" Icon={Drop} progress={0} status="Today" onDone={onDone} />)
+  render(
+    <CareCard label="Water" Icon={Drop} progress={0} status="Today" onDone={onDone} />
+  )
   fireEvent.click(screen.getByRole('button', { name: /mark as done/i }))
-  jest.advanceTimersByTime(250)
+
+  jest.runAllTimers()
+
   expect(onDone).toHaveBeenCalled()
   jest.useRealTimers()
 })
