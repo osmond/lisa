@@ -44,11 +44,14 @@ export function buildEvents(source, { includePlantName = false } = {}) {
       const lowerType = (ev.type || '').toLowerCase()
       if (lowerType.includes('water')) waterDates.add(ev.date)
       if (lowerType.includes('fertilize')) fertilizeDates.add(ev.date)
+      let type = 'log'
+      if (lowerType.includes('water')) type = 'water'
+      else if (lowerType.includes('fertilize')) type = 'fertilize'
       addEvent({
         date: ev.date,
         label: includePlantName ? `${ev.type} ${p.name}` : ev.type,
         note: ev.note,
-        type: 'log',
+        type,
       })
     })
 
