@@ -10,8 +10,13 @@ import {
   SortDescending,
   Trash,
   ArrowLeft,
+
   PencilSimpleLine,
   ClockCounterClockwise,
+
+  Sun,
+  Leaf,
+
 } from 'phosphor-react'
 
 import Lightbox from '../components/Lightbox.jsx'
@@ -320,17 +325,17 @@ export default function PlantDetail() {
             <div className="mt-4 flex flex-wrap gap-2 text-xs text-gray-600">
               {plant.light && (
                 <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1">
-                  ☀ {plant.light}
+                  <Sun className="w-3 h-3" aria-hidden="true" /> {plant.light}
                 </span>
               )}
               {plant.humidity && (
                 <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1">
-                  💧 {plant.humidity}
+                  <Drop className="w-3 h-3" aria-hidden="true" /> {plant.humidity}
                 </span>
               )}
               {plant.difficulty && (
                 <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1">
-                  🪴 {plant.difficulty}
+                  <Leaf className="w-3 h-3" aria-hidden="true" /> {plant.difficulty}
                 </span>
               )}
             </div>
