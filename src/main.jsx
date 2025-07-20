@@ -7,6 +7,7 @@ import { RoomProvider } from './RoomContext.jsx'
 import { ThemeProvider } from './ThemeContext.jsx'
 import { WeatherProvider } from './WeatherContext.jsx'
 import { UserProvider } from './UserContext.jsx'
+import { OpenAIProvider } from './OpenAIContext.jsx'
 import SnackbarProvider, { Snackbar } from './hooks/SnackbarProvider.jsx'
 import './index.css'
 
@@ -14,18 +15,20 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <SnackbarProvider>
       <UserProvider>
-        <ThemeProvider>
-          <WeatherProvider>
-            <PlantProvider>
-              <RoomProvider>
-                <BrowserRouter basename={import.meta.env.VITE_BASE_PATH}>
-                  <App />
-                </BrowserRouter>
-              </RoomProvider>
-            </PlantProvider>
-            <Snackbar />
-          </WeatherProvider>
-        </ThemeProvider>
+        <OpenAIProvider>
+          <ThemeProvider>
+            <WeatherProvider>
+              <PlantProvider>
+                <RoomProvider>
+                  <BrowserRouter basename={import.meta.env.VITE_BASE_PATH}>
+                    <App />
+                  </BrowserRouter>
+                </RoomProvider>
+              </PlantProvider>
+              <Snackbar />
+            </WeatherProvider>
+          </ThemeProvider>
+        </OpenAIProvider>
       </UserProvider>
     </SnackbarProvider>
   </React.StrictMode>

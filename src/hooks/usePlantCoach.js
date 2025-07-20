@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useOpenAI } from '../OpenAIContext.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
 
@@ -14,9 +15,14 @@ export default function usePlantCoach(question, plantId) {
   const [answer, setAnswer] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const { enabled } = useOpenAI()
 
   useEffect(() => {
     if (!question || !plant) return
+    if (!enabled) {
+      setError('Missing API key')
+      return
+    }
     let aborted = false
 
     async function fetchAnswer() {
@@ -46,7 +52,7 @@ export default function usePlantCoach(question, plantId) {
     return () => {
       aborted = true
     }
-  }, [question, plant, forecast])
+  }, [question, plant, forecast, enabled])
 
   return { answer, error, loading }
 }

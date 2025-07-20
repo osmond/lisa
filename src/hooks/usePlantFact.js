@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useOpenAI } from '../OpenAIContext.jsx'
 
 export default function usePlantFact(name) {
   const [fact, setFact] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const { enabled } = useOpenAI()
 
   useEffect(() => {
     if (!name) return
@@ -23,7 +25,7 @@ export default function usePlantFact(name) {
         setError('Failed to load fact')
         return
       }
-      const openaiKey = process.env.VITE_OPENAI_API_KEY
+      const openaiKey = enabled ? process.env.VITE_OPENAI_API_KEY : null
       try {
         if (openaiKey) {
           const prompt = `Give me a short fun or cultural fact about the plant "${name}". One sentence.`
@@ -80,7 +82,7 @@ export default function usePlantFact(name) {
     return () => {
       aborted = true
     }
-  }, [name])
+  }, [name, enabled])
 
   return { fact, error, loading }
 }
