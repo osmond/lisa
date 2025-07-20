@@ -50,7 +50,7 @@ test('shows watering progress indicator', () => {
   expect(screen.getByLabelText(/care progress/i)).toBeInTheDocument()
 })
 
-test('shows countdown text inside care rings', () => {
+test('shows countdown text inside care cards', () => {
   const plant = plants[0]
   jest.useFakeTimers().setSystemTime(new Date('2025-07-20'))
   render(
@@ -65,8 +65,8 @@ test('shows countdown text inside care rings', () => {
     </MenuProvider>
   )
 
-  expect(screen.getByTestId('stat-water')).toHaveTextContent(/5 days left/i)
-  expect(screen.getByTestId('stat-fertilize')).toHaveTextContent(/28 days left/i)
+  expect(screen.getByText(/due in 5 days/i)).toBeInTheDocument()
+  expect(screen.getByText(/due in 28 days/i)).toBeInTheDocument()
   jest.useRealTimers()
 })
 
