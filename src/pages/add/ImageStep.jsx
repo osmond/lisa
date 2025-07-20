@@ -1,12 +1,28 @@
+import { useState } from 'react'
 import { addBase } from '../../PlantContext.jsx'
+import identifyPlant from '../../hooks/usePlantIdentification.js'
 import PageContainer from "../../components/PageContainer.jsx"
-
-export default function ImageStep({ image, placeholder, dispatch, onNext, onBack }) {
+export default function ImageStep({ image, placeholder, species, problems = [], dispatch, onNext, onBack }) {
+  const [loading, setLoading] = useState(false)
   const handleFileChange = e => {
     const file = e.target.files && e.target.files[0]
     if (file) {
       const reader = new FileReader()
-      reader.onload = ev => dispatch({ type: 'SET_IMAGE', payload: ev.target.result })
+      reader.onload = async ev => {
+        const dataUrl = ev.target.result
+        dispatch({ type: 'SET_IMAGE', payload: dataUrl })
+        try {
+          setLoading(true)
+          const info = await identifyPlant(dataUrl)
+          const plantName = info?.suggestions?.[0]?.plant_name || ''
+          const issues = info?.health_assessment?.diseases?.map(d => d.name) || []
+          dispatch({ type: 'SET_IDENTIFICATION', payload: { species: plantName, problems: issues } })
+        } catch (err) {
+          console.error('identify error', err)
+        } finally {
+          setLoading(false)
+        }
+      }
       reader.readAsDataURL(file)
     }
     e.target.value = ''
@@ -42,6 +58,10 @@ export default function ImageStep({ image, placeholder, dispatch, onNext, onBack
           alt="Preview"
           className="object-cover w-24 h-24 rounded"
         />
+      )}
+      {loading && <p className="text-sm">Identifying...</p>}
+      {!loading && species && (
+        <p className="text-sm">This looks like <strong>{species}</strong>{problems.length ? ` (issues: ${problems.join(', ')})` : ''}</p>
       )}
       <div className="flex gap-2">
         <button type="button" onClick={onBack} className="px-4 py-2 bg-gray-200 rounded">Back</button>

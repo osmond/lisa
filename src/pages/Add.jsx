@@ -41,6 +41,8 @@ const initialState = {
   room: '',
   notes: '',
   careLevel: '',
+  species: '',
+  problems: [],
 }
 
 function reducer(state, action) {
@@ -59,13 +61,19 @@ function reducer(state, action) {
       return { ...state, notes: action.payload }
     case 'SET_CARE':
       return { ...state, careLevel: action.payload }
+    case 'SET_IDENTIFICATION':
+      return {
+        ...state,
+        species: action.payload.species || '',
+        problems: action.payload.problems || [],
+      }
     default:
       return state
   }
 }
 
 export default function Add() {
-  const { addPlant } = usePlants()
+  const { addPlant, addTimelineNote } = usePlants()
   const navigate = useNavigate()
   const [state, dispatch] = useReducer(reducer, initialState)
   const [step, setStep] = useState(1)
@@ -86,7 +94,14 @@ export default function Add() {
       ...(state.room && { room: state.room }),
       ...(state.notes && { notes: state.notes }),
       ...(state.careLevel && { careLevel: state.careLevel }),
+      ...(state.species && { species: state.species }),
+      ...(state.problems.length > 0 && { problems: state.problems }),
     })
+    if (state.species) {
+      const msg = `Identified as ${state.species}` +
+        (state.problems.length ? `; Issues: ${state.problems.join(', ')}` : '')
+      addTimelineNote(msg)
+    }
     showToast('Added')
     setTimeout(() => navigate('/'), 800)
   }
@@ -102,6 +117,8 @@ export default function Add() {
         <ImageStep
           image={state.image}
           placeholder={placeholder?.src}
+          species={state.species}
+          problems={state.problems}
           dispatch={dispatch}
           onNext={next}
           onBack={back}
