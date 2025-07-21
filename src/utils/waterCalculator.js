@@ -1,6 +1,6 @@
 export const MS_PER_DAY = 86400000
 
-export function getWaterPlan(plantName = '', diameter = 0) {
+export function getWaterPlan(plantName = '', diameter = 0, light = 'Medium') {
   const d = Number(diameter) || 0
   const depth = d * 0.75
   const radius = d / 2
@@ -10,6 +10,11 @@ export function getWaterPlan(plantName = '', diameter = 0) {
   if (/cactus|succulent|jade|aloe|snake/.test(name)) interval = 14
   else if (/fern/.test(name)) interval = 3
   else if (/orchid/.test(name)) interval = 10
+  const lvl = String(light).toLowerCase()
+  if (lvl === 'low') interval += 2
+  else if (lvl === 'bright indirect') interval -= 1
+  else if (lvl === 'bright direct') interval -= 2
+  interval = Math.max(1, interval)
   return { volume, interval }
 }
 
@@ -34,7 +39,7 @@ export function getSmartWaterPlan(arg1 = {}, arg2 = {}, arg3 = {}, arg4 = []) {
     returnReason = true
   }
 
-  const base = getWaterPlan(plant.name, plant.diameter)
+  const base = getWaterPlan(plant.name, plant.diameter, plant.light)
   let interval = base.interval
 
   if (returnReason) {

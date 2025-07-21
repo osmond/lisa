@@ -45,7 +45,7 @@ export default function Onboard() {
 
   const handleSubmit = e => {
     e.preventDefault()
-    setWater(getWaterPlan(form.name, form.diameter))
+    setWater(getWaterPlan(form.name, form.diameter, form.light))
     generate(form)
   }
 
@@ -55,6 +55,7 @@ export default function Onboard() {
       ...(form.scientificName && { scientificName: form.scientificName }),
       room: form.room,
       diameter: Number(form.diameter) || 0,
+      light: form.light,
       waterPlan: water,
       notes: plan?.text || '',
     })
