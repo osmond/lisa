@@ -86,6 +86,8 @@ export default function Add() {
       ...(state.room && { room: state.room }),
       ...(state.notes && { notes: state.notes }),
       ...(state.careLevel && { careLevel: state.careLevel }),
+      diameter: 0,
+      waterPlan: { volume: 0, interval: 0 },
     })
     showToast('Added')
     setTimeout(() => navigate('/'), 800)

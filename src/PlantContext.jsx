@@ -32,7 +32,11 @@ export function PlantProvider({ children }) {
       photos: (p.photos || p.gallery || []).map(mapPhoto),
       careLog: (p.careLog || []).map(ev => ({ ...ev, tags: ev.tags || [] })),
       diameter: p.diameter || 0,
+
+      waterPlan: p.waterPlan || { volume: 0, interval: 0 },
+
       smartWaterPlan: p.smartWaterPlan || null,
+
     })
 
     if (typeof localStorage !== 'undefined') {
@@ -146,19 +150,17 @@ export function PlantProvider({ children }) {
   const addPlant = plant => {
     setPlants(prev => {
       const nextId = prev.reduce((m, p) => Math.max(m, p.id), 0) + 1
-      const waterPlan = plant.diameter
-        ? getWaterPlan(plant.name, plant.diameter)
-        : undefined
-      return [
-        ...prev,
-        {
-          id: nextId,
-          ...plant,
-          ...(waterPlan && { waterPlan }),
-          photos: [],
-          careLog: [],
-        },
-      ]
+
+      const newPlant = {
+        id: nextId,
+        photos: [],
+        careLog: [],
+        diameter: 0,
+        waterPlan: { volume: 0, interval: 0 },
+        ...plant,
+      }
+      return [...prev, newPlant]
+
     })
   }
 

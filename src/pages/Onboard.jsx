@@ -38,6 +38,8 @@ export default function Onboard() {
     addPlant({
       name: form.name,
       room: form.room,
+      diameter: Number(form.diameter) || 0,
+      waterPlan: water,
       notes: plan?.text || '',
       diameter: form.diameter,
     })
