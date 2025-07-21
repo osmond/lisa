@@ -249,7 +249,7 @@ export default function PlantDetail() {
   const tabs = [
     {
       id: "tasks",
-      label: "Care",
+      label: "Tasks",
       content: (
         <div className="p-4 space-y-2">
           <div
@@ -288,6 +288,31 @@ export default function PlantDetail() {
               {plant.smartWaterPlan.interval} days —{" "}
               {plant.smartWaterPlan.reason}
             </p>
+          )}
+        </div>
+      ),
+    },
+    {
+      id: "care-plan",
+      label: "Care Plan",
+      content: (
+        <div className="p-4 space-y-2" data-testid="care-plan-tab">
+          <p>
+            Pot diameter: {plant.diameter ? `${plant.diameter} in` : "N/A"}
+          </p>
+          {plant.waterPlan && (
+            <p>
+              {plant.waterPlan.volume} in³ every {plant.waterPlan.interval} days
+            </p>
+          )}
+          {plant.smartWaterPlan && (
+            <p data-testid="smart-water-plan-details">
+              {plant.smartWaterPlan.volume} in³ every {plant.smartWaterPlan.interval}{" "}
+              days — {plant.smartWaterPlan.reason}
+            </p>
+          )}
+          {plant.notes && (
+            <pre className="whitespace-pre-wrap">{plant.notes}</pre>
           )}
         </div>
       ),
