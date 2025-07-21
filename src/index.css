@@ -305,12 +305,12 @@ body {
 
 /* Image gradient overlay */
 .img-gradient-overlay {
-  @apply absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent;
+  @apply absolute inset-0 bg-gradient-to-t from-black/50 via-transparent;
 }
 
 /* Gradient backdrop for hero text */
 .hero-name-bg {
-  @apply bg-gradient-to-r from-black/70 via-black/40 to-transparent rounded-xl p-2;
+  @apply p-2;
 }
 
 @layer utilities {
