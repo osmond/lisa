@@ -1,6 +1,9 @@
 import 'dotenv/config'
 import express from 'express'
+import fs from 'fs'
 
+const plantsPath = new URL('../src/plants.json', import.meta.url)
+const plants = JSON.parse(fs.readFileSync(plantsPath))
 const app = express()
 app.use(express.json())
 
@@ -79,6 +82,18 @@ app.post('/api/care-plan', async (req, res) => {
     console.error('OpenAI error', err)
     res.status(500).json({ error: 'Failed to generate plan' })
   }
+})
+
+app.get('/api/discoverable-plants', (req, res) => {
+  const excludeParam = req.query.exclude || ''
+  const exclude = excludeParam
+    .split(',')
+    .map(n => n.trim().toLowerCase())
+    .filter(Boolean)
+  const list = plants.filter(
+    p => !exclude.includes(p.name.toLowerCase())
+  )
+  res.json(list)
 })
 
 const port = process.env.PORT || 3000
