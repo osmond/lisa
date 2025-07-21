@@ -269,14 +269,25 @@ export default function PlantDetail() {
                 status={waterStatus}
                 onDone={handleWatered}
               />
-              <CareCard
-                label="Fertilize"
-                Icon={Sun}
-                progress={fertProgress}
-                status={fertStatus}
-                completed={fertilizeDone}
-                onDone={handleFertilized}
-              />
+              <div className={plant.nextFertilize ? '' : 'opacity-50'}>
+                <CareCard
+                  label="Fertilize"
+                  Icon={Sun}
+                  progress={fertProgress}
+                  status={fertStatus}
+                  completed={fertilizeDone}
+                  onDone={handleFertilized}
+                />
+                {!plant.nextFertilize && (
+                  <button
+                    type="button"
+                    onClick={handleEdit}
+                    className="mt-2 text-sm text-green-600 underline"
+                  >
+                    Add Schedule
+                  </button>
+                )}
+              </div>
             </div>
             <span
               id="progress-hint"
