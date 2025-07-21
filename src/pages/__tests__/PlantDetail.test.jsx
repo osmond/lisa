@@ -411,3 +411,45 @@ test('care plan info modal opens from button', () => {
 
   localStorage.clear()
 })
+
+test('renders carePlan values in list', () => {
+  localStorage.setItem(
+    'plants',
+    JSON.stringify([
+      {
+        id: 1,
+        name: 'Aloe',
+        image: 'a.jpg',
+        diameter: 4,
+        waterPlan: { volume: 10, interval: 7 },
+        carePlan: { water: 7, fertilize: 30, light: 'Medium' },
+        notes: '{"water":7}',
+        photos: [],
+        careLog: [],
+      },
+    ])
+  )
+
+  render(
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={['/plant/1']}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
+  )
+
+  fireEvent.click(screen.getByRole('tab', { name: /care plan/i }))
+  const panel = screen.getByTestId('care-plan-tab')
+  const list = within(panel).getByTestId('care-plan-list')
+  expect(within(list).getByText(/water every 7 days/i)).toBeInTheDocument()
+  expect(within(list).getByText(/fertilize every 30 days/i)).toBeInTheDocument()
+  expect(within(list).getByText(/light: medium/i)).toBeInTheDocument()
+
+  localStorage.clear()
+})

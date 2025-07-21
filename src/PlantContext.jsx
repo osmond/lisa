@@ -34,6 +34,8 @@ export function PlantProvider({ children }) {
 
       waterPlan: p.waterPlan || { volume: 0, interval: 0 },
 
+      carePlan: p.carePlan || null,
+
       smartWaterPlan: p.smartWaterPlan || null,
 
       lastEvaluated: p.lastEvaluated || null,
@@ -195,6 +197,7 @@ export function PlantProvider({ children }) {
         careLog: [],
         diameter: 0,
         waterPlan: { volume: 0, interval: 0 },
+        carePlan: null,
         ...plant,
       };
       return [...prev, newPlant];
