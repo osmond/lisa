@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import { useRooms } from '../RoomContext.jsx'
+import { useWeather } from '../WeatherContext.jsx'
 import PageContainer from "../components/PageContainer.jsx"
 import useCarePlan from '../hooks/useCarePlan.js'
 import { getWaterPlan } from '../utils/waterCalculator.js'
@@ -11,6 +12,7 @@ export default function Onboard() {
   const { addPlant } = usePlants()
   const { rooms } = useRooms()
   const navigate = useNavigate()
+  const { forecast } = useWeather() || {}
   const [form, setForm] = useState({
     name: '',
     scientificName: '',
@@ -24,6 +26,12 @@ export default function Onboard() {
   const [water, setWater] = useState(null)
   const { plan, loading, error, generate } = useCarePlan()
   const taxa = usePlantTaxon(form.name)
+
+  const handleUseOutdoorHumidity = () => {
+    if (forecast?.humidity !== undefined) {
+      setForm(f => ({ ...f, humidity: forecast.humidity }))
+    }
+  }
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -97,7 +105,12 @@ export default function Onboard() {
         </div>
         <div className="grid gap-1">
           <label htmlFor="humidity" className="font-medium">Humidity (%)</label>
-          <input id="humidity" name="humidity" type="number" value={form.humidity} onChange={handleChange} className="border rounded p-2" />
+          <div className="flex gap-2">
+            <input id="humidity" name="humidity" type="number" value={form.humidity} onChange={handleChange} className="border rounded p-2 flex-grow" />
+            {forecast?.humidity !== undefined && (
+              <button type="button" onClick={handleUseOutdoorHumidity} className="px-2 text-sm underline whitespace-nowrap">Use outdoor</button>
+            )}
+          </div>
         </div>
         <div className="grid gap-1">
           <label htmlFor="experience" className="font-medium">Experience</label>
