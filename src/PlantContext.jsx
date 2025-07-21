@@ -32,6 +32,8 @@ export function PlantProvider({ children }) {
       careLog: (p.careLog || []).map((ev) => ({ ...ev, tags: ev.tags || [] })),
       diameter: p.diameter || 0,
 
+      petSafe: !!p.petSafe,
+
       waterPlan: p.waterPlan || { volume: 0, interval: 0 },
 
       carePlan: p.carePlan || null,

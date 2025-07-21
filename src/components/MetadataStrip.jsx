@@ -1,5 +1,5 @@
 import React from 'react'
-import { Sun, Drop, CloudRain, Leaf } from 'phosphor-react'
+import { Sun, Drop, CloudRain, Leaf, PawPrint } from 'phosphor-react'
 
 export default function MetadataStrip({ plant }) {
   if (!plant) return null
@@ -15,6 +15,7 @@ export default function MetadataStrip({ plant }) {
       Icon: Drop,
     },
     plant.difficulty && { key: 'difficulty', label: plant.difficulty, Icon: Leaf },
+    plant.petSafe && { key: 'petSafe', label: 'Pet safe', Icon: PawPrint },
   ].filter(Boolean)
 
   return (
