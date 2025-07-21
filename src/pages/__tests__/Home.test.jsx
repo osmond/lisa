@@ -111,6 +111,35 @@ test('earliest due task appears first', () => {
   expect(tasks[1]).toHaveTextContent('Plant B')
 })
 
+test('featured plant prefers plants in current season', () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
+  mockPlants.splice(0, mockPlants.length,
+    {
+      id: 1,
+      name: 'Spring Plant',
+      image: 'a.jpg',
+      lastWatered: '2025-07-02',
+      nextWater: '2025-07-11',
+      seasons: ['spring'],
+    },
+    {
+      id: 2,
+      name: 'Summer Plant',
+      image: 'b.jpg',
+      lastWatered: '2025-07-02',
+      nextWater: '2025-07-12',
+      seasons: ['summer'],
+    }
+  )
+
+  renderWithSnackbar(
+      <Home />
+  )
+
+  const featured = screen.getByLabelText(/featured plant card for/i)
+  expect(featured).toHaveAttribute('aria-label', expect.stringContaining('Summer Plant'))
+})
+
 
 
 
