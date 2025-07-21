@@ -12,7 +12,6 @@ export default function Onboard() {
   const navigate = useNavigate()
   const [form, setForm] = useState({
     name: '',
-    pot: 'M',
     diameter: '',
     soil: 'potting mix',
     light: 'Medium',
@@ -52,16 +51,6 @@ export default function Onboard() {
         <div className="grid gap-1">
           <label htmlFor="name" className="font-medium">Plant type</label>
           <input id="name" name="name" type="text" value={form.name} onChange={handleChange} className="border rounded p-2" required />
-        </div>
-        <div className="grid gap-1">
-          <label htmlFor="pot" className="font-medium">Pot size</label>
-          <select id="pot" name="pot" value={form.pot} onChange={handleChange} className="border rounded p-2">
-            <option value="XS">XS</option>
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-          </select>
         </div>
         <div className="grid gap-1">
           <label htmlFor="diameter" className="font-medium">Pot diameter (inches)</label>
