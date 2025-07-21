@@ -21,6 +21,8 @@ import {
   Sun,
   Robot,
   Leaf,
+  Ruler,
+  Thermometer,
 } from "phosphor-react";
 
 import Lightbox from "../components/Lightbox.jsx";
@@ -365,31 +367,28 @@ export default function PlantDetail() {
             </button>
           </div>
           <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded space-y-2">
-            <p className="text-sm">
-              <span className="text-gray-500 dark:text-gray-400">Pot diameter:</span>{" "}
-              <span className="text-gray-800 dark:text-gray-200">
-                {plant.diameter ? `${plant.diameter} in` : "N/A"}
-              </span>
+            <p className="text-sm flex items-center gap-2">
+              <Ruler className="w-4 h-4 text-gray-500" />
+              Pot diameter: {plant.diameter ? `${plant.diameter} in` : "N/A"}
             </p>
             {plant.waterPlan?.interval ? (
               <>
-                <p className="text-sm">
-                  <span className="text-gray-500 dark:text-gray-400">Water every:</span>{" "}
-                  <span className="text-gray-800 dark:text-gray-200">
-                    {plant.waterPlan.interval} days
-                  </span>
+                <p className="text-sm flex items-center gap-2">
+                  <Drop className="w-4 h-4 text-blue-500" />
+                  Water every: {plant.waterPlan.interval} days
                 </p>
-                <p className="text-sm">
-                  <span className="text-gray-500 dark:text-gray-400">Amount:</span>{" "}
-                  <span className="text-gray-800 dark:text-gray-200">
-                    {plant.waterPlan.volume} in³
-                  </span>
+                <p className="text-sm flex items-center gap-2">
+                  <Thermometer className="w-4 h-4 text-yellow-500" />
+                  Amount: {plant.waterPlan.volume} in³
                 </p>
               </>
             ) : (
-              <p className="text-sm text-gray-500 dark:text-gray-400 italic">
-                Care plan pending setup
-              </p>
+              <div className="text-center space-y-2">
+                <img src="/happy-plant.svg" alt="Set up care" className="w-16 mx-auto" />
+                <p className="text-sm text-gray-500 dark:text-gray-400 italic">
+                  Care plan pending setup
+                </p>
+              </div>
             )}
             {plant.smartWaterPlan && (
               <p className="text-xs text-gray-500 dark:text-gray-400" data-testid="smart-water-plan-details">
@@ -670,9 +669,18 @@ export default function PlantDetail() {
                   {fact}
                 </p>
               )}
+              <p
+                className="text-sm text-gray-100 animate-fade-in-down"
+                style={{ animationDelay: "250ms" }}
+              >
+                {plant.light} • {plant.humidity} •
+                {plant.waterPlan?.interval
+                  ? ` water every ${plant.waterPlan.interval}d`
+                  : " no schedule"}
+              </p>
               <Link
                 to={`/plant/${plant.id}/coach`}
-                className="inline-flex items-center gap-1 mt-2 px-3 py-1.5 bg-white/20 border rounded-full text-sm text-white"
+                className="inline-flex items-center gap-1 mt-2 px-3 py-1.5 bg-green-600 rounded-full text-sm text-white shadow"
               >
                 <Robot className="w-4 h-4" />
                 Coach
