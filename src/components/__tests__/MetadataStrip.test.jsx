@@ -6,6 +6,7 @@ const plant = {
   humidity: 'High',
   waterPlan: { interval: 7 },
   difficulty: 'Easy',
+  petSafe: true,
 }
 
 test('renders badges with plant metadata', () => {
@@ -14,6 +15,7 @@ test('renders badges with plant metadata', () => {
   expect(screen.getByText('High')).toBeInTheDocument()
   expect(screen.getByText('Water every 7d')).toBeInTheDocument()
   expect(screen.getByText('Easy')).toBeInTheDocument()
-  const badges = screen.getAllByText(/Bright|High|Water every 7d|Easy/)
-  expect(badges).toHaveLength(4)
+  expect(screen.getByText('Pet safe')).toBeInTheDocument()
+  const badges = screen.getAllByText(/Bright|High|Water every 7d|Easy|Pet safe/)
+  expect(badges).toHaveLength(5)
 })

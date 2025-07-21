@@ -140,3 +140,17 @@ test("updating diameter recalculates water plan", async () => {
   fireEvent.click(screen.getByText("set"));
   await screen.findByText("74");
 });
+
+function SafeCheck() {
+  const { plants } = usePlants();
+  return <span>{plants[0].petSafe ? "safe" : "no"}</span>;
+}
+
+test("plants include petSafe field", () => {
+  render(
+    <PlantProvider>
+      <SafeCheck />
+    </PlantProvider>,
+  );
+  expect(screen.getByText("safe")).toBeInTheDocument();
+});
