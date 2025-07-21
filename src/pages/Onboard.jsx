@@ -41,7 +41,6 @@ export default function Onboard() {
       diameter: Number(form.diameter) || 0,
       waterPlan: water,
       notes: plan?.text || '',
-      diameter: form.diameter,
     })
     navigate('/')
   }
