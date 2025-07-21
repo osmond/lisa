@@ -75,6 +75,23 @@ Run the dev server with `npm run dev` after adding your key. Open the
 app in your browser to see weather info and watering suggestions on the
 home screen.
 
+## Smart Watering Recommendations
+
+Each plant page shows a dynamic watering suggestion calculated by the
+`smartWaterPlan` utility. This helper merges the default schedule with
+the upcoming forecast and your recorded watering dates to produce a
+volume, interval and short explanation. The recommendation updates as the
+forecast changes or as you log watering events.
+
+Example output:
+
+```js
+{ volume: 38, interval: 6, reason: 'adjusted for hot weather' }
+```
+
+In the app this is displayed below the progress bars as:
+`38 in³ every 6 days — adjusted for hot weather`.
+
 ## Plant Facts (Optional)
 
 Provide an OpenAI API key in `.env` as `VITE_OPENAI_API_KEY` (or `OPENAI_API_KEY`) to display a short
