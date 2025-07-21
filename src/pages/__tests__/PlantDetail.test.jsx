@@ -273,9 +273,17 @@ test('care plan tab displays stored onboarding values', () => {
   fireEvent.click(screen.getByRole('tab', { name: /care plan/i }))
 
   const panel = screen.getByTestId('care-plan-tab')
-  expect(within(panel).getByText(/pot diameter/i)).toHaveTextContent('4 in')
   expect(
-    within(panel).getByText('10 in³ every 7 days')
+    within(panel).getByText((c, el) => el.textContent === 'Pot diameter: 4 in')
+  ).toBeInTheDocument()
+  expect(
+    within(panel).getByRole('heading', { name: /recommended plan/i })
+  ).toBeInTheDocument()
+  expect(
+    within(panel).getByText((c, el) => el.textContent === 'Water every: 7 days')
+  ).toBeInTheDocument()
+  expect(
+    within(panel).getByText((c, el) => el.textContent === 'Amount: 10 in³')
   ).toBeInTheDocument()
   expect(
     within(panel).getByTestId('smart-water-plan-details')
