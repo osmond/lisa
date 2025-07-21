@@ -16,6 +16,7 @@ import {
 import useINatPhoto from '../hooks/useINatPhoto.js'
 import usePlantFact from '../hooks/usePlantFact.js'
 import { createRipple } from '../utils/interactions.js'
+import Badge from './Badge.jsx'
 
 
 
@@ -93,10 +94,13 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
       />
       <div className="featured-overlay" aria-hidden="true"></div>
       <div className="absolute bottom-3 left-4 right-4 text-white space-y-1 drop-shadow-md">
-        <span className="text-xs uppercase tracking-wide opacity-90 flex items-center gap-1">
-          <Flower className="w-3 h-3" aria-hidden="true" />
+        <Badge
+          Icon={Flower}
+          colorClass="bg-black/60 text-white backdrop-blur-sm"
+          className="uppercase tracking-wide opacity-90"
+        >
           Featured Plant of the Day
-        </span>
+        </Badge>
 
         <h2 className="font-display text-3xl font-bold">{name}</h2>
         {preview && (
