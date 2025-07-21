@@ -19,26 +19,26 @@ export default function SimpleTaskCard({
         alt={plant.name}
         className="w-12 h-12 rounded-full object-cover"
       />
-      <div className="min-w-0">
+      <div className="flex-1 min-w-0">
         <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">
           {plant.name}
         </h3>
         {label && <p className="text-xs text-gray-500">{label}</p>}
-        {(dueWater || dueFertilize) && (
-          <div className="flex flex-col gap-1 mt-1">
-            {dueWater && (
-              <Badge colorClass="bg-sky-100 text-sky-700" size="sm" Icon={Drop}>
-                Water
-              </Badge>
-            )}
-            {dueFertilize && (
-              <Badge colorClass="bg-amber-100 text-amber-700" size="sm" Icon={Sun}>
-                Fertilize
-              </Badge>
-            )}
-          </div>
-        )}
       </div>
+      {(dueWater || dueFertilize) && (
+        <div className="flex gap-1 ml-auto">
+          {dueWater && (
+            <Badge colorClass="bg-sky-100 text-sky-700" size="sm" Icon={Drop}>
+              Water
+            </Badge>
+          )}
+          {dueFertilize && (
+            <Badge colorClass="bg-amber-100 text-amber-700" size="sm" Icon={Sun}>
+              Fertilize
+            </Badge>
+          )}
+        </div>
+      )}
     </Link>
   )
 }

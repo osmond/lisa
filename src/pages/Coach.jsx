@@ -1,36 +1,26 @@
-import { useParams } from 'react-router-dom'
-import { useState } from 'react'
-import { usePlants } from '../PlantContext.jsx'
-import usePlantCoach from '../hooks/usePlantCoach.js'
-import PageContainer from '../components/PageContainer.jsx'
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { usePlants } from "../PlantContext.jsx";
+import usePlantCoach from "../hooks/usePlantCoach.js";
+import PageContainer from "../components/PageContainer.jsx";
+import generateSampleQuestions from "../utils/generateSampleQuestions.js";
 
 export default function Coach() {
-  const { id } = useParams()
-  const { plants } = usePlants()
-  const plant = plants.find(p => p.id === Number(id))
+  const { id } = useParams();
+  const { plants } = usePlants();
+  const plant = plants.find((p) => p.id === Number(id));
 
-  const [question, setQuestion] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+  const [question, setQuestion] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   const { answer, loading, error } = usePlantCoach(
-    submitted ? question : '',
-    plant
-  )
+    submitted ? question : "",
+    plant,
+  );
 
-  const defaultSamples = [
-    'How often should I water my plant?',
-    'What fertilizer should I use for succulents?',
-    "Why are my orchid’s leaves turning yellow?",
-  ]
-  const sampleQuestions = plant
-    ? [
-        `How often should I water my ${plant.name}?`,
-        `What fertilizer should I use for ${plant.name}?`,
-        `Why are my ${plant.name}'s leaves turning yellow?`,
-      ]
-    : defaultSamples
+  const sampleQuestions = generateSampleQuestions(plant);
 
-  const ask = () => setSubmitted(true)
+  const ask = () => setSubmitted(true);
 
   return (
     <PageContainer size="md">
@@ -38,13 +28,14 @@ export default function Coach() {
       <textarea
         className="w-full border rounded p-2 mb-2 dark:bg-gray-600"
         value={question}
-        onChange={e => {
-          setQuestion(e.target.value)
-          setSubmitted(false)
+        onChange={(e) => {
+          setQuestion(e.target.value);
+          setSubmitted(false);
         }}
-        placeholder="Type your plant question" />
+        placeholder="Type your plant question"
+      />
       <ul className="text-sm italic text-gray-600 mb-2 space-y-1">
-        {sampleQuestions.map(q => (
+        {sampleQuestions.map((q) => (
           <li key={q}>“{q}”</li>
         ))}
       </ul>
@@ -52,10 +43,16 @@ export default function Coach() {
         className="px-4 py-1 bg-green-600 text-white rounded"
         onClick={ask}
         disabled={!question}
-      >Ask</button>
+      >
+        Ask
+      </button>
       {loading && <p>Loading...</p>}
       {answer && <p className="mt-4 whitespace-pre-wrap">{answer}</p>}
-      {error && <p role="alert" className="text-red-600">{error}</p>}
+      {error && (
+        <p role="alert" className="text-red-600">
+          {error}
+        </p>
+      )}
     </PageContainer>
-  )
+  );
 }
