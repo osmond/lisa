@@ -38,6 +38,7 @@ import CareCard from "../components/CareCard.jsx";
 import PlantDetailFab from "../components/PlantDetailFab.jsx";
 import DetailTabs from "../components/DetailTabs.jsx";
 import BaseCard from "../components/BaseCard.jsx";
+import MetadataStrip from "../components/MetadataStrip.jsx";
 import UnifiedTaskCard from "../components/UnifiedTaskCard.jsx";
 import InputModal from "../components/InputModal.jsx";
 import usePlantFact from "../hooks/usePlantFact.js";
@@ -683,15 +684,7 @@ export default function PlantDetail() {
                   {fact}
                 </p>
               )}
-              <p
-                className="text-sm text-gray-100 animate-fade-in-down"
-                style={{ animationDelay: "250ms" }}
-              >
-                {plant.light} • {plant.humidity} •
-                {plant.waterPlan?.interval
-                  ? ` water every ${plant.waterPlan.interval}d`
-                  : " no schedule"}
-              </p>
+              <MetadataStrip plant={plant} />
               <Link
                 to={`/plant/${plant.id}/coach`}
                 className="inline-flex items-center gap-1 mt-2 px-3 py-1.5 bg-green-600 rounded-full text-sm text-white shadow"
