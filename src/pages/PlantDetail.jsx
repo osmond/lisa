@@ -88,6 +88,7 @@ export default function PlantDetail() {
   const [offsetY, setOffsetY] = useState(0);
   const [expandedNotes, setExpandedNotes] = useState({});
   const [showDiameterModal, setShowDiameterModal] = useState(false);
+  const [fertilizeDone, setFertilizeDone] = useState(false);
 
   const waterProgress = getWateringProgress(
     plant?.lastWatered,
@@ -174,8 +175,10 @@ export default function PlantDetail() {
   };
 
   const handleFertilized = () => {
+    setFertilizeDone(true);
     markFertilized(plant.id, "");
     showToast("Fertilized");
+    setTimeout(() => setFertilizeDone(false), 200);
   };
 
   const handleLogEvent = () => {
@@ -269,6 +272,7 @@ export default function PlantDetail() {
                 Icon={Sun}
                 progress={fertProgress}
                 status={fertStatus}
+                completed={fertilizeDone}
                 onDone={handleFertilized}
               />
             </div>
