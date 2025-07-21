@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
 import { Drop, Sun } from 'phosphor-react'
 import CareCard from '../CareCard.jsx'
 
@@ -10,27 +10,33 @@ test('renders label, status and progress width', () => {
   expect(bar).toHaveStyle('width: 50%')
 })
 
-test('calls handler when done', () => {
+test('calls handler when done', async () => {
   jest.useFakeTimers()
   const onDone = jest.fn()
   render(
     <CareCard label="Water" Icon={Drop} progress={0} status="Today" onDone={onDone} />
   )
-  fireEvent.click(screen.getByRole('button', { name: /mark as done/i }))
-
-  jest.runAllTimers()
+  await act(async () => {
+    fireEvent.click(screen.getByRole('button', { name: /mark as done/i }))
+    jest.runAllTimers()
+  })
 
   expect(onDone).toHaveBeenCalled()
   jest.useRealTimers()
 })
 
-test('shows sprout icon for fertilize card when completed', () => {
+test('shows sprout icon for fertilize card when completed', async () => {
   jest.useFakeTimers()
   const { container } = render(
     <CareCard label="Fertilize" Icon={Sun} progress={0} status="Today" onDone={() => {}} />
   )
-  fireEvent.click(screen.getByRole('button', { name: /mark as done/i }))
+  await act(async () => {
+    fireEvent.click(screen.getByRole('button', { name: /mark as done/i }))
+  })
   expect(container.querySelector('.sprout-bounce')).toBeInTheDocument()
-  jest.runAllTimers()
+  await act(async () => {
+    jest.runAllTimers()
+  })
+
   jest.useRealTimers()
 })
