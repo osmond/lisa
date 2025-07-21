@@ -352,11 +352,11 @@ export default function PlantDetail() {
       content: (
         <div className="p-4 space-y-2" data-testid="care-plan-tab">
           <div className="flex items-center justify-between">
-            {(plant.waterPlan?.interval || plant.smartWaterPlan) && (
-              <h3 className="text-heading font-semibold">
-                {plant.smartWaterPlan ? "Recommended Plan" : "Custom Care Plan"}
-              </h3>
-            )}
+              {(plant.waterPlan?.interval || plant.smartWaterPlan) && (
+                <h3 className="text-lg font-semibold">
+                  {plant.smartWaterPlan ? "Recommended Plan" : "Custom Care Plan"}
+                </h3>
+              )}
             <button
               type="button"
               aria-label="How care plan is generated"
