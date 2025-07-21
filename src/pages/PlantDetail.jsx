@@ -303,13 +303,13 @@ export default function PlantDetail() {
                     : 'opacity-50 bg-gray-50 dark:bg-gray-700 p-2 rounded-2xl'
                 }
               >
-                <CareCard
+              <CareCard
                   label="Fertilize"
                   Icon={Sun}
                   progress={fertProgress}
                   status={fertStatus}
                   completed={fertilizeDone}
-                  onDone={handleFertilized}
+                  onDone={plant.nextFertilize ? handleFertilized : undefined}
                 />
                 {!plant.nextFertilize && (
                   <button
