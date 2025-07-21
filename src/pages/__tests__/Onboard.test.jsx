@@ -23,6 +23,10 @@ jest.mock('../../OpenAIContext.jsx', () => ({
   useOpenAI: () => ({ enabled: true }),
 }))
 
+jest.mock('../../WeatherContext.jsx', () => ({
+  useWeather: () => ({ forecast: { humidity: 55 } }),
+}))
+
 
 afterEach(() => {
   addPlant.mockClear()

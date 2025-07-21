@@ -45,6 +45,7 @@ export function WeatherProvider({ children }) {
             temp: Math.round(next.main.temp) + symbol,
             condition: next.weather?.[0]?.main,
             rainfall,
+            humidity: next.main.humidity,
           });
           setError("");
         }
