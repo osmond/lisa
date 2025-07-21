@@ -89,22 +89,19 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
       <img
         src={imageSrc}
         alt={name}
-        className="w-full h-64 object-cover"
+        className="w-full h-64 object-cover brightness-90"
       />
-      <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.6),rgba(0,0,0,0.2),transparent)]"
-        aria-hidden="true"
-      ></div>
-      <div className="absolute bottom-3 left-4 right-4 text-white space-y-1 drop-shadow">
+      <div className="featured-overlay" aria-hidden="true"></div>
+      <div className="absolute bottom-3 left-4 right-4 text-white space-y-1 drop-shadow-md">
         <span className="text-xs uppercase tracking-wide opacity-90 flex items-center gap-1">
           <Flower className="w-3 h-3" aria-hidden="true" />
           Featured Plant of the Day
         </span>
 
-        <h2 className="font-display text-heading font-semibold">{name}</h2>
+        <h2 className="font-display text-3xl font-bold">{name}</h2>
         {preview && (
           <div className="flex items-center gap-1">
-            <p className="text-sm opacity-90">{preview}</p>
+            <p className="text-sm text-gray-200">{preview}</p>
             {WeatherIcon && (
               <WeatherIcon
                 aria-label={`Weather: ${forecast?.condition}`}
@@ -113,6 +110,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
             )}
           </div>
         )}
+        {preview && fact && <hr className="border-white/30" />}
         {fact && (
           <p className="text-sm italic text-white/90 max-w-prose">{fact}</p>
         )}
