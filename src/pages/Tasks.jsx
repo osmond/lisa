@@ -8,6 +8,7 @@ import UnifiedTaskCard from '../components/UnifiedTaskCard.jsx'
 import BaseCard from '../components/BaseCard.jsx'
 import TaskTabs from '../components/TaskTabs.jsx'
 import CareRings from '../components/CareRings.jsx'
+import PageHeader from '../components/PageHeader.jsx'
 import { ListBullets, SquaresFour, Sun } from 'phosphor-react'
 import useTaskLayout from '../hooks/useTaskLayout.js'
 
@@ -296,6 +297,7 @@ export default function Tasks() {
       </div>
 
       <TaskTabs value={viewMode} onChange={setViewMode} />
+      <PageHeader title="Today's Tasks" className="text-center" />
       {viewMode === 'By Plant' ? (
         eventsByPlant.length === 0 ? (
           <p className="text-center text-gray-500">
@@ -309,7 +311,7 @@ export default function Tasks() {
             )}
           </p>
         ) : (
-          <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-4'}>
+          <div className={layout === 'grid' ? 'grid grid-cols-2 gap-6' : 'space-y-6'}>
           {eventsByPlant.map(({ plant, list }, i) => {
             const dueWater = list.some(
               e =>
@@ -363,7 +365,7 @@ export default function Tasks() {
           eventsByRoom.map(({ room, list }) => (
             <div key={room}>
               <h3 className="mt-4 text-heading font-semibold text-gray-500">{room}</h3>
-              <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-4'}>
+              <div className={layout === 'grid' ? 'grid grid-cols-2 gap-6' : 'space-y-6'}>
                 {list.map((e, i) => {
                   const task = {
                     id: `${e.taskType}-${e.plantId}-${i}`,
@@ -410,7 +412,7 @@ export default function Tasks() {
           return (
             <div key={dateKey}>
               <h3 className="mt-4 text-heading font-semibold text-gray-500">{heading}</h3>
-              <div className={layout === 'grid' ? 'grid grid-cols-2 gap-4' : 'space-y-4'}>
+              <div className={layout === 'grid' ? 'grid grid-cols-2 gap-6' : 'space-y-6'}>
                 {list.map((e, i) => {
                   const task = {
                     id: `${e.taskType}-${e.plantId}-${i}`,
