@@ -79,6 +79,25 @@ test('shows countdown text inside care cards', () => {
   jest.useRealTimers()
 })
 
+test('tasks tab displays a heading', () => {
+  const plant = plants[0]
+  render(
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
+  )
+
+  expect(screen.getByTestId('tasks-heading')).toHaveTextContent(/today/i)
+})
+
 
 test('displays all sections', () => {
   const plant = plants[0]

@@ -255,13 +255,16 @@ export default function PlantDetail() {
       label: "Tasks",
       content: (
         <div className="p-4 space-y-2">
+          <h3 className="text-lg font-semibold" data-testid="tasks-heading">
+            Today's Tasks
+          </h3>
           <div
             className="flex flex-col items-center"
             aria-label="Care progress"
             aria-describedby="progress-hint"
             title="Progress toward next scheduled care"
           >
-            <div className="w-full max-w-xs space-y-3">
+            <div className="w-full max-w-xs space-y-4">
               <CareCard
                 label="Water"
                 Icon={Drop}
@@ -269,7 +272,13 @@ export default function PlantDetail() {
                 status={waterStatus}
                 onDone={handleWatered}
               />
-              <div className={plant.nextFertilize ? '' : 'opacity-50'}>
+              <div
+                className={
+                  plant.nextFertilize
+                    ? ''
+                    : 'opacity-50 bg-gray-50 dark:bg-gray-700 p-2 rounded-2xl'
+                }
+              >
                 <CareCard
                   label="Fertilize"
                   Icon={Sun}
