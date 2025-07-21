@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { Plus, Image as ImageIcon, Note, Drop, Flower } from 'phosphor-react'
+import { motion } from 'framer-motion'
 
 export default function PlantDetailFab({
   onAddPhoto,
@@ -39,6 +40,22 @@ export default function PlantDetailFab({
     violet: { bg: 'bg-violet-100', text: 'text-violet-600' },
   }
 
+  const listVariants = {
+    closed: {},
+    open: {
+      transition: { staggerChildren: 0.05, delayChildren: 0.05 },
+    },
+  }
+
+  const itemVariants = {
+    closed: { scale: 0.8, opacity: 0 },
+    open: {
+      scale: 1,
+      opacity: 1,
+      transition: { type: 'spring', stiffness: 260, damping: 20 },
+    },
+  }
+
   const labelText = plantName ? `Add to ${plantName}'s Journal` : 'Add to Journal'
 
   return (
@@ -46,14 +63,17 @@ export default function PlantDetailFab({
       {open &&
         createPortal(
           <div
-            className="modal-overlay bg-black/50 z-30"
+            className="modal-overlay bg-black/50 z-30 backdrop-blur-sm"
             role="dialog"
             aria-modal="true"
             aria-label={labelText}
             onClick={() => setOpen(false)}
           >
-            <div
-              className="modal-box relative p-4 w-80 max-w-full"
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+              className="modal-box relative p-4 w-80 max-w-full bloom-pop"
               onClick={e => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-3">
@@ -69,9 +89,18 @@ export default function PlantDetailFab({
                   &times;
                 </button>
               </div>
-              <ul className="grid grid-cols-2 gap-2">
+              <motion.ul
+                variants={listVariants}
+                initial="closed"
+                animate="open"
+                className="grid grid-cols-2 gap-2"
+              >
                 {items.map(({ label, Icon, action, color }) => (
-                  <li key={label} className="list-none">
+                  <motion.li
+                    key={label}
+                    variants={itemVariants}
+                    className="list-none animate-bounce-once"
+                  >
                     <button
                       type="button"
                       onClick={() => {
@@ -88,10 +117,10 @@ export default function PlantDetailFab({
                         {label}
                       </span>
                     </button>
-                  </li>
+                  </motion.li>
                 ))}
-              </ul>
-            </div>
+              </motion.ul>
+            </motion.div>
           </div>,
           document.body
         )}
