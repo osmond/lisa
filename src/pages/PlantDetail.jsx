@@ -630,7 +630,7 @@ export default function PlantDetail() {
             src={plant.image}
             alt={plant.name}
             loading="lazy"
-            className="w-full h-[45vh] object-cover"
+            className="w-full h-[50vh] md:h-[60vh] object-cover"
           />
           <div className="img-gradient-overlay" aria-hidden="true"></div>
           <div className="fixed top-2 left-2 z-20 flex items-center gap-1 text-white">
