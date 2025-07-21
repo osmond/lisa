@@ -1,5 +1,13 @@
 import PageContainer from "../../components/PageContainer.jsx"
-export default function ScheduleStep({ lastWatered, nextWater, dispatch, onBack, onSubmit }) {
+export default function ScheduleStep({
+  lastWatered,
+  nextWater,
+  lastFertilized,
+  nextFertilize,
+  dispatch,
+  onBack,
+  onSubmit,
+}) {
   return (
     <PageContainer size="md">
     <form onSubmit={e => {e.preventDefault(); onSubmit();}} className="space-y-4">
@@ -21,6 +29,26 @@ export default function ScheduleStep({ lastWatered, nextWater, dispatch, onBack,
           type="date"
           value={nextWater}
           onChange={e => dispatch({ type: 'SET_NEXT', payload: e.target.value })}
+          className="border rounded p-2"
+        />
+      </div>
+      <div className="grid gap-1">
+        <label htmlFor="lastFertilized" className="font-medium">Last Fertilized</label>
+        <input
+          id="lastFertilized"
+          type="date"
+          value={lastFertilized}
+          onChange={e => dispatch({ type: 'SET_LAST_FERT', payload: e.target.value })}
+          className="border rounded p-2"
+        />
+      </div>
+      <div className="grid gap-1">
+        <label htmlFor="nextFertilize" className="font-medium">Next Fertilizing</label>
+        <input
+          id="nextFertilize"
+          type="date"
+          value={nextFertilize}
+          onChange={e => dispatch({ type: 'SET_NEXT_FERT', payload: e.target.value })}
           className="border rounded p-2"
         />
       </div>
