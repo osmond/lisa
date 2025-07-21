@@ -613,8 +613,8 @@ export default function PlantDetail() {
   }
 
   return (
-    <div className="lg:flex lg:items-start lg:max-w-5xl lg:mx-auto lg:space-x-8">
-      <div className="full-bleed relative mb-1 -mt-8 lg:sticky top-0 z-10 lg:w-1/2">
+    <>
+      <div className="full-bleed relative mb-1 -mt-8 lg:sticky top-0 z-10">
         <div className="hidden lg:block absolute inset-0 overflow-hidden -z-10">
           <img
             src={plant.image}
@@ -681,7 +681,7 @@ export default function PlantDetail() {
           </div>
         </div>
       </div>
-      <PageContainer size="xl" className="relative text-left pt-0 space-y-3 lg:w-1/2">
+      <PageContainer size="xl" className="relative text-left pt-0 space-y-3">
         <Toast />
 
         <div className="space-y-3">
@@ -716,6 +716,6 @@ export default function PlantDetail() {
           />
         )}
       </PageContainer>
-    </div>
+    </>
   );
 }
