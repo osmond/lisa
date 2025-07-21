@@ -19,6 +19,7 @@ import {
   PencilSimpleLine,
   ClockCounterClockwise,
   Sun,
+  Robot,
   Leaf,
 } from "phosphor-react";
 
@@ -671,8 +672,9 @@ export default function PlantDetail() {
               )}
               <Link
                 to={`/plant/${plant.id}/coach`}
-                className="inline-block mt-2 px-3 py-1 bg-white/20 border rounded-full text-xs text-white"
+                className="inline-flex items-center gap-1 mt-2 px-3 py-1.5 bg-white/20 border rounded-full text-sm text-white"
               >
+                <Robot className="w-4 h-4" />
                 Coach
               </Link>
             </div>
