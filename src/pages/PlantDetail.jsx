@@ -645,17 +645,17 @@ export default function PlantDetail() {
           </div>
           <div className="absolute bottom-2 left-3 right-3 flex flex-col sm:flex-row justify-between text-white drop-shadow space-y-1 sm:space-y-0">
             <div className="hero-name-bg">
-              <h2 className="text-3xl font-extrabold font-headline animate-fade-in-down">
+              <h2 className="text-4xl font-extrabold font-headline tracking-wide animate-fade-in-down">
                 {plant.name}
               </h2>
               {plant.scientificName && (
-                <p className="text-lg italic text-gray-200 animate-fade-in-down" style={{ animationDelay: '50ms' }}>
+                <p className="text-sm italic text-gray-100 animate-fade-in-down" style={{ animationDelay: '50ms' }}>
                   {plant.scientificName}
                 </p>
               )}
               {plant.nickname && (
                 <p
-                  className="text-sm text-gray-200 animate-fade-in-down"
+                  className="text-sm italic text-gray-100 animate-fade-in-down"
                   style={{ animationDelay: "100ms" }}
                 >
                   {plant.nickname}
@@ -671,7 +671,7 @@ export default function PlantDetail() {
               )}
               <Link
                 to={`/plant/${plant.id}/coach`}
-                className="inline-block mt-2 px-3 py-1 bg-green-600 text-white text-sm rounded"
+                className="inline-block mt-2 px-3 py-1 bg-white/20 border rounded-full text-xs text-white"
               >
                 Coach
               </Link>
