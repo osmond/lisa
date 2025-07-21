@@ -71,6 +71,7 @@ test('adjusts interval based on late watering logs', () => {
   ]
   const plan = getSmartWaterPlan(plant, { date: '2025-04-10' }, logs)
   expect(plan.interval).toBe(10)
+})
 
 test('smart plan shortens interval for hot weather', () => {
   const { interval, reason } = getSmartWaterPlan('Pothos', 4, { temp: '90°F', rainfall: 0 })
