@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import { useRooms } from '../RoomContext.jsx'
@@ -24,7 +24,22 @@ export default function Onboard() {
   })
   const [water, setWater] = useState(null)
   const { plan, loading, error, generate } = useCarePlan()
+  const [carePlan, setCarePlan] = useState(null)
   const taxa = usePlantTaxon(form.name)
+
+  useEffect(() => {
+    if (plan?.text) {
+      try {
+        const parsed = JSON.parse(plan.text)
+        if (parsed && typeof parsed === 'object') setCarePlan(parsed)
+        else setCarePlan(null)
+      } catch {
+        setCarePlan(null)
+      }
+    } else {
+      setCarePlan(null)
+    }
+  }, [plan])
 
   const handleUseOutdoorHumidity = () => {
     if (forecast?.humidity !== undefined) {
@@ -58,6 +73,7 @@ export default function Onboard() {
       light: form.light,
       waterPlan: water,
       notes: plan?.text || '',
+      carePlan,
     })
     navigate('/')
   }

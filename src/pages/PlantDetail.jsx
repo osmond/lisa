@@ -396,8 +396,16 @@ export default function PlantDetail() {
                 {plant.smartWaterPlan.volume} in³ every {plant.smartWaterPlan.interval} days — {plant.smartWaterPlan.reason}
               </p>
             )}
-            {plant.notes && (
-              <pre className="whitespace-pre-wrap">{plant.notes}</pre>
+            {plant.carePlan ? (
+              <ul className="list-disc pl-4 text-sm text-gray-800 dark:text-gray-200" data-testid="care-plan-list">
+                <li>Water every {plant.carePlan.water} days</li>
+                <li>Fertilize every {plant.carePlan.fertilize} days</li>
+                <li>Light: {plant.carePlan.light}</li>
+              </ul>
+            ) : (
+              plant.notes && (
+                <pre className="whitespace-pre-wrap">{plant.notes}</pre>
+              )
             )}
           </div>
         </div>
