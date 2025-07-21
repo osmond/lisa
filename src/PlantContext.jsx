@@ -68,7 +68,7 @@ export function PlantProvider({ children }) {
         if (!p.name || !p.diameter) return p;
         const logs = (p.careLog || []).filter((l) => l.type === "Watered");
         const plan = getSmartWaterPlan(
-          { name: p.name, diameter: p.diameter },
+          { name: p.name, diameter: p.diameter, light: p.light },
           forecast,
           logs,
         );
@@ -140,7 +140,7 @@ export function PlantProvider({ children }) {
             { date: today, type: "Watered", note, tags },
           ];
           const plan = getSmartWaterPlan(
-            { name: p.name, diameter: p.diameter },
+            { name: p.name, diameter: p.diameter, light: p.light },
             weatherCtx?.forecast,
             newLog.filter((l) => l.type === "Watered"),
           );
@@ -207,7 +207,7 @@ export function PlantProvider({ children }) {
         if (p.id !== id) return p;
         const next = { ...p, ...updates };
         if (Object.prototype.hasOwnProperty.call(updates, "diameter")) {
-          next.waterPlan = getWaterPlan(next.name, updates.diameter);
+          next.waterPlan = getWaterPlan(next.name, updates.diameter, next.light);
         }
         return next;
       }),

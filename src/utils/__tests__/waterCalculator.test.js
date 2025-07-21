@@ -15,6 +15,11 @@ test('returns short interval for fern', () => {
   expect(interval).toBe(3)
 })
 
+test('light level adjusts interval', () => {
+  expect(getWaterPlan('Pothos', 4, 'Low').interval).toBe(9)
+  expect(getWaterPlan('Pothos', 4, 'Bright Direct').interval).toBe(5)
+})
+
 
 test('smart plan matches baseline without context', () => {
   const plant = { name: 'Pothos', diameter: 4 }

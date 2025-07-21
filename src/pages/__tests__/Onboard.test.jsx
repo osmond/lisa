@@ -56,9 +56,9 @@ test('generates plan and adds plant then navigates home', async () => {
 
   fireEvent.click(screen.getByRole('button', { name: /add plant/i }))
 
-  const expected = getWaterPlan('Aloe', '4')
+  const expected = getWaterPlan('Aloe', '4', 'Medium')
   expect(addPlant).toHaveBeenCalledWith(
-    expect.objectContaining({ waterPlan: expected })
+    expect.objectContaining({ waterPlan: expected, light: 'Medium' })
   )
   expect(screen.getByText('Home')).toBeInTheDocument()
 })
