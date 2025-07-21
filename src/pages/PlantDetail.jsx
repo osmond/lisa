@@ -659,18 +659,6 @@ export default function PlantDetail() {
       </div>
       <PageContainer size="xl" className="relative text-left pt-0 space-y-3">
         <Toast />
-        <div className="flex justify-between items-center px-2">
-          <p className="text-sm">
-            Pot diameter: {plant.diameter ? `${plant.diameter} in` : "N/A"}
-          </p>
-          <button
-            type="button"
-            onClick={() => setShowDiameterModal(true)}
-            className="text-green-600 text-sm"
-          >
-            Edit
-          </button>
-        </div>
 
         <div className="space-y-3">
           <DetailTabs tabs={tabs} />
