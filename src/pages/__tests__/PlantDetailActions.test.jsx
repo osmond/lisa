@@ -121,3 +121,26 @@ test('fab triggers file input click', () => {
   expect(clickSpy).toHaveBeenCalled()
   clickSpy.mockRestore()
 })
+
+test('fab menu overlay blurred with animated items', () => {
+  render(
+    <OpenAIProvider>
+      <SnackbarProvider>
+        <MenuProvider>
+          <MemoryRouter initialEntries={['/plant/1']}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </MenuProvider>
+        <Snackbar />
+      </SnackbarProvider>
+    </OpenAIProvider>
+  )
+
+  fireEvent.click(screen.getByRole('button', { name: /add to journal/i }))
+  const overlay = screen.getByRole('dialog', { name: /journal/i })
+  expect(overlay).toHaveClass('backdrop-blur-sm')
+  const animated = overlay.querySelector('.bloom-pop')
+  expect(animated).toBeInTheDocument()
+})
