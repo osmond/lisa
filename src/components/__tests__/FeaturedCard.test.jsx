@@ -24,7 +24,9 @@ test('shows featured label and care summary', () => {
       <FeaturedCard plants={plants} />
     </MemoryRouter>
   )
-  expect(screen.getByText('Featured Plant of the Day')).toBeInTheDocument()
+  const badge = screen.getByText('Featured Plant of the Day')
+  expect(badge).toBeInTheDocument()
+  expect(badge).toHaveClass('rounded-full')
   expect(screen.getByText('Aloe')).toBeInTheDocument()
   expect(screen.getByText('Last watered 3 days ago \u00B7 Needs water today')).toBeInTheDocument()
 })
