@@ -36,7 +36,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 2,
@@ -75,7 +81,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 3,
@@ -114,7 +126,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 4,
@@ -153,7 +171,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 5,
@@ -192,7 +216,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 6,
@@ -231,7 +261,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 7,
@@ -270,7 +306,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 8,
@@ -309,7 +351,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 9,
@@ -348,7 +396,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 10,
@@ -387,7 +441,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 11,
@@ -426,7 +486,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 12,
@@ -465,7 +531,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 13,
@@ -504,7 +576,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 14,
@@ -543,7 +621,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 15,
@@ -582,7 +666,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 16,
@@ -621,7 +711,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 17,
@@ -660,7 +756,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 18,
@@ -699,7 +801,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 19,
@@ -738,7 +846,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 20,
@@ -777,7 +891,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 21,
@@ -816,7 +936,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 22,
@@ -855,7 +981,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 23,
@@ -894,7 +1026,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 24,
@@ -933,7 +1071,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 25,
@@ -972,7 +1116,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 26,
@@ -1011,7 +1161,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 27,
@@ -1050,7 +1206,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 28,
@@ -1089,7 +1251,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 29,
@@ -1128,7 +1296,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 30,
@@ -1167,7 +1341,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 31,
@@ -1206,7 +1386,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 32,
@@ -1245,7 +1431,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 33,
@@ -1284,7 +1476,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 34,
@@ -1323,7 +1521,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 35,
@@ -1362,7 +1566,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 36,
@@ -1401,7 +1611,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 37,
@@ -1440,7 +1656,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 38,
@@ -1479,7 +1701,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 39,
@@ -1518,7 +1746,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 40,
@@ -1557,7 +1791,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 41,
@@ -1596,7 +1836,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 42,
@@ -1635,7 +1881,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 43,
@@ -1674,7 +1926,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 44,
@@ -1713,7 +1971,13 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   },
   {
     "id": 45,
@@ -1752,6 +2016,12 @@
     "waterPlan": {
       "volume": 0,
       "interval": 0
-    }
+    },
+    "seasons": [
+      "spring",
+      "summer",
+      "fall",
+      "winter"
+    ]
   }
 ]

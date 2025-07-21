@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import { useWeather } from '../WeatherContext.jsx'
 import { useUser } from '../UserContext.jsx'
 import { getNextWateringDate } from '../utils/watering.js'
+import getSeason from '../utils/getSeason.js'
 import {
   Sun,
   Cloud,
@@ -67,8 +68,9 @@ export default function Home() {
     soonestPlant,
   } = useMemo(() => {
     const todayIso = new Date().toISOString().slice(0, 10)
+    const season = getSeason()
 
-    return plants.reduce(
+    const result = plants.reduce(
       (acc, p) => {
         const { date: waterDate, reason } = getNextWateringDate(
           p.lastWatered,
@@ -138,6 +140,12 @@ export default function Home() {
           .map(d => new Date(d))
         if (nextDates.length) {
           const candidate = new Date(Math.min(...nextDates))
+          if (p.seasons?.includes(season)) {
+            if (!acc.soonestSeasonDate || candidate < acc.soonestSeasonDate) {
+              acc.soonestSeasonDate = candidate
+              acc.soonestSeasonPlant = p
+            }
+          }
           if (!acc.soonestDate || candidate < acc.soonestDate) {
             acc.soonestDate = candidate
             acc.soonestPlant = p
@@ -152,10 +160,18 @@ export default function Home() {
         fertilizeTasks: [],
         wateredTodayCount: 0,
         fertilizedTodayCount: 0,
+        soonestSeasonPlant: null,
+        soonestSeasonDate: null,
         soonestPlant: null,
         soonestDate: null,
       }
     )
+
+    if (result.soonestSeasonPlant) {
+      result.soonestPlant = result.soonestSeasonPlant
+      result.soonestDate = result.soonestSeasonDate
+    }
+    return result
   }, [plants, weatherData])
 
   const tasks = [...waterTasks, ...fertilizeTasks].sort(
