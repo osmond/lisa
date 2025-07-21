@@ -9,7 +9,7 @@ export default function Badge({
   size = 'base',
 }) {
   const variants = {
-    info: 'bg-sky-100 text-sky-700',
+    info: 'bg-blue-100 text-blue-700',
     urgent: 'bg-rose-50 text-rose-600',
     overdue: 'bg-rose-50 text-rose-600',
     complete: 'bg-emerald-100 text-emerald-800',

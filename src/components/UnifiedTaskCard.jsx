@@ -241,7 +241,7 @@ export default function UnifiedTaskCard({
           </div>
           <div className="flex flex-col gap-1 mt-1">
             {dueWater && (
-              <Badge colorClass="bg-sky-100 text-sky-700" size="sm" Icon={Drop}>
+              <Badge colorClass="bg-blue-100 text-blue-700" size="sm" Icon={Drop}>
                 Water
               </Badge>
             )}

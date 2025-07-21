@@ -153,7 +153,7 @@ export default function PlantCard({ plant }) {
           onMouseDown={createRipple}
           onTouchStart={createRipple}
           onClick={handleWatered}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded pointer-events-auto relative overflow-hidden flex items-center gap-1"
+          className="bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded pointer-events-auto relative overflow-hidden flex items-center gap-1"
         >
           <Drop className="w-4 h-4" aria-hidden="true" />
           Water
