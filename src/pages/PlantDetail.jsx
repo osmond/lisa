@@ -289,7 +289,7 @@ export default function PlantDetail() {
             aria-describedby="progress-hint"
             title="Progress toward next scheduled care"
           >
-            <div className="w-full max-w-xs space-y-4">
+            <div className="w-full max-w-xs flex flex-col gap-y-4">
               <CareCard
                 label="Water"
                 Icon={Drop}
@@ -301,7 +301,7 @@ export default function PlantDetail() {
                 className={
                   plant.nextFertilize
                     ? ''
-                    : 'opacity-50 bg-gray-50 dark:bg-gray-700 p-2 rounded-2xl'
+                    : 'opacity-50 bg-gray-50 dark:bg-gray-700 p-4 rounded-2xl'
                 }
               >
               <CareCard
@@ -316,7 +316,7 @@ export default function PlantDetail() {
                   <button
                     type="button"
                     onClick={handleEdit}
-                    className="mt-2 text-sm text-green-600 underline"
+                    className="mt-3 inline-block px-3 py-1.5 text-sm font-semibold text-green-700 bg-green-50 rounded-full"
                   >
                     Add Schedule
                   </button>
