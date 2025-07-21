@@ -683,7 +683,7 @@ export default function PlantDetail() {
         <Toast />
 
         <div className="space-y-3">
-          <div className="sticky top-0 z-10 backdrop-blur-sm">
+          <div className="full-bleed sticky top-0 z-10 backdrop-blur-sm">
             <DetailTabs
               tabs={tabs}
               value={activeTab}
