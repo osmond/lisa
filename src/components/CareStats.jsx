@@ -45,7 +45,7 @@ function StatBlock({
         </div>
       </div>
       <div className="flex items-center gap-1 mt-1">
-        <span className="text-[11px] font-semibold text-gray-700 font-body">
+        <span className="text-xs font-semibold text-gray-700 font-body">
           {label}
         </span>
       </div>
