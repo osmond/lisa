@@ -1,5 +1,5 @@
-import { Link, useParams, useNavigate, useLocation } from 'react-router-dom'
-import { useState, useRef, useMemo, useEffect } from 'react'
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
+import { useState, useRef, useMemo, useEffect } from "react";
 
 import {
   Drop,
@@ -10,54 +10,49 @@ import {
   SortDescending,
   Trash,
   ArrowLeft,
-
   PencilSimpleLine,
   ClockCounterClockwise,
-
   Sun,
   Leaf,
+} from "phosphor-react";
 
-} from 'phosphor-react'
+import Lightbox from "../components/Lightbox.jsx";
+import PageContainer from "../components/PageContainer.jsx";
 
-import Lightbox from '../components/Lightbox.jsx'
-import PageContainer from "../components/PageContainer.jsx"
+import { usePlants } from "../PlantContext.jsx";
+import actionIcons from "../components/ActionIcons.jsx";
+import NoteModal from "../components/NoteModal.jsx";
+import { useMenu, defaultMenu } from "../MenuContext.jsx";
+import LegendModal from "../components/LegendModal.jsx";
+import CareCard from "../components/CareCard.jsx";
+import PlantDetailFab from "../components/PlantDetailFab.jsx";
+import DetailTabs from "../components/DetailTabs.jsx";
+import BaseCard from "../components/BaseCard.jsx";
+import UnifiedTaskCard from "../components/UnifiedTaskCard.jsx";
+import InputModal from "../components/InputModal.jsx";
+import usePlantFact from "../hooks/usePlantFact.js";
 
-import { usePlants } from '../PlantContext.jsx'
-import actionIcons from '../components/ActionIcons.jsx'
-import NoteModal from '../components/NoteModal.jsx'
-import { useMenu, defaultMenu } from '../MenuContext.jsx'
-import LegendModal from '../components/LegendModal.jsx'
-import CareCard from '../components/CareCard.jsx'
-import PlantDetailFab from '../components/PlantDetailFab.jsx'
-import DetailTabs from '../components/DetailTabs.jsx'
-import BaseCard from '../components/BaseCard.jsx'
-import UnifiedTaskCard from '../components/UnifiedTaskCard.jsx'
-import InputModal from '../components/InputModal.jsx'
-import usePlantFact from '../hooks/usePlantFact.js'
+import useToast from "../hooks/useToast.jsx";
+import confetti from "canvas-confetti";
 
-import useToast from "../hooks/useToast.jsx"
-import confetti from 'canvas-confetti'
+import { formatMonth, formatDate, daysUntil } from "../utils/date.js";
+import { formatDaysAgo, formatTimeOfDay } from "../utils/dateFormat.js";
+import { getWateringProgress } from "../utils/watering.js";
 
-import { formatMonth, formatDate, daysUntil } from '../utils/date.js'
-import { formatDaysAgo, formatTimeOfDay } from '../utils/dateFormat.js'
-import { getWateringProgress } from '../utils/watering.js'
-
-import { buildEvents, groupEventsByMonth } from '../utils/events.js'
-import { getSmartWaterPlan } from '../utils/waterCalculator.js'
-import { useWeather } from '../WeatherContext.jsx'
+import { buildEvents, groupEventsByMonth } from "../utils/events.js";
+import { useWeather } from "../WeatherContext.jsx";
 
 const bulletColors = {
-  water: 'bg-blue-500',
-  fertilize: 'bg-yellow-500',
-  note: 'bg-gray-400',
-  log: 'bg-green-500',
-  advanced: 'bg-purple-500',
-  noteText: 'bg-gray-400',
-}
-
+  water: "bg-blue-500",
+  fertilize: "bg-yellow-500",
+  note: "bg-gray-400",
+  log: "bg-green-500",
+  advanced: "bg-purple-500",
+  noteText: "bg-gray-400",
+};
 
 export default function PlantDetail() {
-  const { id } = useParams()
+  const { id } = useParams();
   const {
     plants,
     addPhoto,
@@ -66,211 +61,201 @@ export default function PlantDetail() {
     markFertilized,
     logEvent,
     updatePlant,
-  } = usePlants()
-  const plant = plants.find(p => p.id === Number(id))
-  const { forecast } = useWeather() || {}
-  const { fact } = usePlantFact(plant?.name)
-  const navigate = useNavigate()
-  const location = useLocation()
-  const from = location.state?.from
-  let backLabel = 'Back'
-  if (from === '/') backLabel = 'Back to Today'
-  else if (from === '/myplants') backLabel = 'Back to All Plants'
-  else if (from === '/tasks') backLabel = 'Back to Tasks'
-  else if (from === '/timeline') backLabel = 'Back to Timeline'
-  else if (from && from.startsWith('/room/')) {
-    const name = decodeURIComponent(from.split('/')[2] || '')
-    backLabel = `Back to ${name}`
+  } = usePlants();
+  const plant = plants.find((p) => p.id === Number(id));
+  const { forecast } = useWeather() || {};
+  const { fact } = usePlantFact(plant?.name);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from;
+  let backLabel = "Back";
+  if (from === "/") backLabel = "Back to Today";
+  else if (from === "/myplants") backLabel = "Back to All Plants";
+  else if (from === "/tasks") backLabel = "Back to Tasks";
+  else if (from === "/timeline") backLabel = "Back to Timeline";
+  else if (from && from.startsWith("/room/")) {
+    const name = decodeURIComponent(from.split("/")[2] || "");
+    backLabel = `Back to ${name}`;
   }
 
-  const fileInputRef = useRef()
-  const { Toast, showToast } = useToast()
-  const [showNoteModal, setShowNoteModal] = useState(false)
-  const [lightboxIndex, setLightboxIndex] = useState(null)
-  const [showLegend, setShowLegend] = useState(false)
-  const [collapsedMonths, setCollapsedMonths] = useState({})
-  const [latestFirst, setLatestFirst] = useState(true)
-  const [offsetY, setOffsetY] = useState(0)
-  const [expandedNotes, setExpandedNotes] = useState({})
-  const [showDiameterModal, setShowDiameterModal] = useState(false)
+  const fileInputRef = useRef();
+  const { Toast, showToast } = useToast();
+  const [showNoteModal, setShowNoteModal] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [showLegend, setShowLegend] = useState(false);
+  const [collapsedMonths, setCollapsedMonths] = useState({});
+  const [latestFirst, setLatestFirst] = useState(true);
+  const [offsetY, setOffsetY] = useState(0);
+  const [expandedNotes, setExpandedNotes] = useState({});
+  const [showDiameterModal, setShowDiameterModal] = useState(false);
 
-  useEffect(() => {
-    if (!plant || !plant.diameter) return
-    const plan = getSmartWaterPlan(plant.name, plant.diameter, forecast)
-    const current = plant.smartWaterPlan || {}
-    if (
-      plan.volume !== current.volume ||
-      plan.interval !== current.interval ||
-      plan.reason !== current.reason
-    ) {
-      updatePlant(plant.id, { smartWaterPlan: plan })
-    }
-  }, [forecast, plant?.diameter])
-
-  const waterProgress = getWateringProgress(plant?.lastWatered, plant?.nextWater)
+  const waterProgress = getWateringProgress(
+    plant?.lastWatered,
+    plant?.nextWater,
+  );
   const fertProgress = getWateringProgress(
     plant?.lastFertilized,
-    plant?.nextFertilize
-  )
+    plant?.nextFertilize,
+  );
 
-  const waterDays = daysUntil(plant?.nextWater)
-  const fertDays = daysUntil(plant?.nextFertilize)
+  const waterDays = daysUntil(plant?.nextWater);
+  const fertDays = daysUntil(plant?.nextFertilize);
 
-  const getStatus = days => {
-    if (days == null) return 'Not scheduled'
-    if (days < 0) return 'Overdue'
-    if (days === 0) return 'Due Today'
-    if (days === 1) return 'Due Tomorrow'
-    return `Due in ${days} days`
-  }
+  const getStatus = (days) => {
+    if (days == null) return "Not scheduled";
+    if (days < 0) return "Overdue";
+    if (days === 0) return "Due Today";
+    if (days === 1) return "Due Tomorrow";
+    return `Due in ${days} days`;
+  };
 
-  const waterStatus = getStatus(waterDays)
-  const fertStatus = getStatus(fertDays)
+  const waterStatus = getStatus(waterDays);
+  const fertStatus = getStatus(fertDays);
 
-  const todayIso = new Date().toISOString().slice(0, 10)
-  const dueWater = plant?.nextWater && plant.nextWater <= todayIso
-  const dueFertilize = plant?.nextFertilize && plant.nextFertilize <= todayIso
+  const todayIso = new Date().toISOString().slice(0, 10);
+  const dueWater = plant?.nextWater && plant.nextWater <= todayIso;
+  const dueFertilize = plant?.nextFertilize && plant.nextFertilize <= todayIso;
   const urgent =
-    plant?.urgency === 'high' ||
+    plant?.urgency === "high" ||
     (dueWater && plant.nextWater === todayIso) ||
-    (dueFertilize && plant.nextFertilize === todayIso)
+    (dueFertilize && plant.nextFertilize === todayIso);
   const overdue =
     (dueWater && plant.nextWater < todayIso) ||
-    (dueFertilize && plant.nextFertilize < todayIso)
+    (dueFertilize && plant.nextFertilize < todayIso);
   const lastCared = [plant?.lastWatered, plant?.lastFertilized]
     .filter(Boolean)
-    .sort((a, b) => new Date(b) - new Date(a))[0]
+    .sort((a, b) => new Date(b) - new Date(a))[0];
 
-
-  const events = useMemo(() => buildEvents(plant), [plant])
+  const events = useMemo(() => buildEvents(plant), [plant]);
   const groupedEvents = useMemo(() => {
-    const grouped = groupEventsByMonth(events)
+    const grouped = groupEventsByMonth(events);
     if (latestFirst) {
       return grouped
         .map(([month, list]) => [month, [...list].reverse()])
-        .reverse()
+        .reverse();
     }
-    return grouped
-  }, [events, latestFirst])
+    return grouped;
+  }, [events, latestFirst]);
 
   useEffect(() => {
-    const handleScroll = () => setOffsetY(window.scrollY * -0.2)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    const handleScroll = () => setOffsetY(window.scrollY * -0.2);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-
-  const handleFiles = e => {
-    const files = Array.from(e.target.files || [])
-    files.forEach(file => {
-      const reader = new FileReader()
-      reader.onload = ev =>
-        addPhoto(plant.id, { src: ev.target.result, caption: '' })
-      reader.readAsDataURL(file)
-    })
-    e.target.value = ''
-  }
-
+  const handleFiles = (e) => {
+    const files = Array.from(e.target.files || []);
+    files.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (ev) =>
+        addPhoto(plant.id, { src: ev.target.result, caption: "" });
+      reader.readAsDataURL(file);
+    });
+    e.target.value = "";
+  };
 
   const handleWatered = () => {
-    markWatered(plant.id, '')
-    showToast('Watered')
-    if (typeof HTMLCanvasElement !== 'undefined' &&
-        HTMLCanvasElement.prototype.getContext) {
+    markWatered(plant.id, "");
+    showToast("Watered");
+    if (
+      typeof HTMLCanvasElement !== "undefined" &&
+      HTMLCanvasElement.prototype.getContext
+    ) {
       try {
         confetti({
           particleCount: 100,
           spread: 70,
           origin: { y: 0.6 },
-        })
+        });
       } catch {
         // Canvas API may be missing in some environments (like jsdom)
       }
     }
-  }
+  };
 
   const handleFertilized = () => {
-    markFertilized(plant.id, '')
-    showToast('Fertilized')
-  }
+    markFertilized(plant.id, "");
+    showToast("Fertilized");
+  };
 
   const handleLogEvent = () => {
-    setShowNoteModal(true)
-  }
+    setShowNoteModal(true);
+  };
 
   const openFileInput = () => {
-    fileInputRef.current?.click()
-  }
+    fileInputRef.current?.click();
+  };
 
-  const handleSaveDiameter = value => {
-    const num = Number(value)
+  const handleSaveDiameter = (value) => {
+    const num = Number(value);
     if (num > 0) {
-      updatePlant(plant.id, { diameter: num })
+      updatePlant(plant.id, { diameter: num });
     }
-    setShowDiameterModal(false)
-  }
+    setShowDiameterModal(false);
+  };
 
   const handleEdit = () => {
-    navigate(`/plant/${plant.id}/edit`)
-  }
+    navigate(`/plant/${plant.id}/edit`);
+  };
 
   const handleRescheduleWater = () => {
-    const next = new Date(plant.nextWater || new Date())
-    next.setDate(next.getDate() + 1)
-    updatePlant(plant.id, { nextWater: next.toISOString().slice(0, 10) })
-    showToast('Rescheduled')
-  }
+    const next = new Date(plant.nextWater || new Date());
+    next.setDate(next.getDate() + 1);
+    updatePlant(plant.id, { nextWater: next.toISOString().slice(0, 10) });
+    showToast("Rescheduled");
+  };
 
   const handleDeleteWater = () => {
-    updatePlant(plant.id, { nextWater: null })
-    showToast('Deleted')
-  }
+    updatePlant(plant.id, { nextWater: null });
+    showToast("Deleted");
+  };
 
   const handleRescheduleFertilize = () => {
-    const next = new Date(plant.nextFertilize || new Date())
-    next.setDate(next.getDate() + 1)
-    updatePlant(plant.id, { nextFertilize: next.toISOString().slice(0, 10) })
-    showToast('Rescheduled')
-  }
+    const next = new Date(plant.nextFertilize || new Date());
+    next.setDate(next.getDate() + 1);
+    updatePlant(plant.id, { nextFertilize: next.toISOString().slice(0, 10) });
+    showToast("Rescheduled");
+  };
 
   const handleDeleteFertilize = () => {
-    updatePlant(plant.id, { nextFertilize: null })
-    showToast('Deleted')
-  }
-
+    updatePlant(plant.id, { nextFertilize: null });
+    showToast("Deleted");
+  };
 
   // Menu is now consistent across pages so no override here
 
   useEffect(() => {
-    const defaults = {}
+    const defaults = {};
     if (groupedEvents.length > 0) {
       groupedEvents.slice(0, -1).forEach(([key]) => {
-        defaults[key] = true
-      })
+        defaults[key] = true;
+      });
     }
-    setCollapsedMonths(defaults)
-  }, [groupedEvents])
+    setCollapsedMonths(defaults);
+  }, [groupedEvents]);
 
-
-  const saveNote = note => {
+  const saveNote = (note) => {
     if (note) {
-      logEvent(plant.id, 'Note', note)
-      showToast('Logged')
+      logEvent(plant.id, "Note", note);
+      showToast("Logged");
     }
-    setShowNoteModal(false)
-  }
+    setShowNoteModal(false);
+  };
 
   const cancelNote = () => {
-    setShowNoteModal(false)
-  }
+    setShowNoteModal(false);
+  };
 
   const tabs = [
     {
-      id: 'tasks',
-      label: 'Care',
+      id: "tasks",
+      label: "Care",
       content: (
         <div className="p-4 space-y-2">
-          <div className="flex flex-col items-center" aria-label="Care progress">
+          <div
+            className="flex flex-col items-center"
+            aria-label="Care progress"
+          >
             <div className="w-full max-w-xs space-y-3">
               <CareCard
                 label="Water"
@@ -287,56 +272,74 @@ export default function PlantDetail() {
                 onDone={handleFertilized}
               />
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-400" data-testid="progress-hint">
+            <p
+              className="text-xs text-gray-500 dark:text-gray-400"
+              data-testid="progress-hint"
+            >
               Progress toward next scheduled care
             </p>
           </div>
           {plant.smartWaterPlan && (
-            <p className="text-xs text-gray-500 dark:text-gray-400" data-testid="smart-water-plan">
-              {plant.smartWaterPlan.volume} in³ every {plant.smartWaterPlan.interval} days — {plant.smartWaterPlan.reason}
+            <p
+              className="text-xs text-gray-500 dark:text-gray-400"
+              data-testid="smart-water-plan"
+            >
+              {plant.smartWaterPlan.volume} in³ every{" "}
+              {plant.smartWaterPlan.interval} days —{" "}
+              {plant.smartWaterPlan.reason}
             </p>
           )}
         </div>
       ),
     },
     {
-      id: 'activity',
-      label: 'Activity',
+      id: "activity",
+      label: "Activity",
       content: (
         <div className="space-y-4 p-4">
           <div className="flex justify-end gap-2">
             <button
               type="button"
-              onClick={() => setLatestFirst(l => !l)}
+              onClick={() => setLatestFirst((l) => !l)}
               className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition"
             >
               <SortDescending
-                className={`w-4 h-4 transform transition-transform ${latestFirst ? '' : 'rotate-180'}`}
+                className={`w-4 h-4 transform transition-transform ${latestFirst ? "" : "rotate-180"}`}
                 aria-hidden="true"
               />
               <span className="sr-only">
-                {latestFirst ? 'Show oldest first' : 'Show newest first'}
+                {latestFirst ? "Show oldest first" : "Show newest first"}
               </span>
             </button>
-            <button type="button" onClick={() => setShowLegend(true)} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+            <button
+              type="button"
+              onClick={() => setShowLegend(true)}
+              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+            >
               <Info className="w-4 h-4" aria-hidden="true" />
               <span className="sr-only">Legend</span>
             </button>
           </div>
           {events.length === 0 && (
             <p className="py-10 text-center text-sm text-gray-500 dark:text-gray-400">
-              No recent activity for {plant.name}. Start logging care to build a timeline.
+              No recent activity for {plant.name}. Start logging care to build a
+              timeline.
             </p>
           )}
           {groupedEvents.map(([monthKey, list]) => {
-            const isCollapsed = collapsedMonths[monthKey]
+            const isCollapsed = collapsedMonths[monthKey];
             return (
               <div key={monthKey} className="mt-6 first:mt-0">
                 <h3 className="sticky top-0 z-10 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm px-1 text-timestamp uppercase tracking-wider text-gray-300 mb-2 flex items-center">
                   <button
                     type="button"
                     aria-expanded={!isCollapsed}
-                    onClick={() => setCollapsedMonths(c => ({ ...c, [monthKey]: !isCollapsed }))}
+                    onClick={() =>
+                      setCollapsedMonths((c) => ({
+                        ...c,
+                        [monthKey]: !isCollapsed,
+                      }))
+                    }
                     className="mr-1"
                   >
                     {isCollapsed ? (
@@ -345,54 +348,72 @@ export default function PlantDetail() {
                       <CaretDown className="w-3 h-3" aria-hidden="true" />
                     )}
                     <span className="sr-only">
-                      {isCollapsed ? 'Expand month' : 'Collapse month'}
+                      {isCollapsed ? "Expand month" : "Collapse month"}
                     </span>
                   </button>
                   {formatMonth(monthKey)}
                 </h3>
                 <ul
-                  className={`${isCollapsed ? 'hidden' : ''} relative ml-3 space-y-8 pl-5 before:absolute before:inset-y-0 before:left-2 before:border-l before:border-dashed before:border-gray-300 dark:before:border-gray-600`}
+                  className={`${isCollapsed ? "hidden" : ""} relative ml-3 space-y-8 pl-5 before:absolute before:inset-y-0 before:left-2 before:border-l before:border-dashed before:border-gray-300 dark:before:border-gray-600`}
                 >
                   {list.map((e, i) => {
-                    const Icon = actionIcons[e.type]
-                    const noteKey = `${e.date}-${i}`
-                    const expanded = expandedNotes[noteKey]
+                    const Icon = actionIcons[e.type];
+                    const noteKey = `${e.date}-${i}`;
+                    const expanded = expandedNotes[noteKey];
                     return (
-                      <li key={`${e.date}-${i}`} className="relative text-xs sm:text-sm">
+                      <li
+                        key={`${e.date}-${i}`}
+                        className="relative text-xs sm:text-sm"
+                      >
                         {Icon && (
-                          <div className={`absolute -left-5 top-[0.25rem] w-4 h-4 flex items-center justify-center rounded-full ${bulletColors[e.type]} z-10`}>
-                            <Icon className="w-3 h-3 text-white" aria-hidden="true" />
+                          <div
+                            className={`absolute -left-5 top-[0.25rem] w-4 h-4 flex items-center justify-center rounded-full ${bulletColors[e.type]} z-10`}
+                          >
+                            <Icon
+                              className="w-3 h-3 text-white"
+                              aria-hidden="true"
+                            />
                           </div>
                         )}
-                        <div className={`flex items-start ${e.note ? 'bg-gray-50 dark:bg-gray-700 rounded-xl p-3 shadow-sm' : ''}`}>
+                        <div
+                          className={`flex items-start ${e.note ? "bg-gray-50 dark:bg-gray-700 rounded-xl p-3 shadow-sm" : ""}`}
+                        >
                           <div>
-                            <span className="font-medium">{formatDate(e.date)}</span> — {e.label}
+                            <span className="font-medium">
+                              {formatDate(e.date)}
+                            </span>{" "}
+                            — {e.label}
                             {e.note && (
                               <button
                                 type="button"
                                 onClick={() =>
-                                  setExpandedNotes(n => ({ ...n, [noteKey]: !expanded }))
+                                  setExpandedNotes((n) => ({
+                                    ...n,
+                                    [noteKey]: !expanded,
+                                  }))
                                 }
                                 className="block text-left text-xs font-normal text-green-800 mt-1"
                               >
-                                {expanded ? e.note : `${e.note.slice(0, 60)}${e.note.length > 60 ? '\u2026' : ''}`}
+                                {expanded
+                                  ? e.note
+                                  : `${e.note.slice(0, 60)}${e.note.length > 60 ? "\u2026" : ""}`}
                               </button>
                             )}
                           </div>
                         </div>
                       </li>
-                    )
+                    );
                   })}
                 </ul>
               </div>
-            )
+            );
           })}
         </div>
       ),
     },
     {
-      id: 'gallery',
-      label: 'Gallery',
+      id: "gallery",
+      label: "Gallery",
       content: (
         <div className="space-y-4 p-4">
           {(plant.photos || []).length > 0 && (
@@ -404,42 +425,40 @@ export default function PlantDetail() {
             </p>
           )}
           <div className="flex flex-nowrap gap-4 overflow-x-auto pb-1 sm:pb-2">
-            {(plant.photos || [])
-              .slice(0, 3)
-              .map((photo, i) => {
-                const { src, caption } = photo
-                const extra = (plant.photos || []).length - 3
-                return (
-                  <div
-                    key={i}
-                    className="relative flex flex-col items-center group transition-all ease-in-out duration-200"
+            {(plant.photos || []).slice(0, 3).map((photo, i) => {
+              const { src, caption } = photo;
+              const extra = (plant.photos || []).length - 3;
+              return (
+                <div
+                  key={i}
+                  className="relative flex flex-col items-center group transition-all ease-in-out duration-200"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setLightboxIndex(i)}
+                    className="block focus:outline-none"
                   >
-                    <button
-                      type="button"
-                      onClick={() => setLightboxIndex(i)}
-                      className="block focus:outline-none"
-                    >
-                      <img
-                        src={src}
-                        alt={caption || `${plant.name} photo ${i + 1}`}
-                        className="w-24 aspect-[4/3] object-cover rounded-2xl shadow-sm transition-transform duration-200 group-hover:scale-105"
-                      />
-                      {i === 2 && extra > 0 && (
-                        <span className="absolute inset-0 rounded-xl bg-black/50 flex items-center justify-center text-white font-semibold text-sm">
-                          +{extra}
-                        </span>
-                      )}
-                    </button>
-                    <button
-                      aria-label="Remove photo"
-                      className="absolute top-1 right-1 bg-white/70 rounded p-1 text-gray-600 hover:text-rose-700 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all ease-in-out duration-200"
-                      onClick={() => removePhoto(plant.id, i)}
-                    >
-                      <Trash className="w-3 h-3" aria-hidden="true" />
-                    </button>
-                  </div>
-                )
-              })}
+                    <img
+                      src={src}
+                      alt={caption || `${plant.name} photo ${i + 1}`}
+                      className="w-24 aspect-[4/3] object-cover rounded-2xl shadow-sm transition-transform duration-200 group-hover:scale-105"
+                    />
+                    {i === 2 && extra > 0 && (
+                      <span className="absolute inset-0 rounded-xl bg-black/50 flex items-center justify-center text-white font-semibold text-sm">
+                        +{extra}
+                      </span>
+                    )}
+                  </button>
+                  <button
+                    aria-label="Remove photo"
+                    className="absolute top-1 right-1 bg-white/70 rounded p-1 text-gray-600 hover:text-rose-700 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all ease-in-out duration-200"
+                    onClick={() => removePhoto(plant.id, i)}
+                  >
+                    <Trash className="w-3 h-3" aria-hidden="true" />
+                  </button>
+                </div>
+              );
+            })}
           </div>
           {(plant.photos || []).length > 3 && (
             <div className="flex items-center justify-between mt-2 text-xs">
@@ -474,10 +493,12 @@ export default function PlantDetail() {
         </div>
       ),
     },
-  ]
+  ];
 
   if (!plant) {
-    return <div className="text-gray-700 dark:text-gray-200">Plant not found</div>
+    return (
+      <div className="text-gray-700 dark:text-gray-200">Plant not found</div>
+    );
   }
 
   return (
@@ -514,14 +535,22 @@ export default function PlantDetail() {
           </div>
           <div className="absolute bottom-2 left-3 right-3 flex flex-col sm:flex-row justify-between text-white drop-shadow space-y-1 sm:space-y-0">
             <div className="hero-name-bg">
-              <h2 className="text-3xl font-extrabold font-headline animate-fade-in-down">{plant.name}</h2>
+              <h2 className="text-3xl font-extrabold font-headline animate-fade-in-down">
+                {plant.name}
+              </h2>
               {plant.nickname && (
-                <p className="text-sm text-gray-200 animate-fade-in-down" style={{ animationDelay: '100ms' }}>
+                <p
+                  className="text-sm text-gray-200 animate-fade-in-down"
+                  style={{ animationDelay: "100ms" }}
+                >
                   {plant.nickname}
                 </p>
               )}
               {fact && (
-                <p className="text-sm italic text-gray-100 animate-fade-in-down" style={{ animationDelay: '200ms' }}>
+                <p
+                  className="text-sm italic text-gray-100 animate-fade-in-down"
+                  style={{ animationDelay: "200ms" }}
+                >
                   {fact}
                 </p>
               )}
@@ -538,8 +567,16 @@ export default function PlantDetail() {
       <PageContainer size="xl" className="relative text-left pt-0 space-y-3">
         <Toast />
         <div className="flex justify-between items-center px-2">
-          <p className="text-sm">Pot diameter: {plant.diameter ? `${plant.diameter} in` : 'N/A'}</p>
-          <button type="button" onClick={() => setShowDiameterModal(true)} className="text-green-600 text-sm">Edit</button>
+          <p className="text-sm">
+            Pot diameter: {plant.diameter ? `${plant.diameter} in` : "N/A"}
+          </p>
+          <button
+            type="button"
+            onClick={() => setShowDiameterModal(true)}
+            className="text-green-600 text-sm"
+          >
+            Edit
+          </button>
         </div>
 
         <div className="space-y-3">
@@ -555,18 +592,16 @@ export default function PlantDetail() {
         {showNoteModal && (
           <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
         )}
-        {showLegend && (
-          <LegendModal onClose={() => setShowLegend(false)} />
-        )}
+        {showLegend && <LegendModal onClose={() => setShowLegend(false)} />}
         {showDiameterModal && (
           <InputModal
             label="Pot diameter (inches)"
-            initialValue={plant.diameter || ''}
+            initialValue={plant.diameter || ""}
             onSave={handleSaveDiameter}
             onCancel={() => setShowDiameterModal(false)}
           />
         )}
       </PageContainer>
     </>
-  )
+  );
 }
