@@ -14,11 +14,27 @@ beforeAll(() => {
 jest.useFakeTimers().setSystemTime(new Date('2025-07-10'))
 
 const plants = [
-  { id: 1, name: 'Aloe', image: 'test.jpg', lastWatered: '2025-07-07', nextWater: '2025-07-10' },
-  { id: 2, name: 'Pothos', image: 'test2.jpg', lastWatered: '2025-07-08', nextWater: '2025-07-11' },
+  {
+    id: 1,
+    name: 'Aloe',
+    image: 'test.jpg',
+    lastWatered: '2025-07-07',
+    nextWater: '2025-07-10',
+    light: 'Bright',
+    difficulty: 'Moderate',
+  },
+  {
+    id: 2,
+    name: 'Pothos',
+    image: 'test2.jpg',
+    lastWatered: '2025-07-08',
+    nextWater: '2025-07-11',
+    light: 'Low',
+    difficulty: 'Easy',
+  },
 ]
 
-test('shows featured label and care summary', () => {
+test('shows featured label and plant info', () => {
   render(
     <MemoryRouter>
       <FeaturedCard plants={plants} />
@@ -28,7 +44,7 @@ test('shows featured label and care summary', () => {
   expect(badge).toBeInTheDocument()
   expect(badge).toHaveClass('rounded-full')
   expect(screen.getByText('Aloe')).toBeInTheDocument()
-  expect(screen.getByText('Last watered 3 days ago \u00B7 Needs water today')).toBeInTheDocument()
+  expect(screen.getByText('Bright \u00B7 Moderate')).toBeInTheDocument()
 })
 
 test('swipe does not change plant', () => {

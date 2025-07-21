@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useWeather } from '../WeatherContext.jsx'
-import { formatCareSummary } from '../utils/date.js'
 import {
   Flower,
   Sun,
@@ -66,7 +65,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
   const preview =
     caredToday && !needsCareToday
       ? `${name} is all set today!`
-      : formatCareSummary(plant.lastWatered, plant.nextWater)
+      : [plant.light, plant.difficulty].filter(Boolean).join(' \u00B7 ')
   const imageSrc =
     (plant.photos && plant.photos[0]?.src) ||
     plant.image ||
