@@ -1,4 +1,5 @@
 import { Drop, Sun, PencilSimpleLine, ClockCounterClockwise, Trash, CheckCircle } from 'phosphor-react'
+import Sprout from './icons/Sprout.jsx'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import { getWateringInfo } from '../utils/watering.js'
@@ -211,17 +212,21 @@ export default function TaskCard({
       </div>
           {completed && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none task-complete-fade">
-              <svg
-                className="w-8 h-8 text-healthy-600 check-pop swipe-check fade-in"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-              </svg>
+              {task.type === 'Fertilize' ? (
+                <Sprout className="w-8 h-8 text-healthy-600 sprout-bounce swipe-check fade-in" />
+              ) : (
+                <svg
+                  className="w-8 h-8 text-healthy-600 check-pop swipe-check fade-in"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+              )}
             </div>
           )}
           {!compact && (

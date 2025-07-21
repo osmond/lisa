@@ -93,7 +93,7 @@ test('applies highlight when urgent', () => {
 })
 
 
-test('shows completed state', () => {
+test('shows completed state for watering task', () => {
   const { container } = renderWithSnackbar(
       <BaseCard variant="task">
         <TaskCard task={task} completed />
@@ -103,6 +103,16 @@ test('shows completed state', () => {
   expect(wrapper).toHaveClass('opacity-50')
   expect(wrapper).toHaveClass('bg-green-50')
   expect(container.querySelector('.check-pop')).toBeInTheDocument()
+})
+
+test('shows sprout for completed fertilize task', () => {
+  const fertTask = { ...task, type: 'Fertilize' }
+  const { container } = renderWithSnackbar(
+      <BaseCard variant="task">
+        <TaskCard task={fertTask} completed />
+      </BaseCard>
+  )
+  expect(container.querySelector('.sprout-bounce')).toBeInTheDocument()
 })
 
 test('renders badge icon', () => {
