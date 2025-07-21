@@ -308,6 +308,11 @@ body {
   @apply absolute inset-0 bg-gradient-to-t from-black/50 via-transparent;
 }
 
+/* Overlay for featured card images */
+.featured-overlay {
+  @apply absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent;
+}
+
 /* Gradient backdrop for hero text */
 .hero-name-bg {
   @apply p-2;
