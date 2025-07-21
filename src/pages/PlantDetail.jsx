@@ -24,6 +24,7 @@ import actionIcons from "../components/ActionIcons.jsx";
 import NoteModal from "../components/NoteModal.jsx";
 import { useMenu, defaultMenu } from "../MenuContext.jsx";
 import LegendModal from "../components/LegendModal.jsx";
+import CarePlanInfoModal from "../components/CarePlanInfoModal.jsx";
 import CareCard from "../components/CareCard.jsx";
 import PlantDetailFab from "../components/PlantDetailFab.jsx";
 import DetailTabs from "../components/DetailTabs.jsx";
@@ -83,6 +84,7 @@ export default function PlantDetail() {
   const [showNoteModal, setShowNoteModal] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [showLegend, setShowLegend] = useState(false);
+  const [showCarePlanInfo, setShowCarePlanInfo] = useState(false);
   const [collapsedMonths, setCollapsedMonths] = useState({});
   const [latestFirst, setLatestFirst] = useState(true);
   const [offsetY, setOffsetY] = useState(0);
@@ -315,11 +317,21 @@ export default function PlantDetail() {
       label: "Care Plan",
       content: (
         <div className="p-4 space-y-2" data-testid="care-plan-tab">
-          {(plant.waterPlan?.interval || plant.smartWaterPlan) && (
-            <h3 className="text-heading font-semibold">
-              {plant.smartWaterPlan ? "Recommended Plan" : "Custom Care Plan"}
-            </h3>
-          )}
+          <div className="flex items-center justify-between">
+            {(plant.waterPlan?.interval || plant.smartWaterPlan) && (
+              <h3 className="text-heading font-semibold">
+                {plant.smartWaterPlan ? "Recommended Plan" : "Custom Care Plan"}
+              </h3>
+            )}
+            <button
+              type="button"
+              aria-label="How care plan is generated"
+              onClick={() => setShowCarePlanInfo(true)}
+              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+            >
+              ⓘ
+            </button>
+          </div>
           <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded space-y-2">
             <p className="text-sm">
               <span className="text-gray-500 dark:text-gray-400">Pot diameter:</span>{" "}
@@ -665,6 +677,9 @@ export default function PlantDetail() {
           <NoteModal label="Note" onSave={saveNote} onCancel={cancelNote} />
         )}
         {showLegend && <LegendModal onClose={() => setShowLegend(false)} />}
+        {showCarePlanInfo && (
+          <CarePlanInfoModal onClose={() => setShowCarePlanInfo(false)} />
+        )}
         {showDiameterModal && (
           <InputModal
             label="Pot diameter (inches)"

@@ -292,3 +292,47 @@ test('care plan tab displays stored onboarding values', () => {
 
   localStorage.clear()
 })
+
+test('care plan info modal opens from button', () => {
+  localStorage.setItem(
+    'plants',
+    JSON.stringify([
+      {
+        id: 1,
+        name: 'Aloe',
+        image: 'a.jpg',
+        diameter: 4,
+        waterPlan: { volume: 10, interval: 7 },
+        photos: [],
+        careLog: [],
+      },
+    ])
+  )
+
+  render(
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={['/plant/1']}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
+  )
+
+  fireEvent.click(screen.getByRole('tab', { name: /care plan/i }))
+  const panel = screen.getByTestId('care-plan-tab')
+  const btn = within(panel).getByRole('button', {
+    name: /how care plan is generated/i,
+  })
+  fireEvent.click(btn)
+
+  expect(
+    screen.getByRole('dialog', { name: /care plan information/i })
+  ).toBeInTheDocument()
+
+  localStorage.clear()
+})
