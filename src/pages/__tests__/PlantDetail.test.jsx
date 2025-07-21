@@ -98,6 +98,26 @@ test('tasks tab displays a heading', () => {
   expect(screen.getByTestId('tasks-heading')).toHaveTextContent(/today/i)
 })
 
+test('cannot mark fertilize done when not scheduled', () => {
+  const plant = plants.find(p => p.id === 2)
+  render(
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
+  )
+
+  const buttons = screen.getAllByRole('button', { name: /mark as done/i })
+  expect(buttons).toHaveLength(1)
+})
+
 
 test('displays all sections', () => {
   const plant = plants[0]
