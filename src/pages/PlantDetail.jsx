@@ -315,23 +315,47 @@ export default function PlantDetail() {
       label: "Care Plan",
       content: (
         <div className="p-4 space-y-2" data-testid="care-plan-tab">
-          <p>
-            Pot diameter: {plant.diameter ? `${plant.diameter} in` : "N/A"}
-          </p>
-          {plant.waterPlan && (
-            <p>
-              {plant.waterPlan.volume} in³ every {plant.waterPlan.interval} days
+          {(plant.waterPlan?.interval || plant.smartWaterPlan) && (
+            <h3 className="text-heading font-semibold">
+              {plant.smartWaterPlan ? "Recommended Plan" : "Custom Care Plan"}
+            </h3>
+          )}
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded space-y-2">
+            <p className="text-sm">
+              <span className="text-gray-500 dark:text-gray-400">Pot diameter:</span>{" "}
+              <span className="text-gray-800 dark:text-gray-200">
+                {plant.diameter ? `${plant.diameter} in` : "N/A"}
+              </span>
             </p>
-          )}
-          {plant.smartWaterPlan && (
-            <p data-testid="smart-water-plan-details">
-              {plant.smartWaterPlan.volume} in³ every {plant.smartWaterPlan.interval}{" "}
-              days — {plant.smartWaterPlan.reason}
-            </p>
-          )}
-          {plant.notes && (
-            <pre className="whitespace-pre-wrap">{plant.notes}</pre>
-          )}
+            {plant.waterPlan?.interval ? (
+              <>
+                <p className="text-sm">
+                  <span className="text-gray-500 dark:text-gray-400">Water every:</span>{" "}
+                  <span className="text-gray-800 dark:text-gray-200">
+                    {plant.waterPlan.interval} days
+                  </span>
+                </p>
+                <p className="text-sm">
+                  <span className="text-gray-500 dark:text-gray-400">Amount:</span>{" "}
+                  <span className="text-gray-800 dark:text-gray-200">
+                    {plant.waterPlan.volume} in³
+                  </span>
+                </p>
+              </>
+            ) : (
+              <p className="text-sm text-gray-500 dark:text-gray-400 italic">
+                Care plan pending setup
+              </p>
+            )}
+            {plant.smartWaterPlan && (
+              <p className="text-xs text-gray-500 dark:text-gray-400" data-testid="smart-water-plan-details">
+                {plant.smartWaterPlan.volume} in³ every {plant.smartWaterPlan.interval} days — {plant.smartWaterPlan.reason}
+              </p>
+            )}
+            {plant.notes && (
+              <pre className="whitespace-pre-wrap">{plant.notes}</pre>
+            )}
+          </div>
         </div>
       ),
     },
