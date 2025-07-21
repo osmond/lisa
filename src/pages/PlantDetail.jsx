@@ -270,7 +270,12 @@ export default function PlantDetail() {
       label: 'Care',
       content: (
         <div className="p-4 space-y-2">
-          <div className="flex flex-col items-center" aria-label="Care progress">
+          <div
+            className="flex flex-col items-center"
+            aria-label="Care progress"
+            aria-describedby="progress-hint"
+            title="Progress toward next scheduled care"
+          >
             <div className="w-full max-w-xs space-y-3">
               <CareCard
                 label="Water"
@@ -287,7 +292,11 @@ export default function PlantDetail() {
                 onDone={handleFertilized}
               />
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-400" data-testid="progress-hint">
+            <p
+              id="progress-hint"
+              className="sr-only"
+              data-testid="progress-hint"
+            >
               Progress toward next scheduled care
             </p>
           </div>
