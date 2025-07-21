@@ -1,5 +1,11 @@
-import { render, screen, fireEvent, within } from '@testing-library/react'
-import { MemoryRouter, Routes, Route } from 'react-router-dom'
+import { render, screen, fireEvent, within, act } from '@testing-library/react'
+import {
+  MemoryRouter,
+  Routes,
+  Route,
+  unstable_HistoryRouter as HistoryRouter,
+} from 'react-router-dom'
+import { createMemoryHistory } from '@remix-run/router'
 import PlantDetail from '../PlantDetail.jsx'
 import plants from '../../plants.json'
 import { PlantProvider } from '../../PlantContext.jsx'
@@ -231,6 +237,36 @@ test('back button navigates to previous page', () => {
   fireEvent.click(backBtn)
 
   expect(screen.getByText(/all plants view/i)).toBeInTheDocument()
+})
+
+test('selected tab persists after navigating away and back', () => {
+  const plant = plants[0]
+  const history = createMemoryHistory({ initialEntries: [`/plant/${plant.id}`] })
+  render(
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <HistoryRouter history={history}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+              <Route path="/other" element={<div>Other</div>} />
+            </Routes>
+          </HistoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
+  )
+
+  fireEvent.click(screen.getByRole('tab', { name: /gallery/i }))
+  expect(history.location.search).toBe('?tab=gallery')
+
+  act(() => history.push('/other'))
+
+  act(() => history.go(-1))
+
+  expect(
+    screen.getByRole('tab', { name: /gallery/i })
+  ).toHaveAttribute('aria-selected', 'true')
 })
 
 test('care tab hides kebab menu for due tasks', () => {

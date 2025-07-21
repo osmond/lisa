@@ -1,4 +1,10 @@
-import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
+import {
+  Link,
+  useParams,
+  useNavigate,
+  useLocation,
+  useSearchParams,
+} from "react-router-dom";
 import { useState, useRef, useMemo, useEffect } from "react";
 
 import {
@@ -68,6 +74,14 @@ export default function PlantDetail() {
   const { fact } = usePlantFact(plant?.name);
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [activeTab, setActiveTab] = useState(() =>
+    searchParams.get("tab") || "tasks",
+  );
+  useEffect(() => {
+    const param = searchParams.get("tab");
+    setActiveTab(param || "tasks");
+  }, [searchParams]);
   const from = location.state?.from;
   let backLabel = "Back";
   if (from === "/") backLabel = "Back to Today";
@@ -249,6 +263,14 @@ export default function PlantDetail() {
 
   const cancelNote = () => {
     setShowNoteModal(false);
+  };
+
+  const handleTabChange = (id) => {
+    setActiveTab(id);
+    const params = new URLSearchParams(searchParams);
+    if (id === "tasks") params.delete("tab");
+    else params.set("tab", id);
+    setSearchParams(params, { replace: true });
   };
 
   const tabs = [
@@ -661,7 +683,13 @@ export default function PlantDetail() {
         <Toast />
 
         <div className="space-y-3">
-          <DetailTabs tabs={tabs} />
+          <div className="sticky top-0 z-10 backdrop-blur-sm">
+            <DetailTabs
+              tabs={tabs}
+              value={activeTab}
+              onChange={handleTabChange}
+            />
+          </div>
         </div>
         <PlantDetailFab
           onAddPhoto={openFileInput}
