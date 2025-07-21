@@ -28,7 +28,7 @@ export default function SimpleTaskCard({
       {(dueWater || dueFertilize) && (
         <div className="flex gap-1 ml-auto">
           {dueWater && (
-            <Badge colorClass="bg-sky-100 text-sky-700" size="sm" Icon={Drop}>
+            <Badge colorClass="bg-blue-100 text-blue-700" size="sm" Icon={Drop}>
               Water
             </Badge>
           )}

@@ -74,7 +74,7 @@ exports[`matches snapshot in dark mode 1`] = `
         class="flex flex-col gap-1 mt-1"
       >
         <span
-          class="inline-flex items-center gap-1 rounded-full font-medium shadow-sm px-2 py-0.5 text-[10px] bg-sky-100 text-sky-700"
+          class="inline-flex items-center gap-1 rounded-full font-medium shadow-sm px-2 py-0.5 text-[10px] bg-blue-100 text-blue-700"
         >
           <svg
             aria-hidden="true"
