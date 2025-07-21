@@ -538,6 +538,11 @@ export default function PlantDetail() {
               <h2 className="text-3xl font-extrabold font-headline animate-fade-in-down">
                 {plant.name}
               </h2>
+              {plant.scientificName && (
+                <p className="text-lg italic text-gray-200 animate-fade-in-down" style={{ animationDelay: '50ms' }}>
+                  {plant.scientificName}
+                </p>
+              )}
               {plant.nickname && (
                 <p
                   className="text-sm text-gray-200 animate-fade-in-down"

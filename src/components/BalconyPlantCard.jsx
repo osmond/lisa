@@ -37,6 +37,9 @@ export default function BalconyPlantCard({ plant }) {
         <h3 className="font-headline font-extrabold text-xl leading-none text-left">
           {plant.name}
         </h3>
+        {plant.scientificName && (
+          <p className="text-sm italic leading-none">{plant.scientificName}</p>
+        )}
         <p className="text-sm text-left">Last watered {formatDaysAgo(plant.lastWatered)}</p>
         {plant.lastFertilized && (
           <p className="text-sm text-left">
