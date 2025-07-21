@@ -219,17 +219,22 @@ export default function PlantCard({ plant }) {
         className={overdue ? 'ring-2 ring-yellow-300' : ''}
         imgSrc={plant.image}
         title={
-          <Link
-            to={
-              plant.room
-                ? `/room/${encodeURIComponent(plant.room)}/plant/${plant.id}`
-                : `/plant/${plant.id}`
-            }
-            state={{ from: location.pathname }}
-            className="focus:outline-none"
-          >
-            {plant.name}
-          </Link>
+          <>
+            <Link
+              to={
+                plant.room
+                  ? `/room/${encodeURIComponent(plant.room)}/plant/${plant.id}`
+                  : `/plant/${plant.id}`
+              }
+              state={{ from: location.pathname }}
+              className="focus:outline-none"
+            >
+              {plant.name}
+            </Link>
+            {plant.scientificName && (
+              <div className="text-sm italic leading-tight">{plant.scientificName}</div>
+            )}
+          </>
         }
       >
         <p className="text-sm text-green-700 font-medium font-body">Next: {plant.nextWater}</p>

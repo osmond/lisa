@@ -5,6 +5,7 @@ import { useRooms } from '../RoomContext.jsx'
 import PageContainer from "../components/PageContainer.jsx"
 import useCarePlan from '../hooks/useCarePlan.js'
 import { getWaterPlan } from '../utils/waterCalculator.js'
+import usePlantTaxon from '../hooks/usePlantTaxon.js'
 
 export default function Onboard() {
   const { addPlant } = usePlants()
@@ -12,6 +13,7 @@ export default function Onboard() {
   const navigate = useNavigate()
   const [form, setForm] = useState({
     name: '',
+    scientificName: '',
     diameter: '',
     soil: 'potting mix',
     light: 'Medium',
@@ -21,10 +23,17 @@ export default function Onboard() {
   })
   const [water, setWater] = useState(null)
   const { plan, loading, error, generate } = useCarePlan()
+  const taxa = usePlantTaxon(form.name)
 
   const handleChange = e => {
     const { name, value } = e.target
     setForm(f => ({ ...f, [name]: value }))
+  }
+
+  const handleNameChange = e => {
+    const value = e.target.value
+    const match = taxa.find(t => t.commonName.toLowerCase() === value.toLowerCase())
+    setForm(f => ({ ...f, name: value, scientificName: match ? match.scientificName : f.scientificName }))
   }
 
   const handleSubmit = e => {
@@ -36,6 +45,7 @@ export default function Onboard() {
   const handleAdd = () => {
     addPlant({
       name: form.name,
+      ...(form.scientificName && { scientificName: form.scientificName }),
       room: form.room,
       diameter: Number(form.diameter) || 0,
       waterPlan: water,
@@ -50,7 +60,12 @@ export default function Onboard() {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid gap-1">
           <label htmlFor="name" className="font-medium">Plant type</label>
-          <input id="name" name="name" type="text" value={form.name} onChange={handleChange} className="border rounded p-2" required />
+          <input id="name" name="name" type="text" list="plant-type-list" value={form.name} onChange={handleNameChange} className="border rounded p-2" required />
+          <datalist id="plant-type-list">
+            {taxa.map(t => (
+              <option key={t.id} value={t.commonName}>{t.scientificName}</option>
+            ))}
+          </datalist>
         </div>
         <div className="grid gap-1">
           <label htmlFor="diameter" className="font-medium">Pot diameter (inches)</label>

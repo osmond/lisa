@@ -62,3 +62,33 @@ test('generates plan and adds plant then navigates home', async () => {
   )
   expect(screen.getByText('Home')).toBeInTheDocument()
 })
+
+test('autocomplete fills scientific name', async () => {
+  const taxaData = { results: [ { id: 1, name: 'Aloe vera', preferred_common_name: 'Aloe' } ] }
+  const planData = { text: 'ok' }
+  global.fetch = jest.fn()
+    .mockResolvedValueOnce({ json: () => Promise.resolve(taxaData) })
+    .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(planData) })
+
+  render(
+    <MemoryRouter initialEntries={['/onboard']}>
+      <Routes>
+        <Route path="/onboard" element={<Onboard />} />
+        <Route path="/" element={<div>Home</div>} />
+      </Routes>
+    </MemoryRouter>
+  )
+
+  const nameInput = screen.getByLabelText(/plant type/i)
+  fireEvent.change(nameInput, { target: { value: 'Al' } })
+  await waitFor(() => screen.getByText('Aloe vera'))
+  fireEvent.change(nameInput, { target: { value: 'Aloe' } })
+  fireEvent.change(screen.getByLabelText(/pot diameter/i), { target: { value: '4' } })
+  fireEvent.click(screen.getByRole('button', { name: /generate care plan/i }))
+  await waitFor(() => screen.getByTestId('care-plan'))
+  fireEvent.click(screen.getByRole('button', { name: /add plant/i }))
+
+  expect(addPlant).toHaveBeenCalledWith(
+    expect.objectContaining({ scientificName: 'Aloe vera', name: 'Aloe' })
+  )
+})
