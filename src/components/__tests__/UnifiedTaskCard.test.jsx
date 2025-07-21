@@ -1,8 +1,14 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
 import { MemoryRouter, useNavigate } from 'react-router-dom'
 import UnifiedTaskCard from '../UnifiedTaskCard.jsx'
 import { usePlants } from '../../PlantContext.jsx'
 import SnackbarProvider, { Snackbar } from '../../hooks/SnackbarProvider.jsx'
+
+beforeAll(() => {
+  if (typeof PointerEvent === 'undefined') {
+    window.PointerEvent = window.MouseEvent
+  }
+})
 
 const navigateMock = jest.fn()
 const markWatered = jest.fn()
@@ -116,6 +122,21 @@ test('kebab menu exposes actions', () => {
   fireEvent.click(screen.getByRole('button', { name: /open task menu/i }))
   fireEvent.click(screen.getByRole('button', { name: /delete task/i }))
   expect(updatePlant).toHaveBeenCalledTimes(2)
+})
+
+test('shows sprout when fertilize task completed', () => {
+  const fertPlant = { ...plant, dueWater: false, dueFertilize: true }
+  const { container } = renderWithSnackbar(
+      <UnifiedTaskCard plant={fertPlant} />
+  )
+  const card = container.querySelector('[data-testid="unified-task-card"]')
+  act(() => {
+    fireEvent.pointerDown(card, { clientX: 50, buttons: 1 })
+    fireEvent.pointerMove(card, { clientX: 100, buttons: 1 })
+    fireEvent.pointerUp(card, { clientX: 100 })
+  })
+
+  expect(container.querySelector('.sprout-bounce')).toBeInTheDocument()
 })
 
 afterAll(() => {
