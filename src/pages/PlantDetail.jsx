@@ -638,7 +638,7 @@ export default function PlantDetail() {
           />
         </div>
         <div
-          className="rounded-b-xl shadow-md overflow-hidden relative"
+          className="rounded-xl shadow-md overflow-hidden relative"
           style={{ transform: `translateY(${offsetY}px)` }}
         >
           <img

@@ -476,3 +476,25 @@ test('shows care plan setup button when plan missing', () => {
     within(panel).getByRole('link', { name: /set up care plan/i })
   ).toBeInTheDocument()
 })
+
+test('hero image container uses rounded corners', () => {
+  const plant = plants[0]
+  render(
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
+  )
+
+  const img = screen.getByAltText(plant.name)
+  const hero = img.parentElement
+  expect(hero).toHaveClass('rounded-xl')
+  expect(hero).not.toHaveClass('rounded-b-xl')
+})
