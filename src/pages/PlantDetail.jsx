@@ -368,50 +368,69 @@ export default function PlantDetail() {
             </button>
           </div>
           <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded space-y-2">
-            <p className="text-sm flex items-center gap-2">
-              <Ruler className="w-4 h-4 text-gray-500" />
-              Pot diameter: {plant.diameter ? `${plant.diameter} in` : "N/A"}
-            </p>
-            {plant.waterPlan?.interval ? (
-              <>
-                <p className="text-sm flex items-center gap-2">
+            {plant.carePlan ? (
+              <ul className="space-y-1 text-sm" data-testid="care-plan-list">
+                <li className="flex items-center gap-2">
+                  <Ruler className="w-4 h-4 text-gray-500" />
+                  Pot diameter: {plant.diameter ? `${plant.diameter} in` : "N/A"}
+                </li>
+                <li className="flex items-center gap-2">
                   <Drop className="w-4 h-4 text-blue-500" />
-                  Water every: {plant.waterPlan.interval} days
-                </p>
-                <p className="text-sm flex items-center gap-2">
+                  Water every {plant.carePlan.water} days
+                </li>
+                <li className="flex items-center gap-2">
                   <Thermometer className="w-4 h-4 text-yellow-500" />
                   Amount: {plant.waterPlan.volume} in³
-                </p>
-              </>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Flower className="w-4 h-4 text-pink-500" />
+                  Fertilize every {plant.carePlan.fertilize} days
+                </li>
+                <li className="flex items-center gap-2">
+                  <Sun className="w-4 h-4 text-orange-500" />
+                  Light: {plant.carePlan.light}
+                </li>
+              </ul>
             ) : (
-              <div className="text-center space-y-2">
-                <img src="/happy-plant.svg" alt="Set up care" className="w-16 mx-auto" />
-                <p className="text-sm text-gray-500 dark:text-gray-400 italic">
-                  Care plan pending setup
+              <>
+                <p className="text-sm flex items-center gap-2">
+                  <Ruler className="w-4 h-4 text-gray-500" />
+                  Pot diameter: {plant.diameter ? `${plant.diameter} in` : "N/A"}
                 </p>
-                <Link
-                  to={`/plant/${plant.id}/edit-care-plan`}
-                  className="inline-block px-3 py-1.5 text-sm font-semibold text-white bg-green-600 rounded-full"
-                >
-                  Set Up Care Plan
-                </Link>
-              </div>
+                {plant.waterPlan?.interval ? (
+                  <>
+                    <p className="text-sm flex items-center gap-2">
+                      <Drop className="w-4 h-4 text-blue-500" />
+                      Water every: {plant.waterPlan.interval} days
+                    </p>
+                    <p className="text-sm flex items-center gap-2">
+                      <Thermometer className="w-4 h-4 text-yellow-500" />
+                      Amount: {plant.waterPlan.volume} in³
+                    </p>
+                  </>
+                ) : (
+                  <div className="text-center space-y-2">
+                    <img src="/happy-plant.svg" alt="Set up care" className="w-16 mx-auto" />
+                    <p className="text-sm text-gray-500 dark:text-gray-400 italic">
+                      Care plan pending setup
+                    </p>
+                    <Link
+                      to={`/plant/${plant.id}/edit-care-plan`}
+                      className="inline-block px-3 py-1.5 text-sm font-semibold text-white bg-green-600 rounded-full"
+                    >
+                      Set Up Care Plan
+                    </Link>
+                  </div>
+                )}
+              </>
             )}
             {plant.smartWaterPlan && (
               <p className="text-xs text-gray-500 dark:text-gray-400" data-testid="smart-water-plan-details">
                 {plant.smartWaterPlan.volume} in³ every {plant.smartWaterPlan.interval} days — {plant.smartWaterPlan.reason}
               </p>
             )}
-            {plant.carePlan ? (
-              <ul className="list-disc pl-4 text-sm text-gray-800 dark:text-gray-200" data-testid="care-plan-list">
-                <li>Water every {plant.carePlan.water} days</li>
-                <li>Fertilize every {plant.carePlan.fertilize} days</li>
-                <li>Light: {plant.carePlan.light}</li>
-              </ul>
-            ) : (
-              plant.notes && (
-                <pre className="whitespace-pre-wrap">{plant.notes}</pre>
-              )
+            {!plant.carePlan && plant.notes && (
+              <pre className="whitespace-pre-wrap">{plant.notes}</pre>
             )}
           </div>
         </div>
