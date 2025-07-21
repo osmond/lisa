@@ -120,7 +120,7 @@ test('updating diameter recalculates water plan', async () => {
       <DiameterTest />
     </PlantProvider>
   )
-  expect(screen.getByText('none')).toBeInTheDocument()
+  expect(screen.getByText('0')).toBeInTheDocument()
   fireEvent.click(screen.getByText('set'))
   await screen.findByText('74')
 })
