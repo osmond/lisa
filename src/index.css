@@ -390,14 +390,6 @@ body {
   margin-right: calc(50% - 50vw);
 }
 
-@media (min-width: 1024px) {
-  .full-bleed {
-    width: auto;
-    margin-left: 0;
-    margin-right: 0;
-  }
-}
-
 /* Animated underline used in tab components */
 .tab-underline {
   @apply absolute bottom-0 h-0.5 bg-green-600 rounded-full transition-all duration-300;
