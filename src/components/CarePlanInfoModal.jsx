@@ -11,7 +11,7 @@ export default function CarePlanInfoModal({ onClose }) {
       <div className="modal-box p-4 w-72 max-w-full">
         <h3 className="font-headline mb-2">How We Create Your Care Plan</h3>
         <p className="text-sm mb-4">
-          Suggested watering amounts use your plant type, pot size and light level
+          Suggested watering amounts use your plant name, pot size and light level
           along with weather data to fine tune the schedule.
         </p>
         <div className="flex justify-end">

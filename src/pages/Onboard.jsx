@@ -67,20 +67,20 @@ export default function Onboard() {
       <h1 className="text-heading font-bold font-headline mb-4">Guided Onboarding</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid gap-1">
-          <label htmlFor="name" className="font-medium">Plant type</label>
-          <input id="name" name="name" type="text" list="plant-type-list" value={form.name} onChange={handleNameChange} className="border rounded p-2" required />
-          <datalist id="plant-type-list">
+          <label htmlFor="name" className="font-medium" title="Enter the common or scientific name">Plant name</label>
+          <input id="name" name="name" type="text" list="plant-name-list" value={form.name} onChange={handleNameChange} className="border rounded p-2" required />
+          <datalist id="plant-name-list">
             {taxa.map(t => (
               <option key={t.id} value={t.commonName}>{t.scientificName}</option>
             ))}
           </datalist>
         </div>
         <div className="grid gap-1">
-          <label htmlFor="diameter" className="font-medium">Pot diameter (inches)</label>
+          <label htmlFor="diameter" className="font-medium" title="Size across the top of the pot">Pot diameter (inches)</label>
           <input id="diameter" name="diameter" type="number" value={form.diameter} onChange={handleChange} className="border rounded p-2" />
         </div>
         <div className="grid gap-1">
-          <label htmlFor="soil" className="font-medium">Soil type</label>
+          <label htmlFor="soil" className="font-medium" title="Choose the soil mix">Soil type</label>
           <select id="soil" name="soil" value={form.soil} onChange={handleChange} className="border rounded p-2">
             <option value="potting mix">Potting mix</option>
             <option value="cactus mix">Cactus mix</option>
@@ -88,7 +88,7 @@ export default function Onboard() {
           </select>
         </div>
         <div className="grid gap-1">
-          <label htmlFor="light" className="font-medium">Light level</label>
+          <label htmlFor="light" className="font-medium" title="Lighting at the plant's location">Light level</label>
           <select id="light" name="light" value={form.light} onChange={handleChange} className="border rounded p-2">
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
@@ -97,14 +97,14 @@ export default function Onboard() {
           </select>
         </div>
         <div className="grid gap-1">
-          <label htmlFor="room" className="font-medium">Room</label>
+          <label htmlFor="room" className="font-medium" title="Where the plant lives">Room</label>
           <input id="room" name="room" list="room-list" value={form.room} onChange={handleChange} className="border rounded p-2" />
           <datalist id="room-list">
             {rooms.map(r => <option key={r} value={r} />)}
           </datalist>
         </div>
         <div className="grid gap-1">
-          <label htmlFor="humidity" className="font-medium">Humidity (%)</label>
+          <label htmlFor="humidity" className="font-medium" title="Average humidity in the room">Humidity (%)</label>
           <div className="flex gap-2">
             <input id="humidity" name="humidity" type="number" value={form.humidity} onChange={handleChange} className="border rounded p-2 flex-grow" />
             {forecast?.humidity !== undefined && (

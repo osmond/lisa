@@ -47,7 +47,7 @@ test('generates plan and adds plant then navigates home', async () => {
     </MemoryRouter>
   )
 
-  fireEvent.change(screen.getByLabelText(/plant type/i), {
+  fireEvent.change(screen.getByLabelText(/plant name/i), {
     target: { value: 'Aloe' },
   })
   fireEvent.change(screen.getByLabelText(/pot diameter/i), {
@@ -83,7 +83,7 @@ test('autocomplete fills scientific name', async () => {
     </MemoryRouter>
   )
 
-  const nameInput = screen.getByLabelText(/plant type/i)
+  const nameInput = screen.getByLabelText(/plant name/i)
   fireEvent.change(nameInput, { target: { value: 'Al' } })
   await waitFor(() => screen.getByText('Aloe vera'))
   fireEvent.change(nameInput, { target: { value: 'Aloe' } })
