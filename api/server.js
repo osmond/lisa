@@ -46,12 +46,12 @@ app.post('/api/care-plan', async (req, res) => {
     return
   }
 
-  const { name, soil, light, humidity, experience } = req.body || {}
+  const { name, soil, light, humidity } = req.body || {}
   const messages = [
     { role: 'system', content: 'You are a plant care assistant. Respond in JSON.' },
     {
       role: 'user',
-      content: `Plant: ${name}\nLight: ${light}\nSoil: ${soil}\nHumidity: ${humidity}\nExperience: ${experience}\nGive watering interval in days, fertilizing interval in days, and short light description. Respond with JSON {"water":<days>,"fertilize":<days>,"light":"label"}.`,
+      content: `Plant: ${name}\nLight: ${light}\nSoil: ${soil}\nHumidity: ${humidity}\nGive watering interval in days, fertilizing interval in days, and short light description. Respond with JSON {"water":<days>,"fertilize":<days>,"light":"label"}.`,
     },
   ]
 
