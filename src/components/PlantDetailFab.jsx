@@ -131,7 +131,7 @@ export default function PlantDetailFab({
         title="Add to Journal"
         aria-expanded={open}
         aria-haspopup="menu"
-        className={`absolute bottom-2 right-4 z-30 drop-shadow-md bg-accent text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition-transform ${open ? 'ring-pulse' : ''}`}
+        className={`absolute bottom-4 right-4 sm:bottom-6 z-30 drop-shadow-md bg-accent text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition-transform ${open ? 'ring-pulse' : ''}`}
       >
         <Plus className={`w-6 h-6 transition-transform ${open ? 'rotate-45' : ''}`} aria-hidden="true" />
       </button>
