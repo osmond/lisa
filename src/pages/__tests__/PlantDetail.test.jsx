@@ -453,3 +453,26 @@ test('renders carePlan values in list', () => {
 
   localStorage.clear()
 })
+
+test('shows care plan setup button when plan missing', () => {
+  const plant = plants[0]
+  render(
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={[`/plant/${plant.id}`]}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
+  )
+
+  fireEvent.click(screen.getByRole('tab', { name: /care plan/i }))
+  const panel = screen.getByTestId('care-plan-tab')
+  expect(
+    within(panel).getByRole('link', { name: /set up care plan/i })
+  ).toBeInTheDocument()
+})

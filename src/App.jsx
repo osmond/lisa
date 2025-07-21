@@ -13,6 +13,7 @@ import Timeline from './pages/Timeline'
 import Gallery from './pages/Gallery.jsx'
 import Coach from './pages/Coach.jsx'
 import Onboard from './pages/Onboard.jsx'
+import EditCarePlan from './pages/EditCarePlan.jsx'
 
 import PersistentBottomNav from './components/PersistentBottomNav.jsx'
 
@@ -59,6 +60,7 @@ export default function App() {
             <Route path="/plant/:id" element={<PageTransition><PlantDetail /></PageTransition>} />
             <Route path="/plant/:id/coach" element={<PageTransition><Coach /></PageTransition>} />
             <Route path="/plant/:id/edit" element={<EditPlant />} />
+            <Route path="/plant/:id/edit-care-plan" element={<EditCarePlan />} />
             <Route path="*" element={<NotFound />} />
 
           </Routes>

@@ -1,0 +1,67 @@
+import { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import PageContainer from '../components/PageContainer.jsx'
+import { usePlants } from '../PlantContext.jsx'
+
+export default function EditCarePlan() {
+  const { id } = useParams()
+  const { plants, updatePlant } = usePlants()
+  const navigate = useNavigate()
+
+  const plant = plants.find(p => p.id === Number(id))
+  const [waterInterval, setWaterInterval] = useState(plant?.waterPlan?.interval || '')
+  const [waterVolume, setWaterVolume] = useState(plant?.waterPlan?.volume || '')
+  const [fertilizeInterval, setFertilizeInterval] = useState(plant?.carePlan?.fertilize || '')
+
+  if (!plant) {
+    return <div className="text-gray-700">Plant not found</div>
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    updatePlant(plant.id, {
+      waterPlan: { volume: Number(waterVolume) || 0, interval: Number(waterInterval) || 0 },
+      carePlan: { ...(plant.carePlan || {}), water: Number(waterInterval) || 0, fertilize: Number(fertilizeInterval) || 0 },
+    })
+    navigate(`/plant/${plant.id}`)
+  }
+
+  return (
+    <PageContainer size="md">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <h1 className="text-heading font-bold font-headline">Edit Care Plan</h1>
+        <div className="grid gap-1">
+          <label htmlFor="waterInterval" className="font-medium">Water interval (days)</label>
+          <input
+            id="waterInterval"
+            type="number"
+            value={waterInterval}
+            onChange={e => setWaterInterval(e.target.value)}
+            className="border rounded p-2"
+          />
+        </div>
+        <div className="grid gap-1">
+          <label htmlFor="waterVolume" className="font-medium">Water amount (in³)</label>
+          <input
+            id="waterVolume"
+            type="number"
+            value={waterVolume}
+            onChange={e => setWaterVolume(e.target.value)}
+            className="border rounded p-2"
+          />
+        </div>
+        <div className="grid gap-1">
+          <label htmlFor="fertilizeInterval" className="font-medium">Fertilize interval (days)</label>
+          <input
+            id="fertilizeInterval"
+            type="number"
+            value={fertilizeInterval}
+            onChange={e => setFertilizeInterval(e.target.value)}
+            className="border rounded p-2"
+          />
+        </div>
+        <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">Save</button>
+      </form>
+    </PageContainer>
+  )
+}
