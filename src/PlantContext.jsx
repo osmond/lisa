@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import initialPlants from './plants.json'
 import { useWeather } from './WeatherContext.jsx'
 import { getNextWateringDate } from './utils/watering.js'
+import { getWaterPlan } from './utils/waterCalculator.js'
 import autoTag from './utils/autoTag.js'
 
 const PlantContext = createContext()
@@ -30,6 +31,8 @@ export function PlantProvider({ children }) {
       image: addBase(p.image),
       photos: (p.photos || p.gallery || []).map(mapPhoto),
       careLog: (p.careLog || []).map(ev => ({ ...ev, tags: ev.tags || [] })),
+      diameter: p.diameter || 0,
+      smartWaterPlan: p.smartWaterPlan || null,
     })
 
     if (typeof localStorage !== 'undefined') {
@@ -143,15 +146,33 @@ export function PlantProvider({ children }) {
   const addPlant = plant => {
     setPlants(prev => {
       const nextId = prev.reduce((m, p) => Math.max(m, p.id), 0) + 1
+      const waterPlan = plant.diameter
+        ? getWaterPlan(plant.name, plant.diameter)
+        : undefined
       return [
         ...prev,
-        { id: nextId, ...plant, photos: [], careLog: [] },
+        {
+          id: nextId,
+          ...plant,
+          ...(waterPlan && { waterPlan }),
+          photos: [],
+          careLog: [],
+        },
       ]
     })
   }
 
   const updatePlant = (id, updates) => {
-    setPlants(prev => prev.map(p => (p.id === id ? { ...p, ...updates } : p)))
+    setPlants(prev =>
+      prev.map(p => {
+        if (p.id !== id) return p
+        const next = { ...p, ...updates }
+        if (Object.prototype.hasOwnProperty.call(updates, 'diameter')) {
+          next.waterPlan = getWaterPlan(next.name, updates.diameter)
+        }
+        return next
+      })
+    )
   }
 
   const removePlant = id => {

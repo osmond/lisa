@@ -32,6 +32,7 @@ import PlantDetailFab from '../components/PlantDetailFab.jsx'
 import DetailTabs from '../components/DetailTabs.jsx'
 import BaseCard from '../components/BaseCard.jsx'
 import UnifiedTaskCard from '../components/UnifiedTaskCard.jsx'
+import InputModal from '../components/InputModal.jsx'
 import usePlantFact from '../hooks/usePlantFact.js'
 
 import useToast from "../hooks/useToast.jsx"
@@ -42,6 +43,8 @@ import { formatDaysAgo, formatTimeOfDay } from '../utils/dateFormat.js'
 import { getWateringProgress } from '../utils/watering.js'
 
 import { buildEvents, groupEventsByMonth } from '../utils/events.js'
+import { getSmartWaterPlan } from '../utils/waterCalculator.js'
+import { useWeather } from '../WeatherContext.jsx'
 
 const bulletColors = {
   water: 'bg-blue-500',
@@ -65,6 +68,7 @@ export default function PlantDetail() {
     updatePlant,
   } = usePlants()
   const plant = plants.find(p => p.id === Number(id))
+  const { forecast } = useWeather() || {}
   const { fact } = usePlantFact(plant?.name)
   const navigate = useNavigate()
   const location = useLocation()
@@ -88,6 +92,20 @@ export default function PlantDetail() {
   const [latestFirst, setLatestFirst] = useState(true)
   const [offsetY, setOffsetY] = useState(0)
   const [expandedNotes, setExpandedNotes] = useState({})
+  const [showDiameterModal, setShowDiameterModal] = useState(false)
+
+  useEffect(() => {
+    if (!plant || !plant.diameter) return
+    const plan = getSmartWaterPlan(plant.name, plant.diameter, forecast)
+    const current = plant.smartWaterPlan || {}
+    if (
+      plan.volume !== current.volume ||
+      plan.interval !== current.interval ||
+      plan.reason !== current.reason
+    ) {
+      updatePlant(plant.id, { smartWaterPlan: plan })
+    }
+  }, [forecast, plant?.diameter])
 
   const waterProgress = getWateringProgress(plant?.lastWatered, plant?.nextWater)
   const fertProgress = getWateringProgress(
@@ -184,6 +202,14 @@ export default function PlantDetail() {
     fileInputRef.current?.click()
   }
 
+  const handleSaveDiameter = value => {
+    const num = Number(value)
+    if (num > 0) {
+      updatePlant(plant.id, { diameter: num })
+    }
+    setShowDiameterModal(false)
+  }
+
   const handleEdit = () => {
     navigate(`/plant/${plant.id}/edit`)
   }
@@ -265,6 +291,11 @@ export default function PlantDetail() {
               Progress toward next scheduled care
             </p>
           </div>
+          {plant.smartWaterPlan && (
+            <p className="text-xs text-gray-500 dark:text-gray-400" data-testid="smart-water-plan">
+              {plant.smartWaterPlan.volume} in³ every {plant.smartWaterPlan.interval} days — {plant.smartWaterPlan.reason}
+            </p>
+          )}
         </div>
       ),
     },
@@ -506,6 +537,10 @@ export default function PlantDetail() {
       </div>
       <PageContainer size="xl" className="relative text-left pt-0 space-y-3">
         <Toast />
+        <div className="flex justify-between items-center px-2">
+          <p className="text-sm">Pot diameter: {plant.diameter ? `${plant.diameter} in` : 'N/A'}</p>
+          <button type="button" onClick={() => setShowDiameterModal(true)} className="text-green-600 text-sm">Edit</button>
+        </div>
 
         <div className="space-y-3">
           <DetailTabs tabs={tabs} />
@@ -522,6 +557,14 @@ export default function PlantDetail() {
         )}
         {showLegend && (
           <LegendModal onClose={() => setShowLegend(false)} />
+        )}
+        {showDiameterModal && (
+          <InputModal
+            label="Pot diameter (inches)"
+            initialValue={plant.diameter || ''}
+            onSave={handleSaveDiameter}
+            onCancel={() => setShowDiameterModal(false)}
+          />
         )}
       </PageContainer>
     </>

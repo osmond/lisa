@@ -15,6 +15,7 @@ test('returns short interval for fern', () => {
   expect(interval).toBe(3)
 })
 
+
 test('smart plan matches baseline without context', () => {
   const plant = { name: 'Pothos', diameter: 4 }
   const smart = getSmartWaterPlan(plant, { date: '2025-04-10' })
@@ -70,4 +71,16 @@ test('adjusts interval based on late watering logs', () => {
   ]
   const plan = getSmartWaterPlan(plant, { date: '2025-04-10' }, logs)
   expect(plan.interval).toBe(10)
+
+test('smart plan shortens interval for hot weather', () => {
+  const { interval, reason } = getSmartWaterPlan('Pothos', 4, { temp: '90°F', rainfall: 0 })
+  expect(interval).toBe(getWaterPlan('Pothos', 4).interval - 1)
+  expect(reason).toMatch(/hot weather/i)
+})
+
+test('smart plan extends interval when rain expected', () => {
+  const { interval, reason } = getSmartWaterPlan('Pothos', 4, { rainfall: 80 })
+  expect(interval).toBe(getWaterPlan('Pothos', 4).interval + 1)
+  expect(reason).toMatch(/rain/i)
+
 })
