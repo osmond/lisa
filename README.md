@@ -21,6 +21,7 @@ Includes:
 - Organize plants by room and create custom rooms
 - Badge indicator on the All Plants tab for overdue tasks
 - Watering and fertilizing progress overlays on plant photos
+- Sprout bounce animation when fertilize tasks are completed
 - Customizable weather location and units from the Settings page
 - Guided onboarding asks for pot diameter and auto-calculates watering volume and interval
 
