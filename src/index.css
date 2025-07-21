@@ -165,24 +165,6 @@ body {
   animation: sprout-bounce 0.6s ease-out both;
 }
 
-@keyframes sprout-grow {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.sprout-grow {
-  animation: sprout-grow 0.8s ease-out both;
-}
 
 @keyframes swipe-left-out {
   from {
