@@ -43,7 +43,7 @@ export default function Coach() {
         }}
         placeholder="Type your plant question"
       />
-      <div className="flex gap-2 overflow-x-auto mb-2">
+      <div className="flex flex-col gap-2 mb-2">
         {sampleQuestions.map((q) => (
           <button
             key={q}
