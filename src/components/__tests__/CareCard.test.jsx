@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import { Drop } from 'phosphor-react'
+import { Drop, Sun } from 'phosphor-react'
 import CareCard from '../CareCard.jsx'
 
 test('renders label, status and progress width', () => {
@@ -21,5 +21,16 @@ test('calls handler when done', () => {
   jest.runAllTimers()
 
   expect(onDone).toHaveBeenCalled()
+  jest.useRealTimers()
+})
+
+test('shows sprout icon for fertilize card when completed', () => {
+  jest.useFakeTimers()
+  const { container } = render(
+    <CareCard label="Fertilize" Icon={Sun} progress={0} status="Today" onDone={() => {}} />
+  )
+  fireEvent.click(screen.getByRole('button', { name: /mark as done/i }))
+  expect(container.querySelector('.sprout-bounce')).toBeInTheDocument()
+  jest.runAllTimers()
   jest.useRealTimers()
 })
