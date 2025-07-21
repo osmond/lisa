@@ -22,8 +22,10 @@ import {
 } from 'phosphor-react'
 import CareStats from '../components/CareStats.jsx'
 import FeaturedCard from '../components/FeaturedCard.jsx'
+import DiscoveryCard from '../components/DiscoveryCard.jsx'
 import Card from '../components/Card.jsx'
 import useHappyPlant from '../hooks/useHappyPlant.js'
+import useDiscoverablePlant from '../hooks/useDiscoverablePlant.js'
 
 
 
@@ -40,6 +42,7 @@ export default function Home() {
     return true
   })
   const happyPlant = useHappyPlant()
+  const { plant: discoverPlant } = useDiscoverablePlant()
 
 
   const weatherCtx = useWeather()
@@ -285,6 +288,12 @@ export default function Home() {
           </motion.section>
         )}
       </AnimatePresence>
+    )}
+    {discoverPlant && (
+      <section className="mb-4">
+        <h2 className="sr-only">Discover a New Plant</h2>
+        <DiscoveryCard plant={discoverPlant} />
+      </section>
     )}
     <CareStats
       waterCompleted={wateredTodayCount}
