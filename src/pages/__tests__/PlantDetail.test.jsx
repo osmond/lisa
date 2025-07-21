@@ -96,7 +96,8 @@ test('displays all sections', () => {
     </OpenAIProvider>
   )
 
-  expect(screen.getByRole('tab', { name: /care/i })).toBeInTheDocument()
+  expect(screen.getByRole('tab', { name: /tasks/i })).toBeInTheDocument()
+  expect(screen.getByRole('tab', { name: /care plan/i })).toBeInTheDocument()
   expect(screen.getByRole('tab', { name: /activity/i })).toBeInTheDocument()
   expect(screen.getByRole('tab', { name: /gallery/i })).toBeInTheDocument()
   expect(screen.queryByRole('tab', { name: /overview/i })).toBeNull()
@@ -235,4 +236,51 @@ test('care tab hides kebab menu for due tasks', () => {
 
   expect(screen.queryByRole('button', { name: /open task menu/i })).toBeNull()
   jest.useRealTimers()
+})
+
+test('care plan tab displays stored onboarding values', () => {
+  localStorage.setItem(
+    'plants',
+    JSON.stringify([
+      {
+        id: 1,
+        name: 'Aloe',
+        image: 'a.jpg',
+        diameter: 4,
+        waterPlan: { volume: 10, interval: 7 },
+        smartWaterPlan: { volume: 12, interval: 5, reason: 'test reason' },
+        notes: 'keep soil moist',
+        photos: [],
+        careLog: [],
+      },
+    ])
+  )
+
+  render(
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={['/plant/1']}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
+  )
+
+  fireEvent.click(screen.getByRole('tab', { name: /care plan/i }))
+
+  const panel = screen.getByTestId('care-plan-tab')
+  expect(within(panel).getByText(/pot diameter/i)).toHaveTextContent('4 in')
+  expect(
+    within(panel).getByText('10 in³ every 7 days')
+  ).toBeInTheDocument()
+  expect(
+    within(panel).getByTestId('smart-water-plan-details')
+  ).toHaveTextContent('12 in³ every 5 days — test reason')
+  expect(within(panel).getByText('keep soil moist')).toBeInTheDocument()
+
+  localStorage.clear()
 })
