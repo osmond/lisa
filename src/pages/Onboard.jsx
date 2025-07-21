@@ -118,16 +118,20 @@ export default function Onboard() {
 
       {loading && <p className="mt-4">Loading...</p>}
       {error && <p role="alert" className="text-red-600 mt-4">{error}</p>}
-      {plan && (
+      {plan && water ? (
         <div className="mt-6 space-y-4" data-testid="care-plan">
           <pre className="whitespace-pre-wrap p-4 bg-green-50 rounded">{plan.text}</pre>
-          {water && (
-            <p className="font-medium" data-testid="water-plan">
-              Suggested water: {water.volume} in³ every {water.interval} days
-            </p>
-          )}
+          <p className="font-medium" data-testid="water-plan">
+            Suggested water: {water.volume} in³ every {water.interval} days
+          </p>
           <button className="px-4 py-2 bg-green-600 text-white rounded" onClick={handleAdd}>Add Plant</button>
         </div>
+      ) : (
+        !loading && (
+          <p className="mt-6 text-sm text-gray-500 dark:text-gray-400" data-testid="care-plan-pending">
+            Not yet configured.
+          </p>
+        )
       )}
     </PageContainer>
   )
