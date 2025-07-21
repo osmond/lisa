@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import { usePlants } from "../PlantContext.jsx";
 import usePlantCoach from "../hooks/usePlantCoach.js";
 import PageContainer from "../components/PageContainer.jsx";
@@ -12,11 +13,19 @@ export default function Coach() {
 
   const [question, setQuestion] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [history, setHistory] = useState([]);
 
   const { answer, loading, error } = usePlantCoach(
     submitted ? question : "",
     plant,
   );
+
+  useEffect(() => {
+    if (submitted && answer) {
+      setHistory((h) => [...h, { q: question, a: answer }]);
+      setSubmitted(false);
+    }
+  }, [answer, submitted, question]);
 
   const sampleQuestions = generateSampleQuestions(plant);
 
@@ -34,11 +43,21 @@ export default function Coach() {
         }}
         placeholder="Type your plant question"
       />
-      <ul className="text-sm italic text-gray-600 mb-2 space-y-1">
+      <div className="flex gap-2 overflow-x-auto mb-2">
         {sampleQuestions.map((q) => (
-          <li key={q}>“{q}”</li>
+          <button
+            key={q}
+            type="button"
+            className="px-2 py-1 text-sm bg-gray-200 dark:bg-gray-600 rounded-full whitespace-nowrap"
+            onClick={() => {
+              setQuestion(q);
+              setSubmitted(false);
+            }}
+          >
+            {q}
+          </button>
         ))}
-      </ul>
+      </div>
       <button
         className="px-4 py-1 bg-green-600 text-white rounded"
         onClick={ask}
@@ -47,7 +66,15 @@ export default function Coach() {
         Ask
       </button>
       {loading && <p>Loading...</p>}
-      {answer && <p className="mt-4 whitespace-pre-wrap">{answer}</p>}
+      {history.map(({ q, a }, i) => (
+        <div key={i} className="mt-2">
+          <div className="chat-bubble user mb-1">{q}</div>
+          <div className="chat-bubble bot whitespace-pre-wrap">{a}</div>
+        </div>
+      ))}
+      {answer && (
+        <div className="mt-2 chat-bubble bot whitespace-pre-wrap">{answer}</div>
+      )}
       {error && (
         <p role="alert" className="text-red-600">
           {error}
