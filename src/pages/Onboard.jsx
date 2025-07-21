@@ -21,7 +21,6 @@ export default function Onboard() {
     light: 'Medium',
     room: '',
     humidity: '',
-    experience: 'Beginner',
   })
   const [water, setWater] = useState(null)
   const { plan, loading, error, generate } = useCarePlan()
@@ -112,14 +111,7 @@ export default function Onboard() {
             )}
           </div>
         </div>
-        <div className="grid gap-1">
-          <label htmlFor="experience" className="font-medium">Experience</label>
-          <select id="experience" name="experience" value={form.experience} onChange={handleChange} className="border rounded p-2">
-            <option>Beginner</option>
-            <option>Intermediate</option>
-            <option>Expert</option>
-          </select>
-        </div>
+        
         <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded" disabled={loading}>Generate Care Plan</button>
       </form>
 
