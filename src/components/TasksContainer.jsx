@@ -10,7 +10,7 @@ export default function TasksContainer({ visibleTasks = [], happyPlant }) {
       className="mt-4 border-t border-neutral-200 dark:border-gray-600 p-4"
     >
       <section className="space-y-2">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-3">
           <h2 className="font-semibold font-headline">Today’s Tasks</h2>
         </div>
         <div className="space-y-2">
