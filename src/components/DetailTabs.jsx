@@ -32,7 +32,7 @@ export default function DetailTabs({ tabs = [], value, onChange, className = '' 
         <div
           role="tablist"
           ref={containerRef}
-          className="flex justify-center gap-2 px-4 pt-2"
+          className="flex justify-center gap-2 px-4 pt-4"
         >
           {tabs.map(tab => {
             const isActive = active === tab.id
@@ -58,7 +58,7 @@ export default function DetailTabs({ tabs = [], value, onChange, className = '' 
           />
         </div>
       </div>
-      <div className="px-4 pb-4 pt-2 animate-fade-in-up">{activeTab?.content}</div>
+      <div className="p-4 animate-fade-in-up">{activeTab?.content}</div>
     </div>
   )
 }
