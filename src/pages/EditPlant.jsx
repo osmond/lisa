@@ -13,6 +13,8 @@ export default function EditPlant() {
   const [image, setImage] = useState('')
   const [lastWatered, setLastWatered] = useState('')
   const [nextWater, setNextWater] = useState('')
+  const [lastFertilized, setLastFertilized] = useState('')
+  const [nextFertilize, setNextFertilize] = useState('')
   const nameInputRef = useRef(null)
 
   useEffect(() => {
@@ -35,6 +37,8 @@ export default function EditPlant() {
       setImage(plant.image || '')
       setLastWatered(plant.lastWatered || '')
       setNextWater(plant.nextWater || '')
+      setLastFertilized(plant.lastFertilized || '')
+      setNextFertilize(plant.nextFertilize || '')
     }
   }, [plant])
 
@@ -44,7 +48,14 @@ export default function EditPlant() {
 
   const handleSubmit = e => {
     e.preventDefault()
-    updatePlant(plant.id, { name, image, lastWatered, nextWater })
+    updatePlant(plant.id, {
+      name,
+      image,
+      lastWatered,
+      nextWater,
+      lastFertilized,
+      nextFertilize,
+    })
     navigate(`/plant/${plant.id}`)
   }
 
@@ -108,6 +119,26 @@ export default function EditPlant() {
           type="date"
           value={nextWater}
           onChange={e => setNextWater(e.target.value)}
+          className="border rounded p-2"
+        />
+      </div>
+      <div className="grid gap-1">
+        <label htmlFor="lastFertilized" className="font-medium">Last Fertilized</label>
+        <input
+          id="lastFertilized"
+          type="date"
+          value={lastFertilized}
+          onChange={e => setLastFertilized(e.target.value)}
+          className="border rounded p-2"
+        />
+      </div>
+      <div className="grid gap-1">
+        <label htmlFor="nextFertilize" className="font-medium">Next Fertilizing</label>
+        <input
+          id="nextFertilize"
+          type="date"
+          value={nextFertilize}
+          onChange={e => setNextFertilize(e.target.value)}
           className="border rounded p-2"
         />
       </div>

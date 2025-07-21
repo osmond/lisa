@@ -38,6 +38,8 @@ const initialState = {
   image: '',
   lastWatered: '',
   nextWater: '',
+  lastFertilized: '',
+  nextFertilize: '',
   room: '',
   notes: '',
   careLevel: '',
@@ -53,6 +55,10 @@ function reducer(state, action) {
       return { ...state, lastWatered: action.payload }
     case 'SET_NEXT':
       return { ...state, nextWater: action.payload }
+    case 'SET_LAST_FERT':
+      return { ...state, lastFertilized: action.payload }
+    case 'SET_NEXT_FERT':
+      return { ...state, nextFertilize: action.payload }
     case 'SET_ROOM':
       return { ...state, room: action.payload }
     case 'SET_NOTES':
@@ -83,6 +89,8 @@ export default function Add() {
       image: imagePath,
       lastWatered: state.lastWatered,
       nextWater: state.nextWater,
+      lastFertilized: state.lastFertilized,
+      nextFertilize: state.nextFertilize,
       ...(state.room && { room: state.room }),
       ...(state.notes && { notes: state.notes }),
       ...(state.careLevel && { careLevel: state.careLevel }),
@@ -113,6 +121,8 @@ export default function Add() {
         <ScheduleStep
           lastWatered={state.lastWatered}
           nextWater={state.nextWater}
+          lastFertilized={state.lastFertilized}
+          nextFertilize={state.nextFertilize}
           dispatch={dispatch}
           onBack={back}
           onSubmit={next}

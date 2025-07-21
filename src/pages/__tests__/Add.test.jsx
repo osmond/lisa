@@ -56,6 +56,8 @@ test('user can complete steps and add a plant', () => {
   // step 3
   expect(screen.getByText(/step 3 of 4/i)).toBeInTheDocument()
   expect(screen.getByLabelText(/last watered/i)).toBeInTheDocument()
+  expect(screen.getByLabelText(/last fertilized/i)).toBeInTheDocument()
+  expect(screen.getByLabelText(/next fertilizing/i)).toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: /next/i }))
 
   // step 4
