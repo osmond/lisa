@@ -128,6 +128,17 @@ npm test
 npm install
 ```
 
+## Development
+
+These scripts assume **Node.js 18+** is installed.
+
+- `npm run dev` – start the Vite dev server
+- `npm run server` – launch the Express API
+- `npm run lint` – check the code with ESLint
+- `npm test` – run unit tests with Jest
+- `npm run build` – create a production build
+- `npm run preview` – preview the build locally
+
 ## Running the Dev Server
 Start the Express API in one terminal:
 ```bash
