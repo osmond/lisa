@@ -110,7 +110,7 @@ npm test
 ```
 
 ## Requirements
-- Node.js 18 or later
+- Node.js 18 or later (see `.nvmrc` for the recommended version)
 
 ## Installation
 ```bash
