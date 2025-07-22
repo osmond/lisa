@@ -11,7 +11,7 @@ export default function usePlantTaxon(query) {
       try {
         setResults(JSON.parse(cached))
         return
-      } catch (err) {
+      } catch {
         // ignore invalid cached data
       }
     }
