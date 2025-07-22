@@ -24,6 +24,9 @@ Includes:
 - Sprout bounce animation when fertilize tasks are completed
 - Customizable weather location and units from the Settings page
 - Guided onboarding asks for pot diameter and auto-calculates watering volume and interval
+- Daily discoverable plant suggestions on the Home page
+- Pet-safe badges on plant details
+- Edit care plans from `/plant/:id/edit-care-plan`
 
 ## Using the UI
 
@@ -48,6 +51,14 @@ photos, use the **View All Photos** button to open the viewer starting at the
 first image. The collapsible **Timeline** section on this page lists your
 watering, fertilizing and note history.
 Visit `/gallery` to see all of your photos in one place. This page currently only displays a placeholder unless you enhance it.
+
+## Coach Page
+
+Each plant detail screen links to a dedicated chat at `/plant/:id/coach`. Ask questions about watering, lighting or troubleshooting and get answers from the Plant Coach. This feature requires `VITE_OPENAI_API_KEY` in your `.env` file.
+
+## Care Plan Workflow
+
+When adding a plant or from `/plant/:id/edit-care-plan`, you can generate and tweak a personalized care schedule. The workflow uses OpenAI to suggest watering and fertilizing intervals, so `VITE_OPENAI_API_KEY` must be set.
 
 ## Weather Feature
 
