@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, act } from '@testing-library/react'
 import useCarePlan from '../useCarePlan.js'
 jest.mock('../../OpenAIContext.jsx', () => ({
   useOpenAI: () => ({ enabled: true }),
@@ -23,7 +23,9 @@ test('posts details to /api/care-plan', async () => {
     Promise.resolve({ ok: true, json: () => Promise.resolve({ text: 'ok' }) })
   )
   render(<Test details={{ name: 'Snake' }} />)
-  screen.getByText('go').click()
+  await act(async () => {
+    screen.getByText('go').click()
+  })
   await waitFor(() => screen.getByText('ok'))
   expect(global.fetch).toHaveBeenCalledWith(
     '/api/care-plan',
