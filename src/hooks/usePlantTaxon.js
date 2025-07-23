@@ -38,7 +38,9 @@ export default function usePlantTaxon(query) {
           }
         }
       } catch (err) {
-        console.error('Failed to load iNaturalist taxon', err)
+        if (err?.name !== 'AbortError') {
+          console.error('Failed to load iNaturalist taxon', err)
+        }
       }
     }
     fetchTaxa()

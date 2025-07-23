@@ -63,7 +63,9 @@ export default function useINatPhoto(name) {
           break
         }
       } catch (err) {
-        console.error('Failed to load iNaturalist photo', err)
+        if (err?.name !== 'AbortError') {
+          console.error('Failed to load iNaturalist photo', err)
+        }
       }
     }
     fetchPhoto()
