@@ -19,7 +19,6 @@ import {
   PencilSimpleLine,
   ClockCounterClockwise,
   Sun,
-  Robot,
   Leaf,
   Ruler,
   Thermometer,
@@ -35,6 +34,7 @@ import { useMenu, defaultMenu } from "../MenuContext.jsx";
 import LegendModal from "../components/LegendModal.jsx";
 import CarePlanInfoModal from "../components/CarePlanInfoModal.jsx";
 import CareCard from "../components/CareCard.jsx";
+import CoachCard from "../components/CoachCard.jsx";
 import PlantDetailFab from "../components/PlantDetailFab.jsx";
 import DetailTabs from "../components/DetailTabs.jsx";
 import BaseCard from "../components/BaseCard.jsx";
@@ -355,13 +355,7 @@ export default function PlantDetail() {
                   </button>
                 )}
               </div>
-              <Link
-                to={`/plant/${plant.id}/coach`}
-                className="inline-flex items-center gap-1 self-start px-3 py-1.5 text-sm font-semibold bg-green-600 hover:bg-green-700 rounded-full text-white shadow"
-              >
-                <Robot className="w-4 h-4" />
-                Coach
-              </Link>
+              <CoachCard plantId={plant.id} />
             </div>
             <span
               id="progress-hint"
