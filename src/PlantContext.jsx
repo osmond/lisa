@@ -3,6 +3,7 @@ import initialPlants from "./plants.json";
 import { useWeather } from "./WeatherContext.jsx";
 import { getNextWateringDate } from "./utils/watering.js";
 import { getWaterPlan, getSmartWaterPlan } from "./utils/waterCalculator.js";
+import { cubicInchesToMl, mlToOz } from "./utils/volume.js";
 import autoTag from "./utils/autoTag.js";
 
 const PlantContext = createContext();
@@ -25,23 +26,44 @@ const mapPhoto = (photo) => {
 
 export function PlantProvider({ children }) {
   const [plants, setPlants] = useState(() => {
-    const mapPlant = (p) => ({
-      ...p,
-      image: addBase(p.image),
-      photos: (p.photos || p.gallery || []).map(mapPhoto),
-      careLog: (p.careLog || []).map((ev) => ({ ...ev, tags: ev.tags || [] })),
-      diameter: p.diameter || 0,
-
-      petSafe: !!p.petSafe,
-
-      waterPlan: p.waterPlan || { volume: 0, interval: 0 },
-
-      carePlan: p.carePlan || null,
-
-      smartWaterPlan: p.smartWaterPlan || null,
-
-      lastEvaluated: p.lastEvaluated || null,
-    });
+    const mapPlant = (p) => {
+      const wp = p.waterPlan || { interval: 0 };
+      const ml =
+        wp.volume_ml !== undefined
+          ? wp.volume_ml
+          : cubicInchesToMl(wp.volume || 0);
+      const oz =
+        wp.volume_oz !== undefined ? wp.volume_oz : mlToOz(ml);
+      const smart = p.smartWaterPlan
+        ? {
+            ...p.smartWaterPlan,
+            volume_ml:
+              p.smartWaterPlan.volume_ml !== undefined
+                ? p.smartWaterPlan.volume_ml
+                : cubicInchesToMl(p.smartWaterPlan.volume || 0),
+            volume_oz:
+              p.smartWaterPlan.volume_oz !== undefined
+                ? p.smartWaterPlan.volume_oz
+                : mlToOz(
+                    p.smartWaterPlan.volume_ml !== undefined
+                      ? p.smartWaterPlan.volume_ml
+                      : cubicInchesToMl(p.smartWaterPlan.volume || 0),
+                  ),
+          }
+        : null;
+      return {
+        ...p,
+        image: addBase(p.image),
+        photos: (p.photos || p.gallery || []).map(mapPhoto),
+        careLog: (p.careLog || []).map((ev) => ({ ...ev, tags: ev.tags || [] })),
+        diameter: p.diameter || 0,
+        petSafe: !!p.petSafe,
+        waterPlan: { interval: wp.interval || 0, volume_ml: Math.round(ml), volume_oz: Math.round(oz) },
+        carePlan: p.carePlan || null,
+        smartWaterPlan: smart,
+        lastEvaluated: p.lastEvaluated || null,
+      };
+    };
 
     if (typeof localStorage !== "undefined") {
       const stored = localStorage.getItem("plants");
@@ -71,11 +93,18 @@ export function PlantProvider({ children }) {
       prev.map((p) => {
         if (!p.name || !p.diameter) return p;
         const logs = (p.careLog || []).filter((l) => l.type === "Watered");
-        const plan = getSmartWaterPlan(
+        const raw = getSmartWaterPlan(
           { name: p.name, diameter: p.diameter, light: p.light },
           forecast,
           logs,
         );
+        const ml = cubicInchesToMl(raw.volume);
+        const plan = {
+          interval: raw.interval,
+          reason: raw.reason,
+          volume_ml: Math.round(ml),
+          volume_oz: Math.round(mlToOz(ml)),
+        };
         return {
           ...p,
           smartWaterPlan: plan,
@@ -143,11 +172,18 @@ export function PlantProvider({ children }) {
             ...(p.careLog || []),
             { date: today, type: "Watered", note, tags },
           ];
-          const plan = getSmartWaterPlan(
+          const raw = getSmartWaterPlan(
             { name: p.name, diameter: p.diameter, light: p.light },
             weatherCtx?.forecast,
             newLog.filter((l) => l.type === "Watered"),
           );
+          const volMl = cubicInchesToMl(raw.volume);
+          const plan = {
+            interval: raw.interval,
+            reason: raw.reason,
+            volume_ml: Math.round(volMl),
+            volume_oz: Math.round(mlToOz(volMl)),
+          };
           return {
             ...p,
             careLog: newLog,
@@ -198,7 +234,7 @@ export function PlantProvider({ children }) {
         photos: [],
         careLog: [],
         diameter: 0,
-        waterPlan: { volume: 0, interval: 0 },
+        waterPlan: { interval: 0, volume_ml: 0, volume_oz: 0 },
         carePlan: null,
         ...plant,
       };
@@ -212,7 +248,13 @@ export function PlantProvider({ children }) {
         if (p.id !== id) return p;
         const next = { ...p, ...updates };
         if (Object.prototype.hasOwnProperty.call(updates, "diameter")) {
-          next.waterPlan = getWaterPlan(next.name, updates.diameter, next.light);
+          const base = getWaterPlan(next.name, updates.diameter, next.light);
+          const ml = cubicInchesToMl(base.volume);
+          next.waterPlan = {
+            interval: base.interval,
+            volume_ml: Math.round(ml),
+            volume_oz: Math.round(mlToOz(ml)),
+          };
         }
         return next;
       }),
