@@ -6,6 +6,7 @@ export default function CareCard({
   Icon,
   progress = 0,
   status,
+  detail,
   onDone,
   completed = false,
 }) {
@@ -54,6 +55,11 @@ export default function CareCard({
           style={{ width }}
         ></div>
       </div>
+      {detail && (
+        <p className="text-xs text-gray-500" data-testid="care-detail">
+          {detail}
+        </p>
+      )}
       {showComplete && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none task-complete-fade">
           {label === 'Fertilize' ? (

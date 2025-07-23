@@ -298,6 +298,13 @@ export default function PlantDetail() {
                 Icon={Drop}
                 progress={waterProgress}
                 status={waterStatus}
+                detail={
+                  plant.smartWaterPlan
+                    ? `${plant.smartWaterPlan.volume} in³ every ${plant.smartWaterPlan.interval} days — ${plant.smartWaterPlan.reason}`
+                    : plant.waterPlan?.volume > 0
+                    ? `${plant.waterPlan.volume} in³ every ${plant.waterPlan.interval} days`
+                    : undefined
+                }
                 onDone={handleWatered}
               />
               <div
