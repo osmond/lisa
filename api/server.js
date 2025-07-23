@@ -4,6 +4,8 @@ import fs from 'fs'
 
 const plantsPath = new URL('../src/plants.json', import.meta.url)
 const plants = JSON.parse(fs.readFileSync(plantsPath))
+const discoverPath = new URL('../src/discoverablePlants.json', import.meta.url)
+const discoverable = JSON.parse(fs.readFileSync(discoverPath))
 const app = express()
 app.use(express.json())
 
@@ -97,7 +99,7 @@ app.get('/api/discoverable-plants', (req, res) => {
     .split(',')
     .map(n => n.trim().toLowerCase())
     .filter(Boolean)
-  const list = plants.filter(
+  const list = discoverable.filter(
     p => !exclude.includes(p.name.toLowerCase())
   )
   res.json(list)
