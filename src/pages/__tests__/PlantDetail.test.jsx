@@ -296,6 +296,37 @@ test('back button navigates to previous page', () => {
   expect(screen.getByText(/all plants view/i)).toBeInTheDocument()
 })
 
+test('back label shows room name', () => {
+  const plant = plants[0]
+  render(
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter
+            initialEntries={[
+              '/room/Balcony',
+              {
+                pathname: `/room/Balcony/plant/${plant.id}`,
+                state: { from: '/room/Balcony' },
+              },
+            ]}
+            initialIndex={1}
+          >
+            <Routes>
+              <Route path="/room/:roomName" element={<div>Room View</div>} />
+              <Route path="/room/:roomName/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
+  )
+
+  expect(
+    screen.getByRole('button', { name: /← Balcony/i })
+  ).toBeInTheDocument()
+})
+
 test('selected tab persists after navigating away and back', () => {
   const plant = plants[0]
   const history = createMemoryHistory({ initialEntries: [`/plant/${plant.id}`] })

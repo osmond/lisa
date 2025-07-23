@@ -98,7 +98,7 @@ export default function PlantDetail() {
   else if (from === "/timeline") backLabel = "Back to Timeline";
   else if (from && from.startsWith("/room/")) {
     const name = decodeURIComponent(from.split("/")[2] || "");
-    backLabel = `Back to ${name}`;
+    backLabel = `← ${name}`;
   }
 
   const fileInputRef = useRef();
