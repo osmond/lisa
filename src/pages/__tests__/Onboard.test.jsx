@@ -107,3 +107,37 @@ test('autocomplete fills scientific name', async () => {
     expect.objectContaining({ scientificName: 'Aloe vera', name: 'Aloe' })
   )
 })
+
+test('selecting a name fetches defaults', async () => {
+  const planData = {
+    light: 'Low',
+    humidity: 60,
+    water: 5,
+    water_volume_ml: 400,
+    water_volume_oz: 13,
+  }
+  global.fetch = jest.fn(() =>
+    Promise.resolve({ ok: true, json: () => Promise.resolve(planData) })
+  )
+
+  render(
+    <MemoryRouter initialEntries={['/onboard']}>
+      <Routes>
+        <Route path="/onboard" element={<Onboard />} />
+      </Routes>
+    </MemoryRouter>
+  )
+
+  fireEvent.change(screen.getByLabelText(/pot diameter/i), {
+    target: { value: '6' },
+  })
+  fireEvent.change(screen.getByLabelText(/plant name/i), {
+    target: { value: 'Snake' },
+  })
+
+  await waitFor(() => expect(global.fetch).toHaveBeenCalled())
+  await waitFor(() =>
+    expect(screen.getByLabelText(/light level/i)).toHaveValue('Low')
+  )
+  expect(screen.getByLabelText(/humidity/i)).toHaveValue(60)
+})
