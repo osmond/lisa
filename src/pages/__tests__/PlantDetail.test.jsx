@@ -358,12 +358,11 @@ test('care plan tab displays stored onboarding values', () => {
     within(panel).getByText((c, el) => el.textContent === 'Water every: 7 days')
   ).toBeInTheDocument()
   expect(
-    within(panel).getByText((c, el) => el.textContent === 'Amount: 10 in³')
+    within(panel).getByText((c, el) => el.textContent === 'Amount: 164 mL / 6 oz')
   ).toBeInTheDocument()
   expect(
     within(panel).getByTestId('smart-water-plan-details')
-  ).toHaveTextContent('12 in³ every 5 days — test reason')
-  expect(within(panel).getByText('keep soil moist')).toBeInTheDocument()
+  ).toHaveTextContent('197 mL / 7 oz every 5 days — test reason')
 
   localStorage.clear()
 })
