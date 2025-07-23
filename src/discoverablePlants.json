@@ -1,0 +1,47 @@
+[
+  {
+    "id": 101,
+    "name": "Chinese Evergreen",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/210155110/medium.jpeg",
+    "origin": "Asia",
+    "light": "Low",
+    "humidity": "High",
+    "difficulty": "Easy"
+  },
+  {
+    "id": 102,
+    "name": "Fiddle Leaf Fig",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/120489396/medium.jpeg",
+    "origin": "West Africa",
+    "light": "Bright",
+    "humidity": "Average",
+    "difficulty": "Medium"
+  },
+  {
+    "id": 103,
+    "name": "Spider Plant",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/8212688/medium.jpg",
+    "origin": "South Africa",
+    "light": "Medium",
+    "humidity": "Average",
+    "difficulty": "Easy"
+  },
+  {
+    "id": 104,
+    "name": "English Ivy",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/185788097/medium.jpeg",
+    "origin": "Europe",
+    "light": "Low",
+    "humidity": "Average",
+    "difficulty": "Easy"
+  },
+  {
+    "id": 105,
+    "name": "Boston Fern",
+    "image": "https://inaturalist-open-data.s3.amazonaws.com/photos/34207973/medium.jpeg",
+    "origin": "South America",
+    "light": "Indirect",
+    "humidity": "High",
+    "difficulty": "Medium"
+  }
+]
