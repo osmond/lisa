@@ -49,6 +49,7 @@ import confetti from "canvas-confetti";
 import { formatMonth, formatDate, daysUntil } from "../utils/date.js";
 import { formatDaysAgo, formatTimeOfDay } from "../utils/dateFormat.js";
 import { getWateringProgress } from "../utils/watering.js";
+import { cubicInchesToMl, mlToOz } from "../utils/volume.js";
 
 import { buildEvents, groupEventsByMonth } from "../utils/events.js";
 import { useWeather } from "../WeatherContext.jsx";
@@ -132,6 +133,13 @@ export default function PlantDetail() {
 
   const waterStatus = getStatus(waterDays);
   const fertStatus = getStatus(fertDays);
+
+  const planInfo = plant?.smartWaterPlan || plant?.waterPlan;
+  const waterInfo = planInfo
+    ? `${Math.round(cubicInchesToMl(planInfo.volume))}\u00A0mL / ${Math.round(
+        mlToOz(cubicInchesToMl(planInfo.volume))
+      )}\u00A0oz every ${planInfo.interval}\u00A0days`
+    : null;
 
   const todayIso = new Date().toISOString().slice(0, 10);
   const dueWater = plant?.nextWater && plant.nextWater <= todayIso;
@@ -299,6 +307,7 @@ export default function PlantDetail() {
                 progress={waterProgress}
                 status={waterStatus}
                 onDone={handleWatered}
+                info={waterInfo}
               />
               <div
                 className={

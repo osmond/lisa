@@ -8,6 +8,7 @@ export default function CareCard({
   status,
   onDone,
   completed = false,
+  info,
 }) {
   const [internalCompleted, setInternalCompleted] = useState(false)
   const pct = Math.min(Math.max(progress, 0), 1)
@@ -26,20 +27,27 @@ export default function CareCard({
       className={`relative bg-white dark:bg-gray-700 rounded-2xl shadow p-4 space-y-2 ${internalCompleted ? 'swipe-left-out' : ''}`}
       data-testid="care-card"
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-start justify-between">
         <div className="flex items-center gap-2">
           {Icon && <Icon className="w-5 h-5" aria-hidden="true" />}
           <span className="font-semibold">{label}</span>
         </div>
-        {onDone && (
-          <button
-            type="button"
-            onClick={handleDone}
-            className="text-sm font-semibold text-white bg-green-600 hover:bg-green-700 rounded shadow px-3 py-1 transition"
-          >
-            Mark as Done
-          </button>
-        )}
+        <div className="flex flex-col items-end gap-1">
+          {info && (
+            <span className="text-xs text-gray-500" data-testid="care-info">
+              {info}
+            </span>
+          )}
+          {onDone && (
+            <button
+              type="button"
+              onClick={handleDone}
+              className="text-sm font-semibold text-white bg-green-600 hover:bg-green-700 rounded shadow px-3 py-1 transition"
+            >
+              Mark as Done
+            </button>
+          )}
+        </div>
       </div>
       {status && <p className="text-sm text-gray-500">{status}</p>}
       <div
