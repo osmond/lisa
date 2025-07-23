@@ -264,7 +264,7 @@ test('view all button opens the viewer from first image', () => {
 
 test('back button navigates to previous page', () => {
   const plant = plants[0]
-  render(
+  const { container } = render(
     <OpenAIProvider>
       <MenuProvider>
         <PlantProvider>
@@ -288,6 +288,9 @@ test('back button navigates to previous page', () => {
 
   const backBtn = screen.getByRole('button', { name: /back/i })
   expect(backBtn).toBeInTheDocument()
+  expect(backBtn).toHaveClass('backdrop-blur-sm')
+  fireEvent.mouseDown(backBtn)
+  expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
   fireEvent.click(backBtn)
 
   expect(screen.getByText(/all plants view/i)).toBeInTheDocument()
