@@ -65,10 +65,48 @@ export default function Onboard() {
     setForm(f => ({ ...f, [name]: value }))
   }
 
-  const handleNameChange = e => {
+  const handleNameChange = async e => {
     const value = e.target.value
-    const match = taxa.find(t => t.commonName.toLowerCase() === value.toLowerCase())
-    setForm(f => ({ ...f, name: value, scientificName: match ? match.scientificName : f.scientificName }))
+    const match = taxa.find(
+      t => t.commonName.toLowerCase() === value.toLowerCase()
+    )
+    setForm(f => ({
+      ...f,
+      name: value,
+      scientificName: match ? match.scientificName : f.scientificName,
+    }))
+
+    if (!value || !form.diameter || typeof fetch !== 'function') return
+
+    try {
+      const res = await fetch('/api/care-plan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: value, diameter: form.diameter }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'error')
+
+      setForm(f => ({
+        ...f,
+        ...(data.light && { light: data.light }),
+        ...(data.humidity !== undefined && { humidity: data.humidity }),
+      }))
+
+      if (
+        data.water !== undefined &&
+        data.water_volume_ml !== undefined &&
+        data.water_volume_oz !== undefined
+      ) {
+        setWater({
+          interval: data.water,
+          volume_ml: data.water_volume_ml,
+          volume_oz: data.water_volume_oz,
+        })
+      }
+    } catch (err) {
+      console.error('care plan error', err)
+    }
   }
 
   const handleSubmit = e => {
