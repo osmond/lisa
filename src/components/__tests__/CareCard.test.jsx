@@ -65,3 +65,11 @@ test('uses custom button label when provided', () => {
   )
   expect(screen.getByRole('button', { name: /water 500 ml/i })).toBeInTheDocument()
 })
+
+test('adds animation when overdue', () => {
+  render(
+    <CareCard label="Water" Icon={Drop} progress={0.1} status="Overdue" overdue />
+  )
+  const bar = screen.getByRole('progressbar').firstChild
+  expect(bar.className).toMatch(/bar-pulse/)
+})

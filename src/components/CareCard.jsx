@@ -9,8 +9,10 @@ export default function CareCard({
   onDone,
   completed = false,
   info,
+
   buttonLabel,
   infoBelow = false,
+
 }) {
   const [internalCompleted, setInternalCompleted] = useState(false)
   const pct = Math.min(Math.max(progress, 0), 1)
@@ -65,7 +67,7 @@ export default function CareCard({
         aria-valuemax="100"
       >
         <div
-          className="h-full bg-gradient-to-r from-green-500 via-orange-500 to-red-500"
+          className={`h-full bg-gradient-to-r from-green-500 via-orange-500 to-red-500 ${overdue ? 'bar-pulse' : ''}`}
           style={{ width }}
         ></div>
       </div>

@@ -161,13 +161,13 @@ export default function PlantDetail() {
   const todayIso = new Date().toISOString().slice(0, 10);
   const dueWater = plant?.nextWater && plant.nextWater <= todayIso;
   const dueFertilize = plant?.nextFertilize && plant.nextFertilize <= todayIso;
+  const waterOverdue = plant?.nextWater && plant.nextWater < todayIso;
+  const fertOverdue = plant?.nextFertilize && plant.nextFertilize < todayIso;
   const urgent =
     plant?.urgency === "high" ||
     (dueWater && plant.nextWater === todayIso) ||
     (dueFertilize && plant.nextFertilize === todayIso);
-  const overdue =
-    (dueWater && plant.nextWater < todayIso) ||
-    (dueFertilize && plant.nextFertilize < todayIso);
+  const overdue = waterOverdue || fertOverdue;
   const lastCared = [plant?.lastWatered, plant?.lastFertilized]
     .filter(Boolean)
     .sort((a, b) => new Date(b) - new Date(a))[0];
@@ -323,6 +323,7 @@ export default function PlantDetail() {
                 Icon={Drop}
                 progress={waterProgress}
                 status={waterStatus}
+                overdue={waterOverdue}
                 onDone={handleWatered}
                 buttonLabel={waterVolume ? `Water ${waterVolume}` : undefined}
                 info={waterInterval}
@@ -340,6 +341,7 @@ export default function PlantDetail() {
                   Icon={Sun}
                   progress={fertProgress}
                   status={fertStatus}
+                  overdue={fertOverdue}
                   completed={fertilizeDone}
                   onDone={plant.nextFertilize ? handleFertilized : undefined}
                 />
@@ -353,6 +355,13 @@ export default function PlantDetail() {
                   </button>
                 )}
               </div>
+              <Link
+                to={`/plant/${plant.id}/coach`}
+                className="inline-flex items-center gap-1 self-start px-3 py-1.5 text-sm font-semibold bg-green-600 hover:bg-green-700 rounded-full text-white shadow"
+              >
+                <Robot className="w-4 h-4" />
+                Coach
+              </Link>
             </div>
             <span
               id="progress-hint"
@@ -724,13 +733,6 @@ export default function PlantDetail() {
                 </p>
               )}
               <MetadataStrip plant={plant} />
-              <Link
-                to={`/plant/${plant.id}/coach`}
-                className="inline-flex items-center gap-1 mt-2 px-3 py-1.5 bg-green-600 rounded-full text-sm text-white shadow"
-              >
-                <Robot className="w-4 h-4" />
-                Coach
-              </Link>
             </div>
           </div>
         </div>
