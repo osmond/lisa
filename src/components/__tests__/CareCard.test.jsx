@@ -53,3 +53,11 @@ test('renders info text when provided', () => {
   )
   expect(screen.getByText(/200 mL/)).toBeInTheDocument()
 })
+
+test('adds animation when overdue', () => {
+  render(
+    <CareCard label="Water" Icon={Drop} progress={0.1} status="Overdue" overdue />
+  )
+  const bar = screen.getByRole('progressbar').firstChild
+  expect(bar.className).toMatch(/bar-pulse/)
+})

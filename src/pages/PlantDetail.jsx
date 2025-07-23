@@ -160,13 +160,13 @@ export default function PlantDetail() {
   const todayIso = new Date().toISOString().slice(0, 10);
   const dueWater = plant?.nextWater && plant.nextWater <= todayIso;
   const dueFertilize = plant?.nextFertilize && plant.nextFertilize <= todayIso;
+  const waterOverdue = plant?.nextWater && plant.nextWater < todayIso;
+  const fertOverdue = plant?.nextFertilize && plant.nextFertilize < todayIso;
   const urgent =
     plant?.urgency === "high" ||
     (dueWater && plant.nextWater === todayIso) ||
     (dueFertilize && plant.nextFertilize === todayIso);
-  const overdue =
-    (dueWater && plant.nextWater < todayIso) ||
-    (dueFertilize && plant.nextFertilize < todayIso);
+  const overdue = waterOverdue || fertOverdue;
   const lastCared = [plant?.lastWatered, plant?.lastFertilized]
     .filter(Boolean)
     .sort((a, b) => new Date(b) - new Date(a))[0];
@@ -322,6 +322,7 @@ export default function PlantDetail() {
                 Icon={Drop}
                 progress={waterProgress}
                 status={waterStatus}
+                overdue={waterOverdue}
                 onDone={handleWatered}
                 info={waterInfo}
               />
@@ -337,6 +338,7 @@ export default function PlantDetail() {
                   Icon={Sun}
                   progress={fertProgress}
                   status={fertStatus}
+                  overdue={fertOverdue}
                   completed={fertilizeDone}
                   onDone={plant.nextFertilize ? handleFertilized : undefined}
                 />

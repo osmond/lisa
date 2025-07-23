@@ -259,6 +259,19 @@ body {
   animation: drip-pulse 0.4s ease-out;
 }
 
+@keyframes bar-pulse {
+  0%, 100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.05);
+  }
+}
+
+.bar-pulse {
+  animation: bar-pulse 1s ease-in-out infinite;
+}
+
 @keyframes task-complete-fade {
   from {
     background-color: rgba(74, 222, 128, 0.4);
