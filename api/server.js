@@ -3,7 +3,8 @@ import express from 'express'
 import fs from 'fs'
 
 const plantsPath = new URL('../src/plants.json', import.meta.url)
-const plants = JSON.parse(fs.readFileSync(plantsPath))
+// Load the plants data to allow for future expansion
+JSON.parse(fs.readFileSync(plantsPath))
 const discoverPath = new URL('../src/discoverablePlants.json', import.meta.url)
 const discoverable = JSON.parse(fs.readFileSync(discoverPath))
 const app = express()

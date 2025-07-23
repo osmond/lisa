@@ -318,9 +318,9 @@ body {
   @apply absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent;
 }
 
-/* Gradient backdrop for hero text */
+/* Blurred backdrop for hero text */
 .hero-name-bg {
-  @apply p-2 bg-black/40 rounded backdrop-blur-sm;
+  @apply p-2 rounded backdrop-blur-sm;
 }
 
 /* Metadata badges used in plant detail hero */
