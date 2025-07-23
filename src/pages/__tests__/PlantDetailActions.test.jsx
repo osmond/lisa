@@ -50,7 +50,7 @@ beforeEach(() => {
 })
 
 test('quick stats action buttons trigger handlers', () => {
-  render(
+  const { container } = render(
     <OpenAIProvider>
       <SnackbarProvider>
         <MenuProvider>
@@ -72,6 +72,10 @@ test('quick stats action buttons trigger handlers', () => {
   fireEvent.click(screen.getByRole('button', { name: /add to journal/i }))
   fireEvent.click(screen.getByRole('button', { name: /mark fertilized/i }))
   expect(markFertilized).toHaveBeenCalledWith(1, '')
+
+  const backBtn = screen.getByRole('button', { name: /back/i })
+  fireEvent.mouseDown(backBtn)
+  expect(container.querySelector('.ripple-effect')).toBeInTheDocument()
 })
 
 test('fab opens note modal', () => {
