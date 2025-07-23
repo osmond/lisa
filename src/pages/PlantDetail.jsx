@@ -350,6 +350,13 @@ export default function PlantDetail() {
                   </button>
                 )}
               </div>
+              <Link
+                to={`/plant/${plant.id}/coach`}
+                className="inline-flex items-center gap-1 self-start px-3 py-1.5 text-sm font-semibold bg-green-600 hover:bg-green-700 rounded-full text-white shadow"
+              >
+                <Robot className="w-4 h-4" />
+                Coach
+              </Link>
             </div>
             <span
               id="progress-hint"
@@ -721,13 +728,6 @@ export default function PlantDetail() {
                 </p>
               )}
               <MetadataStrip plant={plant} />
-              <Link
-                to={`/plant/${plant.id}/coach`}
-                className="inline-flex items-center gap-1 mt-2 px-3 py-1.5 bg-green-600 rounded-full text-sm text-white shadow"
-              >
-                <Robot className="w-4 h-4" />
-                Coach
-              </Link>
             </div>
           </div>
         </div>
