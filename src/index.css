@@ -307,11 +307,6 @@ body {
   @apply absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent;
 }
 
-/* Gradient + blur overlay used in plant detail hero */
-.hero-overlay {
-  /* Slightly lighter overlay to match room thumbnails */
-  @apply bg-gradient-to-t from-black/50 via-black/20 to-transparent backdrop-blur-sm;
-}
 
 /* Overlay for featured card images */
 .featured-overlay {
