@@ -3,7 +3,7 @@ import { usePlants } from '../PlantContext.jsx'
 import CareSummaryModal from '../components/CareSummaryModal.jsx'
 import PageContainer from "../components/PageContainer.jsx"
 
-import { useState, useMemo, useRef } from 'react'
+import { useState, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { Link } from 'react-router-dom'
@@ -21,7 +21,6 @@ import {
   CloudFog,
 } from 'phosphor-react'
 import CareStats from '../components/CareStats.jsx'
-import FeaturedCard from '../components/FeaturedCard.jsx'
 import DiscoveryCard from '../components/DiscoveryCard.jsx'
 import Card from '../components/Card.jsx'
 import useHappyPlant from '../hooks/useHappyPlant.js'
@@ -33,8 +32,6 @@ export default function Home() {
   const { plants } = usePlants()
   const [showSummary, setShowSummary] = useState(false)
   const [typeFilter, setTypeFilter] = useState('all')
-  const [showFeatured, setShowFeatured] = useState(true)
-  const firstGesture = useRef(false)
   const [showHeader, setShowHeader] = useState(() => {
     if (typeof localStorage !== 'undefined') {
       return localStorage.getItem('hideHomeHeader') !== 'true'
@@ -68,7 +65,6 @@ export default function Home() {
     fertilizeTasks,
     wateredTodayCount,
     fertilizedTodayCount,
-    soonestPlant,
   } = useMemo(() => {
     const todayIso = new Date().toISOString().slice(0, 10)
     const season = getSeason()
@@ -151,7 +147,6 @@ export default function Home() {
           }
           if (!acc.soonestDate || candidate < acc.soonestDate) {
             acc.soonestDate = candidate
-            acc.soonestPlant = p
           }
         }
 
@@ -163,17 +158,8 @@ export default function Home() {
         fertilizeTasks: [],
         wateredTodayCount: 0,
         fertilizedTodayCount: 0,
-        soonestSeasonPlant: null,
-        soonestSeasonDate: null,
-        soonestPlant: null,
-        soonestDate: null,
       }
     )
-
-    if (result.soonestSeasonPlant) {
-      result.soonestPlant = result.soonestSeasonPlant
-      result.soonestDate = result.soonestSeasonDate
-    }
     return result
   }, [plants, weatherData])
 
@@ -193,9 +179,6 @@ export default function Home() {
 
   const totalWaterToday = waterTasks.length + wateredTodayCount
   const totalFertilizeToday = fertilizeTasks.length + fertilizedTodayCount
-  const featuredIndex = soonestPlant
-    ? plants.findIndex(p => p.id === soonestPlant.id)
-    : 0
 
   const weekday = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
@@ -225,17 +208,10 @@ export default function Home() {
     scrollToTasks()
   }
 
-  const handleFirstGesture = e => {
-    if (firstGesture.current) return
-    firstGesture.current = true
-    if (!e.target.closest('[data-testid="featured-card"]')) {
-      setShowFeatured(false)
-    }
-  }
 
 
   return (
-    <PageContainer onPointerDown={handleFirstGesture}>
+    <PageContainer>
       {showHeader && (
       <header className="relative flex flex-col items-start text-left space-y-1">
         <button
@@ -272,25 +248,8 @@ export default function Home() {
         </p>
       </header>
       )}
-    {plants.length > 0 && (
-      <AnimatePresence initial={false}>
-        {showFeatured && (
-          <motion.section
-            className="mb-4 space-y-2"
-            initial={{ opacity: 1, height: 'auto' }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            style={{ overflow: 'hidden' }}
-          >
-            <h2 className="sr-only">Featured Plant</h2>
-            <FeaturedCard plants={plants} startIndex={featuredIndex} />
-          </motion.section>
-        )}
-      </AnimatePresence>
-    )}
     {discoverPlant && (
-      <section className="mb-4">
+      <section className="mb-4 space-y-2" data-testid="discovery-section">
         <h2 className="sr-only">Discover a New Plant</h2>
         <DiscoveryCard plant={discoverPlant} />
       </section>
