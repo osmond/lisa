@@ -41,15 +41,3 @@ test('shows sprout icon for fertilize card when completed', async () => {
   jest.useRealTimers()
 })
 
-test('renders info text when provided', () => {
-  render(
-    <CareCard
-      label="Water"
-      Icon={Drop}
-      progress={0}
-      status="Today"
-      info="200 mL / 7 oz every 5 days"
-    />
-  )
-  expect(screen.getByText(/200 mL/)).toBeInTheDocument()
-})

@@ -359,6 +359,7 @@ export default function PlantDetail() {
               Progress toward next scheduled care
             </span>
           </div>
+          {/*
           {plant.smartWaterPlan && (
             <p
               className={`text-xs text-gray-500 dark:text-gray-400 ${flash ? 'flash-update' : ''}`}
@@ -369,6 +370,7 @@ export default function PlantDetail() {
               {plant.smartWaterPlan.reason}
             </p>
           )}
+          */}
         </div>
       ),
     },
