@@ -40,4 +40,3 @@ test('shows sprout icon for fertilize card when completed', async () => {
 
   jest.useRealTimers()
 })
-

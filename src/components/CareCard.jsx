@@ -9,6 +9,10 @@ export default function CareCard({
   onDone,
   completed = false,
   info,
+
+  buttonLabel,
+  infoBelow = false,
+
 }) {
   const [internalCompleted, setInternalCompleted] = useState(false)
   const pct = Math.min(Math.max(progress, 0), 1)
@@ -33,7 +37,7 @@ export default function CareCard({
           <span className="font-semibold">{label}</span>
         </div>
         <div className="flex flex-col items-end gap-1">
-          {info && (
+          {info && !infoBelow && (
             <span className="text-xs text-gray-500" data-testid="care-info">
               {info}
             </span>
@@ -44,8 +48,13 @@ export default function CareCard({
               onClick={handleDone}
               className="text-sm font-semibold text-white bg-green-600 hover:bg-green-700 rounded shadow px-3 py-1 transition"
             >
-              Mark as Done
+              {buttonLabel || 'Mark as Done'}
             </button>
+          )}
+          {info && infoBelow && (
+            <span className="text-xs text-gray-500" data-testid="care-info">
+              {info}
+            </span>
           )}
         </div>
       </div>
@@ -58,7 +67,7 @@ export default function CareCard({
         aria-valuemax="100"
       >
         <div
-          className="h-full bg-gradient-to-r from-green-500 via-orange-500 to-red-500"
+          className={`h-full bg-gradient-to-r from-green-500 via-orange-500 to-red-500 ${overdue ? 'bar-pulse' : ''}`}
           style={{ width }}
         ></div>
       </div>

@@ -1,7 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import Onboard from '../Onboard.jsx'
-import { getWaterPlan } from '../../utils/waterCalculator.js'
 import { __addPlant as addPlant } from '../../PlantContext.jsx'
 
 let mockRooms = ['Office']
@@ -36,7 +35,16 @@ afterEach(() => {
 
 test('generates plan and adds plant then navigates home', async () => {
   global.fetch = jest.fn(() =>
-    Promise.resolve({ ok: true, json: () => Promise.resolve({ text: 'ok' }) })
+    Promise.resolve({
+      ok: true,
+      json: () =>
+        Promise.resolve({
+          text: 'ok',
+          water: 7,
+          water_volume_ml: 500,
+          water_volume_oz: 17,
+        }),
+    })
   )
 
   render(
@@ -61,16 +69,18 @@ test('generates plan and adds plant then navigates home', async () => {
 
   fireEvent.click(screen.getByRole('button', { name: /add plant/i }))
 
-  const expected = getWaterPlan('Aloe', '4', 'Medium')
   expect(addPlant).toHaveBeenCalledWith(
-    expect.objectContaining({ waterPlan: expected, light: 'Medium' })
+    expect.objectContaining({
+      waterPlan: { interval: 7, volume_ml: 500, volume_oz: 17 },
+      light: 'Medium',
+    })
   )
   expect(screen.getByText('Home')).toBeInTheDocument()
 })
 
 test('autocomplete fills scientific name', async () => {
   const taxaData = { results: [ { id: 1, name: 'Aloe vera', preferred_common_name: 'Aloe' } ] }
-  const planData = { text: 'ok' }
+  const planData = { text: 'ok', water: 7, water_volume_ml: 500, water_volume_oz: 17 }
   global.fetch = jest.fn()
     .mockResolvedValueOnce({ json: () => Promise.resolve(taxaData) })
     .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(planData) })
