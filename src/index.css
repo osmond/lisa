@@ -413,3 +413,16 @@ body {
 .tab-underline {
   @apply absolute bottom-0 h-0.5 bg-green-600 rounded-full transition-all duration-300;
 }
+
+@keyframes flash-update {
+  from {
+    background-color: rgba(253, 224, 71, 0.5);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+.flash-update {
+  animation: flash-update 1s ease-out;
+}
