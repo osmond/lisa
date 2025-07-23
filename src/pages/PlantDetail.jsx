@@ -49,6 +49,7 @@ import confetti from "canvas-confetti";
 import { formatMonth, formatDate, daysUntil } from "../utils/date.js";
 import { formatDaysAgo, formatTimeOfDay } from "../utils/dateFormat.js";
 import { getWateringProgress } from "../utils/watering.js";
+import { formatVolume } from "../utils/units.js";
 
 import { buildEvents, groupEventsByMonth } from "../utils/events.js";
 import { useWeather } from "../WeatherContext.jsx";
@@ -339,8 +340,8 @@ export default function PlantDetail() {
               className="text-xs text-gray-500 dark:text-gray-400"
               data-testid="smart-water-plan"
             >
-              {plant.smartWaterPlan.volume} in³ every{" "}
-              {plant.smartWaterPlan.interval} days —{" "}
+              {formatVolume(plant.smartWaterPlan.volume)} every{' '}
+              {plant.smartWaterPlan.interval} days —{' '}
               {plant.smartWaterPlan.reason}
             </p>
           )}
@@ -380,7 +381,7 @@ export default function PlantDetail() {
                 </li>
                 <li className="flex items-center gap-2">
                   <Thermometer className="w-4 h-4 text-yellow-500" />
-                  Amount: {plant.waterPlan.volume} in³
+                  Amount: {formatVolume(plant.waterPlan.volume)}
                 </li>
                 <li className="flex items-center gap-2">
                   <Flower className="w-4 h-4 text-pink-500" />
@@ -405,7 +406,7 @@ export default function PlantDetail() {
                     </p>
                     <p className="text-sm flex items-center gap-2">
                       <Thermometer className="w-4 h-4 text-yellow-500" />
-                      Amount: {plant.waterPlan.volume} in³
+                      Amount: {formatVolume(plant.waterPlan.volume)}
                     </p>
                   </>
                 ) : (
@@ -426,11 +427,8 @@ export default function PlantDetail() {
             )}
             {plant.smartWaterPlan && (
               <p className="text-xs text-gray-500 dark:text-gray-400" data-testid="smart-water-plan-details">
-                {plant.smartWaterPlan.volume} in³ every {plant.smartWaterPlan.interval} days — {plant.smartWaterPlan.reason}
+                {formatVolume(plant.smartWaterPlan.volume)} every {plant.smartWaterPlan.interval} days — {plant.smartWaterPlan.reason}
               </p>
-            )}
-            {!plant.carePlan && plant.notes && (
-              <pre className="whitespace-pre-wrap">{plant.notes}</pre>
             )}
           </div>
         </div>
