@@ -16,6 +16,7 @@ const mockPlants = []
 
 jest.mock('../../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: mockPlants }),
+  addBase: (u) => u,
 }))
 
 function renderWithSnackbar(ui) {

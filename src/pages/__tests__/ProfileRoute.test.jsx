@@ -5,6 +5,7 @@ import App from '../../App.jsx'
 
 jest.mock('../../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: [] }),
+  addBase: (u) => u,
 }))
 
 jest.mock('../../WeatherContext.jsx', () => ({

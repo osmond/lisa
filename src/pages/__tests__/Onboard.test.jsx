@@ -12,6 +12,7 @@ jest.mock('../../PlantContext.jsx', () => {
     __esModule: true,
     usePlants: () => ({ addPlant }),
     __addPlant: addPlant,
+    addBase: (u) => u,
   }
 })
 

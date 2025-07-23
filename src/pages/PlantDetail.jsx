@@ -28,7 +28,7 @@ import {
 import Lightbox from "../components/Lightbox.jsx";
 import PageContainer from "../components/PageContainer.jsx";
 
-import { usePlants } from "../PlantContext.jsx";
+import { usePlants, addBase } from "../PlantContext.jsx";
 import actionIcons from "../components/ActionIcons.jsx";
 import NoteModal from "../components/NoteModal.jsx";
 import { useMenu, defaultMenu } from "../MenuContext.jsx";
@@ -410,7 +410,7 @@ export default function PlantDetail() {
                   </>
                 ) : (
                   <div className="text-center space-y-2">
-                    <img src="/happy-plant.svg" alt="Set up care" className="w-16 mx-auto" />
+                    <img src={addBase('/happy-plant.svg')} alt="Set up care" className="w-16 mx-auto" />
                     <p className="text-sm text-gray-500 dark:text-gray-400 italic">
                       Care plan pending setup
                     </p>
