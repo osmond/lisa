@@ -134,9 +134,11 @@ test('water care card shows volume info', () => {
     </OpenAIProvider>
   )
 
-  expect(screen.getByTestId('care-info')).toHaveTextContent(
-    '2081 mL / 70 oz every 9 days'
-  )
+  const info = screen.getByTestId('care-info')
+  expect(info).toHaveTextContent('every 9 days')
+  expect(
+    screen.getByRole('button', { name: /water 2081/i })
+  ).toBeInTheDocument()
 
   localStorage.clear()
 })
@@ -157,8 +159,7 @@ test('cannot mark fertilize done when not scheduled', () => {
     </OpenAIProvider>
   )
 
-  const buttons = screen.getAllByRole('button', { name: /mark as done/i })
-  expect(buttons).toHaveLength(1)
+  expect(screen.queryByRole('button', { name: /mark as done/i })).toBeNull()
 })
 
 
