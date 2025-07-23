@@ -2,33 +2,16 @@ import { getOpenAIEnabled } from '../OpenAIContext.jsx'
 
 export default async function autoTag(text = '') {
   const enabled = getOpenAIEnabled()
-  const apiKey = enabled ? process.env.VITE_OPENAI_API_KEY : null
-  if (!apiKey || !text) return []
+  if (!enabled || !text) return []
   try {
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+    const res = await fetch('/api/auto-tag', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o',
-        messages: [
-          {
-            role: 'user',
-            content: `Provide 3 short tags for: "${text}". Respond with a comma-separated list.`,
-          },
-        ],
-        temperature: 0.5,
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text }),
     })
-    if (!res.ok) throw new Error('openai failed')
+    if (!res.ok) throw new Error('autoTag failed')
     const data = await res.json()
-    const raw = data?.choices?.[0]?.message?.content || ''
-    return raw
-      .split(/[,\n]+/)
-      .map(t => t.trim().replace(/^#/, ''))
-      .filter(Boolean)
+    return data.tags || []
   } catch (err) {
     console.error('autoTag error', err)
     return []

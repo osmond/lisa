@@ -25,25 +25,16 @@ export default function usePlantFact(name) {
         setError('Failed to load fact')
         return
       }
-      const openaiKey = enabled ? process.env.VITE_OPENAI_API_KEY : null
       try {
-        if (openaiKey) {
-          const prompt = `Give me a short fun or cultural fact about the plant "${name}". One sentence.`
-          const res = await fetch('https://api.openai.com/v1/chat/completions', {
+        if (enabled) {
+          const res = await fetch('/api/plant-fact', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${openaiKey}`,
-            },
-            body: JSON.stringify({
-              model: 'gpt-4o',
-              messages: [{ role: 'user', content: prompt }],
-              temperature: 0.7,
-            }),
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name }),
           })
-          if (!res.ok) throw new Error('openai failed')
+          if (!res.ok) throw new Error('fact failed')
           const data = await res.json()
-          const text = data?.choices?.[0]?.message?.content?.trim()
+          const text = data.fact
           if (text && !aborted) {
             setFact(text)
             if (typeof localStorage !== 'undefined') {

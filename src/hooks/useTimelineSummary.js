@@ -15,8 +15,7 @@ export default function useTimelineSummary(events) {
     async function fetchSummary() {
       setLoading(true)
       setError('')
-      const openaiKey = enabled ? process.env.VITE_OPENAI_API_KEY : null
-      if (!openaiKey) {
+      if (!enabled) {
         setLoading(false)
         setError('Missing API key')
         return
@@ -25,28 +24,14 @@ export default function useTimelineSummary(events) {
       cutoff.setMonth(cutoff.getMonth() - 1)
       const recent = events.filter(e => new Date(e.date) >= cutoff)
       try {
-        const res = await fetch('https://api.openai.com/v1/chat/completions', {
+        const res = await fetch('/api/timeline-summary', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${openaiKey}`,
-          },
-          body: JSON.stringify({
-            model: 'gpt-4o',
-            messages: [
-              {
-                role: 'system',
-                content:
-                  'Summarize the recent plant care events in a friendly, conversational tone that encourages the user. For example: "Looks like your spider plant is thriving after that watering!"',
-              },
-              { role: 'user', content: JSON.stringify(recent) },
-            ],
-            temperature: 0.7,
-          }),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ events: recent }),
         })
-        if (!res.ok) throw new Error('openai failed')
+        if (!res.ok) throw new Error('summary failed')
         const data = await res.json()
-        const text = data?.choices?.[0]?.message?.content?.trim()
+        const text = data.summary
         if (!aborted && text) setSummary(text)
       } catch (err) {
         console.error('OpenAI error', err)

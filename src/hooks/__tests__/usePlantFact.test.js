@@ -11,31 +11,27 @@ function Test({ name }) {
 
 afterEach(() => {
   global.fetch && (global.fetch = undefined)
-  delete process.env.VITE_OPENAI_API_KEY
   localStorage.clear()
 })
 
-test('fetches fact from OpenAI when key provided', async () => {
-  process.env.VITE_OPENAI_API_KEY = 'key'
+test('fetches fact from API', async () => {
   global.fetch = jest.fn(() =>
     Promise.resolve({
       ok: true,
-      json: () =>
-        Promise.resolve({ choices: [{ message: { content: 'gpt fact' } }] }),
+      json: () => Promise.resolve({ fact: 'gpt fact' }),
     })
   )
   render(<Test name="Aloe" />)
   await waitFor(() => screen.getByText('gpt fact'))
   expect(global.fetch).toHaveBeenCalledWith(
-    'https://api.openai.com/v1/chat/completions',
+    '/api/plant-fact',
     expect.any(Object)
   )
 })
 
 test('falls back to wikipedia summary', async () => {
-  process.env.VITE_OPENAI_API_KEY = 'key'
   global.fetch = jest.fn(requestUrl => {
-    if (requestUrl.includes('openai')) {
+    if (requestUrl.includes('/api/plant-fact')) {
       return Promise.resolve({ ok: false })
     }
     return Promise.resolve({

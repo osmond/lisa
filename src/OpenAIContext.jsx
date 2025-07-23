@@ -8,7 +8,7 @@ export function OpenAIProvider({ children }) {
       const stored = localStorage.getItem('openai_enabled')
       if (stored != null) return stored === 'true'
     }
-    return !!process.env.VITE_OPENAI_API_KEY
+    return true
   })
 
   useEffect(() => {
@@ -31,5 +31,5 @@ export function getOpenAIEnabled() {
     const stored = localStorage.getItem('openai_enabled')
     if (stored != null) return stored === 'true'
   }
-  return !!process.env.VITE_OPENAI_API_KEY
+  return true
 }

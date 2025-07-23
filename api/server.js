@@ -94,6 +94,117 @@ app.post('/api/care-plan', async (req, res) => {
   }
 })
 
+app.post('/api/auto-tag', async (req, res) => {
+  const apiKey = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY
+  if (!apiKey) {
+    res.status(400).json({ error: 'Missing OpenAI API key' })
+    return
+  }
+  const { text = '' } = req.body || {}
+  if (!text) {
+    res.json({ tags: [] })
+    return
+  }
+  try {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o',
+        messages: [
+          {
+            role: 'user',
+            content: `Provide 3 short tags for: "${text}". Respond with a comma-separated list.`,
+          },
+        ],
+        temperature: 0.5,
+      }),
+    })
+    if (!response.ok) throw new Error(await response.text())
+    const data = await response.json()
+    const raw = data?.choices?.[0]?.message?.content || ''
+    const tags = raw
+      .split(/[ ,\n]+/)
+      .map(t => t.trim().replace(/^#/, ''))
+      .filter(Boolean)
+    res.json({ tags })
+  } catch (err) {
+    console.error('OpenAI error', err)
+    res.status(500).json({ error: 'Failed to generate tags' })
+  }
+})
+
+app.post('/api/plant-fact', async (req, res) => {
+  const apiKey = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY
+  if (!apiKey) {
+    res.status(400).json({ error: 'Missing OpenAI API key' })
+    return
+  }
+  const { name } = req.body || {}
+  try {
+    const prompt = `Give me a short fun or cultural fact about the plant "${name}". One sentence.`
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o',
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.7,
+      }),
+    })
+    if (!response.ok) throw new Error(await response.text())
+    const data = await response.json()
+    const fact = data?.choices?.[0]?.message?.content?.trim()
+    res.json({ fact })
+  } catch (err) {
+    console.error('OpenAI error', err)
+    res.status(500).json({ error: 'Failed to fetch fact' })
+  }
+})
+
+app.post('/api/timeline-summary', async (req, res) => {
+  const apiKey = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY
+  if (!apiKey) {
+    res.status(400).json({ error: 'Missing OpenAI API key' })
+    return
+  }
+  const { events = [] } = req.body || {}
+  try {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o',
+        messages: [
+          {
+            role: 'system',
+            content:
+              'Summarize the recent plant care events in a friendly, conversational tone that encourages the user. For example: "Looks like your spider plant is thriving after that watering!"',
+          },
+          { role: 'user', content: JSON.stringify(events) },
+        ],
+        temperature: 0.7,
+      }),
+    })
+    if (!response.ok) throw new Error(await response.text())
+    const data = await response.json()
+    const summary = data?.choices?.[0]?.message?.content?.trim()
+    res.json({ summary })
+  } catch (err) {
+    console.error('OpenAI error', err)
+    res.status(500).json({ error: 'Failed to load summary' })
+  }
+})
+
 app.get('/api/discoverable-plants', (req, res) => {
   const excludeParam = req.query.exclude || ''
   const exclude = excludeParam
