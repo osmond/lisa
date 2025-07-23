@@ -237,7 +237,7 @@ Swipe gestures were manually tested on Chrome, Safari and Firefox on iOS and And
 
 ## Security
 
-After updating dependencies to `vite@7` and `@vitejs/plugin-react@4.6.0`, running `npm audit` reports **0 vulnerabilities**.
+Run `npm audit` regularly and address any reported issues promptly. Current audits may flag a critical vulnerability in the `form-data` dependency.
 
 ## License
 
