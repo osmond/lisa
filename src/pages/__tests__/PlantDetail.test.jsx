@@ -510,6 +510,44 @@ test('shows care plan setup button when plan missing', () => {
   ).toBeInTheDocument()
 })
 
+test('shows edit care plan link when schedule exists', () => {
+  localStorage.setItem(
+    'plants',
+    JSON.stringify([
+      {
+        id: 1,
+        name: 'Aloe',
+        image: 'a.jpg',
+        waterPlan: { volume_ml: 164, volume_oz: 6, interval: 7 },
+        photos: [],
+        careLog: [],
+      },
+    ])
+  )
+
+  render(
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={['/plant/1']}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
+  )
+
+  fireEvent.click(screen.getByRole('tab', { name: /care plan/i }))
+  const panel = screen.getByTestId('care-plan-tab')
+  expect(
+    within(panel).getByRole('link', { name: /edit care plan/i })
+  ).toBeInTheDocument()
+
+  localStorage.clear()
+})
+
 test('hero image container uses rounded corners', () => {
   const plant = plants[0]
   render(
