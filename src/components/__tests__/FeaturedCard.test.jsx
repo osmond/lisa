@@ -77,13 +77,9 @@ test('arrow keys change plant', () => {
 })
 
 test('displays plant fact when loaded', async () => {
-  process.env.VITE_OPENAI_API_KEY = 'key'
   global.fetch = jest.fn(url => {
-    if (url.includes('openai')) {
-      return Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve({ choices: [{ message: { content: 'fun fact' } }] }),
-      })
+    if (url.includes('/api/plant-fact')) {
+      return Promise.resolve({ ok: true, json: () => Promise.resolve({ fact: 'fun fact' }) })
     }
     return Promise.resolve({ json: () => Promise.resolve({ results: [] }) })
   })
@@ -94,5 +90,4 @@ test('displays plant fact when loaded', async () => {
   )
   await screen.findByText('fun fact')
   global.fetch = undefined
-  delete process.env.VITE_OPENAI_API_KEY
 })
