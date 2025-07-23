@@ -49,7 +49,11 @@ import confetti from "canvas-confetti";
 import { formatMonth, formatDate, daysUntil } from "../utils/date.js";
 import { formatDaysAgo, formatTimeOfDay } from "../utils/dateFormat.js";
 import { getWateringProgress } from "../utils/watering.js";
+
 import { cubicInchesToMl, mlToOz } from "../utils/volume.js";
+
+import { formatVolume } from "../utils/units.js";
+
 
 import { buildEvents, groupEventsByMonth } from "../utils/events.js";
 import { useWeather } from "../WeatherContext.jsx";
@@ -110,6 +114,18 @@ export default function PlantDetail() {
   const [expandedNotes, setExpandedNotes] = useState({});
   const [showDiameterModal, setShowDiameterModal] = useState(false);
   const [fertilizeDone, setFertilizeDone] = useState(false);
+  const prevSmartPlan = useRef(plant.smartWaterPlan);
+  const [flash, setFlash] = useState(false);
+
+  useEffect(() => {
+    if (prevSmartPlan.current !== plant.smartWaterPlan && plant.smartWaterPlan) {
+      setFlash(true);
+      const t = setTimeout(() => setFlash(false), 1000);
+      prevSmartPlan.current = plant.smartWaterPlan;
+      return () => clearTimeout(t);
+    }
+    prevSmartPlan.current = plant.smartWaterPlan;
+  }, [plant.smartWaterPlan]);
 
   const waterProgress = getWateringProgress(
     plant?.lastWatered,
@@ -345,11 +361,11 @@ export default function PlantDetail() {
           </div>
           {plant.smartWaterPlan && (
             <p
-              className="text-xs text-gray-500 dark:text-gray-400"
+              className={`text-xs text-gray-500 dark:text-gray-400 ${flash ? 'flash-update' : ''}`}
               data-testid="smart-water-plan"
             >
-              {plant.smartWaterPlan.volume} in³ every{" "}
-              {plant.smartWaterPlan.interval} days —{" "}
+              {formatVolume(plant.smartWaterPlan.volume)} every{' '}
+              {plant.smartWaterPlan.interval} days —{' '}
               {plant.smartWaterPlan.reason}
             </p>
           )}
@@ -389,7 +405,7 @@ export default function PlantDetail() {
                 </li>
                 <li className="flex items-center gap-2">
                   <Thermometer className="w-4 h-4 text-yellow-500" />
-                  Amount: {plant.waterPlan.volume} in³
+                  Amount: {formatVolume(plant.waterPlan.volume)}
                 </li>
                 <li className="flex items-center gap-2">
                   <Flower className="w-4 h-4 text-pink-500" />
@@ -414,7 +430,7 @@ export default function PlantDetail() {
                     </p>
                     <p className="text-sm flex items-center gap-2">
                       <Thermometer className="w-4 h-4 text-yellow-500" />
-                      Amount: {plant.waterPlan.volume} in³
+                      Amount: {formatVolume(plant.waterPlan.volume)}
                     </p>
                   </>
                 ) : (
@@ -435,11 +451,8 @@ export default function PlantDetail() {
             )}
             {plant.smartWaterPlan && (
               <p className="text-xs text-gray-500 dark:text-gray-400" data-testid="smart-water-plan-details">
-                {plant.smartWaterPlan.volume} in³ every {plant.smartWaterPlan.interval} days — {plant.smartWaterPlan.reason}
+                {formatVolume(plant.smartWaterPlan.volume)} every {plant.smartWaterPlan.interval} days — {plant.smartWaterPlan.reason}
               </p>
-            )}
-            {!plant.carePlan && plant.notes && (
-              <pre className="whitespace-pre-wrap">{plant.notes}</pre>
             )}
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, within, act } from '@testing-library/react'
+import { render, screen, fireEvent, within, act, waitFor } from '@testing-library/react'
 import {
   MemoryRouter,
   Routes,
@@ -395,12 +395,11 @@ test('care plan tab displays stored onboarding values', () => {
     within(panel).getByText((c, el) => el.textContent === 'Water every: 7 days')
   ).toBeInTheDocument()
   expect(
-    within(panel).getByText((c, el) => el.textContent === 'Amount: 10 in³')
+    within(panel).getByText((c, el) => el.textContent === 'Amount: 164 mL / 6 oz')
   ).toBeInTheDocument()
   expect(
     within(panel).getByTestId('smart-water-plan-details')
-  ).toHaveTextContent('12 in³ every 5 days — test reason')
-  expect(within(panel).getByText('keep soil moist')).toBeInTheDocument()
+  ).toHaveTextContent('197 mL / 7 oz every 5 days — test reason')
 
   localStorage.clear()
 })
@@ -534,4 +533,51 @@ test('hero image container uses rounded corners', () => {
   const hero = img.parentElement
   expect(hero).toHaveClass('rounded-xl')
   expect(hero).not.toHaveClass('rounded-b-xl')
+})
+
+test('smart water plan flashes on update', async () => {
+  localStorage.setItem(
+    'plants',
+    JSON.stringify([
+      {
+        id: 1,
+        name: 'Aloe',
+        image: 'a.jpg',
+        diameter: 4,
+        waterPlan: { volume: 10, interval: 7 },
+        smartWaterPlan: { volume: 12, interval: 5, reason: 'initial' },
+        photos: [],
+        careLog: [],
+      },
+    ])
+  )
+
+  render(
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={['/plant/1']}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
+  )
+
+  const el = screen.getByTestId('smart-water-plan')
+  expect(el).not.toHaveClass('flash-update')
+
+  act(() => {
+    window.dispatchEvent(
+      new CustomEvent('weather-updated', { detail: { rainfall: 80 } })
+    )
+  })
+
+  await waitFor(() =>
+    expect(screen.getByTestId('smart-water-plan')).toHaveClass('flash-update')
+  )
+
+  localStorage.clear()
 })

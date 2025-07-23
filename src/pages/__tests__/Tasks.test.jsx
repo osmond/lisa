@@ -179,7 +179,7 @@ test('future watering date does not show Water badge', async () => {
   expect(cards).toHaveLength(2)
 
   expect(within(cards[0]).getByText('Water', { exact: true })).toBeInTheDocument()
-  expect(within(cards[1]).queryByText('Water', { exact: true })).toBeInTheDocument()
+  expect(within(cards[1]).queryByText('Water', { exact: true })).toBeNull()
 
   jest.useRealTimers()
 
@@ -224,7 +224,7 @@ test('by plant view shows due and future tasks correctly', async () => {
   expect(within(dueCard).getByText('Water', { exact: true })).toBeInTheDocument()
   expect(within(dueCard).getByText('Fertilize', { exact: true })).toBeInTheDocument()
 
-  expect(within(futureCard).queryByText('Water', { exact: true })).toBeInTheDocument()
+  expect(within(futureCard).queryByText('Water', { exact: true })).toBeNull()
   expect(within(futureCard).queryByText('Fertilize', { exact: true })).toBeNull()
 
   jest.useRealTimers()
