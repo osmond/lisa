@@ -322,9 +322,7 @@ export default function PlantDetail() {
                 status={waterStatus}
                 overdue={waterOverdue}
                 onDone={handleWatered}
-                buttonLabel={waterVolume ? `Water ${waterVolume}` : undefined}
-                info={waterInterval}
-                infoBelow
+                info={[waterVolume, waterInterval].filter(Boolean).join(' ')}
               />
               <div
                 className={
@@ -340,6 +338,7 @@ export default function PlantDetail() {
                   status={fertStatus}
                   overdue={fertOverdue}
                   completed={fertilizeDone}
+                  info={plant.carePlan?.fertilize ? `every ${plant.carePlan.fertilize}\u00A0days` : null}
                   onDone={plant.nextFertilize ? handleFertilized : undefined}
                 />
                 {!plant.nextFertilize && (

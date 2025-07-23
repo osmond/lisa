@@ -12,7 +12,6 @@ export default function CareCard({
   overdue = false,
 
   buttonLabel,
-  infoBelow = false,
 
 }) {
   const [internalCompleted, setInternalCompleted] = useState(false)
@@ -38,11 +37,6 @@ export default function CareCard({
           <span className="font-semibold">{label}</span>
         </div>
         <div className="flex flex-col items-end gap-1">
-          {info && !infoBelow && (
-            <span className="text-xs text-gray-500" data-testid="care-info">
-              {info}
-            </span>
-          )}
           {onDone && (
             <button
               type="button"
@@ -52,14 +46,20 @@ export default function CareCard({
               {buttonLabel || 'Mark as Done'}
             </button>
           )}
-          {info && infoBelow && (
-            <span className="text-xs text-gray-500" data-testid="care-info">
-              {info}
-            </span>
-          )}
         </div>
       </div>
-      {status && <p className="text-sm text-gray-500">{status}</p>}
+      {status && (
+        <p
+          className={`text-sm ${overdue ? 'text-red-600 font-semibold' : 'text-gray-500'}`}
+        >
+          {status}
+        </p>
+      )}
+      {info && (
+        <p className="text-xs text-gray-500" data-testid="care-info">
+          {info}
+        </p>
+      )}
       <div
         className="h-2 rounded bg-gray-200 overflow-hidden"
         role="progressbar"

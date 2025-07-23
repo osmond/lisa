@@ -155,7 +155,9 @@ test('cannot mark fertilize done when not scheduled', () => {
     </OpenAIProvider>
   )
 
-  expect(screen.queryByRole('button', { name: /mark as done/i })).toBeNull()
+  const buttons = screen.getAllByRole('button', { name: /mark as done/i })
+  // only the water task should show a button
+  expect(buttons).toHaveLength(1)
 })
 
 
