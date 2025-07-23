@@ -710,11 +710,12 @@ export default function PlantDetail() {
               <span className="ml-1">{backLabel}</span>
             </button>
           </div>
-          <div className="absolute bottom-2 left-3 right-3 flex flex-col sm:flex-row justify-between text-white drop-shadow space-y-1 sm:space-y-0">
-            <div className="hero-name-bg">
-              <h2 className="text-4xl font-extrabold font-headline tracking-wide animate-fade-in-down">
-                {plant.name}
-              </h2>
+          <div className="absolute bottom-2 left-3 right-3">
+            <div className="hero-overlay p-4 flex flex-col sm:flex-row justify-between text-white drop-shadow space-y-1 sm:space-y-0">
+              <div className="hero-name-bg">
+                <h2 className="text-4xl font-extrabold font-headline tracking-wide animate-fade-in-down">
+                  {plant.name}
+                </h2>
               {plant.scientificName && (
                 <p className="text-sm italic text-gray-100 animate-fade-in-down" style={{ animationDelay: '50ms' }}>
                   {plant.scientificName}
@@ -736,7 +737,8 @@ export default function PlantDetail() {
                   {fact}
                 </p>
               )}
-              <MetadataStrip plant={plant} />
+                <MetadataStrip plant={plant} />
+              </div>
             </div>
           </div>
         </div>
