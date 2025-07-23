@@ -20,7 +20,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <WeatherProvider>
               <PlantProvider>
                 <RoomProvider>
-                  <BrowserRouter basename={import.meta.env.VITE_BASE_PATH}>
+                  <BrowserRouter
+                    basename={import.meta.env.VITE_BASE_PATH}
+                    future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+                  >
                     <App />
                   </BrowserRouter>
                 </RoomProvider>
