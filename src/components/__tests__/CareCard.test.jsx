@@ -48,10 +48,22 @@ test('renders info text when provided', () => {
       Icon={Drop}
       progress={0}
       status="Today"
-      info="200 mL / 7 oz every 5 days"
+      info="every 5 days"
+      buttonLabel="Water 200 mL / 7 oz"
+      infoBelow
+      onDone={() => {}}
     />
   )
-  expect(screen.getByText(/200 mL/)).toBeInTheDocument()
+  expect(
+    screen.getByRole('button', { name: /water 200 mL/i })
+  ).toBeInTheDocument()
+  })
+
+test('uses custom button label when provided', () => {
+  render(
+    <CareCard label="Water" Icon={Drop} progress={0} status="Today" buttonLabel="Water 500 mL" onDone={() => {}} />
+  )
+  expect(screen.getByRole('button', { name: /water 500 ml/i })).toBeInTheDocument()
 })
 
 test('adds animation when overdue', () => {
