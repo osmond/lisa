@@ -51,10 +51,14 @@ app.post('/api/care-plan', async (req, res) => {
 
   const { name, soil, light, humidity } = req.body || {}
   const messages = [
-    { role: 'system', content: 'You are a plant care assistant. Respond in JSON.' },
+    {
+      role: 'system',
+      content:
+        'You are a plant care assistant. Respond in JSON with water, fertilize, light, water_volume_ml and water_volume_oz.',
+    },
     {
       role: 'user',
-      content: `Plant: ${name}\nLight: ${light}\nSoil: ${soil}\nHumidity: ${humidity}\nGive watering interval in days, fertilizing interval in days, and short light description. Respond with JSON {"water":<days>,"fertilize":<days>,"light":"label"}.`,
+      content: `Plant: ${name}\nLight: ${light}\nSoil: ${soil}\nHumidity: ${humidity}\nGive watering interval in days, watering volume in mL and ounces, fertilizing interval in days, and short light description. Respond with JSON {"water":<days>,"fertilize":<days>,"light":"label","water_volume_ml":<ml>,"water_volume_oz":<oz>}.`,
     },
   ]
 
@@ -76,6 +80,9 @@ app.post('/api/care-plan', async (req, res) => {
     } catch {
       plan = { text }
     }
+    const { water_volume_ml, water_volume_oz } = plan
+    plan.water_volume_ml = Number(water_volume_ml)
+    plan.water_volume_oz = Number(water_volume_oz)
     plan.text = text
     res.json(plan)
   } catch (err) {
