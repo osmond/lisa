@@ -5,7 +5,6 @@ import { useRooms } from '../RoomContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
 import PageContainer from "../components/PageContainer.jsx"
 import useCarePlan from '../hooks/useCarePlan.js'
-import { getWaterPlan } from '../utils/waterCalculator.js'
 import usePlantTaxon from '../hooks/usePlantTaxon.js'
 
 export default function Onboard() {
@@ -39,6 +38,20 @@ export default function Onboard() {
     } else {
       setCarePlan(null)
     }
+
+    if (
+      plan?.water !== undefined &&
+      plan?.water_volume_ml !== undefined &&
+      plan?.water_volume_oz !== undefined
+    ) {
+      setWater({
+        interval: plan.water,
+        volume_ml: plan.water_volume_ml,
+        volume_oz: plan.water_volume_oz,
+      })
+    } else {
+      setWater(null)
+    }
   }, [plan])
 
   const handleUseOutdoorHumidity = () => {
@@ -60,7 +73,6 @@ export default function Onboard() {
 
   const handleSubmit = e => {
     e.preventDefault()
-    setWater(getWaterPlan(form.name, form.diameter, form.light))
     generate(form)
   }
 
@@ -138,7 +150,7 @@ export default function Onboard() {
         <div className="mt-6 space-y-4" data-testid="care-plan">
           <pre className="whitespace-pre-wrap p-4 bg-green-50 rounded">{plan.text}</pre>
           <p className="font-medium" data-testid="water-plan">
-            Suggested water: {water.volume} in³ every {water.interval} days
+            Suggested water: {water.volume_ml} mL / {water.volume_oz} oz every {water.interval} days
           </p>
           <button className="px-4 py-2 bg-green-600 text-white rounded" onClick={handleAdd}>Add Plant</button>
         </div>
