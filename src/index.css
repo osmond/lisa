@@ -309,7 +309,8 @@ body {
 
 /* Gradient + blur overlay used in plant detail hero */
 .hero-overlay {
-  @apply bg-gradient-to-t from-black/60 via-black/30 to-transparent backdrop-blur-sm;
+  /* Slightly lighter overlay to match room thumbnails */
+  @apply bg-gradient-to-t from-black/50 via-black/20 to-transparent backdrop-blur-sm;
 }
 
 /* Overlay for featured card images */
@@ -319,7 +320,7 @@ body {
 
 /* Gradient backdrop for hero text */
 .hero-name-bg {
-  @apply p-2 bg-black/50 rounded backdrop-blur-sm;
+  @apply p-2 bg-black/40 rounded backdrop-blur-sm;
 }
 
 /* Metadata badges used in plant detail hero */
