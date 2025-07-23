@@ -9,6 +9,7 @@ export default function CareCard({
   onDone,
   completed = false,
   info,
+  overdue = false,
 
   buttonLabel,
   infoBelow = false,
