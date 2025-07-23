@@ -104,6 +104,43 @@ test('tasks tab displays a heading', () => {
   expect(screen.getByTestId('tasks-heading')).toHaveTextContent(/today/i)
 })
 
+test('water care card shows volume info', () => {
+  localStorage.setItem(
+    'plants',
+    JSON.stringify([
+      {
+        id: 1,
+        name: 'Aloe',
+        image: 'a.jpg',
+        waterPlan: { volume: 50, interval: 7 },
+        smartWaterPlan: { volume: 127, interval: 9, reason: 'AI' },
+        photos: [],
+        careLog: [],
+      },
+    ])
+  )
+
+  render(
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={['/plant/1']}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
+  )
+
+  expect(screen.getByTestId('care-info')).toHaveTextContent(
+    '2081 mL / 70 oz every 9 days'
+  )
+
+  localStorage.clear()
+})
+
 test('cannot mark fertilize done when not scheduled', () => {
   const plant = plants.find(p => p.id === 2)
   render(
