@@ -16,7 +16,7 @@ Includes:
 - Tasks generated dynamically from plant data
 - Floating action button for adding plants or rooms
 - Persistent bottom navigation tabs for easy access
-- Placeholder photos fetched from iNaturalist when a plant has none. Images are loaded directly from iNaturalist and retain their original attribution and license.
+- Placeholder photos pulled from Unsplash when a plant has none. Images are loaded from Unsplash using a public search URL.
 - Multi-step Add Plant flow with optional notes and schedule
 - Organize plants by room and create custom rooms
 - Badge indicator on the All Plants tab for overdue tasks

@@ -12,7 +12,7 @@ import {
 } from 'phosphor-react'
 
 
-import useINatPhoto from '../hooks/useINatPhoto.js'
+import usePlaceholderPhoto from '../hooks/usePlaceholderPhoto.js'
 import usePlantFact from '../hooks/usePlantFact.js'
 import { createRipple } from '../utils/interactions.js'
 import Badge from './Badge.jsx'
@@ -55,7 +55,7 @@ export default function FeaturedCard({ plants = [], task, startIndex = 0 }) {
   const plant = items[index]
   const name = plant.plantName || plant.name
   const id = plant.plantId || plant.id
-  const placeholder = useINatPhoto(name)
+  const placeholder = usePlaceholderPhoto(name)
   const todayIso = new Date().toISOString().slice(0, 10)
   const caredToday =
     plant.lastWatered === todayIso || plant.lastFertilized === todayIso

@@ -1,7 +1,7 @@
 import { useReducer, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePlants, addBase } from '../PlantContext.jsx'
-import useINatPhoto from '../hooks/useINatPhoto.js'
+import usePlaceholderPhoto from '../hooks/usePlaceholderPhoto.js'
 import useToast from '../hooks/useToast.jsx'
 import NameStep from './add/NameStep.jsx'
 import ImageStep from './add/ImageStep.jsx'
@@ -75,7 +75,7 @@ export default function Add() {
   const navigate = useNavigate()
   const [state, dispatch] = useReducer(reducer, initialState)
   const [step, setStep] = useState(1)
-  const placeholder = useINatPhoto(state.name)
+  const placeholder = usePlaceholderPhoto(state.name)
   const { Toast, showToast } = useToast()
 
   const next = () => setStep(s => s + 1)
