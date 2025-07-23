@@ -55,6 +55,7 @@ import { formatMlOz } from "../utils/units.js";
 
 import { buildEvents, groupEventsByMonth } from "../utils/events.js";
 import { useWeather } from "../WeatherContext.jsx";
+import { createRipple } from "../utils/interactions.js";
 
 const bulletColors = {
   water: "bg-blue-500",
@@ -701,7 +702,9 @@ export default function PlantDetail() {
             <button
               type="button"
               onClick={() => navigate(-1)}
-              className="p-1 rounded-full bg-black/40 hover:bg-black/50 flex items-center gap-1"
+              onMouseDown={createRipple}
+              onTouchStart={createRipple}
+              className="p-2 rounded-full bg-black/50 backdrop-blur-sm flex items-center gap-1 text-white"
             >
               <ArrowLeft className="w-4 h-4" aria-hidden="true" />
               <span className="ml-1">{backLabel}</span>
