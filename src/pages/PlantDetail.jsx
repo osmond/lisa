@@ -110,6 +110,18 @@ export default function PlantDetail() {
   const [expandedNotes, setExpandedNotes] = useState({});
   const [showDiameterModal, setShowDiameterModal] = useState(false);
   const [fertilizeDone, setFertilizeDone] = useState(false);
+  const prevSmartPlan = useRef(plant.smartWaterPlan);
+  const [flash, setFlash] = useState(false);
+
+  useEffect(() => {
+    if (prevSmartPlan.current !== plant.smartWaterPlan && plant.smartWaterPlan) {
+      setFlash(true);
+      const t = setTimeout(() => setFlash(false), 1000);
+      prevSmartPlan.current = plant.smartWaterPlan;
+      return () => clearTimeout(t);
+    }
+    prevSmartPlan.current = plant.smartWaterPlan;
+  }, [plant.smartWaterPlan]);
 
   const waterProgress = getWateringProgress(
     plant?.lastWatered,
@@ -337,7 +349,7 @@ export default function PlantDetail() {
           </div>
           {plant.smartWaterPlan && (
             <p
-              className="text-xs text-gray-500 dark:text-gray-400"
+              className={`text-xs text-gray-500 dark:text-gray-400 ${flash ? 'flash-update' : ''}`}
               data-testid="smart-water-plan"
             >
               {formatVolume(plant.smartWaterPlan.volume)} every{' '}
