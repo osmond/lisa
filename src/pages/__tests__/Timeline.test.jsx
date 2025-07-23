@@ -22,6 +22,7 @@ const samplePlants = [
 let mockPlants = samplePlants
 jest.mock('../../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: mockPlants }),
+  addBase: (u) => u,
 }))
 
 function renderWithRouter(ui) {

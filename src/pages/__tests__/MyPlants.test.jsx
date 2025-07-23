@@ -7,6 +7,7 @@ let mockRooms = []
 
 jest.mock('../../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: mockPlants }),
+  addBase: (u) => u,
 }))
 
 jest.mock('../../RoomContext.jsx', () => ({

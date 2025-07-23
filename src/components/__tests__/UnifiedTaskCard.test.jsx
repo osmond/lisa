@@ -24,6 +24,7 @@ jest.mock('react-router-dom', () => {
 
 jest.mock('../../PlantContext.jsx', () => ({
   usePlants: jest.fn(),
+  addBase: (u) => u,
 }))
 
 const usePlantsMock = usePlants

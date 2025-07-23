@@ -1,7 +1,6 @@
 import { render, screen, fireEvent, within, cleanup } from '@testing-library/react'
 
 import { MemoryRouter } from 'react-router-dom'
-import userEvent from '@testing-library/user-event'
 import SnackbarProvider, { Snackbar } from '../../hooks/SnackbarProvider.jsx'
 
 
@@ -26,6 +25,7 @@ let mockPlants = samplePlants
 
 jest.mock('../../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: mockPlants }),
+  addBase: (u) => u,
 }))
 
 jest.mock('../../WeatherContext.jsx', () => ({
@@ -114,7 +114,7 @@ test('switching to Past tab shows past events', async () => {
   )
 
   const pastTab = screen.getByRole('tab', { name: /Past/i })
-  await userEvent.click(pastTab)
+  fireEvent.click(pastTab)
 
 
   const cards = screen.getAllByTestId('task-card')
@@ -161,9 +161,11 @@ test('future watering date does not show Water badge', async () => {
   jest.useRealTimers()
 
   const pastTab = screen.getByRole('tab', { name: /Past/i })
-  await userEvent.click(pastTab)
+  fireEvent.click(pastTab)
 
   cleanup()
+
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-16'))
 
   renderWithSnackbar(
       <Tasks />
@@ -171,7 +173,7 @@ test('future watering date does not show Water badge', async () => {
 
 
   const byPlantTab = screen.getByRole('tab', { name: /By Plant/i })
-  await userEvent.click(byPlantTab)
+  fireEvent.click(byPlantTab)
 
   const cards = screen.getAllByTestId('unified-task-card')
   expect(cards).toHaveLength(2)
@@ -179,9 +181,12 @@ test('future watering date does not show Water badge', async () => {
   expect(within(cards[0]).getByText('Water', { exact: true })).toBeInTheDocument()
   expect(within(cards[1]).queryByText('Water', { exact: true })).toBeInTheDocument()
 
+  jest.useRealTimers()
+
 })
 
 test('by plant view shows due and future tasks correctly', async () => {
+  jest.useFakeTimers().setSystemTime(new Date('2025-07-16'))
   mockPlants = [
     {
       id: 1,
@@ -204,7 +209,7 @@ test('by plant view shows due and future tasks correctly', async () => {
   )
 
   const byPlantTab = screen.getByRole('tab', { name: /By Plant/i })
-  await userEvent.click(byPlantTab)
+  fireEvent.click(byPlantTab)
 
   const cards = screen.getAllByTestId('unified-task-card')
   expect(cards).toHaveLength(2)
@@ -221,4 +226,6 @@ test('by plant view shows due and future tasks correctly', async () => {
 
   expect(within(futureCard).queryByText('Water', { exact: true })).toBeInTheDocument()
   expect(within(futureCard).queryByText('Fertilize', { exact: true })).toBeNull()
+
+  jest.useRealTimers()
 })

@@ -16,6 +16,7 @@ const mockPlants = []
 
 jest.mock('../../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: mockPlants }),
+  addBase: (u) => u,
 }))
 
 const discoverPlant = { id: 99, name: 'Calathea', image: 'd.jpg' }

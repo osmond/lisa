@@ -6,6 +6,7 @@ let mockPlants = []
 
 jest.mock('../../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: mockPlants }),
+  addBase: (u) => u,
 }))
 
 function renderWithRoute(path) {

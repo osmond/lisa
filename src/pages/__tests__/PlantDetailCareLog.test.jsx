@@ -11,6 +11,7 @@ jest.mock('../../PlantContext.jsx', () => ({
     addPhoto: jest.fn(),
     removePhoto: jest.fn(),
   }),
+  addBase: (u) => u,
 }))
 
 beforeEach(() => {

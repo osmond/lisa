@@ -10,6 +10,7 @@ jest.mock('../../hooks/usePlantCoach.js', () => ({
 
 jest.mock('../../PlantContext.jsx', () => ({
   usePlants: jest.fn(),
+  addBase: (u) => u,
 }))
 
 const usePlantsMock = usePlants

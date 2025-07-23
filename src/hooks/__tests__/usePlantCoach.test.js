@@ -9,6 +9,7 @@ let forecast = { temp: '70°F', condition: 'Sunny' }
 
 jest.mock('../../PlantContext.jsx', () => ({
   usePlants: () => ({ plants: [mockPlant] }),
+  addBase: (u) => u,
 }))
 
 jest.mock('../../WeatherContext.jsx', () => ({
