@@ -449,11 +449,6 @@ export default function PlantDetail() {
                 )}
               </>
             )}
-            {plant.smartWaterPlan && (
-              <p className="text-xs text-gray-500 dark:text-gray-400" data-testid="smart-water-plan-details">
-                {formatVolume(plant.smartWaterPlan.volume)} every {plant.smartWaterPlan.interval} days — {plant.smartWaterPlan.reason}
-              </p>
-            )}
           </div>
         </div>
       ),
