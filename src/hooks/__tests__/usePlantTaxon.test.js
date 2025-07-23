@@ -13,34 +13,15 @@ function Test({ query }) {
 }
 
 afterEach(() => {
-  global.fetch && (global.fetch = undefined)
   localStorage.clear()
 })
 
-test('fetches taxon suggestions', async () => {
-  const data = {
-    results: [
-      { id: 1, name: 'Aloe vera', preferred_common_name: 'Aloe' },
-    ],
-  }
-  global.fetch = jest.fn(() =>
-    Promise.resolve({ json: () => Promise.resolve(data) })
-  )
-  render(<Test query="aloe" />)
-  await waitFor(() => screen.getByText('Aloe:Aloe vera'))
-  expect(global.fetch).toHaveBeenCalledWith(
-    expect.stringContaining('taxa/autocomplete?q=aloe'),
-    expect.any(Object)
-  )
+test('returns matching suggestions', async () => {
+  render(<Test query="Alo" />)
+  await waitFor(() => screen.getByText('Aloe Vera:Aloe Vera'))
 })
 
-test('aborts fetch on unmount', async () => {
-  const abortMock = jest.fn()
-  global.AbortController = jest.fn(() => ({ signal: 's', abort: abortMock }))
-  global.fetch = jest.fn(() => Promise.resolve({ json: () => Promise.resolve({ results: [] }) }))
-  const { unmount } = render(<Test query="al" />)
-  await waitFor(() => expect(global.fetch).toHaveBeenCalled())
-  unmount()
-  expect(abortMock).toHaveBeenCalled()
-  global.AbortController = undefined
+test('ignores short queries', () => {
+  render(<Test query="a" />)
+  expect(screen.queryByText(/:/)).toBeNull()
 })

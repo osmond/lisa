@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import plants from '../plants.json'
 
 export default function usePlantTaxon(query) {
   const [results, setResults] = useState([])
@@ -15,38 +16,23 @@ export default function usePlantTaxon(query) {
         // ignore invalid cached data
       }
     }
-    if (typeof fetch !== 'function') return
 
-    let aborted = false
-    const controller = new AbortController()
-    const { signal } = controller
-
-    async function fetchTaxa() {
-      try {
-        const url = `https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(query)}`
-        const res = await fetch(url, { signal })
-        const data = await res.json()
-        const list = (data?.results || []).map(t => ({
-          id: t.id,
-          commonName: t.preferred_common_name || t.name,
-          scientificName: t.name,
+    try {
+      const q = query.toLowerCase()
+      const list = plants
+        .filter(p => p.name && p.name.toLowerCase().includes(q))
+        .map((p, idx) => ({
+          id: p.id ?? idx,
+          commonName: p.name,
+          scientificName: p.name,
         }))
-        if (!aborted) {
-          setResults(list)
-          if (typeof localStorage !== 'undefined') {
-            localStorage.setItem(key, JSON.stringify(list))
-          }
-        }
-      } catch (err) {
-        if (err?.name !== 'AbortError') {
-          console.error('Failed to load iNaturalist taxon', err)
-        }
+        .slice(0, 10)
+      setResults(list)
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem(key, JSON.stringify(list))
       }
-    }
-    fetchTaxa()
-    return () => {
-      aborted = true
-      controller.abort()
+    } catch (err) {
+      console.error('Failed to load plant suggestions', err)
     }
   }, [query])
 
