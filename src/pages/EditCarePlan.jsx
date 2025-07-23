@@ -10,7 +10,8 @@ export default function EditCarePlan() {
 
   const plant = plants.find(p => p.id === Number(id))
   const [waterInterval, setWaterInterval] = useState(plant?.waterPlan?.interval || '')
-  const [waterVolume, setWaterVolume] = useState(plant?.waterPlan?.volume || '')
+  const [waterVolumeMl, setWaterVolumeMl] = useState(plant?.waterPlan?.volume_ml || '')
+  const [waterVolumeOz, setWaterVolumeOz] = useState(plant?.waterPlan?.volume_oz || '')
   const [fertilizeInterval, setFertilizeInterval] = useState(plant?.carePlan?.fertilize || '')
 
   if (!plant) {
@@ -20,7 +21,11 @@ export default function EditCarePlan() {
   const handleSubmit = e => {
     e.preventDefault()
     updatePlant(plant.id, {
-      waterPlan: { volume: Number(waterVolume) || 0, interval: Number(waterInterval) || 0 },
+      waterPlan: {
+        interval: Number(waterInterval) || 0,
+        volume_ml: Number(waterVolumeMl) || 0,
+        volume_oz: Number(waterVolumeOz) || 0,
+      },
       carePlan: { ...(plant.carePlan || {}), water: Number(waterInterval) || 0, fertilize: Number(fertilizeInterval) || 0 },
     })
     navigate(`/plant/${plant.id}`)
@@ -41,12 +46,22 @@ export default function EditCarePlan() {
           />
         </div>
         <div className="grid gap-1">
-          <label htmlFor="waterVolume" className="font-medium">Water amount (in³)</label>
+          <label htmlFor="waterVolumeMl" className="font-medium">Water amount (mL)</label>
           <input
-            id="waterVolume"
+            id="waterVolumeMl"
             type="number"
-            value={waterVolume}
-            onChange={e => setWaterVolume(e.target.value)}
+            value={waterVolumeMl}
+            onChange={e => setWaterVolumeMl(e.target.value)}
+            className="border rounded p-2"
+          />
+        </div>
+        <div className="grid gap-1">
+          <label htmlFor="waterVolumeOz" className="font-medium">Water amount (oz)</label>
+          <input
+            id="waterVolumeOz"
+            type="number"
+            value={waterVolumeOz}
+            onChange={e => setWaterVolumeOz(e.target.value)}
             className="border rounded p-2"
           />
         </div>

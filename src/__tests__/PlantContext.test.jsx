@@ -122,7 +122,7 @@ function DiameterTest() {
   const plant = plants[0];
   return (
     <div>
-      <span>{plant.waterPlan ? plant.waterPlan.volume : "none"}</span>
+      <span>{plant.waterPlan ? plant.waterPlan.volume_ml : "none"}</span>
       <button onClick={() => updatePlant(plant.id, { diameter: 5 })}>
         set
       </button>
@@ -138,7 +138,7 @@ test("updating diameter recalculates water plan", async () => {
   );
   expect(screen.getByText("0")).toBeInTheDocument();
   fireEvent.click(screen.getByText("set"));
-  await screen.findByText("74");
+  await screen.findByText("1213");
 });
 
 function SafeCheck() {

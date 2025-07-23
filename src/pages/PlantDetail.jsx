@@ -50,9 +50,7 @@ import { formatMonth, formatDate, daysUntil } from "../utils/date.js";
 import { formatDaysAgo, formatTimeOfDay } from "../utils/dateFormat.js";
 import { getWateringProgress } from "../utils/watering.js";
 
-import { cubicInchesToMl, mlToOz } from "../utils/volume.js";
-
-import { formatVolume } from "../utils/units.js";
+import { formatMlOz } from "../utils/units.js";
 
 
 import { buildEvents, groupEventsByMonth } from "../utils/events.js";
@@ -152,9 +150,7 @@ export default function PlantDetail() {
 
   const planInfo = plant?.smartWaterPlan || plant?.waterPlan;
   const waterVolume = planInfo
-    ? `${Math.round(cubicInchesToMl(planInfo.volume))}\u00A0mL / ${Math.round(
-        mlToOz(cubicInchesToMl(planInfo.volume))
-      )}\u00A0oz`
+    ? `${planInfo.volume_ml}\u00A0mL / ${planInfo.volume_oz}\u00A0oz`
     : null;
   const waterInterval = planInfo ? `every ${planInfo.interval}\u00A0days` : null;
 
@@ -377,7 +373,10 @@ export default function PlantDetail() {
               className={`text-xs text-gray-500 dark:text-gray-400 ${flash ? 'flash-update' : ''}`}
               data-testid="smart-water-plan"
             >
-              {formatVolume(plant.smartWaterPlan.volume)} every{' '}
+              {formatMlOz(
+                plant.smartWaterPlan.volume_ml,
+                plant.smartWaterPlan.volume_oz,
+              )} every{' '}
               {plant.smartWaterPlan.interval} days —{' '}
               {plant.smartWaterPlan.reason}
             </p>
@@ -419,7 +418,10 @@ export default function PlantDetail() {
                 </li>
                 <li className="flex items-center gap-2">
                   <Thermometer className="w-4 h-4 text-yellow-500" />
-                  Amount: {formatVolume(plant.waterPlan.volume)}
+                    Amount: {formatMlOz(
+                      plant.waterPlan.volume_ml,
+                      plant.waterPlan.volume_oz,
+                    )}
                 </li>
                 <li className="flex items-center gap-2">
                   <Flower className="w-4 h-4 text-pink-500" />
@@ -444,7 +446,10 @@ export default function PlantDetail() {
                     </p>
                     <p className="text-sm flex items-center gap-2">
                       <Thermometer className="w-4 h-4 text-yellow-500" />
-                      Amount: {formatVolume(plant.waterPlan.volume)}
+                      Amount: {formatMlOz(
+                        plant.waterPlan.volume_ml,
+                        plant.waterPlan.volume_oz,
+                      )}
                     </p>
                   </>
                 ) : (
