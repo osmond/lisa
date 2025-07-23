@@ -334,16 +334,23 @@ export default function PlantDetail() {
               Progress toward next scheduled care
             </span>
           </div>
-          {plant.smartWaterPlan && (
+          {plant.smartWaterPlan ? (
             <p
               className="text-xs text-gray-500 dark:text-gray-400"
               data-testid="smart-water-plan"
             >
-              {plant.smartWaterPlan.volume} in³ every{" "}
-              {plant.smartWaterPlan.interval} days —{" "}
+              {plant.smartWaterPlan.volume} in³ every{' '}
+              {plant.smartWaterPlan.interval} days —{' '}
               {plant.smartWaterPlan.reason}
             </p>
-          )}
+          ) : plant.waterPlan?.volume > 0 ? (
+            <p
+              className="text-xs text-gray-500 dark:text-gray-400"
+              data-testid="water-plan"
+            >
+              {plant.waterPlan.volume} in³ every {plant.waterPlan.interval} days
+            </p>
+          ) : null}
         </div>
       ),
     },
