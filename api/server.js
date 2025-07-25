@@ -1,15 +1,16 @@
 import 'dotenv/config'
 import express from 'express'
 import fs from 'fs'
+import path from 'path'
 import multer from 'multer'
 import { v2 as cloudinary } from 'cloudinary'
 import { PrismaClient } from '@prisma/client'
 import { generateCarePlan } from '../lib/carePlan.js'
 
-const plantsPath = new URL('../src/plants.json', import.meta.url)
+const plantsPath = path.join(process.cwd(), 'src', 'plants.json')
 // Load the plants data to allow for future expansion
 JSON.parse(fs.readFileSync(plantsPath))
-const discoverPath = new URL('../src/discoverablePlants.json', import.meta.url)
+const discoverPath = path.join(process.cwd(), 'src', 'discoverablePlants.json')
 const discoverable = JSON.parse(fs.readFileSync(discoverPath))
 const app = express()
 app.use(express.json())
@@ -302,6 +303,10 @@ app.get('/api/discoverable-plants', (req, res) => {
 })
 
 const port = process.env.PORT || 3000
-app.listen(port, () => {
-  console.log(`API server listening on ${port}`)
-})
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log(`API server listening on ${port}`)
+  })
+}
+
+export default app
