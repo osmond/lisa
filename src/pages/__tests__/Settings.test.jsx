@@ -50,3 +50,17 @@ test('handleReset clears storage and reloads only when confirmed', () => {
   confirmSpy.mockRestore()
   clearSpy.mockRestore()
 })
+
+test('toggles include descriptive titles', () => {
+  render(<Settings />)
+  expect(
+    screen
+      .getByLabelText(/enable dark mode/i)
+      .closest('label')
+  ).toHaveAttribute('title', 'Toggle dark mode')
+  expect(
+    screen
+      .getByLabelText(/enable ai-powered features/i)
+      .closest('label')
+  ).toHaveAttribute('title', 'Toggle AI features')
+})
