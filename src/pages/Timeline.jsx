@@ -66,6 +66,8 @@ export default function Timeline() {
     return grouped
   }, [filteredEvents, latestFirst])
 
+  const [monthsToShow, setMonthsToShow] = useState(3)
+
   const [selectedEvent, setSelectedEvent] = useState(null)
   const [expandedMonths, setExpandedMonths] = useState(() => new Set())
 
@@ -159,7 +161,7 @@ export default function Timeline() {
           </button>
         </div>
         <div className="relative">
-          {groupedEvents.map(([monthKey, list]) => (
+          {groupedEvents.slice(0, monthsToShow).map(([monthKey, list]) => (
             <div key={monthKey} className="mt-6 first:mt-0 space-y-3">
               <h3 className="sticky top-0 z-10 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm px-1 text-timestamp uppercase tracking-wider text-gray-300 mb-2">
                 {formatMonth(monthKey)}
@@ -249,6 +251,17 @@ export default function Timeline() {
               </ul>
             </div>
           ))}
+          {monthsToShow < groupedEvents.length && (
+            <div className="text-center mt-4">
+              <button
+                type="button"
+                onClick={() => setMonthsToShow(m => m + 3)}
+                className="text-sm text-green-600 hover:underline"
+              >
+                Load more
+              </button>
+            </div>
+          )}
         </div>
       </SectionCard>
       {selectedEvent && (
