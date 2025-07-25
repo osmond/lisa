@@ -3,6 +3,8 @@ import { useOpenAI } from '../OpenAIContext.jsx'
 
 export default function useCarePlan() {
   const [plan, setPlan] = useState(null)
+  const [history, setHistory] = useState([])
+  const [index, setIndex] = useState(-1)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const { enabled } = useOpenAI()
@@ -31,14 +33,24 @@ export default function useCarePlan() {
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'server error')
       setPlan(data)
+      setHistory(h => [...h.slice(0, index + 1), data])
+      setIndex(i => i + 1)
     } catch (err) {
       console.error('care plan error', err)
       setError('Failed to generate plan')
       setPlan(DEFAULT_PLAN)
+      setHistory(h => [...h.slice(0, index + 1), DEFAULT_PLAN])
+      setIndex(i => i + 1)
     } finally {
       setLoading(false)
     }
   }
 
-  return { plan, loading, error, generate }
+  const revert = i => {
+    if (i < 0 || i >= history.length) return
+    setIndex(i)
+    setPlan(history[i])
+  }
+
+  return { plan, loading, error, generate, history, revert, index }
 }

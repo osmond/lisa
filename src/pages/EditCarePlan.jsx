@@ -15,7 +15,7 @@ export default function EditCarePlan() {
   const [waterVolumeMl, setWaterVolumeMl] = useState(plant?.waterPlan?.volume_ml || '')
   const [waterVolumeOz, setWaterVolumeOz] = useState(plant?.waterPlan?.volume_oz || '')
   const [fertilizeInterval, setFertilizeInterval] = useState(plant?.carePlan?.fertilize || '')
-  const { plan, loading, generate } = useCarePlan()
+  const { plan, loading, generate, history, revert, index } = useCarePlan()
 
   useEffect(() => {
     if (!plan) return
@@ -108,6 +108,21 @@ export default function EditCarePlan() {
           </button>
           <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">Save</button>
         </div>
+        {history.length > 1 && (
+          <div className="flex items-center gap-2">
+            <label htmlFor="plan-version" className="font-medium">Version</label>
+            <select
+              id="plan-version"
+              value={index}
+              onChange={e => revert(Number(e.target.value))}
+              className="border rounded p-1"
+            >
+              {history.map((_, i) => (
+                <option key={i} value={i}>v{i + 1}</option>
+              ))}
+            </select>
+          </div>
+        )}
         {loading && <Spinner className="mt-2 text-green-600" />}
       </form>
     </PageContainer>
