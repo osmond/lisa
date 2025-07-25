@@ -1,15 +1,16 @@
 import 'dotenv/config'
 import express from 'express'
 import fs from 'fs'
+import path from 'path'
 import multer from 'multer'
 import { v2 as cloudinary } from 'cloudinary'
 import { PrismaClient } from '@prisma/client'
 import { generateCarePlan } from '../lib/carePlan.js'
 
-const plantsPath = new URL('../src/plants.json', import.meta.url)
+const plantsPath = path.resolve('src/plants.json')
 // Load the plants data to allow for future expansion
 JSON.parse(fs.readFileSync(plantsPath))
-const discoverPath = new URL('../src/discoverablePlants.json', import.meta.url)
+const discoverPath = path.resolve('src/discoverablePlants.json')
 const discoverable = JSON.parse(fs.readFileSync(discoverPath))
 const app = express()
 app.use(express.json())
@@ -240,6 +241,14 @@ app.post('/api/plants/:id/photos', upload.array('photos'), async (req, res) => {
     res.status(400).json({ error: 'No photos uploaded' })
     return
   }
+  const MAX_SIZE = 5 * 1024 * 1024
+  const invalid = files.find(
+    f => f.size > MAX_SIZE || !f.mimetype.startsWith('image/')
+  )
+  if (invalid) {
+    res.status(400).json({ error: 'Invalid file upload' })
+    return
+  }
   try {
     const urls = await Promise.all(
       files.map(
@@ -302,6 +311,10 @@ app.get('/api/discoverable-plants', (req, res) => {
 })
 
 const port = process.env.PORT || 3000
-app.listen(port, () => {
-  console.log(`API server listening on ${port}`)
-})
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log(`API server listening on ${port}`)
+  })
+}
+
+export default app
