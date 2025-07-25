@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import PageContainer from '../components/PageContainer.jsx'
+import Spinner from '../components/Spinner.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import useCarePlan from '../hooks/useCarePlan.js'
 
@@ -107,7 +108,7 @@ export default function EditCarePlan() {
           </button>
           <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">Save</button>
         </div>
-        {loading && <p className="mt-2">Loading...</p>}
+        {loading && <Spinner className="mt-2 text-green-600" />}
       </form>
     </PageContainer>
   )

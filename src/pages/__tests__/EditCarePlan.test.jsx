@@ -75,3 +75,38 @@ test('generates plan and saves updates', async () => {
 
   expect(screen.getByText('Detail')).toBeInTheDocument()
 })
+
+test('shows spinner while loading', async () => {
+  let resolveFetch
+  global.fetch = jest.fn(
+    () =>
+      new Promise(res => {
+        resolveFetch = () =>
+          res({
+            ok: true,
+            json: () =>
+              Promise.resolve({
+                water: 1,
+                water_volume_ml: 100,
+                water_volume_oz: 3,
+                fertilize: 30,
+              }),
+          })
+      })
+  )
+
+  render(
+    <MemoryRouter initialEntries={['/plant/1/edit-care-plan']}>
+      <Routes>
+        <Route path="/plant/:id/edit-care-plan" element={<EditCarePlan />} />
+      </Routes>
+    </MemoryRouter>
+  )
+
+  fireEvent.click(screen.getByRole('button', { name: /generate care plan/i }))
+
+  expect(screen.getByTestId('spinner')).toBeInTheDocument()
+
+  resolveFetch()
+  await waitFor(() => screen.getByLabelText(/water interval/i))
+})

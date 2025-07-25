@@ -153,3 +153,45 @@ test('shows error message on failure', async () => {
   await waitFor(() => screen.getByRole('alert'))
   expect(screen.getByRole('alert')).toHaveTextContent('Failed to generate plan')
 })
+
+test('shows spinner while loading', async () => {
+  let resolveFetch
+  global.fetch = jest.fn(
+    () =>
+      new Promise(res => {
+        resolveFetch = () =>
+          res({
+            ok: true,
+            json: () =>
+              Promise.resolve({
+                text: 'ok',
+                water: 1,
+                water_volume_ml: 100,
+                water_volume_oz: 3,
+              }),
+          })
+      })
+  )
+
+  render(
+    <MemoryRouter initialEntries={['/onboard']}>
+      <Routes>
+        <Route path="/onboard" element={<Onboard />} />
+      </Routes>
+    </MemoryRouter>
+  )
+
+  fireEvent.change(screen.getByLabelText(/plant name/i), {
+    target: { value: 'Aloe' },
+  })
+  fireEvent.change(screen.getByLabelText(/pot diameter/i), {
+    target: { value: '4' },
+  })
+
+  fireEvent.click(screen.getByRole('button', { name: /generate care plan/i }))
+
+  expect(screen.getByTestId('spinner')).toBeInTheDocument()
+
+  resolveFetch()
+  await waitFor(() => screen.getByTestId('care-plan'))
+})

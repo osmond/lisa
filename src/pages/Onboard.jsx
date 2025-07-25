@@ -4,6 +4,7 @@ import { usePlants } from '../PlantContext.jsx'
 import { useRooms } from '../RoomContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
 import PageContainer from "../components/PageContainer.jsx"
+import Spinner from '../components/Spinner.jsx'
 import useCarePlan from '../hooks/useCarePlan.js'
 import usePlantTaxon from '../hooks/usePlantTaxon.js'
 
@@ -182,7 +183,7 @@ export default function Onboard() {
         <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded" disabled={loading}>Generate Care Plan</button>
       </form>
 
-      {loading && <p className="mt-4">Loading...</p>}
+      {loading && <Spinner className="mt-4 text-green-600" />}
       {error && <p role="alert" className="text-red-600 mt-4">{error}</p>}
       {plan && water ? (
         <div className="mt-6 space-y-4" data-testid="care-plan">
