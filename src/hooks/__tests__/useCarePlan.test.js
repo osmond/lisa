@@ -33,3 +33,26 @@ test('posts details to /api/care-plan', async () => {
   )
 })
 
+test('returns fallback plan on failure', async () => {
+  global.fetch = jest.fn(() =>
+    Promise.resolve({ ok: false, json: () => Promise.resolve({ error: 'bad' }) })
+  )
+  function Fallback() {
+    const { plan, error, generate } = useCarePlan()
+    return (
+      <div>
+        <button onClick={() => generate({ name: 'Snake' })}>go</button>
+        <span data-testid="error">{error}</span>
+        {plan && <span data-testid="water">{plan.water}</span>}
+      </div>
+    )
+  }
+  render(<Fallback />)
+  await act(async () => {
+    screen.getByText('go').click()
+  })
+  await waitFor(() => screen.getByTestId('error'))
+  expect(screen.getByTestId('error')).toHaveTextContent('Failed to generate plan')
+  expect(screen.getByTestId('water')).toHaveTextContent('0')
+})
+

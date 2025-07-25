@@ -110,3 +110,21 @@ test('shows spinner while loading', async () => {
   resolveFetch()
   await waitFor(() => screen.getByLabelText(/water interval/i))
 })
+
+test('uses fallback plan on failure', async () => {
+  global.fetch = jest.fn(() => Promise.resolve({ ok: false, json: () => Promise.resolve({ error: 'bad' }) }))
+  render(
+    <MemoryRouter initialEntries={['/plant/1/edit-care-plan']}>
+      <Routes>
+        <Route path="/plant/:id/edit-care-plan" element={<EditCarePlan />} />
+      </Routes>
+    </MemoryRouter>
+  )
+  fireEvent.click(screen.getByRole('button', { name: /generate care plan/i }))
+  await waitFor(() =>
+    expect(screen.getByLabelText(/water interval/i)).toHaveValue(0)
+  )
+  await waitFor(() =>
+    expect(screen.getByLabelText(/water amount \(mL\)/i)).toHaveValue(0)
+  )
+})
