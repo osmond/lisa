@@ -181,6 +181,54 @@ app.post('/api/timeline-summary', async (req, res) => {
   }
 })
 
+// CRUD routes for plants
+app.get('/api/plants', async (req, res) => {
+  try {
+    const plants = await prisma.plant.findMany({
+      include: { photos: true, careEvents: true },
+      orderBy: { id: 'asc' },
+    })
+    res.json(plants)
+  } catch (err) {
+    console.error('DB error', err)
+    res.status(500).json({ error: 'Failed to load plants' })
+  }
+})
+
+app.post('/api/plants', async (req, res) => {
+  try {
+    const plant = await prisma.plant.create({ data: req.body })
+    res.status(201).json(plant)
+  } catch (err) {
+    console.error('DB error', err)
+    res.status(400).json({ error: 'Failed to create plant' })
+  }
+})
+
+app.put('/api/plants/:id', async (req, res) => {
+  const id = parseInt(req.params.id, 10)
+  try {
+    const plant = await prisma.plant.update({ where: { id }, data: req.body })
+    res.json(plant)
+  } catch (err) {
+    console.error('DB error', err)
+    res.status(400).json({ error: 'Failed to update plant' })
+  }
+})
+
+app.delete('/api/plants/:id', async (req, res) => {
+  const id = parseInt(req.params.id, 10)
+  try {
+    await prisma.photo.deleteMany({ where: { plantId: id } })
+    await prisma.careEvent.deleteMany({ where: { plantId: id } })
+    await prisma.plant.delete({ where: { id } })
+    res.status(204).end()
+  } catch (err) {
+    console.error('DB error', err)
+    res.status(400).json({ error: 'Failed to delete plant' })
+  }
+})
+
 app.post('/api/plants/:id/photos', upload.array('photos'), async (req, res) => {
   const plantId = parseInt(req.params.id, 10)
   if (Number.isNaN(plantId)) {
@@ -215,6 +263,29 @@ app.post('/api/plants/:id/photos', upload.array('photos'), async (req, res) => {
   } catch (err) {
     console.error('Upload error', err)
     res.status(500).json({ error: 'Upload failed' })
+  }
+})
+
+app.delete('/api/plants/:id/photos/:index', async (req, res) => {
+  const plantId = parseInt(req.params.id, 10)
+  const index = parseInt(req.params.index, 10)
+  if (Number.isNaN(plantId) || Number.isNaN(index)) {
+    res.status(400).json({ error: 'Invalid request' })
+    return
+  }
+  try {
+    const photos = await prisma.photo.findMany({
+      where: { plantId },
+      orderBy: { id: 'asc' },
+      skip: index,
+      take: 1,
+    })
+    const photo = photos[0]
+    if (photo) await prisma.photo.delete({ where: { id: photo.id } })
+    res.status(204).end()
+  } catch (err) {
+    console.error('Delete photo error', err)
+    res.status(500).json({ error: 'Failed to delete photo' })
   }
 })
 

@@ -74,6 +74,7 @@ You can change the city and switch between Fahrenheit and Celsius from the **Set
 2. Copy `.env.example` to `.env` in the project root and replace `your_key_here`
    with your actual API key.
 3. (Optional) Add `VITE_OPENAI_API_KEY` (or `OPENAI_API_KEY`) to enable featured plant facts, Coach, and Care Plan features. The Express API also reads `OPENAI_API_KEY` if you prefer not to expose the key to the frontend.
+4. Set `DATABASE_URL` in `.env` to point at your MySQL database. Run `npx prisma migrate deploy` to initialize the schema.
 
 ### How It Works
 

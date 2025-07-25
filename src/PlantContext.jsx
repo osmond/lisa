@@ -78,6 +78,25 @@ export function PlantProvider({ children }) {
     return initialPlants.map(mapPlant);
   });
 
+  useEffect(() => {
+    let ignore = false;
+    async function load() {
+      if (typeof fetch === 'undefined') return;
+      try {
+        const res = await fetch("/api/plants");
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!ignore) setPlants(data.map(mapPlant));
+      } catch {
+        // ignore network errors and keep local data
+      }
+    }
+    load();
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
   const weatherCtx = useWeather();
   const weather = { rainTomorrow: weatherCtx?.forecast?.rainfall || 0 };
 
@@ -238,6 +257,12 @@ export function PlantProvider({ children }) {
         carePlan: null,
         ...plant,
       };
+      if (typeof fetch !== 'undefined')
+        fetch('/api/plants', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newPlant),
+        }).catch(() => {})
       return [...prev, newPlant];
     });
   };
@@ -259,10 +284,18 @@ export function PlantProvider({ children }) {
         return next;
       }),
     );
+    if (typeof fetch !== 'undefined')
+      fetch(`/api/plants/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates),
+      }).catch(() => {})
   };
 
   const removePlant = (id) => {
     setPlants((prev) => prev.filter((p) => p.id !== id));
+    if (typeof fetch !== 'undefined')
+      fetch(`/api/plants/${id}`, { method: 'DELETE' }).catch(() => {})
   };
 
   const restorePlant = (plant, index) => {
@@ -283,6 +316,12 @@ export function PlantProvider({ children }) {
         p.id === id ? { ...p, photos: [...(p.photos || []), newPhoto] } : p,
       ),
     );
+    const form = new FormData();
+    if (photo.file) form.append('photos', photo.file);
+    if (typeof fetch !== 'undefined' && form.has('photos'))
+      fetch(`/api/plants/${id}/photos`, { method: 'POST', body: form }).catch(
+        () => {},
+      );
   };
 
   const removePhoto = (id, index) => {
@@ -295,6 +334,8 @@ export function PlantProvider({ children }) {
         return p;
       }),
     );
+    if (typeof fetch !== 'undefined')
+      fetch(`/api/plants/${id}/photos/${index}`, { method: 'DELETE' }).catch(() => {});
   };
 
   return (
