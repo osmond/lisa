@@ -1,6 +1,9 @@
 import 'dotenv/config'
 import express from 'express'
 import fs from 'fs'
+import multer from 'multer'
+import { v2 as cloudinary } from 'cloudinary'
+import { PrismaClient } from '@prisma/client'
 import { generateCarePlan } from '../lib/carePlan.js'
 
 const plantsPath = new URL('../src/plants.json', import.meta.url)
@@ -10,6 +13,16 @@ const discoverPath = new URL('../src/discoverablePlants.json', import.meta.url)
 const discoverable = JSON.parse(fs.readFileSync(discoverPath))
 const app = express()
 app.use(express.json())
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+})
+
+const prisma = new PrismaClient()
+const upload = multer({ storage: multer.memoryStorage() })
 
 app.post('/api/coach', async (req, res) => {
   const { question, plantType, lastWatered, weather } = req.body || {}
@@ -165,6 +178,43 @@ app.post('/api/timeline-summary', async (req, res) => {
   } catch (err) {
     console.error('OpenAI error', err)
     res.status(500).json({ error: 'Failed to load summary' })
+  }
+})
+
+app.post('/api/plants/:id/photos', upload.array('photos'), async (req, res) => {
+  const plantId = parseInt(req.params.id, 10)
+  if (Number.isNaN(plantId)) {
+    res.status(400).json({ error: 'Invalid plant id' })
+    return
+  }
+  const files = req.files || []
+  if (files.length === 0) {
+    res.status(400).json({ error: 'No photos uploaded' })
+    return
+  }
+  try {
+    const urls = await Promise.all(
+      files.map(
+        file =>
+          new Promise((resolve, reject) => {
+            const stream = cloudinary.uploader.upload_stream(
+              { folder: 'plants' },
+              (err, result) => {
+                if (err) reject(err)
+                else resolve(result.secure_url)
+              },
+            )
+            stream.end(file.buffer)
+          }),
+      ),
+    )
+    await prisma.photo.createMany({
+      data: urls.map(url => ({ url, plantId })),
+    })
+    res.json({ urls })
+  } catch (err) {
+    console.error('Upload error', err)
+    res.status(500).json({ error: 'Upload failed' })
   }
 })
 

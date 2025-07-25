@@ -186,14 +186,25 @@ export default function PlantDetail() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleFiles = (e) => {
+  const handleFiles = async (e) => {
     const files = Array.from(e.target.files || []);
-    files.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = (ev) =>
-        addPhoto(plant.id, { src: ev.target.result, caption: "" });
-      reader.readAsDataURL(file);
-    });
+    if (!files.length) return;
+    const formData = new FormData();
+    files.forEach((file) => formData.append("photos", file));
+    try {
+      const res = await fetch(`/api/plants/${plant.id}/photos`, {
+        method: "POST",
+        body: formData,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        (data.urls || []).forEach((url) =>
+          addPhoto(plant.id, { src: url, caption: "" }),
+        );
+      }
+    } catch (err) {
+      console.error("Upload failed", err);
+    }
     e.target.value = "";
   };
 
