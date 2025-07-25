@@ -7,10 +7,10 @@ import { v2 as cloudinary } from 'cloudinary'
 import { PrismaClient } from '@prisma/client'
 import { generateCarePlan } from '../lib/carePlan.js'
 
-const plantsPath = path.resolve('src/plants.json')
+const plantsPath = path.join(process.cwd(), 'src', 'plants.json')
 // Load the plants data to allow for future expansion
 JSON.parse(fs.readFileSync(plantsPath))
-const discoverPath = path.resolve('src/discoverablePlants.json')
+const discoverPath = path.join(process.cwd(), 'src', 'discoverablePlants.json')
 const discoverable = JSON.parse(fs.readFileSync(discoverPath))
 const app = express()
 app.use(express.json())
