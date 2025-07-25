@@ -200,7 +200,12 @@ Lisa includes a web app manifest and service worker so you can install it on mob
 
 ## Dark Mode
 
+
 Lisa ships with built‑in light and dark themes. A tiny inline script in `index.html` runs before React loads and adds the correct `dark` class to `<html>`, preventing flashes of the wrong theme. A toggle on the **Settings** page lets you switch modes manually, and your choice is stored in `localStorage` so the app remembers it on refresh.
+
+## Settings
+
+Use the in‑app **Settings** page to adjust your weather location, units and theme. The app's base URL is **not** configurable here. Instead, it is determined at build time via the `VITE_BASE_PATH` environment variable. See [Building for Production](#building-for-production) for how to set this value. Changing the base path requires rebuilding the app.
 
 ## Safe Area Padding
 
