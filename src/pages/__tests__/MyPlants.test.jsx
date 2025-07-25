@@ -117,7 +117,9 @@ test('filters rooms needing love', () => {
   const links = screen
     .getAllByRole('link')
     .filter(l => l.getAttribute('href') !== '/room/add')
-  expect(screen.queryByText('Kitchen')).toBeNull()
+  expect(
+    screen.queryByRole('link', { name: 'Kitchen' })
+  ).toBeNull()
   expect(links).toHaveLength(1)
   expect(links[0]).toHaveTextContent('Living')
   jest.useRealTimers()
@@ -142,7 +144,9 @@ test('searches plants by name', () => {
     .getAllByRole('link')
     .filter(l => l.getAttribute('href') !== '/room/add')
 
-  expect(screen.queryByText('Kitchen')).toBeNull()
+  expect(
+    screen.queryByRole('link', { name: 'Kitchen' })
+  ).toBeNull()
   expect(links).toHaveLength(1)
   expect(links[0]).toHaveTextContent('Living')
 })

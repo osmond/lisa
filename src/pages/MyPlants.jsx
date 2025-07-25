@@ -14,18 +14,32 @@ import FilterPills from '../components/FilterPills.jsx'
 import CreateFab from '../components/CreateFab.jsx'
 import PageContainer from "../components/PageContainer.jsx"
 import PageHeader from "../components/PageHeader.jsx"
+import BalconyPlantCard from '../components/BalconyPlantCard.jsx'
 
 export default function MyPlants() {
   const { rooms } = useRooms()
   const { plants } = usePlants()
+  const speciesOptions = Array.from(new Set(plants.map(p => p.name))).sort()
 
   const [filter, setFilter] = useState('love')
   const [query, setQuery] = useState('')
+  const [roomFilter, setRoomFilter] = useState('')
+  const [speciesFilter, setSpeciesFilter] = useState('')
+  const [view, setView] = useState('grid')
 
   const search = query.trim().toLowerCase()
-  const filteredPlants = search
-    ? plants.filter(p => p.name.toLowerCase().includes(search))
-    : plants
+  let filteredPlants = plants
+  if (search) {
+    filteredPlants = filteredPlants.filter(p =>
+      p.name.toLowerCase().includes(search),
+    )
+  }
+  if (roomFilter) {
+    filteredPlants = filteredPlants.filter(p => p.room === roomFilter)
+  }
+  if (speciesFilter) {
+    filteredPlants = filteredPlants.filter(p => p.name === speciesFilter)
+  }
 
   const countPlants = room => filteredPlants.filter(p => p.room === room).length
   const todayIso = new Date().toISOString().slice(0, 10)
@@ -96,6 +110,46 @@ export default function MyPlants() {
           className="w-full border rounded p-2"
         />
       </div>
+      <div className="flex flex-wrap gap-2 mb-4">
+        <label className="text-sm flex items-center gap-1">
+          Room:
+          <select
+            value={roomFilter}
+            onChange={e => setRoomFilter(e.target.value)}
+            className="border rounded p-1 text-sm"
+          >
+            <option value="">All</option>
+            {rooms.map(r => (
+              <option key={r} value={r}>
+                {r}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="text-sm flex items-center gap-1">
+          Species:
+          <select
+            value={speciesFilter}
+            onChange={e => setSpeciesFilter(e.target.value)}
+            className="border rounded p-1 text-sm"
+          >
+            <option value="">All</option>
+            {speciesOptions.map(s => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </select>
+        </label>
+        <FilterPills
+          value={view}
+          onChange={setView}
+          options={[
+            { value: 'grid', label: 'Grid' },
+            { value: 'list', label: 'List' },
+          ]}
+        />
+      </div>
       <FilterPills
         value={filter}
         onChange={setFilter}
@@ -118,15 +172,16 @@ export default function MyPlants() {
           },
         ]}
       />
-      <div
-        className="grid gap-4 pb-24"
-        style={{
-          gridTemplateColumns: 'repeat(auto-fill, minmax(160px,1fr))',
-          gridAutoRows: '1fr',
-        }}
-      >
-        {sortedRooms.map((room, i) => {
-          const overdue = countOverdue(room)
+      {view === 'grid' ? (
+        <div
+          className="grid gap-4 pb-24"
+          style={{
+            gridTemplateColumns: 'repeat(auto-fill, minmax(160px,1fr))',
+            gridAutoRows: '1fr',
+          }}
+        >
+          {sortedRooms.map((room, i) => {
+            const overdue = countOverdue(room)
 
           const { wateredToday, pestAlert, lastUpdated } = roomStats(room)
 
@@ -201,6 +256,22 @@ export default function MyPlants() {
           <Plus className="w-10 h-10" aria-hidden="true" />
         </Link>
       </div>
+      ) : (
+        <div className="space-y-8 pb-24">
+          {filteredPlants.map(plant => (
+            <Link
+              key={plant.id}
+              to={plant.room ? `/room/${encodeURIComponent(plant.room)}/plant/${plant.id}` : `/plant/${plant.id}`}
+              state={{ from: '/myplants' }}
+              className="block transition-transform active:shadow"
+              onMouseDown={createRipple}
+              onTouchStart={createRipple}
+            >
+              <BalconyPlantCard plant={plant} />
+            </Link>
+          ))}
+        </div>
+      )}
       <CreateFab />
     </PageContainer>
   )
