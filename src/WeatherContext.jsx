@@ -26,7 +26,10 @@ export function WeatherProvider({ children }) {
     const { signal } = controller;
 
     const key = process.env.VITE_WEATHER_API_KEY;
-    if (!key) return;
+    if (!key) {
+      setError("Missing API key");
+      return;
+    }
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&units=${units}&appid=${key}`;
     setLoading(true);
     fetch(url, { signal })
