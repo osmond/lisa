@@ -1,13 +1,40 @@
 // prisma/schema.prisma
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
+
+
+
 
 generator client {
   provider = "prisma-client-js"
 }
 
-model Plant { … }
-model Photo { … }
-model CareEvent { … }
+model Plant {
+  id         Int         @id @default(autoincrement())
+  name       String
+  species    String?
+  createdAt  DateTime    @default(now())
+  photos     Photo[]
+  careEvents CareEvent[]
+}
+
+model Photo {
+  id        Int      @id @default(autoincrement())
+  url       String
+  uploaded  DateTime @default(now())
+  plant     Plant    @relation(fields: [plantId], references: [id])
+  plantId   Int
+}
+
+model CareEvent {
+  id       Int      @id @default(autoincrement())
+  type     String
+  date     DateTime
+  plant    Plant    @relation(fields: [plantId], references: [id])
+  plantId  Int
+}
+
+

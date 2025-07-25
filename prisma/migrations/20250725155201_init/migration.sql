@@ -1,0 +1,35 @@
+-- CreateTable
+CREATE TABLE `Plant` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
+    `species` VARCHAR(191) NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Photo` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `url` VARCHAR(191) NOT NULL,
+    `uploaded` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `plantId` INTEGER NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `CareEvent` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `type` VARCHAR(191) NOT NULL,
+    `date` DATETIME(3) NOT NULL,
+    `plantId` INTEGER NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Photo` ADD CONSTRAINT `Photo_plantId_fkey` FOREIGN KEY (`plantId`) REFERENCES `Plant`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `CareEvent` ADD CONSTRAINT `CareEvent_plantId_fkey` FOREIGN KEY (`plantId`) REFERENCES `Plant`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
