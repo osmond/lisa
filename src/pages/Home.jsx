@@ -23,6 +23,7 @@ import {
 import CareStats from '../components/CareStats.jsx'
 import DiscoveryCard from '../components/DiscoveryCard.jsx'
 import Card from '../components/Card.jsx'
+import SwipeTip from '../components/SwipeTip.jsx'
 import useHappyPlant from '../hooks/useHappyPlant.js'
 import useDiscoverablePlant from '../hooks/useDiscoverablePlant.js'
 
@@ -267,6 +268,7 @@ export default function Home() {
         <CareSummaryModal tasks={tasks} onClose={() => setShowSummary(false)} />
       )}
       <TasksContainer visibleTasks={visibleTasks} happyPlant={happyPlant} />
+      <SwipeTip />
       <div className="mt-4">
         <Card className="p-0 text-center font-semibold">
           <Link to="/myplants" className="block px-4 py-2">

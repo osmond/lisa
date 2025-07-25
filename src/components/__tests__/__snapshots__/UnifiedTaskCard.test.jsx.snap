@@ -2,9 +2,11 @@
 
 exports[`matches snapshot in dark mode 1`] = `
 <div
+  aria-label="Task card for Fern"
   class="relative rounded-2xl border border-neutral-200 dark:border-gray-600 shadow overflow-hidden touch-pan-y select-none bg-slate-50 dark:bg-gray-800 "
   data-testid="unified-task-card"
   style="transform: translateX(0px); transition: transform 0.2s;"
+  tabindex="0"
 >
   <div
     class="flex items-center gap-4 p-4"

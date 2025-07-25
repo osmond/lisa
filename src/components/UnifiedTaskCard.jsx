@@ -18,6 +18,7 @@ import { usePlants } from '../PlantContext.jsx'
 import useSnackbar from '../hooks/useSnackbar.jsx'
 import useSwipe from '../hooks/useSwipe.js'
 import Badge from './Badge.jsx'
+import ConfirmModal from './ConfirmModal.jsx'
 
 export default function UnifiedTaskCard({
   plant,
@@ -31,6 +32,7 @@ export default function UnifiedTaskCard({
 
   const [completed, setCompleted] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
+  const [showConfirm, setShowConfirm] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
   const [navigating, setNavigating] = useState(false)
@@ -115,11 +117,29 @@ export default function UnifiedTaskCard({
     showSnackbar('Rescheduled', () => updatePlant(plant.id, prev))
   }
 
-  const handleDelete = () => {
+  const handleDelete = () => setShowConfirm(true)
+
+  const confirmDelete = () => {
     const prev = plants.find(p => p.id === plant.id)
     const updates = dueWater ? { nextWater: null } : { nextFertilize: null }
     updatePlant(plant.id, updates)
     showSnackbar('Deleted', () => updatePlant(plant.id, prev))
+    setShowConfirm(false)
+  }
+
+  const cancelDelete = () => setShowConfirm(false)
+
+  const handleKeyDown = e => {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault()
+      handleComplete()
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      handleEdit()
+    } else if (e.key === 'Delete' || e.key === 'Backspace') {
+      e.preventDefault()
+      handleDelete()
+    }
   }
 
   const { dx, start, move, end } = useSwipe(
@@ -137,8 +157,12 @@ export default function UnifiedTaskCard({
 
 
   return (
+    <>
     <div
       data-testid="unified-task-card"
+      tabIndex="0"
+      aria-label={`Task card for ${name}`}
+      onKeyDown={handleKeyDown}
       className={`relative rounded-2xl border border-neutral-200 dark:border-gray-600 shadow overflow-hidden touch-pan-y select-none ${bgClass} ${navigating ? 'swipe-left-out' : ''}`}
       style={{ transform: navigating ? undefined : `translateX(${swipeable ? (dx > 0 ? dx : 0) : 0}px)`, transition: navigating ? undefined : dx === 0 ? 'transform 0.2s' : 'none' }}
       onPointerDown={start}
@@ -288,5 +312,15 @@ export default function UnifiedTaskCard({
         </div>
       )}
     </div>
+    {showConfirm &&
+      createPortal(
+        <ConfirmModal
+          label="Delete this task?"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />,
+        document.body
+      )}
+    </>
   )
 }

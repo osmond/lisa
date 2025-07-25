@@ -169,6 +169,7 @@ test('partial left swipe reveals actions', () => {
   fireEvent.click(screen.getByRole('button', { name: /reschedule task/i }))
   expect(updatePlant).toHaveBeenCalled()
   fireEvent.click(screen.getByRole('button', { name: /delete task/i }))
+  fireEvent.click(screen.getByRole('button', { name: /confirm/i }))
   expect(updatePlant).toHaveBeenCalledTimes(2)
 })
 
