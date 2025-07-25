@@ -7,6 +7,7 @@ import { usePlants } from '../PlantContext.jsx'
 import useSnackbar from '../hooks/useSnackbar.jsx'
 import Badge from './Badge.jsx'
 import useSwipe from '../hooks/useSwipe.js'
+import ConfirmModal from './ConfirmModal.jsx'
 
 export default function TaskCard({
   task,
@@ -20,6 +21,7 @@ export default function TaskCard({
   const navigate = useNavigate()
   const location = useLocation()
   const [navigating, setNavigating] = useState(false)
+  const [showConfirm, setShowConfirm] = useState(false)
   const { plants, markWatered, markFertilized, updatePlant } = usePlants()
   const { showSnackbar } = useSnackbar()
 
@@ -68,7 +70,9 @@ export default function TaskCard({
     showSnackbar('Rescheduled', () => updatePlant(task.plantId, prev))
   }
 
-  const handleDelete = () => {
+  const handleDelete = () => setShowConfirm(true)
+
+  const confirmDelete = () => {
     const prev = plants.find(p => p.id === task.plantId)
     const updates =
       task.type === 'Water'
@@ -76,6 +80,22 @@ export default function TaskCard({
         : { nextFertilize: null }
     updatePlant(task.plantId, updates)
     showSnackbar('Deleted', () => updatePlant(task.plantId, prev))
+    setShowConfirm(false)
+  }
+
+  const cancelDelete = () => setShowConfirm(false)
+
+  const handleKeyDown = e => {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault()
+      handleComplete()
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      handleEdit()
+    } else if (e.key === 'Delete' || e.key === 'Backspace') {
+      e.preventDefault()
+      handleDelete()
+    }
   }
 
   const { dx, start, move, end } = useSwipe(
@@ -99,6 +119,7 @@ export default function TaskCard({
       data-testid="task-card"
       tabIndex="0"
       aria-label={`Task card for ${task.plantName}`}
+      onKeyDown={handleKeyDown}
       className={`relative flex items-center p-5 gap-4 rounded-2xl shadow border border-neutral-200 dark:border-gray-600 touch-pan-y select-none ${completed ? 'bg-green-50 dark:bg-green-900 opacity-50' : overdue ? 'bg-amber-100 dark:bg-amber-800' : urgent ? 'bg-amber-50 dark:bg-gray-700' : 'bg-slate-50 dark:bg-gray-700'}${overdue ? ' ring-2 ring-amber-300 dark:ring-amber-400' : urgent ? ' ring-2 ring-amber-300 dark:ring-amber-400' : ''} ${navigating ? 'swipe-left-out' : ''}`}
       style={{ transform: navigating ? undefined : `translateX(${swipeable ? dx : 0}px) rotate(${dx / 50}deg)`, transition: navigating ? undefined : dx === 0 ? 'transform 0.2s' : 'none' }}
       onPointerDown={start}
@@ -241,6 +262,13 @@ export default function TaskCard({
             </div>
           )}
         </div>
+      {showConfirm && (
+        <ConfirmModal
+          label="Delete this task?"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
+      )}
     </>
   )
 }

@@ -122,6 +122,7 @@ test('kebab menu exposes actions', () => {
   expect(updatePlant).toHaveBeenCalled()
   fireEvent.click(screen.getByRole('button', { name: /open task menu/i }))
   fireEvent.click(screen.getByRole('button', { name: /delete task/i }))
+  fireEvent.click(screen.getByRole('button', { name: /confirm/i }))
   expect(updatePlant).toHaveBeenCalledTimes(2)
 })
 

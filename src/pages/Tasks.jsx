@@ -9,6 +9,7 @@ import BaseCard from '../components/BaseCard.jsx'
 import TaskTabs from '../components/TaskTabs.jsx'
 import CareRings from '../components/CareRings.jsx'
 import PageHeader from '../components/PageHeader.jsx'
+import SwipeTip from '../components/SwipeTip.jsx'
 import { ListBullets, SquaresFour, Sun } from 'phosphor-react'
 import useTaskLayout from '../hooks/useTaskLayout.js'
 
@@ -452,6 +453,7 @@ export default function Tasks() {
 
         })
         )}
+      <SwipeTip />
     </div>
   )
 }
