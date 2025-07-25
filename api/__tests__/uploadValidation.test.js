@@ -20,11 +20,6 @@ jest.mock('cloudinary', () => {
   }
 })
 
-const prisma = {
-  photo: { createMany: jest.fn(), findMany: jest.fn(), delete: jest.fn() },
-  plant: {},
-  careEvent: {},
-}
 
 jest.mock('@prisma/client', () => {
   const prisma = {
