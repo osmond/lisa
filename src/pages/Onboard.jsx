@@ -36,6 +36,8 @@ export default function Onboard() {
       } catch {
         setCarePlan(null)
       }
+    } else if (plan) {
+      setCarePlan(plan)
     } else {
       setCarePlan(null)
     }

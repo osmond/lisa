@@ -7,6 +7,14 @@ export default function useCarePlan() {
   const [error, setError] = useState('')
   const { enabled } = useOpenAI()
 
+  const DEFAULT_PLAN = {
+    text: '',
+    water: 0,
+    water_volume_ml: 0,
+    water_volume_oz: 0,
+    fertilize: 0,
+  }
+
   const generate = async details => {
     if (!enabled) {
       setError('Missing API key')
@@ -26,6 +34,7 @@ export default function useCarePlan() {
     } catch (err) {
       console.error('care plan error', err)
       setError('Failed to generate plan')
+      setPlan(DEFAULT_PLAN)
     } finally {
       setLoading(false)
     }

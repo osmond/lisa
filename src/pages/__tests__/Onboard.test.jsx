@@ -154,6 +154,22 @@ test('shows error message on failure', async () => {
   expect(screen.getByRole('alert')).toHaveTextContent('Failed to generate plan')
 })
 
+test('uses fallback plan on failure', async () => {
+  global.fetch = jest.fn(() => Promise.resolve({ ok: false, json: () => Promise.resolve({ error: 'bad' }) }))
+  render(
+    <MemoryRouter initialEntries={['/onboard']}>
+      <Routes>
+        <Route path="/onboard" element={<Onboard />} />
+      </Routes>
+    </MemoryRouter>
+  )
+  fireEvent.change(screen.getByLabelText(/plant name/i), { target: { value: 'Aloe' } })
+  fireEvent.change(screen.getByLabelText(/pot diameter/i), { target: { value: '4' } })
+  fireEvent.click(screen.getByRole('button', { name: /generate care plan/i }))
+  await waitFor(() => screen.getByTestId('water-plan'))
+  expect(screen.getByTestId('water-plan')).toHaveTextContent('0 mL / 0 oz every 0 days')
+})
+
 test('shows spinner while loading', async () => {
   let resolveFetch
   global.fetch = jest.fn(
