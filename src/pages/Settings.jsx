@@ -30,10 +30,12 @@ export default function Settings() {
   }
 
   const handleReset = () => {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.clear()
+    if (window.confirm('This will clear all data. Continue?')) {
+      if (typeof localStorage !== 'undefined') {
+        localStorage.clear()
+      }
+      window.location.reload()
     }
-    window.location.reload()
   }
 
   const weatherIcon = forecast?.condition
