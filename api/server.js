@@ -241,6 +241,14 @@ app.post('/api/plants/:id/photos', upload.array('photos'), async (req, res) => {
     res.status(400).json({ error: 'No photos uploaded' })
     return
   }
+  const MAX_SIZE = 5 * 1024 * 1024
+  const invalid = files.find(
+    f => f.size > MAX_SIZE || !f.mimetype.startsWith('image/')
+  )
+  if (invalid) {
+    res.status(400).json({ error: 'Invalid file upload' })
+    return
+  }
   try {
     const urls = await Promise.all(
       files.map(
