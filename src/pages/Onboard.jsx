@@ -23,7 +23,7 @@ export default function Onboard() {
     humidity: '',
   })
   const [water, setWater] = useState(null)
-  const { plan, loading, error, generate } = useCarePlan()
+  const { plan, loading, error, generate, history, revert, index } = useCarePlan()
   const [carePlan, setCarePlan] = useState(null)
   const taxa = usePlantTaxon(form.name)
 
@@ -187,6 +187,21 @@ export default function Onboard() {
 
       {loading && <Spinner className="mt-4 text-green-600" />}
       {error && <p role="alert" className="text-red-600 mt-4">{error}</p>}
+      {history.length > 1 && (
+        <div className="mt-4 flex items-center gap-2">
+          <label htmlFor="plan-version" className="font-medium">Version</label>
+          <select
+            id="plan-version"
+            value={index}
+            onChange={e => revert(Number(e.target.value))}
+            className="border rounded p-1"
+          >
+            {history.map((_, i) => (
+              <option key={i} value={i}>v{i + 1}</option>
+            ))}
+          </select>
+        </div>
+      )}
       {plan && water ? (
         <div className="mt-6 space-y-4" data-testid="care-plan">
           <pre className="whitespace-pre-wrap p-4 bg-green-50 rounded">{plan.text}</pre>

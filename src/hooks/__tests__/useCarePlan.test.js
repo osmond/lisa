@@ -56,3 +56,39 @@ test('returns fallback plan on failure', async () => {
   expect(screen.getByTestId('water')).toHaveTextContent('0')
 })
 
+test('can revert to previous plan', async () => {
+  let count = 0
+  global.fetch = jest.fn(() => {
+    const text = count === 0 ? 'one' : 'two'
+    count += 1
+    return Promise.resolve({ ok: true, json: () => Promise.resolve({ text }) })
+  })
+
+  function RevertTest() {
+    const { plan, generate, revert, history } = useCarePlan()
+    return (
+      <div>
+        <button onClick={() => generate({})}>gen</button>
+        <button onClick={() => revert(0)} disabled={history.length < 2}>rev</button>
+        {plan && <span>{plan.text}</span>}
+      </div>
+    )
+  }
+
+  render(<RevertTest />)
+  await act(async () => {
+    screen.getByText('gen').click()
+  })
+  await waitFor(() => screen.getByText('one'))
+  await act(async () => {
+    screen.getByText('gen').click()
+  })
+  await waitFor(() => screen.getByText('two'))
+
+  act(() => {
+    screen.getByText('rev').click()
+  })
+
+  expect(screen.getByText('one')).toBeInTheDocument()
+})
+
