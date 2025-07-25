@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import express from 'express'
 import fs from 'fs'
+import { generateCarePlan } from '../lib/carePlan.js'
 
 const plantsPath = new URL('../src/plants.json', import.meta.url)
 // Load the plants data to allow for future expansion
@@ -46,51 +47,13 @@ app.post('/api/coach', async (req, res) => {
 })
 
 app.post('/api/care-plan', async (req, res) => {
-  const apiKey = process.env.VITE_OPENAI_API_KEY || process.env.OPENAI_API_KEY
-  if (!apiKey) {
-    res.status(400).json({ error: 'Missing OpenAI API key' })
-    return
-  }
-
-  const { name, soil, light, humidity } = req.body || {}
-  const messages = [
-    {
-      role: 'system',
-      content:
-        'You are a plant care assistant. Respond in JSON with water, fertilize, light, water_volume_ml and water_volume_oz.',
-    },
-    {
-      role: 'user',
-      content: `Plant: ${name}\nLight: ${light}\nSoil: ${soil}\nHumidity: ${humidity}\nGive watering interval in days, watering volume in mL and ounces, fertilizing interval in days, and short light description. Respond with JSON {"water":<days>,"fertilize":<days>,"light":"label","water_volume_ml":<ml>,"water_volume_oz":<oz>}.`,
-    },
-  ]
-
   try {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({ model: 'gpt-4o', messages }),
-    })
-    if (!response.ok) throw new Error(await response.text())
-    const data = await response.json()
-    const text = data?.choices?.[0]?.message?.content?.trim()
-    let plan
-    try {
-      plan = JSON.parse(text)
-    } catch {
-      plan = { text }
-    }
-    const { water_volume_ml, water_volume_oz } = plan
-    plan.water_volume_ml = Number(water_volume_ml)
-    plan.water_volume_oz = Number(water_volume_oz)
-    plan.text = text
+    const plan = await generateCarePlan(req.body)
     res.json(plan)
   } catch (err) {
+    const status = err.status || 500
     console.error('OpenAI error', err)
-    res.status(500).json({ error: 'Failed to generate plan' })
+    res.status(status).json({ error: err.message || 'Failed to generate plan' })
   }
 })
 

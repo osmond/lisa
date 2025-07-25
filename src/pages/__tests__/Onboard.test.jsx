@@ -138,3 +138,18 @@ test('selecting a name fetches defaults', async () => {
   )
   expect(screen.getByLabelText(/humidity/i)).toHaveValue(60)
 })
+
+test('shows error message on failure', async () => {
+  global.fetch = jest.fn(() => Promise.resolve({ ok: false, json: () => Promise.resolve({ error: 'bad' }) }))
+  render(
+    <MemoryRouter initialEntries={['/onboard']}>
+      <Routes>
+        <Route path="/onboard" element={<Onboard />} />
+      </Routes>
+    </MemoryRouter>
+  )
+  fireEvent.change(screen.getByLabelText(/plant name/i), { target: { value: 'A' } })
+  fireEvent.click(screen.getByRole('button', { name: /generate care plan/i }))
+  await waitFor(() => screen.getByRole('alert'))
+  expect(screen.getByRole('alert')).toHaveTextContent('Failed to generate plan')
+})

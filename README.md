@@ -73,7 +73,7 @@ You can change the city and switch between Fahrenheit and Celsius from the **Set
 1. Sign up at [OpenWeather](https://openweathermap.org/api) and create a key.
 2. Copy `.env.example` to `.env` in the project root and replace `your_key_here`
    with your actual API key.
-3. (Optional) Add `VITE_OPENAI_API_KEY` (or `OPENAI_API_KEY`) to enable featured plant facts, Coach, and Care Plan features.
+3. (Optional) Add `VITE_OPENAI_API_KEY` (or `OPENAI_API_KEY`) to enable featured plant facts, Coach, and Care Plan features. The Express API also reads `OPENAI_API_KEY` if you prefer not to expose the key to the frontend.
 
 ### How It Works
 
@@ -106,8 +106,8 @@ In the app this is displayed below the progress bars as:
 
 ## Plant Facts (Optional)
 
-Provide an OpenAI API key in `.env` as `VITE_OPENAI_API_KEY` (or `OPENAI_API_KEY`) to display a short
-fact about the featured plant. The same key is required for the Coach and Care Plan endpoints. If the key is missing or the request fails,
+Provide an OpenAI API key in `.env` as `VITE_OPENAI_API_KEY` or `OPENAI_API_KEY` to display a short
+fact about the featured plant. Both variables are supported by the API routes. If the key is missing or the request fails,
 Lisa falls back to a brief summary from Wikipedia.
 You can enable or disable these features from the **Settings → Preferences** page.
 Requests to the OpenAI API may incur charges.
