@@ -1,9 +1,20 @@
 import { useId } from 'react'
 
-export default function ToggleSwitch({ checked = false, onChange, label, className = '', ...props }) {
+export default function ToggleSwitch({
+  checked = false,
+  onChange,
+  label,
+  title,
+  className = '',
+  ...props
+}) {
   const id = useId()
   return (
-    <label htmlFor={id} className={`inline-flex items-center cursor-pointer ${className}`}>
+    <label
+      htmlFor={id}
+      className={`inline-flex items-center cursor-pointer ${className}`}
+      title={title}
+    >
       <input
         id={id}
         type="checkbox"

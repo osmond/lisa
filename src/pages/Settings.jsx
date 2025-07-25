@@ -133,11 +133,13 @@ export default function Settings() {
             <ToggleSwitch
               checked={theme === 'dark'}
               onChange={handleThemeToggle}
+              title="Toggle dark mode"
               label="🌙 Enable Dark Mode for a softer nighttime experience"
             />
             <ToggleSwitch
               checked={enabled}
               onChange={handleOpenAIToggle}
+              title="Toggle AI features"
               label="🤖 Enable AI-powered features"
             />
           </div>
