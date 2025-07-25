@@ -134,6 +134,7 @@ These scripts assume **Node.js 18+** is installed.
 
 - `npm run dev` – start the Vite dev server
 - `npm run server` – launch the Express API
+- `npm start` – run both dev servers together
 - `npm run lint` – check the code with ESLint
 - `npm test` – run unit tests with Jest
 - `npm run build` – create a production build
@@ -152,6 +153,10 @@ npm run dev
 The dev server prints a local URL (usually `http://localhost:5173/`). Requests to
 `/api/coach` are automatically forwarded to the Express server running on
 `http://localhost:3000`.
+Alternatively, you can start both servers at once with:
+```bash
+npm start
+```
 
 ## Building for Production
 
