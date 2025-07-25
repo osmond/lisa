@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import PageContainer from '../components/PageContainer.jsx'
 import { usePlants } from '../PlantContext.jsx'
+import useCarePlan from '../hooks/useCarePlan.js'
 
 export default function EditCarePlan() {
   const { id } = useParams()
@@ -13,6 +14,15 @@ export default function EditCarePlan() {
   const [waterVolumeMl, setWaterVolumeMl] = useState(plant?.waterPlan?.volume_ml || '')
   const [waterVolumeOz, setWaterVolumeOz] = useState(plant?.waterPlan?.volume_oz || '')
   const [fertilizeInterval, setFertilizeInterval] = useState(plant?.carePlan?.fertilize || '')
+  const { plan, loading, generate } = useCarePlan()
+
+  useEffect(() => {
+    if (!plan) return
+    if (plan.water !== undefined) setWaterInterval(plan.water)
+    if (plan.water_volume_ml !== undefined) setWaterVolumeMl(plan.water_volume_ml)
+    if (plan.water_volume_oz !== undefined) setWaterVolumeOz(plan.water_volume_oz)
+    if (plan.fertilize !== undefined) setFertilizeInterval(plan.fertilize)
+  }, [plan])
 
   if (!plant) {
     return <div className="text-gray-700">Plant not found</div>
@@ -29,6 +39,17 @@ export default function EditCarePlan() {
       carePlan: { ...(plant.carePlan || {}), water: Number(waterInterval) || 0, fertilize: Number(fertilizeInterval) || 0 },
     })
     navigate(`/plant/${plant.id}`)
+  }
+
+  const handleGenerate = () => {
+    generate({
+      name: plant.name,
+      diameter: plant.diameter,
+      soil: plant.soil || 'potting mix',
+      light: plant.light || 'Medium',
+      room: plant.room || '',
+      humidity: Number(plant.humidity) || 50,
+    })
   }
 
   return (
@@ -75,7 +96,18 @@ export default function EditCarePlan() {
             className="border rounded p-2"
           />
         </div>
-        <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">Save</button>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={handleGenerate}
+            className="px-4 py-2 bg-green-600 text-white rounded"
+            disabled={loading}
+          >
+            Generate Care Plan
+          </button>
+          <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">Save</button>
+        </div>
+        {loading && <p className="mt-2">Loading...</p>}
       </form>
     </PageContainer>
   )
