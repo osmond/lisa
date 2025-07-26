@@ -603,3 +603,21 @@ test('hero image container uses rounded corners', () => {
   expect(hero).not.toHaveClass('rounded-b-xl')
 })
 
+test('handles unknown plant id gracefully', () => {
+  render(
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={['/plant/9999']}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
+  )
+
+  expect(screen.getByText(/plant not found/i)).toBeInTheDocument()
+})
+

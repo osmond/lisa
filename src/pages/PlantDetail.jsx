@@ -116,18 +116,22 @@ export default function PlantDetail() {
   const [showDiameterModal, setShowDiameterModal] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [fertilizeDone, setFertilizeDone] = useState(false);
-  const prevSmartPlan = useRef(plant.smartWaterPlan);
+  const prevSmartPlan = useRef(plant?.smartWaterPlan);
   const [flash, setFlash] = useState(false);
 
   useEffect(() => {
-    if (prevSmartPlan.current !== plant.smartWaterPlan && plant.smartWaterPlan) {
+    if (!plant) return;
+    if (
+      prevSmartPlan.current !== plant?.smartWaterPlan &&
+      plant?.smartWaterPlan
+    ) {
       setFlash(true);
       const t = setTimeout(() => setFlash(false), 1000);
-      prevSmartPlan.current = plant.smartWaterPlan;
+      prevSmartPlan.current = plant?.smartWaterPlan;
       return () => clearTimeout(t);
     }
-    prevSmartPlan.current = plant.smartWaterPlan;
-  }, [plant.smartWaterPlan]);
+    prevSmartPlan.current = plant?.smartWaterPlan;
+  }, [plant?.smartWaterPlan]);
 
   const waterProgress = getWateringProgress(
     plant?.lastWatered,
@@ -319,6 +323,10 @@ export default function PlantDetail() {
     setShowNoteModal(false);
   };
 
+  if (!plant) {
+    return <div className="text-gray-700 dark:text-gray-200">Plant not found</div>;
+  }
+
   const handleTabChange = (id) => {
     setActiveTab(id);
     const params = new URLSearchParams(searchParams);
@@ -390,17 +398,17 @@ export default function PlantDetail() {
             </span>
           </div>
           {/*
-          {plant.smartWaterPlan && (
+          {plant?.smartWaterPlan && (
             <p
               className={`text-xs text-gray-500 dark:text-gray-400 ${flash ? 'flash-update' : ''}`}
               data-testid="smart-water-plan"
             >
               {formatMlOz(
-                plant.smartWaterPlan.volume_ml,
-                plant.smartWaterPlan.volume_oz,
+                plant?.smartWaterPlan.volume_ml,
+                plant?.smartWaterPlan.volume_oz,
               )} every{' '}
-              {plant.smartWaterPlan.interval} days —{' '}
-              {plant.smartWaterPlan.reason}
+              {plant?.smartWaterPlan.interval} days —{' '}
+              {plant?.smartWaterPlan.reason}
             </p>
           )}
           */}
@@ -413,9 +421,9 @@ export default function PlantDetail() {
       content: (
         <div className="p-4 space-y-2" data-testid="care-plan-tab">
           <div className="flex items-center justify-between">
-              {(plant.waterPlan?.interval || plant.smartWaterPlan) && (
+              {(plant.waterPlan?.interval || plant?.smartWaterPlan) && (
                 <h3 className="text-lg font-semibold">
-                  {plant.smartWaterPlan ? "Recommended Plan" : "Custom Care Plan"}
+                  {plant?.smartWaterPlan ? "Recommended Plan" : "Custom Care Plan"}
                 </h3>
               )}
             <button
@@ -704,12 +712,6 @@ export default function PlantDetail() {
       ),
     },
   ];
-
-  if (!plant) {
-    return (
-      <div className="text-gray-700 dark:text-gray-200">Plant not found</div>
-    );
-  }
 
   return (
     <>
