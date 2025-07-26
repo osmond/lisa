@@ -3,7 +3,7 @@ import express from 'express'
 import fs from 'fs'
 import path from 'path'
 import multer from 'multer'
-import { v2 as cloudinary } from 'cloudinary'
+import cloudinary from './cloudinary.js'
 import { PrismaClient, Prisma } from '@prisma/client'
 import { generateCarePlan } from '../lib/carePlan.js'
 
@@ -13,12 +13,7 @@ const app = express()
 // Temporarily increase JSON payload limit while the upload feature is in progress
 app.use(express.json({ limit: '100mb' }))
 
-// Configure Cloudinary
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-})
+// Cloudinary is configured in cloudinary.js
 
 const prisma = new PrismaClient()
 const upload = multer({ storage: multer.memoryStorage() })
