@@ -130,6 +130,12 @@ test('update plant validation', async () => {
   expect(res.status).toBe(400)
 })
 
+test('update missing plant', async () => {
+  const res = await request(app).put('/api/plants/999').send({ name: 'Ghost' })
+  expect(res.status).toBe(404)
+  expect(res.body.error).toMatch(/not found/i)
+})
+
 test('delete plant', async () => {
   const plant = await prisma.plant.create({ data: { name: 'Del' } })
   const res = await request(app).delete(`/api/plants/${plant.id}`)
