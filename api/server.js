@@ -26,6 +26,11 @@ const upload = multer({ storage: multer.memoryStorage() })
 app.post('/api/coach', async (req, res) => {
   const { question, plantType, lastWatered, weather } = req.body || {}
   const apiKey = process.env.VITE_OPENAI_API_KEY || process.env.OPENAI_API_KEY
+
+  if (!question) {
+    res.status(400).json({ error: 'Missing question' })
+    return
+  }
   if (!apiKey) {
     res.status(400).json({ error: 'Missing OpenAI API key' })
     return
@@ -54,7 +59,7 @@ app.post('/api/coach', async (req, res) => {
     res.json({ answer })
   } catch (err) {
     console.error('OpenAI error', err)
-    res.status(500).json({ error: 'Failed to fetch coach answer' })
+    res.status(502).json({ error: 'Failed to fetch coach answer' })
   }
 })
 
