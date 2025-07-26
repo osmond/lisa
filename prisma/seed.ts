@@ -3,6 +3,10 @@ import { PrismaClient, CareEventType } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
+  if (process.env.SEED_EXAMPLE_DATA !== 'true') {
+    console.log('Skipping example seed data')
+    return
+  }
   const user = await prisma.user.create({ data: { email: 'user@example.com' } })
   const room = await prisma.room.create({ data: { name: 'Living Room' } })
   const snake = await prisma.plant.create({

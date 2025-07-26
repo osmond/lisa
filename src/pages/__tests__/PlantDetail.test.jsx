@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom'
 import { createMemoryHistory } from '@remix-run/router'
 import PlantDetail from '../PlantDetail.jsx'
-import plants from '../../plants.json'
+import plants from '../../__fixtures__/plants.json'
 import { PlantProvider } from '../../PlantContext.jsx'
 import { MenuProvider } from '../../MenuContext.jsx'
 import SnackbarProvider, { Snackbar } from '../../hooks/SnackbarProvider.jsx'

@@ -8,7 +8,7 @@ export function UserProvider({ children }) {
       const stored = localStorage.getItem('username')
       if (stored) return stored
     }
-    return 'Jon'
+    return ''
   })
   const [timeZone, setTimeZone] = useState(() => {
     if (typeof localStorage !== 'undefined') {

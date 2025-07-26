@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import plants from '../plants.json'
 
 export default function usePlantTaxon(query) {
   const [results, setResults] = useState([])
@@ -17,23 +16,20 @@ export default function usePlantTaxon(query) {
       }
     }
 
-    try {
-      const q = query.toLowerCase()
-      const list = plants
-        .filter(p => p.name && p.name.toLowerCase().includes(q))
-        .map((p, idx) => ({
-          id: p.id ?? idx,
-          commonName: p.name,
-          scientificName: p.name,
-        }))
-        .slice(0, 10)
-      setResults(list)
-      if (typeof localStorage !== 'undefined') {
-        localStorage.setItem(key, JSON.stringify(list))
+    async function load() {
+      try {
+        const res = await fetch(`/api/taxon?query=${encodeURIComponent(query)}`)
+        if (!res.ok) throw new Error('Request failed')
+        const data = await res.json()
+        setResults(data)
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem(key, JSON.stringify(data))
+        }
+      } catch (err) {
+        console.error('Failed to load plant suggestions', err)
       }
-    } catch (err) {
-      console.error('Failed to load plant suggestions', err)
     }
+    load()
   }, [query])
 
   return results
