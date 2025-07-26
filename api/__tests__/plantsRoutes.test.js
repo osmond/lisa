@@ -16,13 +16,20 @@ jest.mock('@prisma/client', () => {
   const client = {
     plant: {
       create: ({ data: d }) => {
-        const plant = { id: id++, ...d }
+        const now = new Date()
+        const plant = { id: id++, createdAt: now, updatedAt: now, deletedAt: null, ...d }
         data.plants.push(plant)
         return Promise.resolve(plant)
       },
       update: ({ where: { id }, data: d }) => {
         const plant = data.plants.find(p => p.id === id)
+        if (!plant) {
+          return Promise.reject(
+            new PrismaClientKnownRequestError('not found', { code: 'P2025' })
+          )
+        }
         Object.assign(plant, d)
+        if (d) plant.updatedAt = new Date()
         return Promise.resolve(plant)
       },
       delete: ({ where: { id } }) => {
@@ -127,7 +134,7 @@ test('delete plant', async () => {
   const plant = await prisma.plant.create({ data: { name: 'Del' } })
   const res = await request(app).delete(`/api/plants/${plant.id}`)
   expect(res.status).toBe(204)
-  expect(store.plants.length).toBe(0)
+  expect(store.plants[0].deletedAt).toBeInstanceOf(Date)
 })
 
 test('delete with invalid id', async () => {
