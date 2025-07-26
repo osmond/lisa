@@ -179,6 +179,36 @@ app.post('/api/timeline-summary', async (req, res) => {
   }
 })
 
+// Simple photo upload endpoint
+app.post('/api/photos', upload.single('photo'), async (req, res) => {
+  const file = req.file
+  if (!file) {
+    res.status(400).json({ error: 'No file uploaded' })
+    return
+  }
+  const MAX_SIZE = 5 * 1024 * 1024
+  if (file.size > MAX_SIZE || !file.mimetype.startsWith('image/')) {
+    res.status(400).json({ error: 'Invalid file upload' })
+    return
+  }
+  try {
+    const url = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { folder: 'plants' },
+        (err, result) => {
+          if (err) reject(err)
+          else resolve(result.secure_url)
+        },
+      )
+      stream.end(file.buffer)
+    })
+    res.json({ url })
+  } catch (err) {
+    console.error('Upload error', err)
+    res.status(500).json({ error: 'Upload failed' })
+  }
+})
+
 // CRUD routes for plants
 app.get('/api/plants', async (req, res) => {
   try {
