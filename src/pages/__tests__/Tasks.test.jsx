@@ -2,31 +2,12 @@ import { render, screen, fireEvent, within, cleanup } from '@testing-library/rea
 
 import { MemoryRouter } from 'react-router-dom'
 import SnackbarProvider, { Snackbar } from '../../hooks/SnackbarProvider.jsx'
-
+import { PlantProvider } from '../../PlantContext.jsx'
 
 import Tasks from '../Tasks.jsx'
 
-const samplePlants = [
-  {
-    id: 1,
-    name: 'Plant A',
-    lastWatered: '2025-07-08',
-    activity: ['Repotted'],
-  },
-  {
-    id: 2,
-    name: 'Plant B',
-    lastWatered: '2025-07-16',
-    activity: ['Watered on 2025-07-10'],
-  },
-]
+let mockPlants
 
-let mockPlants = samplePlants
-
-jest.mock('../../PlantContext.jsx', () => ({
-  usePlants: () => ({ plants: mockPlants }),
-  addBase: (u) => u,
-}))
 
 jest.mock('../../WeatherContext.jsx', () => ({
   useWeather: () => ({ forecast: { rainfall: 0 } }),
@@ -34,24 +15,48 @@ jest.mock('../../WeatherContext.jsx', () => ({
 
 function renderWithSnackbar(ui) {
   return render(
-    <SnackbarProvider>
-      <MemoryRouter>{ui}</MemoryRouter>
-      <Snackbar />
-    </SnackbarProvider>
+    <PlantProvider>
+      <SnackbarProvider>
+        <MemoryRouter>{ui}</MemoryRouter>
+        <Snackbar />
+      </SnackbarProvider>
+    </PlantProvider>
   )
 }
 
 beforeEach(() => {
-  mockPlants = samplePlants
+  mockPlants = [
+    {
+      id: 1,
+      name: 'Plant A',
+      lastWatered: '2025-07-08',
+      activity: ['Repotted'],
+    },
+    {
+      id: 2,
+      name: 'Plant B',
+      lastWatered: '2025-07-16',
+      activity: ['Watered on 2025-07-10'],
+    },
+  ]
+  global.fetch = jest.fn(() =>
+    Promise.resolve({ ok: true, json: () => Promise.resolve(mockPlants) })
+  )
   localStorage.clear()
+  localStorage.setItem('plants', JSON.stringify(mockPlants))
 })
 
-test('ignores activities without valid dates when generating events', () => {
+afterEach(() => {
+  global.fetch = undefined
+})
+
+test('ignores activities without valid dates when generating events', async () => {
   jest.useFakeTimers().setSystemTime(new Date("2025-07-16"))
   renderWithSnackbar(
       <Tasks />
   )
 
+  await screen.findByText('Plant A')
   expect(screen.queryByText(/Repotted/)).toBeNull()
 
 
@@ -67,23 +72,25 @@ test('ignores activities without valid dates when generating events', () => {
 
 })
 
-test('shows friendly message when there are no tasks', () => {
+test('shows friendly message when there are no tasks', async () => {
   mockPlants = []
   renderWithSnackbar(
       <Tasks />
   )
 
+  await screen.findByText(/All caught up/i)
   expect(screen.getByText(/All caught up/i)).toBeInTheDocument()
   expect(screen.queryAllByTestId('task-card')).toHaveLength(0)
 })
 
 
-test('filters by type', () => {
+test('filters by type', async () => {
   jest.useFakeTimers().setSystemTime(new Date("2025-07-16"))
   renderWithSnackbar(
       <Tasks />
   )
 
+  await screen.findByText('Plant A')
   const selects = screen.getAllByRole('combobox')
   fireEvent.change(selects[0], { target: { value: 'water' } })
 
@@ -94,11 +101,12 @@ test('filters by type', () => {
   jest.useRealTimers()
 })
 
-test('sorts by plant name', () => {
+test('sorts by plant name', async () => {
   renderWithSnackbar(
       <Tasks />
   )
 
+  await screen.findByText('Plant A')
   const selects = screen.getAllByRole('combobox')
   fireEvent.change(selects[2], { target: { value: 'name' } })
 
@@ -113,6 +121,7 @@ test('switching to Past tab shows past events', async () => {
       <Tasks />
   )
 
+  await screen.findByText('Plant A')
   const pastTab = screen.getByRole('tab', { name: /Past/i })
   fireEvent.click(pastTab)
 
@@ -124,7 +133,7 @@ test('switching to Past tab shows past events', async () => {
 
 }, 7000)
 
-test('completed tasks are styled', () => {
+test('completed tasks are styled', async () => {
   const today = new Date().toISOString().slice(0, 10)
   mockPlants = [
     {
@@ -138,7 +147,7 @@ test('completed tasks are styled', () => {
   renderWithSnackbar(
       <Tasks />
   )
-  const cards = screen.getAllByTestId('task-card')
+  const cards = await screen.findAllByTestId('task-card')
   expect(cards[0]).toHaveClass('opacity-50')
   expect(Array.from(cards).some(c => c.textContent.includes('Watered'))).toBe(
     true
@@ -153,6 +162,7 @@ test('future watering date does not show Water badge', async () => {
       <Tasks />
   )
 
+  await screen.findByText('Plant A')
   const tab = screen.getByRole('tab', { name: /By Plant/i })
   fireEvent.click(tab)
 
@@ -172,10 +182,12 @@ test('future watering date does not show Water badge', async () => {
   )
 
 
+  await screen.findByText('Plant A')
+  await screen.findByText('Plant A')
   const byPlantTab = screen.getByRole('tab', { name: /By Plant/i })
   fireEvent.click(byPlantTab)
 
-  const cards = screen.getAllByTestId('unified-task-card')
+  const cards = await screen.findAllByTestId('unified-task-card')
   expect(cards).toHaveLength(2)
 
   expect(within(cards[0]).getByText('Water', { exact: true })).toBeInTheDocument()
@@ -208,7 +220,7 @@ test('by plant view shows due and future tasks correctly', async () => {
       <Tasks />
   )
 
-  const byPlantTab = screen.getByRole('tab', { name: /By Plant/i })
+  const byPlantTab = await screen.findByRole('tab', { name: /By Plant/i })
   fireEvent.click(byPlantTab)
 
   const cards = screen.getAllByTestId('unified-task-card')
