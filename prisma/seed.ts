@@ -1,24 +1,31 @@
 // prisma/seed.ts
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, CareEventType } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
-  await prisma.plant.createMany({
+  const snake = await prisma.plant.create({
+    data: {
+      name: 'Snake Plant',
+      species: 'Sansevieria trifasciata',
+      imageUrl: 'https://source.unsplash.com/featured/?snake%20plant',
+      createdAt: new Date(),
+    },
+  })
+  const pothos = await prisma.plant.create({
+    data: {
+      name: 'Pothos',
+      species: 'Epipremnum aureum',
+      imageUrl: 'https://source.unsplash.com/featured/?pothos',
+      createdAt: new Date(),
+    },
+  })
+
+  await prisma.careEvent.createMany({
     data: [
-      {
-        name: 'Snake Plant',
-        species: 'Sansevieria trifasciata',
-        // omit room if you haven’t modelled it
-        imageUrl: 'https://source.unsplash.com/featured/?snake%20plant',
-        createdAt: new Date(),
-      },
-      {
-        name: 'Pothos',
-        species: 'Epipremnum aureum',
-        imageUrl: 'https://source.unsplash.com/featured/?pothos',
-        createdAt: new Date(),
-      },
-      // …more plants as you like…
+      { plantId: snake.id, type: CareEventType.WATER, date: new Date() },
+      { plantId: snake.id, type: CareEventType.FERTILIZE, date: new Date() },
+      { plantId: pothos.id, type: CareEventType.WATER, date: new Date() },
+      { plantId: pothos.id, type: CareEventType.REPOT, date: new Date() },
     ],
   })
 }
