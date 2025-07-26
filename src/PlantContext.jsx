@@ -245,26 +245,34 @@ export function PlantProvider({ children }) {
   };
 
   const addPlant = (plant) => {
-    setPlants((prev) => {
-      const nextId = prev.reduce((m, p) => Math.max(m, p.id), 0) + 1;
-
-      const newPlant = {
-        id: nextId,
-        photos: [],
-        careLog: [],
-        diameter: 0,
-        waterPlan: { interval: 0, volume_ml: 0, volume_oz: 0 },
-        carePlan: null,
-        ...plant,
-      };
-      if (typeof fetch !== 'undefined')
-        fetch('/api/plants', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newPlant),
-        }).catch(() => {})
-      return [...prev, newPlant];
-    });
+    const nextId = plants.reduce((m, p) => Math.max(m, p.id), 0) + 1;
+    const newPlant = {
+      id: nextId,
+      photos: [],
+      careLog: [],
+      diameter: 0,
+      waterPlan: { interval: 0, volume_ml: 0, volume_oz: 0 },
+      carePlan: null,
+      ...plant,
+    };
+    setPlants((prev) => [...prev, newPlant]);
+    if (typeof fetch !== 'undefined') {
+      const { id, ...payload } = newPlant;
+      fetch('/api/plants', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (data?.id !== undefined) {
+            setPlants((prev) =>
+              prev.map((p) => (p.id === nextId ? { ...p, id: data.id } : p)),
+            );
+          }
+        })
+        .catch(() => {});
+    }
   };
 
   const updatePlant = (id, updates) => {
