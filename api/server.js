@@ -5,6 +5,7 @@ import path from 'path'
 import multer from 'multer'
 import cloudinary from './cloudinary.js'
 import { PrismaClient, Prisma } from '@prisma/client'
+import { z } from 'zod'
 import { generateCarePlan } from '../lib/carePlan.js'
 
 const discoverPath = path.join(process.cwd(), 'src', 'discoverablePlants.json')
@@ -17,6 +18,13 @@ app.use(express.json({ limit: '100mb' }))
 
 const prisma = new PrismaClient()
 const upload = multer({ storage: multer.memoryStorage() })
+
+const plantSchema = z.object({
+  name: z.string(),
+  species: z.string().optional(),
+  imageUrl: z.string().url().optional(),
+})
+const plantUpdateSchema = plantSchema.partial()
 
 app.post('/api/coach', async (req, res) => {
   const { question, plantType, lastWatered, weather } = req.body || {}
@@ -225,8 +233,13 @@ app.get('/api/plants', async (req, res) => {
 })
 
 app.post('/api/plants', async (req, res) => {
+  const parsed = plantSchema.safeParse(req.body)
+  if (!parsed.success) {
+    res.status(400).json({ error: 'Invalid plant data' })
+    return
+  }
   try {
-    const plant = await prisma.plant.create({ data: req.body })
+    const plant = await prisma.plant.create({ data: parsed.data })
     res.status(201).json(plant)
   } catch (err) {
     console.error('DB error', err)
@@ -236,8 +249,13 @@ app.post('/api/plants', async (req, res) => {
 
 app.put('/api/plants/:id', async (req, res) => {
   const id = parseInt(req.params.id, 10)
+  const parsed = plantUpdateSchema.safeParse(req.body)
+  if (!parsed.success) {
+    res.status(400).json({ error: 'Invalid plant data' })
+    return
+  }
   try {
-    const plant = await prisma.plant.update({ where: { id }, data: req.body })
+    const plant = await prisma.plant.update({ where: { id }, data: parsed.data })
     res.json(plant)
   } catch (err) {
     console.error('DB error', err)
