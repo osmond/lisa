@@ -261,8 +261,15 @@ app.put('/api/plants/:id', async (req, res) => {
     const plant = await prisma.plant.update({ where: { id }, data: parsed.data })
     res.json(plant)
   } catch (err) {
-    console.error('DB error', err)
-    res.status(400).json({ error: 'Failed to update plant' })
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === 'P2025'
+    ) {
+      res.status(404).json({ error: 'Plant not found' })
+    } else {
+      console.error('DB error', err)
+      res.status(400).json({ error: 'Failed to update plant' })
+    }
   }
 })
 
