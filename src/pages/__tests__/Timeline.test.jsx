@@ -1,45 +1,52 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { OpenAIProvider } from '../../OpenAIContext.jsx'
+import { PlantProvider } from '../../PlantContext.jsx'
 import Timeline from '../Timeline.jsx'
 
-const samplePlants = [
-  {
-    id: 1,
-    name: 'Plant A',
-    lastWatered: '2025-07-11',
-    lastFertilized: '2025-07-01',
-    activity: ['Repotted'],
-  },
-  {
-    id: 2,
-    name: 'Plant B',
-    lastWatered: '2025-07-10',
-    activity: ['Watered on 2025-07-09'],
-  },
-]
-
-let mockPlants = samplePlants
-jest.mock('../../PlantContext.jsx', () => ({
-  usePlants: () => ({ plants: mockPlants }),
-  addBase: (u) => u,
-}))
+let mockPlants
 
 function renderWithRouter(ui) {
   return render(
     <OpenAIProvider>
-      <MemoryRouter>{ui}</MemoryRouter>
+      <PlantProvider>
+        <MemoryRouter>{ui}</MemoryRouter>
+      </PlantProvider>
     </OpenAIProvider>
   )
 }
 
 beforeEach(() => {
-  mockPlants = samplePlants
+  mockPlants = [
+    {
+      id: 1,
+      name: 'Plant A',
+      lastWatered: '2025-07-11',
+      lastFertilized: '2025-07-01',
+      activity: ['Repotted'],
+    },
+    {
+      id: 2,
+      name: 'Plant B',
+      lastWatered: '2025-07-10',
+      activity: ['Watered on 2025-07-09'],
+    },
+  ]
+  global.fetch = jest.fn(() =>
+    Promise.resolve({ ok: true, json: () => Promise.resolve(mockPlants) })
+  )
+  localStorage.clear()
+  localStorage.setItem('plants', JSON.stringify(mockPlants))
 })
 
-test('ignores activities without valid dates and shows newest first', () => {
+afterEach(() => {
+  global.fetch = undefined
+})
+
+test('ignores activities without valid dates and shows newest first', async () => {
   renderWithRouter(<Timeline />)
 
+  await screen.findByText('Watered Plant A')
   expect(screen.queryByText(/Repotted/)).toBeNull()
 
   const items = screen.getAllByRole('listitem')
@@ -50,7 +57,7 @@ test('ignores activities without valid dates and shows newest first', () => {
   expect(items[3]).toHaveTextContent('Fertilized Plant A')
 })
 
-test('renders care log notes', () => {
+test('renders care log notes', async () => {
   mockPlants = [
     {
       id: 1,
@@ -62,34 +69,34 @@ test('renders care log notes', () => {
   ]
 
   renderWithRouter(<Timeline />)
+  await screen.findByText('deep soak')
   expect(screen.getByRole('link', { name: 'Plant A' })).toBeInTheDocument()
   expect(screen.getByText('deep soak')).toBeInTheDocument()
 })
 
-test('renders an icon for events', () => {
+test('renders an icon for events', async () => {
   const { container } = renderWithRouter(<Timeline />)
+  await screen.findByText('Watered Plant A')
   const svg = container.querySelector('svg[aria-hidden="true"]')
   expect(svg).toBeInTheDocument()
 })
 
-test('displays month headers when events span months', () => {
+test('displays month headers when events span months', async () => {
   mockPlants = [
     { id: 1, name: 'A', lastWatered: '2025-07-01' },
     { id: 2, name: 'B', lastWatered: '2025-08-02' },
   ]
 
   renderWithRouter(<Timeline />)
-
-  const headings = screen.getAllByRole('heading', { level: 3 })
+  const headings = await screen.findAllByRole('heading', { level: 3 })
   expect(headings).toHaveLength(2)
   expect(headings[0]).toHaveTextContent('August 2025')
   expect(headings[1]).toHaveTextContent('July 2025')
 })
 
-test('toggle reverses the order of events', () => {
+test('toggle reverses the order of events', async () => {
   renderWithRouter(<Timeline />)
-
-  const items = screen.getAllByRole('listitem')
+  const items = await screen.findAllByRole('listitem')
   expect(items[0]).toHaveTextContent('Watered Plant A')
 
   const toggle = screen.getByRole('button', { name: /show oldest first/i })
@@ -100,8 +107,8 @@ test('toggle reverses the order of events', () => {
   expect(toggle).toHaveAccessibleName('Show newest first')
 })
 
-test('plant name links to detail page', () => {
+test('plant name links to detail page', async () => {
   renderWithRouter(<Timeline />)
-  const links = screen.getAllByRole('link', { name: 'Plant A' })
+  const links = await screen.findAllByRole('link', { name: 'Plant A' })
   expect(links[0]).toHaveAttribute('href', '/plant/1')
 })
