@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import initialPlants from "./plants.json";
+import testPlants from "./__fixtures__/plants.json";
 import { useWeather } from "./WeatherContext.jsx";
 import { getNextWateringDate } from "./utils/watering.js";
 import { getWaterPlan, getSmartWaterPlan } from "./utils/waterCalculator.js";
@@ -77,7 +77,10 @@ export function PlantProvider({ children }) {
         }
       }
     }
-    return initialPlants.map(mapPlant);
+    if (process.env.NODE_ENV === 'test') {
+      return testPlants.map(mapPlant);
+    }
+    return [];
   });
 
   useEffect(() => {

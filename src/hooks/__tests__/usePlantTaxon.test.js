@@ -14,6 +14,19 @@ function Test({ query }) {
 
 afterEach(() => {
   localStorage.clear()
+  global.fetch.mockRestore()
+})
+
+beforeEach(() => {
+  global.fetch = jest.fn(() =>
+    Promise.resolve({
+      ok: true,
+      json: () =>
+        Promise.resolve([
+          { id: 1, commonName: 'Aloe Vera', scientificName: 'Aloe Vera' },
+        ]),
+    })
+  )
 })
 
 test('returns matching suggestions', async () => {

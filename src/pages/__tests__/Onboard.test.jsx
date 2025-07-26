@@ -33,17 +33,14 @@ afterEach(() => {
   global.fetch && (global.fetch = undefined)
 })
 
+const suggestion = [{ id: 1, commonName: "Aloe Vera", scientificName: "Aloe Vera" }]
 test('generates plan and adds plant then navigates home', async () => {
-  global.fetch = jest.fn(() =>
+  const planData = { text: 'ok', water: 7, water_volume_ml: 500, water_volume_oz: 17 }
+  global.fetch = jest.fn(url =>
     Promise.resolve({
       ok: true,
       json: () =>
-        Promise.resolve({
-          text: 'ok',
-          water: 7,
-          water_volume_ml: 500,
-          water_volume_oz: 17,
-        }),
+        Promise.resolve(url.includes('taxon') ? suggestion : planData),
     })
   )
 
@@ -80,7 +77,12 @@ test('generates plan and adds plant then navigates home', async () => {
 
 test('autocomplete fills scientific name', async () => {
   const planData = { text: 'ok', water: 7, water_volume_ml: 500, water_volume_oz: 17 }
-  global.fetch = jest.fn(() => Promise.resolve({ ok: true, json: () => Promise.resolve(planData) }))
+  global.fetch = jest.fn(url =>
+    Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve(url.includes('taxon') ? suggestion : planData),
+    })
+  )
 
   render(
     <MemoryRouter initialEntries={['/onboard']}>
@@ -113,8 +115,11 @@ test('selecting a name fetches defaults', async () => {
     water_volume_ml: 400,
     water_volume_oz: 13,
   }
-  global.fetch = jest.fn(() =>
-    Promise.resolve({ ok: true, json: () => Promise.resolve(planData) })
+  global.fetch = jest.fn(url =>
+    Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve(url.includes('taxon') ? suggestion : planData),
+    })
   )
 
   render(
@@ -140,7 +145,15 @@ test('selecting a name fetches defaults', async () => {
 })
 
 test('shows error message on failure', async () => {
-  global.fetch = jest.fn(() => Promise.resolve({ ok: false, json: () => Promise.resolve({ error: 'bad' }) }))
+  global.fetch = jest.fn(url =>
+    Promise.resolve({
+      ok: url.includes('taxon'),
+      json: () =>
+        Promise.resolve(
+          url.includes('taxon') ? suggestion : { error: 'bad' }
+        ),
+    })
+  )
   render(
     <MemoryRouter initialEntries={['/onboard']}>
       <Routes>
@@ -155,7 +168,15 @@ test('shows error message on failure', async () => {
 })
 
 test('uses fallback plan on failure', async () => {
-  global.fetch = jest.fn(() => Promise.resolve({ ok: false, json: () => Promise.resolve({ error: 'bad' }) }))
+  global.fetch = jest.fn(url =>
+    Promise.resolve({
+      ok: url.includes('taxon'),
+      json: () =>
+        Promise.resolve(
+          url.includes('taxon') ? suggestion : { error: 'bad' }
+        ),
+    })
+  )
   render(
     <MemoryRouter initialEntries={['/onboard']}>
       <Routes>
@@ -172,22 +193,24 @@ test('uses fallback plan on failure', async () => {
 
 test('shows spinner while loading', async () => {
   let resolveFetch
-  global.fetch = jest.fn(
-    () =>
-      new Promise(res => {
-        resolveFetch = () =>
-          res({
-            ok: true,
-            json: () =>
-              Promise.resolve({
-                text: 'ok',
-                water: 1,
-                water_volume_ml: 100,
-                water_volume_oz: 3,
-              }),
-          })
-      })
-  )
+  global.fetch = jest.fn(url => {
+    if (url.includes('taxon')) {
+      return Promise.resolve({ ok: true, json: () => Promise.resolve(suggestion) })
+    }
+    return new Promise(res => {
+      resolveFetch = () =>
+        res({
+          ok: true,
+          json: () =>
+            Promise.resolve({
+              text: 'ok',
+              water: 1,
+              water_volume_ml: 100,
+              water_volume_oz: 3,
+            }),
+        })
+    })
+  })
 
   render(
     <MemoryRouter initialEntries={['/onboard']}>
