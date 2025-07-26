@@ -258,7 +258,7 @@ export function PlantProvider({ children }) {
     setPlants((prev) => [...prev, newPlant]);
     if (typeof fetch !== 'undefined') {
       const { id, ...payload } = newPlant;
-      fetch('/api/plants', {
+      return fetch('/api/plants', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -270,9 +270,11 @@ export function PlantProvider({ children }) {
               prev.map((p) => (p.id === nextId ? { ...p, id: data.id } : p)),
             );
           }
+          return data;
         })
-        .catch(() => {});
+        .catch(() => null);
     }
+    return undefined;
   };
 
   const updatePlant = (id, updates) => {
