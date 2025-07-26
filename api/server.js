@@ -222,6 +222,7 @@ app.post('/api/photos', upload.single('photo'), async (req, res) => {
 app.get('/api/plants', async (req, res) => {
   try {
     const plants = await prisma.plant.findMany({
+      where: { deletedAt: null },
       include: { photos: true, careEvents: true },
       orderBy: { id: 'asc' },
     })
@@ -272,7 +273,7 @@ app.delete('/api/plants/:id', async (req, res) => {
   try {
     await prisma.photo.deleteMany({ where: { plantId: id } })
     await prisma.careEvent.deleteMany({ where: { plantId: id } })
-    await prisma.plant.delete({ where: { id } })
+    await prisma.plant.update({ where: { id }, data: { deletedAt: new Date() } })
     res.status(204).end()
   } catch (err) {
     if (
