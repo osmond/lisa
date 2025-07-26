@@ -21,12 +21,20 @@ export default function EditPlant() {
     nameInputRef.current?.focus()
   }, [])
 
-  const handleFileChange = e => {
+  const handleFileChange = async e => {
     const file = e.target.files && e.target.files[0]
     if (file) {
-      const reader = new FileReader()
-      reader.onload = ev => setImage(ev.target.result)
-      reader.readAsDataURL(file)
+      const form = new FormData()
+      form.append('photo', file)
+      try {
+        const res = await fetch('/api/photos', { method: 'POST', body: form })
+        if (res.ok) {
+          const data = await res.json()
+          setImage(data.url)
+        }
+      } catch (err) {
+        console.error('Upload failed', err)
+      }
     }
     e.target.value = ''
   }
