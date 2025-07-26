@@ -7,6 +7,12 @@ let app
 jest.mock('@prisma/client', () => {
   let id = 1
   const data = { plants: [], photos: [], careEvents: [] }
+  class PrismaClientKnownRequestError extends Error {
+    constructor(message, { code }) {
+      super(message)
+      this.code = code
+    }
+  }
   const client = {
     plant: {
       create: ({ data: d }) => {
@@ -20,7 +26,12 @@ jest.mock('@prisma/client', () => {
         return Promise.resolve(plant)
       },
       delete: ({ where: { id } }) => {
-        data.plants = data.plants.filter(p => p.id !== id)
+        const index = data.plants.findIndex(p => p.id === id)
+        if (index === -1)
+          return Promise.reject(
+            new PrismaClientKnownRequestError('not found', { code: 'P2025' })
+          )
+        data.plants.splice(index, 1)
         return Promise.resolve()
       },
     },
@@ -52,7 +63,10 @@ jest.mock('@prisma/client', () => {
     },
     __store: data,
   }
-  return { PrismaClient: jest.fn(() => client) }
+  return {
+    PrismaClient: jest.fn(() => client),
+    Prisma: { PrismaClientKnownRequestError },
+  }
 })
 
 jest.mock('cloudinary', () => ({
@@ -101,6 +115,18 @@ test('delete plant', async () => {
   const res = await request(app).delete(`/api/plants/${plant.id}`)
   expect(res.status).toBe(204)
   expect(store.plants.length).toBe(0)
+})
+
+test('delete with invalid id', async () => {
+  const res = await request(app).delete('/api/plants/abc')
+  expect(res.status).toBe(400)
+  expect(res.body.error).toMatch(/invalid/i)
+})
+
+test('delete missing plant', async () => {
+  const res = await request(app).delete('/api/plants/999')
+  expect(res.status).toBe(404)
+  expect(res.body.error).toMatch(/not found/i)
 })
 
 test('upload photos', async () => {
