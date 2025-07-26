@@ -10,7 +10,8 @@ import { generateCarePlan } from '../lib/carePlan.js'
 const discoverPath = path.join(process.cwd(), 'src', 'discoverablePlants.json')
 const discoverable = JSON.parse(fs.readFileSync(discoverPath))
 const app = express()
-app.use(express.json({ limit: '50mb' }))
+// Temporarily increase JSON payload limit while the upload feature is in progress
+app.use(express.json({ limit: '100mb' }))
 
 // Configure Cloudinary
 cloudinary.config({
