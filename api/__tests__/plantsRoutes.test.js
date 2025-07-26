@@ -101,6 +101,11 @@ test('create plant', async () => {
   expect(res.body.name).toBe('Fern')
 })
 
+test('create plant validation', async () => {
+  const res = await request(app).post('/api/plants').send({ species: 'Fern' })
+  expect(res.status).toBe(400)
+})
+
 test('update plant', async () => {
   const plant = await prisma.plant.create({ data: { name: 'Old' } })
   const res = await request(app)
@@ -108,6 +113,14 @@ test('update plant', async () => {
     .send({ name: 'New' })
   expect(res.status).toBe(200)
   expect(res.body.name).toBe('New')
+})
+
+test('update plant validation', async () => {
+  const plant = await prisma.plant.create({ data: { name: 'Old' } })
+  const res = await request(app)
+    .put(`/api/plants/${plant.id}`)
+    .send({ name: 123 })
+  expect(res.status).toBe(400)
 })
 
 test('delete plant', async () => {
