@@ -17,8 +17,24 @@ model Plant {
   updatedAt  DateTime    @updatedAt
   deletedAt  DateTime?
   imageUrl    String?
+  roomId     Int?
+  ownerId    Int?
+  room       Room?       @relation(fields: [roomId], references: [id])
+  owner      User?       @relation(fields: [ownerId], references: [id])
   photos     Photo[]
   careEvents CareEvent[]
+}
+
+model Room {
+  id     Int     @id @default(autoincrement())
+  name   String
+  plants Plant[]
+}
+
+model User {
+  id     Int     @id @default(autoincrement())
+  email  String  @unique
+  plants Plant[]
 }
 
 model Photo {

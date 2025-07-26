@@ -23,6 +23,8 @@ const plantSchema = z.object({
   name: z.string(),
   species: z.string().optional(),
   imageUrl: z.string().url().optional(),
+  roomId: z.number().int().optional(),
+  ownerId: z.number().int().optional(),
 })
 const plantUpdateSchema = plantSchema.partial()
 
@@ -223,7 +225,7 @@ app.get('/api/plants', async (req, res) => {
   try {
     const plants = await prisma.plant.findMany({
       where: { deletedAt: null },
-      include: { photos: true, careEvents: true },
+      include: { photos: true, careEvents: true, room: true, owner: true },
       orderBy: { id: 'asc' },
     })
     res.json(plants)

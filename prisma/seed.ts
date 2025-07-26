@@ -3,12 +3,16 @@ import { PrismaClient, CareEventType } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
+  const user = await prisma.user.create({ data: { email: 'user@example.com' } })
+  const room = await prisma.room.create({ data: { name: 'Living Room' } })
   const snake = await prisma.plant.create({
     data: {
       name: 'Snake Plant',
       species: 'Sansevieria trifasciata',
       imageUrl: 'https://source.unsplash.com/featured/?snake%20plant',
       createdAt: new Date(),
+      ownerId: user.id,
+      roomId: room.id,
     },
   })
   const pothos = await prisma.plant.create({
@@ -17,6 +21,8 @@ async function main() {
       species: 'Epipremnum aureum',
       imageUrl: 'https://source.unsplash.com/featured/?pothos',
       createdAt: new Date(),
+      ownerId: user.id,
+      roomId: room.id,
     },
   })
 
