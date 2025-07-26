@@ -14,7 +14,7 @@ model Plant {
   name       String
   species    String?
   createdAt  DateTime    @default(now())
-  imageUrl    String?   // <— add this line
+  imageUrl    String?
   photos     Photo[]
   careEvents CareEvent[]
 }
