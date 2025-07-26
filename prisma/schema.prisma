@@ -31,10 +31,17 @@ model Photo {
 
 model CareEvent {
   id       Int      @id @default(autoincrement())
-  type     String
+  type     CareEventType
   date     DateTime
   plant    Plant    @relation(fields: [plantId], references: [id])
   plantId  Int
+}
+
+enum CareEventType {
+  WATER
+  FERTILIZE
+  PRUNE
+  REPOT
 }
 
 
