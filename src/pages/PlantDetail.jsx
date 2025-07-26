@@ -41,6 +41,7 @@ import BaseCard from "../components/BaseCard.jsx";
 import MetadataStrip from "../components/MetadataStrip.jsx";
 import UnifiedTaskCard from "../components/UnifiedTaskCard.jsx";
 import InputModal from "../components/InputModal.jsx";
+import ConfirmModal from "../components/ConfirmModal.jsx";
 import usePlantFact from "../hooks/usePlantFact.js";
 
 import useToast from "../hooks/useToast.jsx";
@@ -76,6 +77,7 @@ export default function PlantDetail() {
     markFertilized,
     logEvent,
     updatePlant,
+    removePlant,
   } = usePlants();
   const plant = plants.find((p) => p.id === Number(id));
   const { forecast } = useWeather() || {};
@@ -112,6 +114,7 @@ export default function PlantDetail() {
   const [offsetY, setOffsetY] = useState(0);
   const [expandedNotes, setExpandedNotes] = useState({});
   const [showDiameterModal, setShowDiameterModal] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [fertilizeDone, setFertilizeDone] = useState(false);
   const prevSmartPlan = useRef(plant.smartWaterPlan);
   const [flash, setFlash] = useState(false);
@@ -276,6 +279,20 @@ export default function PlantDetail() {
   const handleDeleteFertilize = () => {
     updatePlant(plant.id, { nextFertilize: null });
     showToast("Deleted");
+  };
+
+  const handleDeletePlant = () => {
+    setShowDeleteConfirm(true);
+  };
+
+  const confirmDeletePlant = () => {
+    removePlant(plant.id);
+    showToast("Deleted");
+    navigate(from || "/myplants");
+  };
+
+  const cancelDeletePlant = () => {
+    setShowDeleteConfirm(false);
   };
 
   // Menu is now consistent across pages so no override here
@@ -728,6 +745,24 @@ export default function PlantDetail() {
               <span className="ml-1">{backLabel}</span>
             </button>
           </div>
+          <div className="fixed top-2 right-2 z-20 flex items-center gap-2 text-white">
+            <button
+              type="button"
+              onClick={handleEdit}
+              className="p-2 rounded-full bg-black/50 backdrop-blur-sm"
+            >
+              <PencilSimpleLine className="w-4 h-4" aria-hidden="true" />
+              <span className="sr-only">Edit plant</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleDeletePlant}
+              className="p-2 rounded-full bg-red-600/80"
+            >
+              <Trash className="w-4 h-4" aria-hidden="true" />
+              <span className="sr-only">Delete plant</span>
+            </button>
+          </div>
           <div className="absolute bottom-2 left-3 right-3 p-4 flex flex-col sm:flex-row justify-between text-white drop-shadow space-y-1 sm:space-y-0">
             <div className="hero-name-bg">
                 <h2 className="text-4xl font-extrabold font-headline tracking-wide animate-fade-in-down">
@@ -791,6 +826,13 @@ export default function PlantDetail() {
             initialValue={plant.diameter || ""}
             onSave={handleSaveDiameter}
             onCancel={() => setShowDiameterModal(false)}
+          />
+        )}
+        {showDeleteConfirm && (
+          <ConfirmModal
+            label="Delete this plant?"
+            onConfirm={confirmDeletePlant}
+            onCancel={cancelDeletePlant}
           />
         )}
       </PageContainer>
