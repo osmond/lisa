@@ -27,6 +27,7 @@ model Photo {
   uploaded  DateTime @default(now())
   plant     Plant    @relation(fields: [plantId], references: [id])
   plantId   Int
+  @@index([plantId])
 }
 
 model CareEvent {
@@ -35,6 +36,7 @@ model CareEvent {
   date     DateTime
   plant    Plant    @relation(fields: [plantId], references: [id])
   plantId  Int
+  @@index([plantId])
 }
 
 enum CareEventType {
