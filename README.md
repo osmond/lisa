@@ -34,16 +34,26 @@ Lisa is a **mobile-first** plant care app with weather-driven reminders, an AI C
 ## Getting Started
 ### Prerequisites
 - Node.js ≥18
-- MySQL database (see [.env.example](.env.example))
+- MySQL database (local or remote)
+  - Run `docker compose up -d` to start the provided MySQL container, **or**
+    update `DATABASE_URL` in `.env` to point at an existing instance.
 
 ### Install & Run
 ```bash
 npm install
 cp .env.example .env   # add your API keys and DB URL
+# start MySQL here if using Docker
 npx prisma migrate deploy
 npm run server   # Express API on :3000
 npm run dev      # Vite on :5173
 ```
+
+### Personal Use Tips
+- View the app on your laptop at `http://localhost:5173`.
+- From your phone, open `http://<your-ip>:5173` and "Add to Home Screen" for
+  an offline-capable PWA.
+- Build production assets with `npm run build` and deploy the Express server and
+  `dist/` folder wherever you host your projects. Use HTTPS for best results.
 
 ## API Reference
 
