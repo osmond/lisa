@@ -5,6 +5,7 @@ import { getNextWateringDate } from "./utils/watering.js";
 import { getWaterPlan, getSmartWaterPlan } from "./utils/waterCalculator.js";
 import { cubicInchesToMl, mlToOz } from "./utils/volume.js";
 import autoTag from "./utils/autoTag.js";
+import useToast from "./hooks/useToast.jsx";
 
 const PlantContext = createContext();
 
@@ -25,6 +26,7 @@ const mapPhoto = (photo) => {
 };
 
 export function PlantProvider({ children }) {
+  const { Toast: ErrorToast, showToast: showErrorToast } = useToast();
   const [plants, setPlants] = useState(() => {
     const mapPlant = (p) => {
       const wp = p.waterPlan || { interval: 0 };
@@ -305,7 +307,11 @@ export function PlantProvider({ children }) {
   const removePlant = (id) => {
     setPlants((prev) => prev.filter((p) => p.id !== id));
     if (typeof fetch !== 'undefined')
-      fetch(`/api/plants/${id}`, { method: 'DELETE' }).catch(() => {})
+      fetch(`/api/plants/${id}`, { method: 'DELETE' }).then(res => {
+        if (!res.ok) throw new Error('failed')
+      }).catch(() => {
+        showErrorToast('Delete failed')
+      })
   };
 
   const restorePlant = (plant, index) => {
@@ -349,24 +355,27 @@ export function PlantProvider({ children }) {
   };
 
   return (
-    <PlantContext.Provider
-      value={{
-        plants,
-        markWatered,
-        markFertilized,
-        logEvent,
-        addPlant,
-        updatePlant,
-        removePlant,
-        restorePlant,
-        addPhoto,
-        removePhoto,
-        timelineNotes,
-        addTimelineNote,
-      }}
-    >
-      {children}
-    </PlantContext.Provider>
+    <>
+      <PlantContext.Provider
+        value={{
+          plants,
+          markWatered,
+          markFertilized,
+          logEvent,
+          addPlant,
+          updatePlant,
+          removePlant,
+          restorePlant,
+          addPhoto,
+          removePhoto,
+          timelineNotes,
+          addTimelineNote,
+        }}
+      >
+        {children}
+      </PlantContext.Provider>
+      <ErrorToast />
+    </>
   );
 }
 

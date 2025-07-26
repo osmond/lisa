@@ -4,7 +4,7 @@ import fs from 'fs'
 import path from 'path'
 import multer from 'multer'
 import { v2 as cloudinary } from 'cloudinary'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Prisma } from '@prisma/client'
 import { generateCarePlan } from '../lib/carePlan.js'
 
 const discoverPath = path.join(process.cwd(), 'src', 'discoverablePlants.json')
@@ -252,14 +252,25 @@ app.put('/api/plants/:id', async (req, res) => {
 
 app.delete('/api/plants/:id', async (req, res) => {
   const id = parseInt(req.params.id, 10)
+  if (Number.isNaN(id)) {
+    res.status(400).json({ error: 'Invalid plant id' })
+    return
+  }
   try {
     await prisma.photo.deleteMany({ where: { plantId: id } })
     await prisma.careEvent.deleteMany({ where: { plantId: id } })
     await prisma.plant.delete({ where: { id } })
     res.status(204).end()
   } catch (err) {
-    console.error('DB error', err)
-    res.status(400).json({ error: 'Failed to delete plant' })
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === 'P2025'
+    ) {
+      res.status(404).json({ error: 'Plant not found' })
+    } else {
+      console.error('DB error', err)
+      res.status(400).json({ error: 'Failed to delete plant' })
+    }
   }
 })
 
