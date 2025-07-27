@@ -18,8 +18,9 @@ try {
   taxonList = []
 }
 const app = express()
-// Temporarily increase JSON payload limit while the upload feature is in progress
-app.use(express.json({ limit: '100mb' }))
+// Allow customizing the JSON payload limit via env; default 1mb
+const jsonLimit = process.env.JSON_LIMIT || '1mb'
+app.use(express.json({ limit: jsonLimit }))
 
 // Cloudinary is configured in cloudinary.js
 
