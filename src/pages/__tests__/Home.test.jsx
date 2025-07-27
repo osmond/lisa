@@ -23,7 +23,15 @@ const discoverPlant = { id: 99, name: 'Calathea', image: 'd.jpg' }
 
 jest.mock('../../hooks/useDiscoverablePlant.js', () => ({
   __esModule: true,
-  default: () => ({ plant: discoverPlant })
+  default: () => ({
+    plants: [discoverPlant],
+    loading: false,
+    error: '',
+    refetch: jest.fn(),
+    skipToday: jest.fn(),
+    remindLater: jest.fn(),
+    skipped: false,
+  })
 }))
 
 jest.mock('../../WishlistContext.jsx', () => ({
