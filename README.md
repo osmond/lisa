@@ -21,6 +21,7 @@ Lisa is a **mobile-first** plant care app with weather-driven reminders, an AI C
 - Today, All Plants and Timeline views
 - Add/edit/delete plants
 - Photo gallery & tasks per plant
+- Set hero image from gallery thumbnails
 - Placeholder images come from Wikipedia with a local fallback
 
 <details>
