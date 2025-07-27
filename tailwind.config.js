@@ -10,7 +10,7 @@ export default {
         offwhite: '#f9faf8',
         sage: '#eaf4ec',
         stone: '#f2f2f2',
-        accent: '#7fb77e',
+        accent: 'var(--color-accent)',
         water: colors.blue,
         fertilize: colors.orange,
         healthy: colors.green,

@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-accent: #1e7832; /* accessible on light background */
+}
+
+.dark {
+  --color-accent: #7fb77e;
+}
+
 body {
   @apply bg-offwhite text-gray-900 font-body;
   font-size: 17px;
