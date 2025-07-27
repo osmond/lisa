@@ -40,7 +40,7 @@ export default function TasksContainer({ visibleTasks = [], happyPlant }) {
           ) : (
             <div className="p-6 border border-[#E5ECE6] shadow-sm rounded-2xl text-center space-y-4">
               <div className="flex justify-center">
-                <div className="w-24 h-24 rounded-full bg-[#B9EBCB] flex items-center justify-center mx-auto motion-safe:animate-[wiggle_0.25s_ease-in-out]">
+                <div className="w-24 h-24 rounded-full flex items-center justify-center mx-auto motion-safe:animate-[wiggle_0.25s_ease-in-out]">
                   <img src={happyPlant} alt="Happy plant" className="w-20 h-20" />
                 </div>
               </div>
