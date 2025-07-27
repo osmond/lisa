@@ -4,6 +4,7 @@ import {
   Flower,
   CalendarBlank,
   UserCircle,
+  Heart,
   List,
 } from 'phosphor-react'
 
@@ -14,6 +15,7 @@ export const defaultMenu = {
     { to: '/', label: 'Today', Icon: House },
     { to: '/myplants', label: 'All Plants', Icon: Flower },
     { to: '/timeline', label: 'Timeline', Icon: CalendarBlank },
+    { to: '/wishlist', label: 'Wishlist', Icon: Heart },
     { to: '/profile', label: 'Profile', Icon: UserCircle },
   ],
   Icon: List,

@@ -9,6 +9,7 @@ import { WeatherProvider } from './WeatherContext.jsx'
 import { UserProvider } from './UserContext.jsx'
 import { OpenAIProvider } from './OpenAIContext.jsx'
 import SnackbarProvider, { Snackbar } from './hooks/SnackbarProvider.jsx'
+import { WishlistProvider } from './WishlistContext.jsx'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -20,12 +21,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <WeatherProvider>
               <PlantProvider>
                 <RoomProvider>
-                  <BrowserRouter
-                    basename={import.meta.env.VITE_BASE_PATH}
-                    future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-                  >
-                    <App />
-                  </BrowserRouter>
+                  <WishlistProvider>
+                    <BrowserRouter
+                      basename={import.meta.env.VITE_BASE_PATH}
+                      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+                    >
+                      <App />
+                    </BrowserRouter>
+                  </WishlistProvider>
                 </RoomProvider>
               </PlantProvider>
               <Snackbar />

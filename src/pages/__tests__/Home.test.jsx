@@ -26,6 +26,10 @@ jest.mock('../../hooks/useDiscoverablePlant.js', () => ({
   default: () => ({ plant: discoverPlant })
 }))
 
+jest.mock('../../WishlistContext.jsx', () => ({
+  useWishlist: () => ({ addToWishlist: jest.fn() })
+}))
+
 function renderWithSnackbar(ui) {
   return render(
     <OpenAIProvider>

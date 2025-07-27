@@ -15,6 +15,10 @@ jest.mock('../../UserContext.jsx', () => ({
   useUser: () => ({ username: 'Jon', timeZone: 'UTC' }),
 }))
 
+jest.mock('../../WishlistContext.jsx', () => ({
+  useWishlist: () => ({ addToWishlist: jest.fn() })
+}))
+
 function renderWithSnackbar(ui) {
   return render(
     <OpenAIProvider>
