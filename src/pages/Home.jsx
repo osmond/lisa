@@ -42,7 +42,15 @@ export default function Home() {
     return true
   })
   const happyPlant = useHappyPlant()
-  const { plant: discoverPlant } = useDiscoverablePlant()
+  const {
+    plants: discoverPlants,
+    loading: discoverLoading,
+    error: discoverError,
+    refetch: reloadDiscover,
+    skipToday: skipDiscover,
+    remindLater: remindDiscover,
+    skipped: discoverySkipped,
+  } = useDiscoverablePlant()
   const { addToWishlist, removeFromWishlist } = useWishlist()
   const { showSnackbar } = useSnackbar()
 
@@ -261,10 +269,55 @@ export default function Home() {
         </p>
       </header>
       )}
-    {discoverPlant && (
+    {!discoverySkipped && (
       <section className="mb-4 space-y-2" data-testid="discovery-section">
         <h2 className="sr-only">Discover a New Plant</h2>
-        <DiscoveryCard plant={discoverPlant} onAdd={handleAddToWishlist} />
+        {discoverLoading && (
+          <div
+            className="h-64 rounded-3xl bg-gray-200 animate-pulse"
+            data-testid="discovery-loading"
+          />
+        )}
+        {!discoverLoading && discoverPlants.length > 0 && (
+          <>
+            <div className="flex flex-nowrap gap-4 overflow-x-auto pb-2">
+              {discoverPlants.map(p => (
+                <DiscoveryCard
+                  key={p.id}
+                  plant={p}
+                  onAdd={handleAddToWishlist}
+                />
+              ))}
+            </div>
+            <div className="flex gap-4 text-sm">
+              <button
+                type="button"
+                onClick={reloadDiscover}
+                className="text-blue-600 underline"
+              >
+                Show me more
+              </button>
+              <button type="button" onClick={skipDiscover} className="text-gray-600">
+                Skip for today
+              </button>
+              <button type="button" onClick={remindDiscover} className="text-gray-600">
+                Remind me later
+              </button>
+            </div>
+          </>
+        )}
+        {!discoverLoading && discoverPlants.length === 0 && (
+          <div className="text-center space-y-2">
+            <p>No new picks right now—come back tomorrow!</p>
+            <button
+              type="button"
+              onClick={reloadDiscover}
+              className="text-blue-600 underline"
+            >
+              Retry
+            </button>
+          </div>
+        )}
       </section>
     )}
     <CareStats

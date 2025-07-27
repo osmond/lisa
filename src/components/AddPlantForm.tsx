@@ -11,7 +11,7 @@ export interface AddPlantFormProps {
   onChange?: (data: Partial<PlantForm>) => void
 }
 
-export default function AddPlantForm({ mode, defaultValues, onSubmit, onNameChange }: AddPlantFormProps) {
+export default function AddPlantForm({ mode, defaultValues, onSubmit, onNameChange, onChange }: AddPlantFormProps) {
   const {
     register,
     handleSubmit,

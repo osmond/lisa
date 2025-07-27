@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import EditPlant from '../EditPlant.jsx'
 import { __updatePlant as updatePlant } from '../../PlantContext.jsx'
@@ -24,7 +24,7 @@ afterEach(() => {
   updatePlant.mockClear()
 })
 
-test('room field displays current value and submits updates', () => {
+test('room field displays current value and submits updates', async () => {
   mockRooms = ['Living', 'Kitchen']
   mockPlants = [
     {
@@ -53,8 +53,10 @@ test('room field displays current value and submits updates', () => {
   fireEvent.change(input, { target: { value: 'Kitchen' } })
   fireEvent.click(screen.getByRole('button', { name: /save changes/i }))
 
-  expect(updatePlant).toHaveBeenCalledWith(
-    1,
-    expect.objectContaining({ room: 'Kitchen' })
+  await waitFor(() =>
+    expect(updatePlant).toHaveBeenCalledWith(
+      1,
+      expect.objectContaining({ room: 'Kitchen' })
+    )
   )
 })
