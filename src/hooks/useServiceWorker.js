@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import useSnackbar from './useSnackbar.jsx';
+/* global VITE_BASE_PATH */
 
 export default function useServiceWorker() {
   const context = useSnackbar();
