@@ -78,6 +78,7 @@ export default function Home() {
     fertilizeTasks,
     wateredTodayCount,
     fertilizedTodayCount,
+    soonestDate,
   } = useMemo(() => {
     const todayIso = new Date().toISOString().slice(0, 10)
     const season = getSeason()
@@ -171,6 +172,7 @@ export default function Home() {
         fertilizeTasks: [],
         wateredTodayCount: 0,
         fertilizedTodayCount: 0,
+        soonestDate: null,
       }
     )
     return result
@@ -192,6 +194,10 @@ export default function Home() {
 
   const totalWaterToday = waterTasks.length + wateredTodayCount
   const totalFertilizeToday = fertilizeTasks.length + fertilizedTodayCount
+
+  const nextTaskDate = soonestDate
+    ? soonestDate.toISOString().slice(0, 10)
+    : null
 
   const weekday = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
@@ -335,7 +341,11 @@ export default function Home() {
       {showSummary && (
         <CareSummaryModal tasks={tasks} onClose={() => setShowSummary(false)} />
       )}
-      <TasksContainer visibleTasks={visibleTasks} happyPlant={happyPlant} />
+      <TasksContainer
+        visibleTasks={visibleTasks}
+        happyPlant={happyPlant}
+        nextTaskDate={nextTaskDate}
+      />
       <SwipeTip />
       <div className="mt-4">
         <Card className="p-0 text-center font-semibold">

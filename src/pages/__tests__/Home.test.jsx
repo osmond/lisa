@@ -60,13 +60,14 @@ afterEach(async () => {
 })
 
 test('shows upbeat message when there are no tasks', () => {
-  renderWithSnackbar(
-      <Home />
-  )
-  expect(screen.getByText(/all plants are happy/i)).toBeInTheDocument()
+  renderWithSnackbar(<Home />)
+  expect(
+    screen.getByText(/no tasks due now – your care plan is on track/i)
+  ).toBeInTheDocument()
   expect(screen.getByTestId('care-stats')).toBeInTheDocument()
-  expect(screen.getByRole('link', { name: /add note/i })).toBeInTheDocument()
-  expect(screen.getByRole('link', { name: /take photo/i })).toBeInTheDocument()
+  expect(screen.getByRole('link', { name: /view care plan/i })).toBeInTheDocument()
+  expect(screen.getByRole('link', { name: /browse tasks/i })).toBeInTheDocument()
+  expect(screen.getByRole('link', { name: /add plant/i })).toBeInTheDocument()
 })
 
 test('care stats render when tasks exist', () => {
