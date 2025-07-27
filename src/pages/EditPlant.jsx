@@ -2,10 +2,12 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import PageContainer from "../components/PageContainer.jsx"
 import { usePlants, addBase } from '../PlantContext.jsx'
+import { useRooms } from '../RoomContext.jsx'
 
 export default function EditPlant() {
   const { id } = useParams()
   const { plants, updatePlant } = usePlants()
+  const { rooms } = useRooms()
   const navigate = useNavigate()
 
   const plant = plants.find(p => p.id === Number(id))
@@ -15,6 +17,7 @@ export default function EditPlant() {
   const [nextWater, setNextWater] = useState('')
   const [lastFertilized, setLastFertilized] = useState('')
   const [nextFertilize, setNextFertilize] = useState('')
+  const [room, setRoom] = useState('')
   const nameInputRef = useRef(null)
 
   useEffect(() => {
@@ -47,6 +50,7 @@ export default function EditPlant() {
       setNextWater(plant.nextWater || '')
       setLastFertilized(plant.lastFertilized || '')
       setNextFertilize(plant.nextFertilize || '')
+      setRoom(plant.room || '')
     }
   }, [plant])
 
@@ -63,6 +67,7 @@ export default function EditPlant() {
       nextWater,
       lastFertilized,
       nextFertilize,
+      room,
     })
     navigate(`/plant/${plant.id}`)
   }
@@ -149,6 +154,19 @@ export default function EditPlant() {
           onChange={e => setNextFertilize(e.target.value)}
           className="border rounded p-2"
         />
+      </div>
+      <div className="grid gap-1">
+        <label htmlFor="room" className="font-medium">Room</label>
+        <input
+          id="room"
+          list="room-list"
+          value={room}
+          onChange={e => setRoom(e.target.value)}
+          className="border rounded p-2"
+        />
+        <datalist id="room-list">
+          {rooms.map(r => <option key={r} value={r} />)}
+        </datalist>
       </div>
       <button
         type="submit"
