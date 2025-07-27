@@ -1,6 +1,14 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Plus, Drop, Bug, Heart } from 'phosphor-react'
+import {
+  Plus,
+  Drop,
+  Bug,
+  Heart,
+  SquaresFour,
+  ListBullets,
+  MagnifyingGlass,
+} from 'phosphor-react'
 import { getNextWateringDate } from '../utils/watering.js'
 
 import Badge from '../components/Badge.jsx'
@@ -102,14 +110,17 @@ export default function MyPlants() {
       <PageHeader title="All Plants" subtitle={`${totalPlants} total`} />
       <div className="my-4">
         <label htmlFor="plant-search" className="sr-only">Search Plants</label>
-        <input
-          id="plant-search"
-          type="search"
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          placeholder="Search plants"
-          className="w-full border rounded p-2"
-        />
+        <div className="relative">
+          <MagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" aria-hidden="true" />
+          <input
+            id="plant-search"
+            type="search"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            placeholder="Search plants"
+            className="w-full rounded-full border bg-gray-100 dark:bg-gray-800 py-2 pl-10 pr-3 focus:ring-2 focus:ring-green-600 focus:outline-none"
+          />
+        </div>
       </div>
       <div className="flex flex-wrap gap-2 mb-4">
         <label className="text-sm flex items-center gap-1">
@@ -142,14 +153,32 @@ export default function MyPlants() {
             ))}
           </select>
         </label>
-        <FilterPills
-          value={view}
-          onChange={setView}
-          options={[
-            { value: 'grid', label: 'Grid' },
-            { value: 'list', label: 'List' },
-          ]}
-        />
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={() => setView('grid')}
+            className={`border rounded p-1 ${
+              view === 'grid'
+                ? 'bg-green-600 text-white border-green-600'
+                : 'text-gray-600 dark:text-gray-200'
+            }`}
+            aria-label="Grid view"
+          >
+            <SquaresFour className="w-4 h-4" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            onClick={() => setView('list')}
+            className={`border rounded p-1 ${
+              view === 'list'
+                ? 'bg-green-600 text-white border-green-600'
+                : 'text-gray-600 dark:text-gray-200'
+            }`}
+            aria-label="List view"
+          >
+            <ListBullets className="w-4 h-4" aria-hidden="true" />
+          </button>
+        </div>
       </div>
       <FilterPills
         value={filter}
