@@ -46,6 +46,8 @@ npm install
 cp .env.example .env   # add your API keys and DB URL
 # start MySQL here if using Docker
 npx prisma migrate deploy
+# optional: seed sample data
+SEED_EXAMPLE_DATA=true npx prisma db seed
 npm run server   # Express API on :3000
 npm run dev      # Vite on :5173
 ```
