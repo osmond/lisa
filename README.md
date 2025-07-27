@@ -8,6 +8,7 @@ Lisa is a **mobile-first** plant care app with weather-driven reminders, an AI C
 - [Demo](#demo)
 - [Features](#features)
 - [Getting Started](#getting-started)
+- [Testing](#testing)
 - [API Reference](#api-reference)
 - [Contributing](#contributing)
 - [License](#license)
@@ -48,12 +49,20 @@ npm run server   # Express API on :3000
 npm run dev      # Vite on :5173
 ```
 
+
 ### Personal Use Tips
 - View the app on your laptop at `http://localhost:5173`.
 - From your phone, open `http://<your-ip>:5173` and "Add to Home Screen" for
   an offline-capable PWA.
 - Build production assets with `npm run build` and deploy the Express server and
   `dist/` folder wherever you host your projects. Use HTTPS for best results.
+
+## Testing
+Install dependencies and run the Jest suite:
+```bash
+npm install
+npm test
+```
 
 ## API Reference
 
