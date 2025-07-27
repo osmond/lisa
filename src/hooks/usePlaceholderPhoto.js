@@ -15,12 +15,7 @@ export default function usePlaceholderPhoto(name) {
         // ignore invalid cache
       }
     }
-    const unsplashUrl = `https://source.unsplash.com/featured/?${encodeURIComponent(name)}`
-    const wikiPromise = fetch(
-      `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(name)}`
-    )
-      .then(res => (res.ok ? res.json() : null))
-      .catch(() => null)
+    const wikiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(name)}`
 
     const choose = info => {
       setPhoto(info)
@@ -29,18 +24,18 @@ export default function usePlaceholderPhoto(name) {
       }
     }
 
-    fetch(unsplashUrl, { mode: 'no-cors' })
-      .then(() => {
-        choose({ src: unsplashUrl, attribution: 'Photo from Unsplash' })
-      })
-      .catch(async () => {
-        const data = await wikiPromise
-        const altSrc = data?.thumbnail?.source || data?.originalimage?.source
-        if (altSrc) {
-          choose({ src: altSrc, attribution: 'Photo from Wikipedia' })
+    fetch(wikiUrl)
+      .then(res => (res.ok ? res.json() : null))
+      .then(data => {
+        const src = data?.thumbnail?.source || data?.originalimage?.source
+        if (src) {
+          choose({ src, attribution: 'Photo from Wikipedia' })
         } else {
-          choose({ src: unsplashUrl, attribution: 'Photo from Unsplash' })
+          choose({ src: '/placeholder.svg', attribution: 'Placeholder' })
         }
+      })
+      .catch(() => {
+        choose({ src: '/placeholder.svg', attribution: 'Placeholder' })
       })
   }, [name])
 
