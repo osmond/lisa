@@ -6,9 +6,10 @@ import useToast from '../hooks/useToast.jsx'
 import NameStep from './add/NameStep.jsx'
 import ImageStep from './add/ImageStep.jsx'
 import ScheduleStep from './add/ScheduleStep.jsx'
+import CarePlanStep from './add/CarePlanStep.jsx'
 import OptionalInfoStep from './add/OptionalInfoStep.jsx'
 
-const totalSteps = 4
+const totalSteps = 5
 
 function StepIndicator({ step }) {
   const width = (step / totalSteps) * 100
@@ -43,6 +44,12 @@ const initialState = {
   room: '',
   notes: '',
   careLevel: '',
+  diameter: '',
+  soil: 'potting mix',
+  light: 'Medium',
+  humidity: '',
+  carePlan: null,
+  waterPlan: null,
 }
 
 function reducer(state, action) {
@@ -65,6 +72,18 @@ function reducer(state, action) {
       return { ...state, notes: action.payload }
     case 'SET_CARE':
       return { ...state, careLevel: action.payload }
+    case 'SET_DIAMETER':
+      return { ...state, diameter: action.payload }
+    case 'SET_SOIL':
+      return { ...state, soil: action.payload }
+    case 'SET_LIGHT':
+      return { ...state, light: action.payload }
+    case 'SET_HUMIDITY':
+      return { ...state, humidity: action.payload }
+    case 'SET_CARE_PLAN':
+      return { ...state, carePlan: action.payload }
+    case 'SET_WATER_PLAN':
+      return { ...state, waterPlan: action.payload }
     default:
       return state
   }
@@ -94,8 +113,12 @@ export default function Add() {
       ...(state.room && { room: state.room }),
       ...(state.notes && { notes: state.notes }),
       ...(state.careLevel && { careLevel: state.careLevel }),
-      diameter: 0,
-      waterPlan: { volume: 0, interval: 0 },
+      diameter: Number(state.diameter) || 0,
+      soil: state.soil,
+      light: state.light,
+      ...(state.humidity && { humidity: Number(state.humidity) }),
+      ...(state.carePlan && { carePlan: state.carePlan }),
+      ...(state.waterPlan && { waterPlan: state.waterPlan }),
     })
     showToast('Added')
     setTimeout(() => navigate('/'), 800)
@@ -129,6 +152,15 @@ export default function Add() {
         />
       )}
       {step === 4 && (
+        <CarePlanStep
+          name={state.name}
+          state={state}
+          dispatch={dispatch}
+          onBack={back}
+          onNext={next}
+        />
+      )}
+      {step === 5 && (
         <OptionalInfoStep
           room={state.room}
           notes={state.notes}

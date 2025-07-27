@@ -46,26 +46,30 @@ test('user can complete steps and add a plant', () => {
   )
 
   // step 1
-  expect(screen.getByText(/step 1 of 4/i)).toBeInTheDocument()
+  expect(screen.getByText(/step 1 of 5/i)).toBeInTheDocument()
   fireEvent.change(screen.getByLabelText(/name/i), {
     target: { value: 'Test Plant' },
   })
   fireEvent.click(screen.getByRole('button', { name: /next/i }))
 
   // step 2
-  expect(screen.getByText(/step 2 of 4/i)).toBeInTheDocument()
+  expect(screen.getByText(/step 2 of 5/i)).toBeInTheDocument()
   expect(screen.getByLabelText(/image url/i)).toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: /next/i }))
 
   // step 3
-  expect(screen.getByText(/step 3 of 4/i)).toBeInTheDocument()
+  expect(screen.getByText(/step 3 of 5/i)).toBeInTheDocument()
   expect(screen.getByLabelText(/last watered/i)).toBeInTheDocument()
   expect(screen.getByLabelText(/last fertilized/i)).toBeInTheDocument()
   expect(screen.getByLabelText(/next fertilizing/i)).toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: /next/i }))
 
   // step 4
-  expect(screen.getByText(/step 4 of 4/i)).toBeInTheDocument()
+  expect(screen.getByText(/step 4 of 5/i)).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: /skip/i }))
+
+  // step 5
+  expect(screen.getByText(/step 5 of 5/i)).toBeInTheDocument()
   expect(screen.getByLabelText(/room/i)).toBeInTheDocument()
   fireEvent.change(screen.getByLabelText(/room/i), { target: { value: 'Desk' } })
   fireEvent.change(screen.getByLabelText(/notes/i), { target: { value: 'Thrives' } })
