@@ -88,9 +88,9 @@ function createMemoryPrisma() {
 }
 
 const prisma =
-  (process.env.DATABASE_URL || process.env.NODE_ENV === 'test')
-    ? new PrismaClient()
-    : createMemoryPrisma()
+  process.env.NODE_ENV === 'test' || !process.env.DATABASE_URL
+    ? createMemoryPrisma()
+    : new PrismaClient()
 const upload = multer({ storage: multer.memoryStorage() })
 
 const plantSchema = z.object({
