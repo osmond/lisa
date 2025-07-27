@@ -1,10 +1,15 @@
 import Badge from './Badge.jsx'
 import { Sun, Leaf } from 'phosphor-react'
 import { createRipple } from '../utils/interactions.js'
+import usePlaceholderPhoto from '../hooks/usePlaceholderPhoto.js'
 
 export default function DiscoveryCard({ plant, onAdd }) {
   if (!plant) return null
-  const src = plant.image || plant.placeholderSrc
+  const placeholder = usePlaceholderPhoto(plant.name)
+  const src =
+    plant.image && !plant.image.includes('placeholder.svg')
+      ? plant.image
+      : placeholder?.src || plant.placeholderSrc
   return (
     <div className="relative h-64 rounded-3xl overflow-hidden shadow">
       <img
