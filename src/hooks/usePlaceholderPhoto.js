@@ -15,12 +15,33 @@ export default function usePlaceholderPhoto(name) {
         // ignore invalid cache
       }
     }
-    const url = `https://source.unsplash.com/featured/?${encodeURIComponent(name)}`
-    const info = { src: url, attribution: 'Photo from Unsplash' }
-    setPhoto(info)
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem(key, JSON.stringify(info))
+    const unsplashUrl = `https://source.unsplash.com/featured/?${encodeURIComponent(name)}`
+    const wikiPromise = fetch(
+      `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(name)}`
+    )
+      .then(res => (res.ok ? res.json() : null))
+      .catch(() => null)
+
+    const choose = info => {
+      setPhoto(info)
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem(key, JSON.stringify(info))
+      }
     }
+
+    fetch(unsplashUrl, { mode: 'no-cors' })
+      .then(() => {
+        choose({ src: unsplashUrl, attribution: 'Photo from Unsplash' })
+      })
+      .catch(async () => {
+        const data = await wikiPromise
+        const altSrc = data?.thumbnail?.source || data?.originalimage?.source
+        if (altSrc) {
+          choose({ src: altSrc, attribution: 'Photo from Wikipedia' })
+        } else {
+          choose({ src: unsplashUrl, attribution: 'Photo from Unsplash' })
+        }
+      })
   }, [name])
 
   return photo

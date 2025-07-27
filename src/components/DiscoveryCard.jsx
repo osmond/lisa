@@ -9,7 +9,7 @@ export default function DiscoveryCard({ plant, onAdd }) {
   const src =
     plant.image && !plant.image.includes('placeholder.svg')
       ? plant.image
-      : placeholder?.src || plant.placeholderSrc
+      : placeholder?.src
   return (
     <div className="relative h-64 rounded-3xl overflow-hidden shadow">
       <img
