@@ -5,6 +5,8 @@ export default function usePlaceholderPhoto(name) {
 
   useEffect(() => {
     if (!name) return
+    const controller = new AbortController()
+    const { signal } = controller
     const key = `placeholder_${name.toLowerCase()}`
     const cached = typeof localStorage !== 'undefined' && localStorage.getItem(key)
     if (cached) {
@@ -24,7 +26,7 @@ export default function usePlaceholderPhoto(name) {
       }
     }
 
-    fetch(wikiUrl)
+    fetch(wikiUrl, { signal })
       .then(res => (res.ok ? res.json() : null))
       .then(data => {
         const src = data?.thumbnail?.source || data?.originalimage?.source
@@ -34,9 +36,14 @@ export default function usePlaceholderPhoto(name) {
           choose({ src: '/placeholder.svg', attribution: 'Placeholder' })
         }
       })
-      .catch(() => {
-        choose({ src: '/placeholder.svg', attribution: 'Placeholder' })
+      .catch(err => {
+        if (err.name !== 'AbortError') {
+          choose({ src: '/placeholder.svg', attribution: 'Placeholder' })
+        }
       })
+    return () => {
+      controller.abort()
+    }
   }, [name])
 
   return photo
