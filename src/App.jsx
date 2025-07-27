@@ -20,6 +20,7 @@ import PersistentBottomNav from './components/PersistentBottomNav.jsx'
 
 import { MenuProvider } from './MenuContext.jsx'
 import NotFound from './pages/NotFound'
+import useServiceWorker from './hooks/useServiceWorker.js'
 
 function PageTransition({ children }) {
   return (
@@ -36,6 +37,7 @@ function PageTransition({ children }) {
 
 export default function App() {
   const location = useLocation()
+  useServiceWorker()
   return (
     <MenuProvider>
     <div
