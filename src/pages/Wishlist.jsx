@@ -32,6 +32,7 @@ export default function Wishlist() {
           <div key={plant.id} className="relative">
             <Link
               to={plant.room ? `/room/${encodeURIComponent(plant.room)}/plant/${plant.id}` : `/plant/${plant.id}`}
+              state={{ from: '/wishlist' }}
               className="block"
               onMouseDown={createRipple}
               onTouchStart={createRipple}

@@ -14,5 +14,6 @@ test('shows last fertilized info', () => {
   }
   render(<BalconyPlantCard plant={plant} />)
   expect(screen.getByText(/last fertilized 5 days ago/i)).toBeInTheDocument()
+  expect(screen.getByText(/needs water in 5 days/i)).toBeInTheDocument()
   jest.useRealTimers()
 })
