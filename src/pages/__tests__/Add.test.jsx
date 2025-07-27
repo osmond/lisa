@@ -35,9 +35,9 @@ test('user can add a plant', () => {
   renderWithSnackbar(
     <PlantProvider>
       <RoomProvider>
-        <MemoryRouter initialEntries={['/add']}>
+        <MemoryRouter initialEntries={['/onboard']}>
           <Routes>
-            <Route path="/add" element={<Add />} />
+            <Route path="/onboard" element={<Add />} />
             <Route path="/" element={<Home />} />
           </Routes>
         </MemoryRouter>

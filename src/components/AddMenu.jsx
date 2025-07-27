@@ -4,7 +4,7 @@ import { Plus, Note, MagicWand } from 'phosphor-react'
 export default function AddMenu({ open = false, onClose = () => {} }) {
   if (!open) return null
   const items = [
-    { to: '/add', label: 'Add Plant', Icon: Plus },
+    { to: '/onboard', label: 'Add Plant', Icon: Plus },
     { to: '/room/add', label: 'Add Room', Icon: Plus },
     // Future: { to: '/note/add', label: 'Add Note', Icon: Note }
   ]

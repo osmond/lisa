@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useOpenAI } from '../OpenAIContext.jsx'
 import PageContainer from '../components/PageContainer.jsx'
 import Spinner from '../components/Spinner.jsx'
 import { usePlants } from '../PlantContext.jsx'
@@ -8,6 +9,7 @@ import useCarePlan from '../hooks/useCarePlan.js'
 export default function EditCarePlan() {
   const { id } = useParams()
   const { plants, updatePlant } = usePlants()
+  const { enabled } = useOpenAI()
   const navigate = useNavigate()
 
   const plant = plants.find(p => p.id === Number(id))
@@ -98,14 +100,16 @@ export default function EditCarePlan() {
           />
         </div>
         <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={handleGenerate}
-            className="px-4 py-2 bg-green-600 text-white rounded"
-            disabled={loading}
-          >
-            Generate Care Plan
-          </button>
+          {enabled && (
+            <button
+              type="button"
+              onClick={handleGenerate}
+              className="px-4 py-2 bg-green-600 text-white rounded"
+              disabled={loading}
+            >
+              Regenerate AI Plan
+            </button>
+          )}
           <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">Save</button>
         </div>
         {history.length > 1 && (

@@ -58,7 +58,7 @@ test('generates plan and saves updates', async () => {
     </MemoryRouter>
   )
 
-  fireEvent.click(screen.getByRole('button', { name: /generate care plan/i }))
+  fireEvent.click(screen.getByRole('button', { name: /regenerate ai plan/i }))
 
   await waitFor(() => expect(screen.getByLabelText(/water interval/i)).toHaveValue(7))
   expect(screen.getByLabelText(/fertilize interval/i)).toHaveValue(30)
@@ -103,7 +103,7 @@ test('shows spinner while loading', async () => {
     </MemoryRouter>
   )
 
-  fireEvent.click(screen.getByRole('button', { name: /generate care plan/i }))
+  fireEvent.click(screen.getByRole('button', { name: /regenerate ai plan/i }))
 
   expect(screen.getByTestId('spinner')).toBeInTheDocument()
 
@@ -120,7 +120,7 @@ test('uses fallback plan on failure', async () => {
       </Routes>
     </MemoryRouter>
   )
-  fireEvent.click(screen.getByRole('button', { name: /generate care plan/i }))
+  fireEvent.click(screen.getByRole('button', { name: /regenerate ai plan/i }))
   await waitFor(() =>
     expect(screen.getByLabelText(/water interval/i)).toHaveValue(0)
   )

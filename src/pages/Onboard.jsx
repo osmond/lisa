@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useOpenAI } from '../OpenAIContext.jsx'
 import { usePlants } from '../PlantContext.jsx'
 import { useRooms } from '../RoomContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
@@ -13,6 +14,7 @@ import AddPlantForm from '../components/AddPlantForm.tsx'
 export default function Onboard() {
   const { addPlant } = usePlants()
   const { rooms } = useRooms()
+  const { enabled } = useOpenAI()
   const navigate = useNavigate()
   const { forecast } = useWeather() || {}
   const [form, setForm] = useState({
@@ -61,11 +63,11 @@ export default function Onboard() {
   }, [plan])
 
   useEffect(() => {
-    if (!form.name || !form.diameter) return
+    if (!form.name || !form.diameter || enabled) return
     const s = generateCareSummary(form.name, form.diameter, form.light, forecast || {})
     setSummary(s)
     if (!plan && !water) setWater(s.waterPlan)
-  }, [form.name, form.diameter, form.light, forecast, plan])
+  }, [form.name, form.diameter, form.light, forecast, plan, enabled])
 
   const handleUseOutdoorHumidity = () => {
     if (forecast?.humidity !== undefined) {
@@ -81,36 +83,47 @@ export default function Onboard() {
       scientificName: match ? match.scientificName : f.scientificName,
     }))
 
-    if (!name || !form.diameter || typeof fetch !== 'function') return
+    if (!name || !form.diameter) return
 
     try {
       const payload = { ...form, name }
-      const res = await fetch('/api/care-plan', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'error')
-
-      setForm(f => ({
-        ...f,
-        ...(data.soil && { soil: data.soil }),
-        ...(data.light && { light: data.light }),
-        ...(data.room && { room: data.room }),
-        ...(data.humidity !== undefined && { humidity: data.humidity }),
-      }))
-
-      if (
-        data.water !== undefined &&
-        data.water_volume_ml !== undefined &&
-        data.water_volume_oz !== undefined
-      ) {
-        setWater({
-          interval: data.water,
-          volume_ml: data.water_volume_ml,
-          volume_oz: data.water_volume_oz,
+      if (enabled && typeof fetch === 'function') {
+        const res = await fetch('/api/care-plan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
         })
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.error || 'error')
+
+        setForm(f => ({
+          ...f,
+          ...(data.soil && { soil: data.soil }),
+          ...(data.light && { light: data.light }),
+          ...(data.room && { room: data.room }),
+          ...(data.humidity !== undefined && { humidity: data.humidity }),
+        }))
+
+        if (
+          data.water !== undefined &&
+          data.water_volume_ml !== undefined &&
+          data.water_volume_oz !== undefined
+        ) {
+          setWater({
+            interval: data.water,
+            volume_ml: data.water_volume_ml,
+            volume_oz: data.water_volume_oz,
+          })
+        }
+      } else {
+        const summary = generateCareSummary(
+          name,
+          form.diameter,
+          form.light,
+          forecast || {}
+        )
+        setSummary(summary)
+        setWater(summary.waterPlan)
       }
     } catch (err) {
       console.error('care plan error', err)
@@ -118,7 +131,13 @@ export default function Onboard() {
   }
 
   const handleSubmit = () => {
-    generate(form)
+    if (enabled) {
+      generate(form)
+    } else {
+      const s = generateCareSummary(form.name, form.diameter, form.light, forecast || {})
+      setSummary(s)
+      setWater(s.waterPlan)
+    }
   }
 
   const handleAdd = () => {
@@ -165,7 +184,7 @@ export default function Onboard() {
           </select>
         </div>
       )}
-      {plan && water ? (
+      {(plan || !enabled) && water ? (
         <div className="mt-6 space-y-4" data-testid="care-plan">
           <pre className="whitespace-pre-wrap p-4 bg-green-50 rounded">{plan.text}</pre>
           <p className="font-medium" data-testid="water-plan">
