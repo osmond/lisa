@@ -16,7 +16,7 @@ export default function CreateFab() {
   }, [open])
 
   const items = [
-    { to: '/add', label: 'Add Plant', Icon: Leaf, color: 'green' },
+    { to: '/onboard', label: 'Add Plant', Icon: Leaf, color: 'green' },
     { to: '/room/add', label: 'Add Room', Icon: Door, color: 'violet' },
   ]
 
