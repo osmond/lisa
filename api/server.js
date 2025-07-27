@@ -12,7 +12,7 @@ import { generateCarePlan } from '../lib/carePlan.js'
 const moduleDir =
   typeof __dirname !== 'undefined'
     ? __dirname
-    : path.dirname(fileURLToPath(eval('import.meta.url')))
+    : path.dirname(fileURLToPath(import.meta.url))
 const discoverPath = path.join(moduleDir, '..', 'src', 'discoverablePlants.json')
 const discoverable = JSON.parse(fs.readFileSync(discoverPath))
 const taxonPath = path.join(moduleDir, '..', 'src', '__fixtures__', 'plants.json')
