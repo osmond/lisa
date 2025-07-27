@@ -10,13 +10,87 @@ import { generateCarePlan } from '../lib/carePlan.js'
 
 const discoverPath = path.join(process.cwd(), 'src', 'discoverablePlants.json')
 const discoverable = JSON.parse(fs.readFileSync(discoverPath))
+const taxonPath = path.join(process.cwd(), 'src', '__fixtures__', 'plants.json')
+let taxonList = []
+try {
+  taxonList = JSON.parse(fs.readFileSync(taxonPath))
+} catch {
+  taxonList = []
+}
 const app = express()
 // Temporarily increase JSON payload limit while the upload feature is in progress
 app.use(express.json({ limit: '100mb' }))
 
 // Cloudinary is configured in cloudinary.js
 
-const prisma = new PrismaClient()
+function createMemoryPrisma() {
+  let id = 1
+  const data = { plants: [], photos: [], careEvents: [] }
+  class NotFound extends Error {
+    constructor() {
+      super('not found')
+      this.code = 'P2025'
+    }
+  }
+  const ErrorClass =
+    (Prisma && Prisma.PrismaClientKnownRequestError) || NotFound
+  return {
+    plant: {
+      findMany: async () =>
+        data.plants.filter(p => p.deletedAt == null).map(p => ({
+          ...p,
+          photos: data.photos.filter(ph => ph.plantId === p.id),
+          careEvents: data.careEvents.filter(ev => ev.plantId === p.id),
+          room: null,
+          owner: null,
+        })),
+      create: async ({ data: d }) => {
+        const now = new Date()
+        const plant = { id: id++, createdAt: now, updatedAt: now, deletedAt: null, ...d }
+        data.plants.push(plant)
+        return plant
+      },
+      update: async ({ where: { id }, data: d }) => {
+        const plant = data.plants.find(p => p.id === id)
+        if (!plant) throw new ErrorClass('not found', { code: 'P2025' })
+        Object.assign(plant, d)
+        plant.updatedAt = new Date()
+        return plant
+      },
+      delete: async ({ where: { id } }) => {
+        const idx = data.plants.findIndex(p => p.id === id)
+        if (idx === -1) throw new ErrorClass('not found', { code: 'P2025' })
+        data.plants.splice(idx, 1)
+      },
+    },
+    photo: {
+      deleteMany: async ({ where: { plantId } }) => {
+        data.photos = data.photos.filter(p => p.plantId !== plantId)
+      },
+      createMany: async ({ data: arr }) => {
+        arr.forEach(d => data.photos.push({ id: id++, ...d }))
+      },
+      findMany: async ({ where: { plantId }, skip = 0, take = 1 }) => {
+        const list = data.photos.filter(p => p.plantId === plantId).sort((a, b) => a.id - b.id)
+        return list.slice(skip, skip + take)
+      },
+      delete: async ({ where: { id } }) => {
+        data.photos = data.photos.filter(p => p.id !== id)
+      },
+    },
+    careEvent: {
+      deleteMany: async ({ where: { plantId } }) => {
+        data.careEvents = data.careEvents.filter(e => e.plantId !== plantId)
+      },
+    },
+    __store: data,
+  }
+}
+
+const prisma =
+  process.env.DATABASE_URL || process.env.NODE_ENV === 'test'
+    ? new PrismaClient()
+    : createMemoryPrisma()
 const upload = multer({ storage: multer.memoryStorage() })
 
 const plantSchema = z.object({
@@ -363,6 +437,19 @@ app.delete('/api/plants/:id/photos/:index', async (req, res) => {
     console.error('Delete photo error', err)
     res.status(500).json({ error: 'Failed to delete photo' })
   }
+})
+
+app.get('/api/taxon', (req, res) => {
+  const query = String(req.query.query || '').toLowerCase()
+  if (query.length < 2) {
+    res.json([])
+    return
+  }
+  const list = taxonList
+    .filter(p => p.name && p.name.toLowerCase().includes(query))
+    .map(p => ({ id: p.id, commonName: p.name, scientificName: p.name }))
+    .slice(0, 10)
+  res.json(list)
 })
 
 app.get('/api/discoverable-plants', (req, res) => {
