@@ -70,3 +70,8 @@ export function formatCareSummary(lastWatered, nextWater, today = new Date()) {
   }
   return parts.join(' \u00B7 ')
 }
+
+export function localIsoDate(date = new Date()) {
+  const t = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+  return t.toISOString().slice(0, 10)
+}
