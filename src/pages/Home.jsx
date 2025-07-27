@@ -43,7 +43,7 @@ export default function Home() {
   })
   const happyPlant = useHappyPlant()
   const { plant: discoverPlant } = useDiscoverablePlant()
-  const { addToWishlist } = useWishlist()
+  const { addToWishlist, removeFromWishlist } = useWishlist()
   const { showSnackbar } = useSnackbar()
 
 
@@ -215,7 +215,10 @@ export default function Home() {
 
   const handleAddToWishlist = plant => {
     addToWishlist(plant)
-    showSnackbar(`${plant.name} added to Wishlist`)
+    showSnackbar(
+      `${plant.name} added to Wishlist`,
+      () => removeFromWishlist(plant.id)
+    )
   }
 
 

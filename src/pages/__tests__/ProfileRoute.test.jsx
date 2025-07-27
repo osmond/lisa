@@ -20,6 +20,10 @@ jest.mock('../../ThemeContext.jsx', () => ({
   useTheme: () => ({ theme: 'light', toggleTheme: () => {} }),
 }))
 
+jest.mock('../../WishlistContext.jsx', () => ({
+  useWishlist: () => ({ wishlist: [] })
+}))
+
 test('navigating to /profile renders the Settings page', () => {
   render(
     <OpenAIProvider>
