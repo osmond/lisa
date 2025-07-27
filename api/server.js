@@ -9,10 +9,7 @@ import { PrismaClient, Prisma } from '@prisma/client'
 import { z } from 'zod'
 import { generateCarePlan } from '../lib/carePlan.js'
 
-const moduleDir =
-  typeof __dirname !== 'undefined'
-    ? __dirname
-    : path.dirname(fileURLToPath(import.meta.url))
+const moduleDir = path.join(process.cwd(), 'api')
 const discoverPath = path.join(moduleDir, '..', 'src', 'discoverablePlants.json')
 const discoverable = JSON.parse(fs.readFileSync(discoverPath))
 const taxonPath = path.join(moduleDir, '..', 'src', '__fixtures__', 'plants.json')
@@ -93,8 +90,10 @@ function createMemoryPrisma() {
   }
 }
 
+const isMysql =
+  process.env.DATABASE_URL && process.env.DATABASE_URL.startsWith('mysql://')
 const prisma =
-  process.env.NODE_ENV === 'test' || !process.env.DATABASE_URL
+  process.env.NODE_ENV === 'test' || !isMysql
     ? createMemoryPrisma()
     : new PrismaClient()
 const upload = multer({ storage: multer.memoryStorage() })
