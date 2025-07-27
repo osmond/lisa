@@ -278,6 +278,9 @@ export default function Home() {
             data-testid="discovery-loading"
           />
         )}
+        {!discoverLoading && discoverError && (
+          <div className="text-center text-red-600">{discoverError}</div>
+        )}
         {!discoverLoading && discoverPlants.length > 0 && (
           <>
             <div className="flex flex-nowrap gap-4 overflow-x-auto pb-2">
