@@ -2,15 +2,20 @@ import 'dotenv/config'
 import express from 'express'
 import fs from 'fs'
 import path from 'path'
+import { fileURLToPath } from 'url'
 import multer from 'multer'
 import cloudinary from './cloudinary.js'
 import { PrismaClient, Prisma } from '@prisma/client'
 import { z } from 'zod'
 import { generateCarePlan } from '../lib/carePlan.js'
 
-const discoverPath = path.join(process.cwd(), 'src', 'discoverablePlants.json')
+const moduleDir =
+  typeof __dirname !== 'undefined'
+    ? __dirname
+    : path.dirname(fileURLToPath(eval('import.meta.url')))
+const discoverPath = path.join(moduleDir, '..', 'src', 'discoverablePlants.json')
 const discoverable = JSON.parse(fs.readFileSync(discoverPath))
-const taxonPath = path.join(process.cwd(), 'src', '__fixtures__', 'plants.json')
+const taxonPath = path.join(moduleDir, '..', 'src', '__fixtures__', 'plants.json')
 let taxonList = []
 try {
   taxonList = JSON.parse(fs.readFileSync(taxonPath))

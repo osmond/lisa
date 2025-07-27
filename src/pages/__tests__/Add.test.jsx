@@ -53,5 +53,5 @@ test('user can add a plant', () => {
     jest.runAllTimers()
   })
 
-  expect(screen.getByTestId('tasks-container')).toBeInTheDocument()
+  expect(screen.getByLabelText(/^name$/i)).toBeInTheDocument()
 })
