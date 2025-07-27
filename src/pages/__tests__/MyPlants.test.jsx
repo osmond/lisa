@@ -150,3 +150,17 @@ test('searches plants by name', () => {
   expect(links).toHaveLength(1)
   expect(links[0]).toHaveTextContent('Living')
 })
+
+test('shows total plant count in header', () => {
+  mockRooms = []
+  mockPlants = [
+    { id: 1, name: 'Fern', room: 'Living', lastWatered: '2025-07-01' },
+    { id: 2, name: 'Basil', room: 'Kitchen', lastWatered: '2025-07-01' },
+  ]
+  render(
+    <MemoryRouter>
+      <MyPlants />
+    </MemoryRouter>
+  )
+  expect(screen.getByText('2 total')).toBeInTheDocument()
+})
