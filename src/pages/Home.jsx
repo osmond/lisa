@@ -26,6 +26,8 @@ import Card from '../components/Card.jsx'
 import SwipeTip from '../components/SwipeTip.jsx'
 import useHappyPlant from '../hooks/useHappyPlant.js'
 import useDiscoverablePlant from '../hooks/useDiscoverablePlant.js'
+import { useWishlist } from '../WishlistContext.jsx'
+import useSnackbar from '../hooks/useSnackbar.jsx'
 
 
 
@@ -41,6 +43,8 @@ export default function Home() {
   })
   const happyPlant = useHappyPlant()
   const { plant: discoverPlant } = useDiscoverablePlant()
+  const { addToWishlist } = useWishlist()
+  const { showSnackbar } = useSnackbar()
 
 
   const weatherCtx = useWeather()
@@ -209,6 +213,11 @@ export default function Home() {
     scrollToTasks()
   }
 
+  const handleAddToWishlist = plant => {
+    addToWishlist(plant)
+    showSnackbar(`${plant.name} added to Wishlist`)
+  }
+
 
 
   return (
@@ -252,7 +261,7 @@ export default function Home() {
     {discoverPlant && (
       <section className="mb-4 space-y-2" data-testid="discovery-section">
         <h2 className="sr-only">Discover a New Plant</h2>
-        <DiscoveryCard plant={discoverPlant} />
+        <DiscoveryCard plant={discoverPlant} onAdd={handleAddToWishlist} />
       </section>
     )}
     <CareStats
