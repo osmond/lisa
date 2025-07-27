@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import { usePlants } from '../PlantContext.jsx'
+import { localIsoDate } from '../utils/date.js'
 
 export default function useDiscoverablePlant(count = 3) {
   const { plants } = usePlants()
@@ -9,7 +10,7 @@ export default function useDiscoverablePlant(count = 3) {
   const [skipped, setSkipped] = useState(false)
 
   const fetchPlants = useCallback(async () => {
-    const today = new Date().toISOString().slice(0, 10)
+    const today = localIsoDate()
     const key = `discover_${today}`
     setLoading(true)
     setError('')
@@ -41,7 +42,7 @@ export default function useDiscoverablePlant(count = 3) {
   }, [plants, count])
 
   useEffect(() => {
-    const today = new Date().toISOString().slice(0, 10)
+    const today = localIsoDate()
     const key = `discover_${today}`
     const skipKey = `discover_skip_${today}`
     if (typeof localStorage !== 'undefined') {
@@ -64,7 +65,7 @@ export default function useDiscoverablePlant(count = 3) {
   }, [plants, fetchPlants])
 
   const refetch = () => {
-    const today = new Date().toISOString().slice(0, 10)
+    const today = localIsoDate()
     const key = `discover_${today}`
     if (typeof localStorage !== 'undefined') {
       localStorage.removeItem(key)
@@ -73,7 +74,7 @@ export default function useDiscoverablePlant(count = 3) {
   }
 
   const skipToday = () => {
-    const today = new Date().toISOString().slice(0, 10)
+    const today = localIsoDate()
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem(`discover_skip_${today}`, 'true')
       localStorage.removeItem(`discover_${today}`)
@@ -83,7 +84,7 @@ export default function useDiscoverablePlant(count = 3) {
   }
 
   const remindLater = () => {
-    const today = new Date().toISOString().slice(0, 10)
+    const today = localIsoDate()
     if (typeof localStorage !== 'undefined') {
       localStorage.removeItem(`discover_${today}`)
     }
