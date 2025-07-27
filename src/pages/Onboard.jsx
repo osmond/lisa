@@ -84,17 +84,20 @@ export default function Onboard() {
     if (!name || !form.diameter || typeof fetch !== 'function') return
 
     try {
+      const payload = { ...form, name }
       const res = await fetch('/api/care-plan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, diameter: form.diameter }),
+        body: JSON.stringify(payload),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'error')
 
       setForm(f => ({
         ...f,
+        ...(data.soil && { soil: data.soil }),
         ...(data.light && { light: data.light }),
+        ...(data.room && { room: data.room }),
         ...(data.humidity !== undefined && { humidity: data.humidity }),
       }))
 
