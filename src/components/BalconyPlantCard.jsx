@@ -1,17 +1,23 @@
 import Badge from './Badge.jsx'
 import { Sun, Leaf } from 'phosphor-react'
 import { formatDaysAgo } from '../utils/dateFormat.js'
+import { daysUntil as calcDaysUntil } from '../utils/date.js'
 
 export default function BalconyPlantCard({ plant }) {
   const today = new Date()
-  const daysUntil = plant.nextWater
-    ? Math.ceil((new Date(plant.nextWater) - today) / 86400000)
-    : null
+  const daysUntil = plant.nextWater ? calcDaysUntil(plant.nextWater, today) : null
   const overdue = daysUntil != null && daysUntil <= 0
   const src =
     typeof plant.image === 'string' && plant.image.trim() !== ''
       ? plant.image
       : plant.placeholderSrc
+
+  let waterText = null
+  if (daysUntil != null) {
+    if (daysUntil <= 0) waterText = 'Needs water today'
+    else if (daysUntil === 1) waterText = 'Needs water tomorrow'
+    else waterText = `Needs water in ${daysUntil} days`
+  }
 
   return (
     <div className="relative h-64 rounded-3xl overflow-hidden shadow">
@@ -41,6 +47,7 @@ export default function BalconyPlantCard({ plant }) {
           <p className="text-sm italic leading-none">{plant.scientificName}</p>
         )}
         <p className="text-sm text-left">Last watered {formatDaysAgo(plant.lastWatered)}</p>
+        {waterText && <p className="text-sm text-left">{waterText}</p>}
         {plant.lastFertilized && (
           <p className="text-sm text-left">
             Last fertilized {formatDaysAgo(plant.lastFertilized)}

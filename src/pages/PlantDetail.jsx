@@ -775,6 +775,17 @@ export default function PlantDetail() {
                   {plant.scientificName}
                 </p>
               )}
+              {plant.scientificName && (
+                <a
+                  href={`https://en.wikipedia.org/wiki/${encodeURIComponent(plant.scientificName)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-blue-300 hover:underline animate-fade-in-down"
+                  style={{ animationDelay: '80ms' }}
+                >
+                  More on Wikipedia
+                </a>
+              )}
               {plant.nickname && (
                 <p
                   className="text-sm italic text-gray-100 animate-fade-in-down"
