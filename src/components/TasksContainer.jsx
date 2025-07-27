@@ -7,6 +7,7 @@ export default function TasksContainer({
   visibleTasks = [],
   happyPlant,
   nextTaskDate,
+  onBrowseTasks,
 }) {
   const days = nextTaskDate ? daysUntil(nextTaskDate) : null
   return (
@@ -61,12 +62,13 @@ export default function TasksContainer({
                 >
                   View Care Plan
                 </Link>
-                <Link
-                  to="/tasks"
+                <button
+                  type="button"
+                  onClick={onBrowseTasks}
                   className="px-4 py-2 border border-green-500 text-green-500 rounded-md active:scale-95"
                 >
                   Browse Tasks
-                </Link>
+                </button>
                 <Link
                   to="/add"
                   className="px-4 py-2 border border-green-500 text-green-500 rounded-md active:scale-95"

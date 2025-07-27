@@ -345,6 +345,7 @@ export default function Home() {
         visibleTasks={visibleTasks}
         happyPlant={happyPlant}
         nextTaskDate={nextTaskDate}
+        onBrowseTasks={() => setShowSummary(true)}
       />
       <SwipeTip />
       <div className="mt-4">
