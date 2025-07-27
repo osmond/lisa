@@ -88,7 +88,7 @@ function createMemoryPrisma() {
 }
 
 const prisma =
-  process.env.DATABASE_URL || process.env.NODE_ENV === 'test'
+  (process.env.DATABASE_URL || process.env.NODE_ENV === 'test')
     ? new PrismaClient()
     : createMemoryPrisma()
 const upload = multer({ storage: multer.memoryStorage() })
