@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import PlantDetail from '../PlantDetail.jsx'
 import { MenuProvider } from '../../MenuContext.jsx'
@@ -103,4 +103,8 @@ test('toggle reverses month ordering', () => {
 
   headings = screen.getAllByRole('heading', { level: 3 })
   expect(headings[0]).toHaveTextContent('June 2025')
+})
+
+afterEach(async () => {
+  await waitFor(() => {})
 })

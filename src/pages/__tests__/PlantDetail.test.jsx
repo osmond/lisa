@@ -621,3 +621,7 @@ test('handles unknown plant id gracefully', () => {
   expect(screen.getByText(/plant not found/i)).toBeInTheDocument()
 })
 
+afterEach(async () => {
+  await waitFor(() => {})
+})
+
