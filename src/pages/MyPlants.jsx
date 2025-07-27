@@ -19,6 +19,7 @@ import BalconyPlantCard from '../components/BalconyPlantCard.jsx'
 export default function MyPlants() {
   const { rooms } = useRooms()
   const { plants } = usePlants()
+  const totalPlants = plants.length
   const speciesOptions = Array.from(new Set(plants.map(p => p.name))).sort()
 
   const [filter, setFilter] = useState('love')
@@ -84,7 +85,7 @@ export default function MyPlants() {
   if (rooms.length === 0) {
     return (
       <div className="text-center space-y-4">
-        <PageHeader title="All Plants" />
+        <PageHeader title="All Plants" subtitle={`${totalPlants} total`} />
         <Link
           to="/room/add"
           className="inline-block px-4 py-2 bg-green-600 text-white rounded"
@@ -98,7 +99,7 @@ export default function MyPlants() {
 
   return (
     <PageContainer>
-      <PageHeader title="All Plants" />
+      <PageHeader title="All Plants" subtitle={`${totalPlants} total`} />
       <div className="my-4">
         <label htmlFor="plant-search" className="sr-only">Search Plants</label>
         <input
