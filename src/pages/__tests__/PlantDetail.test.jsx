@@ -264,6 +264,46 @@ test('view all button opens the viewer from first image', () => {
   expect(viewerImg).toHaveAttribute('src', plant.photos[0].src)
 })
 
+test('set hero image from gallery', () => {
+  localStorage.setItem(
+    'plants',
+    JSON.stringify([
+      {
+        id: 1,
+        name: 'Aloe',
+        image: 'hero.jpg',
+        waterPlan: { volume_ml: 164, volume_oz: 6, interval: 7 },
+        photos: [
+          { src: 'a.jpg', caption: '' },
+          { src: 'b.jpg', caption: '' },
+        ],
+        careLog: [],
+      },
+    ])
+  )
+
+  render(
+    <OpenAIProvider>
+      <MenuProvider>
+        <PlantProvider>
+          <MemoryRouter initialEntries={['/plant/1']}>
+            <Routes>
+              <Route path="/plant/:id" element={<PlantDetail />} />
+            </Routes>
+          </MemoryRouter>
+        </PlantProvider>
+      </MenuProvider>
+    </OpenAIProvider>
+  )
+
+  fireEvent.click(screen.getByRole('tab', { name: /gallery/i }))
+  const btns = screen.getAllByRole('button', { name: /set as hero/i })
+  fireEvent.click(btns[1])
+
+  expect(screen.getByAltText('Aloe')).toHaveAttribute('src', 'b.jpg')
+  localStorage.clear()
+})
+
 test('back button navigates to previous page', () => {
   const plant = plants[0]
   const { container } = render(

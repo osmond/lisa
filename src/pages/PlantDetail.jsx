@@ -686,6 +686,14 @@ export default function PlantDetail() {
                   >
                     <Trash className="w-3 h-3" aria-hidden="true" />
                   </button>
+                  <button
+                    type="button"
+                    aria-label="Set as hero"
+                    className="absolute bottom-1 left-1 bg-white/70 rounded px-1 py-0.5 text-[10px] text-gray-600 hover:text-green-700 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all ease-in-out duration-200"
+                    onClick={() => updatePlant(plant.id, { image: photo.src })}
+                  >
+                    Set as hero
+                  </button>
                 </div>
               );
             })}
