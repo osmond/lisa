@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { usePlants } from '../PlantContext.jsx'
 import { useRooms } from '../RoomContext.jsx'
 import { useWeather } from '../WeatherContext.jsx'
+import { generateCareSummary } from '../utils/careSummary.js'
 import PageContainer from "../components/PageContainer.jsx"
 import Spinner from '../components/Spinner.jsx'
 import useCarePlan from '../hooks/useCarePlan.js'
@@ -23,6 +24,7 @@ export default function Onboard() {
     humidity: '',
   })
   const [water, setWater] = useState(null)
+  const [summary, setSummary] = useState(null)
   const { plan, loading, error, generate, history, revert, index } = useCarePlan()
   const [carePlan, setCarePlan] = useState(null)
   const taxa = usePlantTaxon(form.name)
@@ -56,6 +58,13 @@ export default function Onboard() {
       setWater(null)
     }
   }, [plan])
+
+  useEffect(() => {
+    if (!form.name || !form.diameter) return
+    const s = generateCareSummary(form.name, form.diameter, form.light, forecast || {})
+    setSummary(s)
+    if (!plan && !water) setWater(s.waterPlan)
+  }, [form.name, form.diameter, form.light, forecast, plan])
 
   const handleUseOutdoorHumidity = () => {
     if (forecast?.humidity !== undefined) {
@@ -126,7 +135,10 @@ export default function Onboard() {
       light: form.light,
       waterPlan: water,
       notes: plan?.text || '',
-      carePlan,
+      carePlan: {
+        ...(carePlan || {}),
+        ...(summary ? { placement: summary.placement, repot: summary.repot } : {}),
+      },
     })
     navigate('/')
   }
@@ -208,6 +220,12 @@ export default function Onboard() {
           <p className="font-medium" data-testid="water-plan">
             Suggested water: {water.volume_ml} mL / {water.volume_oz} oz every {water.interval} days
           </p>
+          {summary && (
+            <ul className="text-sm space-y-1" data-testid="calc-summary">
+              <li>Placement: {summary.placement}</li>
+              <li>{summary.repot}</li>
+            </ul>
+          )}
           <button className="px-4 py-2 bg-green-600 text-white rounded" onClick={handleAdd}>Add Plant</button>
         </div>
       ) : (

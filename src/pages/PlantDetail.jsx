@@ -461,6 +461,18 @@ export default function PlantDetail() {
                   <Sun className="w-4 h-4 text-orange-500" />
                   Light: {plant.carePlan.light}
                 </li>
+                {plant.carePlan.placement && (
+                  <li className="flex items-center gap-2">
+                    <Sun className="w-4 h-4 text-orange-500" />
+                    Placement: {plant.carePlan.placement}
+                  </li>
+                )}
+                {plant.carePlan.repot && (
+                  <li className="flex items-center gap-2">
+                    <Flower className="w-4 h-4 text-pink-500" />
+                    {plant.carePlan.repot}
+                  </li>
+                )}
               </ul>
             ) : (
               <>
