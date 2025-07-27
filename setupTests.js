@@ -1,4 +1,5 @@
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom'
+import { act } from '@testing-library/react'
 
 // Suppress React Router future flag warnings during tests
 const originalWarn = console.warn;
@@ -36,3 +37,7 @@ afterAll(() => {
     delete global.fetch;
   }
 });
+
+afterEach(async () => {
+  await act(async () => {})
+})

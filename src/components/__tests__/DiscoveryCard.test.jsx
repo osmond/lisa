@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import DiscoveryCard from '../DiscoveryCard.jsx'
 import { WishlistProvider } from '../../WishlistContext.jsx'
 
@@ -43,4 +43,8 @@ test('shows disabled state when already in wishlist', () => {
   const button = screen.getByText(/in wishlist/i)
   expect(button).toBeDisabled()
   localStorage.clear()
+})
+
+afterEach(async () => {
+  await waitFor(() => {})
 })

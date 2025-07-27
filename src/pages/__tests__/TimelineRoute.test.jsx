@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { OpenAIProvider } from '../../OpenAIContext.jsx'
 import App from '../../App.jsx'
@@ -22,4 +22,8 @@ test('navigating to /timeline renders the Timeline page', () => {
   )
 
   expect(screen.getByRole('link', { name: 'Plant A' })).toBeInTheDocument()
+})
+
+afterEach(async () => {
+  await waitFor(() => {})
 })

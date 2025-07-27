@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import Home from '../Home.jsx'
 import SnackbarProvider, { Snackbar } from '../../hooks/SnackbarProvider.jsx'
@@ -45,8 +45,9 @@ function renderWithSnackbar(ui) {
   )
 }
 
-afterEach(() => {
+afterEach(async () => {
   jest.useRealTimers()
+  await waitFor(() => {})
 })
 
 test('shows upbeat message when there are no tasks', () => {
