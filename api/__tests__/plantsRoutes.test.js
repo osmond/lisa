@@ -88,6 +88,8 @@ jest.mock('cloudinary', () => ({
 }))
 
 import { PrismaClient } from '@prisma/client'
+process.env.DATABASE_URL = 'test'
+process.env.NODE_ENV = 'development'
 const prisma = new PrismaClient()
 store = prisma.__store
 
