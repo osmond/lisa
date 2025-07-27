@@ -14,33 +14,31 @@ afterEach(() => {
 })
 
 test('reads cached photo from localStorage', () => {
-  const cached = { src: 'cached.jpg', attribution: 'Unsplash' }
+  const cached = { src: 'cached.jpg', attribution: 'Placeholder' }
   localStorage.setItem('placeholder_aloe', JSON.stringify(cached))
   render(<Test name="aloe" />)
   expect(screen.getByText('cached.jpg')).toBeInTheDocument()
 })
 
-test('uses Unsplash when not cached', async () => {
-  render(<Test name="aloe" />)
-  const text = await screen.findByText(/source\.unsplash\.com\/featured\/\?aloe/)
-  expect(text).toBeInTheDocument()
-  const stored = JSON.parse(localStorage.getItem('placeholder_aloe'))
-  expect(stored.src).toMatch(/source\.unsplash\.com/)
-})
-
-test('falls back to Wikipedia on Unsplash failure', async () => {
-  global.fetch = jest.fn(url => {
-    if (url.includes('unsplash')) {
-      return Promise.reject(new Error('fail'))
-    }
-    return Promise.resolve({
+test('uses Wikipedia when not cached', async () => {
+  global.fetch = jest.fn(() =>
+    Promise.resolve({
       ok: true,
       json: () => Promise.resolve({ thumbnail: { source: 'wiki.jpg' } }),
     })
-  })
-  render(<Test name="rose" />)
+  )
+  render(<Test name="aloe" />)
   expect(await screen.findByText('wiki.jpg')).toBeInTheDocument()
-  const stored = JSON.parse(localStorage.getItem('placeholder_rose'))
+  const stored = JSON.parse(localStorage.getItem('placeholder_aloe'))
   expect(stored.src).toBe('wiki.jpg')
   expect(stored.attribution).toBe('Photo from Wikipedia')
+})
+
+test('falls back to placeholder when Wikipedia fails', async () => {
+  global.fetch = jest.fn(() => Promise.reject(new Error('fail')))
+  render(<Test name="rose" />)
+  expect(await screen.findByText('/placeholder.svg')).toBeInTheDocument()
+  const stored = JSON.parse(localStorage.getItem('placeholder_rose'))
+  expect(stored.src).toBe('/placeholder.svg')
+  expect(stored.attribution).toBe('Placeholder')
 })

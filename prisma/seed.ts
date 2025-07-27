@@ -13,7 +13,7 @@ async function main() {
     data: {
       name: 'Snake Plant',
       species: 'Sansevieria trifasciata',
-      imageUrl: 'https://source.unsplash.com/featured/?snake%20plant',
+    imageUrl: '/placeholder.svg',
       createdAt: new Date(),
       ownerId: user.id,
       roomId: room.id,
@@ -23,7 +23,7 @@ async function main() {
     data: {
       name: 'Pothos',
       species: 'Epipremnum aureum',
-      imageUrl: 'https://source.unsplash.com/featured/?pothos',
+    imageUrl: '/placeholder.svg',
       createdAt: new Date(),
       ownerId: user.id,
       roomId: room.id,
