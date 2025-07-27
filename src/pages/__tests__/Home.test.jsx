@@ -20,18 +20,19 @@ jest.mock('../../PlantContext.jsx', () => ({
 }))
 
 const discoverPlant = { id: 99, name: 'Calathea', image: 'd.jpg' }
+const mockDiscoverHook = jest.fn(() => ({
+  plants: [discoverPlant],
+  loading: false,
+  error: '',
+  refetch: jest.fn(),
+  skipToday: jest.fn(),
+  remindLater: jest.fn(),
+  skipped: false,
+}))
 
 jest.mock('../../hooks/useDiscoverablePlant.js', () => ({
   __esModule: true,
-  default: () => ({
-    plants: [discoverPlant],
-    loading: false,
-    error: '',
-    refetch: jest.fn(),
-    skipToday: jest.fn(),
-    remindLater: jest.fn(),
-    skipped: false,
-  })
+  default: (...args) => mockDiscoverHook(...args),
 }))
 
 jest.mock('../../WishlistContext.jsx', () => ({
@@ -147,5 +148,19 @@ test('discovery section provides extra spacing', () => {
 
   const section = screen.getByTestId('discovery-section')
   expect(section).toHaveClass('mb-4')
+})
+
+test('shows error message when discovery fails', () => {
+  mockDiscoverHook.mockReturnValueOnce({
+    plants: [],
+    loading: false,
+    error: 'Failed to load plant',
+    refetch: jest.fn(),
+    skipToday: jest.fn(),
+    remindLater: jest.fn(),
+    skipped: false,
+  })
+  renderWithSnackbar(<Home />)
+  expect(screen.getByText('Failed to load plant')).toBeInTheDocument()
 })
 
