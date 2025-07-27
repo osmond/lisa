@@ -44,6 +44,7 @@ Lisa is a **mobile-first** plant care app with weather-driven reminders, an AI C
 ```bash
 npm install
 cp .env.example .env   # add your API keys and DB URL
+# optional: change JSON_LIMIT to adjust Express JSON body size (default 1mb)
 # start MySQL here if using Docker
 npx prisma migrate deploy
 # optional: seed sample data
