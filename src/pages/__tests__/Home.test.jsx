@@ -66,7 +66,7 @@ test('shows upbeat message when there are no tasks', () => {
   ).toBeInTheDocument()
   expect(screen.getByTestId('care-stats')).toBeInTheDocument()
   expect(screen.getByRole('link', { name: /view care plan/i })).toBeInTheDocument()
-  expect(screen.getByRole('link', { name: /browse tasks/i })).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: /browse tasks/i })).toBeInTheDocument()
   expect(screen.getByRole('link', { name: /add plant/i })).toBeInTheDocument()
 })
 
