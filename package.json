@@ -13,7 +13,7 @@
     "lint": "eslint ."
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "node --loader ts-node/esm prisma/seed.ts"
   },
   "dependencies": {
     "@babel/preset-typescript": "^7.27.1",

@@ -1,5 +1,6 @@
 // prisma/seed.ts
-import { PrismaClient, CareEventType } from '@prisma/client'
+import pkg from '@prisma/client'
+const { PrismaClient, CareEventType } = pkg
 const prisma = new PrismaClient()
 
 async function main() {
