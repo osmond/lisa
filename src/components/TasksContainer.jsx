@@ -1,9 +1,14 @@
 import { Link } from 'react-router-dom'
-import { Note, Camera } from 'phosphor-react'
+import { daysUntil } from '../utils/date.js'
 import BaseCard from './BaseCard.jsx'
 import SimpleTaskCard from './SimpleTaskCard.jsx'
 
-export default function TasksContainer({ visibleTasks = [], happyPlant }) {
+export default function TasksContainer({
+  visibleTasks = [],
+  happyPlant,
+  nextTaskDate,
+}) {
+  const days = nextTaskDate ? daysUntil(nextTaskDate) : null
   return (
     <div
       data-testid="tasks-container"
@@ -44,23 +49,29 @@ export default function TasksContainer({ visibleTasks = [], happyPlant }) {
                   <img src={happyPlant} alt="Happy plant" className="w-20 h-20" />
                 </div>
               </div>
-              <h3 className="text-lg font-semibold mb-1">All plants are happy</h3>
-              <p className="text-sm text-gray-600 mb-4">Want to add a note or photo today?</p>
+              <h3 className="text-lg font-semibold mb-1">No tasks due now – your care plan is on track!</h3>
+              {days != null && (
+                <p className="text-sm text-gray-600">Next task in {days} day{days === 1 ? '' : 's'}</p>
+              )}
               <hr className="mx-auto w-1/2 border-t border-gray-200" />
               <div className="flex flex-wrap justify-center gap-3">
                 <Link
-                  to="/timeline"
-                  className="px-4 py-2 bg-green-500 text-white rounded-md shadow active:scale-95 flex items-center gap-2"
+                  to="/myplants"
+                  className="px-4 py-2 bg-green-500 text-white rounded-md shadow active:scale-95"
                 >
-                  <Note className="w-4 h-4" aria-hidden="true" />
-                  Add Note
+                  View Care Plan
                 </Link>
                 <Link
-                  to="/gallery"
-                  className="px-4 py-2 border border-green-500 text-green-500 rounded-md active:scale-95 flex items-center gap-2"
+                  to="/tasks"
+                  className="px-4 py-2 border border-green-500 text-green-500 rounded-md active:scale-95"
                 >
-                  <Camera className="w-4 h-4" aria-hidden="true" />
-                  Take Photo
+                  Browse Tasks
+                </Link>
+                <Link
+                  to="/add"
+                  className="px-4 py-2 border border-green-500 text-green-500 rounded-md active:scale-95"
+                >
+                  Add Plant
                 </Link>
               </div>
             </div>
