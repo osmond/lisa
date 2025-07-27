@@ -25,6 +25,10 @@ jest.mock('../RoomContext.jsx', () => ({
   useRooms: () => ({ rooms: [] }),
 }))
 
+jest.mock('../WishlistContext.jsx', () => ({
+  useWishlist: () => ({ wishlist: [] })
+}))
+
 describe('floating action button visibility', () => {
   test('shows fab on All Plants page', () => {
     render(

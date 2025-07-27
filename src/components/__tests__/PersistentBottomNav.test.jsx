@@ -6,8 +6,10 @@ import { Gear } from 'phosphor-react'
 import PersistentBottomNav from '../PersistentBottomNav.jsx'
 import { MenuProvider, defaultMenu, useMenu } from '../../MenuContext.jsx'
 import useOverdueCount from '../../hooks/useOverdueCount.js'
+import { useWishlist } from '../../WishlistContext.jsx'
 
 jest.mock('../../hooks/useOverdueCount.js')
+jest.mock('../../WishlistContext.jsx')
 
 const customMenu = {
   ...defaultMenu,
@@ -36,6 +38,7 @@ function MenuSetter({ children }) {
 
 test('renders main navigation links', () => {
   useOverdueCount.mockReturnValue(0)
+  useWishlist.mockReturnValue({ wishlist: [] })
   const { container } = render(
     <MemoryRouter>
       <CustomMenuProvider>
@@ -52,6 +55,7 @@ test('renders main navigation links', () => {
 
 test('shows overdue badge when tasks pending', () => {
   useOverdueCount.mockReturnValue(3)
+  useWishlist.mockReturnValue({ wishlist: [] })
   render(
     <MemoryRouter>
       <CustomMenuProvider>
@@ -64,6 +68,7 @@ test('shows overdue badge when tasks pending', () => {
 
 test('profile link replaces more button when additional links exist', () => {
   useOverdueCount.mockReturnValue(0)
+  useWishlist.mockReturnValue({ wishlist: [] })
   const { container } = render(
     <MemoryRouter>
       <CustomMenuProvider>
@@ -83,4 +88,18 @@ test('profile link replaces more button when additional links exist', () => {
   fireEvent.click(screen.getByRole('button', { name: /close menu/i }))
 
   expect(screen.queryByRole('dialog', { name: /navigation menu/i })).toBeNull()
+})
+
+test('shows wishlist count badge', () => {
+  useOverdueCount.mockReturnValue(0)
+  useWishlist.mockReturnValue({ wishlist: [{ id: 1 }] })
+  const { container } = render(
+    <MemoryRouter>
+      <CustomMenuProvider>
+        <PersistentBottomNav />
+      </CustomMenuProvider>
+    </MemoryRouter>
+  )
+  const link = container.querySelector('a[href="/wishlist"]')
+  expect(link.querySelector('span').textContent).toBe('1')
 })

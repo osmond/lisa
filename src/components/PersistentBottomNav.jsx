@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useMenu } from '../MenuContext.jsx'
 import useOverdueCount from '../hooks/useOverdueCount.js'
+import { useWishlist } from '../WishlistContext.jsx'
 
 export default function PersistentBottomNav() {
   const [open, setOpen] = useState(false)
   const overdueCount = useOverdueCount()
+  const { wishlist } = useWishlist()
   const { menu } = useMenu()
 
   const { items, Icon } = menu
@@ -27,7 +29,8 @@ export default function PersistentBottomNav() {
     <nav className="fixed bottom-0 inset-x-0 bg-white dark:bg-gray-700 border-t border-gray-200 dark:border-gray-600 pb-safe z-20">
       <ul className="flex justify-around items-center py-2 text-xs">
         {mainLinks.map(({ to, label, Icon: LinkIcon }) => {
-          const showBadge = label === 'All Plants' && overdueCount > 0
+          const overdueBadge = label === 'All Plants' && overdueCount > 0
+          const wishlistBadge = label === 'Wishlist' && wishlist.length > 0
           return (
             <li key={to ?? label} className="relative">
               <NavLink
@@ -39,9 +42,9 @@ export default function PersistentBottomNav() {
                 }
               >
                 <LinkIcon className="w-6 h-6" aria-hidden="true" />
-                {showBadge && (
+                {(overdueBadge || wishlistBadge) && (
                   <span className="absolute -top-1 -right-2 bg-red-600 text-white text-badge rounded-full px-1">
-                    {overdueCount}
+                    {overdueBadge ? overdueCount : wishlist.length}
                   </span>
                 )}
               </NavLink>

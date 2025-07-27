@@ -27,7 +27,11 @@ jest.mock('../../hooks/useDiscoverablePlant.js', () => ({
 }))
 
 jest.mock('../../WishlistContext.jsx', () => ({
-  useWishlist: () => ({ addToWishlist: jest.fn() })
+  useWishlist: () => ({
+    addToWishlist: jest.fn(),
+    removeFromWishlist: jest.fn(),
+    wishlist: []
+  })
 }))
 
 function renderWithSnackbar(ui) {

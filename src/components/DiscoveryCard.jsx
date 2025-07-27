@@ -2,9 +2,13 @@ import Badge from './Badge.jsx'
 import { Sun, Leaf } from 'phosphor-react'
 import { createRipple } from '../utils/interactions.js'
 import usePlaceholderPhoto from '../hooks/usePlaceholderPhoto.js'
+import { useWishlist } from '../WishlistContext.jsx'
+import clsx from 'clsx'
 
 export default function DiscoveryCard({ plant, onAdd }) {
   if (!plant) return null
+  const { wishlist } = useWishlist()
+  const inWishlist = wishlist.some(p => p.id === plant.id)
   const placeholder = usePlaceholderPhoto(plant.name)
   const src =
     plant.image && !plant.image.includes('placeholder.svg')
@@ -53,12 +57,18 @@ export default function DiscoveryCard({ plant, onAdd }) {
           </div>
           <button
             type="button"
+            disabled={inWishlist}
             onMouseDown={createRipple}
             onTouchStart={createRipple}
             onClick={() => onAdd?.(plant)}
-            className="mt-2 bg-blue-600 text-white px-3 py-1 rounded relative overflow-hidden"
+            className={clsx(
+              'mt-2 px-3 py-1 rounded relative overflow-hidden',
+              inWishlist
+                ? 'bg-gray-300 text-gray-700 cursor-default'
+                : 'bg-blue-600 text-white hover:bg-blue-700'
+            )}
           >
-            Add to Wishlist
+            {inWishlist ? '✓ In Wishlist' : 'Add to Wishlist'}
           </button>
         </div>
       </div>

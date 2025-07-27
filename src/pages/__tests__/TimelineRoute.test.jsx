@@ -8,6 +8,10 @@ jest.mock('../../PlantContext.jsx', () => ({
   addBase: (u) => u,
 }))
 
+jest.mock('../../WishlistContext.jsx', () => ({
+  useWishlist: () => ({ wishlist: [] })
+}))
+
 test('navigating to /timeline renders the Timeline page', () => {
   render(
     <OpenAIProvider>
