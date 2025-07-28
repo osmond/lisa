@@ -279,8 +279,8 @@ export default function Home() {
       <p role="alert" className="text-center text-red-600">{plantsError}</p>
     )}
     {!discoverySkipped && (
-      <section className="mb-4 space-y-2" data-testid="discovery-section">
-        <h2 className="sr-only">Discover a New Plant</h2>
+      <section role="region" aria-labelledby="discover-heading" className="mb-4 space-y-2">
+        <h2 id="discover-heading" className="sr-only">Discover a New Plant</h2>
         {discoverLoading && (
           <div
             className="h-64 rounded-3xl bg-gray-200 animate-pulse"
