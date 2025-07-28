@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { usePlants } from '../PlantContext.jsx'
 import { localIsoDate } from '../utils/date.js'
+import fallbackPlants from '../discoverablePlants.json'
 
 export default function useDiscoverablePlant(count = 3) {
   const { plants } = usePlants()
@@ -15,8 +16,9 @@ export default function useDiscoverablePlant(count = 3) {
     setLoading(true)
     setError('')
     if (typeof fetch !== 'function') {
+      const shuffled = [...fallbackPlants].sort(() => 0.5 - Math.random())
+      setList(shuffled.slice(0, count))
       setLoading(false)
-      setError('Failed to load plant')
       return
     }
     const exclude = plants.map(p => p.name).join(',')
@@ -35,7 +37,13 @@ export default function useDiscoverablePlant(count = 3) {
       }
     } catch (err) {
       console.error('discoverable error', err)
-      setError('Failed to load plant')
+      const shuffled = [...fallbackPlants].sort(() => 0.5 - Math.random())
+      const suggestions = shuffled.slice(0, count)
+      setList(suggestions)
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem(key, JSON.stringify(suggestions))
+      }
+      setError('')
     } finally {
       setLoading(false)
     }
