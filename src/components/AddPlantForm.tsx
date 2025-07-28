@@ -22,13 +22,13 @@ export default function AddPlantForm({ mode, defaultValues, onSubmit, onNameChan
     defaultValues,
   })
 
-  const values = watch()
-  const nameValue = values.name
-
   useEffect(() => {
-    if (onNameChange) onNameChange(nameValue || '')
-    if (onChange) onChange(values)
-  }, [nameValue, values, onNameChange, onChange])
+    const subscription = watch(data => {
+      onChange?.(data)
+      onNameChange?.(data.name ?? '')
+    })
+    return () => subscription.unsubscribe()
+  }, [watch, onNameChange, onChange])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
