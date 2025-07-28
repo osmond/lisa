@@ -38,6 +38,7 @@ Lisa is a **mobile-first** plant care app with weather-driven reminders, an AI C
 ## Getting Started
 ### Prerequisites
 - Node.js ≥18
+- Python 3 (use a virtual environment; on macOS/Homebrew Python you can't install system packages with plain `pip3`)
 - MySQL database (local or remote)
   - Run `docker compose up -d` to start the provided MySQL container, **or**
     update `DATABASE_URL` in `.env` to point at an existing instance.
@@ -53,6 +54,24 @@ npx prisma migrate deploy
 SEED_EXAMPLE_DATA=true npx prisma db seed
 npm run server   # Express API on :3000
 npm run dev      # Vite on :5173 (LAN accessible)
+```
+
+### Backend (FastAPI)
+```bash
+# 1. create & enter your venv
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate          # (or `. .venv/bin/activate`)
+
+# 2. upgrade pip & install deps
+pip install --upgrade pip
+pip install -r requirements.txt
+
+# 3. make sure uvicorn is installed
+#    (uvicorn is in requirements.txt, so pip install -r should have put it in .venv)
+
+# 4. run the server
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 
