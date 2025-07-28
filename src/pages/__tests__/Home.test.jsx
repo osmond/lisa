@@ -101,7 +101,7 @@ test('care stats render when tasks exist', () => {
 test('discovery card appears before care stats', () => {
   renderWithSnackbar(<Home />)
 
-  const section = screen.getByTestId('discovery-section')
+  const section = screen.getByRole('region', { name: /discover a new plant/i })
   const stats = screen.getByTestId('care-stats')
   expect(section).toBeInTheDocument()
   const order = section.compareDocumentPosition(stats)
@@ -154,7 +154,7 @@ test('discovery section provides extra spacing', () => {
   expect(container).toBeInTheDocument()
   expect(container).not.toHaveClass('bg-sage')
 
-  const section = screen.getByTestId('discovery-section')
+  const section = screen.getByRole('region', { name: /discover a new plant/i })
   expect(section).toHaveClass('mb-4')
 })
 
