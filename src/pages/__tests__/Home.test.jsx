@@ -26,6 +26,7 @@ const usePlantsMock = require('../../PlantContext.jsx').usePlants
 usePlantsMock.mockImplementation(() => ({ plants: mockPlants, error: '' }))
 
 const discoverPlant = { id: 99, name: 'Calathea', image: 'd.jpg' }
+const actualDiscoverHook = jest.requireActual('../../hooks/useDiscoverablePlant.js')
 const mockDiscoverHook = jest.fn(() => ({
   plants: [discoverPlant],
   loading: false,
@@ -157,18 +158,13 @@ test('discovery section provides extra spacing', () => {
   expect(section).toHaveClass('mb-4')
 })
 
-test('shows error message when discovery fails', () => {
-  mockDiscoverHook.mockReturnValueOnce({
-    plants: [],
-    loading: false,
-    error: 'Failed to load plant',
-    refetch: jest.fn(),
-    skipToday: jest.fn(),
-    remindLater: jest.fn(),
-    skipped: false,
-  })
+test('shows fallback list when discovery fetch fails', async () => {
+  const origFetch = global.fetch
+  global.fetch = jest.fn(() => Promise.reject(new Error('fail')))
+  mockDiscoverHook.mockImplementationOnce(actualDiscoverHook.default)
   renderWithSnackbar(<Home />)
-  expect(screen.getByText('Failed to load plant')).toBeInTheDocument()
+  await screen.findByText(/Chinese Evergreen|Fiddle Leaf Fig|Spider Plant|English Ivy|Boston Fern/)
+  global.fetch = origFetch
 })
 
 test('shows error when plant fetch fails', () => {

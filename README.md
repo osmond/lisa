@@ -30,7 +30,7 @@ Lisa is a **mobile-first** plant care app with weather-driven reminders, an AI C
 - Weather-based scheduling
 - OpenAI Coach & care plan
 - Discoverable plant suggestions
-- If the API for suggestions fails, an error message is shown instead of a blank section
+- If the API for suggestions fails, fallback picks from a local list are displayed
 - Offline PWA support
 - Photo uploads via Cloudinary
 </details>
