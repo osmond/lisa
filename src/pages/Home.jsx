@@ -32,7 +32,7 @@ import useSnackbar from '../hooks/useSnackbar.jsx'
 
 
 export default function Home() {
-  const { plants } = usePlants()
+  const { plants, error: plantsError } = usePlants()
   const [showSummary, setShowSummary] = useState(false)
   const [typeFilter, setTypeFilter] = useState('all')
   const [showHeader, setShowHeader] = useState(() => {
@@ -275,6 +275,9 @@ export default function Home() {
         </p>
       </header>
       )}
+    {plantsError && (
+      <p role="alert" className="text-center text-red-600">{plantsError}</p>
+    )}
     {!discoverySkipped && (
       <section className="mb-4 space-y-2" data-testid="discovery-section">
         <h2 className="sr-only">Discover a New Plant</h2>

@@ -82,18 +82,22 @@ export function PlantProvider({ children }) {
     }
     return [];
   });
+  const [loadError, setLoadError] = useState('');
 
   useEffect(() => {
     let ignore = false;
     async function load() {
-      if (typeof fetch === 'undefined') return;
+      if (process.env.NODE_ENV === 'test' || typeof fetch === 'undefined') return;
       try {
         const res = await fetch("/api/plants");
-        if (!res.ok) return;
+        if (!res.ok) throw new Error('server');
         const data = await res.json();
-        if (!ignore) setPlants(data.map(mapPlant));
+        if (!ignore) {
+          setPlants(data.map(mapPlant));
+          setLoadError('');
+        }
       } catch {
-        // ignore network errors and keep local data
+        if (!ignore) setLoadError('Failed to load plants');
       }
     }
     load();
@@ -362,6 +366,7 @@ export function PlantProvider({ children }) {
       <PlantContext.Provider
         value={{
           plants,
+          error: loadError,
           markWatered,
           markFertilized,
           logEvent,

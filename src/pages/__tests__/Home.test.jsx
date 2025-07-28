@@ -14,10 +14,16 @@ jest.mock('../../UserContext.jsx', () => ({
 
 const mockPlants = []
 
-jest.mock('../../PlantContext.jsx', () => ({
-  usePlants: () => ({ plants: mockPlants }),
-  addBase: (u) => u,
-}))
+jest.mock('../../PlantContext.jsx', () => {
+  const actual = jest.requireActual('../../PlantContext.jsx')
+  return {
+    ...actual,
+    usePlants: jest.fn(),
+  }
+})
+
+const usePlantsMock = require('../../PlantContext.jsx').usePlants
+usePlantsMock.mockImplementation(() => ({ plants: mockPlants, error: '' }))
 
 const discoverPlant = { id: 99, name: 'Calathea', image: 'd.jpg' }
 const mockDiscoverHook = jest.fn(() => ({
@@ -163,5 +169,11 @@ test('shows error message when discovery fails', () => {
   })
   renderWithSnackbar(<Home />)
   expect(screen.getByText('Failed to load plant')).toBeInTheDocument()
+})
+
+test('shows error when plant fetch fails', () => {
+  usePlantsMock.mockReturnValueOnce({ plants: [], error: 'Failed to load plants' })
+  renderWithSnackbar(<Home />)
+  expect(screen.getByText('Failed to load plants')).toBeInTheDocument()
 })
 
