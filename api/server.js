@@ -2,7 +2,6 @@ import 'dotenv/config'
 import express from 'express'
 import fs from 'fs'
 import path from 'path'
-import { fileURLToPath } from 'url'
 import multer from 'multer'
 import cloudinary from './cloudinary.js'
 import { PrismaClient, Prisma } from '@prisma/client'
@@ -104,6 +103,13 @@ const plantSchema = z.object({
   imageUrl: z.string().url().optional(),
   roomId: z.number().int().optional(),
   ownerId: z.number().int().optional(),
+  lastWatered: z.string().optional(),
+  nextWater: z.string().optional(),
+  lastFertilized: z.string().optional(),
+  nextFertilize: z.string().optional(),
+  wateringFrequency: z.number().int().optional(),
+  fertilizingFrequency: z.number().int().optional(),
+  waterAmount: z.number().int().optional(),
 })
 const plantUpdateSchema = plantSchema.partial()
 

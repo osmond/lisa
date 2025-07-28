@@ -71,6 +71,18 @@ export default function AddPlantForm({ mode, defaultValues, onSubmit, onNameChan
           <label htmlFor="nextFertilize" className="font-medium">Next Fertilizing</label>
           <input id="nextFertilize" type="date" {...register('nextFertilize')} className="border rounded p-2" />
         </div>
+        <div className="grid gap-1">
+          <label htmlFor="wateringFrequency" className="font-medium">Watering Frequency (days)</label>
+          <input id="wateringFrequency" type="number" {...register('wateringFrequency', { valueAsNumber: true })} className="border rounded p-2" />
+        </div>
+        <div className="grid gap-1">
+          <label htmlFor="fertilizingFrequency" className="font-medium">Fertilizing Frequency (days)</label>
+          <input id="fertilizingFrequency" type="number" {...register('fertilizingFrequency', { valueAsNumber: true })} className="border rounded p-2" />
+        </div>
+        <div className="grid gap-1">
+          <label htmlFor="waterAmount" className="font-medium">Water Amount (mL)</label>
+          <input id="waterAmount" type="number" {...register('waterAmount', { valueAsNumber: true })} className="border rounded p-2" />
+        </div>
       </section>
 
       <section className="space-y-4">

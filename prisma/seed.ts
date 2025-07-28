@@ -1,5 +1,7 @@
 // prisma/seed.ts
 import pkg from '@prisma/client'
+import fs from 'fs'
+import path from 'path'
 const { PrismaClient, CareEventType } = pkg
 const prisma = new PrismaClient()
 
@@ -10,35 +12,29 @@ async function main() {
   }
   const user = await prisma.user.create({ data: { email: 'user@example.com' } })
   const room = await prisma.room.create({ data: { name: 'Living Room' } })
-  const snake = await prisma.plant.create({
-    data: {
-      name: 'Snake Plant',
-      species: 'Sansevieria trifasciata',
-    imageUrl: '/placeholder.svg',
-      createdAt: new Date(),
-      ownerId: user.id,
-      roomId: room.id,
-    },
-  })
-  const pothos = await prisma.plant.create({
-    data: {
-      name: 'Pothos',
-      species: 'Epipremnum aureum',
-    imageUrl: '/placeholder.svg',
-      createdAt: new Date(),
-      ownerId: user.id,
-      roomId: room.id,
-    },
-  })
-
-  await prisma.careEvent.createMany({
-    data: [
-      { plantId: snake.id, type: CareEventType.WATER, date: new Date() },
-      { plantId: snake.id, type: CareEventType.FERTILIZE, date: new Date() },
-      { plantId: pothos.id, type: CareEventType.WATER, date: new Date() },
-      { plantId: pothos.id, type: CareEventType.REPOT, date: new Date() },
-    ],
-  })
+  const file = path.join(process.cwd(), 'src', '__fixtures__', 'plants.json')
+  const list = JSON.parse(fs.readFileSync(file, 'utf8'))
+  for (const item of list) {
+    await prisma.plant.create({
+      data: {
+        name: item.name,
+        species: item.scientificName || undefined,
+        imageUrl: item.image || undefined,
+        ownerId: user.id,
+        roomId: room.id,
+        lastWatered: item.lastWatered ? new Date(item.lastWatered) : undefined,
+        nextWater: item.nextWater ? new Date(item.nextWater) : undefined,
+        lastFertilized: item.lastFertilized
+          ? new Date(item.lastFertilized)
+          : undefined,
+        nextFertilize: item.nextFertilize
+          ? new Date(item.nextFertilize)
+          : undefined,
+        wateringFrequency: item.waterPlan?.interval || undefined,
+        waterAmount: item.waterPlan?.volume || undefined,
+      },
+    })
+  }
 }
 
 main()
