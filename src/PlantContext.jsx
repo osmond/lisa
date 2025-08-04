@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import testPlants from "./__fixtures__/plants.json";
+import samplePlants from "./__fixtures__/plants.json";
 import { useWeather } from "./WeatherContext.jsx";
 import { getNextWateringDate } from "./utils/watering.js";
 import { getWaterPlan, getSmartWaterPlan } from "./utils/waterCalculator.js";
@@ -78,7 +78,7 @@ export function PlantProvider({ children }) {
       }
     }
     if (process.env.NODE_ENV === 'test') {
-      return testPlants.map(mapPlant);
+      return samplePlants.map(mapPlant);
     }
     return [];
   });
@@ -97,7 +97,10 @@ export function PlantProvider({ children }) {
           setLoadError('');
         }
       } catch {
-        if (!ignore) setLoadError('Failed to load plants');
+        if (!ignore) {
+          setPlants(samplePlants.map(mapPlant));
+          setLoadError('Failed to load plants');
+        }
       }
     }
     load();

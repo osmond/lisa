@@ -55,6 +55,10 @@ npm run server   # Express API on :3000
 npm run dev      # Vite on :5173 (LAN accessible)
 ```
 
+If the `/api/plants` endpoint is unavailable, the app falls back to sample
+plants from `src/__fixtures__/plants.json` so you can explore the UI without
+running the server.
+
 
 ### Personal Use Tips
 - View the app on your laptop at `http://localhost:5173`.
