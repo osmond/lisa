@@ -27,46 +27,47 @@ const mapPhoto = (photo) => {
 
 export function PlantProvider({ children }) {
   const { Toast: ErrorToast, showToast: showErrorToast } = useToast();
-  const [plants, setPlants] = useState(() => {
-    const mapPlant = (p) => {
-      const wp = p.waterPlan || { interval: 0 };
-      const ml =
-        wp.volume_ml !== undefined
-          ? wp.volume_ml
-          : cubicInchesToMl(wp.volume || 0);
-      const oz =
-        wp.volume_oz !== undefined ? wp.volume_oz : mlToOz(ml);
-      const smart = p.smartWaterPlan
-        ? {
-            ...p.smartWaterPlan,
-            volume_ml:
-              p.smartWaterPlan.volume_ml !== undefined
-                ? p.smartWaterPlan.volume_ml
-                : cubicInchesToMl(p.smartWaterPlan.volume || 0),
-            volume_oz:
-              p.smartWaterPlan.volume_oz !== undefined
-                ? p.smartWaterPlan.volume_oz
-                : mlToOz(
-                    p.smartWaterPlan.volume_ml !== undefined
-                      ? p.smartWaterPlan.volume_ml
-                      : cubicInchesToMl(p.smartWaterPlan.volume || 0),
-                  ),
-          }
-        : null;
-      return {
-        ...p,
-        image: addBase(p.image),
-        photos: (p.photos || p.gallery || []).map(mapPhoto),
-        careLog: (p.careLog || []).map((ev) => ({ ...ev, tags: ev.tags || [] })),
-        diameter: p.diameter || 0,
-        petSafe: !!p.petSafe,
-        waterPlan: { interval: wp.interval || 0, volume_ml: Math.round(ml), volume_oz: Math.round(oz) },
-        carePlan: p.carePlan || null,
-        smartWaterPlan: smart,
-        lastEvaluated: p.lastEvaluated || null,
-      };
-    };
 
+  const mapPlant = (p) => {
+    const wp = p.waterPlan || { interval: 0 };
+    const ml =
+      wp.volume_ml !== undefined ? wp.volume_ml : cubicInchesToMl(wp.volume || 0);
+    const oz = wp.volume_oz !== undefined ? wp.volume_oz : mlToOz(ml);
+    const smart = p.smartWaterPlan
+      ? {
+          ...p.smartWaterPlan,
+          volume_ml:
+            p.smartWaterPlan.volume_ml !== undefined
+              ? p.smartWaterPlan.volume_ml
+              : cubicInchesToMl(p.smartWaterPlan.volume || 0),
+          volume_oz:
+            p.smartWaterPlan.volume_oz !== undefined
+              ? p.smartWaterPlan.volume_oz
+              : mlToOz(
+                  p.smartWaterPlan.volume_ml !== undefined
+                    ? p.smartWaterPlan.volume_ml
+                    : cubicInchesToMl(p.smartWaterPlan.volume || 0),
+                ),
+        }
+      : null;
+    return {
+      ...p,
+      sample: !!p.sample,
+      image: addBase(p.image),
+      photos: (p.photos || p.gallery || []).map(mapPhoto),
+      careLog: (p.careLog || []).map((ev) => ({ ...ev, tags: ev.tags || [] })),
+      diameter: p.diameter || 0,
+      petSafe: !!p.petSafe,
+      waterPlan: { interval: wp.interval || 0, volume_ml: Math.round(ml), volume_oz: Math.round(oz) },
+      carePlan: p.carePlan || null,
+      smartWaterPlan: smart,
+      lastEvaluated: p.lastEvaluated || null,
+    };
+  };
+
+  const mapSample = (p) => mapPlant({ ...p, id: -Math.abs(p.id), sample: true });
+
+  const [plants, setPlants] = useState(() => {
     if (typeof localStorage !== "undefined") {
       const stored = localStorage.getItem("plants");
       if (stored) {
@@ -92,12 +93,16 @@ export function PlantProvider({ children }) {
       if (!res.ok) throw new Error('server');
       const data = await res.json();
       if (!ignore.current) {
-        setPlants(data.map(mapPlant));
+        if (data.length) {
+          setPlants(data.map(mapPlant));
+        } else {
+          setPlants(samplePlants.map(mapSample));
+        }
         setLoadError(null);
       }
     } catch {
       if (!ignore.current) {
-        setPlants(samplePlants.map(mapPlant));
+        setPlants(samplePlants.map(mapSample));
         setLoadError({
           message:
             "Cannot reach server. Ensure `npm run server` and the database are running.",
@@ -374,6 +379,10 @@ export function PlantProvider({ children }) {
       fetch(`/api/plants/${id}/photos/${index}`, { method: 'DELETE' }).catch(() => {});
   };
 
+  const removeSamplePlants = () => {
+    setPlants((prev) => prev.filter((p) => !p.sample));
+  };
+
   return (
     <>
       <PlantContext.Provider
@@ -390,6 +399,8 @@ export function PlantProvider({ children }) {
           restorePlant,
           addPhoto,
           removePhoto,
+          removeSamplePlants,
+          hasSample: plants.some((p) => p.sample),
           timelineNotes,
           addTimelineNote,
         }}
