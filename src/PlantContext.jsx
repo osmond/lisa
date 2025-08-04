@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import samplePlants from "./__fixtures__/plants.json";
 import { useWeather } from "./WeatherContext.jsx";
 import { getNextWateringDate } from "./utils/watering.js";
@@ -82,32 +82,42 @@ export function PlantProvider({ children }) {
     }
     return [];
   });
-  const [loadError, setLoadError] = useState('');
+  const [loadError, setLoadError] = useState(null);
+  const ignore = useRef(false);
 
-  useEffect(() => {
-    let ignore = false;
-    async function load() {
-      if (process.env.NODE_ENV === 'test' || typeof fetch === 'undefined') return;
-      try {
-        const res = await fetch("/api/plants");
-        if (!res.ok) throw new Error('server');
-        const data = await res.json();
-        if (!ignore) {
-          setPlants(data.map(mapPlant));
-          setLoadError('');
-        }
-      } catch {
-        if (!ignore) {
-          setPlants(samplePlants.map(mapPlant));
-          setLoadError('Failed to load plants');
-        }
+  const fetchPlants = async () => {
+    if (process.env.NODE_ENV === 'test' || typeof fetch === 'undefined') return;
+    try {
+      const res = await fetch("/api/plants");
+      if (!res.ok) throw new Error('server');
+      const data = await res.json();
+      if (!ignore.current) {
+        setPlants(data.map(mapPlant));
+        setLoadError(null);
+      }
+    } catch {
+      if (!ignore.current) {
+        setPlants(samplePlants.map(mapPlant));
+        setLoadError({
+          message:
+            "Cannot reach server. Ensure `npm run server` and the database are running.",
+          retry: fetchPlants,
+        });
       }
     }
-    load();
+  };
+
+  useEffect(() => {
+    fetchPlants();
     return () => {
-      ignore = true;
+      ignore.current = true;
     };
   }, []);
+
+  const retryLoad = () => {
+    setLoadError(null);
+    return fetchPlants();
+  };
 
   const weatherCtx = useWeather();
   const weather = { rainTomorrow: weatherCtx?.forecast?.rainfall || 0 };
@@ -369,7 +379,8 @@ export function PlantProvider({ children }) {
       <PlantContext.Provider
         value={{
           plants,
-          error: loadError,
+          error: loadError?.message,
+          retryLoad,
           markWatered,
           markFertilized,
           logEvent,
