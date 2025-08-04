@@ -32,7 +32,7 @@ import useSnackbar from '../hooks/useSnackbar.jsx'
 
 
 export default function Home() {
-  const { plants, error: plantsError } = usePlants()
+  const { plants, error: plantsError, retryLoad } = usePlants()
   const [showSummary, setShowSummary] = useState(false)
   const [typeFilter, setTypeFilter] = useState('all')
   const [showHeader, setShowHeader] = useState(() => {
@@ -276,7 +276,15 @@ export default function Home() {
       </header>
       )}
     {plantsError && (
-      <p role="alert" className="text-center text-red-600">{plantsError}</p>
+      <div
+        role="alert"
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center gap-4 bg-red-500 text-white p-2 text-center"
+      >
+        <span>{plantsError}</span>
+        <button type="button" onClick={retryLoad} className="underline">
+          Try again
+        </button>
+      </div>
     )}
     {!discoverySkipped && (
       <section role="region" aria-labelledby="discover-heading" className="mb-4 space-y-2">

@@ -82,25 +82,33 @@ export function PlantProvider({ children }) {
     }
     return [];
   });
-  const [loadError, setLoadError] = useState('');
+  const [loadError, setLoadError] = useState({ message: "", retry: null });
+
+  const loadPlants = async (ignore = false) => {
+    if (process.env.NODE_ENV === 'test' || typeof fetch === 'undefined') return;
+    try {
+      const res = await fetch("/api/plants");
+      if (!res.ok) throw new Error('server');
+      const data = await res.json();
+      if (!ignore) {
+        setPlants(data.map(mapPlant));
+        setLoadError({ message: "", retry: null });
+      }
+    } catch {
+      if (!ignore)
+        setLoadError({
+          message:
+            "Cannot reach server. Ensure `npm run server` and the database are running.",
+          retry: loadPlants,
+        });
+    }
+  };
+
+  const retryLoad = () => loadPlants();
 
   useEffect(() => {
     let ignore = false;
-    async function load() {
-      if (process.env.NODE_ENV === 'test' || typeof fetch === 'undefined') return;
-      try {
-        const res = await fetch("/api/plants");
-        if (!res.ok) throw new Error('server');
-        const data = await res.json();
-        if (!ignore) {
-          setPlants(data.map(mapPlant));
-          setLoadError('');
-        }
-      } catch {
-        if (!ignore) setLoadError('Failed to load plants');
-      }
-    }
-    load();
+    loadPlants(ignore);
     return () => {
       ignore = true;
     };
@@ -366,7 +374,8 @@ export function PlantProvider({ children }) {
       <PlantContext.Provider
         value={{
           plants,
-          error: loadError,
+          error: loadError.message,
+          retryLoad,
           markWatered,
           markFertilized,
           logEvent,
