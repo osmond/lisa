@@ -69,6 +69,11 @@ export default function Onboard() {
     if (!plan && !water) setWater(s.waterPlan)
   }, [form.name, form.diameter, form.light, forecast, plan, enabled])
 
+  useEffect(() => {
+    const match = taxa.find(t => t.commonName.toLowerCase() === form.name.toLowerCase())
+    if (match) setForm(f => ({ ...f, scientificName: match.scientificName }))
+  }, [taxa, form.name])
+
   const handleUseOutdoorHumidity = () => {
     if (forecast?.humidity !== undefined) {
       setForm(f => ({ ...f, humidity: forecast.humidity }))
@@ -76,11 +81,9 @@ export default function Onboard() {
   }
 
   const handleNameChange = async name => {
-    const match = taxa.find(t => t.commonName.toLowerCase() === name.toLowerCase())
     setForm(f => ({
       ...f,
       name,
-      scientificName: match ? match.scientificName : f.scientificName,
     }))
 
     if (!name || !form.diameter) return
