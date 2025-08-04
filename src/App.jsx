@@ -15,6 +15,7 @@ import Coach from './pages/Coach.jsx'
 import Onboard from './pages/Onboard.jsx'
 import EditCarePlan from './pages/EditCarePlan.jsx'
 import Wishlist from './pages/Wishlist.jsx'
+import Statistics from './pages/Statistics.tsx'
 
 import PersistentBottomNav from './components/PersistentBottomNav.jsx'
 
@@ -60,6 +61,7 @@ export default function App() {
             <Route path="/timeline" element={<Timeline />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/statistics" element={<Statistics />} />
             <Route path="/profile" element={<Settings />} />
             <Route path="/plant/:id" element={<PageTransition><PlantDetail /></PageTransition>} />
             <Route path="/plant/:id/coach" element={<PageTransition><Coach /></PageTransition>} />
