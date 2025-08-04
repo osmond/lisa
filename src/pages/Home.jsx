@@ -3,7 +3,7 @@ import { usePlants } from '../PlantContext.jsx'
 import CareSummaryModal from '../components/CareSummaryModal.jsx'
 import PageContainer from "../components/PageContainer.jsx"
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { Link } from 'react-router-dom'
@@ -28,11 +28,12 @@ import useHappyPlant from '../hooks/useHappyPlant.js'
 import useDiscoverablePlant from '../hooks/useDiscoverablePlant.js'
 import { useWishlist } from '../WishlistContext.jsx'
 import useSnackbar from '../hooks/useSnackbar.jsx'
+import OnboardingTour from '../components/OnboardingTour.jsx'
 
 
 
 export default function Home() {
-  const { plants, error: plantsError, retryLoad } = usePlants()
+  const { plants, error: plantsError, retryLoad, removeSamplePlants } = usePlants()
   const [showSummary, setShowSummary] = useState(false)
   const [typeFilter, setTypeFilter] = useState('all')
   const [showHeader, setShowHeader] = useState(() => {
@@ -41,6 +42,20 @@ export default function Home() {
     }
     return true
   })
+  const hasSample = plants.some(p => p.sample)
+  const hasReal = plants.some(p => !p.sample)
+  const [showTour, setShowTour] = useState(false)
+  useEffect(() => {
+    if (hasSample && !hasReal) {
+      if (typeof localStorage === 'undefined' || localStorage.getItem('tourSeen') !== 'true') {
+        setShowTour(true)
+      }
+    }
+  }, [hasSample, hasReal])
+  const handleTourClose = () => {
+    setShowTour(false)
+    if (typeof localStorage !== 'undefined') localStorage.setItem('tourSeen', 'true')
+  }
   const happyPlant = useHappyPlant()
   const {
     plants: discoverPlants,
@@ -238,9 +253,23 @@ export default function Home() {
 
 
   return (
-    <PageContainer>
+    <>
+      {showTour && <OnboardingTour onClose={handleTourClose} />}
+      <PageContainer>
+      {hasSample && hasReal && (
+        <Card className="mb-4 flex items-center justify-between">
+          <p className="text-sm">Remove demo plants?</p>
+          <button
+            type="button"
+            onClick={removeSamplePlants}
+            className="px-3 py-1 text-sm text-white bg-green-600 rounded"
+          >
+            Remove
+          </button>
+        </Card>
+      )}
       {showHeader && (
-      <header className="relative flex flex-col items-start text-left space-y-1">
+        <header className="relative flex flex-col items-start text-left space-y-1">
         <button
           type="button"
           aria-label="Dismiss header"
@@ -371,5 +400,6 @@ export default function Home() {
         </Card>
       </div>
     </PageContainer>
+    </>
   )
 }
