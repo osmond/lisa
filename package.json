@@ -12,7 +12,8 @@
     "server": "node api/server.js",
     "start": "concurrently \"npm:server\" \"npm:dev\"",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "seed:sample": "SEED_EXAMPLE_DATA=true npx prisma db seed"
   },
   "prisma": {
     "seed": "node --loader ts-node/esm prisma/seed.ts"
