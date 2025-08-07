@@ -33,7 +33,7 @@ afterEach(() => {
   global.fetch && (global.fetch = undefined)
 })
 
-const suggestion = [{ id: 1, commonName: "Aloe Vera", scientificName: "Aloe Vera" }]
+const suggestion = [{ id: 1, commonName: "Aloe Vera", species: "Aloe Vera" }]
 test('generates plan and adds plant then navigates home', async () => {
   const planData = { text: 'ok', water: 7, water_volume_ml: 500, water_volume_oz: 17 }
   global.fetch = jest.fn(url =>
@@ -75,7 +75,7 @@ test('generates plan and adds plant then navigates home', async () => {
   expect(screen.getByText('Home')).toBeInTheDocument()
 })
 
-test('autocomplete fills scientific name', async () => {
+test('autocomplete fills species', async () => {
   const planData = { text: 'ok', water: 7, water_volume_ml: 500, water_volume_oz: 17 }
   global.fetch = jest.fn(url =>
     Promise.resolve({
@@ -103,7 +103,7 @@ test('autocomplete fills scientific name', async () => {
   fireEvent.click(screen.getByRole('button', { name: /add plant/i }))
 
   expect(addPlant).toHaveBeenCalledWith(
-    expect.objectContaining({ scientificName: 'Aloe Vera', name: 'Aloe Vera' })
+    expect.objectContaining({ species: 'Aloe Vera', name: 'Aloe Vera' })
   )
 })
 

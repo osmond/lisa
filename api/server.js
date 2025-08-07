@@ -89,12 +89,8 @@ function createMemoryPrisma() {
   }
 }
 
-const isMysql =
-  process.env.DATABASE_URL && process.env.DATABASE_URL.startsWith('mysql://')
-const prisma =
-  process.env.NODE_ENV === 'test' || !isMysql
-    ? createMemoryPrisma()
-    : new PrismaClient()
+const useMemory = !process.env.DATABASE_URL
+const prisma = useMemory ? createMemoryPrisma() : new PrismaClient()
 const upload = multer({ storage: multer.memoryStorage() })
 
 const plantSchema = z.object({
@@ -110,6 +106,8 @@ const plantSchema = z.object({
   wateringFrequency: z.number().int().optional(),
   fertilizingFrequency: z.number().int().optional(),
   waterAmount: z.number().int().optional(),
+  notes: z.string().optional(),
+  carePlan: z.any().optional(),
 })
 const plantUpdateSchema = plantSchema.partial()
 
@@ -458,7 +456,7 @@ app.get('/api/taxon', (req, res) => {
   }
   const list = taxonList
     .filter(p => p.name && p.name.toLowerCase().includes(query))
-    .map(p => ({ id: p.id, commonName: p.name, scientificName: p.name }))
+    .map(p => ({ id: p.id, commonName: p.name, species: p.name }))
     .slice(0, 10)
   res.json(list)
 })

@@ -2,8 +2,8 @@ import { z } from 'zod'
 
 export const plantSchema = z.object({
   name: z.string().min(1, 'Name is required'),
-  image: z.string().optional().or(z.literal('')),
-  scientificName: z.string().optional(),
+  imageUrl: z.string().optional().or(z.literal('')),
+  species: z.string().optional(),
   lastWatered: z.string().optional(),
   nextWater: z.string().optional(),
   lastFertilized: z.string().optional(),

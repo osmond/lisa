@@ -44,12 +44,12 @@ export default function AddPlantForm({ mode, defaultValues, onSubmit, onNameChan
           {errors.name && <p role="alert" className="text-red-600 text-sm">{errors.name.message}</p>}
         </div>
         <div className="grid gap-1">
-          <label htmlFor="scientificName" className="font-medium">Scientific Name</label>
-          <input id="scientificName" {...register('scientificName')} className="border rounded p-2" />
+          <label htmlFor="species" className="font-medium">Species</label>
+          <input id="species" {...register('species')} className="border rounded p-2" />
         </div>
         <div className="grid gap-1">
-          <label htmlFor="image" className="font-medium">Image URL</label>
-          <input id="image" {...register('image')} className="border rounded p-2" />
+          <label htmlFor="imageUrl" className="font-medium">Image URL</label>
+          <input id="imageUrl" {...register('imageUrl')} className="border rounded p-2" />
         </div>
       </section>
 
@@ -121,7 +121,11 @@ export default function AddPlantForm({ mode, defaultValues, onSubmit, onNameChan
         </div>
       </section>
 
-      <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">
+      <button
+        type="button"
+        onClick={handleSubmit(onSubmit)}
+        className="px-4 py-2 bg-green-600 text-white rounded"
+      >
         {mode === 'add' ? 'Add Plant' : 'Save Changes'}
       </button>
     </form>

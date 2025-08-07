@@ -32,6 +32,8 @@ async function main() {
           : undefined,
         wateringFrequency: item.waterPlan?.interval || undefined,
         waterAmount: item.waterPlan?.volume || undefined,
+        notes: item.notes || undefined,
+        carePlan: item.carePlan || undefined,
       },
     })
   }

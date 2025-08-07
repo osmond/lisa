@@ -6,7 +6,7 @@ function Test({ query }) {
   return (
     <div>
       {results.map(r => (
-        <span key={r.id}>{r.commonName}:{r.scientificName}</span>
+        <span key={r.id}>{r.commonName}:{r.species}</span>
       ))}
     </div>
   )
@@ -23,7 +23,7 @@ beforeEach(() => {
       ok: true,
       json: () =>
         Promise.resolve([
-          { id: 1, commonName: 'Aloe Vera', scientificName: 'Aloe Vera' },
+          { id: 1, commonName: 'Aloe Vera', species: 'Aloe Vera' },
         ]),
     })
   )

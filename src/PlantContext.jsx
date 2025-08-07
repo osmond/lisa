@@ -53,7 +53,10 @@ export function PlantProvider({ children }) {
     return {
       ...p,
       sample: !!p.sample,
-      image: addBase(p.image),
+      imageUrl: addBase(p.imageUrl || p.image),
+      image: addBase(p.imageUrl || p.image),
+      species: p.species || p.scientificName || '',
+      scientificName: p.species || p.scientificName || '',
       photos: (p.photos || p.gallery || []).map(mapPhoto),
       careLog: (p.careLog || []).map((ev) => ({ ...ev, tags: ev.tags || [] })),
       diameter: p.diameter || 0,
@@ -273,6 +276,11 @@ export function PlantProvider({ children }) {
 
   const addPlant = (plant) => {
     const nextId = plants.reduce((m, p) => Math.max(m, p.id), 0) + 1;
+    const mapped = {
+      ...plant,
+      imageUrl: plant.imageUrl || plant.image,
+      species: plant.species || plant.scientificName,
+    };
     const newPlant = {
       id: nextId,
       photos: [],
@@ -280,11 +288,13 @@ export function PlantProvider({ children }) {
       diameter: 0,
       waterPlan: { interval: 0, volume_ml: 0, volume_oz: 0 },
       carePlan: null,
-      ...plant,
+      ...mapped,
     };
+    if (newPlant.imageUrl) newPlant.image = newPlant.imageUrl;
+    if (newPlant.species) newPlant.scientificName = newPlant.species;
     setPlants((prev) => [...prev, newPlant]);
     if (typeof fetch !== 'undefined') {
-      const { id, ...payload } = newPlant;
+      const { id, photos, careLog, image, scientificName, ...payload } = newPlant;
       return fetch('/api/plants', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -305,12 +315,21 @@ export function PlantProvider({ children }) {
   };
 
   const updatePlant = (id, updates) => {
+    const mapped = {
+      ...updates,
+      ...(updates.image && !updates.imageUrl ? { imageUrl: updates.image } : {}),
+      ...(updates.scientificName && !updates.species
+        ? { species: updates.scientificName }
+        : {}),
+    };
     setPlants((prev) =>
       prev.map((p) => {
         if (p.id !== id) return p;
-        const next = { ...p, ...updates };
-        if (Object.prototype.hasOwnProperty.call(updates, "diameter")) {
-          const base = getWaterPlan(next.name, updates.diameter, next.light);
+        const next = { ...p, ...mapped };
+        if (mapped.imageUrl !== undefined) next.image = mapped.imageUrl;
+        if (mapped.species !== undefined) next.scientificName = mapped.species;
+        if (Object.prototype.hasOwnProperty.call(mapped, "diameter")) {
+          const base = getWaterPlan(next.name, mapped.diameter, next.light);
           const ml = cubicInchesToMl(base.volume);
           next.waterPlan = {
             interval: base.interval,
@@ -325,7 +344,7 @@ export function PlantProvider({ children }) {
       fetch(`/api/plants/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updates),
+        body: JSON.stringify(mapped),
       }).catch(() => {})
   };
 

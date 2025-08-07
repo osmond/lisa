@@ -35,7 +35,7 @@ test('room field displays current value and submits updates', async () => {
       nextWater: '',
       lastFertilized: '',
       nextFertilize: '',
-      image: ''
+      imageUrl: ''
     },
   ]
 
