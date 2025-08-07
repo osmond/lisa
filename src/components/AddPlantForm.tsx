@@ -21,6 +21,11 @@ export interface AddPlantFormProps {
   submitDisabled?: boolean
   rooms?: string[]
   taxa?: { id: number; commonName: string; species: string }[]
+  /**
+   * When true, pot diameter is required. Useful when generating
+   * a care plan that depends on pot size.
+   */
+  requireDiameter?: boolean
 }
 
 export default function AddPlantForm({
@@ -33,6 +38,7 @@ export default function AddPlantForm({
   submitDisabled,
   rooms: roomsProp,
   taxa,
+  requireDiameter,
 }: AddPlantFormProps) {
   const {
     register,
@@ -78,9 +84,18 @@ export default function AddPlantForm({
       <section className="space-y-4">
         <h2 className="font-medium">Basic Info</h2>
         <div className="grid gap-1">
-          <label htmlFor="name" className="font-medium">Name</label>
-          <input id="name" {...register('name')} className="border rounded p-2" />
-          {errors.name && <p role="alert" className="text-red-600 text-sm">{errors.name.message}</p>}
+          <label
+            htmlFor="name"
+            className="font-medium after:content-['*'] after:text-red-600"
+          >
+            Name
+          </label>
+          <input id="name" {...register('name')} required className="border rounded p-2" />
+          {errors.name && (
+            <p role="alert" className="text-red-600 text-sm">
+              {errors.name.message}
+            </p>
+          )}
         </div>
         <div className="grid gap-1">
           <label htmlFor="species" className="font-medium">Species</label>
@@ -141,8 +156,21 @@ export default function AddPlantForm({
       <section className="space-y-4">
         <h2 className="font-medium">Care Plan</h2>
         <div className="grid gap-1">
-          <label htmlFor="diameter" className="font-medium">Pot diameter (inches)</label>
-          <input id="diameter" type="number" {...register('diameter')} className="border rounded p-2" />
+          <label
+            htmlFor="diameter"
+            className={`font-medium ${
+              requireDiameter ? "after:content-['*'] after:text-red-600" : ''
+            }`}
+          >
+            Pot diameter (inches)
+          </label>
+          <input
+            id="diameter"
+            type="number"
+            {...register('diameter')}
+            required={requireDiameter}
+            className="border rounded p-2"
+          />
         </div>
         <div className="grid gap-1">
           <label htmlFor="soil" className="font-medium">Soil type</label>
