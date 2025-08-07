@@ -9,9 +9,27 @@ export interface AddPlantFormProps {
   onSubmit: (data: PlantForm) => void
   onNameChange?: (name: string) => void
   onChange?: (data: Partial<PlantForm>) => void
+  /**
+   * Optional label for the submit button. Defaults to
+   * "Add Plant" or "Save Changes" based on the mode.
+   */
+  submitLabel?: string
+  /**
+   * When true, disables the internal submit button. Useful for
+   * preventing duplicate submissions while generating a plan.
+   */
+  submitDisabled?: boolean
 }
 
-export default function AddPlantForm({ mode, defaultValues, onSubmit, onNameChange, onChange }: AddPlantFormProps) {
+export default function AddPlantForm({
+  mode,
+  defaultValues,
+  onSubmit,
+  onNameChange,
+  onChange,
+  submitLabel,
+  submitDisabled,
+}: AddPlantFormProps) {
   const {
     register,
     handleSubmit,
@@ -122,11 +140,13 @@ export default function AddPlantForm({ mode, defaultValues, onSubmit, onNameChan
       </section>
 
       <button
+
         type="button"
         onClick={handleSubmit(onSubmit)}
         className="px-4 py-2 bg-green-600 text-white rounded"
       >
         {mode === 'add' ? 'Add Plant' : 'Save Changes'}
+
       </button>
     </form>
   )
