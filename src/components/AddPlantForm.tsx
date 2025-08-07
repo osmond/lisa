@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { PlantForm, plantSchema } from '../schemas/plant'
@@ -38,19 +38,28 @@ export default function AddPlantForm({
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
   } = useForm<PlantForm>({
     resolver: zodResolver(plantSchema),
     defaultValues,
   })
 
+  const name = useWatch({ control, name: 'name' })
+
   useEffect(() => {
     const subscription = watch(data => {
       onChange?.(data)
-      onNameChange?.(data.name ?? '')
     })
     return () => subscription.unsubscribe()
-  }, [watch, onNameChange, onChange])
+  }, [watch, onChange])
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      onNameChange?.(name ?? '')
+    }, 300)
+    return () => clearTimeout(handler)
+  }, [name, onNameChange])
 
   const rooms = roomsProp ?? []
   const lightOptions = ['Low', 'Medium', 'High']
