@@ -79,6 +79,25 @@ export default function AddPlantForm({
     return () => clearTimeout(handler)
   }, [name, onNameChange])
 
+  useEffect(() => {
+    if (!taxa?.length || !name) return
+    const match = taxa.find(
+      t => t.commonName.toLowerCase() === name.toLowerCase()
+    )
+    if (match) setValue('species', match.species)
+  }, [taxa, name, setValue])
+
+  useEffect(() => {
+    if (!defaultValues) return
+    const fields: (keyof PlantForm)[] = ['species', 'soil', 'light', 'room', 'humidity']
+    for (const key of fields) {
+      const val = defaultValues[key]
+      if (val !== undefined && getValues(key) !== val) {
+        setValue(key as any, val)
+      }
+    }
+  }, [defaultValues, setValue, getValues])
+
   const waterInterval = useWatch({ control, name: 'waterPlan.interval' })
 
   useEffect(() => {
