@@ -19,7 +19,7 @@ export default function Onboard() {
   const { forecast } = useWeather() || {}
   const [form, setForm] = useState({
     name: '',
-    scientificName: '',
+    species: '',
     diameter: '',
     soil: 'potting mix',
     light: 'Medium',
@@ -71,7 +71,7 @@ export default function Onboard() {
 
   useEffect(() => {
     const match = taxa.find(t => t.commonName.toLowerCase() === form.name.toLowerCase())
-    if (match) setForm(f => ({ ...f, scientificName: match.scientificName }))
+    if (match) setForm(f => ({ ...f, species: match.species }))
   }, [taxa, form.name])
 
   const handleUseOutdoorHumidity = () => {
@@ -146,7 +146,7 @@ export default function Onboard() {
   const handleAdd = () => {
     addPlant({
       name: form.name,
-      ...(form.scientificName && { scientificName: form.scientificName }),
+      ...(form.species && { species: form.species }),
       room: form.room,
       diameter: Number(form.diameter) || 0,
       light: form.light,

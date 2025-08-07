@@ -20,6 +20,8 @@ model Plant {
   wateringFrequency Int?
   fertilizingFrequency Int?
   waterAmount Int?
+  notes String?
+  carePlan Json?
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
   deletedAt  DateTime?
