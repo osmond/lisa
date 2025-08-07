@@ -169,6 +169,8 @@ export default function Onboard() {
         onChange={setForm}
         onNameChange={handleNameChange}
         onSubmit={handleSubmit}
+        submitLabel="Generate Plan"
+        submitDisabled={loading}
       />
       {loading && <Spinner className="mt-4 text-green-600" />}
       {error && <p role="alert" className="text-red-600 mt-4">{error}</p>}
