@@ -19,6 +19,7 @@ export interface AddPlantFormProps {
    * preventing duplicate submissions while generating a plan.
    */
   submitDisabled?: boolean
+  rooms?: string[]
 }
 
 export default function AddPlantForm({
@@ -29,6 +30,7 @@ export default function AddPlantForm({
   onChange,
   submitLabel,
   submitDisabled,
+  rooms: roomsProp,
 }: AddPlantFormProps) {
   const {
     register,
@@ -47,6 +49,14 @@ export default function AddPlantForm({
     })
     return () => subscription.unsubscribe()
   }, [watch, onNameChange, onChange])
+
+  const rooms = roomsProp ?? []
+  const lightOptions = ['Low', 'Medium', 'High']
+  const soilOptions = [
+    { value: 'potting mix', label: 'Potting Mix' },
+    { value: 'cactus mix', label: 'Cactus Mix' },
+    { value: 'orchid bark', label: 'Orchid Bark' },
+  ]
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -111,15 +121,34 @@ export default function AddPlantForm({
         </div>
         <div className="grid gap-1">
           <label htmlFor="soil" className="font-medium">Soil type</label>
-          <input id="soil" {...register('soil')} className="border rounded p-2" />
+          <select id="soil" {...register('soil')} className="border rounded p-2">
+            {soilOptions.map(s => (
+              <option key={s.value} value={s.value}>
+                {s.label}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="grid gap-1">
           <label htmlFor="light" className="font-medium">Light level</label>
-          <input id="light" {...register('light')} className="border rounded p-2" />
+          <select id="light" {...register('light')} className="border rounded p-2">
+            {lightOptions.map(l => (
+              <option key={l} value={l}>
+                {l}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="grid gap-1">
           <label htmlFor="room" className="font-medium">Room</label>
-          <input id="room" {...register('room')} className="border rounded p-2" />
+          <select id="room" {...register('room')} className="border rounded p-2">
+            <option value="">Select room</option>
+            {rooms.map(r => (
+              <option key={r} value={r}>
+                {r}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="grid gap-1">
           <label htmlFor="humidity" className="font-medium">Humidity (%)</label>
