@@ -52,6 +52,8 @@ npx prisma migrate deploy
 # optional: seed sample data
 SEED_EXAMPLE_DATA=true npx prisma db seed
 # or: npm run seed:sample
+npm start        # Express API + Vite (on :3000 and :5173)
+# optional: run them separately
 npm run server   # Express API on :3000
 npm run dev      # Vite on :5173 (LAN accessible)
 ```
