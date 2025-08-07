@@ -11,14 +11,15 @@ let basePath = typeof VITE_BASE_PATH !== 'undefined'
 
 if (!basePath.endsWith('/')) basePath += '/'
 
-const BASE = basePath.replace(/\/$/, '')
+// Avoid generating malformed URLs like "//index.html" when the base path is root
+const BASE = basePath === '/' ? '' : basePath.replace(/\/$/, '')
 
 const URLS_TO_CACHE = [
   '/',
   '/index.html',
   '/manifest.webmanifest',
   '/favicon.svg'
-].map((p) => `${BASE}${p}`)
+].map(p => `${BASE}${p}`)
 
 self.addEventListener('install', (event) => {
   self.skipWaiting()
