@@ -172,6 +172,7 @@ export default function Onboard() {
         submitLabel="Generate Plan"
         submitDisabled={loading}
         rooms={rooms}
+        taxa={taxa}
       />
       <button
         type="button"

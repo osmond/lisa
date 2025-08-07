@@ -20,6 +20,7 @@ export interface AddPlantFormProps {
    */
   submitDisabled?: boolean
   rooms?: string[]
+  taxa?: { id: number; commonName: string; species: string }[]
 }
 
 export default function AddPlantForm({
@@ -31,6 +32,7 @@ export default function AddPlantForm({
   submitLabel,
   submitDisabled,
   rooms: roomsProp,
+  taxa,
 }: AddPlantFormProps) {
   const {
     register,
@@ -73,7 +75,21 @@ export default function AddPlantForm({
         </div>
         <div className="grid gap-1">
           <label htmlFor="species" className="font-medium">Species</label>
-          <input id="species" {...register('species')} className="border rounded p-2" />
+          <input
+            id="species"
+            list="species-options"
+            {...register('species')}
+            className="border rounded p-2"
+          />
+          {taxa?.length ? (
+            <datalist id="species-options">
+              {taxa.map(t => (
+                <option key={t.id} value={t.species}>
+                  {t.commonName}
+                </option>
+              ))}
+            </datalist>
+          ) : null}
         </div>
         <div className="grid gap-1">
           <label htmlFor="imageUrl" className="font-medium">Image URL</label>
