@@ -172,6 +172,14 @@ export default function Onboard() {
         submitLabel="Generate Plan"
         submitDisabled={loading}
       />
+      <button
+        type="button"
+        onClick={handleUseOutdoorHumidity}
+        disabled={forecast?.humidity === undefined}
+        className="mt-2 text-sm text-green-600 underline disabled:text-gray-400"
+      >
+        Use outdoor humidity
+      </button>
       {loading && <Spinner className="mt-4 text-green-600" />}
       {error && <p role="alert" className="text-red-600 mt-4">{error}</p>}
       {history.length > 1 && (
