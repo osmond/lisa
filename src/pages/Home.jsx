@@ -94,11 +94,13 @@ export default function Home() {
     wateredTodayCount,
     fertilizedTodayCount,
     soonestDate,
-  } = useMemo(() => {
+  } = (() => {
     const todayIso = new Date().toISOString().slice(0, 10)
     const season = getSeason()
 
-    const result = plants.reduce(
+    const list = Array.isArray(plants) ? plants : []
+
+    const result = list.reduce(
       (acc, p) => {
         const { date: waterDate, reason } = getNextWateringDate(
           p.lastWatered,
@@ -191,7 +193,7 @@ export default function Home() {
       }
     )
     return result
-  }, [plants, weatherData])
+  })()
 
   const tasks = [...waterTasks, ...fertilizeTasks].sort(
     (a, b) => new Date(a.date) - new Date(b.date)

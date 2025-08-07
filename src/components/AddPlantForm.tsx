@@ -140,7 +140,7 @@ export default function AddPlantForm({
             htmlFor="name"
             className="font-medium after:content-['*'] after:text-red-600"
           >
-            Name
+            Plant Name
           </label>
           <input id="name" {...register('name')} required className="border rounded p-2" />
           {errors.name && (
@@ -200,7 +200,7 @@ export default function AddPlantForm({
           <input id="fertilizingFrequency" type="number" {...register('fertilizingFrequency', { valueAsNumber: true })} className="border rounded p-2" />
         </div>
         <div className="grid gap-1">
-          <label htmlFor="waterAmount" className="font-medium">Water Amount (mL)</label>
+          <label htmlFor="waterAmount" className="font-medium">Water Amount</label>
           <input id="waterAmount" type="number" {...register('waterAmount', { valueAsNumber: true })} className="border rounded p-2" />
         </div>
       </section>
