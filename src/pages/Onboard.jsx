@@ -173,6 +173,7 @@ export default function Onboard() {
         submitDisabled={loading}
         rooms={rooms}
         taxa={taxa}
+        requireDiameter
       />
       <button
         type="button"
