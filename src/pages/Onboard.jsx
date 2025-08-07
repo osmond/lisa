@@ -171,6 +171,7 @@ export default function Onboard() {
         onSubmit={handleSubmit}
         submitLabel="Generate Plan"
         submitDisabled={loading}
+        rooms={rooms}
       />
       <button
         type="button"
