@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 
-const OpenAIContext = createContext()
+const OpenAIContext = createContext({ enabled: false, setEnabled: () => {} })
 
 export function OpenAIProvider({ children }) {
   const [enabled, setEnabled] = useState(() => {

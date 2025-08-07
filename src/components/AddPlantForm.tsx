@@ -1,6 +1,8 @@
 import { useForm, useWatch } from 'react-hook-form'
 import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useCarePlan from '../hooks/useCarePlan.js'
+import Spinner from './Spinner.jsx'
 import { PlantForm, plantSchema } from '../schemas/plant'
 
 export interface AddPlantFormProps {
@@ -26,6 +28,8 @@ export interface AddPlantFormProps {
    * a care plan that depends on pot size.
    */
   requireDiameter?: boolean
+  /** When true, shows the care-plan generation and preview section */
+  showCarePlan?: boolean
 }
 
 export default function AddPlantForm({
@@ -39,19 +43,27 @@ export default function AddPlantForm({
   rooms: roomsProp,
   taxa,
   requireDiameter,
+  showCarePlan,
 }: AddPlantFormProps) {
   const {
     register,
     handleSubmit,
     watch,
     control,
+    getValues,
+    setValue,
     formState: { errors },
   } = useForm<PlantForm>({
     resolver: zodResolver(plantSchema),
     defaultValues,
   })
 
+  const { plan, loading, error, generate, history, revert, index } =
+    useCarePlan()
+
   const name = useWatch({ control, name: 'name' })
+  const waterPlanWatch = useWatch({ control, name: 'waterPlan' })
+  const carePlanWatch = useWatch({ control, name: 'carePlan' })
 
   useEffect(() => {
     const subscription = watch(data => {
@@ -67,6 +79,31 @@ export default function AddPlantForm({
     return () => clearTimeout(handler)
   }, [name, onNameChange])
 
+  const waterInterval = useWatch({ control, name: 'waterPlan.interval' })
+
+  useEffect(() => {
+    if (waterInterval !== undefined) {
+      setValue('carePlan.water', waterInterval)
+    }
+  }, [waterInterval, setValue])
+
+  useEffect(() => {
+    if (!plan) return
+    if (plan.water !== undefined) setValue('waterPlan.interval', plan.water)
+    if (plan.water_volume_ml !== undefined)
+      setValue('waterPlan.volume_ml', plan.water_volume_ml)
+    if (plan.water_volume_oz !== undefined)
+      setValue('waterPlan.volume_oz', plan.water_volume_oz)
+    if (plan.fertilize !== undefined)
+      setValue('carePlan.fertilize', plan.fertilize)
+    setValue('carePlan', {
+      ...(getValues('carePlan') || {}),
+      text: plan.text,
+      water: plan.water,
+      fertilize: plan.fertilize,
+    })
+  }, [plan, setValue, getValues])
+
   const rooms = roomsProp ?? []
   const lightOptions = ['Low', 'Medium', 'High']
   const soilOptions = [
@@ -74,6 +111,21 @@ export default function AddPlantForm({
     { value: 'cactus mix', label: 'Cactus Mix' },
     { value: 'orchid bark', label: 'Orchid Bark' },
   ]
+
+  const handleGenerate = () => {
+    const values = getValues()
+    generate({
+      name: values.name,
+      diameter: values.diameter,
+      soil: values.soil || 'potting mix',
+      light: values.light || 'Medium',
+      room: values.room || '',
+      humidity: Number(values.humidity) || 50,
+    })
+  }
+
+  const hasPlan =
+    !!(plan || carePlanWatch?.text || waterPlanWatch?.interval !== undefined)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -207,6 +259,92 @@ export default function AddPlantForm({
           <label htmlFor="humidity" className="font-medium">Humidity (%)</label>
           <input id="humidity" type="number" {...register('humidity')} className="border rounded p-2" />
         </div>
+        {showCarePlan && (
+          <>
+            <div className="grid gap-1">
+              <label htmlFor="waterInterval" className="font-medium">Water interval (days)</label>
+              <input
+                id="waterInterval"
+                type="number"
+                {...register('waterPlan.interval', { valueAsNumber: true })}
+                className="border rounded p-2"
+              />
+            </div>
+            <div className="grid gap-1">
+              <label htmlFor="waterVolumeMl" className="font-medium">Water amount (mL)</label>
+              <input
+                id="waterVolumeMl"
+                type="number"
+                {...register('waterPlan.volume_ml', { valueAsNumber: true })}
+                className="border rounded p-2"
+              />
+            </div>
+            <div className="grid gap-1">
+              <label htmlFor="waterVolumeOz" className="font-medium">Water amount (oz)</label>
+              <input
+                id="waterVolumeOz"
+                type="number"
+                {...register('waterPlan.volume_oz', { valueAsNumber: true })}
+                className="border rounded p-2"
+              />
+            </div>
+            <div className="grid gap-1">
+              <label htmlFor="fertilizeInterval" className="font-medium">Fertilize interval (days)</label>
+              <input
+                id="fertilizeInterval"
+                type="number"
+                {...register('carePlan.fertilize', { valueAsNumber: true })}
+                className="border rounded p-2"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={handleGenerate}
+              disabled={loading}
+              className="px-4 py-2 bg-green-600 text-white rounded"
+            >
+              {hasPlan ? 'Regenerate AI Plan' : 'Generate Care Plan'}
+            </button>
+            {history.length > 1 && (
+              <div className="flex items-center gap-2">
+                <label htmlFor="plan-version" className="font-medium">Version</label>
+                <select
+                  id="plan-version"
+                  value={index}
+                  onChange={e => revert(Number(e.target.value))}
+                  className="border rounded p-1"
+                >
+                  {history.map((_, i) => (
+                    <option key={i} value={i}>
+                      v{i + 1}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+            {loading && <Spinner className="mt-2 text-green-600" />}
+            {(plan || carePlanWatch) && (
+              <div className="space-y-2" data-testid="care-plan">
+                {(plan?.text || carePlanWatch?.text) && (
+                  <pre className="whitespace-pre-wrap p-4 bg-green-50 rounded">
+                    {(plan?.text || carePlanWatch?.text) as string}
+                  </pre>
+                )}
+                {waterPlanWatch?.interval !== undefined && (
+                  <p className="font-medium">
+                    Suggested water: {waterPlanWatch?.volume_ml} mL / {waterPlanWatch?.volume_oz} oz every
+                    {waterPlanWatch?.interval} days
+                  </p>
+                )}
+              </div>
+            )}
+            {error && (
+              <p role="alert" className="text-red-600">
+                {error}
+              </p>
+            )}
+          </>
+        )}
       </section>
 
       <section className="space-y-4">
