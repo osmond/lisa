@@ -84,6 +84,12 @@ npm test
 | PUT    | `/api/plants/:id` | Update a plant |
 | DELETE | `/api/plants/:id` | Delete a plant |
 | POST   | `/api/plants/:id/photos` | Upload images |
+| POST   | `/api/coach` | Ask the AI plant coach |
+| POST   | `/api/care-plan` | Generate a plant care plan |
+| POST   | `/api/auto-tag` | Auto-tag notes with keywords |
+| POST   | `/api/plant-fact` | Fetch a fun plant fact |
+| POST   | `/api/timeline-summary` | Summarize recent care events |
+| POST   | `/api/photos` | Upload a single photo |
 
 ## Contributing
 
