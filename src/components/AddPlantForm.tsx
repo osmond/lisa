@@ -1,5 +1,5 @@
 import { useForm, useWatch } from 'react-hook-form'
-import { useEffect } from 'react'
+import { useEffect, type ChangeEvent } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useCarePlan from '../hooks/useCarePlan.js'
 import Spinner from './Spinner.jsx'
@@ -106,6 +106,24 @@ export default function AddPlantForm({
     }
   }, [waterInterval, setValue])
 
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      const form = new FormData()
+      form.append('photo', file)
+      try {
+        const res = await fetch('/api/photos', { method: 'POST', body: form })
+        if (res.ok) {
+          const data = await res.json()
+          setValue('imageUrl', data.url, { shouldDirty: true })
+        }
+      } catch (err) {
+        console.error('Upload failed', err)
+      }
+    }
+    e.target.value = ''
+  }
+
   useEffect(() => {
     if (!plan) return
     if (plan.water !== undefined) setValue('waterPlan.interval', plan.water)
@@ -189,6 +207,16 @@ export default function AddPlantForm({
         <div className="grid gap-1">
           <label htmlFor="imageUrl" className="font-medium">Image URL</label>
           <input id="imageUrl" {...register('imageUrl')} className="border rounded p-2" />
+        </div>
+        <div className="grid gap-1">
+          <label htmlFor="imageFile" className="font-medium">Upload Photo</label>
+          <input
+            id="imageFile"
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="border rounded p-2"
+          />
         </div>
       </section>
 
