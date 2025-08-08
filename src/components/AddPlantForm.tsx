@@ -293,14 +293,17 @@ export default function AddPlantForm({
         </div>
         <div className="grid gap-1">
           <label htmlFor="room" className="font-medium">Room</label>
-          <select id="room" {...register('room')} className="border rounded p-2">
-            <option value="">Select room</option>
+          <input
+            id="room"
+            list="room-options"
+            {...register('room')}
+            className="border rounded p-2"
+          />
+          <datalist id="room-options">
             {rooms.map(r => (
-              <option key={r} value={r}>
-                {r}
-              </option>
+              <option key={r} value={r} />
             ))}
-          </select>
+          </datalist>
         </div>
         <div className="grid gap-1">
           <label htmlFor="humidity" className="font-medium">Humidity (%)</label>

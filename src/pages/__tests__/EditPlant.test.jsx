@@ -60,3 +60,38 @@ test('room field displays current value and submits updates', async () => {
     )
   )
 })
+
+test('allows entering a new room name', async () => {
+  mockRooms = ['Living']
+  mockPlants = [
+    {
+      id: 1,
+      name: 'Fern',
+      room: 'Living',
+      lastWatered: '',
+      nextWater: '',
+      lastFertilized: '',
+      nextFertilize: '',
+      imageUrl: ''
+    },
+  ]
+
+  render(
+    <MemoryRouter initialEntries={['/plant/1/edit']}>
+      <Routes>
+        <Route path="/plant/:id/edit" element={<EditPlant />} />
+      </Routes>
+    </MemoryRouter>
+  )
+
+  const input = screen.getByLabelText(/room/i)
+  fireEvent.change(input, { target: { value: 'Office' } })
+  fireEvent.click(screen.getByRole('button', { name: /save changes/i }))
+
+  await waitFor(() =>
+    expect(updatePlant).toHaveBeenCalledWith(
+      1,
+      expect.objectContaining({ room: 'Office' })
+    )
+  )
+})
